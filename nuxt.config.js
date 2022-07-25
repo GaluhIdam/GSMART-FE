@@ -1,28 +1,37 @@
-
+import webpack from 'webpack'
 export default {
   // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
   ssr: false,
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'gsmart-frontend',
+    title: 'G-SMART',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { hid: 'description', name: 'description', content: '' },
-      { name: 'format-detection', content: 'telephone=no' },
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+    link: [
+      { rel: 'icon', type: 'image/x-icon', href: '/gmf-fav.png' },
+      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700' },
+    ],
     script: [
-      {src: 'assets/plugins/global/plugins.bundle.js', body: true},
-      {src: 'assets/js/scripts.bundle.js', body: true},
-    ]
+      {src: 'plugins/global/plugins.bundle.js'},
+      {src: 'js/scripts.bundle.js'},
+      {src: 'src/js/layout/app.js'},
+      {src: 'src/js/layout/builder.js'},
+      {src: 'src/js/layout/search.js'},
+      {src: 'src/js/layout/sidebar.js'},
+      {src: 'src/js/layout/theme-mode.js'},
+      {src: 'src/js/layout/toolbar.js'},
+    ],
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
     '~/assets/plugins/global/plugins.bundle.css',
     '~/assets/css/style.bundle.css',
+    '~/assets/css/style.css',
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
@@ -40,12 +49,14 @@ export default {
     '@nuxtjs/axios',
     // https://go.nuxtjs.dev/pwa
     '@nuxtjs/pwa',
+    '@nuxtjs/auth-next',
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
     // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
-    baseURL: '/',
+    baseURL: 'http://localhost:8000',
+    credentials: true,
   },
 
   // PWA module configuration: https://go.nuxtjs.dev/pwa
@@ -57,5 +68,44 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
+    plugins: [
+      new webpack.ProvidePlugin({
+        // global modules
+        $: 'jquery',
+        _: 'lodash'
+      })
+    ]
   },
+  auth: {
+    redirect: {
+      login: "/login",
+      logout: "/",
+      callback: "/login",
+      home: "/",
+    },
+    strategies: {
+      laravelSanctum: {
+        provider: 'laravel/sanctum',
+        url: 'http://localhost:8000',
+        endpoints: {
+          login: {
+            url: '/api/login',
+            method: 'post',
+          },
+          user: {
+            url: '/api/users',
+            method: 'get'
+          },
+          logout: {
+            url: '/api/logout',
+            method: 'post'
+          },
+        },
+      },
+    },
+    // localStorage: false,
+  },
+  router: {
+    middleware: ['auth'],
+  }
 }

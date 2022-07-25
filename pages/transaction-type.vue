@@ -495,7 +495,6 @@ export default {
           description: this.transaction.description,
         })
         .then((result) => {
-          console.log(result)
           Swal.fire({
             title: 'Data update successfully!',
             icon: 'success',
@@ -505,7 +504,6 @@ export default {
           })
         })
         .catch((error) => {
-          console.log(error.response.data)
           if (error.response.status == 422) {
             this.errors = error.response.data
             Swal.fire('Data update failed!', '', 'error')

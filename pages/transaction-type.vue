@@ -275,7 +275,15 @@
                             class="form-control"
                             v-model="transaction.name"
                             name="name"
+                            :class="{
+                              'is-invalid': errors.transaction.name,
+                            }"
                           />
+                          <span
+                            v-if="errors.transaction.name"
+                            class="error invalid-feedback"
+                            >{{ errors.transaction.name[0] }}</span
+                          >
                         </div>
                         <div class="form-group mb-3">
                           <label for="description" class="form-label fw-bold"
@@ -286,7 +294,15 @@
                             class="form-control"
                             v-model="transaction.description"
                             name="description"
+                            :class="{
+                              'is-invalid': errors.transaction.description,
+                            }"
                           />
+                          <span
+                            v-if="errors.transaction.description"
+                            class="error invalid-feedback"
+                            >{{ errors.transaction.description[0] }}</span
+                          >
                         </div>
                         <div class="row mt-10">
                           <div class="col">
@@ -413,6 +429,10 @@ export default {
       errors: {
         name: null,
         description: null,
+        transaction: {
+          name: null,
+          description: null,
+        },
       },
     }
   },
@@ -488,7 +508,6 @@ export default {
     },
     update() {
       this.loading()
-
       this.$axios
         .put('/api/transaction-type-update/' + this.transaction.id, {
           name: this.transaction.name,
@@ -505,7 +524,7 @@ export default {
         })
         .catch((error) => {
           if (error.response.status == 422) {
-            this.errors = error.response.data
+            this.errors.transaction = error.response.data
             Swal.fire('Data update failed!', '', 'error')
           }
         })

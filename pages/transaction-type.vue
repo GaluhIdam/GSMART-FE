@@ -244,7 +244,12 @@
                   </tr>
                 </tbody>
               </table>
-              <div class="modal fade" tabindex="-1" id="modal_edit">
+              <div
+                class="modal fade"
+                tabindex="-1"
+                id="modal_edit"
+                @close="open = false"
+              >
                 <div class="modal-dialog modal-dialog-centered">
                   <div class="modal-content">
                     <div class="modal-header">
@@ -275,15 +280,7 @@
                             class="form-control"
                             v-model="transaction.name"
                             name="name"
-                            :class="{
-                              'is-invalid': errors.transaction.name,
-                            }"
                           />
-                          <span
-                            v-if="errors.transaction.name"
-                            class="error invalid-feedback"
-                            >{{ errors.transaction.name[0] }}</span
-                          >
                         </div>
                         <div class="form-group mb-3">
                           <label for="description" class="form-label fw-bold"
@@ -294,15 +291,7 @@
                             class="form-control"
                             v-model="transaction.description"
                             name="description"
-                            :class="{
-                              'is-invalid': errors.transaction.description,
-                            }"
                           />
-                          <span
-                            v-if="errors.transaction.description"
-                            class="error invalid-feedback"
-                            >{{ errors.transaction.description[0] }}</span
-                          >
                         </div>
                         <div class="row mt-10">
                           <div class="col">
@@ -410,6 +399,7 @@ export default {
   layout: 'template',
   data() {
     return {
+      open: false,
       transaction_type: {
         data: [],
         link: [],
@@ -429,10 +419,6 @@ export default {
       errors: {
         name: null,
         description: null,
-        transaction: {
-          name: null,
-          description: null,
-        },
       },
     }
   },
@@ -492,6 +478,7 @@ export default {
           }).then((result) => {
             this.clearForm()
             this.list()
+            this.closeModal()
           })
         })
         .catch((error) => {
@@ -508,6 +495,7 @@ export default {
     },
     update() {
       this.loading()
+
       this.$axios
         .put('/api/transaction-type-update/' + this.transaction.id, {
           name: this.transaction.name,
@@ -519,12 +507,14 @@ export default {
             icon: 'success',
             confirmButtonText: 'OK',
           }).then((result) => {
+            this.open = false
             this.list()
+            this.closeModal()
           })
         })
         .catch((error) => {
           if (error.response.status == 422) {
-            this.errors.transaction = error.response.data
+            this.errors = error.response.data
             Swal.fire('Data update failed!', '', 'error')
           }
         })
@@ -574,6 +564,9 @@ export default {
       this.description = ''
       this.errors.name = null
       this.errors.description = null
+    },
+    closeModal() {
+      document.getElementById('modal_edit').click()
     },
   },
 }

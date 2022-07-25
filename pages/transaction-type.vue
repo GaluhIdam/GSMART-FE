@@ -62,14 +62,14 @@
               type="button"
               class="btn btn-sm btn-primary"
               data-bs-toggle="modal"
-              data-bs-target="#kt_modal"
+              data-bs-target="#modal_create"
             >
               Add Transaction Type
             </button>
             <div
               class="modal fade"
               tabindex="-1"
-              id="kt_modal"
+              id="modal_create"
               data-bs-backdrop="static"
             >
               <div class="modal-dialog modal-dialog-centered">
@@ -210,13 +210,13 @@
                 <tbody>
                   <tr
                     v-for="(
-                      transactions, transactions_index
+                      transaction, transaction_index
                     ) in transaction_type.data"
-                    :key="transactions_index"
+                    :key="transaction_index"
                   >
-                    <td class="text-center">{{ transactions_index + 1 }}</td>
-                    <td class="text-center">{{ transactions.name }}</td>
-                    <td class="text-center">{{ transactions.description }}</td>
+                    <td class="text-center">{{ transaction_index + 1 }}</td>
+                    <td class="text-center">{{ transaction.name }}</td>
+                    <td class="text-center">{{ transaction.description }}</td>
                     <td class="d-flex justify-content-center">
                       <button class="btn btn-sm btn-light">
                         <i class="bi bi-toggles text-primary"></i>
@@ -224,87 +224,14 @@
                       <button
                         class="btn btn-sm btn-light"
                         data-bs-toggle="modal"
-                        :data-bs-target="'#kt_modal_' + transactions.id"
+                        data-bs-target="#modal_edit"
+                        @click="edit(transaction)"
                       >
                         <i class="bi bi-pencil-square text-primary"></i>
                       </button>
-                      <div
-                        class="modal fade"
-                        tabindex="-1"
-                        :id="'kt_modal_' + transactions.id"
-                      >
-                        <div class="modal-dialog modal-dialog-centered">
-                          <div class="modal-content">
-                            <div class="modal-header">
-                              <h3 class="modal-title">Edit Transaction Type</h3>
-
-                              <!--begin::Close-->
-                              <div
-                                class="
-                                  btn btn-icon btn-sm btn-active-light-primary
-                                  ms-2
-                                "
-                                data-bs-dismiss="modal"
-                                aria-label="Close"
-                              >
-                                <span class="svg-icon svg-icon-1"></span>
-                              </div>
-                              <!--end::Close-->
-                            </div>
-
-                            <div class="modal-body">
-                              <form v-on:submit.prevent="edit(transactions.id)">
-                                <div class="form-group mb-3">
-                                  <label for="name" class="form-label fw-bold"
-                                    >Name</label
-                                  >
-                                  <input
-                                    type="text"
-                                    class="form-control"
-                                    v-model="transactions.name"
-                                    name="name"
-                                  />
-                                </div>
-                                <div class="form-group mb-3">
-                                  <label
-                                    for="description"
-                                    class="form-label fw-bold"
-                                    >Description</label
-                                  >
-                                  <input
-                                    type="text"
-                                    class="form-control"
-                                    v-model="transactions.description"
-                                    name="description"
-                                  />
-                                </div>
-                                <div class="row mt-10">
-                                  <div class="col">
-                                    <button
-                                      type="button"
-                                      class="btn btn-light"
-                                      data-bs-dismiss="modal"
-                                    >
-                                      Back
-                                    </button>
-                                  </div>
-                                  <div class="col d-flex justify-content-end">
-                                    <button
-                                      type="submit"
-                                      class="btn btn-primary"
-                                    >
-                                      Save Changes
-                                    </button>
-                                  </div>
-                                </div>
-                              </form>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
                       <button
                         class="btn btn-sm btn-light"
-                        v-on:click="remove(transactions.id)"
+                        v-on:click="remove(transaction.id)"
                       >
                         <i class="bi bi-trash-fill text-primary"></i>
                       </button>
@@ -317,6 +244,71 @@
                   </tr>
                 </tbody>
               </table>
+              <div class="modal fade" tabindex="-1" id="modal_edit">
+                <div class="modal-dialog modal-dialog-centered">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h3 class="modal-title">Edit Transaction Type</h3>
+
+                      <!--begin::Close-->
+                      <div
+                        class="
+                          btn btn-icon btn-sm btn-active-light-primary
+                          ms-2
+                        "
+                        data-bs-dismiss="modal"
+                        aria-label="Close"
+                      >
+                        <span class="svg-icon svg-icon-1"></span>
+                      </div>
+                      <!--end::Close-->
+                    </div>
+
+                    <div class="modal-body">
+                      <form v-on:submit.prevent="update()">
+                        <div class="form-group mb-3">
+                          <label for="name" class="form-label fw-bold"
+                            >Name</label
+                          >
+                          <input
+                            type="text"
+                            class="form-control"
+                            v-model="transaction.name"
+                            name="name"
+                          />
+                        </div>
+                        <div class="form-group mb-3">
+                          <label for="description" class="form-label fw-bold"
+                            >Description</label
+                          >
+                          <input
+                            type="text"
+                            class="form-control"
+                            v-model="transaction.description"
+                            name="description"
+                          />
+                        </div>
+                        <div class="row mt-10">
+                          <div class="col">
+                            <button
+                              type="button"
+                              class="btn btn-light"
+                              data-bs-dismiss="modal"
+                            >
+                              Back
+                            </button>
+                          </div>
+                          <div class="col d-flex justify-content-end">
+                            <button type="submit" class="btn btn-primary">
+                              Save Changes
+                            </button>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -406,7 +398,8 @@ export default {
         data: [],
         link: [],
       },
-      transactions: {
+      transaction: {
+        id: null,
         name: null,
         description: null,
       },
@@ -488,16 +481,21 @@ export default {
           }
         })
     },
-    edit(id) {
+    edit(transaction) {
+      this.transaction.id = transaction.id
+      this.transaction.name = transaction.name
+      this.transaction.description = transaction.description
+    },
+    update() {
       this.loading()
+
       this.$axios
-        .put('/api/transaction-type-update/' + id, {
-          data: {
-            name: this.transactions.name,
-            description: this.transactions.description,
-          },
+        .put('/api/transaction-type-update/' + this.transaction.id, {
+          name: this.transaction.name,
+          description: this.transaction.description,
         })
         .then((result) => {
+          console.log(result)
           Swal.fire({
             title: 'Data update successfully!',
             icon: 'success',
@@ -507,7 +505,7 @@ export default {
           })
         })
         .catch((error) => {
-          console.log(error)
+          console.log(error.response.data)
           if (error.response.status == 422) {
             this.errors = error.response.data
             Swal.fire('Data update failed!', '', 'error')

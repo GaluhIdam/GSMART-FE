@@ -29,7 +29,7 @@
                 <div class="card-header">
                     <h3 class="card-title fw-bold">List of Transaction Type</h3>
                     <div class="card-toolbar">
-                        <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#modal" @click="openModalCreate">Add Transaction Type</button>
+                        <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#modal" @click="add()">Add Transaction Type</button>
                     </div>
                 </div>
                 <div class="card-body">
@@ -150,7 +150,7 @@
 
                         <!--begin::Close-->
                         <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
-                            <span class="svg-icon svg-icon-1" @click="closeModal">
+                            <span class="svg-icon svg-icon-1" @click="closeModal()">
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="currentColor"></rect>
                                     <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="currentColor"></rect>
@@ -187,7 +187,7 @@
                             </div>
                             <div class="row mt-10">
                                 <div class="col">
-                                    <button type="button" class="btn btn-light" data-bs-dismiss="modal" id="close_modal" @click="closeModal">Back</button>
+                                    <button type="button" class="btn btn-light" data-bs-dismiss="modal" id="close_modal" @click="closeModal()">Back</button>
                                 </div>
                                 <div class="col d-flex justify-content-end">
                                     <button type="submit" class="btn btn-primary">Save</button>
@@ -281,17 +281,17 @@ export default {
             let new_url = url.toString();
             this.list(new_url);
         }, 500),
-        openModalCreate() {
-            this.modal_create = true;
-        },
         submit() {
             if (this.modal_create) {
-                this.add();
+                this.create();
             } else {
                 this.update();
             }
         },
         add() {
+            this.modal_create = true;
+        },
+        create() {
             this.loading();
             this.$axios
                 .post("/api/transaction-type-create", {
@@ -299,12 +299,9 @@ export default {
                     description: this.transaction.description,
                 })
                 .then((response) => {
-                    this.closeModal();
-
                     toastr.success(response.data.message);
-
-                    this.clearForm();
                     this.list();
+                    this.closeModal();
                 })
                 .catch((error) => {
                     if (error.response.status == 422) {
@@ -315,6 +312,7 @@ export default {
                 });
         },
         edit(transaction) {
+            this.modal_create = false;
             this.transaction.id = transaction.id;
             this.transaction.name = transaction.name;
             this.transaction.description = transaction.description;
@@ -328,12 +326,9 @@ export default {
                     description: this.transaction.description,
                 })
                 .then((response) => {
-                    this.closeModal();
-
                     toastr.success(response.data.message);
-
-                    this.clearForm();
                     this.list();
+                    this.closeModal();
                 })
                 .catch((error) => {
                     if (error.response.status == 422) {
@@ -375,7 +370,6 @@ export default {
             });
         },
         clearForm() {
-            this.modal_create = false;
             this.transaction.id = null;
             this.transaction.name = null;
             this.transaction.description = null;

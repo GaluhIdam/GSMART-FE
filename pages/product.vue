@@ -387,7 +387,7 @@ export default {
       produc: {
         id: null,
         name: null,
-        description: null,
+        descriptiongit: null,
       },
       name: null,
       description: null,

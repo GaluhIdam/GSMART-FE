@@ -27,12 +27,28 @@
               flex-column
               justify-content-center
               my-0
+              fw-bold
             "
           >
-            Aircraft Type
+            aircraft-type
           </p>
           <!--end::Title-->
         </div>
+        <ul
+          class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0 pt-1"
+        >
+          <!--begin::Item-->
+          <li class="breadcrumb-item text-muted">
+            <nuxt-link to="/" class="text-muted text-hover-primary"
+              >Dashboard</nuxt-link
+            >
+          </li>
+          <li class="breadcrumb-item">
+            <span class="bullet bg-gray-400 w-5px h-2px"></span>
+          </li>
+          <li class="breadcrumb-item text-muted">aircraft-types</li>
+          <!--end::Item-->
+        </ul>
         <!--end::Page title-->
       </div>
       <!--end::Toolbar container-->
@@ -40,96 +56,17 @@
     <div class="container mb-10">
       <div class="card shadow-sm mt-5">
         <div class="card-header">
-          <h3 class="card-title fw-bold">List of Aircraft Type</h3>
+          <h3 class="card-title fw-bold">List of aircraft-types</h3>
           <div class="card-toolbar">
             <button
               type="button"
               class="btn btn-sm btn-primary"
               data-bs-toggle="modal"
-              data-bs-target="#modal_create"
+              data-bs-target="#modal"
+              @click="add()"
             >
-              Add Aircraft Type
+              Add aircraft-type
             </button>
-            <div
-              class="modal fade"
-              tabindex="-1"
-              id="modal_create"
-              data-bs-backdrop="static"
-            >
-              <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h3 class="modal-title">Add Aircraft Type</h3>
-
-                    <!--begin::Close-->
-                    <div
-                      class="btn btn-icon btn-sm btn-active-light-primary ms-2"
-                      data-bs-dismiss="modal"
-                      aria-label="Close"
-                    >
-                      <span class="svg-icon svg-icon-1"></span>
-                    </div>
-                    <!--end::Close-->
-                  </div>
-                  <div class="modal-body">
-                    <form v-on:submit.prevent="add">
-                      <div class="form-group mb-3">
-                        <label for="name" class="form-label fw-bold"
-                          >Name</label
-                        >
-                        <input
-                          type="text"
-                          class="form-control"
-                          v-model="name"
-                          :class="{
-                            'is-invalid': errors.name,
-                          }"
-                        />
-                        <span
-                          v-if="errors.name"
-                          class="error invalid-feedback"
-                          >{{ errors.name[0] }}</span
-                        >
-                      </div>
-                      <div class="form-group mb-3">
-                        <label for="description" class="form-label fw-bold"
-                          >Description</label
-                        >
-                        <input
-                          type="text"
-                          class="form-control"
-                          v-model="description"
-                          :class="{
-                            'is-invalid': errors.description,
-                          }"
-                        />
-                        <span
-                          v-if="errors.description"
-                          class="error invalid-feedback"
-                          >{{ errors.description[0] }}</span
-                        >
-                      </div>
-                      <div class="row mt-10">
-                        <div class="col">
-                          <button
-                            type="button"
-                            class="btn btn-light"
-                            data-bs-dismiss="modal"
-                          >
-                            Back
-                          </button>
-                        </div>
-                        <div class="col d-flex justify-content-end">
-                          <button type="submit" class="btn btn-primary">
-                            Save
-                          </button>
-                        </div>
-                      </div>
-                    </form>
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
         <div class="card-body">
@@ -193,12 +130,17 @@
                 </thead>
                 <tbody>
                   <tr
-                    v-for="(ac_type, ac_type_index) in ac_type_id.data"
-                    :key="ac_type_index"
+                    v-for="(
+                      p_ac_type_id, p_ac_type_id_index
+                    ) in ac_type_id.data"
+                    :key="p_ac_type_id_index"
                   >
-                    <td class="text-center">{{ ac_type_index + 1 }}</td>
-                    <td class="text-center">{{ ac_type.name }}</td>
-                    <td class="text-center">{{ ac_type.description }}</td>
+                    <td class="text-center">
+                      {{ ac_type_id.from + p_ac_type_id_index }}
+                    </td>
+                    <td class="text-center">{{ p_ac_type_id.name }}</td>
+                    <td class="text-center">{{ p_ac_type_id.description }}</td>
+
                     <td class="d-flex justify-content-center">
                       <button class="btn btn-sm btn-light">
                         <i class="bi bi-toggles text-primary"></i>
@@ -206,14 +148,14 @@
                       <button
                         class="btn btn-sm btn-light"
                         data-bs-toggle="modal"
-                        data-bs-target="#modal_edit"
-                        @click="edit(ac_type)"
+                        data-bs-target="#modal"
+                        @click="edit(p_ac_type_id)"
                       >
                         <i class="bi bi-pencil-square text-primary"></i>
                       </button>
                       <button
                         class="btn btn-sm btn-light"
-                        v-on:click="remove(ac_type.id)"
+                        v-on:click="remove(p_ac_type_id.id)"
                       >
                         <i class="bi bi-trash-fill text-primary"></i>
                       </button>
@@ -226,76 +168,6 @@
                   </tr>
                 </tbody>
               </table>
-              <div
-                class="modal fade"
-                tabindex="-1"
-                id="modal_edit"
-                @close="open = false"
-              >
-                <div class="modal-dialog modal-dialog-centered">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h3 class="modal-title">Edit Aircraft Type</h3>
-
-                      <!--begin::Close-->
-                      <div
-                        class="
-                          btn btn-icon btn-sm btn-active-light-primary
-                          ms-2
-                        "
-                        data-bs-dismiss="modal"
-                        aria-label="Close"
-                      >
-                        <span class="svg-icon svg-icon-1"></span>
-                      </div>
-                      <!--end::Close-->
-                    </div>
-
-                    <div class="modal-body">
-                      <form v-on:submit.prevent="update()">
-                        <div class="form-group mb-3">
-                          <label for="name" class="form-label fw-bold"
-                            >Name</label
-                          >
-                          <input
-                            type="text"
-                            class="form-control"
-                            v-model="ac_type.name"
-                            name="name"
-                          />
-                        </div>
-                        <div class="form-group mb-3">
-                          <label for="description" class="form-label fw-bold"
-                            >Description</label
-                          >
-                          <input
-                            type="text"
-                            class="form-control"
-                            v-model="ac_type.description"
-                            name="description"
-                          />
-                        </div>
-                        <div class="row mt-10">
-                          <div class="col">
-                            <button
-                              type="button"
-                              class="btn btn-light"
-                              data-bs-dismiss="modal"
-                            >
-                              Back
-                            </button>
-                          </div>
-                          <div class="col d-flex justify-content-end">
-                            <button type="submit" class="btn btn-primary">
-                              Save Changes
-                            </button>
-                          </div>
-                        </div>
-                      </form>
-                    </div>
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
         </div>
@@ -309,7 +181,7 @@
                     <select
                       class="form-control form-control-sm"
                       v-model="paginate"
-                      v-on:change="list()"
+                      @change="list()"
                     >
                       <option value="10">10</option>
                       <option value="25">25</option>
@@ -372,8 +244,122 @@
         </div>
       </div>
     </div>
+
+    <div class="modal fade" tabindex="-1" id="modal" data-bs-backdrop="static">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h3 v-if="modal_create" class="modal-title">Add aircraft-type</h3>
+            <h3 v-else class="modal-title">Edit aircraft-type</h3>
+
+            <!--begin::Close-->
+            <div
+              class="btn btn-icon btn-sm btn-active-light-primary ms-2"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            >
+              <span class="svg-icon svg-icon-1" @click="closeModal()">
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <rect
+                    opacity="0.5"
+                    x="6"
+                    y="17.3137"
+                    width="16"
+                    height="2"
+                    rx="1"
+                    transform="rotate(-45 6 17.3137)"
+                    fill="currentColor"
+                  ></rect>
+                  <rect
+                    x="7.41422"
+                    y="6"
+                    width="16"
+                    height="2"
+                    rx="1"
+                    transform="rotate(45 7.41422 6)"
+                    fill="currentColor"
+                  ></rect>
+                </svg>
+              </span>
+            </div>
+            <!--end::Close-->
+          </div>
+          <div class="modal-body">
+            <form @submit.prevent="submit">
+              <div class="form-group mb-3">
+                <label class="form-label fw-bold">Name</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  v-model="p_ac_type_id.name"
+                  :class="{
+                    'is-invalid': errors.name,
+                  }"
+                />
+                <span v-if="errors.name" class="error invalid-feedback">{{
+                  errors.name[0]
+                }}</span>
+              </div>
+              <div class="form-group mb-3">
+                <label class="form-label fw-bold">Description</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  v-model="p_ac_type_id.description"
+                  :class="{
+                    'is-invalid': errors.description,
+                  }"
+                />
+                <span
+                  v-if="errors.description"
+                  class="error invalid-feedback"
+                  >{{ errors.description[0] }}</span
+                >
+              </div>
+
+              <div class="row mt-10">
+                <div class="col">
+                  <button
+                    type="button"
+                    class="btn btn-light"
+                    data-bs-dismiss="modal"
+                    id="close_modal"
+                    @click="closeModal()"
+                  >
+                    Back
+                  </button>
+                </div>
+                <div class="col d-flex justify-content-end">
+                  <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
+
+<style>
+.mt-20 {
+  margin-top: 20px;
+}
+
+.mb-20 {
+  margin-bottom: 20px;
+}
+
+.mb-10 {
+  margin-bottom: 10px;
+}
+</style>
 
 <script>
 import debounce from 'lodash/debounce'
@@ -381,18 +367,16 @@ export default {
   layout: 'template',
   data() {
     return {
-      open: false,
       ac_type_id: {
         data: [],
         link: [],
       },
-      ac_type: {
+      p_ac_type_id: {
         id: null,
         name: null,
         description: null,
       },
-      name: null,
-      description: null,
+      modal_create: false,
       search: null,
       order: 'id',
       by: 'desc',
@@ -445,59 +429,59 @@ export default {
       let new_url = url.toString()
       this.list(new_url)
     }, 500),
+    submit() {
+      if (this.modal_create) {
+        this.create()
+      } else {
+        this.update()
+      }
+    },
     add() {
+      this.modal_create = true
+    },
+    create() {
       this.loading()
       this.$axios
         .post('/api/aircraft-type-create', {
-          name: this.name,
-          description: this.description,
+          name: this.p_ac_type_id.name,
+          description: this.p_ac_type_id.description,
         })
-        .then((result) => {
-          Swal.fire({
-            title: 'Data save successfully!',
-            icon: 'success',
-            confirmButtonText: 'OK',
-          }).then((result) => {
-            this.clearForm()
-            this.list()
-            this.closeModal()
-          })
+        .then((response) => {
+          toastr.success(response.data.message)
+          this.list()
+          this.closeModal()
         })
         .catch((error) => {
           if (error.response.status == 422) {
-            this.errors = error.response.data
-            Swal.fire('Data save failed!', '', 'error')
+            this.errors = error.response.data.errors
+
+            toastr.error(error.response.data.message)
           }
         })
     },
-    edit(ac_type) {
-      this.ac_type.id = ac_type.id
-      this.ac_type.name = ac_type.name
-      this.ac_type.description = ac_type.description
+    edit(p_ac_type_id) {
+      this.modal_create = false
+      this.p_ac_type_id.id = p_ac_type_id.id
+      this.p_ac_type_id.name = p_ac_type_id.name
+      this.p_ac_type_id.description = p_ac_type_id.description
     },
     update() {
       this.loading()
 
       this.$axios
-        .put('/api/aircraft-type-update/' + this.ac_type.id, {
-          name: this.ac_type.name,
-          description: this.ac_type.description,
+        .put('/api/aircraft-type-update/' + this.p_ac_type_id.id, {
+          name: this.p_ac_type_id.name,
+          description: this.p_ac_type_id.description,
         })
-        .then((result) => {
-          Swal.fire({
-            title: 'Data update successfully!',
-            icon: 'success',
-            confirmButtonText: 'OK',
-          }).then((result) => {
-            this.open = false
-            this.list()
-            this.closeModal()
-          })
+        .then((response) => {
+          toastr.success(response.data.message)
+          this.list()
+          this.closeModal()
         })
         .catch((error) => {
           if (error.response.status == 422) {
-            this.errors = error.response.data
-            Swal.fire('Data update failed!', '', 'error')
+            this.errors = error.response.data.errors
+            toastr.error(error.response.data.message)
           }
         })
     },
@@ -516,14 +500,8 @@ export default {
             this.$axios
               .delete('/api/aircraft-type-delete/' + id)
               .then((response) => {
-                Swal.fire({
-                  title: 'Deleted!',
-                  icon: 'success',
-                  text: 'Your data has been deleted.',
-                  confirmButtonText: 'Ok',
-                }).then((result) => {
-                  this.list()
-                })
+                toastr.success(response.data.message)
+                this.list()
               })
           }
         })
@@ -542,25 +520,16 @@ export default {
       })
     },
     clearForm() {
-      this.name = ''
-      this.description = ''
+      this.p_ac_type_id.id = null
+      this.p_ac_type_id.name = null
+      this.p_ac_type_id.description = null
       this.errors.name = null
       this.errors.description = null
     },
     closeModal() {
-      document.getElementById('modal_edit').click()
+      document.getElementById('close_modal').click()
+      this.clearForm()
     },
   },
 }
 </script>
- <style>
-.mt-20 {
-  margin-top: 20px;
-}
-.mb-20 {
-  margin-bottom: 20px;
-}
-.mb-10 {
-  margin-bottom: 10px;
-}
-</style>

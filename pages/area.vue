@@ -27,12 +27,28 @@
               flex-column
               justify-content-center
               my-0
+              fw-bold
             "
           >
-            Areas
+            area
           </p>
           <!--end::Title-->
         </div>
+        <ul
+          class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0 pt-1"
+        >
+          <!--begin::Item-->
+          <li class="breadcrumb-item text-muted">
+            <nuxt-link to="/" class="text-muted text-hover-primary"
+              >Dashboard</nuxt-link
+            >
+          </li>
+          <li class="breadcrumb-item">
+            <span class="bullet bg-gray-400 w-5px h-2px"></span>
+          </li>
+          <li class="breadcrumb-item text-muted">areas</li>
+          <!--end::Item-->
+        </ul>
         <!--end::Page title-->
       </div>
       <!--end::Toolbar container-->
@@ -40,96 +56,17 @@
     <div class="container mb-10">
       <div class="card shadow-sm mt-5">
         <div class="card-header">
-          <h3 class="card-title fw-bold">List of Area</h3>
+          <h3 class="card-title fw-bold">List of areas</h3>
           <div class="card-toolbar">
             <button
               type="button"
               class="btn btn-sm btn-primary"
               data-bs-toggle="modal"
-              data-bs-target="#modal_create"
+              data-bs-target="#modal"
+              @click="add()"
             >
-              Add Area
+              Add area
             </button>
-            <div
-              class="modal fade"
-              tabindex="-1"
-              id="modal_create"
-              data-bs-backdrop="static"
-            >
-              <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h3 class="modal-title">Add Area</h3>
-
-                    <!--begin::Close-->
-                    <div
-                      class="btn btn-icon btn-sm btn-active-light-primary ms-2"
-                      data-bs-dismiss="modal"
-                      aria-label="Close"
-                    >
-                      <span class="svg-icon svg-icon-1"></span>
-                    </div>
-                    <!--end::Close-->
-                  </div>
-                  <div class="modal-body">
-                    <form v-on:submit.prevent="add">
-                      <div class="form-group mb-3">
-                        <label for="name" class="form-label fw-bold"
-                          >Name</label
-                        >
-                        <input
-                          type="text"
-                          class="form-control"
-                          v-model="name"
-                          :class="{
-                            'is-invalid': errors.name,
-                          }"
-                        />
-                        <span
-                          v-if="errors.name"
-                          class="error invalid-feedback"
-                          >{{ errors.name[0] }}</span
-                        >
-                      </div>
-                      <div class="form-group mb-3">
-                        <label for="scope" class="form-label fw-bold"
-                          >Scope</label
-                        >
-                        <input
-                          type="text"
-                          class="form-control"
-                          v-model="scope"
-                          :class="{
-                            'is-invalid': errors.scope,
-                          }"
-                        />
-                        <span
-                          v-if="errors.scope"
-                          class="error invalid-feedback"
-                          >{{ errors.scope[0] }}</span
-                        >
-                      </div>
-                      <div class="row mt-10">
-                        <div class="col">
-                          <button
-                            type="button"
-                            class="btn btn-light"
-                            data-bs-dismiss="modal"
-                          >
-                            Back
-                          </button>
-                        </div>
-                        <div class="col d-flex justify-content-end">
-                          <button type="submit" class="btn btn-primary">
-                            Save
-                          </button>
-                        </div>
-                      </div>
-                    </form>
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
         <div class="card-body">
@@ -192,10 +129,16 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr v-for="(are, are_index) in area.data" :key="are_index">
-                    <td class="text-center">{{ are_index + 1 }}</td>
-                    <td class="text-center">{{ are.name }}</td>
-                    <td class="text-center">{{ are.scope }}</td>
+                  <tr
+                    v-for="(p_area, p_area_index) in area.data"
+                    :key="p_area_index"
+                  >
+                    <td class="text-center">
+                      {{ area.from + p_area_index }}
+                    </td>
+                    <td class="text-center">{{ p_area.name }}</td>
+                    <td class="text-center">{{ p_area.scope }}</td>
+
                     <td class="d-flex justify-content-center">
                       <button class="btn btn-sm btn-light">
                         <i class="bi bi-toggles text-primary"></i>
@@ -203,14 +146,14 @@
                       <button
                         class="btn btn-sm btn-light"
                         data-bs-toggle="modal"
-                        data-bs-target="#modal_edit"
-                        @click="edit(are)"
+                        data-bs-target="#modal"
+                        @click="edit(p_area)"
                       >
                         <i class="bi bi-pencil-square text-primary"></i>
                       </button>
                       <button
                         class="btn btn-sm btn-light"
-                        v-on:click="remove(are.id)"
+                        v-on:click="remove(p_area.id)"
                       >
                         <i class="bi bi-trash-fill text-primary"></i>
                       </button>
@@ -223,76 +166,6 @@
                   </tr>
                 </tbody>
               </table>
-              <div
-                class="modal fade"
-                tabindex="-1"
-                id="modal_edit"
-                @close="open = false"
-              >
-                <div class="modal-dialog modal-dialog-centered">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h3 class="modal-title">Edit Area</h3>
-
-                      <!--begin::Close-->
-                      <div
-                        class="
-                          btn btn-icon btn-sm btn-active-light-primary
-                          ms-2
-                        "
-                        data-bs-dismiss="modal"
-                        aria-label="Close"
-                      >
-                        <span class="svg-icon svg-icon-1"></span>
-                      </div>
-                      <!--end::Close-->
-                    </div>
-
-                    <div class="modal-body">
-                      <form v-on:submit.prevent="update()">
-                        <div class="form-group mb-3">
-                          <label for="name" class="form-label fw-bold"
-                            >Name</label
-                          >
-                          <input
-                            type="text"
-                            class="form-control"
-                            v-model="are.name"
-                            name="name"
-                          />
-                        </div>
-                        <div class="form-group mb-3">
-                          <label for="scope" class="form-label fw-bold"
-                            >Scope</label
-                          >
-                          <input
-                            type="text"
-                            class="form-control"
-                            v-model="are.scope"
-                            name="scope"
-                          />
-                        </div>
-                        <div class="row mt-10">
-                          <div class="col">
-                            <button
-                              type="button"
-                              class="btn btn-light"
-                              data-bs-dismiss="modal"
-                            >
-                              Back
-                            </button>
-                          </div>
-                          <div class="col d-flex justify-content-end">
-                            <button type="submit" class="btn btn-primary">
-                              Save Changes
-                            </button>
-                          </div>
-                        </div>
-                      </form>
-                    </div>
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
         </div>
@@ -306,7 +179,7 @@
                     <select
                       class="form-control form-control-sm"
                       v-model="paginate"
-                      v-on:change="list()"
+                      @change="list()"
                     >
                       <option value="10">10</option>
                       <option value="25">25</option>
@@ -363,8 +236,120 @@
         </div>
       </div>
     </div>
+
+    <div class="modal fade" tabindex="-1" id="modal" data-bs-backdrop="static">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h3 v-if="modal_create" class="modal-title">Add area</h3>
+            <h3 v-else class="modal-title">Edit area</h3>
+
+            <!--begin::Close-->
+            <div
+              class="btn btn-icon btn-sm btn-active-light-primary ms-2"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            >
+              <span class="svg-icon svg-icon-1" @click="closeModal()">
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <rect
+                    opacity="0.5"
+                    x="6"
+                    y="17.3137"
+                    width="16"
+                    height="2"
+                    rx="1"
+                    transform="rotate(-45 6 17.3137)"
+                    fill="currentColor"
+                  ></rect>
+                  <rect
+                    x="7.41422"
+                    y="6"
+                    width="16"
+                    height="2"
+                    rx="1"
+                    transform="rotate(45 7.41422 6)"
+                    fill="currentColor"
+                  ></rect>
+                </svg>
+              </span>
+            </div>
+            <!--end::Close-->
+          </div>
+          <div class="modal-body">
+            <form @submit.prevent="submit">
+              <div class="form-group mb-3">
+                <label class="form-label fw-bold">Name</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  v-model="p_area.name"
+                  :class="{
+                    'is-invalid': errors.name,
+                  }"
+                />
+                <span v-if="errors.name" class="error invalid-feedback">{{
+                  errors.name[0]
+                }}</span>
+              </div>
+              <div class="form-group mb-3">
+                <label class="form-label fw-bold">Type of Work</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  v-model="p_area.scope"
+                  :class="{
+                    'is-invalid': errors.scope,
+                  }"
+                />
+                <span v-if="errors.scope" class="error invalid-feedback">{{
+                  errors.scope[0]
+                }}</span>
+              </div>
+
+              <div class="row mt-10">
+                <div class="col">
+                  <button
+                    type="button"
+                    class="btn btn-light"
+                    data-bs-dismiss="modal"
+                    id="close_modal"
+                    @click="closeModal()"
+                  >
+                    Back
+                  </button>
+                </div>
+                <div class="col d-flex justify-content-end">
+                  <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
+
+<style>
+.mt-20 {
+  margin-top: 20px;
+}
+
+.mb-20 {
+  margin-bottom: 20px;
+}
+
+.mb-10 {
+  margin-bottom: 10px;
+}
+</style>
 
 <script>
 import debounce from 'lodash/debounce'
@@ -372,18 +357,16 @@ export default {
   layout: 'template',
   data() {
     return {
-      open: false,
       area: {
         data: [],
         link: [],
       },
-      are: {
+      p_area: {
         id: null,
         name: null,
         scope: null,
       },
-      name: null,
-      scope: null,
+      modal_create: false,
       search: null,
       order: 'id',
       by: 'desc',
@@ -436,59 +419,59 @@ export default {
       let new_url = url.toString()
       this.list(new_url)
     }, 500),
+    submit() {
+      if (this.modal_create) {
+        this.create()
+      } else {
+        this.update()
+      }
+    },
     add() {
+      this.modal_create = true
+    },
+    create() {
       this.loading()
       this.$axios
         .post('/api/area-create', {
-          name: this.name,
-          scope: this.scope,
+          name: this.p_area.name,
+          scope: this.p_area.scope,
         })
-        .then((result) => {
-          Swal.fire({
-            title: 'Data save successfully!',
-            icon: 'success',
-            confirmButtonText: 'OK',
-          }).then((result) => {
-            this.clearForm()
-            this.list()
-            this.closeModal()
-          })
+        .then((response) => {
+          toastr.success(response.data.message)
+          this.list()
+          this.closeModal()
         })
         .catch((error) => {
           if (error.response.status == 422) {
-            this.errors = error.response.data
-            Swal.fire('Data save failed!', '', 'error')
+            this.errors = error.response.data.errors
+
+            toastr.error(error.response.data.message)
           }
         })
     },
-    edit(are) {
-      this.are.id = are.id
-      this.are.name = are.name
-      this.are.scope = are.scope
+    edit(p_area) {
+      this.modal_create = false
+      this.p_area.id = p_area.id
+      this.p_area.name = p_area.name
+      this.p_area.scope = p_area.scope
     },
     update() {
       this.loading()
 
       this.$axios
-        .put('/api/area-update/' + this.are.id, {
-          name: this.are.name,
-          scope: this.are.scope,
+        .put('/api/area-update/' + this.p_area.id, {
+          name: this.p_area.name,
+          scope: this.p_area.scope,
         })
-        .then((result) => {
-          Swal.fire({
-            title: 'Data update successfully!',
-            icon: 'success',
-            confirmButtonText: 'OK',
-          }).then((result) => {
-            this.open = false
-            this.list()
-            this.closeModal()
-          })
+        .then((response) => {
+          toastr.success(response.data.message)
+          this.list()
+          this.closeModal()
         })
         .catch((error) => {
           if (error.response.status == 422) {
-            this.errors = error.response.data
-            Swal.fire('Data update failed!', '', 'error')
+            this.errors = error.response.data.errors
+            toastr.error(error.response.data.message)
           }
         })
     },
@@ -505,14 +488,8 @@ export default {
         .then((result) => {
           if (result.isConfirmed) {
             this.$axios.delete('/api/area-delete/' + id).then((response) => {
-              Swal.fire({
-                title: 'Deleted!',
-                icon: 'success',
-                text: 'Your data has been deleted.',
-                confirmButtonText: 'Ok',
-              }).then((result) => {
-                this.list()
-              })
+              toastr.success(response.data.message)
+              this.list()
             })
           }
         })
@@ -531,25 +508,16 @@ export default {
       })
     },
     clearForm() {
-      this.name = ''
-      this.scope = ''
+      this.p_area.id = null
+      this.p_area.name = null
+      this.p_area.scope = null
       this.errors.name = null
       this.errors.scope = null
     },
     closeModal() {
-      document.getElementById('modal_edit').click()
+      document.getElementById('close_modal').click()
+      this.clearForm()
     },
   },
 }
 </script>
- <style>
-.mt-20 {
-  margin-top: 20px;
-}
-.mb-20 {
-  margin-bottom: 20px;
-}
-.mb-10 {
-  margin-bottom: 10px;
-}
-</style>

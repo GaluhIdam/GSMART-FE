@@ -56,108 +56,17 @@
     <div class="container mb-10">
       <div class="card shadow-sm mt-5">
         <div class="card-header">
-<<<<<<< HEAD
-          <h3 class="card-title fw-bold">List of Area</h3>
-=======
           <h3 class="card-title fw-bold">List of areas</h3>
->>>>>>> 23e2fb390fdeb4675aac8d7354d41c6417e0ff68
           <div class="card-toolbar">
             <button
               type="button"
               class="btn btn-sm btn-primary"
               data-bs-toggle="modal"
-<<<<<<< HEAD
-              data-bs-target="#modal_create"
-            >
-              Add Area
-            </button>
-            <div
-              class="modal fade"
-              tabindex="-1"
-              id="modal_create"
-              data-bs-backdrop="static"
-            >
-              <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h3 class="modal-title">Add Area</h3>
-
-                    <!--begin::Close-->
-                    <div
-                      class="btn btn-icon btn-sm btn-active-light-primary ms-2"
-                      data-bs-dismiss="modal"
-                      aria-label="Close"
-                    >
-                      <span class="svg-icon svg-icon-1"></span>
-                    </div>
-                    <!--end::Close-->
-                  </div>
-                  <div class="modal-body">
-                    <form v-on:submit.prevent="add">
-                      <div class="form-group mb-3">
-                        <label for="name" class="form-label fw-bold"
-                          >Name</label
-                        >
-                        <input
-                          type="text"
-                          class="form-control"
-                          v-model="name"
-                          :class="{
-                            'is-invalid': errors.name,
-                          }"
-                        />
-                        <span
-                          v-if="errors.name"
-                          class="error invalid-feedback"
-                          >{{ errors.name[0] }}</span
-                        >
-                      </div>
-                      <div class="form-group mb-3">
-                        <label for="scope" class="form-label fw-bold"
-                          >Scope</label
-                        >
-                        <input
-                          type="text"
-                          class="form-control"
-                          v-model="scope"
-                          :class="{
-                            'is-invalid': errors.scope,
-                          }"
-                        />
-                        <span
-                          v-if="errors.scope"
-                          class="error invalid-feedback"
-                          >{{ errors.scope[0] }}</span
-                        >
-                      </div>
-                      <div class="row mt-10">
-                        <div class="col">
-                          <button
-                            type="button"
-                            class="btn btn-light"
-                            data-bs-dismiss="modal"
-                          >
-                            Back
-                          </button>
-                        </div>
-                        <div class="col d-flex justify-content-end">
-                          <button type="submit" class="btn btn-primary">
-                            Save
-                          </button>
-                        </div>
-                      </div>
-                    </form>
-                  </div>
-                </div>
-              </div>
-            </div>
-=======
               data-bs-target="#modal"
               @click="add()"
             >
               Add area
             </button>
->>>>>>> 23e2fb390fdeb4675aac8d7354d41c6417e0ff68
           </div>
         </div>
         <div class="card-body">
@@ -220,12 +129,6 @@
                   </tr>
                 </thead>
                 <tbody>
-<<<<<<< HEAD
-                  <tr v-for="(are, are_index) in area.data" :key="are_index">
-                    <td class="text-center">{{ are_index + 1 }}</td>
-                    <td class="text-center">{{ are.name }}</td>
-                    <td class="text-center">{{ are.scope }}</td>
-=======
                   <tr
                     v-for="(p_area, p_area_index) in area.data"
                     :key="p_area_index"
@@ -236,7 +139,6 @@
                     <td class="text-center">{{ p_area.name }}</td>
                     <td class="text-center">{{ p_area.scope }}</td>
 
->>>>>>> 23e2fb390fdeb4675aac8d7354d41c6417e0ff68
                     <td class="d-flex justify-content-center">
                       <button class="btn btn-sm btn-light">
                         <i class="bi bi-toggles text-primary"></i>
@@ -244,23 +146,14 @@
                       <button
                         class="btn btn-sm btn-light"
                         data-bs-toggle="modal"
-<<<<<<< HEAD
-                        data-bs-target="#modal_edit"
-                        @click="edit(are)"
-=======
                         data-bs-target="#modal"
                         @click="edit(p_area)"
->>>>>>> 23e2fb390fdeb4675aac8d7354d41c6417e0ff68
                       >
                         <i class="bi bi-pencil-square text-primary"></i>
                       </button>
                       <button
                         class="btn btn-sm btn-light"
-<<<<<<< HEAD
-                        v-on:click="remove(are.id)"
-=======
                         v-on:click="remove(p_area.id)"
->>>>>>> 23e2fb390fdeb4675aac8d7354d41c6417e0ff68
                       >
                         <i class="bi bi-trash-fill text-primary"></i>
                       </button>
@@ -273,79 +166,6 @@
                   </tr>
                 </tbody>
               </table>
-<<<<<<< HEAD
-              <div
-                class="modal fade"
-                tabindex="-1"
-                id="modal_edit"
-                @close="open = false"
-              >
-                <div class="modal-dialog modal-dialog-centered">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h3 class="modal-title">Edit Area</h3>
-
-                      <!--begin::Close-->
-                      <div
-                        class="
-                          btn btn-icon btn-sm btn-active-light-primary
-                          ms-2
-                        "
-                        data-bs-dismiss="modal"
-                        aria-label="Close"
-                      >
-                        <span class="svg-icon svg-icon-1"></span>
-                      </div>
-                      <!--end::Close-->
-                    </div>
-
-                    <div class="modal-body">
-                      <form v-on:submit.prevent="update()">
-                        <div class="form-group mb-3">
-                          <label for="name" class="form-label fw-bold"
-                            >Name</label
-                          >
-                          <input
-                            type="text"
-                            class="form-control"
-                            v-model="are.name"
-                            name="name"
-                          />
-                        </div>
-                        <div class="form-group mb-3">
-                          <label for="scope" class="form-label fw-bold"
-                            >Scope</label
-                          >
-                          <input
-                            type="text"
-                            class="form-control"
-                            v-model="are.scope"
-                            name="scope"
-                          />
-                        </div>
-                        <div class="row mt-10">
-                          <div class="col">
-                            <button
-                              type="button"
-                              class="btn btn-light"
-                              data-bs-dismiss="modal"
-                            >
-                              Back
-                            </button>
-                          </div>
-                          <div class="col d-flex justify-content-end">
-                            <button type="submit" class="btn btn-primary">
-                              Save Changes
-                            </button>
-                          </div>
-                        </div>
-                      </form>
-                    </div>
-                  </div>
-                </div>
-              </div>
-=======
->>>>>>> 23e2fb390fdeb4675aac8d7354d41c6417e0ff68
             </div>
           </div>
         </div>
@@ -359,11 +179,7 @@
                     <select
                       class="form-control form-control-sm"
                       v-model="paginate"
-<<<<<<< HEAD
-                      v-on:change="list()"
-=======
                       @change="list()"
->>>>>>> 23e2fb390fdeb4675aac8d7354d41c6417e0ff68
                     >
                       <option value="10">10</option>
                       <option value="25">25</option>
@@ -416,8 +232,6 @@
                 </ul>
               </nav>
             </div>
-<<<<<<< HEAD
-=======
           </div>
         </div>
       </div>
@@ -516,7 +330,6 @@
                 </div>
               </div>
             </form>
->>>>>>> 23e2fb390fdeb4675aac8d7354d41c6417e0ff68
           </div>
         </div>
       </div>
@@ -524,187 +337,7 @@
   </div>
 </template>
 
-<<<<<<< HEAD
-<script>
-import debounce from 'lodash/debounce'
-export default {
-  layout: 'template',
-  data() {
-    return {
-      open: false,
-      area: {
-        data: [],
-        link: [],
-      },
-      are: {
-        id: null,
-        name: null,
-        scope: null,
-      },
-      name: null,
-      scope: null,
-      search: null,
-      order: 'id',
-      by: 'desc',
-      paginate: '10',
-      current_page: null,
-      errors: {
-        name: null,
-        scope: null,
-      },
-    }
-  },
-  created() {
-    this.list()
-  },
-  watch: {
-    search: debounce(function () {
-      this.list()
-    }, 500),
-  },
-  methods: {
-    list(paginate) {
-      this.loading()
-      paginate = paginate || `/api/area`
-      this.$axios
-        .get(paginate, {
-          params: {
-            search: this.search,
-            order: this.order,
-            by: this.by,
-            paginate: this.paginate,
-          },
-        })
-        .then((response) => {
-          this.area = response.data.data
-          this.current_page = this.area.current_page
-          Swal.close()
-        })
-        .catch((error) => console.log(error))
-    },
-    directPage: debounce(function () {
-      if (this.current_page < 1) {
-        this.current_page = 1
-      } else if (this.current_page > this.area.last_page) {
-        this.current_page = this.area.last_page
-      }
-      let url = new URL(this.area.first_page_url)
-      let search_params = url.searchParams
-      search_params.set('page', this.current_page)
-      url.search = search_params.toString()
-      let new_url = url.toString()
-      this.list(new_url)
-    }, 500),
-    add() {
-      this.loading()
-      this.$axios
-        .post('/api/area-create', {
-          name: this.name,
-          scope: this.scope,
-        })
-        .then((result) => {
-          Swal.fire({
-            title: 'Data save successfully!',
-            icon: 'success',
-            confirmButtonText: 'OK',
-          }).then((result) => {
-            this.clearForm()
-            this.list()
-            this.closeModal()
-          })
-        })
-        .catch((error) => {
-          if (error.response.status == 422) {
-            this.errors = error.response.data
-            Swal.fire('Data save failed!', '', 'error')
-          }
-        })
-    },
-    edit(are) {
-      this.are.id = are.id
-      this.are.name = are.name
-      this.are.scope = are.scope
-    },
-    update() {
-      this.loading()
-
-      this.$axios
-        .put('/api/area-update/' + this.are.id, {
-          name: this.are.name,
-          scope: this.are.scope,
-        })
-        .then((result) => {
-          Swal.fire({
-            title: 'Data update successfully!',
-            icon: 'success',
-            confirmButtonText: 'OK',
-          }).then((result) => {
-            this.open = false
-            this.list()
-            this.closeModal()
-          })
-        })
-        .catch((error) => {
-          if (error.response.status == 422) {
-            this.errors = error.response.data
-            Swal.fire('Data update failed!', '', 'error')
-          }
-        })
-    },
-    remove(id) {
-      Swal.fire({
-        title: 'Are you sure?',
-        text: "You won't be able to revert this!",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!',
-      })
-        .then((result) => {
-          if (result.isConfirmed) {
-            this.$axios.delete('/api/area-delete/' + id).then((response) => {
-              Swal.fire({
-                title: 'Deleted!',
-                icon: 'success',
-                text: 'Your data has been deleted.',
-                confirmButtonText: 'Ok',
-              }).then((result) => {
-                this.list()
-              })
-            })
-          }
-        })
-        .catch((error) => {
-          console.log(error)
-        })
-    },
-    loading() {
-      Swal.fire({
-        timer: 500,
-        didOpen: () => {
-          Swal.showLoading()
-        },
-        background: 'transparent',
-        allowOutsideClick: false,
-      })
-    },
-    clearForm() {
-      this.name = ''
-      this.scope = ''
-      this.errors.name = null
-      this.errors.scope = null
-    },
-    closeModal() {
-      document.getElementById('modal_edit').click()
-    },
-  },
-}
-</script>
- <style>
-=======
 <style>
->>>>>>> 23e2fb390fdeb4675aac8d7354d41c6417e0ff68
 .mt-20 {
   margin-top: 20px;
 }
@@ -712,10 +345,7 @@ export default {
 .mb-20 {
   margin-bottom: 20px;
 }
-<<<<<<< HEAD
-=======
 
->>>>>>> 23e2fb390fdeb4675aac8d7354d41c6417e0ff68
 .mb-10 {
   margin-bottom: 10px;
 }

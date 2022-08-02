@@ -349,7 +349,6 @@
 .mb-20 {
   margin-bottom: 20px;
 }
-
 .mb-10 {
   margin-bottom: 10px;
 }

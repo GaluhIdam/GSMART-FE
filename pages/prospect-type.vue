@@ -27,12 +27,28 @@
               flex-column
               justify-content-center
               my-0
+              fw-bold
             "
           >
             Prospect Type
           </p>
           <!--end::Title-->
         </div>
+        <ul
+          class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0 pt-1"
+        >
+          <!--begin::Item-->
+          <li class="breadcrumb-item text-muted">
+            <nuxt-link to="/" class="text-muted text-hover-primary"
+              >Dashboard</nuxt-link
+            >
+          </li>
+          <li class="breadcrumb-item">
+            <span class="bullet bg-gray-400 w-5px h-2px"></span>
+          </li>
+          <li class="breadcrumb-item text-muted">Prospect Type</li>
+          <!--end::Item-->
+        </ul>
         <!--end::Page title-->
       </div>
       <!--end::Toolbar container-->
@@ -558,6 +574,7 @@ export default {
 .mt-20 {
   margin-top: 20px;
 }
+
 .mb-20 {
   margin-bottom: 20px;
 }
@@ -565,3 +582,176 @@ export default {
   margin-bottom: 10px;
 }
 </style>
+
+<script>
+import debounce from 'lodash/debounce'
+export default {
+  layout: 'template',
+  data() {
+    return {
+      prospect_type: {
+        data: [],
+        link: [],
+      },
+      p_prospect_type: {
+        id: null,
+        name: null,
+        description: null,
+      },
+      modal_create: false,
+      search: null,
+      order: 'id',
+      by: 'desc',
+      paginate: '10',
+      current_page: null,
+      errors: {
+        name: null,
+        description: null,
+      },
+    }
+  },
+  created() {
+    this.list()
+  },
+  watch: {
+    search: debounce(function () {
+      this.list()
+    }, 500),
+  },
+  methods: {
+    list(paginate) {
+      this.loading()
+      paginate = paginate || `/api/prospect-type`
+      this.$axios
+        .get(paginate, {
+          params: {
+            search: this.search,
+            order: this.order,
+            by: this.by,
+            paginate: this.paginate,
+          },
+        })
+        .then((response) => {
+          this.prospect_type = response.data.data
+          this.current_page = this.prospect_type.current_page
+          Swal.close()
+        })
+        .catch((error) => console.log(error))
+    },
+    directPage: debounce(function () {
+      if (this.current_page < 1) {
+        this.current_page = 1
+      } else if (this.current_page > this.prospect_type.last_page) {
+        this.current_page = this.prospect_type.last_page
+      }
+      let url = new URL(this.prospect_type.first_page_url)
+      let search_params = url.searchParams
+      search_params.set('page', this.current_page)
+      url.search = search_params.toString()
+      let new_url = url.toString()
+      this.list(new_url)
+    }, 500),
+    submit() {
+      if (this.modal_create) {
+        this.create()
+      } else {
+        this.update()
+      }
+    },
+    add() {
+      this.modal_create = true
+    },
+    create() {
+      this.loading()
+      this.$axios
+        .post('/api/prospect-type-create', {
+          name: this.p_prospect_type.name,
+          description: this.p_prospect_type.description,
+        })
+        .then((response) => {
+          toastr.success(response.data.message)
+          this.list()
+          this.closeModal()
+        })
+        .catch((error) => {
+          if (error.response.status == 422) {
+            this.errors = error.response.data.errors
+
+            toastr.error(error.response.data.message)
+          }
+        })
+    },
+    edit(p_prospect_type) {
+      this.modal_create = false
+      this.p_prospect_type.id = p_prospect_type.id
+      this.p_prospect_type.name = p_prospect_type.name
+      this.p_prospect_type.description = p_prospect_type.description
+    },
+    update() {
+      this.loading()
+
+      this.$axios
+        .put('/api/prospect-type-update/' + this.p_prospect_type.id, {
+          name: this.p_prospect_type.name,
+          description: this.p_prospect_type.description,
+        })
+        .then((response) => {
+          toastr.success(response.data.message)
+          this.list()
+          this.closeModal()
+        })
+        .catch((error) => {
+          if (error.response.status == 422) {
+            this.errors = error.response.data.errors
+            toastr.error(error.response.data.message)
+          }
+        })
+    },
+    remove(id) {
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!',
+      })
+        .then((result) => {
+          if (result.isConfirmed) {
+            this.$axios
+              .delete('/api/prospect-type-delete/' + id)
+              .then((response) => {
+                toastr.success(response.data.message)
+                this.list()
+              })
+          }
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    },
+    loading() {
+      Swal.fire({
+        timer: 500,
+        didOpen: () => {
+          Swal.showLoading()
+        },
+        background: 'transparent',
+        allowOutsideClick: false,
+      })
+    },
+    clearForm() {
+      this.p_prospect_type.id = null
+      this.p_prospect_type.name = null
+      this.p_prospect_type.description = null
+      this.errors.name = null
+      this.errors.description = null
+    },
+    closeModal() {
+      document.getElementById('close_modal').click()
+      this.clearForm()
+    },
+  },
+}
+</script>

@@ -61,7 +61,6 @@
                   <tr class="fw-bold fs-6 text-gray-800">
                     <th class="text-center">No</th>
                     <th class="text-center">Name</th>
-                    <th class="text-center">Area</th>
                     <th class="text-center">Action</th>
                   </tr>
                 </thead>
@@ -69,7 +68,7 @@
                   <tr v-for="(p_region, p_region_index) in region.data" :key="p_region_index">
                     <td class="text-center">{{ region.from + p_region_index }}</td>
                     <td class="text-center">{{ p_region.name }}</td>
-                    <td class="text-center">{{ p_region.area_id }}</td>
+
 
                     <td class="d-flex justify-content-center">
                       <button class="btn btn-sm btn-light">
@@ -169,13 +168,7 @@
                 }" />
                 <span v-if="errors.name" class="error invalid-feedback">{{ errors.name[0] }}</span>
               </div>
-              <div class="form-group mb-3">
-                <label class="form-label fw-bold">Area</label>
-                <input type="text" class="form-control" v-model="p_region.area_id" :class="{
-                  'is-invalid': errors.area_id,
-                }" />
-                <span v-if="errors.area_id" class="error invalid-feedback">{{ errors.area_id[0] }}</span>
-              </div>
+
 
               <div class="row mt-10">
                 <div class="col">
@@ -221,8 +214,7 @@ export default {
       p_region: {
         id: null,
         name: null,
-        area_id: null,
-        //description: null,
+
       },
       modal_create: false,
       search: null,
@@ -232,8 +224,6 @@ export default {
       current_page: null,
       errors: {
         name: null,
-        area_id: null,
-        //description: null,
       },
     };
   },
@@ -293,8 +283,6 @@ export default {
       this.$axios
         .post("/api/region-create", {
           name: this.p_region.name,
-          area_id: this.p_region.area_id,
-          //description: this.p_region.description,
         })
         .then((response) => {
           toastr.success(response.data.message);
@@ -313,8 +301,6 @@ export default {
       this.modal_create = false;
       this.p_region.id = p_region.id;
       this.p_region.name = p_region.name;
-      this.p_region.area_id = p_region.area_id;
-      //this.p_region.description = p_region.description;
     },
     update() {
       this.loading();
@@ -322,8 +308,7 @@ export default {
       this.$axios
         .put("/api/region-update/" + this.p_region.id, {
           name: this.p_region.name,
-          area_id: this.p_region.area_id,
-          //description: this.p_region.description,
+
         })
         .then((response) => {
           toastr.success(response.data.message);
@@ -372,10 +357,10 @@ export default {
     clearForm() {
       this.p_region.id = null;
       this.p_region.name = null;
-      this.p_region.area_id = null;
-      //this.p_region.description = null;
+
+
       this.errors.name = null;
-      //this.errors.description = null;
+
     },
     closeModal() {
       document.getElementById("close_modal").click();

@@ -27,12 +27,28 @@
               flex-column
               justify-content-center
               my-0
+              fw-bold
             "
           >
-            countrie
+            Countries
           </p>
           <!--end::Title-->
         </div>
+        <ul
+          class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0 pt-1"
+        >
+          <!--begin::Item-->
+          <li class="breadcrumb-item text-muted">
+            <nuxt-link to="/" class="text-muted text-hover-primary"
+              >Dashboard</nuxt-link
+            >
+          </li>
+          <li class="breadcrumb-item">
+            <span class="bullet bg-gray-400 w-5px h-2px"></span>
+          </li>
+          <li class="breadcrumb-item text-muted">Countriess</li>
+          <!--end::Item-->
+        </ul>
         <!--end::Page title-->
       </div>
       <!--end::Toolbar container-->
@@ -40,96 +56,17 @@
     <div class="container mb-10">
       <div class="card shadow-sm mt-5">
         <div class="card-header">
-          <h3 class="card-title fw-bold">List of countrie</h3>
+          <h3 class="card-title fw-bold">List of Countriess</h3>
           <div class="card-toolbar">
             <button
               type="button"
               class="btn btn-sm btn-primary"
               data-bs-toggle="modal"
-              data-bs-target="#modal_create"
+              data-bs-target="#modal"
+              @click="add()"
             >
-              Add countrie
+              Add countries
             </button>
-            <div
-              class="modal fade"
-              tabindex="-1"
-              id="modal_create"
-              data-bs-backdrop="static"
-            >
-              <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h3 class="modal-title">Add countrie</h3>
-
-                    <!--begin::Close-->
-                    <div
-                      class="btn btn-icon btn-sm btn-active-light-primary ms-2"
-                      data-bs-dismiss="modal"
-                      aria-label="Close"
-                    >
-                      <span class="svg-icon svg-icon-1"></span>
-                    </div>
-                    <!--end::Close-->
-                  </div>
-                  <div class="modal-body">
-                    <form v-on:submit.prevent="add">
-                      <div class="form-group mb-3">
-                        <label for="name" class="form-label fw-bold"
-                          >Name</label
-                        >
-                        <input
-                          type="text"
-                          class="form-control"
-                          v-model="name"
-                          :class="{
-                            'is-invalid': errors.name,
-                          }"
-                        />
-                        <span
-                          v-if="errors.name"
-                          class="error invalid-feedback"
-                          >{{ errors.name[0] }}</span
-                        >
-                      </div>
-                      <div class="form-group mb-3">
-                        <label for="region_id" class="form-label fw-bold"
-                          >Region</label
-                        >
-                        <input
-                          type="text"
-                          class="form-control"
-                          v-model="region_id"
-                          :class="{
-                            'is-invalid': errors.region_id,
-                          }"
-                        />
-                        <span
-                          v-if="errors.region_id"
-                          class="error invalid-feedback"
-                          >{{ errors.region_id[0] }}</span
-                        >
-                      </div>
-                      <div class="row mt-10">
-                        <div class="col">
-                          <button
-                            type="button"
-                            class="btn btn-light"
-                            data-bs-dismiss="modal"
-                          >
-                            Back
-                          </button>
-                        </div>
-                        <div class="col d-flex justify-content-end">
-                          <button type="submit" class="btn btn-primary">
-                            Save
-                          </button>
-                        </div>
-                      </div>
-                    </form>
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
         <div class="card-body">
@@ -187,18 +124,21 @@
                   <tr class="fw-bold fs-6 text-gray-800">
                     <th class="text-center">No</th>
                     <th class="text-center">Name</th>
-                    <th class="text-center">Region</th>
+                    <th class="text-center">Region Id</th>
                     <th class="text-center">Action</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr
-                    v-for="(countrie, countrie_index) in countries.data"
-                    :key="countrie_index"
+                    v-for="(countrie, p_countries_index) in countries.data"
+                    :key="p_countries_index"
                   >
-                    <td class="text-center">{{ countrie_index + 1 }}</td>
+                    <td class="text-center">
+                      {{ countries.from + p_countries_index }}
+                    </td>
                     <td class="text-center">{{ countrie.name }}</td>
                     <td class="text-center">{{ countrie.region_id }}</td>
+
                     <td class="d-flex justify-content-center">
                       <button class="btn btn-sm btn-light">
                         <i class="bi bi-toggles text-primary"></i>
@@ -206,7 +146,7 @@
                       <button
                         class="btn btn-sm btn-light"
                         data-bs-toggle="modal"
-                        data-bs-target="#modal_edit"
+                        data-bs-target="#modal"
                         @click="edit(countrie)"
                       >
                         <i class="bi bi-pencil-square text-primary"></i>
@@ -226,76 +166,6 @@
                   </tr>
                 </tbody>
               </table>
-              <div
-                class="modal fade"
-                tabindex="-1"
-                id="modal_edit"
-                @close="open = false"
-              >
-                <div class="modal-dialog modal-dialog-centered">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h3 class="modal-title">Edit countrie Type</h3>
-
-                      <!--begin::Close-->
-                      <div
-                        class="
-                          btn btn-icon btn-sm btn-active-light-primary
-                          ms-2
-                        "
-                        data-bs-dismiss="modal"
-                        aria-label="Close"
-                      >
-                        <span class="svg-icon svg-icon-1"></span>
-                      </div>
-                      <!--end::Close-->
-                    </div>
-
-                    <div class="modal-body">
-                      <form v-on:submit.prevent="update()">
-                        <div class="form-group mb-3">
-                          <label for="name" class="form-label fw-bold"
-                            >Name</label
-                          >
-                          <input
-                            type="text"
-                            class="form-control"
-                            v-model="countrie.name"
-                            name="name"
-                          />
-                        </div>
-                        <div class="form-group mb-3">
-                          <label for="region_id" class="form-label fw-bold"
-                            >region_id</label
-                          >
-                          <input
-                            type="text"
-                            class="form-control"
-                            v-model="countrie.region_id"
-                            name="region_id"
-                          />
-                        </div>
-                        <div class="row mt-10">
-                          <div class="col">
-                            <button
-                              type="button"
-                              class="btn btn-light"
-                              data-bs-dismiss="modal"
-                            >
-                              Back
-                            </button>
-                          </div>
-                          <div class="col d-flex justify-content-end">
-                            <button type="submit" class="btn btn-primary">
-                              Save Changes
-                            </button>
-                          </div>
-                        </div>
-                      </form>
-                    </div>
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
         </div>
@@ -309,7 +179,7 @@
                     <select
                       class="form-control form-control-sm"
                       v-model="paginate"
-                      v-on:change="list()"
+                      @change="list()"
                     >
                       <option value="10">10</option>
                       <option value="25">25</option>
@@ -370,8 +240,119 @@
         </div>
       </div>
     </div>
+
+    <div class="modal fade" tabindex="-1" id="modal" data-bs-backdrop="static">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h3 v-if="modal_create" class="modal-title">Add countries</h3>
+            <h3 v-else class="modal-title">Edit countries</h3>
+
+            <!--begin::Close-->
+            <div
+              class="btn btn-icon btn-sm btn-active-light-primary ms-2"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            >
+              <span class="svg-icon svg-icon-1" @click="closeModal()">
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <rect
+                    opacity="0.5"
+                    x="6"
+                    y="17.3137"
+                    width="16"
+                    height="2"
+                    rx="1"
+                    transform="rotate(-45 6 17.3137)"
+                    fill="currentColor"
+                  ></rect>
+                  <rect
+                    x="7.41422"
+                    y="6"
+                    width="16"
+                    height="2"
+                    rx="1"
+                    transform="rotate(45 7.41422 6)"
+                    fill="currentColor"
+                  ></rect>
+                </svg>
+              </span>
+            </div>
+            <!--end::Close-->
+          </div>
+          <div class="modal-body">
+            <form @submit.prevent="submit">
+              <div class="form-group mb-3">
+                <label class="form-label fw-bold">Name</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  v-model="countrie.name"
+                  :class="{
+                    'is-invalid': errors.name,
+                  }"
+                />
+                <span v-if="errors.name" class="error invalid-feedback">{{
+                  errors.name[0]
+                }}</span>
+              </div>
+              <div class="form-group mb-3">
+                <label class="form-label fw-bold">Type of Region id</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  v-model="countrie.region_id"
+                  :class="{
+                    'is-invalid': errors.region_id,
+                  }"
+                />
+                <span v-if="errors.region_id" class="error invalid-feedback">{{
+                  errors.region_id[0]
+                }}</span>
+              </div>
+
+              <div class="row mt-10">
+                <div class="col">
+                  <button
+                    type="button"
+                    class="btn btn-light"
+                    data-bs-dismiss="modal"
+                    id="close_modal"
+                    @click="closeModal()"
+                  >
+                    Back
+                  </button>
+                </div>
+                <div class="col d-flex justify-content-end">
+                  <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
+
+<style>
+.mt-20 {
+  margin-top: 20px;
+}
+
+.mb-20 {
+  margin-bottom: 20px;
+}
+.mb-10 {
+  margin-bottom: 10px;
+}
+</style>
 
 <script>
 import debounce from 'lodash/debounce'
@@ -379,7 +360,6 @@ export default {
   layout: 'template',
   data() {
     return {
-      open: false,
       countries: {
         data: [],
         link: [],
@@ -389,8 +369,7 @@ export default {
         name: null,
         region_id: null,
       },
-      name: null,
-      region_id: null,
+      modal_create: false,
       search: null,
       order: 'id',
       by: 'desc',
@@ -443,32 +422,38 @@ export default {
       let new_url = url.toString()
       this.list(new_url)
     }, 500),
+    submit() {
+      if (this.modal_create) {
+        this.create()
+      } else {
+        this.update()
+      }
+    },
     add() {
+      this.modal_create = true
+    },
+    create() {
       this.loading()
       this.$axios
         .post('/api/countries-create', {
-          name: this.name,
-          region_id: this.region_id,
+          name: this.countrie.name,
+          region_id: this.countrie.region_id,
         })
-        .then((result) => {
-          Swal.fire({
-            title: 'Data save successfully!',
-            icon: 'success',
-            confirmButtonText: 'OK',
-          }).then((result) => {
-            this.clearForm()
-            this.list()
-            this.closeModal()
-          })
+        .then((response) => {
+          toastr.success(response.data.message)
+          this.list()
+          this.closeModal()
         })
         .catch((error) => {
           if (error.response.status == 422) {
-            this.errors = error.response.data
-            Swal.fire('Data save failed!', '', 'error')
+            this.errors = error.response.data.errors
+
+            toastr.error(error.response.data.message)
           }
         })
     },
     edit(countrie) {
+      this.modal_create = false
       this.countrie.id = countrie.id
       this.countrie.name = countrie.name
       this.countrie.region_id = countrie.region_id
@@ -481,21 +466,15 @@ export default {
           name: this.countrie.name,
           region_id: this.countrie.region_id,
         })
-        .then((result) => {
-          Swal.fire({
-            title: 'Data update successfully!',
-            icon: 'success',
-            confirmButtonText: 'OK',
-          }).then((result) => {
-            this.open = false
-            this.list()
-            this.closeModal()
-          })
+        .then((response) => {
+          toastr.success(response.data.message)
+          this.list()
+          this.closeModal()
         })
         .catch((error) => {
           if (error.response.status == 422) {
-            this.errors = error.response.data
-            Swal.fire('Data update failed!', '', 'error')
+            this.errors = error.response.data.errors
+            toastr.error(error.response.data.message)
           }
         })
     },
@@ -514,14 +493,8 @@ export default {
             this.$axios
               .delete('/api/countries-delete/' + id)
               .then((response) => {
-                Swal.fire({
-                  title: 'Deleted!',
-                  icon: 'success',
-                  text: 'Your data has been deleted.',
-                  confirmButtonText: 'Ok',
-                }).then((result) => {
-                  this.list()
-                })
+                toastr.success(response.data.message)
+                this.list()
               })
           }
         })
@@ -540,25 +513,16 @@ export default {
       })
     },
     clearForm() {
-      this.name = ''
-      this.region_id = ''
+      this.countrie.id = null
+      this.countrie.name = null
+      this.countrie.region_id = null
       this.errors.name = null
       this.errors.region_id = null
     },
     closeModal() {
-      document.getElementById('modal_edit').click()
+      document.getElementById('close_modal').click()
+      this.clearForm()
     },
   },
 }
 </script>
- <style>
-.mt-20 {
-  margin-top: 20px;
-}
-.mb-20 {
-  margin-bottom: 20px;
-}
-.mb-10 {
-  margin-bottom: 10px;
-}
-</style>

@@ -13,17 +13,22 @@ export default {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/gmf-fav.png' },
-      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700' },
+      {
+        rel: 'stylesheet',
+        href: 'https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700',
+      },
     ],
     script: [
-      {src: 'plugins/global/plugins.bundle.js'},
-      {src: 'js/scripts.bundle.js'},
-      {src: 'src/js/layout/app.js'},
-      {src: 'src/js/layout/builder.js'},
-      {src: 'src/js/layout/search.js'},
-      {src: 'src/js/layout/sidebar.js'},
-      {src: 'src/js/layout/theme-mode.js'},
-      {src: 'src/js/layout/toolbar.js'},
+      { src: 'plugins/global/plugins.bundle.js' },
+      { src: 'js/scripts.bundle.js' },
+      { src: 'src/js/layout/app.js' },
+      { src: 'src/js/layout/builder.js' },
+      { src: 'src/js/layout/search.js' },
+      { src: 'src/js/layout/sidebar.js' },
+      { src: 'src/js/layout/theme-mode.js' },
+      { src: 'src/js/layout/toolbar.js' },
+      { src: 'plugins/custom/formrepeater/formrepeater.bundle.js' },
+      { src: 'plugins/custom/formrepeater/basic.js' },
     ],
   },
 
@@ -32,10 +37,11 @@ export default {
     '~/assets/plugins/global/plugins.bundle.css',
     '~/assets/css/style.bundle.css',
     '~/assets/css/style.css',
+    '~/node_modules/vue-multiselect/dist/vue-multiselect.min.css',
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [],
+  plugins: [{ src: '~/plugins/vue-plugin.js', ssr: false }],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
@@ -72,16 +78,17 @@ export default {
       new webpack.ProvidePlugin({
         // global modules
         $: 'jquery',
-        _: 'lodash'
-      })
-    ]
+        _: 'lodash',
+      }),
+    ],
+    vendor: ['vue-apexchart'],
   },
   auth: {
     redirect: {
-      login: "/login",
-      logout: "/",
-      callback: "/login",
-      home: "/",
+      login: '/login',
+      logout: '/',
+      callback: '/login',
+      home: '/',
     },
     strategies: {
       laravelSanctum: {
@@ -94,11 +101,11 @@ export default {
           },
           user: {
             url: '/api/users',
-            method: 'get'
+            method: 'get',
           },
           logout: {
             url: '/api/logout',
-            method: 'post'
+            method: 'post',
           },
         },
       },
@@ -107,5 +114,5 @@ export default {
   },
   router: {
     middleware: ['auth'],
-  }
+  },
 }

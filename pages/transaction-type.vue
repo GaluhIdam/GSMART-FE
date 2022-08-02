@@ -583,6 +583,9 @@ export default {
 }
 </style>
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
 >>>>>>> dev
+=======
+>>>>>>> 23e2fb390fdeb4675aac8d7354d41c6417e0ff68

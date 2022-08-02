@@ -30,7 +30,7 @@
               fw-bold
             "
           >
-            countries
+            Countries
           </p>
           <!--end::Title-->
         </div>
@@ -46,7 +46,7 @@
           <li class="breadcrumb-item">
             <span class="bullet bg-gray-400 w-5px h-2px"></span>
           </li>
-          <li class="breadcrumb-item text-muted">countriess</li>
+          <li class="breadcrumb-item text-muted">Countriess</li>
           <!--end::Item-->
         </ul>
         <!--end::Page title-->
@@ -56,7 +56,7 @@
     <div class="container mb-10">
       <div class="card shadow-sm mt-5">
         <div class="card-header">
-          <h3 class="card-title fw-bold">List of countriess</h3>
+          <h3 class="card-title fw-bold">List of Countriess</h3>
           <div class="card-toolbar">
             <button
               type="button"
@@ -130,14 +130,14 @@
                 </thead>
                 <tbody>
                   <tr
-                    v-for="(p_countries, p_countries_index) in countries.data"
+                    v-for="(countrie, p_countries_index) in countries.data"
                     :key="p_countries_index"
                   >
                     <td class="text-center">
                       {{ countries.from + p_countries_index }}
                     </td>
-                    <td class="text-center">{{ p_countries.name }}</td>
-                    <td class="text-center">{{ p_countries.region_id }}</td>
+                    <td class="text-center">{{ countrie.name }}</td>
+                    <td class="text-center">{{ countrie.region_id }}</td>
 
                     <td class="d-flex justify-content-center">
                       <button class="btn btn-sm btn-light">
@@ -147,13 +147,13 @@
                         class="btn btn-sm btn-light"
                         data-bs-toggle="modal"
                         data-bs-target="#modal"
-                        @click="edit(p_countries)"
+                        @click="edit(countrie)"
                       >
                         <i class="bi bi-pencil-square text-primary"></i>
                       </button>
                       <button
                         class="btn btn-sm btn-light"
-                        v-on:click="remove(p_countries.id)"
+                        v-on:click="remove(countrie.id)"
                       >
                         <i class="bi bi-trash-fill text-primary"></i>
                       </button>
@@ -293,7 +293,7 @@
                 <input
                   type="text"
                   class="form-control"
-                  v-model="p_countries.name"
+                  v-model="countrie.name"
                   :class="{
                     'is-invalid': errors.name,
                   }"
@@ -307,7 +307,7 @@
                 <input
                   type="text"
                   class="form-control"
-                  v-model="p_countries.region_id"
+                  v-model="countrie.region_id"
                   :class="{
                     'is-invalid': errors.region_id,
                   }"
@@ -365,7 +365,7 @@ export default {
         data: [],
         link: [],
       },
-      p_countries: {
+      countrie: {
         id: null,
         name: null,
         region_id: null,
@@ -437,8 +437,8 @@ export default {
       this.loading()
       this.$axios
         .post('/api/countries-create', {
-          name: this.p_countries.name,
-          region_id: this.p_countries.region_id,
+          name: this.countrie.name,
+          region_id: this.countrie.region_id,
         })
         .then((response) => {
           toastr.success(response.data.message)
@@ -453,19 +453,19 @@ export default {
           }
         })
     },
-    edit(p_countries) {
+    edit(countrie) {
       this.modal_create = false
-      this.p_countries.id = p_countries.id
-      this.p_countries.name = p_countries.name
-      this.p_countries.region_id = p_countries.region_id
+      this.countrie.id = countrie.id
+      this.countrie.name = countrie.name
+      this.countrie.region_id = countrie.region_id
     },
     update() {
       this.loading()
 
       this.$axios
-        .put('/api/countries-update/' + this.p_countries.id, {
-          name: this.p_countries.name,
-          region_id: this.p_countries.region_id,
+        .put('/api/countries-update/' + this.countrie.id, {
+          name: this.countrie.name,
+          region_id: this.countrie.region_id,
         })
         .then((response) => {
           toastr.success(response.data.message)
@@ -514,9 +514,9 @@ export default {
       })
     },
     clearForm() {
-      this.p_countries.id = null
-      this.p_countries.name = null
-      this.p_countries.region_id = null
+      this.countrie.id = null
+      this.countrie.name = null
+      this.countrie.region_id = null
       this.errors.name = null
       this.errors.region_id = null
     },

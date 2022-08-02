@@ -30,7 +30,7 @@
               fw-bold
             "
           >
-            aircraft-type
+            Aircraft Type
           </p>
           <!--end::Title-->
         </div>
@@ -46,7 +46,7 @@
           <li class="breadcrumb-item">
             <span class="bullet bg-gray-400 w-5px h-2px"></span>
           </li>
-          <li class="breadcrumb-item text-muted">aircraft-types</li>
+          <li class="breadcrumb-item text-muted">Aircraft Types</li>
           <!--end::Item-->
         </ul>
         <!--end::Page title-->
@@ -56,7 +56,7 @@
     <div class="container mb-10">
       <div class="card shadow-sm mt-5">
         <div class="card-header">
-          <h3 class="card-title fw-bold">List of aircraft-types</h3>
+          <h3 class="card-title fw-bold">List of Aircraft Types</h3>
           <div class="card-toolbar">
             <button
               type="button"
@@ -65,7 +65,7 @@
               data-bs-target="#modal"
               @click="add()"
             >
-              Add aircraft-type
+              Add Aircraft Type
             </button>
           </div>
         </div>
@@ -124,7 +124,7 @@
                   <tr class="fw-bold fs-6 text-gray-800">
                     <th class="text-center">No</th>
                     <th class="text-center">Name</th>
-                    <th class="text-center">Description</th>
+                    <th class="text-center"></th>
                     <th class="text-center">Action</th>
                   </tr>
                 </thead>
@@ -249,8 +249,8 @@
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header">
-            <h3 v-if="modal_create" class="modal-title">Add aircraft-type</h3>
-            <h3 v-else class="modal-title">Edit aircraft-type</h3>
+            <h3 v-if="modal_create" class="modal-title">Add Aircraft Type</h3>
+            <h3 v-else class="modal-title">Edit Aircraft Type</h3>
 
             <!--begin::Close-->
             <div
@@ -305,22 +305,6 @@
                 <span v-if="errors.name" class="error invalid-feedback">{{
                   errors.name[0]
                 }}</span>
-              </div>
-              <div class="form-group mb-3">
-                <label class="form-label fw-bold">Description</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  v-model="p_ac_type_id.description"
-                  :class="{
-                    'is-invalid': errors.description,
-                  }"
-                />
-                <span
-                  v-if="errors.description"
-                  class="error invalid-feedback"
-                  >{{ errors.description[0] }}</span
-                >
               </div>
 
               <div class="row mt-10">

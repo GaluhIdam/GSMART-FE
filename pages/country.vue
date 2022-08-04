@@ -303,17 +303,21 @@
                 }}</span>
               </div>
               <div class="form-group mb-3">
-                <label class="form-label fw-bold">Type of Region id</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  v-model="countrie.region_id"
+                <label class="form-label fw-bold">Region</label>
+                <select
+                  class="form-select"
+                  v-model="countrie.region"
                   :class="{
-                    'is-invalid': errors.region_id,
+                    'is-invalid': errors.region,
                   }"
-                />
-                <span v-if="errors.region_id" class="error invalid-feedback">{{
-                  errors.region_id[0]
+                >
+                  <option selected disabled>Select User</option>
+                  <option v-for="region in regions" v-bind:value="region.id">
+                    {{ region.name }}
+                  </option>
+                </select>
+                <span v-if="errors.region" class="error invalid-feedback">{{
+                  errors.region[0]
                 }}</span>
               </div>
 
@@ -379,10 +383,14 @@ export default {
         name: null,
         region_id: null,
       },
+      regions: {
+        data: [],
+      },
     }
   },
   created() {
     this.list()
+    this.region()
   },
   watch: {
     search: debounce(function () {
@@ -522,6 +530,14 @@ export default {
     closeModal() {
       document.getElementById('close_modal').click()
       this.clearForm()
+    },
+    region() {
+      this.$axios
+        .get('/api/region')
+        .then((response) => {
+          this.regions = response.data.data.data
+        })
+        .catch((error) => console.log(error))
     },
   },
 }

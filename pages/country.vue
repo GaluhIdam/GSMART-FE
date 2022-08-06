@@ -302,23 +302,37 @@
                   errors.name[0]
                 }}</span>
               </div>
-              <div class="form-group mb-3">
-                <label class="form-label fw-bold">Region</label>
-                <select
-                  class="form-select"
-                  v-model="countrie.region"
-                  :class="{
-                    'is-invalid': errors.region,
-                  }"
-                >
-                  <option selected disabled>Select User</option>
-                  <option v-for="region in regions" v-bind:value="region.id">
-                    {{ region.name }}
-                  </option>
-                </select>
-                <span v-if="errors.region" class="error invalid-feedback">{{
-                  errors.region[0]
-                }}</span>
+              <div class="form-group row">
+                <div class="form-group mb-3">
+                  <label for="region id" class="form-label fw-bold"
+                    >Region</label
+                  >
+
+                  <multiselect
+                    v-model="countrie.area_id"
+                    id="ajax"
+                    :custom-label="regionsLabel"
+                    track-by="id"
+                    placeholder="pilih Region"
+                    open-direction="bottom"
+                    :options="p_region"
+                    :multiple="false"
+                    :searchable="true"
+                    :loading="isLoading"
+                    :internal-search="false"
+                    :clear-on-select="false"
+                    :close-on-select="true"
+                    :options-limit="300"
+                    :max-height="600"
+                    :show-no-results="false"
+                    @search-change="findRegion"
+                    @select="selectedRegion"
+                  ></multiselect>
+
+                  <span v-if="errors.area_id" class="error invalid-feedback">{{
+                    errors.area_id[0]
+                  }}</span>
+                </div>
               </div>
 
               <div class="row mt-10">
@@ -384,6 +398,9 @@ export default {
         region_id: null,
       },
       regions: {
+        data: [],
+      },
+      selectedRegion: {
         data: [],
       },
     }
@@ -538,6 +555,26 @@ export default {
           this.regions = response.data.data.data
         })
         .catch((error) => console.log(error))
+    },
+    findRegion(keyword) {
+      this.isLoading = true
+
+      this.$axios
+        .get('/api/region', {
+          params: {
+            search: keyword,
+          },
+        })
+        .then((response) => {
+          this.p_region = response.data
+          this.isLoading = false
+        })
+    },
+    regionsLabel({ area_id }) {
+      return `${area_id}`
+    },
+    selectedRegion({ area_id }) {
+      this.area_id = area_id
     },
   },
 }

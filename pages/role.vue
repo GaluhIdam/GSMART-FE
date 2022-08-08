@@ -343,7 +343,7 @@
                           <input
                             class="form-check-input"
                             type="checkbox"
-                            v-model="role.permissions_id"
+                            v-model="role.permission_id"
                             :value="item.id"
                             :id="item.id"
                           />
@@ -411,7 +411,7 @@ export default {
         id: null,
         name: null,
         description: null,
-        permissions_id: [],
+        permission_id: [],
       },
       modal_create: false,
       search: null,
@@ -514,7 +514,7 @@ export default {
       this.roles.data[role_index].permissions.map((item) => {
         id.push(item.id)
       })
-      this.role.permissions_id = id
+      this.role.permission_id = id
     },
     update() {
       this.loading()
@@ -522,7 +522,7 @@ export default {
         .put('/api/role-update/' + this.role.id, {
           name: this.role.name,
           description: this.role.description,
-          permission_id: this.role.permissions_id,
+          permission_id: this.role.permission_id,
         })
         .then((response) => {
           toastr.success(response.data.message)
@@ -574,6 +574,7 @@ export default {
       this.role.description = null
       this.errors.name = null
       this.errors.description = null
+      this.role.permission_id = []
     },
     closeModal() {
       document.getElementById('close_modal').click()

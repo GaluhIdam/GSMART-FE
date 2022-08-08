@@ -565,7 +565,6 @@ export default {
     },
     update() {
       this.loading()
-
       this.$axios
         .put('/api/role-update/' + this.role.id, {
           name: this.role.name,

@@ -57,7 +57,7 @@ export default {
   layout: 'template',
   name: 'IndexPage',
   created() {
-    this.loading
+    this.loading()
   },
   methods: {
     loading() {

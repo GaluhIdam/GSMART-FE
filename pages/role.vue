@@ -56,7 +56,7 @@
     <div class="container mb-10">
       <div class="card shadow-sm mt-5">
         <div class="card-header">
-          <h3 class="card-title fw-bold">List of Role</h3>
+          <h3 class="card-title fw-bold">List of Roles</h3>
           <div class="card-toolbar">
             <button
               type="button"
@@ -146,7 +146,7 @@
                         class="btn btn-sm btn-light"
                         data-bs-toggle="modal"
                         data-bs-target="#modal"
-                        @click="edit(role)"
+                        @click="edit(role, role_index)"
                       >
                         <i class="bi bi-pencil-square text-primary"></i>
                       </button>
@@ -313,104 +313,50 @@
                   >{{ errors.description[0] }}</span
                 >
               </div>
-              <div class="form-group px-5">
-                <table class="table">
-                  <thead>
-                    <tr>
-                      <th scope="col">No.</th>
-                      <th scope="col">Module</th>
-                      <th scope="col">Permission</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr
-                      v-for="(permission, permission_index) in permissions.data"
-                      :key="permission_index"
-                    >
-                      <td scope="row">
-                        {{ permissions.from + permission_index }}
-                      </td>
-                      <td>{{ permission.name }}</td>
-                      <td>Otto</td>
-                    </tr>
-                  </tbody>
-                </table>
-                <div class="row">
-                  <div
-                    class="col d-flex justify-content-start align-items-center"
+              <hr />
+              <table class="table">
+                <thead>
+                  <tr class="text-center fw-bold">
+                    <th scope="col">No.</th>
+                    <th scope="col">Module</th>
+                    <th scope="col">Permission</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    v-for="(permission, permission_index) in permissions.data"
+                    :key="permission_index"
                   >
-                    <nav aria-label="Page navigation example">
-                      <ul class="pagination">
-                        <li class="page-item align-self-center">
-                          Rows per page:
-                        </li>
-                        <li class="page-item">
-                          <select
-                            class="form-control form-control-sm"
-                            v-model="paginate_permissions"
-                            @change="listPermission()"
-                          >
-                            <option value="10">10</option>
-                            <option value="25">25</option>
-                            <option value="50">50</option>
-                            <option value="100">100</option>
-                          </select>
-                        </li>
-                      </ul>
-                    </nav>
-                  </div>
-                  <div
-                    class="col d-flex justify-content-end align-items-center"
-                  >
-                    <nav aria-label="Page navigation example">
-                      <ul class="pagination">
-                        <li class="page-item">
-                          <button
-                            type="button"
-                            class="page-link"
-                            :class="{
-                              disabled: !permissions.prev_page_url,
-                            }"
-                            @click="
-                              permissions.prev_page_url &&
-                                listPermission(permissions.prev_page_url)
-                            "
-                          >
-                            Previous
-                          </button>
-                        </li>
-                        <li
-                          class="page-item"
-                          style="margin-left: 15px; margin-right: 15px"
+                    <td class="text-center">
+                      {{ permissions.from + permission_index }}.
+                    </td>
+                    <td class="text-left" style="width: 280px">
+                      {{ permission.module_name }}
+                    </td>
+                    <td>
+                      <div class="row">
+                        <div
+                          v-for="(item, item_index) in permission.module"
+                          :key="item_index"
+                          class="col-sm-6 form-check mb-2"
                         >
                           <input
-                            type="text"
-                            class="form-control form-control-sm text-center"
-                            v-model="current_page_permissions"
-                            @keypress="directPagePermission"
-                            style="width: 60px"
+                            class="form-check-input"
+                            type="checkbox"
+                            v-model="role.permissions_id"
+                            :value="item.id"
+                            :id="item.id"
                           />
-                        </li>
-                        <li class="page-item">
-                          <button
-                            type="button"
-                            class="page-link"
-                            :class="{
-                              disabled: !permissions.next_page_url,
-                            }"
-                            @click="
-                              permissions.next_page_url &&
-                                listPermission(permissions.next_page_url)
-                            "
-                          >
-                            Next
-                          </button>
-                        </li>
-                      </ul>
-                    </nav>
-                  </div>
-                </div>
-              </div>
+                          <label class="form-check-label fs-7" :for="item.id">
+                            {{ item.name }}
+                          </label>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <hr />
               <div class="row mt-10">
                 <div class="col">
                   <button
@@ -465,7 +411,7 @@ export default {
         id: null,
         name: null,
         description: null,
-        permission: null,
+        permissions_id: [],
       },
       modal_create: false,
       search: null,
@@ -473,9 +419,9 @@ export default {
       order: 'id',
       order_permissions: 'id',
       by: 'desc',
-      by_permissions: 'desc',
+      by_permissions: 'asc',
       paginate: '10',
-      paginate_permissions: '10',
+      paginate_permissions: '1000',
       current_page: null,
       current_page_permissions: null,
       errors: {
@@ -543,6 +489,7 @@ export default {
         .post('/api/role-create', {
           name: this.role.name,
           description: this.role.description,
+          permission_id: this.role.permission_id,
         })
         .then((response) => {
           toastr.success(response.data.message)
@@ -552,24 +499,30 @@ export default {
         .catch((error) => {
           if (error.response.status == 422) {
             this.errors = error.response.data.errors
-
             toastr.error(error.response.data.message)
           }
         })
     },
-    edit(role) {
+    edit(role, role_index) {
       this.modal_create = false
       this.role.id = role.id
       this.role.name = role.name
       this.role.description = role.description
+
+      this.role_index = role_index
+      const id = []
+      this.roles.data[role_index].permissions.map((item) => {
+        id.push(item.id)
+      })
+      this.role.permissions_id = id
     },
     update() {
       this.loading()
-
       this.$axios
         .put('/api/role-update/' + this.role.id, {
           name: this.role.name,
           description: this.role.description,
+          permission_id: this.role.permissions_id,
         })
         .then((response) => {
           toastr.success(response.data.message)
@@ -628,7 +581,7 @@ export default {
     },
     listPermission(paginate_permissions) {
       this.loading()
-      paginate_permissions = paginate_permissions || `/api/permission`
+      paginate_permissions = paginate_permissions || `/api/module-permission`
       this.$axios
         .get(paginate_permissions, {
           params: {
@@ -641,7 +594,6 @@ export default {
         .then((response) => {
           this.permissions = response.data.data
           this.current_page_permissions = this.permissions.current_page
-          console.log(this.permissions)
           Swal.close()
         })
         .catch((error) => console.log(error))

@@ -19,18 +19,8 @@
       >
         <!--begin::Logo image-->
         <a href="#">
-          <!-- <img
-            alt="Logo"
-            src="~/assets/media/logos/default-dark.svg"
-            class="h-25px app-sidebar-logo-default"
-          />
-          <img
-            alt="Logo"
-            src="~/assets/media/logos/default-small.svg"
-            class="h-20px app-sidebar-logo-minimize"
-          /> -->
           <h1 class="h-20px app-sidebar-logo-default text-white">G-SMART</h1>
-          <h1 class="h-10px app-sidebar-logo-minimize text-white">G</h1>
+          <h1 class="h-10px app-sidebar-logo-minimize text-white">G-</h1>
         </a>
         <!--end::Logo image-->
         <!--begin::Sidebar toggle-->

@@ -385,16 +385,16 @@ export default {
         userMutation() {
             this.isLoading = true;
 
-            axios.get("/api/users").then((response) => {
+            this.$axios.get("/api/users").then((response) => {
                 this.users = response.data;
                 this.isLoading = false;
             });
         },
-        userMutation(keyword) {
+        user(keyword) {
             this.isLoading = true;
 
-            axios
-                .get("/api/aircraft/data", {
+            this.$axios
+                .get("/api/users", {
                     params: {
                         search: keyword,
                     },

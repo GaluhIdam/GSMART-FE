@@ -19,18 +19,8 @@
       >
         <!--begin::Logo image-->
         <a href="#">
-          <!-- <img
-            alt="Logo"
-            src="~/assets/media/logos/default-dark.svg"
-            class="h-25px app-sidebar-logo-default"
-          />
-          <img
-            alt="Logo"
-            src="~/assets/media/logos/default-small.svg"
-            class="h-20px app-sidebar-logo-minimize"
-          /> -->
           <h1 class="h-20px app-sidebar-logo-default text-white">G-SMART</h1>
-          <h1 class="h-10px app-sidebar-logo-minimize text-white">G</h1>
+          <h1 class="h-10px app-sidebar-logo-minimize text-white">G-</h1>
         </a>
         <!--end::Logo image-->
         <!--begin::Sidebar toggle-->
@@ -106,7 +96,10 @@
             <div class="menu-item">
               <NuxtLink class="menu-link" to="/" exact-active-class="active">
                 <span class="menu-icon">
-                  <i class="bi bi-layers-fill"></i>
+                  <img
+                    class="h-20px w-20px"
+                    src="~/assets/media/icons/duotune/abstract/abs027.svg"
+                  />
                 </span>
                 <span class="menu-title">Dashboard</span>
               </NuxtLink>
@@ -118,7 +111,10 @@
             >
               <span class="menu-link">
                 <span class="menu-icon">
-                  <i class="bi bi-grid-fill"></i>
+                  <img
+                    class="h-20px w-20px"
+                    src="~/assets/media/icons/duotune/general/gen025.svg"
+                  />
                 </span>
                 <span class="menu-title">Sales Plan</span>
                 <span class="menu-arrow"></span>
@@ -151,10 +147,10 @@
             <div class="menu-item">
               <NuxtLink class="menu-link" to="/customer" active-class="active">
                 <span class="menu-icon">
-                  <i
-                    class="bi bi-grid-fill"
-                    style="transform: rotate(45deg)"
-                  ></i>
+                  <img
+                    class="h-20px w-20px"
+                    src="~/assets/media/icons/duotune/general/gen022.svg"
+                  />
                 </span>
                 <span class="menu-title">Customers</span>
               </NuxtLink>
@@ -162,10 +158,10 @@
             <div class="menu-item">
               <NuxtLink class="menu-link" to="/ams" active-class="active">
                 <span class="menu-icon">
-                  <i
-                    class="bi bi-grid-fill"
-                    style="transform: rotate(45deg)"
-                  ></i>
+                  <img
+                    class="h-20px w-20px"
+                    src="~/assets/media/icons/duotune/general/gen022.svg"
+                  />
                 </span>
                 <span class="menu-title">AMS</span>
               </NuxtLink>
@@ -173,10 +169,10 @@
             <div class="menu-item">
               <NuxtLink class="menu-link" to="/country" active-class="active">
                 <span class="menu-icon">
-                  <i
-                    class="bi bi-grid-fill"
-                    style="transform: rotate(45deg)"
-                  ></i>
+                  <img
+                    class="h-20px w-20px"
+                    src="~/assets/media/icons/duotune/general/gen022.svg"
+                  />
                 </span>
                 <span class="menu-title">Country</span>
               </NuxtLink>
@@ -184,10 +180,10 @@
             <div class="menu-item">
               <NuxtLink class="menu-link" to="/Region" active-class="active">
                 <span class="menu-icon">
-                  <i
-                    class="bi bi-grid-fill"
-                    style="transform: rotate(45deg)"
-                  ></i>
+                  <img
+                    class="h-20px w-20px"
+                    src="~/assets/media/icons/duotune/general/gen022.svg"
+                  />
                 </span>
                 <span class="menu-title">Region</span>
               </NuxtLink>
@@ -195,10 +191,10 @@
             <div class="menu-item">
               <NuxtLink class="menu-link" to="/area" active-class="active">
                 <span class="menu-icon">
-                  <i
-                    class="bi bi-grid-fill"
-                    style="transform: rotate(45deg)"
-                  ></i>
+                  <img
+                    class="h-20px w-20px"
+                    src="~/assets/media/icons/duotune/general/gen022.svg"
+                  />
                 </span>
                 <span class="menu-title">Area</span>
               </NuxtLink>
@@ -206,10 +202,10 @@
             <div class="menu-item">
               <NuxtLink class="menu-link" to="/user" active-class="active">
                 <span class="menu-icon">
-                  <i
-                    class="bi bi-grid-fill"
-                    style="transform: rotate(45deg)"
-                  ></i>
+                  <img
+                    class="h-20px w-20px"
+                    src="~/assets/media/icons/duotune/general/gen022.svg"
+                  />
                 </span>
                 <span class="menu-title">User</span>
               </NuxtLink>
@@ -217,10 +213,10 @@
             <div class="menu-item">
               <NuxtLink class="menu-link" to="/role" active-class="active">
                 <span class="menu-icon">
-                  <i
-                    class="bi bi-grid-fill"
-                    style="transform: rotate(45deg)"
-                  ></i>
+                  <img
+                    class="h-20px w-20px"
+                    src="~/assets/media/icons/duotune/general/gen022.svg"
+                  />
                 </span>
                 <span class="menu-title">Role</span>
               </NuxtLink>
@@ -232,10 +228,10 @@
                 active-class="active"
               >
                 <span class="menu-icon">
-                  <i
-                    class="bi bi-grid-fill"
-                    style="transform: rotate(45deg)"
-                  ></i>
+                  <img
+                    class="h-20px w-20px"
+                    src="~/assets/media/icons/duotune/general/gen022.svg"
+                  />
                 </span>
                 <span class="menu-title">Permission</span>
               </NuxtLink>
@@ -247,10 +243,10 @@
                 active-class="active"
               >
                 <span class="menu-icon">
-                  <i
-                    class="bi bi-grid-fill"
-                    style="transform: rotate(45deg)"
-                  ></i>
+                  <img
+                    class="h-20px w-20px"
+                    src="~/assets/media/icons/duotune/general/gen022.svg"
+                  />
                 </span>
                 <span class="menu-title">Transaction Type</span>
               </NuxtLink>
@@ -262,10 +258,10 @@
                 active-class="active"
               >
                 <span class="menu-icon">
-                  <i
-                    class="bi bi-grid-fill"
-                    style="transform: rotate(45deg)"
-                  ></i>
+                  <img
+                    class="h-20px w-20px"
+                    src="~/assets/media/icons/duotune/general/gen022.svg"
+                  />
                 </span>
                 <span class="menu-title">Prospect Type</span>
               </NuxtLink>
@@ -277,10 +273,10 @@
                 active-class="active"
               >
                 <span class="menu-icon">
-                  <i
-                    class="bi bi-grid-fill"
-                    style="transform: rotate(45deg)"
-                  ></i>
+                  <img
+                    class="h-20px w-20px"
+                    src="~/assets/media/icons/duotune/general/gen022.svg"
+                  />
                 </span>
                 <span class="menu-title">Strategic initiative</span>
               </Nuxt-link>
@@ -288,10 +284,10 @@
             <div class="menu-item">
               <Nuxt-link class="menu-link" to="/product" active-class="active">
                 <span class="menu-icon">
-                  <i
-                    class="bi bi-grid-fill"
-                    style="transform: rotate(45deg)"
-                  ></i>
+                  <img
+                    class="h-20px w-20px"
+                    src="~/assets/media/icons/duotune/general/gen022.svg"
+                  />
                 </span>
                 <span class="menu-title">Product</span>
               </Nuxt-link>
@@ -303,10 +299,10 @@
                 active-class="active"
               >
                 <span class="menu-icon">
-                  <i
-                    class="bi bi-grid-fill"
-                    style="transform: rotate(45deg)"
-                  ></i>
+                  <img
+                    class="h-20px w-20px"
+                    src="~/assets/media/icons/duotune/general/gen022.svg"
+                  />
                 </span>
                 <span class="menu-title">Aircraft Type</span>
               </Nuxt-link>
@@ -318,10 +314,10 @@
                 active-class="active"
               >
                 <span class="menu-icon">
-                  <i
-                    class="bi bi-grid-fill"
-                    style="transform: rotate(45deg)"
-                  ></i>
+                  <img
+                    class="h-20px w-20px"
+                    src="~/assets/media/icons/duotune/general/gen022.svg"
+                  />
                 </span>
                 <span class="menu-title">Component</span>
               </Nuxt-link>
@@ -329,10 +325,10 @@
             <div class="menu-item">
               <Nuxt-link class="menu-link" to="/engine" active-class="active">
                 <span class="menu-icon">
-                  <i
-                    class="bi bi-grid-fill"
-                    style="transform: rotate(45deg)"
-                  ></i>
+                  <img
+                    class="h-20px w-20px"
+                    src="~/assets/media/icons/duotune/general/gen022.svg"
+                  />
                 </span>
                 <span class="menu-title">Engine</span>
               </Nuxt-link>
@@ -340,10 +336,10 @@
             <div class="menu-item">
               <Nuxt-link class="menu-link" to="/apu" active-class="active">
                 <span class="menu-icon">
-                  <i
-                    class="bi bi-grid-fill"
-                    style="transform: rotate(45deg)"
-                  ></i>
+                  <img
+                    class="h-20px w-20px"
+                    src="~/assets/media/icons/duotune/general/gen022.svg"
+                  />
                 </span>
                 <span class="menu-title">APU</span>
               </Nuxt-link>
@@ -355,10 +351,10 @@
                 active-class="active"
               >
                 <span class="menu-icon">
-                  <i
-                    class="bi bi-grid-fill"
-                    style="transform: rotate(45deg)"
-                  ></i>
+                  <img
+                    class="h-20px w-20px"
+                    src="~/assets/media/icons/duotune/general/gen022.svg"
+                  />
                 </span>
                 <span class="menu-title">Maintenance</span>
               </Nuxt-link>

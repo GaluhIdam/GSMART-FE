@@ -309,24 +309,10 @@
                   >
 
                   <multiselect
-                    v-model="countrie.area_id"
-                    id="ajax"
-                    :custom-label="regionsLabel"
-                    track-by="id"
-                    placeholder="pilih Region"
-                    open-direction="bottom"
-                    :options="p_region"
-                    :multiple="false"
-                    :searchable="true"
-                    :loading="isLoading"
-                    :internal-search="false"
-                    :clear-on-select="false"
-                    :close-on-select="true"
-                    :options-limit="300"
-                    :max-height="600"
-                    :show-no-results="false"
-                    @search-change="findRegion"
-                    @select="selectedRegion"
+                    v-model="countrie.region_id"
+                    :options="regions"
+                    placeholder="Select one"
+                    label="name"
                   ></multiselect>
 
                   <span v-if="errors.area_id" class="error invalid-feedback">{{
@@ -385,7 +371,7 @@ export default {
       countrie: {
         id: null,
         name: null,
-        region_id: null,
+        region_id: [],
       },
       modal_create: false,
       search: null,
@@ -397,17 +383,12 @@ export default {
         name: null,
         region_id: null,
       },
-      regions: {
-        data: [],
-      },
-      selectedRegion: {
-        data: [],
-      },
+      regions: [],
     }
   },
   created() {
     this.list()
-    this.region()
+    this.listRegion()
   },
   watch: {
     search: debounce(function () {
@@ -548,33 +529,22 @@ export default {
       document.getElementById('close_modal').click()
       this.clearForm()
     },
-    region() {
+    listRegion() {
       this.$axios
-        .get('/api/region')
+        .get('api/region')
         .then((response) => {
           this.regions = response.data.data.data
+          const value = []
+          const label = []
+          this.regions.map((item) => {
+            value.push(item.area_id)
+            label.push(item.name)
+          })
+          this.regions = value
+          this.name = label
+          console.log(this.regions)
         })
         .catch((error) => console.log(error))
-    },
-    findRegion(keyword) {
-      this.isLoading = true
-
-      this.$axios
-        .get('/api/region', {
-          params: {
-            search: keyword,
-          },
-        })
-        .then((response) => {
-          this.p_region = response.data
-          this.isLoading = false
-        })
-    },
-    regionsLabel({ area_id }) {
-      return `${area_id}`
-    },
-    selectedRegion({ area_id }) {
-      this.area_id = area_id
     },
   },
 }

@@ -302,23 +302,23 @@
                   errors.name[0]
                 }}</span>
               </div>
-              <div class="form-group mb-3">
-                <label class="form-label fw-bold">Region</label>
-                <select
-                  class="form-select"
-                  v-model="countrie.region"
-                  :class="{
-                    'is-invalid': errors.region,
-                  }"
-                >
-                  <option selected disabled>Select User</option>
-                  <option v-for="region in regions" v-bind:value="region.id">
-                    {{ region.name }}
-                  </option>
-                </select>
-                <span v-if="errors.region" class="error invalid-feedback">{{
-                  errors.region[0]
-                }}</span>
+              <div class="form-group row">
+                <div class="form-group mb-3">
+                  <label for="region id" class="form-label fw-bold"
+                    >Region</label
+                  >
+
+                  <multiselect
+                    v-model="countrie.region_id"
+                    :options="regions"
+                    placeholder="Select one"
+                    label="name"
+                  ></multiselect>
+
+                  <span v-if="errors.area_id" class="error invalid-feedback">{{
+                    errors.area_id[0]
+                  }}</span>
+                </div>
               </div>
 
               <div class="row mt-10">
@@ -371,7 +371,7 @@ export default {
       countrie: {
         id: null,
         name: null,
-        region_id: null,
+        region_id: [],
       },
       modal_create: false,
       search: null,
@@ -383,14 +383,12 @@ export default {
         name: null,
         region_id: null,
       },
-      regions: {
-        data: [],
-      },
+      regions: [],
     }
   },
   created() {
     this.list()
-    this.region()
+    this.listRegion()
   },
   watch: {
     search: debounce(function () {
@@ -531,11 +529,20 @@ export default {
       document.getElementById('close_modal').click()
       this.clearForm()
     },
-    region() {
+    listRegion() {
       this.$axios
-        .get('/api/region')
+        .get('api/region')
         .then((response) => {
           this.regions = response.data.data.data
+          const value = []
+          const label = []
+          this.regions.map((item) => {
+            value.push(item.area_id)
+            label.push(item.name)
+          })
+          this.regions = value
+          this.name = label
+          console.log(this.regions)
         })
         .catch((error) => console.log(error))
     },

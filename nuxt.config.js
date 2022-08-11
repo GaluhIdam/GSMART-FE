@@ -81,7 +81,6 @@ export default {
         _: 'lodash',
       }),
     ],
-    vendor: ['vue-apexchart'],
   },
   auth: {
     redirect: {

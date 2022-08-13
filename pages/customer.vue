@@ -7,10 +7,27 @@
         class="app-container container-fluid d-flex flex-stack"
       >
         <!--begin::Page title-->
-        <div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
+        <div
+          class="
+            page-title
+            d-flex
+            flex-column
+            justify-content-center
+            flex-wrap
+            me-3
+          "
+        >
           <!--begin::Title-->
           <p
-            class="page-heading d-flex text-dark fs-6 flex-column justify-content-center my-0"
+            class="
+              page-heading
+              d-flex
+              text-dark
+              fs-6
+              flex-column
+              justify-content-center
+              my-0
+            "
           >
             Customers
           </p>
@@ -23,7 +40,7 @@
     <div class="container mt-20 mb-20">
       <div class="card shadow-sm">
         <div class="card-header">
-          <h3 class="card-title">List of Customers</h3>
+          <h3 class="card-title fw-bold">List of Customers</h3>
           <div class="card-toolbar">
             <button
               type="button"
@@ -42,7 +59,13 @@
             <div class="position-relative me-md-2">
               <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
               <span
-                class="svg-icon svg-icon-3 svg-icon-gray-500 position-absolute top-50 translate-middle ms-6"
+                class="
+                  svg-icon svg-icon-3 svg-icon-gray-500
+                  position-absolute
+                  top-50
+                  translate-middle
+                  ms-6
+                "
               >
                 <svg
                   width="24"
@@ -93,21 +116,123 @@
                 </thead>
                 <tbody>
                   <tr
-                    v-for="(customer, customer_index) in customers"
-                    :key="customer_index"
+                    v-for="(item, item_index) in customers.data"
+                    :key="item_index"
                   >
-                    <td>{{ customers.from + customer_index }}</td>
-                    <td>{{ customer.code }}</td>
-                    <td>{{ customer.name }}</td>
-                    <td>{{ customer.country_id }}</td>
-                    <!-- <td>{{ customer.country.regions.name }}</td> -->
+                    <td class="text-center">
+                      {{ customers.from + item_index }}.
+                    </td>
+                    <td class="text-center">
+                      {{ item.code }}
+                    </td>
+                    <td class="text-center">
+                      {{ item.name }}
+                    </td>
+                    <td class="text-center">
+                      {{ item.country.name }}
+                    </td>
+                    <td class="text-center">
+                      {{ item.country.regions.name }}
+                    </td>
+                    <td class="d-flex justify-content-center">
+                      <button class="btn btn-sm btn-light">
+                        <i class="bi bi-toggles text-primary"></i>
+                      </button>
+                      <button
+                        class="btn btn-sm btn-light"
+                        data-bs-toggle="modal"
+                        data-bs-target="#modal"
+                        @click="edit(item)"
+                      >
+                        <i class="bi bi-pencil-square text-primary"></i>
+                      </button>
+                      <button
+                        class="btn btn-sm btn-light"
+                        @click="hapus(item.id)"
+                      >
+                        <i class="bi bi-trash-fill text-primary"></i>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr v-if="customers.data.length < 1">
+                    <td colspan="8">
+                      <div class="text-muted text-center">Data not found</div>
+                    </td>
                   </tr>
                 </tbody>
               </table>
             </div>
           </div>
         </div>
-        <div class="card-footer">Footer</div>
+        <div class="card-footer">
+          <div class="row">
+            <div class="col d-flex justify-content-start align-items-center">
+              <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                  <li class="page-item align-self-center">Rows per page:</li>
+                  <li class="page-item">
+                    <select
+                      class="form-control form-control-sm"
+                      v-model="paginate"
+                      @change="listCustomer()"
+                    >
+                      <option value="10">10</option>
+                      <option value="25">25</option>
+                      <option value="50">50</option>
+                      <option value="100">100</option>
+                    </select>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+            <div class="col d-flex justify-content-end align-items-center">
+              <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                  <li class="page-item">
+                    <button
+                      type="button"
+                      class="page-link"
+                      :class="{
+                        disabled: !customers.prev_page_url,
+                      }"
+                      @click="
+                        customers.prev_page_url && list(customers.prev_page_url)
+                      "
+                    >
+                      Previous
+                    </button>
+                  </li>
+                  <li
+                    class="page-item"
+                    style="margin-left: 15px; margin-right: 15px"
+                  >
+                    <input
+                      type="text"
+                      class="form-control form-control-sm text-center"
+                      v-model="current_page"
+                      @keypress="directPage"
+                      style="width: 60px"
+                    />
+                  </li>
+                  <li class="page-item">
+                    <button
+                      type="button"
+                      class="page-link"
+                      :class="{
+                        disabled: !customers.next_page_url,
+                      }"
+                      @click="
+                        customers.next_page_url && list(customers.next_page_url)
+                      "
+                    >
+                      Next
+                    </button>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <div class="modal fade" tabindex="-1" id="modal" data-bs-backdrop="static">
@@ -176,14 +301,17 @@
                     <multiselect
                       v-model="region_value"
                       :options="region"
+                      open-direction="bottom"
                       placeholder=""
                       label="name"
                       :searchable="true"
                       :class="{ 'is-invalid': errors.region_id }"
                     ></multiselect>
-                    <span v-if="errors.region_id" class="error invalid-feedback">{{
-                      errors.region_id[0]
-                    }}</span>
+                    <span
+                      v-if="errors.region_id"
+                      class="error invalid-feedback"
+                      >{{ errors.region_id[0] }}</span
+                    >
                   </div>
                 </div>
                 <div class="col-6">
@@ -204,15 +332,18 @@
                     <multiselect
                       v-model="country_value"
                       :options="country"
+                      open-direction="bottom"
                       :disabled="isDisabled"
                       :searchable="true"
                       placeholder=""
                       label="name"
                       :class="{ 'is-invalid': errors.country_id }"
                     ></multiselect>
-                    <span v-if="errors.country_id" class="error invalid-feedback">{{
-                      errors.country_id[0]
-                    }}</span>
+                    <span
+                      v-if="errors.country_id"
+                      class="error invalid-feedback"
+                      >{{ errors.country_id[0] }}</span
+                    >
                   </div>
                 </div>
               </div>
@@ -222,7 +353,11 @@
                 <h3 class="mb-5 mt-5">Area & AMS</h3>
                 <!--begin::Form group-->
                 <div class="form-group mt-5">
-                  <a type="button" @click="addAreaAms()" class="btn btn-primary btn-sm">
+                  <a
+                    type="button"
+                    @click="addAreaAms()"
+                    class="btn btn-primary btn-sm"
+                  >
                     Add
                   </a>
                 </div>
@@ -236,7 +371,13 @@
                     >
                       <div class="form-group row mb-5">
                         <div
-                          class="col px-1 d-flex justify-content-center align-items-end"
+                          class="
+                            col
+                            px-1
+                            d-flex
+                            justify-content-center
+                            align-items-end
+                          "
                         >
                           <h3 class="mb-4">{{ index + 1 }}.</h3>
                         </div>
@@ -300,33 +441,43 @@
 </template>
 
 <script>
-import debounce from "lodash/debounce";
+import debounce from 'lodash/debounce'
 export default {
-  name: "CustomerPage",
-  layout: "template",
+  name: 'CustomerPage',
+  layout: 'template',
   data() {
     return {
       area_ams: [],
-      country_value: [],
-      region_value: [],
+      country_value: null,
+      region_value: null,
       region: [],
       country: [],
       ams: [],
       area: [],
       modal_create: false,
       customer: {
+        id: null,
         name: null,
         code: null,
       },
-
+      item: {
+        name: null,
+        code: null,
+        country: {
+          name: null,
+          region: {
+            name: null,
+          },
+        },
+      },
       customers: {
         data: [],
         link: [],
       },
       search: null,
-      order: "id",
-      by: "desc",
-      paginate: "10",
+      order: 'id',
+      by: 'desc',
+      paginate: '10',
       current_page: null,
 
       search_country: null,
@@ -337,60 +488,28 @@ export default {
         country_id: null,
         region_id: null,
       },
-    };
+    }
+  },
+  created() {
+    this.listCustomer()
   },
   mounted() {
-    KTFormRepeaterBasic.init();
-    this.listCustomer();
+    KTFormRepeaterBasic.init()
   },
   watch: {
     search: debounce(function () {
-      this.list();
+      this.listCustomer()
     }, 500),
     region_value: debounce(function () {
-      this.listCountry();
-      this.clear();
+      this.clear()
+      this.listCountry()
     }, 100),
   },
   methods: {
     listCustomer() {
+      this.loading()
       this.$axios
-        .get("api/customer", {
-          params: {
-            paginate: 10,
-          },
-        })
-        .then((response) => {
-          this.customers = response.data.data;
-          Swal.close();
-        })
-        .catch((error) => console.log(error));
-    },
-    directPage: debounce(function () {
-      if (this.current_page < 1) {
-        this.current_page = 1;
-      } else if (this.current_page > this.customers.last_page) {
-        this.current_page = this.customers.last_page;
-      }
-      let url = new URL(this.customers.first_page_url);
-      let search_params = url.searchParams;
-      search_params.set("page", this.current_page);
-      url.search = search_params.toString();
-      let new_url = url.toString();
-      this.list(new_url);
-    }, 500),
-    addAreaAms() {
-      this.area_ams.push({
-        area: null,
-        ams: null,
-      });
-    },
-    remove(index) {
-      this.area_ams.splice(index, 1);
-    },
-    listRegion() {
-      this.$axios
-        .get("api/region", {
+        .get('api/customer', {
           params: {
             search: this.search,
             order: this.order,
@@ -399,9 +518,48 @@ export default {
           },
         })
         .then((response) => {
-          this.region = response.data.data.data;
+          this.customers = response.data.data
+          this.current_page = this.customers.current_page
+          Swal.close()
         })
-        .catch((error) => console.log(error));
+        .catch((error) => console.log(error))
+    },
+    directPage: debounce(function () {
+      if (this.current_page < 1) {
+        this.current_page = 1
+      } else if (this.current_page > this.customers.last_page) {
+        this.current_page = this.customers.last_page
+      }
+      let url = new URL(this.customers.first_page_url)
+      let search_params = url.searchParams
+      search_params.set('page', this.current_page)
+      url.search = search_params.toString()
+      let new_url = url.toString()
+      this.list(new_url)
+    }, 500),
+    addAreaAms() {
+      this.area_ams.push({
+        area: null,
+        ams: null,
+      })
+    },
+    remove(index) {
+      this.area_ams.splice(index, 1)
+    },
+    listRegion() {
+      this.$axios
+        .get('api/region', {
+          params: {
+            search: this.search,
+            order: this.order,
+            by: this.by,
+            paginate: this.paginate,
+          },
+        })
+        .then((response) => {
+          this.region = response.data.data.data
+        })
+        .catch((error) => console.log(error))
     },
     listCountry() {
       if (this.region_value) {
@@ -413,39 +571,39 @@ export default {
             },
           })
           .then((response) => {
-            this.country = response.data.data.data;
+            this.country = response.data.data.data
           })
-          .catch((error) => console.log(error));
+          .catch((error) => console.log(error))
       }
     },
     listArea() {
       this.$axios
-        .get("api/area", {
+        .get('api/area', {
           params: {
             paginate: 1000,
           },
         })
         .then((response) => {
-          this.area = response.data.data.data;
+          this.area = response.data.data.data
         })
-        .catch((error) => console.log(error));
+        .catch((error) => console.log(error))
     },
     listAMS() {
       this.$axios
-        .get("api/ams", {
+        .get('api/ams', {
           params: {
             paginate: 1000,
           },
         })
         .then((response) => {
-          this.ams = response.data.data.data;
+          this.ams = response.data.data.data
         })
-        .catch((error) => console.log(error));
+        .catch((error) => console.log(error))
     },
     create() {
-      this.loading();
+      this.loading()
       this.$axios
-        .post("api/customer-create", {
+        .post('api/customer-create', {
           name: this.customer.name,
           code: this.customer.code,
           country_id: this.country_value.id,
@@ -453,75 +611,135 @@ export default {
           area_ams: this.area_ams,
         })
         .then((response) => {
-          toastr.success(response.data.message);
-          this.list();
-          this.closeModal();
+          toastr.success(response.data.message)
+          this.listCustomer()
+          this.closeModal()
         })
         .catch((error) => {
           if (error.response.status == 422) {
-            this.errors = error.response.data.errors;
-
-            toastr.error(error.response.data.message);
+            this.errors = error.response.data.errors
+            toastr.error(error.response.data.message)
           }
-        });
+        })
+      this.clearForm()
+    },
+    update() {
+      this.loading()
+      this.$axios
+        .put('/api/customer-update/' + this.customer.id, {
+          name: this.customer.name,
+          code: this.customer.code,
+          country_id: this.country_value.id,
+          region_id: this.region_value.id,
+          area_ams: this.area_ams,
+        })
+        .then((response) => {
+          toastr.success(response.data.message)
+          this.listCustomer()
+          this.closeModal()
+        })
+        .catch((error) => {
+          if (error.response.status == 422) {
+            this.errors = error.response.data.errors
+            toastr.error(error.response.data.message)
+          }
+        })
+    },
+    edit(item) {
+      this.listRegion()
+      this.listAMS()
+      this.listArea()
+      this.customer.id = item.id
+      this.modal_create = false
+      this.customer.name = item.name
+      this.customer.code = item.code
+      this.country_value = item.country
+      this.region_value = item.country.regions
+      this.area_ams = item.amscustomer
+      this.isDisabled = false
+    },
+    hapus(id) {
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!',
+      })
+        .then((result) => {
+          if (result.isConfirmed) {
+            this.$axios
+              .delete('/api/customer-delete/' + id)
+              .then((response) => {
+                toastr.success(response.data.message)
+                this.listCustomer()
+              })
+          }
+        })
+        .catch((error) => {
+          console.log(error)
+        })
     },
     submit() {
       if (this.modal_create) {
-        this.create();
+        this.create()
       } else {
-        this.update();
+        this.update()
       }
     },
     add() {
-      this.modal_create = true;
-      this.listRegion();
-      this.listAMS();
-      this.listArea();
+      this.modal_create = true
+      this.listRegion()
+      this.listAMS()
+      this.listArea()
     },
     loading() {
       Swal.fire({
         timer: 500,
         didOpen: () => {
-          Swal.showLoading();
+          Swal.showLoading()
         },
-        background: "transparent",
+        background: 'transparent',
         allowOutsideClick: false,
-      });
+      })
     },
     closeModal() {
-      document.getElementById("close_modal").click();
-      this.clearForm();
+      document.getElementById('close_modal').click()
+      this.clearForm()
     },
     clear() {
-      this.country = [];
-      this.country_value = [];
-      if (this.region_value == null) {
-        this.isDisabled = true;
-        this.country = [];
-        this.country_value = [];
+      this.country = []
+      if (this.region_value == null || this.region_value == '') {
+        this.isDisabled = true
+        this.country = []
+        this.country_value = []
       } else {
-        this.isDisabled = false;
+        this.isDisabled = false
       }
     },
     clearForm() {
-      this.region = [];
-      this.region_value = [];
-      this.country = [];
-      this.country_value = [];
-      this.ams = [];
-      this.ams_value = [];
-      this.area = [];
-      this.area_value = [];
-      if (this.region_value == null) {
-        this.isDisabled = true;
+      this.region = []
+      this.region_value = null
+      this.country = []
+      this.country_value = null
+      this.area_ams = [{}]
+      this.area_value = null
+      if (this.region_value == null || this.region_value == '') {
+        this.isDisabled = true
       } else {
-        this.isDisabled = false;
+        this.isDisabled = false
       }
-      this.customer.name = null;
-      this.customer.code = null;
+      this.customer.name = null
+      this.customer.code = null
+      this.errors.name = null
+      this.errors.code = null
+      this.errors.country_id = null
+      this.errors.region_id = null
     },
   },
-};
+}
 </script>
 <style>
 .mt-20 {

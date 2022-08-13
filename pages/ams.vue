@@ -134,9 +134,9 @@
                     v-for="(p_ams, p_ams_index) in ams.data"
                     :key="p_ams_index"
                   >
-                    <td class="text-center">{{ ams.from + p_ams_index }}</td>
+                    <td class="text-center">{{ ams.from + p_ams_index }}.</td>
                     <td class="text-center">{{ p_ams.initial }}</td>
-                    <td class="text-center">{{ p_ams.user_id }}</td>
+                    <td class="text-center">{{ p_ams.user.name }}</td>
                     <td class="d-flex justify-content-center">
                       <button class="btn btn-sm btn-light">
                         <i class="bi bi-toggles text-primary"></i>
@@ -298,18 +298,15 @@
               </div>
               <div class="form-group mb-3">
                 <label class="form-label fw-bold">User ID</label>
-                <select
-                  class="form-select"
+                <multiselect
                   v-model="p_ams.user_id"
-                  :class="{
-                    'is-invalid': errors.user_id,
-                  }"
-                >
-                  <option selected disabled>Select User</option>
-                  <option v-for="user in users" v-bind:value="user.id">
-                    {{ user.name }}
-                  </option>
-                </select>
+                  :options="users"
+                  open-direction="bottom"
+                  placeholder=""
+                  label="name"
+                  :searchable="true"
+                  :class="{ 'is-invalid': errors.region_id }"
+                ></multiselect>
                 <span v-if="errors.user_id" class="error invalid-feedback">{{
                   errors.user_id[0]
                 }}</span>
@@ -362,7 +359,7 @@ export default {
         data: [],
         link: [],
       },
-      users: null,
+      users: [],
       p_ams: {
         id: null,
         initial: null,
@@ -456,7 +453,7 @@ export default {
       this.modal_create = false
       this.p_ams.id = p_ams.id
       this.p_ams.initial = p_ams.initial
-      this.p_ams.user_id = p_ams.user_id
+      this.p_ams.user_id = p_ams.user
     },
     update() {
       this.loading()
@@ -464,7 +461,7 @@ export default {
       this.$axios
         .put('/api/ams-update/' + this.p_ams.id, {
           initial: this.p_ams.initial,
-          user_id: this.p_ams.user_id,
+          user_id: this.p_ams.user_id.id,
         })
         .then((response) => {
           toastr.success(response.data.message)

@@ -46,7 +46,7 @@
           <li class="breadcrumb-item">
             <span class="bullet bg-gray-400 w-5px h-2px"></span>
           </li>
-          <li class="breadcrumb-item text-muted">Aircraft Types</li>
+          <li class="breadcrumb-item text-muted">Aircraft Type</li>
           <!--end::Item-->
         </ul>
         <!--end::Page title-->
@@ -136,7 +136,7 @@
                     :key="p_ac_type_id_index"
                   >
                     <td class="text-center">
-                      {{ ac_type_id.from + p_ac_type_id_index }}
+                      {{ ac_type_id.from + p_ac_type_id_index }}.
                     </td>
                     <td class="text-center">{{ p_ac_type_id.name }}</td>
                     <td class="text-center">{{ p_ac_type_id.description }}</td>

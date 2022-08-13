@@ -56,7 +56,7 @@
     <div class="container mb-10">
       <div class="card shadow-sm mt-5">
         <div class="card-header">
-          <h3 class="card-title fw-bold">List of Prospect Type</h3>
+          <h3 class="card-title fw-bold">List of Prospect Types</h3>
           <div class="card-toolbar">
             <button
               type="button"
@@ -136,7 +136,7 @@
                     :key="p_prospect_type_index"
                   >
                     <td class="text-center">
-                      {{ prospect_type.from + p_prospect_type_index }}
+                      {{ prospect_type.from + p_prospect_type_index }}.
                     </td>
                     <td class="text-center">{{ p_prospect_type.name }}</td>
                     <td class="text-center">

@@ -30,7 +30,7 @@
               fw-bold
             "
           >
-            Components
+            Component
           </p>
           <!--end::Title-->
         </div>
@@ -46,7 +46,7 @@
           <li class="breadcrumb-item">
             <span class="bullet bg-gray-400 w-5px h-2px"></span>
           </li>
-          <li class="breadcrumb-item text-muted">Components</li>
+          <li class="breadcrumb-item text-muted">Component</li>
           <!--end::Item-->
         </ul>
         <!--end::Page title-->
@@ -134,7 +134,7 @@
                     :key="p_component_index"
                   >
                     <td class="text-center">
-                      {{ component.from + p_component_index }}
+                      {{ component.from + p_component_index }}.
                     </td>
                     <td class="text-center">{{ p_component.name }}</td>
 

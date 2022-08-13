@@ -30,7 +30,7 @@
               fw-bold
             "
           >
-            Countries
+            Country
           </p>
           <!--end::Title-->
         </div>
@@ -46,7 +46,7 @@
           <li class="breadcrumb-item">
             <span class="bullet bg-gray-400 w-5px h-2px"></span>
           </li>
-          <li class="breadcrumb-item text-muted">Countriess</li>
+          <li class="breadcrumb-item text-muted">Country</li>
           <!--end::Item-->
         </ul>
         <!--end::Page title-->
@@ -56,7 +56,7 @@
     <div class="container mb-10">
       <div class="card shadow-sm mt-5">
         <div class="card-header">
-          <h3 class="card-title fw-bold">List of Countriess</h3>
+          <h3 class="card-title fw-bold">List of Countries</h3>
           <div class="card-toolbar">
             <button
               type="button"
@@ -124,7 +124,7 @@
                   <tr class="fw-bold fs-6 text-gray-800">
                     <th class="text-center">No</th>
                     <th class="text-center">Name</th>
-                    <th class="text-center">Region Id</th>
+                    <th class="text-center">Region</th>
                     <th class="text-center">Action</th>
                   </tr>
                 </thead>
@@ -134,10 +134,10 @@
                     :key="p_countries_index"
                   >
                     <td class="text-center">
-                      {{ countries.from + p_countries_index }}
+                      {{ countries.from + p_countries_index }}.
                     </td>
                     <td class="text-center">{{ countrie.name }}</td>
-                    <td class="text-center">{{ countrie.region_id }}</td>
+                    <td class="text-center">{{ countrie.regions.name }}</td>
 
                     <td class="d-flex justify-content-center">
                       <button class="btn btn-sm btn-light">
@@ -304,18 +304,15 @@
               </div>
               <div class="form-group mb-3">
                 <label class="form-label fw-bold">Region</label>
-                <select
-                  class="form-select"
-                  v-model="countrie.region"
-                  :class="{
-                    'is-invalid': errors.region,
-                  }"
-                >
-                  <option selected disabled>Select User</option>
-                  <option v-for="region in regions" v-bind:value="region.id">
-                    {{ region.name }}
-                  </option>
-                </select>
+                <multiselect
+                  v-model="countrie.region_id"
+                  :options="regions"
+                  open-direction="bottom"
+                  placeholder=""
+                  label="name"
+                  :searchable="true"
+                  :class="{ 'is-invalid': errors.region }"
+                ></multiselect>
                 <span v-if="errors.region" class="error invalid-feedback">{{
                   errors.region[0]
                 }}</span>
@@ -383,9 +380,7 @@ export default {
         name: null,
         region_id: null,
       },
-      regions: {
-        data: [],
-      },
+      regions: [],
     }
   },
   created() {
@@ -445,7 +440,7 @@ export default {
       this.$axios
         .post('/api/countries-create', {
           name: this.countrie.name,
-          region_id: this.countrie.region_id,
+          region_id: this.countrie.regions.id,
         })
         .then((response) => {
           toastr.success(response.data.message)
@@ -464,15 +459,14 @@ export default {
       this.modal_create = false
       this.countrie.id = countrie.id
       this.countrie.name = countrie.name
-      this.countrie.region_id = countrie.region_id
+      this.countrie.region_id = countrie.regions
     },
     update() {
       this.loading()
-
       this.$axios
         .put('/api/countries-update/' + this.countrie.id, {
           name: this.countrie.name,
-          region_id: this.countrie.region_id,
+          region_id: this.countrie.region_id.id,
         })
         .then((response) => {
           toastr.success(response.data.message)

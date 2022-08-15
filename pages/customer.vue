@@ -37,7 +37,7 @@
       </div>
       <!--end::Toolbar container-->
     </div>
-    <div class="container mt-20 mb-20">
+    <div class="container mt-5 mb-20">
       <div class="card shadow-sm">
         <div class="card-header">
           <h3 class="card-title fw-bold">List of Customers</h3>
@@ -602,50 +602,94 @@ export default {
     },
     create() {
       this.loading()
-      this.$axios
-        .post('api/customer-create', {
-          name: this.customer.name,
-          code: this.customer.code,
-          country_id: this.country_value.id,
-          region_id: this.region_value.id,
-          area_ams: this.area_ams,
-        })
-        .then((response) => {
-          toastr.success(response.data.message)
-          this.listCustomer()
-          this.closeModal()
-        })
-        .catch((error) => {
-          if (error.response.status == 422) {
-            this.errors = error.response.data.errors
-            toastr.error(error.response.data.message)
-          }
-        })
-      this.clearForm()
+      if (this.country_value != null) {
+        this.$axios
+          .post('api/customer-create', {
+            name: this.customer.name,
+            code: this.customer.code,
+            country_id: this.country_value.id,
+            region_id: this.region_value.id,
+            area_ams: this.area_ams,
+          })
+          .then((response) => {
+            toastr.success(response.data.message)
+            this.listCustomer()
+            this.closeModal()
+          })
+          .catch((error) => {
+            if (error.response.status == 422) {
+              this.errors = error.response.data.errors
+              toastr.error(error.response.data.message)
+            }
+          })
+      } else {
+        this.$axios
+          .post('api/customer-create', {
+            name: this.customer.name,
+            code: this.customer.code,
+            country_id: this.country_value,
+            region_id: this.region_value,
+            area_ams: this.area_ams,
+          })
+          .then((response) => {
+            toastr.success(response.data.message)
+            this.listCustomer()
+            this.closeModal()
+          })
+          .catch((error) => {
+            if (error.response.status == 422) {
+              this.errors = error.response.data.errors
+              toastr.error(error.response.data.message)
+            }
+          })
+      }
     },
     update() {
       this.loading()
-      this.$axios
-        .put('/api/customer-update/' + this.customer.id, {
-          name: this.customer.name,
-          code: this.customer.code,
-          country_id: this.country_value.id,
-          region_id: this.region_value.id,
-          area_ams: this.area_ams,
-        })
-        .then((response) => {
-          toastr.success(response.data.message)
-          this.listCustomer()
-          this.closeModal()
-        })
-        .catch((error) => {
-          if (error.response.status == 422) {
-            this.errors = error.response.data.errors
-            toastr.error(error.response.data.message)
-          }
-        })
+      if (this.country_value != '') {
+        this.$axios
+          .put('/api/customer-update/' + this.customer.id, {
+            name: this.customer.name,
+            code: this.customer.code,
+            country_id: this.country_value.id,
+            region_id: this.region_value.id,
+            area_ams: this.area_ams,
+          })
+          .then((response) => {
+            toastr.success(response.data.message)
+            this.listCustomer()
+            this.closeModal()
+          })
+          .catch((error) => {
+            if (error.response.status == 422) {
+              this.errors = error.response.data.errors
+              toastr.error(error.response.data.message)
+            }
+          })
+      } else {
+        this.$axios
+          .put('/api/customer-update/' + this.customer.id, {
+            name: this.customer.name,
+            code: this.customer.code,
+            country_id: this.country_value,
+            region_id: this.region_value,
+            area_ams: this.area_ams,
+          })
+          .then((response) => {
+            toastr.success(response.data.message)
+            this.listCustomer()
+            this.closeModal()
+          })
+          .catch((error) => {
+            if (error.response.status == 422) {
+              this.errors = error.response.data.errors
+              toastr.error(error.response.data.message)
+            }
+          })
+      }
     },
     edit(item) {
+      this.modal_create = false
       this.listRegion()
       this.listAMS()
       this.listArea()

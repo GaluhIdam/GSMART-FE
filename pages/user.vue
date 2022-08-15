@@ -125,7 +125,7 @@
                     <th class="text-center">No</th>
                     <th class="text-center">Name</th>
 
-                    <th class="text-center">Nopeg</th>
+                    <th class="text-center">Employee Number</th>
                     <th class="text-center">Email</th>
                     <th class="text-center">Unit</th>
                     <th class="text-center">Action</th>

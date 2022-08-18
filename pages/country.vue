@@ -30,7 +30,7 @@
               fw-bold
             "
           >
-            Countries
+            Country
           </p>
           <!--end::Title-->
         </div>
@@ -46,7 +46,7 @@
           <li class="breadcrumb-item">
             <span class="bullet bg-gray-400 w-5px h-2px"></span>
           </li>
-          <li class="breadcrumb-item text-muted">Countriess</li>
+          <li class="breadcrumb-item text-muted">Country</li>
           <!--end::Item-->
         </ul>
         <!--end::Page title-->
@@ -56,7 +56,7 @@
     <div class="container mb-10">
       <div class="card shadow-sm mt-5">
         <div class="card-header">
-          <h3 class="card-title fw-bold">List of Countriess</h3>
+          <h3 class="card-title fw-bold">List of Countries</h3>
           <div class="card-toolbar">
             <button
               type="button"
@@ -124,7 +124,7 @@
                   <tr class="fw-bold fs-6 text-gray-800">
                     <th class="text-center">No</th>
                     <th class="text-center">Name</th>
-                    <th class="text-center">Region Id</th>
+                    <th class="text-center">Region</th>
                     <th class="text-center">Action</th>
                   </tr>
                 </thead>
@@ -134,10 +134,10 @@
                     :key="p_countries_index"
                   >
                     <td class="text-center">
-                      {{ countries.from + p_countries_index }}
+                      {{ countries.from + p_countries_index }}.
                     </td>
                     <td class="text-center">{{ countrie.name }}</td>
-                    <td class="text-center">{{ countrie.region_id }}</td>
+                    <td class="text-center">{{ countrie.regions.name }}</td>
 
                     <td class="d-flex justify-content-center">
                       <button class="btn btn-sm btn-light">
@@ -302,23 +302,20 @@
                   errors.name[0]
                 }}</span>
               </div>
-              <div class="form-group row">
-                <div class="form-group mb-3">
-                  <label for="region id" class="form-label fw-bold"
-                    >Region</label
-                  >
-
-                  <multiselect
-                    v-model="countrie.region_id"
-                    :options="regions"
-                    placeholder="Select one"
-                    label="name"
-                  ></multiselect>
-
-                  <span v-if="errors.area_id" class="error invalid-feedback">{{
-                    errors.area_id[0]
-                  }}</span>
-                </div>
+              <div class="form-group mb-3">
+                <label class="form-label fw-bold">Region</label>
+                <multiselect
+                  v-model="countrie.region_id"
+                  :options="regions"
+                  open-direction="bottom"
+                  placeholder=""
+                  label="name"
+                  :searchable="true"
+                  :class="{ 'is-invalid': errors.region }"
+                ></multiselect>
+                <span v-if="errors.region" class="error invalid-feedback">{{
+                  errors.region[0]
+                }}</span>
               </div>
 
               <div class="row mt-10">
@@ -371,7 +368,7 @@ export default {
       countrie: {
         id: null,
         name: null,
-        region_id: [],
+        region_id: null,
       },
       modal_create: false,
       search: null,
@@ -388,7 +385,7 @@ export default {
   },
   created() {
     this.list()
-    this.listRegion()
+    this.region()
   },
   watch: {
     search: debounce(function () {
@@ -443,7 +440,7 @@ export default {
       this.$axios
         .post('/api/countries-create', {
           name: this.countrie.name,
-          region_id: this.countrie.region_id,
+          region_id: this.countrie.regions.id,
         })
         .then((response) => {
           toastr.success(response.data.message)
@@ -462,15 +459,14 @@ export default {
       this.modal_create = false
       this.countrie.id = countrie.id
       this.countrie.name = countrie.name
-      this.countrie.region_id = countrie.region_id
+      this.countrie.region_id = countrie.regions
     },
     update() {
       this.loading()
-
       this.$axios
         .put('/api/countries-update/' + this.countrie.id, {
           name: this.countrie.name,
-          region_id: this.countrie.region_id,
+          region_id: this.countrie.region_id.id,
         })
         .then((response) => {
           toastr.success(response.data.message)
@@ -529,20 +525,11 @@ export default {
       document.getElementById('close_modal').click()
       this.clearForm()
     },
-    listRegion() {
+    region() {
       this.$axios
-        .get('api/region')
+        .get('/api/region')
         .then((response) => {
           this.regions = response.data.data.data
-          const value = []
-          const label = []
-          this.regions.map((item) => {
-            value.push(item.area_id)
-            label.push(item.name)
-          })
-          this.regions = value
-          this.name = label
-          console.log(this.regions)
         })
         .catch((error) => console.log(error))
     },

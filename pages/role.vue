@@ -133,9 +133,7 @@
                     v-for="(role, role_index) in roles.data"
                     :key="role_index"
                   >
-                    <td class="text-center">
-                      {{ roles.from + role_index }}
-                    </td>
+                    <td class="text-center">{{ roles.from + role_index }}.</td>
                     <td class="text-center">{{ role.name }}</td>
                     <td class="text-center">{{ role.description }}</td>
                     <td class="d-flex justify-content-center">
@@ -341,11 +339,11 @@
                           class="col-sm-6 form-check mb-2"
                         >
                           <input
-                            class="form-check-input"
-                            type="checkbox"
-                            v-model="role.permission_id"
-                            :value="item.id"
-                            :id="item.id"
+                            type="text"
+                            class="form-control form-control-sm text-center"
+                            v-model="current_page_permissions"
+                            @keypress="directPagePermission"
+                            style="width: 60px"
                           />
                           <label class="form-check-label fs-7" :for="item.id">
                             {{ item.name }}
@@ -411,7 +409,7 @@ export default {
         id: null,
         name: null,
         description: null,
-        permission_id: [],
+        permission: null,
       },
       modal_create: false,
       search: null,
@@ -508,13 +506,6 @@ export default {
       this.role.id = role.id
       this.role.name = role.name
       this.role.description = role.description
-
-      this.role_index = role_index
-      const id = []
-      this.roles.data[role_index].permissions.map((item) => {
-        id.push(item.id)
-      })
-      this.role.permission_id = id
     },
     update() {
       this.loading()
@@ -522,7 +513,6 @@ export default {
         .put('/api/role-update/' + this.role.id, {
           name: this.role.name,
           description: this.role.description,
-          permission_id: this.role.permission_id,
         })
         .then((response) => {
           toastr.success(response.data.message)
@@ -572,6 +562,7 @@ export default {
       this.role.id = null
       this.role.name = null
       this.role.description = null
+      this.role.permissions_id = null
       this.errors.name = null
       this.errors.description = null
       this.role.permission_id = []

@@ -30,7 +30,7 @@
               fw-bold
             "
           >
-            Role
+            Permission
           </p>
           <!--end::Title-->
         </div>
@@ -56,7 +56,7 @@
     <div class="container mb-10">
       <div class="card shadow-sm mt-5">
         <div class="card-header">
-          <h3 class="card-title">List of Permissions</h3>
+          <h3 class="card-title fw-bold">List of Permissions</h3>
         </div>
         <div class="card-body">
           <div class="row d-flex align-items-center">
@@ -123,7 +123,7 @@
                     :key="permission_index"
                   >
                     <td class="text-center">
-                      {{ permissions.from + permission_index }}
+                      {{ permissions.from + permission_index }}.
                     </td>
                     <td class="text-center">{{ permission.name }}</td>
                     <td class="text-center">{{ permission.description }}</td>

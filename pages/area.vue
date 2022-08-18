@@ -30,7 +30,7 @@
               fw-bold
             "
           >
-            area
+            Area
           </p>
           <!--end::Title-->
         </div>
@@ -46,7 +46,7 @@
           <li class="breadcrumb-item">
             <span class="bullet bg-gray-400 w-5px h-2px"></span>
           </li>
-          <li class="breadcrumb-item text-muted">areas</li>
+          <li class="breadcrumb-item text-muted">Area</li>
           <!--end::Item-->
         </ul>
         <!--end::Page title-->
@@ -56,7 +56,7 @@
     <div class="container mb-10">
       <div class="card shadow-sm mt-5">
         <div class="card-header">
-          <h3 class="card-title fw-bold">List of areas</h3>
+          <h3 class="card-title fw-bold">List of Areas</h3>
           <div class="card-toolbar">
             <button
               type="button"
@@ -133,9 +133,7 @@
                     v-for="(p_area, p_area_index) in area.data"
                     :key="p_area_index"
                   >
-                    <td class="text-center">
-                      {{ area.from + p_area_index }}
-                    </td>
+                    <td class="text-center">{{ area.from + p_area_index }}.</td>
                     <td class="text-center">{{ p_area.name }}</td>
                     <td class="text-center">{{ p_area.scope }}</td>
 
@@ -299,7 +297,7 @@
                 }}</span>
               </div>
               <div class="form-group mb-3">
-                <label class="form-label fw-bold">Type of Work</label>
+                <label class="form-label fw-bold">Scope</label>
                 <input
                   type="text"
                   class="form-control"

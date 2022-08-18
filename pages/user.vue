@@ -56,7 +56,7 @@
     <div class="container mb-10">
       <div class="card shadow-sm mt-5">
         <div class="card-header">
-          <h3 class="card-title fw-bold">List of User</h3>
+          <h3 class="card-title fw-bold">List of Users</h3>
           <div class="card-toolbar">
             <button
               type="button"
@@ -125,7 +125,7 @@
                     <th class="text-center">No</th>
                     <th class="text-center">Name</th>
 
-                    <th class="text-center">Nopeg</th>
+                    <th class="text-center">Employee Number</th>
                     <th class="text-center">Email</th>
                     <th class="text-center">Unit</th>
                     <th class="text-center">Action</th>
@@ -137,7 +137,7 @@
                     :key="transaction_index"
                   >
                     <td class="text-center">
-                      {{ user.from + transaction_index }}
+                      {{ user.from + transaction_index }}.
                     </td>
                     <td class="text-center">{{ users.name }}</td>
                     <td class="text-center">{{ users.nopeg }}</td>
@@ -305,7 +305,7 @@
               </div>
 
               <div class="form-group mb-3">
-                <label class="form-label fw-bold">Nopeg</label>
+                <label class="form-label fw-bold">Employee Number</label>
                 <input
                   type="text"
                   class="form-control"

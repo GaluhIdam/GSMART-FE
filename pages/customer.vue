@@ -350,7 +350,20 @@
               <hr />
               <div id="kt_docs_repeater_basic">
                 <!--begin::Form group-->
-                <h3 class="mb-5 mt-5">Area & AMS</h3>
+                <h3
+                  class="mb-0 mt-5"
+                  :class="{ 'is-invalid': errors.area_ams }"
+                >
+                  Area & AMS
+                </h3>
+                <span v-if="errors.name" class="error invalid-feedback mb-5">{{
+                  errors.area_ams
+                }}</span>
+                <span
+                  v-else-if="errors.area_ams"
+                  class="error invalid-feedback mb-5"
+                  >{{ errors.area_ams[0] }}</span
+                >
                 <!--begin::Form group-->
                 <div class="form-group mt-5">
                   <a
@@ -487,6 +500,7 @@ export default {
         code: null,
         country_id: null,
         region_id: null,
+        area_ams: null,
       },
     }
   },
@@ -602,13 +616,13 @@ export default {
     },
     create() {
       this.loading()
-      if (this.country_value != null) {
+      if (this.country_value == null || this.country_value == '') {
         this.$axios
           .post('api/customer-create', {
             name: this.customer.name,
             code: this.customer.code,
-            country_id: this.country_value.id,
-            region_id: this.region_value.id,
+            country_id: this.country_value,
+            region_id: this.region_value,
             area_ams: this.area_ams,
           })
           .then((response) => {
@@ -619,7 +633,14 @@ export default {
           .catch((error) => {
             if (error.response.status == 422) {
               this.errors = error.response.data.errors
+              this.errors.area_ams = 'The area & ams field is required.'
               toastr.error(error.response.data.message)
+            } else if (this.data.ams == null || this.data.area == null) {
+              this.errors.area_ams = 'The area & ams field is required.'
+              this.errors.name = null
+              this.errors.code = null
+              this.errors.region_id = null
+              this.errors.country_id = null
             }
           })
       } else {
@@ -627,8 +648,8 @@ export default {
           .post('api/customer-create', {
             name: this.customer.name,
             code: this.customer.code,
-            country_id: this.country_value,
-            region_id: this.region_value,
+            country_id: this.country_value.id,
+            region_id: this.region_value.id,
             area_ams: this.area_ams,
           })
           .then((response) => {
@@ -646,27 +667,7 @@ export default {
     },
     update() {
       this.loading()
-      if (this.country_value != '') {
-        this.$axios
-          .put('/api/customer-update/' + this.customer.id, {
-            name: this.customer.name,
-            code: this.customer.code,
-            country_id: this.country_value.id,
-            region_id: this.region_value.id,
-            area_ams: this.area_ams,
-          })
-          .then((response) => {
-            toastr.success(response.data.message)
-            this.listCustomer()
-            this.closeModal()
-          })
-          .catch((error) => {
-            if (error.response.status == 422) {
-              this.errors = error.response.data.errors
-              toastr.error(error.response.data.message)
-            }
-          })
-      } else {
+      if (this.country_value == null || this.country_value == '') {
         this.$axios
           .put('/api/customer-update/' + this.customer.id, {
             name: this.customer.name,
@@ -686,10 +687,31 @@ export default {
               toastr.error(error.response.data.message)
             }
           })
+      } else {
+        this.$axios
+          .put('/api/customer-update/' + this.customer.id, {
+            name: this.customer.name,
+            code: this.customer.code,
+            country_id: this.country_value.id,
+            region_id: this.region_value.id,
+            area_ams: this.area_ams,
+          })
+          .then((response) => {
+            toastr.success(response.data.message)
+            this.listCustomer()
+            this.closeModal()
+          })
+          .catch((error) => {
+            if (error.response.status == 422) {
+              this.errors = error.response.data.errors
+              toastr.error(error.response.data.message)
+            }
+          })
       }
     },
     edit(item) {
       this.modal_create = false
+      this.listCustomer()
       this.listRegion()
       this.listAMS()
       this.listArea()
@@ -754,12 +776,12 @@ export default {
       this.clearForm()
     },
     clear() {
-      this.country = []
-      if (this.region_value == null || this.region_value == '') {
+      if (this.region_value == null) {
         this.isDisabled = true
         this.country = []
-        this.country_value = []
+        this.country_value = null
       } else {
+        this.country = []
         this.isDisabled = false
       }
     },
@@ -768,7 +790,7 @@ export default {
       this.region_value = null
       this.country = []
       this.country_value = null
-      this.area_ams = [{}]
+      this.area_ams = []
       this.area_value = null
       if (this.region_value == null || this.region_value == '') {
         this.isDisabled = true

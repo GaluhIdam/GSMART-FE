@@ -349,20 +349,11 @@
               </div>
               <hr />
               <div id="kt_docs_repeater_basic">
-                <!--begin::Form group-->
-                <h3
-                  class="mb-0 mt-5"
-                  :class="{ 'is-invalid': errors.area_ams }"
-                >
-                  Area & AMS
-                </h3>
-                <span v-if="errors.name" class="error invalid-feedback mb-5">{{
-                  errors.area_ams
-                }}</span>
+                <h3 class="mb-0 mt-5">Area & AMS</h3>
                 <span
-                  v-else-if="errors.area_ams"
+                  v-if="errors.area_ams"
                   class="error invalid-feedback mb-5"
-                  >{{ errors.area_ams[0] }}</span
+                  >{{ 'The area & ams field is required.' }}</span
                 >
                 <!--begin::Form group-->
                 <div class="form-group mt-5">
@@ -402,7 +393,13 @@
                             label="name"
                             :searchable="true"
                             :options="area"
+                            :class="{
+                              'is-invalid': fail[index].area,
+                            }"
                           ></multiselect>
+                          <span class="error invalid-feedback">{{
+                            fail[index].area
+                          }}</span>
                         </div>
                         <div class="col-md-5 text-center">
                           <label class="form-label">AMS</label>
@@ -412,7 +409,15 @@
                             label="initial"
                             :searchable="true"
                             :options="ams"
+                            :class="{
+                              'is-invalid': fail[index].ams,
+                            }"
                           ></multiselect>
+                          <span
+                            v-if="fail[index].ams"
+                            class="error invalid-feedback"
+                            >{{ fail[index].ams }}</span
+                          >
                         </div>
                         <div class="col-md-1">
                           <a
@@ -461,6 +466,7 @@ export default {
   data() {
     return {
       area_ams: [],
+      fail: [],
       country_value: null,
       region_value: null,
       region: [],
@@ -500,7 +506,6 @@ export default {
         code: null,
         country_id: null,
         region_id: null,
-        area_ams: null,
       },
     }
   },
@@ -553,6 +558,10 @@ export default {
     }, 500),
     addAreaAms() {
       this.area_ams.push({
+        area: null,
+        ams: null,
+      })
+      this.fail.push({
         area: null,
         ams: null,
       })
@@ -633,14 +642,19 @@ export default {
           .catch((error) => {
             if (error.response.status == 422) {
               this.errors = error.response.data.errors
-              this.errors.area_ams = 'The area & ams field is required.'
+              for (let i = 0; i < this.area_ams.length; i++) {
+                if (this.area_ams[i].area == null) {
+                  this.fail[i].area = 'The area field is required.'
+                } else {
+                  this.fail[i].area = null
+                }
+                if (this.area_ams[i].ams == null) {
+                  this.fail[i].ams = 'The ams field is required.'
+                } else {
+                  this.fail[i].ams = null
+                }
+              }
               toastr.error(error.response.data.message)
-            } else if (this.data.ams == null || this.data.area == null) {
-              this.errors.area_ams = 'The area & ams field is required.'
-              this.errors.name = null
-              this.errors.code = null
-              this.errors.region_id = null
-              this.errors.country_id = null
             }
           })
       } else {
@@ -660,6 +674,18 @@ export default {
           .catch((error) => {
             if (error.response.status == 422) {
               this.errors = error.response.data.errors
+              for (let i = 0; i < this.area_ams.length; i++) {
+                if (this.area_ams[i].area == null) {
+                  this.fail[i].area = 'The area field is required.'
+                } else {
+                  this.fail[i].area = null
+                }
+                if (this.area_ams[i].ams == null) {
+                  this.fail[i].ams = 'The ams field is required.'
+                } else {
+                  this.fail[i].ams = null
+                }
+              }
               toastr.error(error.response.data.message)
             }
           })
@@ -684,6 +710,18 @@ export default {
           .catch((error) => {
             if (error.response.status == 422) {
               this.errors = error.response.data.errors
+              for (let i = 0; i < this.area_ams.length; i++) {
+                if (this.area_ams[i].area == null) {
+                  this.fail[i].area = 'The area field is required.'
+                } else {
+                  this.fail[i].area = null
+                }
+                if (this.area_ams[i].ams == null) {
+                  this.fail[i].ams = 'The ams field is required.'
+                } else {
+                  this.fail[i].ams = null
+                }
+              }
               toastr.error(error.response.data.message)
             }
           })
@@ -704,6 +742,18 @@ export default {
           .catch((error) => {
             if (error.response.status == 422) {
               this.errors = error.response.data.errors
+              for (let i = 0; i < this.area_ams.length; i++) {
+                if (this.area_ams[i].area == null) {
+                  this.fail[i].area = 'The area field is required.'
+                } else {
+                  this.fail[i].area = null
+                }
+                if (this.area_ams[i].ams == null) {
+                  this.fail[i].ams = 'The ams field is required.'
+                } else {
+                  this.fail[i].ams = null
+                }
+              }
               toastr.error(error.response.data.message)
             }
           })
@@ -723,6 +773,10 @@ export default {
       this.region_value = item.country.regions
       this.area_ams = item.amscustomer
       this.isDisabled = false
+      this.fail.push({
+        area: null,
+        ams: null,
+      })
     },
     hapus(id) {
       Swal.fire({
@@ -757,6 +811,14 @@ export default {
     },
     add() {
       this.modal_create = true
+      this.area_ams.push({
+        area: null,
+        ams: null,
+      })
+      this.fail.push({
+        area: null,
+        ams: null,
+      })
       this.listRegion()
       this.listAMS()
       this.listArea()
@@ -791,6 +853,7 @@ export default {
       this.country = []
       this.country_value = null
       this.area_ams = []
+      this.fail = []
       this.area_value = null
       if (this.region_value == null || this.region_value == '') {
         this.isDisabled = true
@@ -803,6 +866,7 @@ export default {
       this.errors.code = null
       this.errors.country_id = null
       this.errors.region_id = null
+      this.errors.area_ams = null
     },
   },
 }

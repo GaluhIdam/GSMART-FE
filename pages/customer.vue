@@ -349,8 +349,12 @@
               </div>
               <hr />
               <div id="kt_docs_repeater_basic">
-                <!--begin::Form group-->
-                <h3 class="mb-5 mt-5">Area & AMS</h3>
+                <h3 class="mb-0 mt-5">Area & AMS</h3>
+                <span
+                  v-if="errors.area_ams"
+                  class="error invalid-feedback mb-5"
+                  >{{ 'The area & ams field is required.' }}</span
+                >
                 <!--begin::Form group-->
                 <div class="form-group mt-5">
                   <a
@@ -389,7 +393,13 @@
                             label="name"
                             :searchable="true"
                             :options="area"
+                            :class="{
+                              'is-invalid': fail[index].area,
+                            }"
                           ></multiselect>
+                          <span class="error invalid-feedback">{{
+                            fail[index].area
+                          }}</span>
                         </div>
                         <div class="col-md-5 text-center">
                           <label class="form-label">AMS</label>
@@ -399,7 +409,15 @@
                             label="initial"
                             :searchable="true"
                             :options="ams"
+                            :class="{
+                              'is-invalid': fail[index].ams,
+                            }"
                           ></multiselect>
+                          <span
+                            v-if="fail[index].ams"
+                            class="error invalid-feedback"
+                            >{{ fail[index].ams }}</span
+                          >
                         </div>
                         <div class="col-md-1">
                           <a
@@ -448,6 +466,7 @@ export default {
   data() {
     return {
       area_ams: [],
+      fail: [],
       country_value: null,
       region_value: null,
       region: [],
@@ -542,6 +561,10 @@ export default {
         area: null,
         ams: null,
       })
+      this.fail.push({
+        area: null,
+        ams: null,
+      })
     },
     remove(index) {
       this.area_ams.splice(index, 1)
@@ -602,27 +625,7 @@ export default {
     },
     create() {
       this.loading()
-      if (this.country_value != null) {
-        this.$axios
-          .post('api/customer-create', {
-            name: this.customer.name,
-            code: this.customer.code,
-            country_id: this.country_value.id,
-            region_id: this.region_value.id,
-            area_ams: this.area_ams,
-          })
-          .then((response) => {
-            toastr.success(response.data.message)
-            this.listCustomer()
-            this.closeModal()
-          })
-          .catch((error) => {
-            if (error.response.status == 422) {
-              this.errors = error.response.data.errors
-              toastr.error(error.response.data.message)
-            }
-          })
-      } else {
+      if (this.country_value == null || this.country_value == '') {
         this.$axios
           .post('api/customer-create', {
             name: this.customer.name,
@@ -639,6 +642,50 @@ export default {
           .catch((error) => {
             if (error.response.status == 422) {
               this.errors = error.response.data.errors
+              for (let i = 0; i < this.area_ams.length; i++) {
+                if (this.area_ams[i].area == null) {
+                  this.fail[i].area = 'The area field is required.'
+                } else {
+                  this.fail[i].area = null
+                }
+                if (this.area_ams[i].ams == null) {
+                  this.fail[i].ams = 'The ams field is required.'
+                } else {
+                  this.fail[i].ams = null
+                }
+              }
+              toastr.error(error.response.data.message)
+            }
+          })
+      } else {
+        this.$axios
+          .post('api/customer-create', {
+            name: this.customer.name,
+            code: this.customer.code,
+            country_id: this.country_value.id,
+            region_id: this.region_value.id,
+            area_ams: this.area_ams,
+          })
+          .then((response) => {
+            toastr.success(response.data.message)
+            this.listCustomer()
+            this.closeModal()
+          })
+          .catch((error) => {
+            if (error.response.status == 422) {
+              this.errors = error.response.data.errors
+              for (let i = 0; i < this.area_ams.length; i++) {
+                if (this.area_ams[i].area == null) {
+                  this.fail[i].area = 'The area field is required.'
+                } else {
+                  this.fail[i].area = null
+                }
+                if (this.area_ams[i].ams == null) {
+                  this.fail[i].ams = 'The ams field is required.'
+                } else {
+                  this.fail[i].ams = null
+                }
+              }
               toastr.error(error.response.data.message)
             }
           })
@@ -646,27 +693,7 @@ export default {
     },
     update() {
       this.loading()
-      if (this.country_value != '') {
-        this.$axios
-          .put('/api/customer-update/' + this.customer.id, {
-            name: this.customer.name,
-            code: this.customer.code,
-            country_id: this.country_value.id,
-            region_id: this.region_value.id,
-            area_ams: this.area_ams,
-          })
-          .then((response) => {
-            toastr.success(response.data.message)
-            this.listCustomer()
-            this.closeModal()
-          })
-          .catch((error) => {
-            if (error.response.status == 422) {
-              this.errors = error.response.data.errors
-              toastr.error(error.response.data.message)
-            }
-          })
-      } else {
+      if (this.country_value == null || this.country_value == '') {
         this.$axios
           .put('/api/customer-update/' + this.customer.id, {
             name: this.customer.name,
@@ -683,6 +710,50 @@ export default {
           .catch((error) => {
             if (error.response.status == 422) {
               this.errors = error.response.data.errors
+              for (let i = 0; i < this.area_ams.length; i++) {
+                if (this.area_ams[i].area == null) {
+                  this.fail[i].area = 'The area field is required.'
+                } else {
+                  this.fail[i].area = null
+                }
+                if (this.area_ams[i].ams == null) {
+                  this.fail[i].ams = 'The ams field is required.'
+                } else {
+                  this.fail[i].ams = null
+                }
+              }
+              toastr.error(error.response.data.message)
+            }
+          })
+      } else {
+        this.$axios
+          .put('/api/customer-update/' + this.customer.id, {
+            name: this.customer.name,
+            code: this.customer.code,
+            country_id: this.country_value.id,
+            region_id: this.region_value.id,
+            area_ams: this.area_ams,
+          })
+          .then((response) => {
+            toastr.success(response.data.message)
+            this.listCustomer()
+            this.closeModal()
+          })
+          .catch((error) => {
+            if (error.response.status == 422) {
+              this.errors = error.response.data.errors
+              for (let i = 0; i < this.area_ams.length; i++) {
+                if (this.area_ams[i].area == null) {
+                  this.fail[i].area = 'The area field is required.'
+                } else {
+                  this.fail[i].area = null
+                }
+                if (this.area_ams[i].ams == null) {
+                  this.fail[i].ams = 'The ams field is required.'
+                } else {
+                  this.fail[i].ams = null
+                }
+              }
               toastr.error(error.response.data.message)
             }
           })
@@ -690,6 +761,7 @@ export default {
     },
     edit(item) {
       this.modal_create = false
+      this.listCustomer()
       this.listRegion()
       this.listAMS()
       this.listArea()
@@ -701,6 +773,10 @@ export default {
       this.region_value = item.country.regions
       this.area_ams = item.amscustomer
       this.isDisabled = false
+      this.fail.push({
+        area: null,
+        ams: null,
+      })
     },
     hapus(id) {
       Swal.fire({
@@ -735,6 +811,14 @@ export default {
     },
     add() {
       this.modal_create = true
+      this.area_ams.push({
+        area: null,
+        ams: null,
+      })
+      this.fail.push({
+        area: null,
+        ams: null,
+      })
       this.listRegion()
       this.listAMS()
       this.listArea()
@@ -754,12 +838,12 @@ export default {
       this.clearForm()
     },
     clear() {
-      this.country = []
-      if (this.region_value == null || this.region_value == '') {
+      if (this.region_value == null) {
         this.isDisabled = true
         this.country = []
-        this.country_value = []
+        this.country_value = null
       } else {
+        this.country = []
         this.isDisabled = false
       }
     },
@@ -768,7 +852,8 @@ export default {
       this.region_value = null
       this.country = []
       this.country_value = null
-      this.area_ams = [{}]
+      this.area_ams = []
+      this.fail = []
       this.area_value = null
       if (this.region_value == null || this.region_value == '') {
         this.isDisabled = true
@@ -781,6 +866,7 @@ export default {
       this.errors.code = null
       this.errors.country_id = null
       this.errors.region_id = null
+      this.errors.area_ams = null
     },
   },
 }

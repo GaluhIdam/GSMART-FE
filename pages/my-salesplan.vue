@@ -87,7 +87,7 @@
       <!-- Row Total -->
       <div class="rounded box-d" style="border:dashed #fff;">
         <div class="row">
-          <div class="col-lg-2 mt-1 col-md-6">
+          <div class="col-lg-2 mt-1 col-md-6" style="width: 207px;">
             <div class="card card-flush" style="background: #DFF0D0;">
               <div class="card-body">
                 <p class="text-muted">Total Target</p>
@@ -95,7 +95,7 @@
               </div>
             </div>
           </div>
-          <div class="col-lg-2 mt-1 col-md-6">
+          <div class="col-lg-2 mt-1 col-md-6" style="width: 207px;">
             <div class="card card-flush" style="background: #E8E9F8;">
               <div class="card-body">
                 <p class="text-muted">Total Open</p>
@@ -103,7 +103,7 @@
               </div>
             </div>
           </div>
-          <div class="col-lg-2 mt-1 col-md-6">
+          <div class="col-lg-2 mt-1 col-md-6" style="width: 207px;">
             <div class="card card-flush" style="background: #F8E8E8;">
               <div class="card-body">
                 <p class="text-muted">Total Closed</p>
@@ -111,7 +111,7 @@
               </div>
             </div>
           </div>
-          <div class="col-lg-3 mt-1 col-md-6">
+          <div class="col-lg-2 mt-1 col-md-6" style="width: 207px;">
             <div class="card card-flush" style="background: #F8E8F6;">
               <div class="card-body">
                 <p class="text-muted">Total Open Closed</p>
@@ -119,7 +119,7 @@
               </div>
             </div>
           </div>
-          <div class="col-lg-3 mt-1 col-md-6">
+          <div class="col-lg-2 mt-1 col-md-6" style="width: 207px;">
             <div class="card card-flush" style="background: #F8F7E8;">
               <div class="card-body">
                 <p class="text-muted">Total Cancel</p>

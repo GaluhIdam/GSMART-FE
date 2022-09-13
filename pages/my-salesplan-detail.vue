@@ -73,7 +73,7 @@
               <div class="col-lg-6">
                 <div class="text-right">
                   <div class="position-absolute top-0 end-0 mx-15 mt-4">
-                    <button class="btn btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#switchAMS">Switch AMS</button>
+                    <button class="btn btn-outline btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#switchAMS">Switch AMS</button>
                     <button class="btn btn-primary btn-sm"><i class="fa-solid fa-pen"></i> Edit Salesplan</button>
                   </div>
                 </div>
@@ -224,115 +224,534 @@
               <div class="tab-content" id="myTabContent">
                 <!-- Tab Upgrade Level -->
                 <div class="tab-pane fade show active" id="upgrade-level-tab-pane" role="tabpanel" aria-labelledby="upgrade-level-tab" tabindex="0">
-                  <form action="">
-                    <div class="row mt-4">
-                      <!-- Fill in Contact Person of Customer -->
-                      <div class="col-lg-6">
-                        <h3>3 File Uploaded</h3>
-                        <p class="text-muted"><small>02:30 AM by <a href="">You</a></small></p>
-                      </div>
-                      <div class="col-lg-6">
-                        <div class="position-relative">
-                          <div class="position-absolute top-0 end-0">
-                            <a href="" class="btn btn-primary btn-sm">Add Contact Person</a>
+                  <!--begin::Stepper-->
+                  <div class="stepper stepper-pills mt-5" id="kt_stepper_example_basic">
+                  <!--begin::Nav-->
+                  <div class="stepper-nav flex-center flex-wrap mb-10">
+                      <!--begin::Step 1-->
+                      <div class="stepper-item mx-8 my-4 current" data-kt-stepper-element="nav">
+                          <!--begin::Wrapper-->
+                          <div class="stepper-wrapper d-flex align-items-center">
+                              <!--begin::Icon-->
+                              <div class="stepper-icon w-40px h-40px">
+                                  <i class="stepper-check fas fa-check"></i>
+                                  <span class="stepper-number">4</span>
+                              </div>
+                              <!--end::Icon-->
+
+                              <!--begin::Label-->
+                              <div class="stepper-label">
+                                  <!-- <h3 class="stepper-title">
+                                      Step 1
+                                  </h3> -->
+
+                                  <div class="stepper-desc">
+                                    Awareness
+                                  </div>
+                              </div>
+                              <!--end::Label-->
                           </div>
-                        </div>
-                      </div>
-                      <div class="rounded box-d" style="border:dashed #CDE7FE;">
-                        <div class="mt-3">
-                          <table class="table">
-                            <tr>
-                              <td class="text-center">
-                                <strong>Endang Tardiana</strong>
-                              </td>
-                              <td class="text-center">
-                                <strong>081703621382</strong>
-                              </td>
-                              <td class="text-center">
-                                <strong>endang.tardiana@garuda-indonesia.co.id</strong>	
-                              </td>
-                              <td class="text-center">
-                                <strong>SM. Engine & Component Planning & Contro</strong>
-                              </td>
-                              <td class="text-center">
-                                <strong>JKTMLE, Hangar 2 GMF AeroAsia</strong>
-                              </td>
-                              <td class="text-center">
-                                <a href="" class="btn btn-danger btn-sm"><span class="fas fa-trash"></span></a>
-                              </td>
-                            </tr>
-                          </table>
-                        </div>
-                      </div>
+                          <!--end::Wrapper-->
 
-                      <!-- Upload Attachment RFQ or Email Request -->
-                      <div class="col-lg-6 mt-3">
-                        <h3>3 File Uploaded</h3>
-                        <p class="text-muted"><small>02:30 AM by <a href="">You</a></small></p>
+                          <!--begin::Line-->
+                          <div class="stepper-line h-40px"></div>
+                          <!--end::Line-->
                       </div>
-                      <div class="col-lg-6 mt-3">
-                        <div class="position-relative">
-                          <div class="position-absolute top-0 end-0">
-                            <a href="" class="btn btn-primary btn-sm">Upload Document</a>
+                      <!--end::Step 1-->
+
+                      <!--begin::Step 2-->
+                      <div class="stepper-item mx-8 my-4" data-kt-stepper-element="nav">
+                          <!--begin::Wrapper-->
+                          <div class="stepper-wrapper d-flex align-items-center">
+                              <!--begin::Icon-->
+                              <div class="stepper-icon w-40px h-40px">
+                                  <i class="stepper-check fas fa-check"></i>
+                                  <span class="stepper-number">3</span>
+                              </div>
+                              <!--begin::Icon-->
+
+                              <!--begin::Label-->
+                              <div class="stepper-label">
+                                  <!-- <h3 class="stepper-title">
+                                      Step 2
+                                  </h3> -->
+
+                                  <div class="stepper-desc">
+                                    Opportunity
+                                  </div>
+                              </div>
+                              <!--end::Label-->
                           </div>
-                        </div>
-                      </div>
-                      <div class="rounded box-d" style="border:dashed #CDE7FE;">
-                        <div class="mt-3">
-                          <table class="table">
-                            <tr>
-                              <td class="">
-                                <strong>Project Term</strong>
-                                <p>1.2mb</p>
-                              </td>
-                              <td class="d-flex justify-content-end">
-                                <a href="" class="btn btn-danger btn-sm"><span class="fas fa-trash"></span></a>
-                              </td>
-                            </tr>
-                          </table>
-                        </div>
-                      </div>
+                          <!--end::Wrapper-->
 
-                      <!-- Upload Attachment Workscope -->
-                      <div class="col-lg-6 mt-3">
-                        <h3>3 File Uploaded</h3>
-                        <p class="text-muted"><small>02:30 AM by <a href="">You</a></small></p>
+                          <!--begin::Line-->
+                          <div class="stepper-line h-40px"></div>
+                          <!--end::Line-->
                       </div>
-                      <div class="col-lg-6 mt-3">
-                        <div class="position-relative">
-                          <div class="position-absolute top-0 end-0">
-                            <a href="" class="btn btn-primary btn-sm">Upload Document</a>
+                      <!--end::Step 2-->
+
+                      <!--begin::Step 3-->
+                      <div class="stepper-item mx-8 my-4" data-kt-stepper-element="nav">
+                          <!--begin::Wrapper-->
+                          <div class="stepper-wrapper d-flex align-items-center">
+                              <!--begin::Icon-->
+                              <div class="stepper-icon w-40px h-40px">
+                                  <i class="stepper-check fas fa-check"></i>
+                                  <span class="stepper-number">2</span>
+                              </div>
+                              <!--begin::Icon-->
+
+                              <!--begin::Label-->
+                              <div class="stepper-label">
+                                  <!-- <h3 class="stepper-title">
+                                      Step 3
+                                  </h3> -->
+
+                                  <div class="stepper-desc">
+                                    Attractive Proposal
+                                  </div>
+                              </div>
+                              <!--end::Label-->
                           </div>
-                        </div>
-                      </div>
-                      <div class="rounded box-d" style="border:dashed #CDE7FE;">
-                        <div class="mt-3">
-                          <table class="table">
-                            <tr>
-                              <td>
-                                <strong>Project Term</strong>
-                                <p>1.2mb</p>
-                              </td>
-                              <td class="d-flex justify-content-end">
-                                <a href="" class="btn btn-danger btn-sm"><span class="fas fa-trash"></span></a>
-                              </td>
-                            </tr>
-                          </table>
-                        </div>
-                      </div>
+                          <!--end::Wrapper-->
 
-                      <div class="text-center mt-20">
-                        <button type="button" class="btn btn-danger">Back</button>
-                        <button type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addContact">Upgrade & Notify CBO</button>
+                          <!--begin::Line-->
+                          <div class="stepper-line h-40px"></div>
+                          <!--end::Line-->
                       </div>
+                      <!--end::Step 3-->
 
-                    </div>
-                  </form>
+                      <!--begin::Step 4-->
+                      <div class="stepper-item mx-8 my-4" data-kt-stepper-element="nav">
+                          <!--begin::Wrapper-->
+                          <div class="stepper-wrapper d-flex align-items-center">
+                              <!--begin::Icon-->
+                              <div class="stepper-icon w-40px h-40px">
+                                  <i class="stepper-check fas fa-check"></i>
+                                  <span class="stepper-number">1</span>
+                              </div>
+                              <!--begin::Icon-->
+
+                              <!--begin::Label-->
+                              <div class="stepper-label">
+                                  <!-- <h3 class="stepper-title">
+                                      Step 4
+                                  </h3> -->
+
+                                  <div class="stepper-desc">
+                                      Contract Signing
+                                  </div>
+                              </div>
+                              <!--end::Label-->
+                          </div>
+                          <!--end::Wrapper-->
+
+                          <!--begin::Line-->
+                          <div class="stepper-line h-40px"></div>
+                          <!--end::Line-->
+                      </div>
+                      <!--end::Step 4-->
+                  </div>
+                  <!--end::Nav-->
+
+                      <!--begin::Form-->
+                      <div class="form mx-auto" novalidate="novalidate" id="kt_stepper_example_basic_div">
+                          <!--begin::Group-->
+                          <div class="mb-5">
+                              <!--begin::Step 1-->
+                              <div class="flex-column current" data-kt-stepper-element="content">
+                                <form action="">
+                                  <div class="row">
+                                    <!-- Fill in Contact Person of Customer -->
+                                    <div class="col-lg-6">
+                                      <h3>Fill in Contact Person of Customer</h3>
+                                      <p class="text-muted"><small>02:30 AM by <a href="">You</a></small></p>
+                                    </div>
+                                    <div class="col-lg-6">
+                                      <div class="position-relative">
+                                        <div class="position-absolute top-0 end-0">
+                                        <a href="" class="btn btn-primary btn-sm">Add Contact Person</a>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="rounded box-d" style="border:dashed #CDE7FE;">
+                                      <div class="mt-3">
+                                        <table class="table">
+                                          <tr>
+                                            <td class="text-center">
+                                              <strong>Endang Tardiana</strong>
+                                            </td>
+                                            <td class="text-center">
+                                              <strong>081703621382</strong>
+                                            </td>
+                                            <td class="text-center">
+                                              <strong>endang.tardiana@garuda-indonesia.co.id</strong>	
+                                            </td>
+                                            <td class="text-center">
+                                              <strong>SM. Engine & Component Planning & Contro</strong>
+                                            </td>
+                                            <td class="text-center">
+                                              <strong>JKTMLE, Hangar 2 GMF AeroAsia</strong>
+                                            </td>
+                                            <td class="text-center">
+                                              <a href="" class="btn btn-danger btn-sm"><span class="fas fa-trash"></span></a>
+                                            </td>
+                                          </tr>
+                                        </table>
+                                      </div>
+                                    </div>
+
+                                    <!-- Upload Attachment RFQ or Email Request -->
+                                    <div class="col-lg-6 mt-3">
+                                      <h3>Upload Attachment RFQ or Email Request</h3>
+                                      <p class="text-muted"><small>02:30 AM by <a href="">You</a></small></p>
+                                    </div>
+                                    <div class="col-lg-6 mt-3">
+                                      <div class="position-relative">
+                                        <div class="position-absolute top-0 end-0">
+                                        <a href="" class="btn btn-primary btn-sm">Upload Document</a>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="rounded box-d" style="border:dashed #CDE7FE;">
+                                      <div class="mt-3">
+                                        <table class="table">
+                                          <tr>
+                                            <td class="">
+                                              <strong>Project Term</strong>
+                                              <p>1.2mb</p>
+                                            </td>
+                                            <td class="d-flex justify-content-end">
+                                              <a href="" class="btn btn-danger btn-sm"><span class="fas fa-trash"></span></a>
+                                            </td>
+                                          </tr>
+                                        </table>
+                                      </div>
+                                    </div>
+
+                                    <!-- Upload Attachment Workscope -->
+                                    <div class="col-lg-6 mt-3">
+                                      <h3>Upload Attachment Workscope</h3>
+                                      <p class="text-muted"><small>02:30 AM by <a href="">You</a></small></p>
+                                    </div>
+                                    <div class="col-lg-6 mt-3">
+                                      <div class="position-relative">
+                                        <div class="position-absolute top-0 end-0">
+                                        <a href="" class="btn btn-primary btn-sm">Upload Document</a>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="rounded box-d" style="border:dashed #CDE7FE;">
+                                      <div class="mt-3">
+                                        <table class="table">
+                                          <tr>
+                                            <td>
+                                              <strong>Project Term</strong>
+                                              <p>1.2mb</p>
+                                            </td>
+                                            <td class="d-flex justify-content-end">
+                                              <a href="" class="btn btn-danger btn-sm"><span class="fas fa-trash"></span></a>
+                                            </td>
+                                          </tr>
+                                        </table>
+                                      </div>
+                                    </div>
+
+                                    <div class="text-center mt-20">
+                                      <button type="button" class="btn btn-danger">Back</button>
+                                      <button type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addContact">Upgrade & Notify CBO</button>
+                                    </div>
+
+                                  </div>
+                                </form>
+                              </div>
+                              <!--begin::Step 1-->
+
+                              <!--begin::Step 1-->
+                              <div class="flex-column" data-kt-stepper-element="content">
+                                <form action="">
+                                  <div class="row">
+                                    <h5>File has been upload</h5>
+                                    <!-- Attachment of Financial Assesment Form (optional) -->
+                                    <div class="col-lg-6 mt-3">
+                                      <h3>Attachment of Financial Assesment Form (optional)</h3>
+                                      <p class="text-muted"><small>02:30 AM by <a href="">You</a></small></p>
+                                    </div>
+                                    <div class="col-lg-6 mt-3">
+                                      <div class="position-relative">
+                                        <div class="position-absolute top-0 end-0">
+                                        <a href="" class="btn btn-outline-primary btn-outline btn-sm">Upload Document</a>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="rounded box-d" style="border:dashed #CDE7FE;">
+                                      <div class="mt-3">
+                                        <table class="table">
+                                          <tr>
+                                            <td class="">
+                                              <strong>Project Term</strong>
+                                              <p>1.2mb</p>
+                                            </td>
+                                            <td class="d-flex justify-content-end">
+                                              <a href="" class="btn btn-danger btn-sm"><span class="fas fa-trash"></span></a>
+                                            </td>
+                                          </tr>
+                                        </table>
+                                      </div>
+                                    </div>
+
+                                    <!-- Attachment of Maintenance Proposal for Customer -->
+                                    <div class="col-lg-6 mt-3">
+                                      <h3>Attachment of Maintenance Proposal for Customer</h3>
+                                      <p class="text-muted"><small>02:30 AM by <a href="">You</a></small></p>
+                                    </div>
+                                    <div class="col-lg-6 mt-3">
+                                      <div class="position-relative">
+                                        <div class="position-absolute top-0 end-0">
+                                          <a href="" class="btn btn-outline-primary btn-outline btn-sm">Upload Document</a>
+                                          <a href="" class="btn btn-outline-warning btn-outline btn-sm">Sync</a>
+                                          <a href="" class="btn btn-success btn-sm">Notify COGS</a>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="rounded box-d" style="border:dashed #CDE7FE;">
+                                      <div class="mt-3">
+                                        <table class="table">
+                                          <tr>
+                                            <td class="">
+                                              <strong>Project Term</strong>
+                                              <p>1.2mb</p>
+                                            </td>
+                                            <td class="d-flex justify-content-end">
+                                              <a href="" class="btn btn-danger btn-sm"><span class="fas fa-trash"></span></a>
+                                            </td>
+                                          </tr>
+                                        </table>
+                                      </div>
+                                    </div>
+
+                                    <!-- Attachment of Profitability Analysis Form Signed -->
+                                    <div class="col-lg-6 mt-3">
+                                      <h3>Attachment of Profitability Analysis Form Signed</h3>
+                                      <p class="text-muted"><small>02:30 AM by <a href="">You</a></small></p>
+                                    </div>
+                                    <div class="col-lg-6 mt-3">
+                                      <div class="position-relative">
+                                        <div class="position-absolute top-0 end-0">
+                                          <span class="btn btn-sm" style="background-color: #F1E0D0; color: #955F2D;">Waiting Approve VP TP</span>
+                                          <a href="" class="btn btn-outline-primary btn-outline btn-sm">Upload Document</a>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="rounded box-d" style="border:dashed #CDE7FE;">
+                                      <div class="mt-3">
+                                        <table class="table">
+                                          <tr>
+                                            <td>
+                                              <strong>Project Term</strong>
+                                              <p>1.2mb</p>
+                                            </td>
+                                            <td class="d-flex justify-content-end">
+                                              <a href="" class="btn btn-danger btn-sm"><span class="fas fa-trash"></span></a>
+                                            </td>
+                                          </tr>
+                                        </table>
+                                      </div>
+                                    </div>
+
+                                    <div class="text-center mt-20">
+                                      <button type="button" class="btn btn-danger">Back</button>
+                                      <button type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addContact">Upgrade & Notify CBO</button>
+                                    </div>
+
+                                  </div>
+                                </form>
+                              </div>
+                              <!--begin::Step 1-->
+
+                              <!--begin::Step 2-->
+                              <div class="flex-column" data-kt-stepper-element="content">
+                                <form action="">
+                                  <div class="row">
+                                    <h5>File has been upload</h5>
+                                    <!-- Attachment of Customer Approval (SOW Signed / Proposal Approved) -->
+                                    <div class="col-lg-6 mt-3">
+                                      <h3>Attachment of Customer Approval (SOW Signed / Proposal Approved)</h3>
+                                      <p class="text-muted"><small>02:30 AM by <a href="">You</a></small></p>
+                                    </div>
+                                    <div class="col-lg-6 mt-3">
+                                      <div class="position-relative">
+                                        <div class="position-absolute top-0 end-0">
+                                        <a href="" class="btn btn-outline-primary btn-outline btn-sm">Upload Document</a>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="rounded box-d" style="border:dashed #CDE7FE;">
+                                      <div class="mt-3">
+                                        <table class="table">
+                                          <tr>
+                                            <td class="">
+                                              <strong>Project Term</strong>
+                                              <p>1.2mb</p>
+                                            </td>
+                                            <td class="d-flex justify-content-end">
+                                              <a href="" class="btn btn-danger btn-sm"><span class="fas fa-trash"></span></a>
+                                            </td>
+                                          </tr>
+                                        </table>
+                                      </div>
+                                    </div>
+
+                                    <!-- Slot Request -->
+                                    <div class="col-lg-6 mt-5">
+                                      <h3>Slot Request</h3>
+                                      <p class="text-muted"><small>02:30 AM by <a href="">You</a></small></p>
+                                    </div>
+                                    <div class="col-lg-6 mt-5">
+                                      <div class="position-relative">
+                                        <div class="position-absolute top-0 end-0">
+                                        <a href="" class="btn btn-outline-primary btn-outline btn-sm">Request to CBO</a>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="row">
+                                      <div class="col-lg-4">
+                                        <div class="mb-3">
+                                          <label>Hangar</label>
+                                          <input type="number" class="form-control form-control-solid" name=""/>
+                                        </div>
+                                        <div class="mb-3">
+                                          <label>Line Hangar</label>
+                                          <input type="number" class="form-control form-control-solid" name=""/>
+                                        </div>
+                                      </div>
+                                      <div class="col-lg-4">
+                                        <div class="mb-3">
+                                          <label>Registration</label>
+                                          <input type="text" class="form-control form-control-solid" readonly name=""/>
+                                        </div>
+                                        <div class="mb-3">
+                                          <label>TAT</label>
+                                          <input type="number" class="form-control form-control-solid" name=""/>
+                                        </div>
+                                      </div>
+                                      <div class="col-lg-4">
+                                        <div class="mb-3">
+                                          <label>Start Date</label>
+                                          <input type="date" class="form-control form-control-solid" name=""/>
+                                        </div>
+                                        <div class="mb-3">
+                                          <label>End Date</label>
+                                          <input type="date" class="form-control form-control-solid" name=""/>
+                                        </div>
+                                      </div>
+                                    </div>
+
+                                    <div class="text-center mt-20">
+                                      <button type="button" class="btn btn-danger">Back</button>
+                                      <button type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addContact">Upgrade & Notify CBO</button>
+                                    </div>
+
+                                  </div>
+                                </form>
+                              </div>
+                              <!--begin::Step 2-->
+
+                              <!--begin::Step 1-->
+                              <div class="flex-column" data-kt-stepper-element="content">
+                                <form action="">
+                                  <div class="row">
+                                    <h5>File has been upload</h5>
+                                    <!-- Attachment of Customer Approval (SOW Signed / Proposal Approved) -->
+                                    <div class="col-lg-6 mt-3">
+                                      <h3>Attachment of Customer Approval (SOW Signed / Proposal Approved)</h3>
+                                      <p class="text-muted"><small>02:30 AM by <a href="">You</a></small></p>
+                                    </div>
+                                    <div class="col-lg-6 mt-3">
+                                      <div class="position-relative">
+                                        <div class="position-absolute top-0 end-0">
+                                          <a href="" class="btn btn-outline-primary btn-outline btn-sm">Closed Sales</a>
+                                          <a href="" class="btn btn-primary btn-sm">Upload Document</a>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="rounded box-d" style="border:dashed #CDE7FE;">
+                                      <div class="mt-3">
+                                        <table class="table">
+                                          <tr>
+                                            <td class="">
+                                              <strong>Project Term</strong>
+                                              <p>1.2mb</p>
+                                            </td>
+                                            <td class="d-flex justify-content-end">
+                                              <a href="" class="btn btn-danger btn-sm"><span class="fas fa-trash"></span></a>
+                                            </td>
+                                          </tr>
+                                        </table>
+                                      </div>
+                                    </div>
+
+                                    <!-- Input SO Number -->
+                                    <div class="col-lg-6 mt-5">
+                                      <h3>Input SO Number</h3>
+                                    </div>
+                                    <div class="row">
+                                      <label for="">SO Number</label>
+                                      <div class="input-group mb-3">
+                                        <input type="text" class="form-control">
+                                        <button class="btn btn-sm" type="button" style="background-color: #F1E0D0; color: #955F2D;">Sync</button>
+                                      </div>
+                                    </div>
+
+                                    <div class="text-center mt-20">
+                                      <button type="button" class="btn btn-danger">Back</button>
+                                      <button type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addContact">Request to Closed</button>
+                                    </div>
+
+                                  </div>
+                                </form>
+                              </div>
+                              <!--begin::Step 1-->
+                          </div>
+                          <!--end::Group-->
+
+                          <!--begin::Actions-->
+                          <div class="d-flex flex-stack">
+                              <!--begin::Wrapper-->
+                              <div class="me-2">
+                                  <button type="button" class="btn btn-light btn-active-light-primary" data-kt-stepper-action="previous">
+                                      Back
+                                  </button>
+                              </div>
+                              <!--end::Wrapper-->
+
+                              <!--begin::Wrapper-->
+                              <div>
+                                  <button type="button" class="btn btn-primary" data-kt-stepper-action="submit">
+                                      <span class="indicator-label">
+                                          Submit
+                                      </span>
+                                      <span class="indicator-progress">
+                                          Please wait... <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                                      </span>
+                                  </button>
+
+                                  <button type="button" class="btn btn-primary" data-kt-stepper-action="next">
+                                      Continue
+                                  </button>
+                              </div>
+                              <!--end::Wrapper-->
+                          </div>
+                          <!--end::Actions-->
+                      </div>
+                      <!--end::Form-->
+                  </div>
+                  <!--end::Stepper-->
                 </div>
 
                 <!-- Tab History -->  
                 <div class="tab-pane fade" id="history-tab-pane" role="tabpanel" aria-labelledby="history-tab" tabindex="0">
-                  <div class="mt-3">
+                  <div class="mt-5">
                     <!-- Filter -->
                     <div class="row">
                       <div class="col-lg-6 col-sm-12">
@@ -378,7 +797,7 @@
 
                 <!-- Tab Contact -->
                 <div class="tab-pane fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">
-                  <div class="mt-3">
+                  <div class="mt-5">
                     <div class="table-responsive">
                       <table class="table table-row-bordered table-row-gray-200 gy-4">
                         <thead>
@@ -508,7 +927,32 @@
 <script>
 export default {
   layout: 'template',
-  name: 'MySalesPlanPage',
+  name: 'MySalesPlanDetailPage',
+  mounted() {
+    KTStepper.getInstance()
+    KTFormRepeaterBasic.init()
+    this.step()
+  },
+  // watch: {
+  //   search: debounce(function () {
+  //     this.list()
+  //   }, 500),
+  // },
+  methods: {
+    step() {
+      var element = document.querySelector("#kt_stepper_example_basic");
+
+      var stepper = new KTStepper(element);
+
+      stepper.on("kt.stepper.next", function (stepper) {
+          stepper.goNext(); // go next step
+      });
+
+      stepper.on("kt.stepper.previous", function (stepper) {
+          stepper.goPrevious(); // go previous step
+      });
+    },
+  }
 }
 </script>
 <style>

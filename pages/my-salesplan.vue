@@ -263,36 +263,36 @@
           <div class="modal-body mt-20 mb-10">
             <div class="row">
               <div class="col-lg-6">
-                <div class="card bg-primary">
+                <div class="card" style="background-color: #E8E9F8;">
                   <div class="card-body ">
-                    <p class="text-white">Total Open</p>
-                    <h3>$1,000,000</h3>
+                    <p class="text-muted">Total Open</p>
+                    <h2 style="color: #2D3495;">$1,000,000</h2>
                   </div>
                 </div>
               </div>
               <div class="col-lg-6">
-                <div class="card bg-danger">
+                <div class="card" style="background-color: #F8E8E8;">
                   <div class="card-body">
-                    <p class="text-white">Total Closed</p>
-                    <h3>$1,000,000</h3>
+                    <p class="text-muted">Total Closed</p>
+                    <h2 style="color: #952D2D;">$1,000,000</h2>
                   </div>
                 </div>
               </div>
             </div>
             <div class="row mt-4">
               <div class="col-lg-6">
-                <div class="card bg-info text-white">
+                <div class="card" style="background-color: #F8E8F6;">
                   <div class="card-body">
-                    <p class="text-white">Total Open Closed</p>
-                    <h3>$1,000,000</h3>
+                    <p class="text-muted">Total Open Closed</p>
+                    <h2 style="color: #952D88;">$1,000,000</h2>
                   </div>
                 </div>
               </div>
               <div class="col-lg-6">
-                <div class="card bg-warning text-white">
+                <div class="card" style="background-color: #F8F7E8;">
                   <div class="card-body">
-                    <p class="text-white">Total Cancel</p>
-                    <h3>$1,000,000</h3>
+                    <p class="text-muted">Total Cancel</p>
+                    <h2 style="color: #958E2D;">$1,000,000</h2>
                   </div>
                 </div>
               </div>

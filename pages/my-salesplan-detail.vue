@@ -758,23 +758,23 @@
                         <h3 class="mt-3"><span class="fas fa-calendar-days"></span> 08 July 2022</h3>
                       </div>
                       <div class="col-lg-6 col-sm-12 d-flex justify-content-end">
-                        <ul class="nav nav-tabs">
+                        <ul class="nav nav-tabs nav-line-tabs nav-line-tabs-2x mb-5 fs-6">
                           <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Today</a>
+                              <a class="nav-link active" data-bs-toggle="tab" href="#kt_tab_pane_4">Today</a>
                           </li>
                           <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="#">Week</a>
+                              <a class="nav-link" data-bs-toggle="tab" href="#kt_tab_pane_5">Week</a>
                           </li>
-                          <li class="nav-item dropdown">
+                          <li class="nav-item">
                             <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Month</a>
                             <ul class="dropdown-menu">
-                              <li><a class="dropdown-item" href="#"></a></li>
+                                <li><a class="nav-link dropdown-item" data-bs-toggle="tab" href="#kt_tab_pane_10">January</a></li>
                             </ul>
                           </li>
-                          <li class="nav-item dropdown">
+                          <li class="nav-item">
                             <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Year</a>
                             <ul class="dropdown-menu">
-                              <li><a class="dropdown-item" href="#">2022</a></li>
+                                <li><a class="nav-link dropdown-item" data-bs-toggle="tab" href="#kt_tab_pane_10">2022</a></li>
                             </ul>
                           </li>
                         </ul>
@@ -886,28 +886,78 @@
                 <!-- Tab Reschedule -->
                 <div class="tab-pane fade" id="reschedule-tab-pane" role="tabpanel" aria-labelledby="reschedule-tab" tabindex="0">
                   <div class="mt-5">
-                    <form action="">
-                      <div class="mb-3">
-                        <label class="form-label">Reschedule/Cancel</label>
-                        <select class="form-select">
-                          <option value="">Cancel</option>
-                        </select>
+                    <ul class="nav nav-tabs nav-line-tabs nav-line-tabs-2x mb-5 fs-6">
+                      <li class="nav-item">
+                          <a class="nav-link active" data-bs-toggle="tab" href="#kt_tab_pane_1">Reschedule/Reject</a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link" data-bs-toggle="tab" href="#kt_tab_pane_2">Reschedule/Cancel</a>
+                      </li>
+                    </ul>
+
+                    <div class="tab-content" id="myTabContent">
+                      <div class="tab-pane fade show active" id="kt_tab_pane_1" role="tabpanel">
+                          <form action="">
+                            <div class="mb-3">
+                              <label class="form-label">Reschedule/Reject</label>
+                              <input type="text" name="" class="form-control" id="">
+                            </div>
+                            <div class="mb-3">
+                              <label class="form-label">Hanggar</label>
+                              <input type="number" name="" class="form-control" id="">
+                            </div>
+                            <div class="mb-3">
+                              <label class="form-label">Registration</label>
+                              <input type="text" name="" class="form-control" id="" readonly>
+                            </div>
+                            <div class="mb-3">
+                              <label class="form-label">CBO Date</label>
+                              <input type="date" name="" class="form-control" id="">
+                            </div>
+                            <div class="mb-3">
+                              <label class="form-label">TAT</label>
+                              <input type="number" name="" class="form-control" id="">
+                            </div>
+                            <div class="mb-3">
+                              <label class="form-label">Current Date</label>
+                              <input type="date" name="" class="form-control" id="">
+                            </div>
+                            <div class="mb-3">
+                              <label class="form-label">Sales Month</label>
+                              <input type="text" name="" class="form-control" id="" readonly>
+                            </div>
+                            <div class="text-center mt-5">
+                              <button type="reset" class="btn btn-danger">Cancel</button>
+                              <button type="submit" class="btn btn-primary">Confirm</button>
+                            </div>
+                          </form>
                       </div>
-                      <div class="mb-3">
-                        <label class="form-label">Category</label>
-                        <select class="form-select">
-                          <option value="">-- Select One --</option>
-                        </select>
+                      <div class="tab-pane fade" id="kt_tab_pane_2" role="tabpanel">
+                        <form action="">
+                          <div class="mb-3">
+                            <label class="form-label">Reschedule/Cancel</label>
+                            <select class="form-select">
+                              <option value="">Cancel</option>
+                            </select>
+                          </div>
+                          <div class="mb-3">
+                            <label class="form-label">Category</label>
+                            <select class="form-select">
+                              <option value="">-- Select One --</option>
+                            </select>
+                          </div>
+                          <div class="mb-3">
+                            <label class="form-label">Reason of Cancel <span class="text-danger">*</span></label>
+                            <textarea name="" class="form-control" cols="30" rows="10"></textarea>
+                          </div>
+                          <div class="text-center mt-5">
+                            <button type="reset" class="btn btn-danger">Cancel</button>
+                            <button type="submit" class="btn btn-primary">Confirm</button>
+                          </div>
+                        </form>
                       </div>
-                      <div class="mb-3">
-                        <label class="form-label">Reason of Cancel <span class="text-danger">*</span></label>
-                        <textarea name="" class="form-control" cols="30" rows="10"></textarea>
-                      </div>
-                      <div class="text-center">
-                        <button type="reset" class="btn btn-danger">Cancel</button>
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                      </div>
-                    </form>
+                    </div>
+                    
                   </div>
                 </div>
               </div>

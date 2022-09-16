@@ -313,6 +313,51 @@
       <div class="row mt-3">
         <div class="card">
           <div class="card-body">
+            <!-- Search -->
+            <div class="row d-flex align-items-center mb-5">
+              <div class="position-relative me-md-2">
+                <span
+                  class="
+                    svg-icon svg-icon-3 svg-icon-gray-500
+                    position-absolute
+                    top-50
+                    translate-middle
+                    ms-6
+                  "
+                >
+                  <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <rect
+                      opacity="0.5"
+                      x="17.0365"
+                      y="15.1223"
+                      width="8.15546"
+                      height="2"
+                      rx="1"
+                      transform="rotate(45 17.0365 15.1223)"
+                      fill="currentColor"
+                    ></rect>
+                    <path
+                      d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z"
+                      fill="currentColor"
+                    ></path>
+                  </svg>
+                </span>
+                <input
+                  type="text"
+                  class="form-control form-control-solid ps-10"
+                  name="search"
+                  v-model="search"
+                  placeholder="Search"
+                />
+              </div>
+            </div>
+            <!-- Table -->
             <div class="table-responsive">
               <table
                 class="table table-row-bordered table-row-gray-200 gy-4"
@@ -333,6 +378,50 @@
                   </tr>
                 </thead>
                 <tbody>
+                  <tr 
+                    v-for="(p_sales, p_sales_index) in sales.data"
+                    :key="p_sales_index"
+                  >
+                    <td class="text-center">
+                      {{ sales.from + p_sales_index }}
+                    </td>
+                    <td class="text-center">
+                      {{ p_sales.customer_id.name }}
+                    </td>
+                    <td class="text-center">
+                      {{ p_sales.maintenance_id.name }}
+                    </td>
+                    <td class="text-center">
+                      {{ p_sales.ac_reg }}
+                    </td>
+                    <td class="text-center">
+                      {{ p_sales.value }}
+                    </td>
+                    <td class="text-center">
+                      <span class="badge bg-secondary">{{ p_sales.tat }}</span>
+                    </td>
+                    <td class="text-center">
+                      <span class="badge bg-secondary">{{ p_sales.start_date }}</span>
+                    </td>
+                    <td class="text-center">
+                      <span class="badge bg-danger">{{ p_sales.so_number }}</span>
+                    </td>
+                    <td class="text-center">
+                      <span class="badge bg-success">-</span>
+                    </td>
+                    <td class="text-center">
+                      <span class="badge bg-danger">-</span>
+                    </td>
+                    <td class="text-center">
+                      <a href="my-salesplan-detail">Detail</a>
+                    </td>
+                  </tr>
+                  <tr v-if="sales.data.length < 1">
+                    <td colspan="12">
+                      <div class="text-muted text-center">Data not found</div>
+                    </td>
+                  </tr>
+                  <!-- Dummy -->
                   <tr>
                     <td class="text-center">
                       1
@@ -372,6 +461,71 @@
               </table>
             </div>
           </div>
+          <div class="card-footer">
+            <div class="row">
+              <div class="col d-flex justify-content-start align-items-center">
+                <nav aria-label="Page navigation example">
+                  <ul class="pagination">
+                    <li class="page-item align-self-center">Rows per page:</li>
+                    <li class="page-item">
+                      <select
+                        class="form-control form-control-sm"
+                        v-model="paginate"
+                        @change="list()"
+                      >
+                        <option value="10">10</option>
+                        <option value="25">25</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                      </select>
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+              <div class="col d-flex justify-content-end align-items-center">
+                <nav aria-label="Page navigation example">
+                  <ul class="pagination">
+                    <li class="page-item">
+                      <button
+                        type="button"
+                        class="page-link"
+                        :class="{
+                          disabled: !sales.prev_page_url,
+                        }"
+                        @click="sales.prev_page_url && list(sales.prev_page_url)"
+                      >
+                        Previous
+                      </button>
+                    </li>
+                    <li
+                      class="page-item"
+                      style="margin-left: 15px; margin-right: 15px"
+                    >
+                      <input
+                        type="text"
+                        class="form-control form-control-sm text-center"
+                        v-model="current_page"
+                        @keypress="directPage"
+                        style="width: 60px"
+                      />
+                    </li>
+                    <li class="page-item">
+                      <button
+                        type="button"
+                        class="page-link"
+                        :class="{
+                          disabled: !sales.next_page_url,
+                        }"
+                        @click="sales.next_page_url && list(sales.next_page_url)"
+                      >
+                        Next
+                      </button>
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <!-- End Table -->
@@ -382,9 +536,97 @@
 
 
 <script>
+import debounce from 'lodash/debounce'
 export default {
   layout: 'template',
   name: 'MySalesPlanPage',
+  data() {
+    return {
+      sales: {
+        data: [],
+        link: [],
+      },
+      p_sales: {
+        id: null,
+        customer_id: null,
+        prospect_id: null,
+        maintenance_id: null,
+        ac_reg: null,
+        value: null,
+        tat: null,
+        start_date: null,
+        so_number: null,
+      },
+      search: null,
+      order: 'id',
+      by: 'desc',
+      paginate: '10',
+      current_page: null,
+      errors: {
+        customer_id: null,
+        prospect_id: null,
+        maintenance_id: null,
+        ac_reg: null,
+        value: null,
+        tat: null,
+        start_date: null,
+        so_number: null,
+      },
+    }
+  },
+  watch: {
+    search: debounce(function () {
+      this.list()
+    }, 500),
+  },
+  created() {
+    this.list()
+  },
+  methods: {
+    list(paginate) {
+      this.loading()
+      paginate = paginate || `/api/sales`
+      this.$axios
+        .get(paginate, {
+          params: {
+            search: this.search,
+            order: this.order,
+            by: this.by,
+            paginate: this.paginate,
+          },
+        })
+        .then((response) => {
+          this.sales = response.data.data
+          console.log(this.sales)
+          this.current_page = this.sales.current_page
+          Swal.close()
+        })
+        .catch((error) => console.log(error))
+    },
+    directPage: debounce(function () {
+      if (this.current_page < 1) {
+        this.current_page = 1
+      } else if (this.current_page > this.sales.last_page) {
+        this.current_page = this.sales.last_page
+      }
+      let url = new URL(this.sales.first_page_url)
+      let search_params = url.searchParams
+      search_params.set('page', this.current_page)
+      url.search = search_params.toString()
+      let new_url = url.toString()
+      this.list(new_url)
+    }, 500),
+    loading() {
+      Swal.fire({
+        timer: 500,
+        didOpen: () => {
+          Swal.showLoading()
+        },
+        background: 'transparent',
+        allowOutsideClick: false,
+      })
+    },
+  }
 }
 </script>
 <style>

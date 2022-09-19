@@ -45,7 +45,7 @@
           <h3 class="mt-3">My Salesplan</h3>
         </div>
         <div class="col-lg-6 col-sm-12 d-flex justify-content-end">
-          <a href="#" class="btn btn-outline btn-outline-primary me-2 mb-2" data-bs-toggle="modal" data-bs-target="#filterdate">Filter & Date</a>
+          <a href="#" class="btn btn-outline btn-outline-primary me-2 mb-2" data-bs-toggle="modal" data-bs-target="#filterdate">Filter & Date <i class="fa-solid fa-chevron-down"></i></a>
         </div>
 
         <!-- Modal filterdate  -->
@@ -139,13 +139,51 @@
               <h1 class="mt-5" style="color: #5E932F;">1</h1>
             </div>
             <div class="card-body mt-10">
-              <div class="text-center">
-                <h2 style="color: #5E932F;">$1,000,000</h2>
-                <p class="text-muted">Awernesss</p>
+              <div id="card1carousel" class="carousel slide" data-bs-ride="true">
+                <div class="carousel-inner">
+                  <div class="carousel-item active">
+                    <div class="text-center">
+                      <h2 style="color: #5E932F;">$1,000,000</h2>
+                      <p class="text-muted">Awernesss 1</p>
+                    </div>
+                    <div class="d-grid gap-2">
+                      <a href="#" class="btn btn-outline btn-outline-dashed btn-outline-success d-flex justify-content-start btn-active-light-success me-2 mb-2">
+                        <div class="d-flex align-items-center gap-2">
+                          <span style="background-color: #EFF8E8; color: #5E932F; border-radius: 100%; padding: 5px 13px 5px 13px">1</span>
+                          <span style="color: #5E932F">$1,000,000</span>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-end">
+                          <span class="text-muted ms-10">Open</span>
+                        </div>
+                      </a>
+                      <a href="#" class="btn btn-outline btn-outline-dashed btn-outline-danger d-flex justify-content-start btn-active-light-danger me-2 mb-2">
+                        <div class="d-flex align-items-center gap-2">
+                          <span style="background-color: #F8E8E8; color: #952D2D; border-radius: 100%; padding: 5px 13px 5px 13px">1</span>
+                          <span style="color: #952D2D">$1,000,000</span>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-end">
+                          <span class="text-muted ms-10">Close</span>
+                        </div>
+                      </a>
+                    </div>
+                  </div>
+                  <!-- <div class="carousel-item">
+                    <div class="text-center">
+                      <h2>$1,000,000</h2>
+                      <p class="text-muted">Awernesss 2</p>
+                    </div>
+                    <div class="text-center d-grid gap-2">
+                      <a href="#" class="btn btn-outline btn-outline-dashed btn-outline-success btn-active-light-success me-2 mb-2">Primary</a>
+                      <a href="#" class="btn btn-outline btn-outline-dashed btn-outline-danger btn-active-light-danger me-2 mb-2">Primary</a>
+                    </div>
+                  </div> -->
+                </div>
               </div>
-              <div class="text-center d-grid gap-2">
-                <a href="#" class="btn btn-outline btn-outline-dashed btn-outline-success btn-active-light-success me-2 mb-2">Primary</a>
-                <a href="#" class="btn btn-outline btn-outline-dashed btn-outline-danger btn-active-light-danger me-2 mb-2">Primary</a>
+            </div>
+            <div class="card-footer">
+              <div class="carousel-indicators">
+                <button type="button" data-bs-target="#card1carousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                <!-- <button type="button" data-bs-target="#card1carousel" data-bs-slide-to="1" aria-label="Slide 2"></button> -->
               </div>
             </div>
           </div>
@@ -156,13 +194,51 @@
               <h1 class="mt-5" style="color: #2D3495;">2</h1>
             </div>
             <div class="card-body mt-10">
-              <div class="text-center">
-                <h2 style="color: #2D3495;">$1,000,000</h2>
-                <p class="text-muted">Awernesss</p>
+              <div id="card2carousel" class="carousel slide" data-bs-ride="true">
+                <div class="carousel-inner">
+                  <div class="carousel-item active">
+                    <div class="text-center">
+                      <h2 style="color: #2D3495;">$1,000,000</h2>
+                      <p class="text-muted">Awernesss 1</p>
+                    </div>
+                    <div class="d-grid gap-2">
+                      <a href="#" class="btn btn-outline btn-outline-dashed btn-outline-success d-flex justify-content-start btn-active-light-success me-2 mb-2">
+                        <div class="d-flex align-items-center gap-2">
+                          <span style="background-color: #EFF8E8; color: #5E932F; border-radius: 100%; padding: 5px 13px 5px 13px">1</span>
+                          <span style="color: #5E932F">$1,000,000</span>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-end">
+                          <span class="text-muted ms-10">Open</span>
+                        </div>
+                      </a>
+                      <a href="#" class="btn btn-outline btn-outline-dashed btn-outline-danger d-flex justify-content-start btn-active-light-danger me-2 mb-2">
+                        <div class="d-flex align-items-center gap-2">
+                          <span style="background-color: #F8E8E8; color: #952D2D; border-radius: 100%; padding: 5px 13px 5px 13px">1</span>
+                          <span style="color: #952D2D">$1,000,000</span>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-end">
+                          <span class="text-muted ms-10">Close</span>
+                        </div>
+                      </a>
+                    </div>
+                  </div>
+                  <!-- <div class="carousel-item">
+                    <div class="text-center">
+                      <h2>$1,000,000</h2>
+                      <p class="text-muted">Awernesss 2</p>
+                    </div>
+                    <div class="text-center d-grid gap-2">
+                      <a href="#" class="btn btn-outline btn-outline-dashed btn-outline-success btn-active-light-success me-2 mb-2">Primary</a>
+                      <a href="#" class="btn btn-outline btn-outline-dashed btn-outline-danger btn-active-light-danger me-2 mb-2">Primary</a>
+                    </div>
+                  </div> -->
+                </div>
               </div>
-              <div class="text-center d-grid gap-2">
-                <a href="#" class="btn btn-outline btn-outline-dashed btn-outline-success btn-active-light-success me-2 mb-2">Primary</a>
-                <a href="#" class="btn btn-outline btn-outline-dashed btn-outline-danger btn-active-light-danger me-2 mb-2">Primary</a>
+            </div>
+            <div class="card-footer">
+              <div class="carousel-indicators">
+                <button type="button" data-bs-target="#card2carousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                <!-- <button type="button" data-bs-target="#card2carousel" data-bs-slide-to="1" aria-label="Slide 2"></button> -->
               </div>
             </div>
           </div>
@@ -173,13 +249,51 @@
               <h1 class="mt-5" style="color: #952D88;">3</h1>
             </div>
             <div class="card-body mt-10">
-              <div class="text-center">
-                <h2 style="color: #952D88;">$1,000,000</h2>
-                <p class="text-muted">Awernesss</p>
+              <div id="card2carousel" class="carousel slide" data-bs-ride="true">
+                <div class="carousel-inner">
+                  <div class="carousel-item active">
+                    <div class="text-center">
+                      <h2 style="color: #952D88;">$1,000,000</h2>
+                      <p class="text-muted">Awernesss 1</p>
+                    </div>
+                    <div class="d-grid gap-2">
+                      <a href="#" class="btn btn-outline btn-outline-dashed btn-outline-success d-flex justify-content-start btn-active-light-success me-2 mb-2">
+                        <div class="d-flex align-items-center gap-2">
+                          <span style="background-color: #EFF8E8; color: #5E932F; border-radius: 100%; padding: 5px 13px 5px 13px">1</span>
+                          <span style="color: #5E932F">$1,000,000</span>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-end">
+                          <span class="text-muted ms-10">Open</span>
+                        </div>
+                      </a>
+                      <a href="#" class="btn btn-outline btn-outline-dashed btn-outline-danger d-flex justify-content-start btn-active-light-danger me-2 mb-2">
+                        <div class="d-flex align-items-center gap-2">
+                          <span style="background-color: #EFF8E8; color: #952D2D; border-radius: 100%; padding: 5px 13px 5px 13px">1</span>
+                          <span style="color: #952D2D">$1,000,000</span>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-end">
+                          <span class="text-muted ms-10">Close</span>
+                        </div>
+                      </a>
+                    </div>
+                  </div>
+                  <!-- <div class="carousel-item">
+                    <div class="text-center">
+                      <h2>$1,000,000</h2>
+                      <p class="text-muted">Awernesss 2</p>
+                    </div>
+                    <div class="text-center d-grid gap-2">
+                      <a href="#" class="btn btn-outline btn-outline-dashed btn-outline-success btn-active-light-success me-2 mb-2">Primary</a>
+                      <a href="#" class="btn btn-outline btn-outline-dashed btn-outline-danger btn-active-light-danger me-2 mb-2">Primary</a>
+                    </div>
+                  </div> -->
+                </div>
               </div>
-              <div class="text-center d-grid gap-2">
-                <a href="#" class="btn btn-outline btn-outline-dashed btn-outline-success btn-active-light-success me-2 mb-2">Primary</a>
-                <a href="#" class="btn btn-outline btn-outline-dashed btn-outline-danger btn-active-light-danger me-2 mb-2">Primary</a>
+            </div>
+            <div class="card-footer">
+              <div class="carousel-indicators">
+                <button type="button" data-bs-target="#card2carousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                <!-- <button type="button" data-bs-target="#card2carousel" data-bs-slide-to="1" aria-label="Slide 2"></button> -->
               </div>
             </div>
           </div>
@@ -192,17 +306,32 @@
             </div>
             <div class="card-body mt-10">
 
-              <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="true">
-                
+              <div id="card4carousel" class="carousel slide" data-bs-ride="true">
                 <div class="carousel-inner">
                   <div class="carousel-item active">
                     <div class="text-center">
-                      <h2 style="color: #5E932F;">$1,000,000</h2>
+                      <h2 style="color: #958E2D;">$1,000,000</h2>
                       <p class="text-muted">Awernesss 1</p>
                     </div>
-                    <div class="text-center d-grid gap-2">
-                      <a href="#" class="btn btn-outline btn-outline-dashed btn-outline-success btn-active-light-success me-2 mb-2">Primary</a>
-                      <a href="#" class="btn btn-outline btn-outline-dashed btn-outline-danger btn-active-light-danger me-2 mb-2">Primary</a>
+                    <div class="d-grid gap-2">
+                      <a href="#" class="btn btn-outline btn-outline-dashed btn-outline-success d-flex justify-content-start btn-active-light-success me-2 mb-2">
+                        <div class="d-flex align-items-center gap-2">
+                          <span style="background-color: #EFF8E8; color: #5E932F; border-radius: 100%; padding: 5px 13px 5px 13px">1</span>
+                          <span style="color: #5E932F">$1,000,000</span>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-end">
+                          <span class="text-muted ms-10">Open</span>
+                        </div>
+                      </a>
+                      <a href="#" class="btn btn-outline btn-outline-dashed btn-outline-danger d-flex justify-content-start btn-active-light-danger me-2 mb-2">
+                        <div class="d-flex align-items-center gap-2">
+                          <span style="background-color: #EFF8E8; color: #952D2D; border-radius: 100%; padding: 5px 13px 5px 13px">1</span>
+                          <span style="color: #952D2D">$1,000,000</span>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-end">
+                          <span class="text-muted ms-10">Close</span>
+                        </div>
+                      </a>
                     </div>
                   </div>
                   <div class="carousel-item">
@@ -211,8 +340,24 @@
                       <p class="text-muted">Awernesss 2</p>
                     </div>
                     <div class="text-center d-grid gap-2">
-                      <a href="#" class="btn btn-outline btn-outline-dashed btn-outline-success btn-active-light-success me-2 mb-2">Primary</a>
-                      <a href="#" class="btn btn-outline btn-outline-dashed btn-outline-danger btn-active-light-danger me-2 mb-2">Primary</a>
+                      <a href="#" class="btn btn-outline btn-outline-dashed btn-outline-success d-flex justify-content-start btn-active-light-success me-2 mb-2">
+                        <div class="d-flex align-items-center gap-2">
+                          <span style="background-color: #EFF8E8; color: #5E932F; border-radius: 100%; padding: 5px 13px 5px 13px">1</span>
+                          <span style="color: #5E932F">$1,000,000</span>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-end">
+                          <span class="text-muted ms-10">Open</span>
+                        </div>
+                      </a>
+                      <a href="#" class="btn btn-outline btn-outline-dashed btn-outline-danger d-flex justify-content-start btn-active-light-danger me-2 mb-2">
+                        <div class="d-flex align-items-center gap-2">
+                          <span style="background-color: #EFF8E8; color: #952D2D; border-radius: 100%; padding: 5px 13px 5px 13px">1</span>
+                          <span style="color: #952D2D">$1,000,000</span>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-end">
+                          <span class="text-muted ms-10">Close</span>
+                        </div>
+                      </a>
                     </div>
                   </div>
                 </div>
@@ -222,8 +367,8 @@
 
             <div class="card-footer">
               <div class="carousel-indicators">
-                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#card4carousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#card4carousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
               </div>
             </div>
 

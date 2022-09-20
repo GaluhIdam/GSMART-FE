@@ -43,7 +43,14 @@
       <!-- Breadcrumb -->
       <div class="row mb-5">
         <div class="col-lg-6">
-          <a href="my-salesplan"><i class="fa-solid fa-angle-left"></i> Back</a>
+          <Nuxt-link
+            class="menu-link"
+            to="/my-salesplan"
+            active-class="active"
+            >
+            <i class="fa-solid fa-angle-left"></i>
+              <span class="menu-title">My Prospect</span>
+          </Nuxt-link>
         </div>
         <div class="col-lg-6">
           <div class="position-relative">

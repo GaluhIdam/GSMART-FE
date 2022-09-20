@@ -558,7 +558,13 @@
                       <span class="badge bg-danger">-</span>
                     </td>
                     <td class="text-center">
-                      <a href="my-salesplan-detail">Detail</a>
+                      <Nuxt-link
+                        class="menu-link"
+                        to="/my-salesplan-detail"
+                        active-class="active"
+                        >
+                          <span class="menu-title">Detail</span>
+                      </Nuxt-link>
                     </td>
                   </tr>
                   <tr v-if="sales.data.length < 1">
@@ -599,7 +605,13 @@
                       <span class="badge bg-danger">Closed</span>
                     </td>
                     <td class="text-center">
-                      <a href="my-salesplan-detail">Detail</a>
+                      <Nuxt-link
+                        class="menu-link"
+                        to="/my-salesplan-detail"
+                        active-class="active"
+                        >
+                          <span class="menu-title">Detail</span>
+                      </Nuxt-link>
                     </td>
                   </tr>
                 </tbody>

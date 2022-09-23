@@ -86,45 +86,45 @@
         </div>
       </div>
       <!-- Row Total -->
-      <div class="rounded box-d" style="border:dashed #fff;">
+      <div class="rounded box-d" id="cardTopDashed">
         <div class="row">
-          <div class="col-lg-2 mt-1 col-md-6" style="width: 207px;">
-            <div class="card card-flush" style="background: #DFF0D0;">
+          <div class="col-lg-2 mt-1 col-md-6" id="cardTop">
+            <div class="card card-flush" id="bgGreen">
               <div class="card-body">
                 <p class="text-muted">Total Target</p>
-                <h3 style="color: #5E932F;">${{ formatPrice(sales.totalTarget) }}</h3>
+                <h3 id="textGreen">${{ formatPrice(sales.totalTarget) }}</h3>
               </div>
             </div>
           </div>
-          <div class="col-lg-2 mt-1 col-md-6" style="width: 207px;">
-            <div class="card card-flush" style="background: #E8E9F8;">
+          <div class="col-lg-2 mt-1 col-md-6" id="cardTop">
+            <div class="card card-flush" id="bgBlue">
               <div class="card-body">
                 <p class="text-muted">Total Open</p>
-                <h3 style="color: #2D3495;">${{ formatPrice(sales.totalOpen) }}</h3>
+                <h3 id="textBlue">${{ formatPrice(sales.totalOpen) }}</h3>
               </div>
             </div>
           </div>
-          <div class="col-lg-2 mt-1 col-md-6" style="width: 207px;">
-            <div class="card card-flush" style="background: #F8E8E8;">
+          <div class="col-lg-2 mt-1 col-md-6" id="cardTop">
+            <div class="card card-flush" id="bgRed">
               <div class="card-body">
                 <p class="text-muted">Total Closed</p>
-                <h3 style="color: #952D2D;">${{ formatPrice(sales.totalClosed) }}</h3>
+                <h3 id="textRed">${{ formatPrice(sales.totalClosed) }}</h3>
               </div>
             </div>
           </div>
-          <div class="col-lg-2 mt-1 col-md-6" style="width: 207px;">
-            <div class="card card-flush" style="background: #F8E8F6;">
+          <div class="col-lg-2 mt-1 col-md-6" id="cardTop">
+            <div class="card card-flush" id="bgPurple">
               <div class="card-body">
                 <p class="text-muted">Total Open Closed</p>
-                <h3 style="color: #952D88;">${{ formatPrice(sales.totalOpenClosed) }}</h3>
+                <h3 id="textPurple">${{ formatPrice(sales.totalOpenClosed) }}</h3>
               </div>
             </div>
           </div>
-          <div class="col-lg-2 mt-1 col-md-6" style="width: 207px;">
-            <div class="card card-flush" style="background: #F8F7E8;">
+          <div class="col-lg-2 mt-1 col-md-6" id="cardTop">
+            <div class="card card-flush" id="bgGold">
               <div class="card-body">
                 <p class="text-muted">Total Cancel</p>
-                <h3 style="color: #958E2D;">${{ formatPrice(sales.totalCancel) }}</h3>
+                <h3 id="textGold">${{ formatPrice(sales.totalCancel) }}</h3>
               </div>
             </div>
           </div>
@@ -136,165 +136,213 @@
       <div class="row mt-10">
         <div class="col-lg-3 col-md-6 mt-10">
           <div class="card card-stretch-50 shadow mb-5">
-            <div class="position-absolute top-0 start-50 translate-middle d-flex justify-content-center rounded" style="background-color: #DFF0D0; width: 60px; height: 60px;">
-              <h1 class="mt-5" style="color: #5E932F;">1</h1>
+            <div class="position-absolute top-0 start-50 translate-middle d-flex justify-content-center rounded" id="bgGreen2">
+              <h1 class="mt-5" id="textGreen">1</h1>
             </div>
             <div class="card-body mt-10">
               <div id="card1carousel" class="carousel slide" data-bs-ride="true">
                 <div class="carousel-inner">
                   <div class="carousel-item active">
                     <div class="text-center">
-                      <h2 style="color: #5E932F;">${{ sales.level1 }}</h2>
+                      <h2 id="textGreen">${{ sales.level1 }}</h2>
                       <p class="text-muted">Awernesss</p>
                     </div>
                     <div class="d-grid gap-2">
                       <a href="#" class="btn btn-outline btn-outline-dashed btn-outline-success d-flex justify-content-start btn-active-light-success me-2 mb-2">
                         <div class="d-flex align-items-center gap-2">
-                          <span style="background-color: #EFF8E8; color: #5E932F; border-radius: 100%; padding: 5px 13px 5px 13px">1</span>
-                          <span style="color: #5E932F">$</span>
+                          <span id="btnGreen">1</span>
+                          <span id="textGreen">$</span>
                         </div>
                         <div class="d-flex align-items-center justify-content-end">
-                          <span class="text-muted ms-10">Open</span>
+                          <span class="text-muted ms-10" id="fontSm">Open</span>
                         </div>
                       </a>
                       <a href="#" class="btn btn-outline btn-outline-dashed btn-outline-danger d-flex justify-content-start btn-active-light-danger me-2 mb-2">
                         <div class="d-flex align-items-center gap-2">
-                          <span style="background-color: #F8E8E8; color: #952D2D; border-radius: 100%; padding: 5px 13px 5px 13px">1</span>
-                          <span style="color: #952D2D">$</span>
+                          <span id="btnRed">1</span>
+                          <span id="textRed">$</span>
                         </div>
                         <div class="d-flex align-items-center justify-content-end">
-                          <span class="text-muted ms-10">Closed</span>
+                          <span class="text-muted ms-10" id="fontSm">Closed</span>
                         </div>
                       </a>
                     </div>
                   </div>
-                  <!-- <div class="carousel-item">
+                  <div class="carousel-item">
                     <div class="text-center">
-                      <h2>$1,000,000</h2>
-                      <p class="text-muted">Awernesss 2</p>
+                      <h2 id="textGreen">${{ sales.level1 }}</h2>
+                      <p class="text-muted">Contract Signing</p>
                     </div>
                     <div class="text-center d-grid gap-2">
-                      <a href="#" class="btn btn-outline btn-outline-dashed btn-outline-success btn-active-light-success me-2 mb-2">Primary</a>
-                      <a href="#" class="btn btn-outline btn-outline-dashed btn-outline-danger btn-active-light-danger me-2 mb-2">Primary</a>
+                      <a href="#" class="btn btn-outline btn-outline-dashed btn-outline-warning d-flex justify-content-start btn-active-light-warning me-2 mb-2">
+                        <div class="d-flex align-items-center gap-2">
+                          <span id="btnGold">1</span>
+                          <span id="textGold">$</span>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-end">
+                          <span class="text-muted ms-10" id="fontSm">Close in</span>
+                        </div>
+                      </a>
+                      <a href="#" class="btn btn-outline btn-outline-dashed btn-outline-info d-flex justify-content-start btn-active-light-info me-2 mb-2">
+                        <div class="d-flex align-items-center gap-2">
+                          <span id="btnPurple">1</span>
+                          <span id="textPurple">$ </span>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-end">
+                          <span class="text-muted ms-10" id="fontSm">Cancel</span>
+                        </div>
+                      </a>
                     </div>
-                  </div> -->
+                  </div>
                 </div>
               </div>
             </div>
             <div class="card-footer">
               <div class="carousel-indicators">
                 <button type="button" data-bs-target="#card1carousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                <!-- <button type="button" data-bs-target="#card1carousel" data-bs-slide-to="1" aria-label="Slide 2"></button> -->
+                <button type="button" data-bs-target="#card1carousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
               </div>
             </div>
           </div>
         </div>
         <div class="col-lg-3 col-md-6 mt-10">
           <div class="card card-stretch-50 shadow mb-5">
-            <div class="position-absolute top-0 start-50 translate-middle d-flex justify-content-center rounded" style="background-color: #D0D3F1; width: 60px; height: 60px;">
-              <h1 class="mt-5" style="color: #2D3495;">2</h1>
+            <div class="position-absolute top-0 start-50 translate-middle d-flex justify-content-center rounded" id="bgBlue2">
+              <h1 class="mt-5" id="textBlue">2</h1>
             </div>
             <div class="card-body mt-10">
               <div id="card2carousel" class="carousel slide" data-bs-ride="true">
                 <div class="carousel-inner">
                   <div class="carousel-item active">
                     <div class="text-center">
-                      <h2 style="color: #2D3495;">${{ sales.level2 }}</h2>
+                      <h2 id="textBlue">${{ sales.level2 }}</h2>
                       <p class="text-muted">Opportunity</p>
                     </div>
                     <div class="d-grid gap-2">
                       <a href="#" class="btn btn-outline btn-outline-dashed btn-outline-success d-flex justify-content-start btn-active-light-success me-2 mb-2">
                         <div class="d-flex align-items-center gap-2">
-                          <span style="background-color: #EFF8E8; color: #5E932F; border-radius: 100%; padding: 5px 13px 5px 13px">1</span>
-                          <span style="color: #5E932F">$</span>
+                          <span id="btnGreen">1</span>
+                          <span id="textGreen">$</span>
                         </div>
                         <div class="d-flex align-items-center justify-content-end">
-                          <span class="text-muted ms-10">Open</span>
+                          <span class="text-muted ms-10" id="fontSm">Open</span>
                         </div>
                       </a>
                       <a href="#" class="btn btn-outline btn-outline-dashed btn-outline-danger d-flex justify-content-start btn-active-light-danger me-2 mb-2">
                         <div class="d-flex align-items-center gap-2">
-                          <span style="background-color: #F8E8E8; color: #952D2D; border-radius: 100%; padding: 5px 13px 5px 13px">1</span>
-                          <span style="color: #952D2D">$</span>
+                          <span id="btnRed">1</span>
+                          <span id="color: #952D2D">$</span>
                         </div>
                         <div class="d-flex align-items-center justify-content-end">
-                          <span class="text-muted ms-10">Closed</span>
+                          <span class="text-muted ms-10" id="fontSm">Closed</span>
                         </div>
                       </a>
                     </div>
                   </div>
-                  <!-- <div class="carousel-item">
+                  <div class="carousel-item">
                     <div class="text-center">
-                      <h2>$1,000,000</h2>
-                      <p class="text-muted">Awernesss 2</p>
+                      <h2 id="textBlue">${{ sales.level2 }}</h2>
+                      <p class="text-muted">Contract Signing</p>
                     </div>
                     <div class="text-center d-grid gap-2">
-                      <a href="#" class="btn btn-outline btn-outline-dashed btn-outline-success btn-active-light-success me-2 mb-2">Primary</a>
-                      <a href="#" class="btn btn-outline btn-outline-dashed btn-outline-danger btn-active-light-danger me-2 mb-2">Primary</a>
+                      <a href="#" class="btn btn-outline btn-outline-dashed btn-outline-warning d-flex justify-content-start btn-active-light-warning me-2 mb-2">
+                        <div class="d-flex align-items-center gap-2">
+                          <span id="btnGold">1</span>
+                          <span id="textGold">$</span>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-end">
+                          <span class="text-muted ms-10" id="fontSm">Close in</span>
+                        </div>
+                      </a>
+                      <a href="#" class="btn btn-outline btn-outline-dashed btn-outline-info d-flex justify-content-start btn-active-light-info me-2 mb-2">
+                        <div class="d-flex align-items-center gap-2">
+                          <span id="btnPurple">1</span>
+                          <span id="textPurple">$ </span>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-end">
+                          <span class="text-muted ms-10" id="fontSm">Cancel</span>
+                        </div>
+                      </a>
                     </div>
-                  </div> -->
+                  </div>
                 </div>
               </div>
             </div>
             <div class="card-footer">
               <div class="carousel-indicators">
                 <button type="button" data-bs-target="#card2carousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                <!-- <button type="button" data-bs-target="#card2carousel" data-bs-slide-to="1" aria-label="Slide 2"></button> -->
+                <button type="button" data-bs-target="#card2carousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
               </div>
             </div>
           </div>
         </div>
         <div class="col-lg-3 col-md-6 mt-10">
           <div class="card card-stretch-50 shadow mb-5">
-            <div class="position-absolute top-0 start-50 translate-middle d-flex justify-content-center rounded" style="background-color: #F1D0EE; width: 60px; height: 60px;">
-              <h1 class="mt-5" style="color: #952D88;">3</h1>
+            <div class="position-absolute top-0 start-50 translate-middle d-flex justify-content-center rounded" id="bgPurple2">
+              <h1 class="mt-5" id="textPurple">3</h1>
             </div>
             <div class="card-body mt-10">
-              <div id="card2carousel" class="carousel slide" data-bs-ride="true">
+              <div id="card3carousel" class="carousel slide" data-bs-ride="true">
                 <div class="carousel-inner">
                   <div class="carousel-item active">
                     <div class="text-center">
-                      <h2 style="color: #952D88;">${{ sales.level3 }}</h2>
+                      <h2 id="textPurple">${{ sales.level3 }}</h2>
                       <p class="text-muted">Attractive Proposal</p>
                     </div>
                     <div class="d-grid gap-2">
                       <a href="#" class="btn btn-outline btn-outline-dashed btn-outline-success d-flex justify-content-start btn-active-light-success me-2 mb-2">
                         <div class="d-flex align-items-center gap-2">
-                          <span style="background-color: #EFF8E8; color: #5E932F; border-radius: 100%; padding: 5px 13px 5px 13px">1</span>
-                          <span style="color: #5E932F">$</span>
+                          <span id="btnGreen">1</span>
+                          <span id="textGreen">$</span>
                         </div>
                         <div class="d-flex align-items-center justify-content-end">
-                          <span class="text-muted ms-10">Open</span>
+                          <span class="text-muted ms-10" id="fontSm">Open</span>
                         </div>
                       </a>
                       <a href="#" class="btn btn-outline btn-outline-dashed btn-outline-danger d-flex justify-content-start btn-active-light-danger me-2 mb-2">
                         <div class="d-flex align-items-center gap-2">
-                          <span style="background-color: #EFF8E8; color: #952D2D; border-radius: 100%; padding: 5px 13px 5px 13px">1</span>
-                          <span style="color: #952D2D">$</span>
+                          <span id="btnRed">1</span>
+                          <span id="textRed">$</span>
                         </div>
                         <div class="d-flex align-items-center justify-content-end">
-                          <span class="text-muted ms-10">Closed</span>
+                          <span class="text-muted ms-10" id="fontSm">Closed</span>
                         </div>
                       </a>
                     </div>
                   </div>
-                  <!-- <div class="carousel-item">
+                  <div class="carousel-item">
                     <div class="text-center">
-                      <h2>$1,000,000</h2>
-                      <p class="text-muted">Awernesss 2</p>
+                      <h2 id="textPurple">${{ sales.level3 }}</h2>
+                      <p class="text-muted">Contract Signing</p>
                     </div>
                     <div class="text-center d-grid gap-2">
-                      <a href="#" class="btn btn-outline btn-outline-dashed btn-outline-success btn-active-light-success me-2 mb-2">Primary</a>
-                      <a href="#" class="btn btn-outline btn-outline-dashed btn-outline-danger btn-active-light-danger me-2 mb-2">Primary</a>
+                      <a href="#" class="btn btn-outline btn-outline-dashed btn-outline-warning d-flex justify-content-start btn-active-light-warning me-2 mb-2">
+                        <div class="d-flex align-items-center gap-2">
+                          <span id="btnGold">1</span>
+                          <span id="textGold">$</span>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-end">
+                          <span class="text-muted ms-10" id="fontSm">Close in</span>
+                        </div>
+                      </a>
+                      <a href="#" class="btn btn-outline btn-outline-dashed btn-outline-info d-flex justify-content-start btn-active-light-info me-2 mb-2">
+                        <div class="d-flex align-items-center gap-2">
+                          <span id="btnPurple">1</span>
+                          <span id="textPurple">$ </span>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-end">
+                          <span class="text-muted ms-10" id="fontSm">Cancel</span>
+                        </div>
+                      </a>
                     </div>
-                  </div> -->
+                  </div>
                 </div>
               </div>
             </div>
             <div class="card-footer">
               <div class="carousel-indicators">
-                <button type="button" data-bs-target="#card2carousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                <!-- <button type="button" data-bs-target="#card2carousel" data-bs-slide-to="1" aria-label="Slide 2"></button> -->
+                <button type="button" data-bs-target="#card3carousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#card3carousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
               </div>
             </div>
           </div>
@@ -302,8 +350,8 @@
         <div class="col-lg-3 col-md-6 mt-10">
           <div class="card card-stretch-50 shadow mb-5">
             
-            <div class="position-absolute top-0 start-50 translate-middle d-flex justify-content-center rounded" style="background-color: #F1EFD0; width: 60px; height: 60px;">
-              <h1 class="mt-5" style="color: #958E2D;">4</h1>
+            <div class="position-absolute top-0 start-50 translate-middle d-flex justify-content-center rounded" id="bgGold2">
+              <h1 class="mt-5" id="textGold">4</h1>
             </div>
             <div class="card-body mt-10">
 
@@ -311,52 +359,52 @@
                 <div class="carousel-inner">
                   <div class="carousel-item active">
                     <div class="text-center">
-                      <h2 style="color: #958E2D;">${{ sales.level4 }}</h2>
+                      <h2 id="textGold">${{ sales.level4 }}</h2>
                       <p class="text-muted">Contract Signing</p>
                     </div>
                     <div class="d-grid gap-2">
                       <a href="#" class="btn btn-outline btn-outline-dashed btn-outline-success d-flex justify-content-start btn-active-light-success me-2 mb-2">
                         <div class="d-flex align-items-center gap-2">
-                          <span style="background-color: #EFF8E8; color: #5E932F; border-radius: 100%; padding: 5px 13px 5px 13px">1</span>
-                          <span style="color: #5E932F">$</span>
+                          <span id="btnGreen">1</span>
+                          <span id="textGreen">$</span>
                         </div>
                         <div class="d-flex align-items-center justify-content-end">
-                          <span class="text-muted ms-10">Open</span>
+                          <span class="text-muted ms-10" id="fontSm">Open</span>
                         </div>
                       </a>
                       <a href="#" class="btn btn-outline btn-outline-dashed btn-outline-danger d-flex justify-content-start btn-active-light-danger me-2 mb-2">
                         <div class="d-flex align-items-center gap-2">
-                          <span style="background-color: #EFF8E8; color: #952D2D; border-radius: 100%; padding: 5px 13px 5px 13px">1</span>
-                          <span style="color: #952D2D">$</span>
+                          <span id="btnRed">1</span>
+                          <span id="textRed">$</span>
                         </div>
                         <div class="d-flex align-items-center justify-content-end">
-                          <span class="text-muted ms-10">Closed</span>
+                          <span class="text-muted ms-10" id="fontSm">Closed</span>
                         </div>
                       </a>
                     </div>
                   </div>
                   <div class="carousel-item">
                     <div class="text-center">
-                      <h2 style="color: #958E2D;">${{ sales.level4 }}</h2>
+                      <h2 id="textGold">${{ sales.level4 }}</h2>
                       <p class="text-muted">Contract Signing</p>
                     </div>
                     <div class="text-center d-grid gap-2">
-                      <a href="#" class="btn btn-outline btn-outline-dashed btn-outline-success d-flex justify-content-start btn-active-light-success me-2 mb-2">
+                      <a href="#" class="btn btn-outline btn-outline-dashed btn-outline-warning d-flex justify-content-start btn-active-light-warning me-2 mb-2">
                         <div class="d-flex align-items-center gap-2">
-                          <span style="background-color: #EFF8E8; color: #5E932F; border-radius: 100%; padding: 5px 13px 5px 13px">1</span>
-                          <span style="color: #952D2D">$</span>
+                          <span id="btnGold">1</span>
+                          <span id="textGold">$</span>
                         </div>
                         <div class="d-flex align-items-center justify-content-end">
-                          <span class="text-muted ms-10">Close in</span>
+                          <span class="text-muted ms-10" id="fontSm">Close in</span>
                         </div>
                       </a>
-                      <a href="#" class="btn btn-outline btn-outline-dashed btn-outline-danger d-flex justify-content-start btn-active-light-danger me-2 mb-2">
+                      <a href="#" class="btn btn-outline btn-outline-dashed btn-outline-info d-flex justify-content-start btn-active-light-info me-2 mb-2">
                         <div class="d-flex align-items-center gap-2">
-                          <span style="background-color: #EFF8E8; color: #952D2D; border-radius: 100%; padding: 5px 13px 5px 13px">1</span>
-                          <span style="color: #952D2D">$ </span>
+                          <span id="btnPurple">1</span>
+                          <span id="textPurple">$ </span>
                         </div>
                         <div class="d-flex align-items-center justify-content-end">
-                          <span class="text-muted ms-10">Cancel</span>
+                          <span class="text-muted ms-10" id="fontSm">Cancel</span>
                         </div>
                       </a>
                     </div>
@@ -409,36 +457,36 @@
           <div class="modal-body mt-10 mb-10">
             <div class="row">
               <div class="col-lg-6">
-                <div class="card" style="background-color: #E8E9F8;">
+                <div class="card" id="bgBlue">
                   <div class="card-body ">
                     <p class="text-muted">Total Open</p>
-                    <h2 style="color: #2D3495;">${{ formatPrice(sales.totalOpen) }}</h2>
+                    <h2 id="textBlue">${{ formatPrice(sales.totalOpen) }}</h2>
                   </div>
                 </div>
               </div>
               <div class="col-lg-6">
-                <div class="card" style="background-color: #F8E8E8;">
+                <div class="card" id="bgRed">
                   <div class="card-body">
                     <p class="text-muted">Total Closed</p>
-                    <h2 style="color: #952D2D;">${{ formatPrice(sales.totalClosed) }}</h2>
+                    <h2 id="textRed">${{ formatPrice(sales.totalClosed) }}</h2>
                   </div>
                 </div>
               </div>
             </div>
             <div class="row mt-4">
               <div class="col-lg-6">
-                <div class="card" style="background-color: #F8E8F6;">
+                <div class="card" id="bgPurple">
                   <div class="card-body">
                     <p class="text-muted">Total Open Closed</p>
-                    <h2 style="color: #952D88;">${{ formatPrice(sales.totalOpenClosed) }}</h2>
+                    <h2 id="textPurple">${{ formatPrice(sales.totalOpenClosed) }}</h2>
                   </div>
                 </div>
               </div>
               <div class="col-lg-6">
-                <div class="card" style="background-color: #F8F7E8;">
+                <div class="card" id="bgGold">
                   <div class="card-body">
                     <p class="text-muted">Total Cancel</p>
-                    <h2 style="color: #958E2D;">${{ formatPrice(sales.totalCancel) }}</h2>
+                    <h2 id="textGold">${{ formatPrice(sales.totalCancel) }}</h2>
                   </div>
                 </div>
               </div>
@@ -826,5 +874,109 @@ export default {
 
 .carousel-indicators .active{
     background-color: #188AF8;
+}
+
+#cardTopDashed {
+  border:dashed #fff;
+}
+
+#cardTop {
+  width: 207px;
+}
+
+#btnGreen {
+  background-color: #DFF0D0; 
+  color: #5E932F; 
+  border-radius: 100%; 
+  padding: 5px 13px 5px 13px;
+}
+
+#btnRed {
+  background-color: #F8E8E8; 
+  color: #952D2D; 
+  border-radius: 100%; 
+  padding: 5px 13px 5px 13px;
+}
+
+#btnPurple {
+  background-color: #F8E8F6; 
+  color: #952D88; 
+  border-radius: 100%; 
+  padding: 5px 13px 5px 13px;
+}
+
+#btnGold {
+  background-color: #F8F7E8; 
+  color: #958E2D; 
+  border-radius: 100%; 
+  padding: 5px 13px 5px 13px;
+}
+
+#bgGreen {
+  background: #DFF0D0;
+}
+
+#bgBlue {
+  background: #E8E9F8;
+}
+
+#bgRed {
+  background: #F8E8E8;
+}
+
+#bgPurple {
+  background: #F8E8F6;
+}
+
+#bgGold {
+  background: #F8F7E8;
+}
+
+#bgGreen2 {
+  background-color: #DFF0D0; 
+  width: 60px; 
+  height: 60px;
+}
+
+#bgBlue2 {
+  background-color: #D0D3F1; 
+  width: 60px; 
+  height: 60px;
+}
+
+#bgPurple2 {
+  background-color: #F1D0EE; 
+  width: 60px; 
+  height: 60px;
+}
+
+#bgGold2 {
+  background-color: #F1EFD0; 
+  width: 60px; 
+  height: 60px;
+}
+
+#textGreen {
+  color: #5E932F;
+}
+
+#textRed {
+  color: #952D2D;
+}
+
+#textBlue {
+  color: #2D3495;
+}
+
+#textPurple {
+  color: #952D88;
+}
+
+#textGold {
+  color: #958E2D;
+}
+
+#fontSm {
+  font-size: 13px;
 }
 </style>

@@ -108,7 +108,6 @@
                   <div class="carousel-item active">
                     <div class="text-center">
                       <h2 id="textGreen" v-if="sales_user">${{ sales_user.level1.total }}</h2>
-                      <!-- <h2 id="textGreen">${{ sales_user.level1.total }}</h2> -->
                       <p class="text-muted">Awernesss</p>
                     </div>
                     <div class="d-grid gap-2">
@@ -611,14 +610,12 @@
                       </div>
                     </td>
                     <td class="text-center">
-                      <Nuxt-link
-                        class="menu-link"
-                        to="/my-salesplan-detail"
-                        active-class="active"
-                        v-on:click="detail(p_sales.id)"
+                      <nuxt-link
+                        v-if="p_sales"
+                        :to="{ path: '/my-salesplan-detail', query: { id: p_sales.id }}"
                         >
                           <span class="menu-title">Detail</span>
-                      </Nuxt-link>
+                        </nuxt-link>
                     </td>
                   </tr>
                   <!-- Jika data kosong -->
@@ -757,6 +754,7 @@ export default {
     this.list()
   },
   methods: {
+    // TODO merubah format number menjadi ada pemisahnya
     formatPrice(value) {
       let val = (value/1).toFixed(0).replace(',', ',')
       return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
@@ -787,8 +785,11 @@ export default {
           },
         })
         .then((response) => {
+          // TODO menampilkan data pada tabel
           this.sales = response.data.data.user.salesPlan
+          // TODO menampilkan data berdasarkan user yang login
           this.sales_user = response.data.data.user
+          // TODO menampiilkan semua data
           this.sales_all = response.data.data.all
           this.current_page = this.sales.current_page
           Swal.close()
@@ -808,19 +809,7 @@ export default {
       let new_url = url.toString()
       this.list(new_url)
     }, 500),
-  },
-  detail(p_sales) {
-      this.p_sales.id = p_sales.id
-      this.p_sales.costumer = p_sales.costumer
-      this.p_sales.prospect = p_sales.prospect
-      this.p_sales.properties = p_sales.properties
-      this.p_sales.registration = p_sales.registration
-      this.p_sales.other = p_sales.other
-      this.p_sales.type = p_sales.type
-      this.p_sales.level = p_sales.level
-      this.p_sales.progress = p_sales.progress
-      this.p_sales.status = p_sales.status
-    },
+  }
 }
 </script>
 <style>

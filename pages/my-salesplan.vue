@@ -107,15 +107,15 @@
                 <div class="carousel-inner">
                   <div class="carousel-item active">
                     <div class="text-center">
-                      <h2 id="textGreen" v-if="sales_user">${{ sales_user.level4.total }}</h2>
+                      <h2 id="textGreen" v-if="sales_user">${{ sales_user.level1.total }}</h2>
                       <!-- <h2 id="textGreen">${{ sales_user.level1.total }}</h2> -->
                       <p class="text-muted">Awernesss</p>
                     </div>
                     <div class="d-grid gap-2">
                       <a href="#" class="btn btn-outline btn-outline-dashed btn-outline-success d-flex justify-content-start btn-active-light-success me-2 mb-2">
                         <div class="d-flex align-items-center gap-2">
-                          <span id="btnGreen" v-if="sales_user">{{ sales_user.level4.countOpen }}</span>
-                          <span id="textGreen" v-if="sales_user">${{ }}</span>
+                          <span id="btnGreen" v-if="sales_user">{{ sales_user.level1.countOpen }}</span>
+                          <span id="textGreen" v-if="sales_user">${{ sales_user.level1.open }}</span>
                         </div>
                         <div class="d-flex align-items-center justify-content-end">
                           <span class="text-muted ms-10" id="fontSm">Open</span>
@@ -123,8 +123,8 @@
                       </a>
                       <a href="#" class="btn btn-outline btn-outline-dashed btn-outline-danger d-flex justify-content-start btn-active-light-danger me-2 mb-2">
                         <div class="d-flex align-items-center gap-2">
-                          <span id="btnRed" v-if="sales_user">{{ sales_user.level4.countClosed }}</span>
-                          <span id="textRed" v-if="sales_user">${{  }}</span>
+                          <span id="btnRed" v-if="sales_user">{{ sales_user.level1.countClosed }}</span>
+                          <span id="textRed" v-if="sales_user">${{ sales_user.level1.closed }}</span>
                         </div>
                         <div class="d-flex align-items-center justify-content-end">
                           <span class="text-muted ms-10" id="fontSm">Closed</span>
@@ -134,14 +134,14 @@
                   </div>
                   <div class="carousel-item">
                     <div class="text-center">
-                      <h2 id="textGreen" v-if="sales_user">${{ sales_user.level4.total }}</h2>
+                      <h2 id="textGreen" v-if="sales_user">${{ sales_user.level1.total }}</h2>
                       <p class="text-muted">Contract Signing</p>
                     </div>
                     <div class="text-center d-grid gap-2">
                       <a href="#" class="btn btn-outline btn-outline-dashed btn-outline-warning d-flex justify-content-start btn-active-light-warning me-2 mb-2">
                         <div class="d-flex align-items-center gap-2">
-                          <span id="btnGold" v-if="sales_user">{{ sales_user.level4.countCloseIn }}</span>
-                          <span id="textGold" v-if="sales_user">${{  }}</span>
+                          <span id="btnGold" v-if="sales_user">{{ sales_user.level1.countCloseIn }}</span>
+                          <span id="textGold" v-if="sales_user">${{ sales_user.level1.closeIn }}</span>
                         </div>
                         <div class="d-flex align-items-center justify-content-end">
                           <span class="text-muted ms-10" id="fontSm">Close in</span>
@@ -149,8 +149,8 @@
                       </a>
                       <a href="#" class="btn btn-outline btn-outline-dashed btn-outline-info d-flex justify-content-start btn-active-light-info me-2 mb-2">
                         <div class="d-flex align-items-center gap-2">
-                          <span id="btnPurple" v-if="sales_user">{{ sales_user.level4.countCancel }}</span>
-                          <span id="textPurple" v-if="sales_user">${{  }}</span>
+                          <span id="btnPurple" v-if="sales_user">{{ sales_user.level1.countCancel }}</span>
+                          <span id="textPurple" v-if="sales_user">${{ sales_user.level1.cancel }}</span>
                         </div>
                         <div class="d-flex align-items-center justify-content-end">
                           <span class="text-muted ms-10" id="fontSm">Cancel</span>
@@ -180,14 +180,14 @@
                 <div class="carousel-inner">
                   <div class="carousel-item active">
                     <div class="text-center">
-                      <h2 id="textBlue" v-if="sales_user">${{ sales_user.level3.total }}</h2>
+                      <h2 id="textBlue" v-if="sales_user">${{ sales_user.level2.total }}</h2>
                       <p class="text-muted">Opportunity</p>
                     </div>
                     <div class="d-grid gap-2">
                       <a href="#" class="btn btn-outline btn-outline-dashed btn-outline-success d-flex justify-content-start btn-active-light-success me-2 mb-2">
                         <div class="d-flex align-items-center gap-2">
-                          <span id="btnGreen" v-if="sales_user">{{ sales_user.level3.countOpen }}</span>
-                          <span id="textGreen" v-if="sales_user">$</span>
+                          <span id="btnGreen" v-if="sales_user">{{ sales_user.level2.countOpen }}</span>
+                          <span id="textGreen" v-if="sales_user">${{ sales_user.level2.open }}</span>
                         </div>
                         <div class="d-flex align-items-center justify-content-end">
                           <span class="text-muted ms-10" id="fontSm">Open</span>
@@ -195,8 +195,8 @@
                       </a>
                       <a href="#" class="btn btn-outline btn-outline-dashed btn-outline-danger d-flex justify-content-start btn-active-light-danger me-2 mb-2">
                         <div class="d-flex align-items-center gap-2">
-                          <span id="btnRed" v-if="sales_user">{{ sales_user.level3.countClosed }}</span>
-                          <span id="textRed" v-if="sales_user">$</span>
+                          <span id="btnRed" v-if="sales_user">{{ sales_user.level2.countClosed }}</span>
+                          <span id="textRed" v-if="sales_user">${{ sales_user.level2.closed }}</span>
                         </div>
                         <div class="d-flex align-items-center justify-content-end">
                           <span class="text-muted ms-10" id="fontSm">Closed</span>
@@ -206,14 +206,14 @@
                   </div>
                   <div class="carousel-item">
                     <div class="text-center">
-                      <h2 id="textBlue" v-if="sales_user">${{ sales_user.level3.total }}</h2>
+                      <h2 id="textBlue" v-if="sales_user">${{ sales_user.level2.total }}</h2>
                       <p class="text-muted">Contract Signing</p>
                     </div>
                     <div class="text-center d-grid gap-2">
                       <a href="#" class="btn btn-outline btn-outline-dashed btn-outline-warning d-flex justify-content-start btn-active-light-warning me-2 mb-2">
                         <div class="d-flex align-items-center gap-2">
-                          <span id="btnGold" v-if="sales_user">{{ sales_user.level3.countCloseIn }}</span>
-                          <span id="textGold" v-if="sales_user">$</span>
+                          <span id="btnGold" v-if="sales_user">{{ sales_user.level2.countCloseIn }}</span>
+                          <span id="textGold" v-if="sales_user">${{ sales_user.level2.closeIn }}</span>
                         </div>
                         <div class="d-flex align-items-center justify-content-end">
                           <span class="text-muted ms-10" id="fontSm">Close in</span>
@@ -221,8 +221,8 @@
                       </a>
                       <a href="#" class="btn btn-outline btn-outline-dashed btn-outline-info d-flex justify-content-start btn-active-light-info me-2 mb-2">
                         <div class="d-flex align-items-center gap-2">
-                          <span id="btnPurple" v-if="sales_user">{{ sales_user.level3.countCancel }}</span>
-                          <span id="textPurple" v-if="sales_user">$ </span>
+                          <span id="btnPurple" v-if="sales_user">{{ sales_user.level2.countCancel }}</span>
+                          <span id="textPurple" v-if="sales_user">${{ sales_user.level2.cancel }}</span>
                         </div>
                         <div class="d-flex align-items-center justify-content-end">
                           <span class="text-muted ms-10" id="fontSm">Cancel</span>
@@ -252,14 +252,14 @@
                 <div class="carousel-inner">
                   <div class="carousel-item active">
                     <div class="text-center">
-                      <h2 id="textPurple" v-if="sales_user">${{ sales_user.level2.total }}</h2>
+                      <h2 id="textPurple" v-if="sales_user">${{ sales_user.level3.total }}</h2>
                       <p class="text-muted">Attractive Proposal</p>
                     </div>
                     <div class="d-grid gap-2">
                       <a href="#" class="btn btn-outline btn-outline-dashed btn-outline-success d-flex justify-content-start btn-active-light-success me-2 mb-2">
                         <div class="d-flex align-items-center gap-2">
-                          <span id="btnGreen" v-if="sales_user">{{ sales_user.level2.countOpen }}</span>
-                          <span id="textGreen" v-if="sales_user">$</span>
+                          <span id="btnGreen" v-if="sales_user">{{ sales_user.level3.countOpen }}</span>
+                          <span id="textGreen" v-if="sales_user">${{ sales_user.level3.open }}</span>
                         </div>
                         <div class="d-flex align-items-center justify-content-end">
                           <span class="text-muted ms-10" id="fontSm">Open</span>
@@ -267,8 +267,8 @@
                       </a>
                       <a href="#" class="btn btn-outline btn-outline-dashed btn-outline-danger d-flex justify-content-start btn-active-light-danger me-2 mb-2">
                         <div class="d-flex align-items-center gap-2">
-                          <span id="btnRed" v-if="sales_user">{{ sales_user.level2.countClosed }}</span>
-                          <span id="textRed" v-if="sales_user">$</span>
+                          <span id="btnRed" v-if="sales_user">{{ sales_user.level3.countClosed }}</span>
+                          <span id="textRed" v-if="sales_user">${{ sales_user.level3.closed }}</span>
                         </div>
                         <div class="d-flex align-items-center justify-content-end">
                           <span class="text-muted ms-10" id="fontSm">Closed</span>
@@ -278,14 +278,14 @@
                   </div>
                   <div class="carousel-item">
                     <div class="text-center">
-                      <h2 id="textPurple" v-if="sales_user">${{ sales_user.level2.total }}</h2>
+                      <h2 id="textPurple" v-if="sales_user">${{ sales_user.level3.total }}</h2>
                       <p class="text-muted">Contract Signing</p>
                     </div>
                     <div class="text-center d-grid gap-2">
                       <a href="#" class="btn btn-outline btn-outline-dashed btn-outline-warning d-flex justify-content-start btn-active-light-warning me-2 mb-2">
                         <div class="d-flex align-items-center gap-2">
-                          <span id="btnGold" v-if="sales_user">{{ sales_user.level2.countCloseIn }}</span>
-                          <span id="textGold" v-if="sales_user">$</span>
+                          <span id="btnGold" v-if="sales_user">{{ sales_user.level3.countCloseIn }}</span>
+                          <span id="textGold" v-if="sales_user">${{ sales_user.level3.closeIn }}</span>
                         </div>
                         <div class="d-flex align-items-center justify-content-end">
                           <span class="text-muted ms-10" id="fontSm">Close in</span>
@@ -293,8 +293,8 @@
                       </a>
                       <a href="#" class="btn btn-outline btn-outline-dashed btn-outline-info d-flex justify-content-start btn-active-light-info me-2 mb-2">
                         <div class="d-flex align-items-center gap-2">
-                          <span id="btnPurple" v-if="sales_user">{{ sales_user.level2.countCancel }}</span>
-                          <span id="textPurple" v-if="sales_user">$ </span>
+                          <span id="btnPurple" v-if="sales_user">{{ sales_user.level3.countCancel }}</span>
+                          <span id="textPurple" v-if="sales_user">${{ sales_user.level3.cancel }}</span>
                         </div>
                         <div class="d-flex align-items-center justify-content-end">
                           <span class="text-muted ms-10" id="fontSm">Cancel</span>
@@ -313,6 +313,7 @@
             </div>
           </div>
         </div>
+
         <div class="col-lg-3 col-md-6 mt-10">
           <div class="card card-stretch-50 shadow mb-5">
             
@@ -325,14 +326,14 @@
                 <div class="carousel-inner">
                   <div class="carousel-item active">
                     <div class="text-center">
-                      <h2 id="textGold" v-if="sales_user">${{ sales_user.level1.total }}</h2>
+                      <h2 id="textGold" v-if="sales_user">${{ sales_user.level4.total }}</h2>
                       <p class="text-muted">Contract Signing</p>
                     </div>
                     <div class="d-grid gap-2">
                       <a href="#" class="btn btn-outline btn-outline-dashed btn-outline-success d-flex justify-content-start btn-active-light-success me-2 mb-2">
                         <div class="d-flex align-items-center gap-2">
-                          <span id="btnGreen" v-if="sales_user">{{ sales_user.level1.countOpen }}</span>
-                          <span id="textGreen" v-if="sales_user">$</span>
+                          <span id="btnGreen" v-if="sales_user">{{ sales_user.level4.countOpen }}</span>
+                          <span id="textGreen" v-if="sales_user">${{ sales_user.level4.open }}</span>
                         </div>
                         <div class="d-flex align-items-center justify-content-end">
                           <span class="text-muted ms-10" id="fontSm">Open</span>
@@ -340,8 +341,8 @@
                       </a>
                       <a href="#" class="btn btn-outline btn-outline-dashed btn-outline-danger d-flex justify-content-start btn-active-light-danger me-2 mb-2">
                         <div class="d-flex align-items-center gap-2">
-                          <span id="btnRed" v-if="sales_user">{{ sales_user.level1.countClosed }}</span>
-                          <span id="textRed" v-if="sales_user">$</span>
+                          <span id="btnRed" v-if="sales_user">{{ sales_user.level4.countClosed }}</span>
+                          <span id="textRed" v-if="sales_user">${{ sales_user.level4.closed }}</span>
                         </div>
                         <div class="d-flex align-items-center justify-content-end">
                           <span class="text-muted ms-10" id="fontSm">Closed</span>
@@ -351,14 +352,14 @@
                   </div>
                   <div class="carousel-item">
                     <div class="text-center">
-                      <h2 id="textGold" v-if="sales_user">${{ sales_user.level1.total }}</h2>
+                      <h2 id="textGold" v-if="sales_user">${{ sales_user.level4.total }}</h2>
                       <p class="text-muted">Contract Signing</p>
                     </div>
                     <div class="text-center d-grid gap-2">
                       <a href="#" class="btn btn-outline btn-outline-dashed btn-outline-warning d-flex justify-content-start btn-active-light-warning me-2 mb-2">
                         <div class="d-flex align-items-center gap-2">
-                          <span id="btnGold" v-if="sales_user">{{ sales_user.level1.countCloseIn }}</span>
-                          <span id="textGold" v-if="sales_user">$</span>
+                          <span id="btnGold" v-if="sales_user">{{ sales_user.level4.countCloseIn }}</span>
+                          <span id="textGold" v-if="sales_user">${{ sales_user.level4.closeIn }}</span>
                         </div>
                         <div class="d-flex align-items-center justify-content-end">
                           <span class="text-muted ms-10" id="fontSm">Close in</span>
@@ -366,8 +367,8 @@
                       </a>
                       <a href="#" class="btn btn-outline btn-outline-dashed btn-outline-info d-flex justify-content-start btn-active-light-info me-2 mb-2">
                         <div class="d-flex align-items-center gap-2">
-                          <span id="btnPurple" v-if="sales_user">{{ sales_user.level1.countCancel }}</span>
-                          <span id="textPurple" v-if="sales_user">$ </span>
+                          <span id="btnPurple" v-if="sales_user">{{ sales_user.level4.countCancel }}</span>
+                          <span id="textPurple" v-if="sales_user">${{ sales_user.level4.cancel }}</span>
                         </div>
                         <div class="d-flex align-items-center justify-content-end">
                           <span class="text-muted ms-10" id="fontSm">Cancel</span>
@@ -397,9 +398,6 @@
           <h3 class="mt-3">Salesplan Table</h3>
         </div>
         <div class="col-lg-6 col-sm-12 d-flex justify-content-end">
-          <!-- <button class="p-3 bg-warning text-white border-0 mx-2 rounded">
-            <i class="fa-solid fa-magnifying-glass"></i>
-          </button> -->
           <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#salesplanTotal">$ Salesplan Total</button>
         </div>
       </div>
@@ -728,20 +726,6 @@ export default {
         level: null,
         progress: null,
         status: null,
-        totalTarget: null,
-        totalOpen: null,
-        totalClosed: null,
-        totalOpenClosed: null,
-        totalCancel: null,
-        total: null,
-        open: null,
-        closed: null,
-        closeIn: null,
-        cancel: null,
-        countOpen: null,
-        countClosed: null,
-        countCloseIn: null,
-        countCancel: null,
       },
       search: null,
       start_date: null,
@@ -761,20 +745,6 @@ export default {
         level: null,
         progress: null,
         status: null,
-        totalTarget: null,
-        totalOpen: null,
-        totalClosed: null,
-        totalOpenClosed: null,
-        totalCancel: null,
-        total: null,
-        open: null,
-        closed: null,
-        closeIn: null,
-        cancel: null,
-        countOpen: null,
-        countClosed: null,
-        countCloseIn: null,
-        countCancel: null,
       },
     }
   },

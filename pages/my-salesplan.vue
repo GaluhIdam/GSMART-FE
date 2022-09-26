@@ -1,43 +1,5 @@
 <template>
   <div>
-    <div id="kt_app_toolbar" class="app-toolbar py-3 py-lg-6 bg-white" style="display: none">
-      <!--begin::Toolbar container-->
-      <div
-        id="kt_app_toolbar_container"
-        class="app-container container-fluid d-flex flex-stack"
-      >
-        <!--begin::Page title-->
-        <div
-          class="
-            page-title
-            d-flex
-            flex-column
-            justify-content-center
-            flex-wrap
-            me-3
-          "
-        >
-          <!--begin::Title-->
-          <p
-            class="
-              page-heading
-              d-flex
-              text-dark
-              fs-6
-              flex-column
-              justify-content-center
-              my-0
-            "
-          >
-            My SalesPlan
-          </p>
-          <!--end::Title-->
-        </div>
-        <!--end::Page title-->
-      </div>
-      <!--end::Toolbar container-->
-    </div>
-
     <div class="container-fluid mt-10 mb-20">
 
       <div class="row mb-5">
@@ -56,74 +18,76 @@
                 <h1 class="modal-title w-100" id="filterdateLabel">Filter & Date</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
-              <div class="modal-body">
-                <form action="">
+              <form>
+                <div class="modal-body">
                   <div class="mb-3">
                     <label for="" class="form-label">Form Date</label>
-                    <input type="date" class="form-control" name="" id="">
+                    <input type="date" class="form-control" v-model="start_date">
                   </div>
                   <div class="mb-3">
                     <label for="" class="form-label">To Date</label>
-                    <input type="date" class="form-control" name="" id="">
+                    <input type="date" class="form-control" v-model="end_date">
                   </div>
                   <div class="mb-3">
                     <label for="" class="form-label">Type</label>
-                    <select name="" id="" class="form-select">
-                      <option value="">TMB Project</option>
+                    <select v-model="type" class="form-select">
+                      <option value="1">TMB</option>
+                      <option value="2">PBTH</option>
                     </select>
                   </div>
-                </form>
-              </div>
-              <div class="modal-footer">
-                <div class="col-md-12 text-center">
-                  <button type="button" class="btn btn-light mx-3" data-bs-dismiss="modal">Cancel</button>
-                  <button type="button" class="btn btn-primary">Confirm</button>
                 </div>
-              </div>
+                <div class="modal-footer">
+                  <div class="col-md-12 text-center">
+                    <button type="button" class="btn btn-light mx-3" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" @click="list()">Filter</button>
+                  </div>
+                </div>
+              </form>
             </div>
           </div>
         </div>
       </div>
+
       <!-- Row Total -->
-      <div class="rounded box-d" style="border:dashed #fff;">
+      <div class="rounded box-d" id="cardTopDashed">
         <div class="row">
-          <div class="col-lg-2 mt-1 col-md-6" style="width: 207px;">
-            <div class="card card-flush" style="background: #DFF0D0;">
+          <div class="col-lg-2 mt-1 col-md-6" id="cardTop">
+            <div class="card card-flush" id="bgGreen">
               <div class="card-body">
                 <p class="text-muted">Total Target</p>
-                <h3 style="color: #5E932F;">$1,000,000</h3>
+                <h3 id="textGreen" v-if="sales_user">${{ formatPrice(sales_user.totalTarget) }}</h3>
               </div>
             </div>
           </div>
-          <div class="col-lg-2 mt-1 col-md-6" style="width: 207px;">
-            <div class="card card-flush" style="background: #E8E9F8;">
+          <div class="col-lg-2 mt-1 col-md-6" id="cardTop">
+            <div class="card card-flush" id="bgBlue">
               <div class="card-body">
                 <p class="text-muted">Total Open</p>
-                <h3 style="color: #2D3495;">$1,000,000</h3>
+                <h3 id="textBlue" v-if="sales_user">${{ formatPrice(sales_user.totalOpen) }}</h3>
               </div>
             </div>
           </div>
-          <div class="col-lg-2 mt-1 col-md-6" style="width: 207px;">
-            <div class="card card-flush" style="background: #F8E8E8;">
+          <div class="col-lg-2 mt-1 col-md-6" id="cardTop">
+            <div class="card card-flush" id="bgRed">
               <div class="card-body">
                 <p class="text-muted">Total Closed</p>
-                <h3 style="color: #952D2D;">$1,000,000</h3>
+                <h3 id="textRed" v-if="sales_user">${{ formatPrice(sales_user.totalClosed) }}</h3>
               </div>
             </div>
           </div>
-          <div class="col-lg-2 mt-1 col-md-6" style="width: 207px;">
-            <div class="card card-flush" style="background: #F8E8F6;">
+          <div class="col-lg-2 mt-1 col-md-6" id="cardTop">
+            <div class="card card-flush" id="bgPurple">
               <div class="card-body">
                 <p class="text-muted">Total Open Closed</p>
-                <h3 style="color: #952D88;">$1,000,000</h3>
+                <h3 id="textPurple" v-if="sales_user">${{ formatPrice(sales_user.totalOpenClosed) }}</h3>
               </div>
             </div>
           </div>
-          <div class="col-lg-2 mt-1 col-md-6" style="width: 207px;">
-            <div class="card card-flush" style="background: #F8F7E8;">
+          <div class="col-lg-2 mt-1 col-md-6" id="cardTop">
+            <div class="card card-flush" id="bgGold">
               <div class="card-body">
                 <p class="text-muted">Total Cancel</p>
-                <h3 style="color: #958E2D;">$1,000,000</h3>
+                <h3 id="textGold" v-if="sales_user">${{ formatPrice(sales_user.totalCancel) }}</h3>
               </div>
             </div>
           </div>
@@ -135,174 +99,225 @@
       <div class="row mt-10">
         <div class="col-lg-3 col-md-6 mt-10">
           <div class="card card-stretch-50 shadow mb-5">
-            <div class="position-absolute top-0 start-50 translate-middle d-flex justify-content-center rounded" style="background-color: #DFF0D0; width: 60px; height: 60px;">
-              <h1 class="mt-5" style="color: #5E932F;">1</h1>
+            <div class="position-absolute top-0 start-50 translate-middle d-flex justify-content-center rounded" id="bgGreen2">
+              <h1 class="mt-5" id="textGreen">1</h1>
             </div>
             <div class="card-body mt-10">
               <div id="card1carousel" class="carousel slide" data-bs-ride="true">
                 <div class="carousel-inner">
                   <div class="carousel-item active">
                     <div class="text-center">
-                      <h2 style="color: #5E932F;">$1,000,000</h2>
-                      <p class="text-muted">Awernesss 1</p>
+                      <h2 id="textGreen" v-if="sales_user">${{ sales_user.level1.total }}</h2>
+                      <p class="text-muted">Awernesss</p>
                     </div>
                     <div class="d-grid gap-2">
                       <a href="#" class="btn btn-outline btn-outline-dashed btn-outline-success d-flex justify-content-start btn-active-light-success me-2 mb-2">
                         <div class="d-flex align-items-center gap-2">
-                          <span style="background-color: #EFF8E8; color: #5E932F; border-radius: 100%; padding: 5px 13px 5px 13px">1</span>
-                          <span style="color: #5E932F">$1,000,000</span>
+                          <span id="btnGreen" v-if="sales_user">{{ sales_user.level1.countOpen }}</span>
+                          <span id="textGreen" v-if="sales_user">${{ sales_user.level1.open }}</span>
                         </div>
                         <div class="d-flex align-items-center justify-content-end">
-                          <span class="text-muted ms-10">Open</span>
+                          <span class="text-muted ms-10" id="fontSm">Open</span>
                         </div>
                       </a>
                       <a href="#" class="btn btn-outline btn-outline-dashed btn-outline-danger d-flex justify-content-start btn-active-light-danger me-2 mb-2">
                         <div class="d-flex align-items-center gap-2">
-                          <span style="background-color: #F8E8E8; color: #952D2D; border-radius: 100%; padding: 5px 13px 5px 13px">1</span>
-                          <span style="color: #952D2D">$1,000,000</span>
+                          <span id="btnRed" v-if="sales_user">{{ sales_user.level1.countClosed }}</span>
+                          <span id="textRed" v-if="sales_user">${{ sales_user.level1.closed }}</span>
                         </div>
                         <div class="d-flex align-items-center justify-content-end">
-                          <span class="text-muted ms-10">Close</span>
+                          <span class="text-muted ms-10" id="fontSm">Closed</span>
                         </div>
                       </a>
                     </div>
                   </div>
-                  <!-- <div class="carousel-item">
+                  <div class="carousel-item">
                     <div class="text-center">
-                      <h2>$1,000,000</h2>
-                      <p class="text-muted">Awernesss 2</p>
+                      <h2 id="textGreen" v-if="sales_user">${{ sales_user.level1.total }}</h2>
+                      <p class="text-muted">Contract Signing</p>
                     </div>
                     <div class="text-center d-grid gap-2">
-                      <a href="#" class="btn btn-outline btn-outline-dashed btn-outline-success btn-active-light-success me-2 mb-2">Primary</a>
-                      <a href="#" class="btn btn-outline btn-outline-dashed btn-outline-danger btn-active-light-danger me-2 mb-2">Primary</a>
+                      <a href="#" class="btn btn-outline btn-outline-dashed btn-outline-warning d-flex justify-content-start btn-active-light-warning me-2 mb-2">
+                        <div class="d-flex align-items-center gap-2">
+                          <span id="btnGold" v-if="sales_user">{{ sales_user.level1.countCloseIn }}</span>
+                          <span id="textGold" v-if="sales_user">${{ sales_user.level1.closeIn }}</span>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-end">
+                          <span class="text-muted ms-10" id="fontSm">Close in</span>
+                        </div>
+                      </a>
+                      <a href="#" class="btn btn-outline btn-outline-dashed btn-outline-info d-flex justify-content-start btn-active-light-info me-2 mb-2">
+                        <div class="d-flex align-items-center gap-2">
+                          <span id="btnPurple" v-if="sales_user">{{ sales_user.level1.countCancel }}</span>
+                          <span id="textPurple" v-if="sales_user">${{ sales_user.level1.cancel }}</span>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-end">
+                          <span class="text-muted ms-10" id="fontSm">Cancel</span>
+                        </div>
+                      </a>
                     </div>
-                  </div> -->
+                  </div>
                 </div>
               </div>
             </div>
             <div class="card-footer">
               <div class="carousel-indicators">
                 <button type="button" data-bs-target="#card1carousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                <!-- <button type="button" data-bs-target="#card1carousel" data-bs-slide-to="1" aria-label="Slide 2"></button> -->
+                <button type="button" data-bs-target="#card1carousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
               </div>
             </div>
           </div>
         </div>
+
         <div class="col-lg-3 col-md-6 mt-10">
           <div class="card card-stretch-50 shadow mb-5">
-            <div class="position-absolute top-0 start-50 translate-middle d-flex justify-content-center rounded" style="background-color: #D0D3F1; width: 60px; height: 60px;">
-              <h1 class="mt-5" style="color: #2D3495;">2</h1>
+            <div class="position-absolute top-0 start-50 translate-middle d-flex justify-content-center rounded" id="bgBlue2">
+              <h1 class="mt-5" id="textBlue">2</h1>
             </div>
             <div class="card-body mt-10">
               <div id="card2carousel" class="carousel slide" data-bs-ride="true">
                 <div class="carousel-inner">
                   <div class="carousel-item active">
                     <div class="text-center">
-                      <h2 style="color: #2D3495;">$1,000,000</h2>
-                      <p class="text-muted">Awernesss 1</p>
+                      <h2 id="textBlue" v-if="sales_user">${{ sales_user.level2.total }}</h2>
+                      <p class="text-muted">Opportunity</p>
                     </div>
                     <div class="d-grid gap-2">
                       <a href="#" class="btn btn-outline btn-outline-dashed btn-outline-success d-flex justify-content-start btn-active-light-success me-2 mb-2">
                         <div class="d-flex align-items-center gap-2">
-                          <span style="background-color: #EFF8E8; color: #5E932F; border-radius: 100%; padding: 5px 13px 5px 13px">1</span>
-                          <span style="color: #5E932F">$1,000,000</span>
+                          <span id="btnGreen" v-if="sales_user">{{ sales_user.level2.countOpen }}</span>
+                          <span id="textGreen" v-if="sales_user">${{ sales_user.level2.open }}</span>
                         </div>
                         <div class="d-flex align-items-center justify-content-end">
-                          <span class="text-muted ms-10">Open</span>
+                          <span class="text-muted ms-10" id="fontSm">Open</span>
                         </div>
                       </a>
                       <a href="#" class="btn btn-outline btn-outline-dashed btn-outline-danger d-flex justify-content-start btn-active-light-danger me-2 mb-2">
                         <div class="d-flex align-items-center gap-2">
-                          <span style="background-color: #F8E8E8; color: #952D2D; border-radius: 100%; padding: 5px 13px 5px 13px">1</span>
-                          <span style="color: #952D2D">$1,000,000</span>
+                          <span id="btnRed" v-if="sales_user">{{ sales_user.level2.countClosed }}</span>
+                          <span id="textRed" v-if="sales_user">${{ sales_user.level2.closed }}</span>
                         </div>
                         <div class="d-flex align-items-center justify-content-end">
-                          <span class="text-muted ms-10">Close</span>
+                          <span class="text-muted ms-10" id="fontSm">Closed</span>
                         </div>
                       </a>
                     </div>
                   </div>
-                  <!-- <div class="carousel-item">
+                  <div class="carousel-item">
                     <div class="text-center">
-                      <h2>$1,000,000</h2>
-                      <p class="text-muted">Awernesss 2</p>
+                      <h2 id="textBlue" v-if="sales_user">${{ sales_user.level2.total }}</h2>
+                      <p class="text-muted">Contract Signing</p>
                     </div>
                     <div class="text-center d-grid gap-2">
-                      <a href="#" class="btn btn-outline btn-outline-dashed btn-outline-success btn-active-light-success me-2 mb-2">Primary</a>
-                      <a href="#" class="btn btn-outline btn-outline-dashed btn-outline-danger btn-active-light-danger me-2 mb-2">Primary</a>
+                      <a href="#" class="btn btn-outline btn-outline-dashed btn-outline-warning d-flex justify-content-start btn-active-light-warning me-2 mb-2">
+                        <div class="d-flex align-items-center gap-2">
+                          <span id="btnGold" v-if="sales_user">{{ sales_user.level2.countCloseIn }}</span>
+                          <span id="textGold" v-if="sales_user">${{ sales_user.level2.closeIn }}</span>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-end">
+                          <span class="text-muted ms-10" id="fontSm">Close in</span>
+                        </div>
+                      </a>
+                      <a href="#" class="btn btn-outline btn-outline-dashed btn-outline-info d-flex justify-content-start btn-active-light-info me-2 mb-2">
+                        <div class="d-flex align-items-center gap-2">
+                          <span id="btnPurple" v-if="sales_user">{{ sales_user.level2.countCancel }}</span>
+                          <span id="textPurple" v-if="sales_user">${{ sales_user.level2.cancel }}</span>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-end">
+                          <span class="text-muted ms-10" id="fontSm">Cancel</span>
+                        </div>
+                      </a>
                     </div>
-                  </div> -->
+                  </div>
                 </div>
               </div>
             </div>
             <div class="card-footer">
               <div class="carousel-indicators">
                 <button type="button" data-bs-target="#card2carousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                <!-- <button type="button" data-bs-target="#card2carousel" data-bs-slide-to="1" aria-label="Slide 2"></button> -->
+                <button type="button" data-bs-target="#card2carousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
               </div>
             </div>
           </div>
         </div>
+
         <div class="col-lg-3 col-md-6 mt-10">
           <div class="card card-stretch-50 shadow mb-5">
-            <div class="position-absolute top-0 start-50 translate-middle d-flex justify-content-center rounded" style="background-color: #F1D0EE; width: 60px; height: 60px;">
-              <h1 class="mt-5" style="color: #952D88;">3</h1>
+            <div class="position-absolute top-0 start-50 translate-middle d-flex justify-content-center rounded" id="bgPurple2">
+              <h1 class="mt-5" id="textPurple">3</h1>
             </div>
             <div class="card-body mt-10">
-              <div id="card2carousel" class="carousel slide" data-bs-ride="true">
+              <div id="card3carousel" class="carousel slide" data-bs-ride="true">
                 <div class="carousel-inner">
                   <div class="carousel-item active">
                     <div class="text-center">
-                      <h2 style="color: #952D88;">$1,000,000</h2>
-                      <p class="text-muted">Awernesss 1</p>
+                      <h2 id="textPurple" v-if="sales_user">${{ sales_user.level3.total }}</h2>
+                      <p class="text-muted">Attractive Proposal</p>
                     </div>
                     <div class="d-grid gap-2">
                       <a href="#" class="btn btn-outline btn-outline-dashed btn-outline-success d-flex justify-content-start btn-active-light-success me-2 mb-2">
                         <div class="d-flex align-items-center gap-2">
-                          <span style="background-color: #EFF8E8; color: #5E932F; border-radius: 100%; padding: 5px 13px 5px 13px">1</span>
-                          <span style="color: #5E932F">$1,000,000</span>
+                          <span id="btnGreen" v-if="sales_user">{{ sales_user.level3.countOpen }}</span>
+                          <span id="textGreen" v-if="sales_user">${{ sales_user.level3.open }}</span>
                         </div>
                         <div class="d-flex align-items-center justify-content-end">
-                          <span class="text-muted ms-10">Open</span>
+                          <span class="text-muted ms-10" id="fontSm">Open</span>
                         </div>
                       </a>
                       <a href="#" class="btn btn-outline btn-outline-dashed btn-outline-danger d-flex justify-content-start btn-active-light-danger me-2 mb-2">
                         <div class="d-flex align-items-center gap-2">
-                          <span style="background-color: #EFF8E8; color: #952D2D; border-radius: 100%; padding: 5px 13px 5px 13px">1</span>
-                          <span style="color: #952D2D">$1,000,000</span>
+                          <span id="btnRed" v-if="sales_user">{{ sales_user.level3.countClosed }}</span>
+                          <span id="textRed" v-if="sales_user">${{ sales_user.level3.closed }}</span>
                         </div>
                         <div class="d-flex align-items-center justify-content-end">
-                          <span class="text-muted ms-10">Close</span>
+                          <span class="text-muted ms-10" id="fontSm">Closed</span>
                         </div>
                       </a>
                     </div>
                   </div>
-                  <!-- <div class="carousel-item">
+                  <div class="carousel-item">
                     <div class="text-center">
-                      <h2>$1,000,000</h2>
-                      <p class="text-muted">Awernesss 2</p>
+                      <h2 id="textPurple" v-if="sales_user">${{ sales_user.level3.total }}</h2>
+                      <p class="text-muted">Contract Signing</p>
                     </div>
                     <div class="text-center d-grid gap-2">
-                      <a href="#" class="btn btn-outline btn-outline-dashed btn-outline-success btn-active-light-success me-2 mb-2">Primary</a>
-                      <a href="#" class="btn btn-outline btn-outline-dashed btn-outline-danger btn-active-light-danger me-2 mb-2">Primary</a>
+                      <a href="#" class="btn btn-outline btn-outline-dashed btn-outline-warning d-flex justify-content-start btn-active-light-warning me-2 mb-2">
+                        <div class="d-flex align-items-center gap-2">
+                          <span id="btnGold" v-if="sales_user">{{ sales_user.level3.countCloseIn }}</span>
+                          <span id="textGold" v-if="sales_user">${{ sales_user.level3.closeIn }}</span>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-end">
+                          <span class="text-muted ms-10" id="fontSm">Close in</span>
+                        </div>
+                      </a>
+                      <a href="#" class="btn btn-outline btn-outline-dashed btn-outline-info d-flex justify-content-start btn-active-light-info me-2 mb-2">
+                        <div class="d-flex align-items-center gap-2">
+                          <span id="btnPurple" v-if="sales_user">{{ sales_user.level3.countCancel }}</span>
+                          <span id="textPurple" v-if="sales_user">${{ sales_user.level3.cancel }}</span>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-end">
+                          <span class="text-muted ms-10" id="fontSm">Cancel</span>
+                        </div>
+                      </a>
                     </div>
-                  </div> -->
+                  </div>
                 </div>
               </div>
             </div>
             <div class="card-footer">
               <div class="carousel-indicators">
-                <button type="button" data-bs-target="#card2carousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                <!-- <button type="button" data-bs-target="#card2carousel" data-bs-slide-to="1" aria-label="Slide 2"></button> -->
+                <button type="button" data-bs-target="#card3carousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#card3carousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
               </div>
             </div>
           </div>
         </div>
+
         <div class="col-lg-3 col-md-6 mt-10">
           <div class="card card-stretch-50 shadow mb-5">
             
-            <div class="position-absolute top-0 start-50 translate-middle d-flex justify-content-center rounded" style="background-color: #F1EFD0; width: 60px; height: 60px;">
-              <h1 class="mt-5" style="color: #958E2D;">4</h1>
+            <div class="position-absolute top-0 start-50 translate-middle d-flex justify-content-center rounded" id="bgGold2">
+              <h1 class="mt-5" id="textGold">4</h1>
             </div>
             <div class="card-body mt-10">
 
@@ -310,52 +325,52 @@
                 <div class="carousel-inner">
                   <div class="carousel-item active">
                     <div class="text-center">
-                      <h2 style="color: #958E2D;">$1,000,000</h2>
-                      <p class="text-muted">Awernesss 1</p>
+                      <h2 id="textGold" v-if="sales_user">${{ sales_user.level4.total }}</h2>
+                      <p class="text-muted">Contract Signing</p>
                     </div>
                     <div class="d-grid gap-2">
                       <a href="#" class="btn btn-outline btn-outline-dashed btn-outline-success d-flex justify-content-start btn-active-light-success me-2 mb-2">
                         <div class="d-flex align-items-center gap-2">
-                          <span style="background-color: #EFF8E8; color: #5E932F; border-radius: 100%; padding: 5px 13px 5px 13px">1</span>
-                          <span style="color: #5E932F">$1,000,000</span>
+                          <span id="btnGreen" v-if="sales_user">{{ sales_user.level4.countOpen }}</span>
+                          <span id="textGreen" v-if="sales_user">${{ sales_user.level4.open }}</span>
                         </div>
                         <div class="d-flex align-items-center justify-content-end">
-                          <span class="text-muted ms-10">Open</span>
+                          <span class="text-muted ms-10" id="fontSm">Open</span>
                         </div>
                       </a>
                       <a href="#" class="btn btn-outline btn-outline-dashed btn-outline-danger d-flex justify-content-start btn-active-light-danger me-2 mb-2">
                         <div class="d-flex align-items-center gap-2">
-                          <span style="background-color: #EFF8E8; color: #952D2D; border-radius: 100%; padding: 5px 13px 5px 13px">1</span>
-                          <span style="color: #952D2D">$1,000,000</span>
+                          <span id="btnRed" v-if="sales_user">{{ sales_user.level4.countClosed }}</span>
+                          <span id="textRed" v-if="sales_user">${{ sales_user.level4.closed }}</span>
                         </div>
                         <div class="d-flex align-items-center justify-content-end">
-                          <span class="text-muted ms-10">Close</span>
+                          <span class="text-muted ms-10" id="fontSm">Closed</span>
                         </div>
                       </a>
                     </div>
                   </div>
                   <div class="carousel-item">
                     <div class="text-center">
-                      <h2>$1,000,000</h2>
-                      <p class="text-muted">Awernesss 2</p>
+                      <h2 id="textGold" v-if="sales_user">${{ sales_user.level4.total }}</h2>
+                      <p class="text-muted">Contract Signing</p>
                     </div>
                     <div class="text-center d-grid gap-2">
-                      <a href="#" class="btn btn-outline btn-outline-dashed btn-outline-success d-flex justify-content-start btn-active-light-success me-2 mb-2">
+                      <a href="#" class="btn btn-outline btn-outline-dashed btn-outline-warning d-flex justify-content-start btn-active-light-warning me-2 mb-2">
                         <div class="d-flex align-items-center gap-2">
-                          <span style="background-color: #EFF8E8; color: #5E932F; border-radius: 100%; padding: 5px 13px 5px 13px">1</span>
-                          <span style="color: #5E932F">$1,000,000</span>
+                          <span id="btnGold" v-if="sales_user">{{ sales_user.level4.countCloseIn }}</span>
+                          <span id="textGold" v-if="sales_user">${{ sales_user.level4.closeIn }}</span>
                         </div>
                         <div class="d-flex align-items-center justify-content-end">
-                          <span class="text-muted ms-10">Open</span>
+                          <span class="text-muted ms-10" id="fontSm">Close in</span>
                         </div>
                       </a>
-                      <a href="#" class="btn btn-outline btn-outline-dashed btn-outline-danger d-flex justify-content-start btn-active-light-danger me-2 mb-2">
+                      <a href="#" class="btn btn-outline btn-outline-dashed btn-outline-info d-flex justify-content-start btn-active-light-info me-2 mb-2">
                         <div class="d-flex align-items-center gap-2">
-                          <span style="background-color: #EFF8E8; color: #952D2D; border-radius: 100%; padding: 5px 13px 5px 13px">1</span>
-                          <span style="color: #952D2D">$1,000,000</span>
+                          <span id="btnPurple" v-if="sales_user">{{ sales_user.level4.countCancel }}</span>
+                          <span id="textPurple" v-if="sales_user">${{ sales_user.level4.cancel }}</span>
                         </div>
                         <div class="d-flex align-items-center justify-content-end">
-                          <span class="text-muted ms-10">Close</span>
+                          <span class="text-muted ms-10" id="fontSm">Cancel</span>
                         </div>
                       </a>
                     </div>
@@ -382,10 +397,7 @@
           <h3 class="mt-3">Salesplan Table</h3>
         </div>
         <div class="col-lg-6 col-sm-12 d-flex justify-content-end">
-          <button class="p-3 bg-warning text-white border-0 mx-2 rounded">
-            <i class="fa-solid fa-magnifying-glass"></i>
-          </button>
-          <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#salesplanTotal">$Salesplan Total</button>
+          <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#salesplanTotal">$ Salesplan Total</button>
         </div>
       </div>
       
@@ -399,45 +411,45 @@
             </div>
             <div class="col-lg-6 d-flex justify-content-end">
               <form action="">
-                <select class="form-select bg-primary text-white h-80 w-80">
+                <!-- <select class="form-select bg-primary text-white h-80 w-80">
                   <option value="">AMS</option>
-                </select>
+                </select> -->
               </form>
             </div>
           </div>
-          <div class="modal-body mt-20 mb-10">
+          <div class="modal-body mt-10 mb-10">
             <div class="row">
               <div class="col-lg-6">
-                <div class="card" style="background-color: #E8E9F8;">
+                <div class="card" id="bgBlue">
                   <div class="card-body ">
                     <p class="text-muted">Total Open</p>
-                    <h2 style="color: #2D3495;">$1,000,000</h2>
+                    <h2 id="textBlue" v-if="sales_all">${{ formatPrice(sales_all.totalOpen) }}</h2>
                   </div>
                 </div>
               </div>
               <div class="col-lg-6">
-                <div class="card" style="background-color: #F8E8E8;">
+                <div class="card" id="bgRed">
                   <div class="card-body">
                     <p class="text-muted">Total Closed</p>
-                    <h2 style="color: #952D2D;">$1,000,000</h2>
+                    <h2 id="textRed" v-if="sales_all">${{ formatPrice(sales_all.totalClosed) }}</h2>
                   </div>
                 </div>
               </div>
             </div>
             <div class="row mt-4">
               <div class="col-lg-6">
-                <div class="card" style="background-color: #F8E8F6;">
+                <div class="card" id="bgPurple">
                   <div class="card-body">
                     <p class="text-muted">Total Open Closed</p>
-                    <h2 style="color: #952D88;">$1,000,000</h2>
+                    <h2 id="textPurple" v-if="sales_all">${{ formatPrice(sales_all.totalOpenClosed) }}</h2>
                   </div>
                 </div>
               </div>
               <div class="col-lg-6">
-                <div class="card" style="background-color: #F8F7E8;">
+                <div class="card" id="bgGold">
                   <div class="card-body">
                     <p class="text-muted">Total Cancel</p>
-                    <h2 style="color: #958E2D;">$1,000,000</h2>
+                    <h2 id="textGold" v-if="sales_all">${{ formatPrice(sales_all.totalCancel) }}</h2>
                   </div>
                 </div>
               </div>
@@ -523,83 +535,93 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr 
-                    v-for="(p_sales, p_sales_index) in sales.data"
-                    :key="p_sales_index"
-                  >
+                  <tr v-for="(p_sales, p_sales_index) in sales.data" :key="p_sales_index">
                     <td class="text-center">
                       {{ sales.from + p_sales_index }}
                     </td>
                     <td class="text-center">
-                      {{ p_sales.customer_id.name }}
+                      {{ p_sales.customer }}
                     </td>
                     <td class="text-center">
-                      {{ p_sales.maintenance_id.name }}
+                      {{ p_sales.product }}
                     </td>
                     <td class="text-center">
-                      {{ p_sales.ac_reg }}
+                      {{ p_sales.properties }}
                     </td>
                     <td class="text-center">
-                      {{ p_sales.value }}
+                      {{ p_sales.registration }}
                     </td>
                     <td class="text-center">
-                      <span class="badge bg-secondary">{{ p_sales.tat }}</span>
+                      <div v-if="p_sales.other === 'RKAP'">
+                        <span class="badge badge-info">RKAP</span>
+                      </div>
+                      <div v-if="p_sales.other === 'NOT-RKAP'">
+                        <span class="badge badge-primary">NO-RKAP</span>
+                      </div>
                     </td>
                     <td class="text-center">
-                      <span class="badge bg-secondary">{{ p_sales.start_date }}</span>
+                      <div v-if="p_sales.type === 'TMB'">
+                        <span class="badge badge-success">TMB</span>
+                      </div>
+                      <div v-if="p_sales.type === 'PBTH'">
+                        <span class="badge badge-primary">PBTH</span>
+                      </div>
                     </td>
                     <td class="text-center">
-                      <span class="badge bg-danger">{{ p_sales.so_number }}</span>
+                      <div v-if="p_sales.level === 1">
+                        <span class="badge badge-success">Level 1</span>
+                      </div>
+                      <div v-if="p_sales.level === 2">
+                        <span class="badge badge-primary">Level 2</span>
+                      </div>
+                      <div v-if="p_sales.level === 3">
+                        <span class="badge badge-warning">Level 3</span>
+                      </div>
+                      <div v-if="p_sales.level === 4">
+                        <span class="badge badge-danger">Level 4</span>
+                      </div>
                     </td>
                     <td class="text-center">
-                      <span class="badge bg-success">-</span>
+                      <div v-if="p_sales.level === 4">
+                        <span class="badge badge-danger">25%</span>
+                      </div>
+                      <div v-if="p_sales.level === 3">
+                        <span class="badge badge-info">50%</span>
+                      </div>
+                      <div v-if="p_sales.level === 2">
+                        <span class="badge badge-primary">75%</span>
+                      </div>
+                      <div v-if="p_sales.level === 1">
+                        <span class="badge badge-success">100%</span>
+                      </div>
                     </td>
                     <td class="text-center">
-                      <span class="badge bg-danger">-</span>
+                      <div v-if="p_sales.status === 'Cancel'">
+                        <span class="badge badge-danger">Cancel</span>
+                      </div>
+                      <div v-if="p_sales.status === 'Open'">
+                        <span class="badge badge-success">Open</span>
+                      </div>
+                      <div v-if="p_sales.status === 'Close in'">
+                        <span class="badge badge-warning">Close in</span>
+                      </div>
+                      <div v-if="p_sales.status === 'Closed'">
+                        <span class="badge badge-primary">Closed</span>
+                      </div>
                     </td>
                     <td class="text-center">
-                      <a href="my-salesplan-detail">Detail</a>
+                      <nuxt-link
+                        v-if="p_sales"
+                        :to="{ path: '/my-salesplan-detail', query: { id: p_sales.id }}"
+                        >
+                          <span class="menu-title">Detail</span>
+                        </nuxt-link>
                     </td>
                   </tr>
+                  <!-- Jika data kosong -->
                   <tr v-if="sales.data.length < 1">
                     <td colspan="12">
                       <div class="text-muted text-center">Data not found</div>
-                    </td>
-                  </tr>
-                  <!-- Dummy -->
-                  <tr>
-                    <td class="text-center">
-                      1
-                    </td>
-                    <td class="text-center">
-                      Garuda Indonesia
-                    </td>
-                    <td class="text-center">
-                      Airframe
-                    </td>
-                    <td class="text-center">
-                      737 - 600/700/800
-                    </td>
-                    <td class="text-center">
-                      PK-GFM
-                    </td>
-                    <td class="text-center">
-                      <span class="badge bg-secondary">RKAP</span>
-                    </td>
-                    <td class="text-center">
-                      <span class="badge bg-secondary">TMB</span>
-                    </td>
-                    <td class="text-center">
-                      <span class="badge bg-danger">Level  4</span>
-                    </td>
-                    <td class="text-center">
-                      <span class="badge bg-success">100%</span>
-                    </td>
-                    <td class="text-center">
-                      <span class="badge bg-danger">Closed</span>
-                    </td>
-                    <td class="text-center">
-                      <a href="my-salesplan-detail">Detail</a>
                     </td>
                   </tr>
                 </tbody>
@@ -679,7 +701,6 @@
 
 </template>
 
-
 <script>
 import debounce from 'lodash/debounce'
 export default {
@@ -693,29 +714,34 @@ export default {
       },
       p_sales: {
         id: null,
-        customer_id: null,
-        prospect_id: null,
-        maintenance_id: null,
-        ac_reg: null,
-        value: null,
-        tat: null,
-        start_date: null,
-        so_number: null,
+        customer: null,
+        prospect: null,
+        properties: null,
+        registration: null,
+        other: null,
+        type: null,
+        level: null,
+        progress: null,
+        status: null,
       },
       search: null,
+      start_date: null,
+      end_date: null,
+      type: null,
       order: 'id',
       by: 'desc',
       paginate: '10',
       current_page: null,
       errors: {
-        customer_id: null,
-        prospect_id: null,
-        maintenance_id: null,
-        ac_reg: null,
-        value: null,
-        tat: null,
-        start_date: null,
-        so_number: null,
+        customer: null,
+        prospect: null,
+        properties: null,
+        registration: null,
+        other: null,
+        type: null,
+        level: null,
+        progress: null,
+        status: null,
       },
     }
   },
@@ -728,6 +754,21 @@ export default {
     this.list()
   },
   methods: {
+    // TODO merubah format number menjadi ada pemisahnya
+    formatPrice(value) {
+      let val = (value/1).toFixed(0).replace(',', ',')
+      return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+    },
+    loading() {
+      Swal.fire({
+        timer: 500,
+        didOpen: () => {
+          Swal.showLoading()
+        },
+        background: 'transparent',
+        allowOutsideClick: false,
+      })
+    },
     list(paginate) {
       this.loading()
       paginate = paginate || `/api/sales`
@@ -738,11 +779,18 @@ export default {
             order: this.order,
             by: this.by,
             paginate: this.paginate,
+            start_date: this.start_date,
+            end_date: this.end_date,
+            type: this.type,
           },
         })
         .then((response) => {
-          this.sales = response.data.data
-          console.log(this.sales)
+          // TODO menampilkan data pada tabel
+          this.sales = response.data.data.user.salesPlan
+          // TODO menampilkan data berdasarkan user yang login
+          this.sales_user = response.data.data.user
+          // TODO menampiilkan semua data
+          this.sales_all = response.data.data.all
           this.current_page = this.sales.current_page
           Swal.close()
         })
@@ -761,16 +809,6 @@ export default {
       let new_url = url.toString()
       this.list(new_url)
     }, 500),
-    loading() {
-      Swal.fire({
-        timer: 500,
-        didOpen: () => {
-          Swal.showLoading()
-        },
-        background: 'transparent',
-        allowOutsideClick: false,
-      })
-    },
   }
 }
 </script>
@@ -803,5 +841,109 @@ export default {
 
 .carousel-indicators .active{
     background-color: #188AF8;
+}
+
+#cardTopDashed {
+  border:dashed #fff;
+}
+
+#cardTop {
+  width: 207px;
+}
+
+#btnGreen {
+  background-color: #DFF0D0; 
+  color: #5E932F; 
+  border-radius: 100%; 
+  padding: 5px 13px 5px 13px;
+}
+
+#btnRed {
+  background-color: #F8E8E8; 
+  color: #952D2D; 
+  border-radius: 100%; 
+  padding: 5px 13px 5px 13px;
+}
+
+#btnPurple {
+  background-color: #F8E8F6; 
+  color: #952D88; 
+  border-radius: 100%; 
+  padding: 5px 13px 5px 13px;
+}
+
+#btnGold {
+  background-color: #F8F7E8; 
+  color: #958E2D; 
+  border-radius: 100%; 
+  padding: 5px 13px 5px 13px;
+}
+
+#bgGreen {
+  background: #DFF0D0;
+}
+
+#bgBlue {
+  background: #E8E9F8;
+}
+
+#bgRed {
+  background: #F8E8E8;
+}
+
+#bgPurple {
+  background: #F8E8F6;
+}
+
+#bgGold {
+  background: #F8F7E8;
+}
+
+#bgGreen2 {
+  background-color: #DFF0D0; 
+  width: 60px; 
+  height: 60px;
+}
+
+#bgBlue2 {
+  background-color: #D0D3F1; 
+  width: 60px; 
+  height: 60px;
+}
+
+#bgPurple2 {
+  background-color: #F1D0EE; 
+  width: 60px; 
+  height: 60px;
+}
+
+#bgGold2 {
+  background-color: #F1EFD0; 
+  width: 60px; 
+  height: 60px;
+}
+
+#textGreen {
+  color: #5E932F;
+}
+
+#textRed {
+  color: #952D2D;
+}
+
+#textBlue {
+  color: #2D3495;
+}
+
+#textPurple {
+  color: #952D88;
+}
+
+#textGold {
+  color: #958E2D;
+}
+
+#fontSm {
+  font-size: 12px;
 }
 </style>

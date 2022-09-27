@@ -54,40 +54,40 @@
           <div class="col-lg-2 mt-1 col-md-6" id="cardTop">
             <div class="card card-flush" id="bgGreen">
               <div class="card-body">
-                <p class="text-muted">Total Target</p>
-                <h3 id="textGreen" v-if="sales_user">${{ formatPrice(sales_user.totalTarget) }}</h3>
+                <p class="text-muted" id="fontSm">Total Target</p>
+                <h4 id="textGreen" v-if="sales_user">${{ formatPrice(sales_user.totalTarget) }}</h4>
               </div>
             </div>
           </div>
           <div class="col-lg-2 mt-1 col-md-6" id="cardTop">
             <div class="card card-flush" id="bgBlue">
               <div class="card-body">
-                <p class="text-muted">Total Open</p>
-                <h3 id="textBlue" v-if="sales_user">${{ formatPrice(sales_user.totalOpen) }}</h3>
+                <p class="text-muted" id="fontSm">Total Open</p>
+                <h4 id="textBlue" v-if="sales_user">${{ formatPrice(sales_user.totalOpen) }}</h4>
               </div>
             </div>
           </div>
           <div class="col-lg-2 mt-1 col-md-6" id="cardTop">
             <div class="card card-flush" id="bgRed">
               <div class="card-body">
-                <p class="text-muted">Total Closed</p>
-                <h3 id="textRed" v-if="sales_user">${{ formatPrice(sales_user.totalClosed) }}</h3>
+                <p class="text-muted" id="fontSm">Total Closed</p>
+                <h4 id="textRed" v-if="sales_user">${{ formatPrice(sales_user.totalClosed) }}</h4>
               </div>
             </div>
           </div>
           <div class="col-lg-2 mt-1 col-md-6" id="cardTop">
             <div class="card card-flush" id="bgPurple">
               <div class="card-body">
-                <p class="text-muted">Total Open Closed</p>
-                <h3 id="textPurple" v-if="sales_user">${{ formatPrice(sales_user.totalOpenClosed) }}</h3>
+                <p class="text-muted" id="fontSm">Total Open Closed</p>
+                <h4 id="textPurple" v-if="sales_user">${{ formatPrice(sales_user.totalOpenClosed) }}</h4>
               </div>
             </div>
           </div>
           <div class="col-lg-2 mt-1 col-md-6" id="cardTop">
             <div class="card card-flush" id="bgGold">
               <div class="card-body">
-                <p class="text-muted">Total Cancel</p>
-                <h3 id="textGold" v-if="sales_user">${{ formatPrice(sales_user.totalCancel) }}</h3>
+                <p class="text-muted" id="fontSm">Total Cancel</p>
+                <h4 id="textGold" v-if="sales_user">${{ formatPrice(sales_user.totalCancel) }}</h4>
               </div>
             </div>
           </div>
@@ -848,7 +848,8 @@ export default {
 }
 
 #cardTop {
-  width: 207px;
+  width: 205px;
+  margin-left: -15px;
 }
 
 #btnGreen {

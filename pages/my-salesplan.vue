@@ -848,7 +848,7 @@ export default {
 }
 
 #cardTop {
-  width: 205px;
+  width: 208px;
   margin-left: -15px;
 }
 

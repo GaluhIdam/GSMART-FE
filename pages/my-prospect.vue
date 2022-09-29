@@ -33,6 +33,21 @@
           </p>
           <!--end::Title-->
         </div>
+        <ul
+          class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0 pt-1"
+        >
+          <!--begin::Item-->
+          <li class="breadcrumb-item text-muted">
+            <nuxt-link to="/" class="text-muted text-hover-primary"
+              >Dashboard</nuxt-link
+            >
+          </li>
+          <li class="breadcrumb-item">
+            <span class="bullet bg-gray-400 w-5px h-2px"></span>
+          </li>
+          <li class="breadcrumb-item text-muted">My Prospect</li>
+          <!--end::Item-->
+        </ul>
         <!--end::Page title-->
       </div>
       <!--end::Toolbar container-->
@@ -47,31 +62,27 @@
             <div class="col">
               <div class="row">
                 <p class="mb-5 fw-bold text-gray-600">
-                  Last 30 day earnings calculated. Apart from arranging the
+                  This year earnings calculated. Apart from arranging the
                   order of topics.
                 </p>
                 <div class="col">
                   <div class="border-dashed p-4">
-                    <h1 class="fw-bold mb-0">$1,500,000.00</h1>
+                    <h1 class="fw-bold mb-0">$ {{ prospect2.totalMarketShare }}</h1>
                     <p class="mb-0 fw-bold text-gray-500">Total Market Share</p>
                   </div>
                 </div>
                 <div class="col">
                   <div class="border-dashed p-4">
-                    <h1 class="fw-bold mb-0">$1,300,000.00</h1>
+                    <h1 class="fw-bold mb-0">$ {{ prospect2.totalSalesPlan }}</h1>
                     <p class="mb-0 fw-bold text-gray-500">Total Salesplan</p>
                   </div>
                 </div>
-              </div>
-            </div>
-            <div class="col justify-content-center text-center">
-              <div id="chart">
-                <VueApexCharts
-                  width="350"
-                  type="radialBar"
-                  :options="pie_one.chartOptions"
-                  :series="pie_one.series"
-                ></VueApexCharts>
+                <div class="col">
+                  <div class="border-dashed p-4">
+                    <h1 class="fw-bold mb-0">$ {{ prospect2.deviation }}</h1>
+                    <p class="mb-0 fw-bold text-gray-500">Deviation</p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -95,51 +106,6 @@
           </div>
           <div class="card-body">
             <div class="row d-flex align-items-center">
-              <!--begin::Input group-->
-              <div class="position-relative me-md-2">
-                <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
-                <span
-                  class="
-                    svg-icon svg-icon-3 svg-icon-gray-500
-                    position-absolute
-                    top-50
-                    translate-middle
-                    ms-6
-                  "
-                >
-                  <svg
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <rect
-                      opacity="0.5"
-                      x="17.0365"
-                      y="15.1223"
-                      width="8.15546"
-                      height="2"
-                      rx="1"
-                      transform="rotate(45 17.0365 15.1223)"
-                      fill="currentColor"
-                    ></rect>
-                    <path
-                      d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z"
-                      fill="currentColor"
-                    ></path>
-                  </svg>
-                </span>
-                <!--end::Svg Icon-->
-                <input
-                  type="text"
-                  class="form-control form-control-solid ps-10"
-                  name="search"
-                  v-model="search"
-                  placeholder="Search"
-                />
-              </div>
-              <!--end::Input group-->
             </div>
             <div class="py-5">
               <ul
@@ -153,29 +119,42 @@
               >
                 <li class="nav-item">
                   <a
-                    class="nav-link active text-dark"
+                    class="nav-link active"
                     exact-active-class="active"
                     data-bs-toggle="tab"
                     href="#kt_tab_pane_1"
+                    @click="filterYear(currentYear)"
                     >This Year</a
                   >
                 </li>
                 <li class="nav-item">
                   <a
-                    class="nav-link text-dark"
+                    class="nav-link"
                     active-class="active"
                     data-bs-toggle="tab"
                     href="#kt_tab_pane_2"
-                    >2021</a
+                    @click="filterYear(currentYear - 1)"
+                    >{{ currentYear - 1 }}</a
                   >
                 </li>
                 <li class="nav-item">
                   <a
-                    class="nav-link text-dark"
+                    class="nav-link"
                     active-class="active"
                     data-bs-toggle="tab"
                     href="#kt_tab_pane_3"
-                    >2020</a
+                    @click="filterYear(currentYear - 2)"
+                    >{{ currentYear - 2 }}</a
+                  >
+                </li>
+                <li class="nav-item">
+                  <a
+                    class="nav-link"
+                    active-class="active"
+                    data-bs-toggle="tab"
+                    href="#kt_tab_pane_4"
+                    @click="filterYear(currentYear - 3)"
+                    >{{ currentYear - 3 }}</a
                   >
                 </li>
               </ul>
@@ -198,6 +177,7 @@
                           <th class="text-center">Strategic Initiative</th>
                           <th class="text-center">PM</th>
                           <th class="text-center">Customer Code</th>
+                          <th class="text-center">Customer</th>
                           <th class="text-center">AMS</th>
                           <th class="text-center">Market Share</th>
                           <th class="text-center">Sales Plan</th>
@@ -207,30 +187,48 @@
                       <tbody>
                         <tr
                           v-for="(
-                            transaction, transaction_index
-                          ) in transaction_type.data"
-                          :key="transaction_index"
+                            prospect, prospect_index
+                          ) in prospect"
+                          :key="prospect_index"
                         >
                           <td class="text-center">
-                            {{ transaction_type.from + transaction_index }}
+                            {{ prospect3.from + prospect_index }}
                           </td>
-                          <td class="text-center">{{ transaction.name }}</td>
+                          <td class="text-center">{{ prospect.year }}</td>
+                          <td class="text-center">{{ prospect.transaction_type.name }}</td>
+                          <td class="text-center">{{ prospect.prospect_type.name }}</td>
+                          <td class="text-center">{{ prospect.strategic_initiative.name }}</td>
+                          <td class="text-center">{{ prospect.pm.name }}</td>
+                          <td class="text-center">{{ prospect.ams_customer.customer.code }}</td>
+                          <td class="text-center">{{ prospect.ams_customer.customer.name }}</td>
+                          <td class="text-center">{{ prospect.ams_customer.ams.initial }}</td>
+                          <td>
+                            <div v-if="prospect.market_share" class="text-center" style="color: #50CD89">
+                              ${{ prospect.market_share }}
+                            </div>
+                            <div v-else class="text-center" style="color: #50CD89">
+                              $
+                            </div>
+                          </td>
+
+                            <td v-if="prospect.sales" class="text-center" style="color: #50CD89">
+                              ${{ prospect.sales.value }}
+                            </td>
+                            <td v-else class="text-center" style="color: #50CD89">
+                              $
+                            </td>
+                          
                           <td class="text-center">
-                            {{ transaction.description }}
-                          </td>
-                          <td class="d-flex justify-content-center">
-                            <button
+                            <nuxt-link
+                              v-if="prospect"
+                              :to="{ path: 'view-prospect', query: { id: prospect.ams_customer.customer.id }}"
                               class="btn btn-sm btn-light"
-                              data-bs-toggle="modal"
-                              data-bs-target="#modal"
-                              @click="edit(transaction)"
+                              >View</nuxt-link
                             >
-                              View
-                            </button>
                           </td>
                         </tr>
-                        <tr v-if="transaction_type.data.length < 1">
-                          <td colspan="8">
+                        <tr v-if="prospect.length < 1">
+                          <td colspan="12">
                             <div class="text-muted text-center">
                               Data not found
                             </div>
@@ -254,6 +252,7 @@
                           <th class="text-center">Strategic Initiative</th>
                           <th class="text-center">PM</th>
                           <th class="text-center">Customer Code</th>
+                          <th class="text-center">Customer</th>
                           <th class="text-center">AMS</th>
                           <th class="text-center">Market Share</th>
                           <th class="text-center">Sales Plan</th>
@@ -263,30 +262,48 @@
                       <tbody>
                         <tr
                           v-for="(
-                            transaction, transaction_index
-                          ) in transaction_type.data"
-                          :key="transaction_index"
+                            prospect, prospect_index
+                          ) in prospect"
+                          :key="prospect_index"
                         >
                           <td class="text-center">
-                            {{ transaction_type.from + transaction_index }}
+                            {{ prospect3.from + prospect_index }}
                           </td>
-                          <td class="text-center">{{ transaction.name }}</td>
+                          <td class="text-center">{{ prospect.year }}</td>
+                          <td class="text-center">{{ prospect.transaction_type.name }}</td>
+                          <td class="text-center">{{ prospect.prospect_type.name }}</td>
+                          <td class="text-center">{{ prospect.strategic_initiative.name }}</td>
+                          <td class="text-center">{{ prospect.pm.name }}</td>
+                          <td class="text-center">{{ prospect.ams_customer.customer.code }}</td>
+                          <td class="text-center">{{ prospect.ams_customer.customer.name }}</td>
+                          <td class="text-center">{{ prospect.ams_customer.ams.initial }}</td>
+                          <td>
+                            <div v-if="prospect.market_share" class="text-center" style="color: #50CD89">
+                              ${{ prospect.market_share }}
+                            </div>
+                            <div v-else class="text-center" style="color: #50CD89">
+                              $
+                            </div>
+                          </td>
+
+                            <td v-if="prospect.sales" class="text-center" style="color: #50CD89">
+                              ${{ prospect.sales.value }}
+                            </td>
+                            <td v-else class="text-center" style="color: #50CD89">
+                              $
+                            </td>
+                          
                           <td class="text-center">
-                            {{ transaction.description }}
-                          </td>
-                          <td class="d-flex justify-content-center">
-                            <button
+                            <nuxt-link
+                              v-if="prospect"
+                              :to="{ path: 'view-prospect', query: { id: prospect.ams_customer.customer.id }}"
                               class="btn btn-sm btn-light"
-                              data-bs-toggle="modal"
-                              data-bs-target="#modal"
-                              @click="edit(transaction)"
+                              >View</nuxt-link
                             >
-                              View
-                            </button>
                           </td>
                         </tr>
-                        <tr v-if="transaction_type.data.length < 1">
-                          <td colspan="8">
+                        <tr v-if="prospect.length < 1">
+                          <td colspan="12">
                             <div class="text-muted text-center">
                               Data not found
                             </div>
@@ -310,6 +327,7 @@
                           <th class="text-center">Strategic Initiative</th>
                           <th class="text-center">PM</th>
                           <th class="text-center">Customer Code</th>
+                          <th class="text-center">Customer</th>
                           <th class="text-center">AMS</th>
                           <th class="text-center">Market Share</th>
                           <th class="text-center">Sales Plan</th>
@@ -319,30 +337,123 @@
                       <tbody>
                         <tr
                           v-for="(
-                            transaction, transaction_index
-                          ) in transaction_type.data"
-                          :key="transaction_index"
+                            prospect, prospect_index
+                          ) in prospect"
+                          :key="prospect_index"
                         >
                           <td class="text-center">
-                            {{ transaction_type.from + transaction_index }}
+                            {{ prospect3.from + prospect_index }}
                           </td>
-                          <td class="text-center">{{ transaction.name }}</td>
+                          <td class="text-center">{{ prospect.year }}</td>
+                          <td class="text-center">{{ prospect.transaction_type.name }}</td>
+                          <td class="text-center">{{ prospect.prospect_type.name }}</td>
+                          <td class="text-center">{{ prospect.strategic_initiative.name }}</td>
+                          <td class="text-center">{{ prospect.pm.name }}</td>
+                          <td class="text-center">{{ prospect.ams_customer.customer.code }}</td>
+                          <td class="text-center">{{ prospect.ams_customer.customer.name }}</td>
+                          <td class="text-center">{{ prospect.ams_customer.ams.initial }}</td>
+                          <td>
+                            <div v-if="prospect.market_share" class="text-center" style="color: #50CD89">
+                              ${{ prospect.market_share }}
+                            </div>
+                            <div v-else class="text-center" style="color: #50CD89">
+                              $
+                            </div>
+                          </td>
+
+                            <td v-if="prospect.sales" class="text-center" style="color: #50CD89">
+                              ${{ prospect.sales.value }}
+                            </td>
+                            <td v-else class="text-center" style="color: #50CD89">
+                              $
+                            </td>
+                          
                           <td class="text-center">
-                            {{ transaction.description }}
-                          </td>
-                          <td class="d-flex justify-content-center">
-                            <button
+                            <nuxt-link
+                              v-if="prospect"
+                              :to="{ path: 'view-prospect', query: { id: prospect.ams_customer.customer.id }}"
                               class="btn btn-sm btn-light"
-                              data-bs-toggle="modal"
-                              data-bs-target="#modal"
-                              @click="edit(transaction)"
+                              >View</nuxt-link
                             >
-                              View
-                            </button>
                           </td>
                         </tr>
-                        <tr v-if="transaction_type.data.length < 1">
-                          <td colspan="8">
+                        <tr v-if="prospect.length < 1">
+                          <td colspan="12">
+                            <div class="text-muted text-center">
+                              Data not found
+                            </div>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <div class="tab-pane fade" id="kt_tab_pane_4" role="tabpanel">
+                  <div class="table-responsive">
+                    <table
+                      class="table table-row-bordered table-row-gray-200 gy-4"
+                    >
+                      <thead>
+                        <tr class="fw-bold fs-6 text-gray-800">
+                          <th class="text-center">No</th>
+                          <th class="text-center">Year</th>
+                          <th class="text-center">Transaction</th>
+                          <th class="text-center">Type</th>
+                          <th class="text-center">Strategic Initiative</th>
+                          <th class="text-center">PM</th>
+                          <th class="text-center">Customer Code</th>
+                          <th class="text-center">Customer</th>
+                          <th class="text-center">AMS</th>
+                          <th class="text-center">Market Share</th>
+                          <th class="text-center">Sales Plan</th>
+                          <th class="text-center">Action</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr
+                          v-for="(
+                            prospect, prospect_index
+                          ) in prospect"
+                          :key="prospect_index"
+                        >
+                          <td class="text-center">
+                            {{ prospect3.from + prospect_index }}
+                          </td>
+                          <td class="text-center">{{ prospect.year }}</td>
+                          <td class="text-center">{{ prospect.transaction_type.name }}</td>
+                          <td class="text-center">{{ prospect.prospect_type.name }}</td>
+                          <td class="text-center">{{ prospect.strategic_initiative.name }}</td>
+                          <td class="text-center">{{ prospect.pm.name }}</td>
+                          <td class="text-center">{{ prospect.ams_customer.customer.code }}</td>
+                          <td class="text-center">{{ prospect.ams_customer.customer.name }}</td>
+                          <td class="text-center">{{ prospect.ams_customer.ams.initial }}</td>
+                          <td>
+                            <div v-if="prospect.market_share" class="text-center" style="color: #50CD89">
+                              ${{ prospect.market_share }}
+                            </div>
+                            <div v-else class="text-center" style="color: #50CD89">
+                              $
+                            </div>
+                          </td>
+
+                            <td v-if="prospect.sales" class="text-center" style="color: #50CD89">
+                              ${{ prospect.sales.value }}
+                            </td>
+                            <td v-else class="text-center" style="color: #50CD89">
+                              $
+                            </td>
+                          
+                          <td class="text-center">
+                            <nuxt-link
+                              v-if="prospect"
+                              :to="{ path: 'view-prospect', query: { id: prospect.ams_customer.customer.id }}"
+                              class="btn btn-sm btn-light"
+                              >View</nuxt-link
+                            >
+                          </td>
+                        </tr>
+                        <tr v-if="prospect.length < 1">
+                          <td colspan="12">
                             <div class="text-muted text-center">
                               Data not found
                             </div>
@@ -365,7 +476,7 @@
                       <select
                         class="form-control form-control-sm"
                         v-model="paginate"
-                        @change="list()"
+                        @change="listProspect()"
                       >
                         <option value="10">10</option>
                         <option value="25">25</option>
@@ -379,49 +490,43 @@
               <div class="col d-flex justify-content-end align-items-center">
                 <nav aria-label="Page navigation example">
                   <ul class="pagination">
-                    <li class="page-item">
-                      <button
-                        type="button"
-                        class="page-link"
-                        :class="{
-                          disabled: !transaction_type.prev_page_url,
-                        }"
-                        @click="
-                          transaction_type.prev_page_url &&
-                            list(transaction_type.prev_page_url)
-                        "
-                      >
-                        Previous
-                      </button>
-                    </li>
-                    <li
-                      class="page-item"
-                      style="margin-left: 15px; margin-right: 15px"
+                  <li class="page-item">
+                    <button
+                      type="button"
+                      class="page-link"
+                      :class="{
+                        disabled: !prospect3.prev_page_url,
+                      }"
+                      @click="prospect3.prev_page_url && listProspect(prospect3.prev_page_url)"
                     >
-                      <input
-                        type="text"
-                        class="form-control form-control-sm text-center"
-                        v-model="current_page"
-                        @keypress="directPage"
-                        style="width: 60px"
-                      />
-                    </li>
-                    <li class="page-item">
-                      <button
-                        type="button"
-                        class="page-link"
-                        :class="{
-                          disabled: !transaction_type.next_page_url,
-                        }"
-                        @click="
-                          transaction_type.next_page_url &&
-                            list(transaction_type.next_page_url)
-                        "
-                      >
-                        Next
-                      </button>
-                    </li>
-                  </ul>
+                      Previous
+                    </button>
+                  </li>
+                  <li
+                    class="page-item"
+                    style="margin-left: 15px; margin-right: 15px"
+                  >
+                    <input
+                      type="text"
+                      class="form-control form-control-sm text-center"
+                      v-model="current_page"
+                      @keypress="directPage"
+                      style="width: 60px"
+                    />
+                  </li>
+                  <li class="page-item">
+                    <button
+                      type="button"
+                      class="page-link"
+                      :class="{
+                        disabled: !prospect3.next_page_url,
+                      }"
+                      @click="prospect3.next_page_url && listProspect(prospect3.next_page_url)"
+                    >
+                      Next
+                    </button>
+                  </li>
+                </ul>
                 </nav>
               </div>
             </div>
@@ -592,24 +697,13 @@
                   </div>
                 </div>
                 <div class="col-md-9">
-                  <div class="row mt-5 px-10">
-                    <div class="col d-flex justify-content-end">
-                      <button
-                        type="button"
-                        data-bs-dismiss="modal"
-                        class="btn btn-light text-primary"
-                      >
-                        Close
-                      </button>
-                    </div>
-                  </div>
                   <form class="w-100 p-3">
                     <div class="row mt-5">
                       <!--begin::Content-->
                       <div class="flex-row-fluid">
                         <!--begin::Form-->
                         <div
-                          class="form px-10 py-10 mx-auto px-5"
+                          class="form px-5 py-5 mx-auto"
                           novalidate="novalidate"
                         >
                           <!--begin::Group-->
@@ -633,142 +727,111 @@
                                   Page
                                 </p>
                                 <!--begin::Option-->
-                                <input
-                                  type="radio"
-                                  class="btn-check"
-                                  name="prospect_type"
-                                  value="apps"
-                                  id="organic"
-                                />
-                                <label
-                                  class="
-                                    btn
-                                    btn-outline
-                                    btn-outline-dashed
-                                    btn-active-light-primary
-                                    p-7
-                                    d-flex
-                                    align-items-center
-                                    mb-5
-                                  "
-                                  for="organic"
+
+                                <div
+                                  class="mt-10"
+                                  v-for="(
+                                    prospectType, prospect_type_index
+                                  ) in prospect_type.data"
+                                  :key="prospect_type_index"
                                 >
-                                  <!--begin::Svg Icon | path: /var/www/preview.keenthemes.com/kt-products/metronic/releases/2022-07-14-092914/core/html/src/media/icons/duotune/communication/com013.svg-->
-                                  <span class="svg-icon svg-icon-3hx"
-                                    ><svg
-                                      width="100"
-                                      height="100"
-                                      viewBox="0 0 24 24"
-                                      fill="none"
-                                      xmlns="http://www.w3.org/2000/svg"
-                                    >
-                                      <path
-                                        d="M6.28548 15.0861C7.34369 13.1814 9.35142 12 11.5304 12H12.4696C14.6486 12 16.6563 13.1814 17.7145 15.0861L19.3493 18.0287C20.0899 19.3618 19.1259 21 17.601 21H6.39903C4.87406 21 3.91012 19.3618 4.65071 18.0287L6.28548 15.0861Z"
-                                        fill="currentColor"
-                                      />
-                                      <rect
-                                        opacity="0.3"
-                                        x="8"
-                                        y="3"
-                                        width="8"
-                                        height="8"
-                                        rx="4"
-                                        fill="currentColor"
-                                      />
-                                    </svg>
-                                  </span>
-                                  <!--end::Svg Icon-->
-
-                                  <span
+                                  <input
+                                    type="radio"
+                                    class="btn-check"
+                                    name="prospectType"
+                                    v-model="prospect.prospect_type_id"
+                                    :value="prospectType.id"
+                                    :id="prospectType.name"
+                                  />
+                                  <label
                                     class="
-                                      d-block
-                                      fw-semibold
-                                      text-start
+                                      btn
+                                      btn-outline
+                                      btn-outline-dashed
+                                      btn-active-light-primary
+                                      p-7
+                                      d-flex
                                       align-items-center
+                                      mb-5
                                     "
+                                    :for="prospectType.name"
                                   >
-                                    <span class="text-dark fw-bold d-block fs-6"
-                                      >Organic</span
-                                    >
-                                    <p class="text-muted fw-semibold fs-7 mb-0">
-                                      If you need more info, please check it out
-                                    </p>
-                                  </span>
-                                </label>
-                                <!--end::Option-->
+                                    <span
+                                      class="svg-icon svg-icon-3hx"
+                                      v-if="prospect_type_index % 2 == 0"
+                                      ><svg
+                                        width="100"
+                                        height="100"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                      >
+                                        <path
+                                          d="M6.28548 15.0861C7.34369 13.1814 9.35142 12 11.5304 12H12.4696C14.6486 12 16.6563 13.1814 17.7145 15.0861L19.3493 18.0287C20.0899 19.3618 19.1259 21 17.601 21H6.39903C4.87406 21 3.91012 19.3618 4.65071 18.0287L6.28548 15.0861Z"
+                                          fill="currentColor"
+                                        />
+                                        <rect
+                                          opacity="0.3"
+                                          x="8"
+                                          y="3"
+                                          width="8"
+                                          height="8"
+                                          rx="4"
+                                          fill="currentColor"
+                                        />
+                                      </svg>
+                                    </span>
+                                    <span v-else class="svg-icon svg-icon-3hx"
+                                      ><svg
+                                        width="100"
+                                        height="100"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                      >
+                                        <path
+                                          d="M3 2H10C10.6 2 11 2.4 11 3V10C11 10.6 10.6 11 10 11H3C2.4 11 2 10.6 2 10V3C2 2.4 2.4 2 3 2Z"
+                                          fill="currentColor"
+                                        />
+                                        <path
+                                          opacity="0.3"
+                                          d="M14 2H21C21.6 2 22 2.4 22 3V10C22 10.6 21.6 11 21 11H14C13.4 11 13 10.6 13 10V3C13 2.4 13.4 2 14 2Z"
+                                          fill="currentColor"
+                                        />
+                                        <path
+                                          opacity="0.3"
+                                          d="M3 13H10C10.6 13 11 13.4 11 14V21C11 21.6 10.6 22 10 22H3C2.4 22 2 21.6 2 21V14C2 13.4 2.4 13 3 13Z"
+                                          fill="currentColor"
+                                        />
+                                        <path
+                                          opacity="0.3"
+                                          d="M14 13H21C21.6 13 22 13.4 22 14V21C22 21.6 21.6 22 21 22H14C13.4 22 13 21.6 13 21V14C13 13.4 13.4 13 14 13Z"
+                                          fill="currentColor"
+                                        />
+                                      </svg>
+                                    </span>
+                                    <!--end::Svg Icon-->
 
-                                <!--begin::Option-->
-                                <input
-                                  type="radio"
-                                  class="btn-check"
-                                  name="prospect_type"
-                                  value="sms"
-                                  id="in_organic"
-                                />
-                                <label
-                                  class="
-                                    btn
-                                    btn-outline
-                                    btn-outline-dashed
-                                    btn-active-light-primary
-                                    p-7
-                                    d-flex
-                                    align-items-center
-                                  "
-                                  for="in_organic"
-                                >
-                                  <!--begin::Svg Icon | path: icons/duotune/communication/com003.svg-->
-                                  <!--begin::Svg Icon | path: /var/www/preview.keenthemes.com/kt-products/metronic/releases/2022-07-14-092914/core/html/src/media/icons/duotune/general/gen008.svg-->
-                                  <span class="svg-icon svg-icon-3hx"
-                                    ><svg
-                                      width="100"
-                                      height="100"
-                                      viewBox="0 0 24 24"
-                                      fill="none"
-                                      xmlns="http://www.w3.org/2000/svg"
+                                    <span
+                                      class="
+                                        d-block
+                                        fw-semibold
+                                        text-start
+                                        align-items-center
+                                      "
                                     >
-                                      <path
-                                        d="M3 2H10C10.6 2 11 2.4 11 3V10C11 10.6 10.6 11 10 11H3C2.4 11 2 10.6 2 10V3C2 2.4 2.4 2 3 2Z"
-                                        fill="currentColor"
-                                      />
-                                      <path
-                                        opacity="0.3"
-                                        d="M14 2H21C21.6 2 22 2.4 22 3V10C22 10.6 21.6 11 21 11H14C13.4 11 13 10.6 13 10V3C13 2.4 13.4 2 14 2Z"
-                                        fill="currentColor"
-                                      />
-                                      <path
-                                        opacity="0.3"
-                                        d="M3 13H10C10.6 13 11 13.4 11 14V21C11 21.6 10.6 22 10 22H3C2.4 22 2 21.6 2 21V14C2 13.4 2.4 13 3 13Z"
-                                        fill="currentColor"
-                                      />
-                                      <path
-                                        opacity="0.3"
-                                        d="M14 13H21C21.6 13 22 13.4 22 14V21C22 21.6 21.6 22 21 22H14C13.4 22 13 21.6 13 21V14C13 13.4 13.4 13 14 13Z"
-                                        fill="currentColor"
-                                      />
-                                    </svg>
-                                  </span>
-                                  <!--end::Svg Icon-->
-                                  <!--end::Svg Icon-->
-
-                                  <span
-                                    class="
-                                      d-block
-                                      fw-semibold
-                                      text-start
-                                      align-items-center
-                                    "
-                                  >
-                                    <span class="text-dark fw-bold d-block fs-6"
-                                      >In Organic</span
-                                    >
-                                    <p class="text-muted fw-semibold fs-7 mb-0">
-                                      Need to define which Strategic Initiative
-                                      and selected PM
-                                    </p>
-                                  </span>
-                                </label>
-                                <!--end::Option-->
+                                      <span
+                                        class="text-dark fw-bold d-block fs-6"
+                                        >{{ prospectType.name }}</span
+                                      >
+                                      <p
+                                        class="text-muted fw-semibold fs-7 mb-0"
+                                      >
+                                        {{ prospectType.description }}
+                                      </p>
+                                    </span>
+                                  </label>
+                                </div>
                               </div>
                             </div>
                             <!--end::Step 1-->
@@ -785,38 +848,129 @@
                                   Page
                                 </p>
                                 <div class="row">
-                                  <div class="mb-3">
-                                    <label
-                                      for="exampleFormControlInput1"
-                                      class="form-label"
-                                      >Year</label
-                                    >
-                                    <input
-                                      type="text"
-                                      class="form-control form-control-sm"
-                                    />
+                                  <div v-if="prospect.prospect_type_id == 1">
+                                    <div class="mb-3">
+                                      <label
+                                        for="exampleFormControlInput1"
+                                        class="form-label"
+                                        >Year</label
+                                      >
+                                      <input
+                                        type="text"
+                                        class="form-control form-control-sm"
+                                      />
+                                    </div>
+                                    <div class="mb-3">
+                                      <label
+                                        for="exampleFormControlInput1"
+                                        class="form-label"
+                                        >Customer</label
+                                      >
+                                      <multiselect
+                                        v-model="customer_value"
+                                        :options="customer_options"
+                                        placeholder=""
+                                        label="name"
+                                      ></multiselect>
+                                    </div>
+                                    <div class="mb-3">
+                                      <label
+                                        for="exampleFormControlInput1"
+                                        class="form-label"
+                                        >Area & AMS</label
+                                      >
+                                      <multiselect
+                                        v-if="customer_value == null"
+                                        :disabled="!customer_value"
+                                        v-model="area_ams_value"
+                                        :options="area_ams_options"
+                                        placeholder=""
+                                        label="name"
+                                      ></multiselect>
+                                      <multiselect
+                                        v-else
+                                        v-model="area_ams_value"
+                                        :options="area_ams_options"
+                                        placeholder=""
+                                        label="name"
+                                      ></multiselect>
+                                    </div>
                                   </div>
-                                  <div class="mb-3">
-                                    <label
-                                      for="exampleFormControlInput1"
-                                      class="form-label"
-                                      >Customer</label
-                                    >
-                                    <input
-                                      type="text"
-                                      class="form-control form-control-sm"
-                                    />
-                                  </div>
-                                  <div class="mb-3">
-                                    <label
-                                      for="exampleFormControlInput1"
-                                      class="form-label"
-                                      >Area & AMS</label
-                                    >
-                                    <input
-                                      type="text"
-                                      class="form-control form-control-sm"
-                                    />
+                                  <div
+                                    v-else-if="prospect.prospect_type_id == 2"
+                                  >
+                                    <div class="mb-3">
+                                      <label
+                                        for="exampleFormControlInput1"
+                                        class="form-label"
+                                        >Year</label
+                                      >
+                                      <input
+                                        type="text"
+                                        class="form-control form-control-sm"
+                                      />
+                                    </div>
+                                    <div class="mb-3">
+                                      <label
+                                        for="exampleFormControlInput1"
+                                        class="form-label"
+                                        >Customer</label
+                                      >
+                                      <multiselect
+                                        v-model="customer_value"
+                                        :options="customer_options"
+                                        placeholder=""
+                                        label="name"
+                                      ></multiselect>
+                                    </div>
+                                    <div class="mb-3">
+                                      <label
+                                        for="exampleFormControlInput1"
+                                        class="form-label"
+                                        >Area & AMS</label
+                                      >
+                                      <multiselect
+                                        v-if="customer_value == null"
+                                        :disabled="!customer_value"
+                                        v-model="area_ams_value"
+                                        :options="area_ams_options"
+                                        placeholder=""
+                                        label="name"
+                                      ></multiselect>
+                                      <multiselect
+                                        v-else
+                                        v-model="area_ams_value"
+                                        :options="area_ams_options"
+                                        placeholder=""
+                                        label="name"
+                                      ></multiselect>
+                                    </div>
+                                    <div class="mb-3">
+                                      <label
+                                        for="exampleFormControlInput1"
+                                        class="form-label"
+                                        >Strategic Initiative</label
+                                      >
+                                      <multiselect
+                                        v-model="strategic_initiative_value"
+                                        :options="strategic_initiative_options"
+                                        placeholder=""
+                                        label="name"
+                                      ></multiselect>
+                                    </div>
+                                    <div class="mb-3">
+                                      <label
+                                        for="exampleFormControlInput1"
+                                        class="form-label"
+                                        >Project Manager</label
+                                      >
+                                      <multiselect
+                                        v-model="project_manager_value"
+                                        :options="project_manager_options"
+                                        placeholder=""
+                                        label="name"
+                                      ></multiselect>
+                                    </div>
                                   </div>
                                 </div>
                               </div>
@@ -835,140 +989,112 @@
                                   Page
                                 </p>
                                 <!--begin::Option-->
-                                <input
-                                  type="radio"
-                                  class="btn-check"
-                                  name="transaction_type"
-                                  value="apps"
-                                  id="tmb"
-                                />
-                                <label
-                                  class="
-                                    btn
-                                    btn-outline
-                                    btn-outline-dashed
-                                    btn-active-light-primary
-                                    p-7
-                                    d-flex
-                                    align-items-center
-                                    mb-5
-                                  "
-                                  for="tmb"
+                                <div
+                                  class="mt-10"
+                                  v-for="(
+                                    transactionType, transactionType_index
+                                  ) in transaction_type.data"
+                                  :key="transactionType_index"
                                 >
-                                  <!--begin::Svg Icon | path: /var/www/preview.keenthemes.com/kt-products/metronic/releases/2022-07-14-092914/core/html/src/media/icons/duotune/communication/com013.svg-->
-                                  <span class="svg-icon svg-icon-3hx"
-                                    ><svg
-                                      width="100"
-                                      height="100"
-                                      viewBox="0 0 24 24"
-                                      fill="none"
-                                      xmlns="http://www.w3.org/2000/svg"
-                                    >
-                                      <path
-                                        d="M6.28548 15.0861C7.34369 13.1814 9.35142 12 11.5304 12H12.4696C14.6486 12 16.6563 13.1814 17.7145 15.0861L19.3493 18.0287C20.0899 19.3618 19.1259 21 17.601 21H6.39903C4.87406 21 3.91012 19.3618 4.65071 18.0287L6.28548 15.0861Z"
-                                        fill="currentColor"
-                                      />
-                                      <rect
-                                        opacity="0.3"
-                                        x="8"
-                                        y="3"
-                                        width="8"
-                                        height="8"
-                                        rx="4"
-                                        fill="currentColor"
-                                      />
-                                    </svg>
-                                  </span>
-                                  <!--end::Svg Icon-->
-
-                                  <span
+                                  <input
+                                    type="radio"
+                                    class="btn-check"
+                                    name="transaction_type"
+                                    v-model="prospect.transaction_type_id"
+                                    :value="transactionType.id"
+                                    :id="transactionType.name"
+                                  />
+                                  <label
                                     class="
-                                      d-block
-                                      fw-semibold
-                                      text-start
+                                      btn
+                                      btn-outline
+                                      btn-outline-dashed
+                                      btn-active-light-primary
+                                      p-7
+                                      d-flex
                                       align-items-center
+                                      mb-5
                                     "
+                                    :for="transactionType.name"
                                   >
-                                    <span class="text-dark fw-bold d-block fs-6"
-                                      >TMB</span
-                                    >
-                                    <p class="text-muted fw-semibold fs-7 mb-0">
-                                      Time Material Based
-                                    </p>
-                                  </span>
-                                </label>
-                                <!--end::Option-->
+                                    <span
+                                      class="svg-icon svg-icon-3hx"
+                                      v-if="transactionType_index % 2 == 0"
+                                      ><svg
+                                        width="100"
+                                        height="100"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                      >
+                                        <path
+                                          d="M6.28548 15.0861C7.34369 13.1814 9.35142 12 11.5304 12H12.4696C14.6486 12 16.6563 13.1814 17.7145 15.0861L19.3493 18.0287C20.0899 19.3618 19.1259 21 17.601 21H6.39903C4.87406 21 3.91012 19.3618 4.65071 18.0287L6.28548 15.0861Z"
+                                          fill="currentColor"
+                                        />
+                                        <rect
+                                          opacity="0.3"
+                                          x="8"
+                                          y="3"
+                                          width="8"
+                                          height="8"
+                                          rx="4"
+                                          fill="currentColor"
+                                        />
+                                      </svg>
+                                    </span>
+                                    <span v-else class="svg-icon svg-icon-3hx"
+                                      ><svg
+                                        width="100"
+                                        height="100"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                      >
+                                        <path
+                                          d="M3 2H10C10.6 2 11 2.4 11 3V10C11 10.6 10.6 11 10 11H3C2.4 11 2 10.6 2 10V3C2 2.4 2.4 2 3 2Z"
+                                          fill="currentColor"
+                                        />
+                                        <path
+                                          opacity="0.3"
+                                          d="M14 2H21C21.6 2 22 2.4 22 3V10C22 10.6 21.6 11 21 11H14C13.4 11 13 10.6 13 10V3C13 2.4 13.4 2 14 2Z"
+                                          fill="currentColor"
+                                        />
+                                        <path
+                                          opacity="0.3"
+                                          d="M3 13H10C10.6 13 11 13.4 11 14V21C11 21.6 10.6 22 10 22H3C2.4 22 2 21.6 2 21V14C2 13.4 2.4 13 3 13Z"
+                                          fill="currentColor"
+                                        />
+                                        <path
+                                          opacity="0.3"
+                                          d="M14 13H21C21.6 13 22 13.4 22 14V21C22 21.6 21.6 22 21 22H14C13.4 22 13 21.6 13 21V14C13 13.4 13.4 13 14 13Z"
+                                          fill="currentColor"
+                                        />
+                                      </svg>
+                                    </span>
+                                    <!--end::Svg Icon-->
 
+                                    <span
+                                      class="
+                                        d-block
+                                        fw-semibold
+                                        text-start
+                                        align-items-center
+                                      "
+                                    >
+                                      <span
+                                        class="text-dark fw-bold d-block fs-6"
+                                        >{{ transactionType.name }}</span
+                                      >
+                                      <p
+                                        class="text-muted fw-semibold fs-7 mb-0"
+                                      >
+                                        {{ transactionType.description }}
+                                      </p>
+                                    </span>
+                                  </label>
+                                  <!--end::Option-->
+                                </div>
                                 <!--begin::Option-->
-                                <input
-                                  type="radio"
-                                  class="btn-check"
-                                  name="transaction_type"
-                                  value="sms"
-                                  id="pbth"
-                                />
-                                <label
-                                  class="
-                                    btn
-                                    btn-outline
-                                    btn-outline-dashed
-                                    btn-active-light-primary
-                                    p-7
-                                    d-flex
-                                    align-items-center
-                                  "
-                                  for="pbth"
-                                >
-                                  <!--begin::Svg Icon | path: /var/www/preview.keenthemes.com/kt-products/metronic/releases/2022-07-14-092914/core/html/src/media/icons/duotune/general/gen008.svg-->
-                                  <span class="svg-icon svg-icon-3hx"
-                                    ><svg
-                                      width="100"
-                                      height="100"
-                                      viewBox="0 0 24 24"
-                                      fill="none"
-                                      xmlns="http://www.w3.org/2000/svg"
-                                    >
-                                      <path
-                                        d="M3 2H10C10.6 2 11 2.4 11 3V10C11 10.6 10.6 11 10 11H3C2.4 11 2 10.6 2 10V3C2 2.4 2.4 2 3 2Z"
-                                        fill="currentColor"
-                                      />
-                                      <path
-                                        opacity="0.3"
-                                        d="M14 2H21C21.6 2 22 2.4 22 3V10C22 10.6 21.6 11 21 11H14C13.4 11 13 10.6 13 10V3C13 2.4 13.4 2 14 2Z"
-                                        fill="currentColor"
-                                      />
-                                      <path
-                                        opacity="0.3"
-                                        d="M3 13H10C10.6 13 11 13.4 11 14V21C11 21.6 10.6 22 10 22H3C2.4 22 2 21.6 2 21V14C2 13.4 2.4 13 3 13Z"
-                                        fill="currentColor"
-                                      />
-                                      <path
-                                        opacity="0.3"
-                                        d="M14 13H21C21.6 13 22 13.4 22 14V21C22 21.6 21.6 22 21 22H14C13.4 22 13 21.6 13 21V14C13 13.4 13.4 13 14 13Z"
-                                        fill="currentColor"
-                                      />
-                                    </svg>
-                                  </span>
-                                  <!--end::Svg Icon-->
-                                  <!--end::Svg Icon-->
-
-                                  <span
-                                    class="
-                                      d-block
-                                      fw-semibold
-                                      text-start
-                                      align-items-center
-                                    "
-                                  >
-                                    <span class="text-dark fw-bold d-block fs-6"
-                                      >PBTH</span
-                                    >
-                                    <p class="text-muted fw-semibold fs-7 mb-0">
-                                      Power By The Hours
-                                    </p>
-                                  </span>
-                                </label>
-                                <!--end::Option-->
                               </div>
                             </div>
                             <!--end::Step 3-->
@@ -982,108 +1108,281 @@
                               <p class="fs-7 mb-5 text-muted">
                                 If you need more info, please check out FAQ Page
                               </p>
-                              <div class="row mb-5">
-                                <div class="col">
-                                  <div class="input-group mb-3">
-                                    <multiselect
-                                      v-model="value"
-                                      placeholder="Search or add a product"
-                                      label="name"
-                                      track-by="code"
-                                      :options="options"
-                                      :multiple="true"
-                                      :taggable="false"
-                                    ></multiselect>
+                              <div v-if="prospect.transaction_type_id == 1">
+                                <div class="row mb-5">
+                                  <div class="col-sm-4">
+                                    <div class="input-group mb-3">
+                                      <multiselect
+                                        v-model="product_value"
+                                        placeholder="search and select product"
+                                        label="name"
+                                        :options="product_options"
+                                      ></multiselect>
+                                    </div>
+                                  </div>
+                                  <div class="col">
+                                    <button
+                                      @click="addProspectTMB(product_value)"
+                                      class="btn btn-primary rounded"
+                                      type="button"
+                                      :disabled="product_value == null"
+                                    >
+                                      Add Product
+                                    </button>
                                   </div>
                                 </div>
-                                <!-- <div class="col">
-                                  <button
-                                    class="btn btn-primary rounded"
-                                    type="button"
-                                  >
-                                    Add Product
-                                  </button>
-                                </div> -->
-                              </div>
-                              <!--begin::Repeater-->
-                              <div
-                                v-for="(item, item_index) in value"
-                                :key="item_index"
-                              ></div>
-                              <div id="kt_docs_repeater_basic">
+                                <!--begin::Repeater-->
                                 <!--begin::Form group-->
-                                <h3 class="mb-5 mt-5">Lable</h3>
-                                <div class="form-group">
+                                <div
+                                  class="mb-20 mt-20"
+                                  v-for="(data, data_index) in tmb"
+                                  :key="data_index"
+                                >
                                   <div
-                                    data-repeater-list="kt_docs_repeater_basic"
+                                    class="row mb-10 d-flex align-items-center"
                                   >
-                                    <div data-repeater-item>
-                                      <div class="form-group row mb-5">
-                                        <div class="col-md-3 text-center">
-                                          <label class="form-label"
-                                            >Aircraft Type</label
-                                          >
-                                          <input
-                                            type="email"
-                                            class="form-control mb-2 mb-md-0"
-                                          />
+                                    <h1 class="fw-bold mb-0">
+                                      {{ data_index + 1 }}. {{ data.name }}
+                                    </h1>
+                                  </div>
+                                  <div class="form-group">
+                                    <div
+                                      class="form-group row mb-5"
+                                      v-for="(item, item_index) in tmb[
+                                        data_index
+                                      ].product"
+                                      :key="item_index"
+                                    >
+                                      <div class="col-md-3 text-center">
+                                        <label class="form-label"
+                                          >Aircraft Type</label
+                                        >
+                                        <input
+                                          v-model="item.aircraft_type"
+                                          type="text"
+                                          class="form-control mb-2 mb-md-0"
+                                        />
+                                      </div>
+                                      <div class="col-md-3 text-center">
+                                        <label class="form-label"
+                                          >Market Share</label
+                                        >
+                                        <input
+                                          type="text"
+                                          v-model="item.market_share"
+                                          class="form-control mb-2 mb-md-0"
+                                        />
+                                      </div>
+                                      <div class="col-md-2 text-center">
+                                        <label class="form-label">Remark</label>
+                                        <input
+                                          type="text"
+                                          v-model="item.remark"
+                                          class="form-control mb-2 mb-md-0"
+                                        />
+                                      </div>
+                                      <div class="col-md-3 text-center">
+                                        <label class="form-label"
+                                          >Maintenance Event</label
+                                        >
+                                        <input
+                                          type="text"
+                                          v-model="item.maintenance_event"
+                                          class="form-control mb-2 mb-md-0"
+                                        />
+                                      </div>
+                                      <div class="col-md-1">
+                                        <button
+                                          type="button"
+                                          @click="
+                                            removeTMB(data_index, item_index)
+                                          "
+                                          class="btn btn-danger mt-3 mt-md-8"
+                                        >
+                                          Delete
+                                        </button>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <!--begin::Form group-->
+                                  <div class="form-group mt-5">
+                                    <button
+                                      data-repeater-create
+                                      class="btn btn-primary btn-sm"
+                                      type="button"
+                                      @click="addTMB(data_index, data)"
+                                    >
+                                      <i class="la la-plus"></i>Add
+                                    </button>
+                                  </div>
+                                  <!--end::Form group-->
+                                </div>
+                                <!--end::Form group-->
+
+                                <!--end::Repeater-->
+                              </div>
+                              <div
+                                v-else-if="prospect.transaction_type_id == 2"
+                              >
+                                <div class="row mb-5">
+                                  <div class="col">
+                                    <div class="input-group mb-3">
+                                      <label class="form-label fw-bold"
+                                        >Select Product</label
+                                      >
+                                      <multiselect
+                                        v-model="product_value"
+                                        label="name"
+                                        placeholder="search and select product"
+                                        :options="product_options"
+                                      ></multiselect>
+                                    </div>
+                                  </div>
+                                  <div class="col">
+                                    <div class="input-group mb-3">
+                                      <label class="form-label fw-bold"
+                                        >Select Aircraft Type</label
+                                      >
+                                      <multiselect
+                                        v-model="aircraft_type_value"
+                                        placeholder="search and select aircraft type"
+                                        label="name"
+                                        :options="aircraft_type_options"
+                                      ></multiselect>
+                                    </div>
+                                  </div>
+                                  <div class="col d-flex align-items-end">
+                                    <button
+                                      class="mb-3 btn btn-primary rounded"
+                                      type="button"
+                                      :disabled="
+                                        product_value == null ||
+                                        aircraft_type_value == null
+                                      "
+                                      @click="
+                                        addPBTH(
+                                          product_value,
+                                          aircraft_type_value
+                                        )
+                                      "
+                                    >
+                                      Add Data
+                                    </button>
+                                  </div>
+                                </div>
+                                <div
+                                  v-for="(data_pbth, index_pbth) in pbth"
+                                  :key="index_pbth"
+                                >
+                                  <div class="row mt-10 mb-5">
+                                    <h2 class="fw-bold mb-4">
+                                      {{ index_pbth + 1 }}.
+                                      {{
+                                        data_pbth.product_name +
+                                        ' - ' +
+                                        data_pbth.aircraft_type_name
+                                      }}
+                                    </h2>
+                                    <div class="ms-7">
+                                      <p class="text-muted mb-1 fw-bold">
+                                        Market Share
+                                      </p>
+                                      <h2 class="fw-bold">$3,920.00</h2>
+                                      <p
+                                        class="
+                                          text-muted
+                                          mb-1
+                                          mt-8
+                                          fw-bold
+                                          fs-6
+                                        "
+                                      >
+                                        Target
+                                      </p>
+                                      <div
+                                        class="
+                                          row
+                                          d-flex
+                                          justify-content-between
+                                        "
+                                      >
+                                        <div
+                                          class="col-sm-6"
+                                          v-for="(
+                                            target_month, target_index
+                                          ) in data_pbth.target"
+                                          :key="target_index"
+                                        >
+                                          <div class="row">
+                                            <div
+                                              class="
+                                                col-md-2
+                                                d-flex
+                                                align-items-center
+                                              "
+                                            >
+                                              <h3 class="fs-7">
+                                                {{ target_month.month }}
+                                              </h3>
+                                            </div>
+                                            <div class="col-md-5">
+                                              <div class="mb-3">
+                                                <label
+                                                  class="
+                                                    form-label
+                                                    text-muted
+                                                    fs-7
+                                                  "
+                                                  >Target Rate</label
+                                                >
+                                                <input
+                                                  type="text"
+                                                  v-model="target_month.rate"
+                                                  class="
+                                                    form-control form-control-sm
+                                                  "
+                                                />
+                                              </div>
+                                            </div>
+                                            <div class="col-md-5">
+                                              <div class="mb-3">
+                                                <label
+                                                  class="
+                                                    form-label
+                                                    text-muted
+                                                    fs-7
+                                                  "
+                                                  >Target FH</label
+                                                >
+                                                <input
+                                                  type="text"
+                                                  v-model="
+                                                    target_month.flight_hour
+                                                  "
+                                                  class="
+                                                    form-control form-control-sm
+                                                  "
+                                                />
+                                              </div>
+                                            </div>
+                                          </div>
                                         </div>
-                                        <div class="col-md-3 text-center">
-                                          <label class="form-label"
-                                            >Market Share</label
-                                          >
-                                          <input
-                                            type="email"
-                                            class="form-control mb-2 mb-md-0"
-                                          />
-                                        </div>
-                                        <div class="col-md-2 text-center">
-                                          <label class="form-label"
-                                            >Remark</label
-                                          >
-                                          <input
-                                            type="email"
-                                            class="form-control mb-2 mb-md-0"
-                                          />
-                                        </div>
-                                        <div class="col-md-3 text-center">
-                                          <label class="form-label"
-                                            >Maintenance Event</label
-                                          >
-                                          <input
-                                            type="email"
-                                            class="form-control mb-2 mb-md-0"
-                                          />
-                                        </div>
-                                        <div class="col-md-1">
-                                          <a
-                                            data-repeater-delete
-                                            class="
-                                              btn btn-light-danger
-                                              mt-3 mt-md-8
-                                            "
-                                          >
-                                            <i class="la la-trash-o"></i>
-                                          </a>
-                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="row mt-5">
+                                      <div class="col">
+                                        <button
+                                          type="button"
+                                          class="btn btn-danger btn-sm ms-5"
+                                          @click="removePBTH(index_pbth)"
+                                        >
+                                          <i class="la la-trash-o"></i> Delete
+                                        </button>
                                       </div>
                                     </div>
                                   </div>
                                 </div>
-                                <!--end::Form group-->
-
-                                <!--begin::Form group-->
-                                <div class="form-group mt-5">
-                                  <a
-                                    data-repeater-create
-                                    class="btn btn-light-primary"
-                                  >
-                                    <i class="la la-plus"></i>Add
-                                  </a>
-                                </div>
-                                <!--end::Form group-->
                               </div>
-                              <!--end::Repeater-->
                             </div>
                             <!--end::Step 4-->
                           </div>
@@ -1092,52 +1391,61 @@
                         <!--end::Form-->
                       </div>
                     </div>
-                    <div class="row mt-5">
-                      <!--begin::Actions-->
-                      <div class="d-flex flex-stack mt-5">
-                        <!--begin::Wrapper-->
-                        <div class="me-2">
-                          <button
-                            type="button"
-                            class="btn btn-light text-primary mt-5"
-                            data-kt-stepper-action="previous"
-                          >
-                            Back
-                          </button>
-                        </div>
-                        <!--end::Wrapper-->
-
-                        <!--begin::Wrapper-->
-                        <div>
-                          <button
-                            type="button"
-                            class="btn btn-primary"
-                            data-kt-stepper-action="submit"
-                          >
-                            <span class="indicator-label"> Submit </span>
-                            <span class="indicator-progress">
-                              Please wait...
-                              <span
-                                class="
-                                  spinner-border spinner-border-sm
-                                  align-middle
-                                  ms-2
-                                "
-                              ></span>
-                            </span>
-                          </button>
-
-                          <button
-                            type="button"
-                            class="btn btn-primary mt-5"
-                            data-kt-stepper-action="next"
-                          >
-                            Continue
-                          </button>
-                        </div>
-                        <!--end::Wrapper-->
+                    <div class="row d-flex justify-content-center me-20 ms-20">
+                      <div class="col-md-6">
+                        <button
+                          v-if="step_number == 1"
+                          type="button"
+                          data-bs-dismiss="modal"
+                          class="btn btn-light text-primary mt-5"
+                        >
+                          Close
+                        </button>
+                        <button
+                          type="button"
+                          class="btn btn-light text-primary mt-5"
+                          data-kt-stepper-action="previous"
+                          @click="backStep()"
+                        >
+                          Back
+                        </button>
                       </div>
-                      <!--end::Actions-->
+                      <div class="col-md-6 d-flex justify-content-end">
+                        <!--begin::Actions-->
+
+                        <!--begin::Wrapper-->
+                        <button
+                          class="btn btn-primary mt-5 align-self-end"
+                          type="button"
+                          data-kt-stepper-action="next"
+                          @click="nextStep()"
+                          :disabled="prospect.prospect_type_id == null"
+                        >
+                          Next
+                        </button>
+                        <!--end::Wrapper-->
+
+                        <!--begin::Wrapper-->
+                        <button
+                          type="button"
+                          class="btn btn-primary mt-5"
+                          data-kt-stepper-action="submit"
+                        >
+                          <span class="indicator-label"> Save </span>
+                          <span class="indicator-progress">
+                            Please wait...
+                            <span
+                              class="
+                                spinner-border spinner-border-sm
+                                align-middle
+                                ms-2
+                              "
+                            ></span>
+                          </span>
+                        </button>
+                        <!--end::Wrapper-->
+                        <!--end::Actions-->
+                      </div>
                     </div>
                   </form>
                 </div>
@@ -1162,14 +1470,26 @@ export default {
   layout: 'template',
   data() {
     return {
-      value: [],
-      options: [
-        { name: 'Vue.js', code: 'vu' },
-        { name: 'Javascript', code: 'js' },
-        { name: 'Open Source', code: 'os' },
-      ],
+      currentYear:  new Date().getFullYear(),
+      airc4aft_type_value: null,
+      product_value: null,
+      area_ams_value: null,
+      customer_value: null,
+      strategic_initiative_value: null,
+      project_manager_value: null,
+      product_options: [],
+      aircraft_type_options: [],
+      customer_options: [],
+      area_ams_options: [],
+      strategic_initiative_options: [],
+      project_manager_options: [],
+      prospect: [],
+      prospect2: [],
+      prospect3: [],
+      step_number: 1,
+      // chart: new ApexCharts(),
       pie_one: {
-        series: [78],
+        series: [1],
         chartOptions: {
           chart: {
             type: 'radialBar',
@@ -1232,107 +1552,329 @@ export default {
           labels: ['Deviation'],
         },
       },
-
+      prospect_type: {
+        data: [],
+      },
       transaction_type: {
         data: [],
-        link: [],
       },
       transaction: {
         id: null,
         name: null,
         description: null,
       },
+      tmb: [],
+      product: [],
+      product_id: null,
+      pbth: [],
       modal_create: false,
       search: null,
       order: 'id',
       by: 'desc',
       paginate: '10',
+      filter: null,
       current_page: null,
       errors: {
         name: null,
         description: null,
       },
+      year: this.currentYear,
     }
   },
   created() {
-    this.list()
+    this.listProduct()
+    this.listAircraftType()
+    this.listProspectType()
+    this.listTransactionType()
+    this.listCustomer()
+    this.listStrategicInitiative()
+    this.listUser()
+    this.listProspect()
+    this.listAms()
   },
   mounted() {
     KTStepper.getInstance()
-    KTFormRepeaterBasic.init()
     this.step()
   },
   watch: {
-    search: debounce(function () {
-      this.list()
+    filter: debounce(function () {
+      this.listProspect()
     }, 500),
   },
   methods: {
-    addTag(newTag) {
-      const tag = {
-        name: newTag,
+    nextStep() {
+      this.step_number++
+    },
+    backStep() {
+      this.step_number--
+    },
+    addProspectTMB(value) {
+      this.tmb.push({
+        id: value.id,
+        name: value.name,
+        product: [
+          {
+            product_id: value.id,
+            aircraft_type: null,
+            marker_share: null,
+            remark: null,
+            maintenance_event: null,
+          },
+        ],
+      })
+    },
+    addTMB(data_index, data) {
+      this.tmb[data_index].product.push({
+        product_id: data.id,
+        ac_type_id: null,
+        market_share: null,
+        remark: null,
+        maintenance_event: null,
+      })
+    },
+    addPBTH(product_value, aircraft_type_value) {
+      this.pbth.push({
+        product_id: product_value.id,
+        product_name: product_value.name,
+        aircraft_type_id: aircraft_type_value.id,
+        aircraft_type_name: aircraft_type_value.name,
+        target: [
+          {
+            month: 'January',
+            rate: null,
+            flight_hour: null,
+          },
+          {
+            month: 'February',
+            rate: null,
+            flight_hour: null,
+          },
+          {
+            month: 'March',
+            rate: null,
+            flight_hour: null,
+          },
+          {
+            month: 'April',
+            rate: null,
+            flight_hour: null,
+          },
+          {
+            month: 'May',
+            rate: null,
+            flight_hour: null,
+          },
+          {
+            month: 'June',
+            rate: null,
+            flight_hour: null,
+          },
+          {
+            month: 'July',
+            rate: null,
+            flight_hour: null,
+          },
+          {
+            month: 'August',
+            rate: null,
+            flight_hour: null,
+          },
+          {
+            month: 'September',
+            rate: null,
+            flight_hour: null,
+          },
+          {
+            month: 'October',
+            rate: null,
+            flight_hour: null,
+          },
+          {
+            month: 'November',
+            rate: null,
+            flight_hour: null,
+          },
+          {
+            month: 'December',
+            rate: null,
+            flight_hour: null,
+          },
+        ],
+      })
+    },
+    removeProspectTMB(data_index) {
+      this.tmb.splice(data_index, 1)
+    },
+    removeTMB(data_index, item_index) {
+      this.tmb[data_index].product.splice(item_index, 1)
+      if (this.tmb[data_index].product == '') {
+        this.tmb.splice(data_index, 1)
       }
-      this.options.push(tag)
-      this.value.push(tag)
     },
-    step() {
-      var element = document.querySelector('#kt_stepper_example_vertical')
-      var stepper = new KTStepper(element)
-      stepper.on('kt.stepper.next', function (stepper) {
-        stepper.goNext()
-      })
-      stepper.on('kt.stepper.previous', function (stepper) {
-        stepper.goPrevious()
-      })
+    removePBTH(index_pbth) {
+      this.pbth.splice(index_pbth, 1)
     },
-    list(paginate) {
+    listCustomer() {
+      this.$axios
+        .get('api/customer', {
+          params: {
+            order: 'created_at',
+            by: 'ASC',
+          },
+        })
+        .then((response) => {
+          this.customer_options = response.data.data.data
+          console.log("Data Customer")
+          console.log(this.customer_options)
+        })
+    },
+    listStrategicInitiative() {
+      this.$axios
+        .get('api/strategic-initiative', {
+          params: {
+            order: 'created_at',
+            by: 'ASC',
+          },
+        })
+        .then((response) => {
+          this.strategic_initiative_options = response.data.data.data
+        })
+    },
+    listUser() {
+      this.$axios
+        .get('api/users', {
+          params: {
+            order: 'created_at',
+            by: 'ASC',
+          },
+        })
+        .then((response) => {
+          this.project_manager_options = response.data.data.data
+        })
+    },
+    listProduct() {
+      this.$axios
+        .get('api/product', {
+          params: {
+            order: 'created_at',
+            by: 'ASC',
+          },
+        })
+        .then((response) => {
+          this.product_options = response.data.data.data
+        })
+    },
+    listAircraftType() {
+      this.$axios
+        .get('api/aircraft-type', {
+          params: {
+            order: 'created_at',
+            by: 'ASC',
+          },
+        })
+        .then((response) => {
+          this.aircraft_type_options = response.data.data.data
+        })
+    },
+    listProspectType() {
+      this.$axios
+        .get('api/prospect-type', {
+          params: {
+            order: 'created_at',
+            by: 'ASC',
+          },
+        })
+        .then((response) => {
+          this.prospect_type = response.data.data
+        })
+    },
+    listProspect(paginate) {
       this.loading()
-      paginate = paginate || `/api/transaction-type`
+        paginate = paginate || `/api/prospect`
       this.$axios
         .get(paginate, {
           params: {
-            search: this.search,
-            order: this.order,
-            by: this.by,
+            filter: this.year,
             paginate: this.paginate,
           },
         })
         .then((response) => {
+          // Data Prospect
+          this.prospect = response.data.data.prospect.data
+          // Data Total Market share, Total salesplan & Deviation
+          this.prospect2 = response.data.data
+          // Pagination
+          this.prospect3 = response.data.data.prospect
+          // Total Deviation
+          this.totalDeviation = response.data.data.deviation
+          // Current Page
+          this.current_page = this.prospect3.current_page
+          Swal.close()
+          this.chart = new ApexCharts().updateSeries([{
+            data: [32, 44, 31, 41, 22]
+          }])
+        })
+        .catch((error) => console.log(error))
+    },
+    filterYear(year){
+      this.year = year
+      this.listProspect()
+    },
+    listAms() {
+      this.$axios
+        .get('api/ams', {
+          params: {
+            order: 'created_at',
+            by: 'ASC',
+          },
+        })
+        .then((response) => {
+          this.area_ams_options = response.data.data.data
+          console.log("Data AMS")
+          console.log(this.area_ams_options)
+        })
+    },
+    listTransactionType() {
+      this.loading()
+      this.$axios
+        .get('api/transaction-type', {
+          params: {
+            order: 'created_at',
+            by: 'ASC',
+          },
+        })
+        .then((response) => {
           this.transaction_type = response.data.data
-          this.current_page = this.transaction_type.current_page
           Swal.close()
         })
         .catch((error) => console.log(error))
     },
     directPage: debounce(function () {
+      alert(this.prospect3.current_page)
       if (this.current_page < 1) {
-        this.current_page = 1
-      } else if (this.current_page > this.transaction_type.last_page) {
-        this.current_page = this.transaction_type.last_page
+        this.prospect3.current_page = 1
+      } else if (this.prospect3.current_page > this.prospect3.last_page) {
+        this.prospect3.current_page = this.prospect3.last_page
       }
-      let url = new URL(this.transaction_type.first_page_url)
-      let search_params = url.searchParams
-      search_params.set('page', this.current_page)
-      url.search = search_params.toString()
+      let url = new URL(this.prospect3.first_page_url)
+      let filter_params = url.filterParams
+      filter_params.set('page', this.prospect3.current_page)
+      url.filter = filter_params.toString()
       let new_url = url.toString()
-      this.list(new_url)
+      this.listProspect(new_url)
     }, 500),
-    submit() {
-      if (this.modal_create) {
-        this.create()
-      } else {
-        this.update()
-      }
-    },
-    add() {
-      this.modal_create = true
-    },
     create() {
       this.loading()
       this.$axios
-        .post('/api/transaction-type-create', {
-          name: this.transaction.name,
-          description: this.transaction.description,
+        .post('/api/prospect-create', {
+          year: this.prospect.year,
+          transaction_type: this.prospect.transaction_type_id,
+          prospect_type: this.prospect.prospect_type_id,
+          strategic_initiative: this.prospect.strategic_initiative_id,
+          pm: this.prospect.pm_id,
+          ams_customer: this.prospect.ams_customer_id,
+          prospect_id_tmb: this.prospect.prospect,
+          prospect_id_tmb: this.prospect,
         })
         .then((response) => {
           toastr.success(response.data.message)
@@ -1345,56 +1887,6 @@ export default {
 
             toastr.error(error.response.data.message)
           }
-        })
-    },
-    edit(transaction) {
-      this.modal_create = false
-      this.transaction.id = transaction.id
-      this.transaction.name = transaction.name
-      this.transaction.description = transaction.description
-    },
-    update() {
-      this.loading()
-
-      this.$axios
-        .put('/api/transaction-type-update/' + this.transaction.id, {
-          name: this.transaction.name,
-          description: this.transaction.description,
-        })
-        .then((response) => {
-          toastr.success(response.data.message)
-          this.list()
-          this.closeModal()
-        })
-        .catch((error) => {
-          if (error.response.status == 422) {
-            this.errors = error.response.data.errors
-            toastr.error(error.response.data.message)
-          }
-        })
-    },
-    remove(id) {
-      Swal.fire({
-        title: 'Are you sure?',
-        text: "You won't be able to revert this!",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!',
-      })
-        .then((result) => {
-          if (result.isConfirmed) {
-            this.$axios
-              .delete('/api/transaction-type-delete/' + id)
-              .then((response) => {
-                toastr.success(response.data.message)
-                this.list()
-              })
-          }
-        })
-        .catch((error) => {
-          console.log(error)
         })
     },
     loading() {
@@ -1418,19 +1910,25 @@ export default {
       document.getElementById('close_modal').click()
       this.clearForm()
     },
+    step() {
+      var element = document.querySelector('#kt_stepper_example_vertical')
+      var stepper = new KTStepper(element)
+      stepper.on('kt.stepper.next', function (stepper) {
+        stepper.goNext()
+      })
+      stepper.on('kt.stepper.previous', function (stepper) {
+        stepper.goPrevious()
+      })
+    },
   },
 }
 </script>
- <style>
+<style>
 .mt-20 {
   margin-top: 20px;
 }
 .mb-20 {
   margin-bottom: 20px;
-}
-a.nav-link.active {
-  font-weight: 650;
-  color: black;
 }
 #chart {
   height: 8.5rem;

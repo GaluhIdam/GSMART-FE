@@ -759,6 +759,8 @@ export default {
       by: 'desc',
       paginate: '10',
       current_page: null,
+      sales_all: null,
+      sales_user: null,
       errors: {
         customer: null,
         prospect: null,

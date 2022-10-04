@@ -7,7 +7,9 @@
           <h3 class="mt-3">My Salesplan</h3>
         </div>
         <div class="col-lg-6 col-sm-12 d-flex justify-content-end">
-          <a href="#" class="btn btn-outline btn-outline-primary me-2 mb-2" data-bs-toggle="modal" data-bs-target="#filterdate">Filter & Date <i class="fa-solid fa-chevron-down"></i></a>
+          <button type="button" class="btn btn-outline btn-outline-primary me-2 mb-2" data-bs-toggle="modal" data-bs-target="#filterdate">
+            Filter & Date <i class="fa-solid fa-chevron-down"></i>
+          </button>
         </div>
 
         <!-- Modal filterdate  -->
@@ -516,9 +518,7 @@
             </div>
             <!-- Table -->
             <div class="table-responsive">
-              <table
-                class="table table-row-bordered table-row-gray-200 gy-4"
-              >
+              <table class="table table-row-bordered table-row-gray-200 gy-4">
                 <thead>
                   <tr class="fw-bold fs-6 text-gray-800">
                     <th class="text-center">No</th>
@@ -539,18 +539,23 @@
                     <td class="text-center">
                       {{ sales.from + p_sales_index }}
                     </td>
+                    <!-- Customer -->
                     <td class="text-center">
                       {{ p_sales.customer }}
                     </td>
+                    <!-- Product -->
                     <td class="text-center">
                       {{ p_sales.product }}
                     </td>
+                    <!-- AC/ENG/APU/COMP -->
                     <td class="text-center">
-                      {{ p_sales.properties }}
+                      {{ p_sales.registration }} 
                     </td>
+                    <!-- REGISTRATION -->
                     <td class="text-center">
-                      {{ p_sales.registration }}
+                      {{ p_sales.acReg }}
                     </td>
+                    <!-- Other -->
                     <td class="text-center">
                       <div v-if="p_sales.other === 'RKAP'">
                         <span class="badge badge-info">RKAP</span>
@@ -559,14 +564,16 @@
                         <span class="badge badge-primary">NO-RKAP</span>
                       </div>
                     </td>
+                    <!-- Type -->
                     <td class="text-center">
                       <div v-if="p_sales.type === 'TMB'">
-                        <span class="badge badge-success">TMB</span>
+                        <span class="badge badge-danger">TMB</span>
                       </div>
                       <div v-if="p_sales.type === 'PBTH'">
-                        <span class="badge badge-primary">PBTH</span>
+                        <span class="badge badge-warning">PBTH</span>
                       </div>
                     </td>
+                    <!-- Sales Level -->
                     <td class="text-center">
                       <div v-if="p_sales.level === 1">
                         <span class="badge badge-success">Level 1</span>
@@ -581,6 +588,7 @@
                         <span class="badge badge-danger">Level 4</span>
                       </div>
                     </td>
+                    <!-- Progress -->
                     <td class="text-center">
                       <div v-if="p_sales.level === 4">
                         <span class="badge badge-danger">25%</span>
@@ -595,6 +603,7 @@
                         <span class="badge badge-success">100%</span>
                       </div>
                     </td>
+                    <!-- Status -->
                     <td class="text-center">
                       <div v-if="p_sales.status === 'Cancel'">
                         <span class="badge badge-danger">Cancel</span>
@@ -605,7 +614,7 @@
                       <div v-if="p_sales.status === 'Close in'">
                         <span class="badge badge-warning">Close in</span>
                       </div>
-                      <div v-if="p_sales.status === 'Closed'">
+                      <div v-if="p_sales.status === 'Closed Sales'">
                         <span class="badge badge-primary">Closed</span>
                       </div>
                     </td>
@@ -716,7 +725,7 @@ export default {
         id: null,
         customer: null,
         prospect: null,
-        properties: null,
+        acReg: null,
         registration: null,
         other: null,
         type: null,
@@ -735,7 +744,7 @@ export default {
       errors: {
         customer: null,
         prospect: null,
-        properties: null,
+        acReg: null,
         registration: null,
         other: null,
         type: null,
@@ -754,7 +763,7 @@ export default {
     this.list()
   },
   methods: {
-    // TODO merubah format number menjadi ada pemisahnya
+    // Mengubah format menjadi ada komanya
     formatPrice(value) {
       let val = (value/1).toFixed(0).replace(',', ',')
       return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
@@ -785,11 +794,8 @@ export default {
           },
         })
         .then((response) => {
-          // TODO menampilkan data pada tabel
           this.sales = response.data.data.user.salesPlan
-          // TODO menampilkan data berdasarkan user yang login
           this.sales_user = response.data.data.user
-          // TODO menampiilkan semua data
           this.sales_all = response.data.data.all
           this.current_page = this.sales.current_page
           Swal.close()
@@ -812,13 +818,16 @@ export default {
   }
 }
 </script>
+
 <style>
 .mt-20 {
   margin-top: 20px;
 }
+
 .mb-20 {
   margin-bottom: 20px;
 }
+
 .carousel-indicators [data-bs-target] {
     box-sizing: content-box;
     flex: 0 1 auto;
@@ -848,7 +857,7 @@ export default {
 }
 
 #cardTop {
-  width: 205px;
+  width: 207px;
   margin-left: -15px;
 }
 

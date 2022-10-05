@@ -560,8 +560,8 @@
                       <div v-if="p_sales.other === 'RKAP'">
                         <span class="badge badge-info">RKAP</span>
                       </div>
-                      <div v-if="p_sales.other === 'NOT-RKAP'">
-                        <span class="badge badge-primary">NO-RKAP</span>
+                      <div v-if="p_sales.other === 'Additional'">
+                        <span class="badge badge-primary">Additional</span>
                       </div>
                     </td>
                     <!-- Type -->
@@ -570,7 +570,7 @@
                         <span class="badge badge-danger">TMB</span>
                       </div>
                       <div v-if="p_sales.type === 'PBTH'">
-                        <span class="badge badge-warning">PBTH</span>
+                        <span class="badge badge-info">PBTH</span>
                       </div>
                     </td>
                     <!-- Sales Level -->
@@ -590,16 +590,34 @@
                     </td>
                     <!-- Progress -->
                     <td class="text-center">
-                      <div v-if="p_sales.level === 4">
-                        <span class="badge badge-danger">25%</span>
+                      <div v-if="p_sales.progress === 10">
+                        <span class="badge badge-danger">10%</span>
                       </div>
-                      <div v-if="p_sales.level === 3">
-                        <span class="badge badge-info">50%</span>
+                      <div v-if="p_sales.progress === 20">
+                        <span class="badge badge-danger">20%</span>
                       </div>
-                      <div v-if="p_sales.level === 2">
-                        <span class="badge badge-primary">75%</span>
+                      <div v-if="p_sales.progress === 30">
+                        <span class="badge badge-danger">30%</span>
                       </div>
-                      <div v-if="p_sales.level === 1">
+                      <div v-if="p_sales.progress === 40">
+                        <span class="badge badge-warning">40%</span>
+                      </div>
+                      <div v-if="p_sales.progress === 50">
+                        <span class="badge badge-warning">50%</span>
+                      </div>
+                      <div v-if="p_sales.progress === 60">
+                        <span class="badge badge-warning">60%</span>
+                      </div>
+                      <div v-if="p_sales.progress === 70">
+                        <span class="badge badge-primary">70%</span>
+                      </div>
+                      <div v-if="p_sales.progress === 80">
+                        <span class="badge badge-primary">80%</span>
+                      </div>
+                      <div v-if="p_sales.progress === 90">
+                        <span class="badge badge-success">90%</span>
+                      </div>
+                      <div v-if="p_sales.progress === 100">
                         <span class="badge badge-success">100%</span>
                       </div>
                     </td>
@@ -615,7 +633,7 @@
                         <span class="badge badge-warning">Close in</span>
                       </div>
                       <div v-if="p_sales.status === 'Closed Sales'">
-                        <span class="badge badge-primary">Closed</span>
+                        <span class="badge badge-primary">Closed Sales</span>
                       </div>
                     </td>
                     <td class="text-center">

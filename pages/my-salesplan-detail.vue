@@ -137,23 +137,79 @@
 
             <!-- Detail -->
             <div class="row mt-3">
-              <div class="col-lg-1">
+              <div class="col-lg-1" v-if="sales_detail">
                 <p class="text-muted">Level</p>
-                <span class="badge badge-danger" v-if="sales_detail"><b>Level {{ sales_detail.level }}</b></span>
+                <div v-if="sales_detail.level === 1">
+                  <span class="badge badge-success"><b>Level 1</b></span>
+                </div>
+                <div v-if="sales_detail.level === 2">
+                  <span class="badge badge-primary"><b>Level 2</b></span>
+                </div>
+                <div v-if="sales_detail.level === 3">
+                  <span class="badge badge-warning"><b>Level 3</b></span>
+                </div>
+                <div v-if="sales_detail.level === 4">
+                  <span class="badge badge-danger"><b>Level 4</b></span>
+                </div>
                 <p class="text-muted mt-5">Status</p>
-                <span class="badge badge-warning" v-if="sales_detail"><b>{{ sales_detail.status }}</b></span>
+                <div v-if="sales_detail.status === 'Cancel'">
+                  <span class="badge badge-danger"><b>Cancel</b></span>
+                </div>
+                <div v-if="sales_detail.status === 'Open'">
+                  <span class="badge badge-success"><b>Open</b></span>
+                </div>
+                <div v-if="sales_detail.status === 'Close in'">
+                  <span class="badge badge-warning"><b>Close in</b></span>
+                </div>
+                <div v-if="sales_detail.status === 'Closed Sales'">
+                  <span class="badge badge-primary"><b>Closed</b></span>
+                </div>
               </div>
-              <div class="col-lg-1">
+              <div class="col-lg-1" v-if="sales_detail">
                 <p class="text-muted mx-2">Other</p>
-                <span class="badge badge-warning mx-2" v-if="sales_detail"><b>{{ sales_detail.other }}</b></span>
+                <div v-if="sales_detail.other === 'RKAP'">
+                  <span class="badge badge-info mx-2"><b>RKAP</b></span>
+                </div>
+                <div v-else="sales_detail.other === 'Additional'">
+                  <span class="badge badge-primary mx-2"><b>Additional</b></span>
+                </div>
                 <p class="text-muted mt-5 mx-2">Type</p>
                 <span class="badge badge-info mx-2" v-if="sales_detail"><b>{{ sales_detail.type }}</b></span>
               </div>
-              <div class="col-lg-2">
-                <p class="text-muted">Progress</p>
-                <span class="badge badge-success" v-if="sales_detail"><b>{{ sales_detail.progress }} %</b></span>
-                <p class="text-muted mt-5">Month Sales</p>
-                <p v-if="sales_detail"><b>{{ sales_detail.monthSales }}</b></p>
+              <div class="col-lg-2" v-if="sales_detail">
+                <p class="text-muted mx-10">Progress</p>
+                <div v-if="sales_detail.progress === 10">
+                  <span class="badge badge-danger mx-10">10 %</span>
+                </div>
+                <div v-if="sales_detail.progress === 20">
+                  <span class="badge badge-danger mx-10">20 %</span>
+                </div>
+                <div v-if="sales_detail.progress === 30">
+                  <span class="badge badge-danger mx-10">30 %</span>
+                </div>
+                <div v-if="sales_detail.progress === 40">
+                  <span class="badge badge-warning mx-10">40 %</span>
+                </div>
+                <div v-if="sales_detail.progress === 50">
+                  <span class="badge badge-warning mx-10">50 %</span>
+                </div>
+                <div v-if="sales_detail.progress === 60">
+                  <span class="badge badge-warning mx-10">60 %</span>
+                </div>
+                <div v-if="sales_detail.progress === 70">
+                  <span class="badge badge-primary mx-10">70 %</span>
+                </div>
+                <div v-if="sales_detail.progress === 80">
+                  <span class="badge badge-primary mx-10">80 %</span>
+                </div>
+                <div v-if="sales_detail.progress === 90">
+                  <span class="badge badge-success mx-10">90 %</span>
+                </div>
+                <div v-if="sales_detail.progress === 100">
+                  <span class="badge badge-success mx-10">100 %</span>
+                </div>
+                <p class="text-muted mt-5 mx-10">Month Sales</p>
+                <p class="mx-10" v-if="sales_detail"><b>{{ sales_detail.monthSales }}</b></p>
               </div>
               <div class="col-lg-1">
                 <p class="text-muted">TAT</p>
@@ -369,7 +425,15 @@
                                   <div class="col-lg-6 mt-3">
                                     <div class="position-relative">
                                       <div class="position-absolute top-0 end-0">
-                                        <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#addFile" @click="addFile()">Upload Document</button>
+                                        <button 
+                                        type="button" 
+                                        class="btn btn-primary btn-sm" 
+                                        data-bs-toggle="modal" 
+                                        data-bs-target="#addFile" 
+                                        @click="addFile1()"
+                                        >
+                                          Upload Document
+                                        </button>
                                       </div>
                                     </div>
                                   </div>
@@ -397,7 +461,15 @@
                                   <div class="col-lg-6 mt-3">
                                     <div class="position-relative">
                                       <div class="position-absolute top-0 end-0">
-                                        <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#addFile" @click="addFile()">Upload Document</button>
+                                        <button 
+                                        type="button" 
+                                        class="btn btn-primary btn-sm" 
+                                        data-bs-toggle="modal" 
+                                        data-bs-target="#addFile" 
+                                        @click="addFile2()"
+                                        >
+                                          Upload Document
+                                        </button>
                                       </div>
                                     </div>
                                   </div>
@@ -439,7 +511,15 @@
                                   <div class="col-lg-6 mt-3">
                                     <div class="position-relative">
                                       <div class="position-absolute top-0 end-0">
-                                        <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#addFile" @click="addFile()">Upload Document</button>
+                                        <button 
+                                        type="button" 
+                                        class="btn btn-primary btn-sm" 
+                                        data-bs-toggle="modal" 
+                                        data-bs-target="#addFile" 
+                                        @click="addFile3()"
+                                        >
+                                          Upload Document
+                                        </button>
                                       </div>
                                     </div>
                                   </div>
@@ -469,7 +549,15 @@
                                       <div class="position-absolute top-0 end-0">
                                         <button type="button" class="btn btn-outline-warning btn-outline btn-sm">Sync</button>
                                         <button type="button" class="btn btn-success btn-sm">Notify COGS</button>
-                                        <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#addFile" @click="addFile()">Upload Document</button>
+                                        <button 
+                                        type="button" 
+                                        class="btn btn-primary btn-sm" 
+                                        data-bs-toggle="modal" 
+                                        data-bs-target="#addFile" 
+                                        @click="addFile4()"
+                                        >
+                                          Upload Document
+                                        </button>
                                       </div>
                                     </div>
                                   </div>
@@ -498,7 +586,15 @@
                                     <div class="position-relative">
                                       <div class="position-absolute top-0 end-0">
                                         <span class="btn btn-sm" id="textWaiting">Waiting Approve VP TP</span>
-                                        <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#addFile" @click="addFile()">Upload Document</button>
+                                        <button 
+                                        type="button" 
+                                        class="btn btn-primary btn-sm" 
+                                        data-bs-toggle="modal" 
+                                        data-bs-target="#addFile" 
+                                        @click="addFile5()"
+                                        >
+                                          Upload Document
+                                        </button>
                                       </div>
                                     </div>
                                   </div>
@@ -541,7 +637,15 @@
                                   <div class="col-lg-6 mt-3">
                                     <div class="position-relative">
                                       <div class="position-absolute top-0 end-0">
-                                        <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#addFile" @click="addFile()">Upload Document</button>
+                                        <button 
+                                        type="button" 
+                                        class="btn btn-primary btn-sm" 
+                                        data-bs-toggle="modal" 
+                                        data-bs-target="#addFile" 
+                                        @click="addFile6()"
+                                        >
+                                          Upload Document
+                                        </button>
                                       </div>
                                     </div>
                                   </div>
@@ -629,7 +733,15 @@
                                     <div class="position-relative">
                                       <div class="position-absolute top-0 end-0">
                                         <button type="button" class="btn btn-success btn-sm">Closed Sales</button>
-                                        <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#addFile" @click="addFile()">Upload Document</button>
+                                        <button 
+                                        type="button" 
+                                        class="btn btn-primary btn-sm" 
+                                        data-bs-toggle="modal" 
+                                        data-bs-target="#addFile" 
+                                        @click="addFile7()"
+                                        >
+                                          Upload Document
+                                        </button>
                                       </div>
                                     </div>
                                   </div>
@@ -1031,11 +1143,17 @@
                   <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                       <div class="modal-header">
-                        <h3 v-if="modal_upload" class="modal-title">Upload Document</h3>
+                        <h3 v-if="modal_upload == 1" class="modal-title">Upload Attachment RFQ or Email Request</h3>
+                        <h3 v-if="modal_upload == 2" class="modal-title">Upload Attachment Workscope</h3>
+                        <h3 v-if="modal_upload == 3" class="modal-title">Attachment of Financial Assesment Form (optional)</h3>
+                        <h3 v-if="modal_upload == 4" class="modal-title">Attachment of Maintenance Proposal for Customer</h3>
+                        <h3 v-if="modal_upload == 5" class="modal-title">Attachment of Profitability Analysis Form Signed</h3>
+                        <h3 v-if="modal_upload == 6" class="modal-title">Attachment of Customer Approval (SOW Signed / Proposal Approved)</h3>
+                        <h3 v-if="modal_upload == 7" class="modal-title">Attachment of WO/PO number customer document</h3>
 
                         <!--begin::Close-->
                         <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
-                          <span class="svg-icon svg-icon-1" @click="closeModal()">
+                          <span class="svg-icon svg-icon-1" @click="closeModalFile()">
                             <svg
                               width="24"
                               height="24"
@@ -1069,14 +1187,23 @@
                       </div>
                       <div class="modal-body">
                         <form>
-                          <input type="hidden" v-if="sales_detail" v-model="sales_detail.id">
-                          <input type="hidden" v-if="level4" v-model="level4.sequence">
                           <div class="form-group mb-3">
-                            <input type="file" @change="attachFile()" ref="files" class="form-control" multiple />
+                            <input type="file"
+                            @change="attachFile()" 
+                            id="files" 
+                            ref="files" 
+                            class="form-control" multiple  
+                            :class="{
+                              'is-invalid': errors.files,
+                            }"
+                            />
+                            <span v-if="errors.files" class="error invalid-feedback">{{
+                              errors.files[0]
+                            }}</span>
                           </div>
                           <div class="row mt-10">
                             <div class="col d-flex justify-content-end">
-                              <button type="button" class="btn btn-light mx-2" data-bs-dismiss="modal" id="close_modal" @click="closeModal()">
+                              <button type="button" class="btn btn-light mx-2" data-bs-dismiss="modal" id="close_modal_file" @click="closeModalFile()">
                                 Close
                               </button>
                               <button type="button" @click="submitFile()" class="btn btn-primary">Save</button>
@@ -1218,11 +1345,17 @@ export default {
       by: 'desc',
       paginate: '10',
       modal_contact: false,
-      modal_upload: false,
+      modal_upload: null,
       current_page: null,
       sales_detail: null,
       contact: null,
+      requirement_id: null,
+      sales_id: null,
+      files: '',
       level4: null,
+      level3: null,
+      level2: null,
+      level1: null,
       errors: {
         name: null,
         phone: null,
@@ -1230,6 +1363,7 @@ export default {
         address: null,
         title: null,
         status: null,
+        files: null,
       },
     }
   },
@@ -1251,12 +1385,22 @@ export default {
     this.listFile()
   },
   methods: {
-    attachFile() {
-      this.files = this.$refs.files.files;
-    },
     formatPrice(value) {
       let val = (value/1).toFixed(0).replace(',', ',')
       return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+    },
+    step() {
+      var element = document.querySelector("#kt_stepper_example_basic");
+      var stepper = new KTStepper(element);
+      stepper.on("kt.stepper.next", function (stepper) {
+          stepper.goNext(); 
+      });
+      stepper.on("kt.stepper.previous", function (stepper) {
+          stepper.goPrevious(); 
+      });
+    },
+    attachFile() {
+      this.files = this.$refs.files.files;
     },
     loading() {
       Swal.fire({
@@ -1273,9 +1417,7 @@ export default {
       .get(`api/sales-show/${this.$route.query.id}`)
       .then((response) => {
         this.sales_detail = response.data.data.salesDetail
-        this.level4 = response.data.data.level4
         console.log(this.sales_detail)
-        console.log(this.level4)
         Swal.close()
       })
       .catch((error) => console.log(error))
@@ -1332,15 +1474,63 @@ export default {
       let new_url = url.toString()
       this.listContact(new_url)
     }, 500),
-    step() {
-      var element = document.querySelector("#kt_stepper_example_basic");
-      var stepper = new KTStepper(element);
-      stepper.on("kt.stepper.next", function (stepper) {
-          stepper.goNext(); 
-      });
-      stepper.on("kt.stepper.previous", function (stepper) {
-          stepper.goPrevious(); 
-      });
+    submitFile() {
+      this.loading()
+      let formData = new FormData();
+      for( var i = 0; i < this.files.length; i++ ){
+        let file = this.files[i];
+        formData.append('files[' + i + ']', file);  
+      }
+      formData.append('sales_id', this.sales_detail.id);
+      formData.append('requirement_id', this.requirement_id);
+      this.$axios
+        .post('/api/file-create', 
+        formData, 
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          },
+        })
+        .then((response) => {
+          toastr.success(response.data.message)
+          console.log('Uplaod Berhasil');
+          this.listFile()
+          this.closeModalFile()
+        })
+        .catch((error) => {
+          if (error.response.status == 422) {
+            this.errors = error.response.data.errors
+            toastr.error(error.response.data.message)
+          }
+        });
+    },
+    addFile1() {
+      this.requirement_id = 2
+      this.modal_upload = 1
+    },
+    addFile2() {
+      this.requirement_id = 3
+      this.modal_upload = 2
+    },
+    addFile3() {
+      this.requirement_id = 4
+      this.modal_upload = 3 
+    }, 
+    addFile4() {
+      this.requirement_id = 5
+      this.modal_upload = 4 
+    },
+    addFile5() {
+      this.requirement_id = 6
+      this.modal_upload = 5 
+    },
+    addFile6() {
+      this.requirement_id = 7
+      this.modal_upload = 6 
+    },
+    addFile7() {
+      this.requirement_id = 9
+      this.modal_upload = 7 
     },
     submitContact() {
       if (this.modal_contact) {
@@ -1432,48 +1622,17 @@ export default {
           console.log(error)
         })
     },
-    closeModal() {
-      document.getElementById('close_modal').click()
-      // this.clearFormContact()
+    closeModalFile() {
+      document.getElementById('close_modal_file').click()
+      this.clearFormFile()
     },
-    // clearFormContact() {
-    //   this.p_contact.id = null
-    //   this.p_contact.name = null
-    //   this.p_contact.phone = null
-    //   this.p_contact.email = null
-    //   this.p_contact.title = null
-    //   this.p_contact.status = null
-    //   this.errors.name = null
-    //   this.errors.phone = null
-    //   this.errors.email = null
-    //   this.errors.title = null
-    //   this.errors.status = null
-    // },
-    addFile() {
-      this.modal_upload = true
-    },
-    submitFile() {
-      this.loading()
-      let formData = new FormData();
-      formData.append('file', this.file);
-
-      this.$axios
-        .post('/api/file-create', {
-          id: this.p_file.id,
-          sales_id: this.p_file.sales_id,
-          requirement_id: this.p_file.requirement_id ,
-        })
-        .then((response) => {
-          toastr.success(response.data.message)
-          this.listFile()
-          this.closeModal()
-        })
-        // .catch((error) => {
-        //   if (error.response.status == 422) {
-        //     this.errors = error.response.data.errors
-        //     toastr.error(error.response.data.message)
-        //   }
-        // })
+    clearFormFile() {
+      this.files = null
+      this.sales_detail.id = null
+      this.requirement_id = null
+      this.errors.files = null
+      this.errors.sales_detail = null
+      this.errors.requirement_id = null
     },
   }
 }

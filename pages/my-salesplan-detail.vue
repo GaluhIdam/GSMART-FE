@@ -102,7 +102,7 @@
                       <div class="card-body">
                         <h5 class="card-title" v-if="sales_detail">{{ sales_detail.registration }}</h5>
                         <p class="card-text" v-if="sales_detail"><small class="text-muted"><i class="fa-solid fa-plane-up"></i> {{ sales_detail.acReg }}</small></p>
-                        <p class="card-text" v-if="sales_detail"><small class="text-muted"><i class="fa-solid fa-spa"></i> {{ sales_detail.customer }}</small></p>
+                        <p class="card-text" v-if="sales_detail"><small class="text-muted"><i class="fa-solid fa-spa"></i> {{ sales_detail.customer.name }}</small></p>
                       </div>
                     </div>
                   </div>
@@ -382,7 +382,7 @@
                                   <!-- Fill in Contact Person of Customer -->
                                   <div class="col-lg-6">
                                     <h3>Fill in Contact Person of Customer</h3>
-                                    <p class="text-muted"><small>02:30 AM by <a href="">You</a></small></p>
+                                    <p class="text-muted"><small>by <a href="#">{{ user }}</a></small></p>
                                   </div>
                                   <div class="col-lg-6">
                                     <div class="position-relative">
@@ -391,27 +391,25 @@
                                       </div>
                                     </div>
                                   </div>
-
                                   <div class="rounded box-d" id="myBorder">
-                                    <div class="mt-3">
-                                      <table class="table">
-                                        <tr>
-                                        <!-- <tr v-for="(p_contact) in contact.data" :key="p_contact_index"> -->
-                                          <td class="text-center">
-                                            <!-- <strong>{{ p_sales.customer }}</strong> -->
+                                    <div class="mt-3 table-responsive">
+                                      <table class="table" v-if="contact">
+                                        <tr v-for="contact in level4[0].data" :key="contact">
+                                          <td>
+                                            <strong>{{ contact.name }}</strong>
                                           </td>
-                                          <td class="text-center">
-                                            <!-- <strong>{{ p_sales.phone }}</strong> -->
+                                          <td>
+                                            <strong>{{ contact.phone }}</strong>
                                           </td>
-                                          <td class="text-center">
-                                            <!-- <strong>{{ p_sales.email }}</strong>	 -->
+                                          <td>
+                                            <strong>{{ contact.email }}</strong>	
                                           </td>
-                                          <td class="text-center">
-                                            <!-- <strong>{{ p_sales.title }}</strong> -->
+                                          <!-- <td>
+                                            <strong>{{ contact.title }}</strong>
                                           </td>
-                                          <td class="text-center">
-                                            <!-- <strong>{{ p_sales.address }}</strong> -->
-                                          </td>
+                                          <td>
+                                            <strong>{{ contact.address }}</strong>
+                                          </td> -->
                                         </tr>
                                       </table>
                                     </div>
@@ -438,21 +436,22 @@
                                     </div>
                                   </div>
                                   <div class="rounded box-d" id="myBorder">
-                                    <div class="mt-3">
+                                    <div class="mt-3 table-responsive">
                                       <table class="table">
-                                        <tr>
-                                          <td class="">
-                                            <strong>Project Term</strong>
-                                            <p>1.2mb</p>
+                                        <tr v-for="(file, idx) in files" :key="idx">
+                                          <td>
+                                            <a :href="`http://127.0.0.1:8000/storage/`+file.path" class="btn btn-outline-primary btn-outline btn-sm" target="_blank">
+                                              <strong>{{ file.file_name }}</strong>
+                                            </a>
                                           </td>
                                           <td class="d-flex justify-content-end">
-                                            <button type="submit" class="btn btn-danger btn-sm"><span class="fas fa-trash"></span></button>
+                                            <button type="button" class="btn btn-danger btn-sm" @click="removeFile(file.id)"><span class="fas fa-trash"></span></button>
                                           </td>
                                         </tr>
                                       </table>
                                     </div>
                                   </div>
-
+                                  
                                   <!-- Upload Attachment Workscope -->
                                   <div class="col-lg-6 mt-3">
                                     <h3>Upload Attachment Workscope</h3>
@@ -476,13 +475,14 @@
                                   <div class="rounded box-d" id="myBorder">
                                     <div class="mt-3">
                                       <table class="table">
-                                        <tr>
+                                        <tr v-for="(file, idx) in files" :key="idx">
                                           <td>
-                                            <strong>Project Term</strong>
-                                            <p>1.2mb</p>
+                                              <a :href="`http://127.0.0.1:8000/storage/`+file.path" class="btn btn-outline-primary btn-outline btn-sm" target="_blank">
+                                                <strong>{{ file.file_name }}</strong>
+                                              </a>
                                           </td>
                                           <td class="d-flex justify-content-end">
-                                            <button type="submit" class="btn btn-danger btn-sm"><span class="fas fa-trash"></span></button>
+                                            <button type="button" class="btn btn-danger btn-sm"><span class="fas fa-trash"></span></button>
                                           </td>
                                         </tr>
                                       </table>
@@ -668,7 +668,7 @@
                                   <!-- Slot Request -->
                                   <div class="col-lg-6 mt-5">
                                     <h3>Slot Request</h3>
-                                    <p class="text-muted"><small>02:30 AM by <a href="">You</a></small></p>
+                                    <p class="text-muted"><small>by <a href="#">{{ user }}</a></small></p>
                                   </div>
                                   <div class="col-lg-6 mt-5">
                                     <div class="position-relative">
@@ -727,7 +727,7 @@
                                   <!-- Attachment of WO/PO number customer document -->
                                   <div class="col-lg-6 mt-3">
                                     <h3>Attachment of WO/PO number customer document</h3>
-                                    <p class="text-muted"><small>02:30 AM by <a href="">You</a></small></p>
+                                    <p class="text-muted"><small>by <a href="#">{{ user }}</a></small></p>
                                   </div>
                                   <div class="col-lg-6 mt-3">
                                     <div class="position-relative">
@@ -853,7 +853,7 @@
                     <!-- Isi -->
                     <div class="row mt-4">
                       <h3>3 File Uploaded</h3>
-                      <p class="text-muted"><small>02:30 AM by <a href="">You</a></small></p>
+                      <p class="text-muted"><small>by <a href="#">{{ user }}</a></small></p>
                       <div class="rounded box-d" id="myBorder">
                         <div class="mt-3">
                           <h6>Project Term</h6>
@@ -880,27 +880,26 @@
                           </tr>
                         </thead>
                         <tbody>
-                          <tr>
-                          <!-- <tr v-for="(p_contact, p_contact_index) in contact.data" :key="p_contact_index"> -->
+                          <tr v-for="(contacts, contacts_index) in contact"  @dblclick="getItem(contacts_index)">
                             <td class="text-center">
-                              <!-- {{ contact.from + p_contact_index }} -->
+                              {{ contacts_index+1 }}
                             </td>
-                            <td class="text-center">
-                              <!-- {{ p_contact.name }} -->
+                            <td>
+                              {{ contacts.name }}
                             </td>
-                            <td class="text-center">
-                              <!-- {{ p_contact.phone }} -->
+                            <td>
+                              {{ contacts.phone }}
                             </td>
-                            <td class="text-center">
-                              <!-- {{ p_contact.email }} -->
+                            <td>
+                              {{ contacts.email }}
                             </td>
-                            <td class="text-center">
-                              <!-- {{ p_contact.title }} -->
+                            <td>
+                              {{ contacts.title }}
                             </td>
                             <td class="d-flex justify-content-center">
-                              <!-- <button class="btn btn-sm btn-light" v-on:click="removeContact(p_contact.id)">
+                              <button class="btn btn-sm btn-light" @click="removeContact(contacts.id)">
                                 <i class="bi bi-trash-fill text-primary"></i>
-                              </button> -->
+                              </button>
                             </td>
                           </tr>
                           <!-- jika data kosong -->
@@ -922,7 +921,7 @@
                               <select
                                 class="form-control form-control-sm"
                                 v-model="paginate"
-                                @change="list()"
+                                @change="listContact()"
                               >
                                 <option value="10">10</option>
                                 <option value="25">25</option>
@@ -995,7 +994,7 @@
                         <!--begin::Close-->
                         <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close"
                         >
-                          <span class="svg-icon svg-icon-1" @click="closeModal()">
+                          <span class="svg-icon svg-icon-1" @click="closeModalContact()">
                             <svg
                               width="24"
                               height="24"
@@ -1126,7 +1125,7 @@
                           </div>
                           <div class="row mt-10">
                             <div class="col d-flex justify-content-end">
-                              <button type="button" class="btn btn-light mx-2" data-bs-dismiss="modal" id="close_modal" @click="closeModal()">
+                              <button type="button" class="btn btn-light mx-2" data-bs-dismiss="modal" id="close_modal_contact" @click="closeModalContact()">
                                 Close
                               </button>
                               <button type="submit" class="btn btn-primary">Save</button>
@@ -1314,6 +1313,7 @@ export default {
   name: 'MySalesPlanDetailPage',
   data() {
     return {
+      user: this.$auth.user.user,
       sales: {
         data: [],
         link: [],
@@ -1333,12 +1333,10 @@ export default {
         address: null,
         title: null,
         status: null,
-      },  
-      p_file: {
-        id: null,
-        sales_id: null,
-        requirement_id: null,
-      },  
+      },
+      p_files: {
+        sales_requirement_id: null,
+      },
       search: null,
       type: null,
       order: 'id',
@@ -1352,6 +1350,7 @@ export default {
       requirement_id: null,
       sales_id: null,
       files: '',
+      contacts: null,
       level4: null,
       level3: null,
       level2: null,
@@ -1371,6 +1370,7 @@ export default {
     KTStepper.getInstance()
     KTFormRepeaterBasic.init()
     this.step()
+    this.downloadFile()
   },
   watch: {
     search: debounce(function () {
@@ -1417,7 +1417,7 @@ export default {
       .get(`api/sales-show/${this.$route.query.id}`)
       .then((response) => {
         this.sales_detail = response.data.data.salesDetail
-        console.log(this.sales_detail)
+        this.level4 = response.data.data.level4
         Swal.close()
       })
       .catch((error) => console.log(error))
@@ -1455,11 +1455,19 @@ export default {
         },
       })
       .then((response) => {
-        this.file = response.data.data.file
-        console.log(this.file)
+        this.files = response.data.data
+        console.log(this.files)
         Swal.close()
       })
       .catch((error) => console.log(error))
+    },
+    downloadFile(id) {
+      this.$axios
+      .get('/api/file-show/' + id, {
+          params: {
+            id: this.files.id,
+          },
+      })
     },
     directPage: debounce(function () {
       if (this.current_page < 1) {
@@ -1482,7 +1490,7 @@ export default {
         formData.append('files[' + i + ']', file);  
       }
       formData.append('sales_id', this.sales_detail.id);
-      formData.append('requirement_id', this.requirement_id);
+      formData.append('requirement_id', this.level4.sequence);
       this.$axios
         .post('/api/file-create', 
         formData, 
@@ -1504,32 +1512,56 @@ export default {
           }
         });
     },
+    removeFile(id) {
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!',
+      })
+          .then((result) => {
+            if (result.isConfirmed) {
+              this.$axios.delete('/api/file-delete/' + id)
+          .then((response) => {
+            toastr.success(response.data.message)
+            this.listFile()
+            this.listDetail()
+          })
+        }
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+    },
     addFile1() {
-      this.requirement_id = 2
+      this.level4.sequence = 2
       this.modal_upload = 1
     },
     addFile2() {
-      this.requirement_id = 3
+      this.level4.sequence = 3
       this.modal_upload = 2
     },
     addFile3() {
-      this.requirement_id = 4
+      this.level4.sequence = 4
       this.modal_upload = 3 
     }, 
     addFile4() {
-      this.requirement_id = 5
+      this.level4.sequence = 5
       this.modal_upload = 4 
     },
     addFile5() {
-      this.requirement_id = 6
+      this.level4.sequence = 6
       this.modal_upload = 5 
     },
     addFile6() {
-      this.requirement_id = 7
+      this.level4.sequence = 7
       this.modal_upload = 6 
     },
     addFile7() {
-      this.requirement_id = 9
+      this.level4.sequence = 9
       this.modal_upload = 7 
     },
     submitContact() {
@@ -1545,8 +1577,9 @@ export default {
     createContact() {
       this.loading()
       this.$axios
-        .post('/api/contact-create', {
+        .post('/api/contact-person-create', {
           id: this.p_contact.id,
+          sales_id: this.sales_detail.id,
           name: this.p_contact.name,
           phone: this.p_contact.phone,
           email: this.p_contact.email,
@@ -1557,41 +1590,7 @@ export default {
         .then((response) => {
           toastr.success(response.data.message)
           this.listContact()
-          this.closeModal()
-        })
-        .catch((error) => {
-          if (error.response.status == 422) {
-            this.errors = error.response.data.errors
-            toastr.error(error.response.data.message)
-          }
-        })
-    },
-    editContact(p_contact) {
-      this.modal_contact = false
-      this.p_contact.id = p_contact.id
-      this.p_contact.name = p_contact.name
-      this.p_contact.phone = p_contact.phone
-      this.p_contact.email = p_contact.email
-      this.p_contact.address = p_contact.address
-      this.p_contact.title = p_contact.title
-      this.p_contact.status = p_contact.status
-    },
-    updateContact() {
-      this.loading()
-      this.$axios
-        .put('/api/contact-update/' + this.p_contact.id, {
-          id: this.p_contact.id,
-          name: this.p_contact.name,
-          phone: this.p_contact.phone,
-          email: this.p_contact.email,
-          address: this.p_contact.address,
-          title: this.p_contact.title,
-          status: this.p_contact.status,
-        })
-        .then((response) => {
-          toastr.success(response.data.message)
-          this.list()
-          this.closeModal()
+          this.closeModalContact()
         })
         .catch((error) => {
           if (error.response.status == 422) {
@@ -1610,29 +1609,53 @@ export default {
         cancelButtonColor: '#d33',
         confirmButtonText: 'Yes, delete it!',
       })
-        .then((result) => {
-          if (result.isConfirmed) {
-            this.$axios.delete('/api/contact-delete/' + id).then((response) => {
-              toastr.success(response.data.message)
-              this.list()
+          .then((result) => {
+            if (result.isConfirmed) {
+              this.$axios.delete('/api/contact-person-delete/' + id, {
+                params: {
+                  sales_id: this.sales_detail.id,
+                },
             })
-          }
-        })
-        .catch((error) => {
-          console.log(error)
-        })
+          .then((response) => {
+            toastr.success(response.data.message)
+            this.listContact()
+            this.listDetail()
+          })
+        }
+      })
+      .catch((error) => {
+        console.log(error)
+      })
     },
     closeModalFile() {
-      document.getElementById('close_modal_file').click()
+      this.listFile()
       this.clearFormFile()
     },
     clearFormFile() {
       this.files = null
-      this.sales_detail.id = null
-      this.requirement_id = null
+      this.$refs.files.value = null;
       this.errors.files = null
       this.errors.sales_detail = null
       this.errors.requirement_id = null
+    },
+    closeModalContact() {
+      document.getElementById('close_modal_contact').click()
+      this.clearFormContact()
+    },
+    clearFormContact() {
+      this.p_contact.id = null
+      this.p_contact.name = null
+      this.p_contact.phone = null
+      this.p_contact.email = null
+      this.p_contact.address = null
+      this.p_contact.title = null
+      this.p_contact.status = null
+      this.errors.name = null
+      this.errors.phone = null
+      this.errors.email = null
+      this.errors.address = null
+      this.errors.title = null
+      this.errors.status = null
     },
   }
 }

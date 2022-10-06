@@ -437,15 +437,15 @@
                                   </div>
                                   <div class="rounded box-d" id="myBorder">
                                     <div class="mt-3 table-responsive">
-                                      <table class="table">
-                                        <tr v-for="(file, idx) in files" :key="idx">
+                                      <table class="table" v-if="files">
+                                        <tr v-for="files in level4[1].data" :key="files">
                                           <td>
-                                            <a :href="`http://127.0.0.1:8000/storage/`+file.path" class="btn btn-outline-primary btn-outline btn-sm" target="_blank">
-                                              <strong>{{ file.file_name }}</strong>
-                                            </a>
+                                              <a :href="`http://127.0.0.1:8000/storage/`+files.path" class="btn btn-outline-primary btn-outline btn-sm" target="_blank">
+                                                <strong>{{ files.file_name }}</strong>
+                                              </a>
                                           </td>
                                           <td class="d-flex justify-content-end">
-                                            <button type="button" class="btn btn-danger btn-sm" @click="removeFile(file.id)"><span class="fas fa-trash"></span></button>
+                                            <button type="button" class="btn btn-danger btn-sm" @click="removeFile(files.id)"><span class="fas fa-trash"></span></button>
                                           </td>
                                         </tr>
                                       </table>
@@ -474,15 +474,15 @@
                                   </div>
                                   <div class="rounded box-d" id="myBorder">
                                     <div class="mt-3">
-                                      <table class="table">
-                                        <tr v-for="(file, idx) in files" :key="idx">
+                                      <table class="table" v-if="files">
+                                        <tr v-for="files in level4[2].data" :key="files">
                                           <td>
-                                              <a :href="`http://127.0.0.1:8000/storage/`+file.path" class="btn btn-outline-primary btn-outline btn-sm" target="_blank">
-                                                <strong>{{ file.file_name }}</strong>
+                                              <a :href="`http://127.0.0.1:8000/storage/`+files.path" class="btn btn-outline-primary btn-outline btn-sm" target="_blank">
+                                                <strong>{{ files.file_name }}</strong>
                                               </a>
                                           </td>
                                           <td class="d-flex justify-content-end">
-                                            <button type="button" class="btn btn-danger btn-sm"><span class="fas fa-trash"></span></button>
+                                            <button type="button" class="btn btn-danger btn-sm" @click="removeFile(files.id)"><span class="fas fa-trash"></span></button>
                                           </td>
                                         </tr>
                                       </table>
@@ -1334,9 +1334,6 @@ export default {
         title: null,
         status: null,
       },
-      p_files: {
-        sales_requirement_id: null,
-      },
       search: null,
       type: null,
       order: 'id',
@@ -1370,7 +1367,6 @@ export default {
     KTStepper.getInstance()
     KTFormRepeaterBasic.init()
     this.step()
-    this.downloadFile()
   },
   watch: {
     search: debounce(function () {
@@ -1385,6 +1381,19 @@ export default {
     this.listFile()
   },
   methods: {
+    directPage: debounce(function () {
+      if (this.current_page < 1) {
+        this.current_page = 1
+      } else if (this.current_page > this.contact.last_page) {
+        this.current_page = this.contact.last_page
+      }
+      let url = new URL(this.contact.first_page_url)
+      let search_params = url.searchParams
+      search_params.set('page', this.current_page)
+      url.search = search_params.toString()
+      let new_url = url.toString()
+      this.listContact(new_url)
+    }, 500),
     formatPrice(value) {
       let val = (value/1).toFixed(0).replace(',', ',')
       return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
@@ -1456,32 +1465,12 @@ export default {
       })
       .then((response) => {
         this.files = response.data.data
-        console.log(this.files)
+        // console.log(this.files)
         Swal.close()
       })
       .catch((error) => console.log(error))
     },
-    downloadFile(id) {
-      this.$axios
-      .get('/api/file-show/' + id, {
-          params: {
-            id: this.files.id,
-          },
-      })
-    },
-    directPage: debounce(function () {
-      if (this.current_page < 1) {
-        this.current_page = 1
-      } else if (this.current_page > this.contact.last_page) {
-        this.current_page = this.contact.last_page
-      }
-      let url = new URL(this.contact.first_page_url)
-      let search_params = url.searchParams
-      search_params.set('page', this.current_page)
-      url.search = search_params.toString()
-      let new_url = url.toString()
-      this.listContact(new_url)
-    }, 500),
+
     submitFile() {
       this.loading()
       let formData = new FormData();
@@ -1503,6 +1492,7 @@ export default {
           toastr.success(response.data.message)
           console.log('Uplaod Berhasil');
           this.listFile()
+          this.listDetail()
           this.closeModalFile()
         })
         .catch((error) => {
@@ -1564,6 +1554,7 @@ export default {
       this.level4.sequence = 9
       this.modal_upload = 7 
     },
+
     submitContact() {
       if (this.modal_contact) {
         this.createContact()
@@ -1627,6 +1618,7 @@ export default {
         console.log(error)
       })
     },
+
     closeModalFile() {
       this.listFile()
       this.clearFormFile()
@@ -1638,6 +1630,7 @@ export default {
       this.errors.sales_detail = null
       this.errors.requirement_id = null
     },
+
     closeModalContact() {
       document.getElementById('close_modal_contact').click()
       this.clearFormContact()

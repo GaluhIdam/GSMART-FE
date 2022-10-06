@@ -10,6 +10,7 @@
           <button type="button" class="btn btn-outline btn-outline-primary me-2 mb-2" data-bs-toggle="modal" data-bs-target="#filterdate">
             Filter & Date <i class="fa-solid fa-chevron-down"></i>
           </button>
+          <button type="button" class="btn btn-outline btn-outline-primary me-2 mb-2" data-bs-toggle="modal" data-bs-target="#filterdate">Filter & Date <i class="fa-solid fa-chevron-down"></i></button>
         </div>
 
         <!-- Modal filterdate  -->
@@ -570,7 +571,7 @@
                         <span class="badge badge-danger">TMB</span>
                       </div>
                       <div v-if="p_sales.type === 'PBTH'">
-                        <span class="badge badge-info">PBTH</span>
+                        <span class="badge badge-warning">PBTH</span>
                       </div>
                     </td>
                     <!-- Sales Level -->
@@ -818,6 +819,7 @@ export default {
           this.sales_user = response.data.data.user
           this.sales_all = response.data.data.all
           this.current_page = this.sales.current_page
+          console.log(this.sales)
           Swal.close()
         })
         .catch((error) => console.log(error))

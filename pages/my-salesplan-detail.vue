@@ -1,43 +1,5 @@
 <template>
   <div>
-    <div id="kt_app_toolbar" class="app-toolbar py-3 py-lg-6 bg-white" style="display: none">
-      <!--begin::Toolbar container-->
-      <div
-        id="kt_app_toolbar_container"
-        class="app-container container-fluid d-flex flex-stack"
-      >
-        <!--begin::Page title-->
-        <div
-          class="
-            page-title
-            d-flex
-            flex-column
-            justify-content-center
-            flex-wrap
-            me-3
-          "
-        >
-          <!--begin::Title-->
-          <p
-            class="
-              page-heading
-              d-flex
-              text-dark
-              fs-6
-              flex-column
-              justify-content-center
-              my-0
-            "
-          >
-            My SalesPlan Detail
-          </p>
-          <!--end::Title-->
-        </div>
-        <!--end::Page title-->
-      </div>
-      <!--end::Toolbar container-->
-    </div>
-
     <!-- Content -->
     <div class="container-fluid mt-5 mb-5">
       <!-- Breadcrumb -->
@@ -49,7 +11,7 @@
             active-class="active"
             >
             <i class="fa-solid fa-angle-left"></i>
-              <span class="menu-title">My Prospect</span>
+              <span class="menu-title">My Salesplan</span>
           </Nuxt-link>
         </div>
         <div class="col-lg-6">
@@ -57,8 +19,15 @@
             <div class="position-absolute top-0 end-0">
               <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                  <li class="breadcrumb-item"><a href="#">Salesplan </a></li>
-                  <li class="breadcrumb-item"><a href="#">My Prospect </a></li>
+                  <li class="breadcrumb-item">
+                    <Nuxt-link
+                      class="menu-link"
+                      to="/my-salesplan"
+                      active-class="active"
+                      >
+                        <span class="menu-title">My Salesplan</span> &nbsp;
+                    </Nuxt-link>
+                  </li>
                   <li class="breadcrumb-item active" aria-current="page">Detail </li>
                 </ol>
               </nav>
@@ -88,7 +57,7 @@
             </div>
             <!-- End header -->
 
-            <!-- Modal -->
+            <!-- Modal switchAMS -->
             <div class="modal fade" id="switchAMS" tabindex="-1" aria-labelledby="switchAMSLabel" aria-hidden="true">
               <div class="modal-dialog">
                 <div class="modal-content">
@@ -104,18 +73,18 @@
                       </div>
                       <div class="mb-3">
                         <label class="form-label">Description</label> <br>
-                        <span style="background: #F1F5F9; border-radius: 8px">
-                          Level: <b>Level 4</b> Status: <b>Open</b> Other: <b>RKAP</b> Type: <b>TMB</b> Month Sales: <b>Januari</b>
-                          Years: <b>2022</b> Start Date Project: <b>01 - 07 - 2022</b> End Date Project: <b>30 - 07 - 2022</b>
-                          TAT: <b>30 Days</b> Progress: <b>30%</b> Product: <b>Airframe</b> Location: <b>Component Shop</b>
-                          Maintenance: <b>permohonan Instruktur untuk pelaksanaan practical batch 2 kelas amto PNM</b>
-                        </span>
+                        <div id="bodyAMS" v-if="sales_detail">
+                          Level: <b>{{ sales_detail.level }}</b> Status: <b>{{ sales_detail.status }}</b> Other: <b>{{ sales_detail.other }}</b> Type: <b>{{ sales_detail.type }}</b> Month Sales: <b>{{ sales_detail.monthSales }}</b>
+                          Years: <b>{{ sales_detail.year }}</b> Start Date Project: <b>{{ sales_detail.start_date }}</b> End Date Project: <b>{{ sales_detail.endDate }}</b>
+                          TAT: <b>{{ sales_detail.tat }} Days</b> Progress: <b>{{ sales_detail.progress }}%</b> Product: <b>{{ sales_detail.product }}</b> Location: <b>{{ sales_detail.location }}</b>
+                          Maintenance: <b>{{ sales_detail.maintenance }}</b>
+                        </div>
                       </div>
                     </form>
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Back</button>
-                    <button type="button" class="btn btn-primary">Send</button>
+                    <button type="submit" class="btn btn-primary">Send</button>
                   </div>
                 </div>
               </div>
@@ -131,34 +100,34 @@
                     </div>
                     <div class="col-md-10" style="margin-top: -20px;">
                       <div class="card-body">
-                        <h5 class="card-title">PK-GFM</h5>
-                        <p class="card-text"><small class="text-muted"><i class="fa-solid fa-plane-up"></i> B737-600/700/800/900</small></p>
-                        <p class="card-text"><small class="text-muted"><i class="fa-solid fa-spa"></i> Garuda Indonesia</small></p>
+                        <h5 class="card-title" v-if="sales_detail">{{ sales_detail.registration }}</h5>
+                        <p class="card-text" v-if="sales_detail"><small class="text-muted"><i class="fa-solid fa-plane-up"></i> {{ sales_detail.acReg }}</small></p>
+                        <p class="card-text" v-if="sales_detail"><small class="text-muted"><i class="fa-solid fa-spa"></i> {{ sales_detail.customer.name }}</small></p>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-              <div class="col-lg-2 col-md-12 col-sm-12" style="width: 218px;">
+              <div class="col-lg-2 col-md-12 col-sm-12" id="cardTop">
                 <div class="text-center d-grid gap-2">
-                  <span class="me-2 mb-2" style="border: dotted #04C8C8; border-radius: 10px; padding-top: 10px;">
-                    <h3 class="mt-2" style="color: #04C8C8;">$1,500,000.00</h3>
+                  <span class="me-2 mb-2" id="cardMarketShare">
+                    <h3 class="mt-2" id="textMarketShare" v-if="sales_detail">${{ formatPrice(sales_detail.marketShare) }}</h3>
                     <p><small class="text-muted">Market Share</small></p>
                   </span>
                 </div>
               </div>
-              <div class="col-lg-2 col-md-12 col-sm-12" style="width: 218px;">
+              <div class="col-lg-2 col-md-12 col-sm-12" id="cardTop">
                 <div class="text-center d-grid gap-2">
-                  <span class="me-2 mb-2" style="border: dotted #50CD89; border-radius: 10px; padding-top: 10px;">
-                    <h3 class="mt-2" style="color: #50CD89;">$1,000,000.00</h3>
+                  <span class="me-2 mb-2" id="cardSalesPlan">
+                    <h3 class="mt-2" id="textSalesPlan" v-if="sales_detail">${{ formatPrice(sales_detail.totalSales) }}</h3>
                     <p><small class="text-muted">Total Sales Plan</small></p>
                   </span>
                 </div>
               </div>
-              <div class="col-lg-2 col-md-12 col-sm-12" style="width: 218px;">
+              <div class="col-lg-2 col-md-12 col-sm-12" id="cardTop">
                 <div class="text-center d-grid gap-2">
-                  <span class="me-2 mb-2" style="border: dotted #F1416C; border-radius: 10px; padding-top: 10px;">
-                    <h3 class="mt-2" style="color: #F1416C;">$500,000.00</h3>
+                  <span class="me-2 mb-2" id="cardDevisiasi">
+                    <h3 class="mt-2" id="textDevisiasi" v-if="sales_detail">${{ formatPrice(sales_detail.deviasi) }}</h3>
                     <p><small class="text-muted">Devisiasi</small></p>
                   </span>
                 </div>
@@ -168,45 +137,101 @@
 
             <!-- Detail -->
             <div class="row mt-3">
-              <div class="col-lg-1">
+              <div class="col-lg-1" v-if="sales_detail">
                 <p class="text-muted">Level</p>
-                <span class="badge badge-danger"><b>Level 4</b></span>
+                <div v-if="sales_detail.level === 1">
+                  <span class="badge badge-success"><b>Level 1</b></span>
+                </div>
+                <div v-if="sales_detail.level === 2">
+                  <span class="badge badge-primary"><b>Level 2</b></span>
+                </div>
+                <div v-if="sales_detail.level === 3">
+                  <span class="badge badge-warning"><b>Level 3</b></span>
+                </div>
+                <div v-if="sales_detail.level === 4">
+                  <span class="badge badge-danger"><b>Level 4</b></span>
+                </div>
                 <p class="text-muted mt-5">Status</p>
-                <span class="badge badge-warning"><b>Open</b></span>
+                <div v-if="sales_detail.status === 'Cancel'">
+                  <span class="badge badge-danger"><b>Cancel</b></span>
+                </div>
+                <div v-if="sales_detail.status === 'Open'">
+                  <span class="badge badge-success"><b>Open</b></span>
+                </div>
+                <div v-if="sales_detail.status === 'Close in'">
+                  <span class="badge badge-warning"><b>Close in</b></span>
+                </div>
+                <div v-if="sales_detail.status === 'Closed Sales'">
+                  <span class="badge badge-primary"><b>Closed</b></span>
+                </div>
               </div>
-              <div class="col-lg-1">
-                <p class="text-muted">Other</p>
-                <span class="badge badge-warning"><b>RKAP</b></span>
-                <p class="text-muted mt-5">Type</p>
-                <span class="badge badge-info"><b>TMB</b></span>
+              <div class="col-lg-1" v-if="sales_detail">
+                <p class="text-muted mx-2">Other</p>
+                <div v-if="sales_detail.other === 'RKAP'">
+                  <span class="badge badge-info mx-2"><b>RKAP</b></span>
+                </div>
+                <div v-else="sales_detail.other === 'Additional'">
+                  <span class="badge badge-primary mx-2"><b>Additional</b></span>
+                </div>
+                <p class="text-muted mt-5 mx-2">Type</p>
+                <span class="badge badge-info mx-2" v-if="sales_detail"><b>{{ sales_detail.type }}</b></span>
               </div>
-              <div class="col-lg-2">
-                <p class="text-muted">Progress</p>
-                <span class="badge badge-success"><b>60%</b></span>
-                <p class="text-muted mt-5">Month Sales</p>
-                <p><b>Januari</b></p>
+              <div class="col-lg-2" v-if="sales_detail">
+                <p class="text-muted mx-10">Progress</p>
+                <div v-if="sales_detail.progress === 10">
+                  <span class="badge badge-danger mx-10">10 %</span>
+                </div>
+                <div v-if="sales_detail.progress === 20">
+                  <span class="badge badge-danger mx-10">20 %</span>
+                </div>
+                <div v-if="sales_detail.progress === 30">
+                  <span class="badge badge-danger mx-10">30 %</span>
+                </div>
+                <div v-if="sales_detail.progress === 40">
+                  <span class="badge badge-warning mx-10">40 %</span>
+                </div>
+                <div v-if="sales_detail.progress === 50">
+                  <span class="badge badge-warning mx-10">50 %</span>
+                </div>
+                <div v-if="sales_detail.progress === 60">
+                  <span class="badge badge-warning mx-10">60 %</span>
+                </div>
+                <div v-if="sales_detail.progress === 70">
+                  <span class="badge badge-primary mx-10">70 %</span>
+                </div>
+                <div v-if="sales_detail.progress === 80">
+                  <span class="badge badge-primary mx-10">80 %</span>
+                </div>
+                <div v-if="sales_detail.progress === 90">
+                  <span class="badge badge-success mx-10">90 %</span>
+                </div>
+                <div v-if="sales_detail.progress === 100">
+                  <span class="badge badge-success mx-10">100 %</span>
+                </div>
+                <p class="text-muted mt-5 mx-10">Month Sales</p>
+                <p class="mx-10" v-if="sales_detail"><b>{{ sales_detail.monthSales }}</b></p>
               </div>
               <div class="col-lg-1">
                 <p class="text-muted">TAT</p>
-                <p><b>30 Days</b></p>
+                <p v-if="sales_detail"><b>{{ sales_detail.tat }} Days</b></p>
                 <p class="text-muted mt-5">Years</p>
-                <p><b>2022</b></p>
+                <p v-if="sales_detail"><b>{{ sales_detail.year }}</b></p>
               </div>
               <div class="col-lg-2">
                 <p class="text-muted">Start Date Project</p>
-                <p><b>01 - 07 - 2022</b></p>
+                <p v-if="sales_detail"><b>{{ sales_detail.startDate }}</b></p>
                 <p class="text-muted mt-5">End Date Project</p>
-                <p><b>30 - 07 - 2022</b></p>
+                <p v-if="sales_detail"><b>{{ sales_detail.endDate }}</b></p>
               </div>
               <div class="col-lg-2">
                 <p class="text-muted">Location</p>
-                <p><b>Component Shop</b></p>
+                <p v-if="sales_detail"><b>{{ sales_detail.location }}</b></p>
                 <p class="text-muted mt-5">Product</p>
-                <p><b>Airframe</b></p>
+                <p v-if="sales_detail"><b>{{ sales_detail.product }}</b></p>
               </div>
               <div class="col-lg-3">
                 <p class="text-muted">Maintenance</p>
-                <p><b>permohonan Instruktur untuk pelaksanaan practical batch 2 kelas amto PNM</b></p>
+                <p v-if="sales_detail"><b>{{ sales_detail.maintenance }}</b></p>
               </div>
             </div>
             <!-- End Detail -->
@@ -233,525 +258,562 @@
                 <div class="tab-pane fade show active" id="upgrade-level-tab-pane" role="tabpanel" aria-labelledby="upgrade-level-tab" tabindex="0">
                   <!--begin::Stepper-->
                   <div class="stepper stepper-pills mt-5" id="kt_stepper_example_basic">
-                  <!--begin::Nav-->
-                  <div class="stepper-nav flex-center flex-wrap mb-10">
-                      <!--begin::Step 1-->
-                      <div class="stepper-item mx-8 my-4 current" data-kt-stepper-element="nav">
-                          <!--begin::Wrapper-->
-                          <div class="stepper-wrapper d-flex align-items-center">
-                              <!--begin::Icon-->
-                              <div class="stepper-icon w-40px h-40px">
-                                  <i class="stepper-check fas fa-check"></i>
-                                  <span class="stepper-number">4</span>
-                              </div>
-                              <!--end::Icon-->
+                    <!--begin::Nav-->
+                    <div class="stepper-nav flex-center flex-wrap mb-10">
+                        <!--begin::Step 1-->
+                        <div class="stepper-item mx-8 my-4 current" data-kt-stepper-element="nav">
+                            <!--begin::Wrapper-->
+                            <div class="stepper-wrapper d-flex align-items-center">
+                                <!--begin::Icon-->
+                                <div class="stepper-icon w-40px h-40px">
+                                    <i class="stepper-check fas fa-check"></i>
+                                    <span class="stepper-number">4</span>
+                                </div>
+                                <!--end::Icon-->
 
-                              <!--begin::Label-->
-                              <div class="stepper-label">
-                                  <!-- <h3 class="stepper-title">
-                                      Step 1
-                                  </h3> -->
+                                <!--begin::Label-->
+                                <div class="stepper-label">
+                                    <div class="stepper-desc">
+                                      Awareness
+                                    </div>
+                                </div>
+                                <!--end::Label-->
+                            </div>
+                            <!--end::Wrapper-->
 
-                                  <div class="stepper-desc">
-                                    Awareness
+                            <!--begin::Line-->
+                            <div class="stepper-line h-40px"></div>
+                            <!--end::Line-->
+                        </div>
+                        <!--end::Step 1-->
+
+                        <!--begin::Step 2-->
+                        <div class="stepper-item mx-8 my-4" data-kt-stepper-element="nav">
+                            <!--begin::Wrapper-->
+                            <div class="stepper-wrapper d-flex align-items-center">
+                                <!--begin::Icon-->
+                                <div class="stepper-icon w-40px h-40px">
+                                    <i class="stepper-check fas fa-check"></i>
+                                    <span class="stepper-number">3</span>
+                                </div>
+                                <!--begin::Icon-->
+
+                                <!--begin::Label-->
+                                <div class="stepper-label">
+                                    <div class="stepper-desc">
+                                      Opportunity
+                                    </div>
+                                </div>
+                                <!--end::Label-->
+                            </div>
+                            <!--end::Wrapper-->
+
+                            <!--begin::Line-->
+                            <div class="stepper-line h-40px"></div>
+                            <!--end::Line-->
+                        </div>
+                        <!--end::Step 2-->
+
+                        <!--begin::Step 3-->
+                        <div class="stepper-item mx-8 my-4" data-kt-stepper-element="nav">
+                            <!--begin::Wrapper-->
+                            <div class="stepper-wrapper d-flex align-items-center">
+                                <!--begin::Icon-->
+                                <div class="stepper-icon w-40px h-40px">
+                                    <i class="stepper-check fas fa-check"></i>
+                                    <span class="stepper-number">2</span>
+                                </div>
+                                <!--begin::Icon-->
+
+                                <!--begin::Label-->
+                                <div class="stepper-label">
+                                    <div class="stepper-desc">
+                                      Attractive Proposal
+                                    </div>
+                                </div>
+                                <!--end::Label-->
+                            </div>
+                            <!--end::Wrapper-->
+
+                            <!--begin::Line-->
+                            <div class="stepper-line h-40px"></div>
+                            <!--end::Line-->
+                        </div>
+                        <!--end::Step 3-->
+
+                        <!--begin::Step 4-->
+                        <div class="stepper-item mx-8 my-4" data-kt-stepper-element="nav">
+                            <!--begin::Wrapper-->
+                            <div class="stepper-wrapper d-flex align-items-center">
+                                <!--begin::Icon-->
+                                <div class="stepper-icon w-40px h-40px">
+                                    <i class="stepper-check fas fa-check"></i>
+                                    <span class="stepper-number">1</span>
+                                </div>
+                                <!--begin::Icon-->
+
+                                <!--begin::Label-->
+                                <div class="stepper-label">
+                                    <div class="stepper-desc">
+                                        Contract Signing
+                                    </div>
+                                </div>
+                                <!--end::Label-->
+                            </div>
+                            <!--end::Wrapper-->
+
+                            <!--begin::Line-->
+                            <div class="stepper-line h-40px"></div>
+                            <!--end::Line-->
+                        </div>
+                        <!--end::Step 4-->
+                    </div>
+                    <!--end::Nav-->
+
+                    <!--begin::Form-->
+                    <div class="form mx-auto" novalidate="novalidate" id="kt_stepper_example_basic_div">
+                        <!--begin::Group-->
+                        <div class="mb-5">
+
+                            <!--begin::Step 4-->
+                            <div class="flex-column current" data-kt-stepper-element="content">
+                              <form action="">
+                                <div class="row">
+                                  <!-- Fill in Contact Person of Customer -->
+                                  <div class="col-lg-6">
+                                    <h3>Fill in Contact Person of Customer</h3>
+                                    <p class="text-muted"><small>by <a href="#">{{ user }}</a></small></p>
                                   </div>
-                              </div>
-                              <!--end::Label-->
-                          </div>
-                          <!--end::Wrapper-->
-
-                          <!--begin::Line-->
-                          <div class="stepper-line h-40px"></div>
-                          <!--end::Line-->
-                      </div>
-                      <!--end::Step 1-->
-
-                      <!--begin::Step 2-->
-                      <div class="stepper-item mx-8 my-4" data-kt-stepper-element="nav">
-                          <!--begin::Wrapper-->
-                          <div class="stepper-wrapper d-flex align-items-center">
-                              <!--begin::Icon-->
-                              <div class="stepper-icon w-40px h-40px">
-                                  <i class="stepper-check fas fa-check"></i>
-                                  <span class="stepper-number">3</span>
-                              </div>
-                              <!--begin::Icon-->
-
-                              <!--begin::Label-->
-                              <div class="stepper-label">
-                                  <!-- <h3 class="stepper-title">
-                                      Step 2
-                                  </h3> -->
-
-                                  <div class="stepper-desc">
-                                    Opportunity
+                                  <div class="col-lg-6">
+                                    <div class="position-relative">
+                                      <div class="position-absolute top-0 end-0">
+                                        <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#addContact" @click="addContact()">Add Contact Person</button>
+                                      </div>
+                                    </div>
                                   </div>
-                              </div>
-                              <!--end::Label-->
-                          </div>
-                          <!--end::Wrapper-->
-
-                          <!--begin::Line-->
-                          <div class="stepper-line h-40px"></div>
-                          <!--end::Line-->
-                      </div>
-                      <!--end::Step 2-->
-
-                      <!--begin::Step 3-->
-                      <div class="stepper-item mx-8 my-4" data-kt-stepper-element="nav">
-                          <!--begin::Wrapper-->
-                          <div class="stepper-wrapper d-flex align-items-center">
-                              <!--begin::Icon-->
-                              <div class="stepper-icon w-40px h-40px">
-                                  <i class="stepper-check fas fa-check"></i>
-                                  <span class="stepper-number">2</span>
-                              </div>
-                              <!--begin::Icon-->
-
-                              <!--begin::Label-->
-                              <div class="stepper-label">
-                                  <!-- <h3 class="stepper-title">
-                                      Step 3
-                                  </h3> -->
-
-                                  <div class="stepper-desc">
-                                    Attractive Proposal
+                                  <div class="rounded box-d" id="myBorder">
+                                    <div class="mt-3 table-responsive">
+                                      <table class="table" v-if="contact">
+                                        <tr v-for="contact in level4[0].data" :key="contact">
+                                          <td>
+                                            <strong>{{ contact.name }}</strong>
+                                          </td>
+                                          <td>
+                                            <strong>{{ contact.phone }}</strong>
+                                          </td>
+                                          <td>
+                                            <strong>{{ contact.email }}</strong>	
+                                          </td>
+                                          <!-- <td>
+                                            <strong>{{ contact.title }}</strong>
+                                          </td>
+                                          <td>
+                                            <strong>{{ contact.address }}</strong>
+                                          </td> -->
+                                        </tr>
+                                      </table>
+                                    </div>
                                   </div>
-                              </div>
-                              <!--end::Label-->
-                          </div>
-                          <!--end::Wrapper-->
 
-                          <!--begin::Line-->
-                          <div class="stepper-line h-40px"></div>
-                          <!--end::Line-->
-                      </div>
-                      <!--end::Step 3-->
-
-                      <!--begin::Step 4-->
-                      <div class="stepper-item mx-8 my-4" data-kt-stepper-element="nav">
-                          <!--begin::Wrapper-->
-                          <div class="stepper-wrapper d-flex align-items-center">
-                              <!--begin::Icon-->
-                              <div class="stepper-icon w-40px h-40px">
-                                  <i class="stepper-check fas fa-check"></i>
-                                  <span class="stepper-number">1</span>
-                              </div>
-                              <!--begin::Icon-->
-
-                              <!--begin::Label-->
-                              <div class="stepper-label">
-                                  <!-- <h3 class="stepper-title">
-                                      Step 4
-                                  </h3> -->
-
-                                  <div class="stepper-desc">
-                                      Contract Signing
+                                  <!-- Upload Attachment RFQ or Email Request -->
+                                  <div class="col-lg-6 mt-3">
+                                    <h3>Upload Attachment RFQ or Email Request</h3>
+                                    <p class="text-danger"><small>* File size max 5MB</small></p>
                                   </div>
-                              </div>
-                              <!--end::Label-->
-                          </div>
-                          <!--end::Wrapper-->
+                                  <div class="col-lg-6 mt-3">
+                                    <div class="position-relative">
+                                      <div class="position-absolute top-0 end-0">
+                                        <button 
+                                        type="button" 
+                                        class="btn btn-primary btn-sm" 
+                                        data-bs-toggle="modal" 
+                                        data-bs-target="#addFile" 
+                                        @click="addFile1()"
+                                        >
+                                          Upload Document
+                                        </button>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="rounded box-d" id="myBorder">
+                                    <div class="mt-3 table-responsive">
+                                      <table class="table" v-if="files">
+                                        <tr v-for="files in level4[1].data" :key="files">
+                                          <td>
+                                              <a :href="`http://127.0.0.1:8000/storage/`+files.path" class="btn btn-outline-primary btn-outline btn-sm" target="_blank">
+                                                <strong>{{ files.file_name }}</strong>
+                                              </a>
+                                          </td>
+                                          <td class="d-flex justify-content-end">
+                                            <button type="button" class="btn btn-danger btn-sm" @click="removeFile(files.id)"><span class="fas fa-trash"></span></button>
+                                          </td>
+                                        </tr>
+                                      </table>
+                                    </div>
+                                  </div>
+                                  
+                                  <!-- Upload Attachment Workscope -->
+                                  <div class="col-lg-6 mt-3">
+                                    <h3>Upload Attachment Workscope</h3>
+                                    <p class="text-danger"><small>* File size max 5MB</small></p>
+                                  </div>
+                                  <div class="col-lg-6 mt-3">
+                                    <div class="position-relative">
+                                      <div class="position-absolute top-0 end-0">
+                                        <button 
+                                        type="button" 
+                                        class="btn btn-primary btn-sm" 
+                                        data-bs-toggle="modal" 
+                                        data-bs-target="#addFile" 
+                                        @click="addFile2()"
+                                        >
+                                          Upload Document
+                                        </button>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="rounded box-d" id="myBorder">
+                                    <div class="mt-3">
+                                      <table class="table" v-if="files">
+                                        <tr v-for="files in level4[2].data" :key="files">
+                                          <td>
+                                              <a :href="`http://127.0.0.1:8000/storage/`+files.path" class="btn btn-outline-primary btn-outline btn-sm" target="_blank">
+                                                <strong>{{ files.file_name }}</strong>
+                                              </a>
+                                          </td>
+                                          <td class="d-flex justify-content-end">
+                                            <button type="button" class="btn btn-danger btn-sm" @click="removeFile(files.id)"><span class="fas fa-trash"></span></button>
+                                          </td>
+                                        </tr>
+                                      </table>
+                                    </div>
+                                  </div>
 
-                          <!--begin::Line-->
-                          <div class="stepper-line h-40px"></div>
-                          <!--end::Line-->
-                      </div>
-                      <!--end::Step 4-->
-                  </div>
-                  <!--end::Nav-->
+                                  <div class="text-center mt-10">
+                                    <button type="submit" class="btn btn-primary">Upgrade & Notify CBO</button>
+                                  </div>
 
-                      <!--begin::Form-->
-                      <div class="form mx-auto" novalidate="novalidate" id="kt_stepper_example_basic_div">
-                          <!--begin::Group-->
-                          <div class="mb-5">
-                              <!--begin::Step 1-->
-                              <div class="flex-column current" data-kt-stepper-element="content">
-                                <form action="">
+                                </div>
+                              </form>
+                            </div>
+                            <!--begin::Step 4-->
+
+                            <!--begin::Step 3-->
+                            <div class="flex-column" data-kt-stepper-element="content">
+                              <form action="">
+                                <div class="row">
+                                  <!-- <h5>File has been upload</h5> -->
+                                  <!-- Attachment of Financial Assesment Form (optional) -->
+                                  <div class="col-lg-6 mt-3">
+                                    <h3>Attachment of Financial Assesment Form (optional)</h3>
+                                    <p class="text-danger"><small>* File size max 5MB</small></p>
+                                  </div>
+                                  <div class="col-lg-6 mt-3">
+                                    <div class="position-relative">
+                                      <div class="position-absolute top-0 end-0">
+                                        <button 
+                                        type="button" 
+                                        class="btn btn-primary btn-sm" 
+                                        data-bs-toggle="modal" 
+                                        data-bs-target="#addFile" 
+                                        @click="addFile3()"
+                                        >
+                                          Upload Document
+                                        </button>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="rounded box-d" id="myBorder">
+                                    <div class="mt-3">
+                                      <table class="table">
+                                        <tr>
+                                          <td class="">
+                                            <strong>Project Term</strong>
+                                            <p>1.2mb</p>
+                                          </td>
+                                          <td class="d-flex justify-content-end">
+                                            <button type="submit" class="btn btn-danger btn-sm"><span class="fas fa-trash"></span></button>
+                                          </td>
+                                        </tr>
+                                      </table>
+                                    </div>
+                                  </div>
+
+                                  <!-- Attachment of Maintenance Proposal for Customer -->
+                                  <div class="col-lg-6 mt-3">
+                                    <h3>Attachment of Maintenance Proposal for Customer</h3>
+                                    <p class="text-danger"><small>* File size max 5MB</small></p>
+                                  </div>
+                                  <div class="col-lg-6 mt-3">
+                                    <div class="position-relative">
+                                      <div class="position-absolute top-0 end-0">
+                                        <button type="button" class="btn btn-outline-warning btn-outline btn-sm">Sync</button>
+                                        <button type="button" class="btn btn-success btn-sm">Notify COGS</button>
+                                        <button 
+                                        type="button" 
+                                        class="btn btn-primary btn-sm" 
+                                        data-bs-toggle="modal" 
+                                        data-bs-target="#addFile" 
+                                        @click="addFile4()"
+                                        >
+                                          Upload Document
+                                        </button>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="rounded box-d" id="myBorder">
+                                    <div class="mt-3">
+                                      <table class="table">
+                                        <tr>
+                                          <td class="">
+                                            <strong>Project Term</strong>
+                                            <p>1.2mb</p>
+                                          </td>
+                                          <td class="d-flex justify-content-end">
+                                            <button type="submit" class="btn btn-danger btn-sm"><span class="fas fa-trash"></span></button>
+                                          </td>
+                                        </tr>
+                                      </table>
+                                    </div>
+                                  </div>
+
+                                  <!-- Attachment of Profitability Analysis Form Signed -->
+                                  <div class="col-lg-6 mt-3">
+                                    <h3>Attachment of Profitability Analysis Form Signed</h3>
+                                    <p class="text-danger"><small>* File size max 5MB</small></p>
+                                  </div>
+                                  <div class="col-lg-6 mt-3">
+                                    <div class="position-relative">
+                                      <div class="position-absolute top-0 end-0">
+                                        <span class="btn btn-sm" id="textWaiting">Waiting Approve VP TP</span>
+                                        <button 
+                                        type="button" 
+                                        class="btn btn-primary btn-sm" 
+                                        data-bs-toggle="modal" 
+                                        data-bs-target="#addFile" 
+                                        @click="addFile5()"
+                                        >
+                                          Upload Document
+                                        </button>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <!-- End Modal Upload Profitability  -->
+                                  <div class="rounded box-d" id="myBorder">
+                                    <div class="mt-3">
+                                      <table class="table">
+                                        <tr>
+                                          <td>
+                                            <strong>Project Term</strong>
+                                            <p>1.2mb</p>
+                                          </td>
+                                          <td class="d-flex justify-content-end">
+                                            <button type="submit" class="btn btn-danger btn-sm"><span class="fas fa-trash"></span></button>
+                                          </td>
+                                        </tr>
+                                      </table>
+                                    </div>
+                                  </div>
+
+                                  <div class="text-center mt-10">
+                                    <button type="submit" class="btn btn-primary">Upgrade & Notify CBO</button>
+                                  </div>
+
+                                </div>
+                              </form>
+                            </div>
+                            <!--begin::Step 3-->
+
+                            <!--begin::Step 2-->
+                            <div class="flex-column" data-kt-stepper-element="content">
+                              <form action="">
+                                <div class="row">
+                                  <!-- <h5>File has been upload</h5> -->
+                                  <!-- Attachment of Customer Approval (SOW Signed / Proposal Approved) -->
+                                  <div class="col-lg-6 mt-3">
+                                    <h3>Attachment of Customer Approval (SOW Signed / Proposal Approved)</h3>
+                                    <p class="text-danger"><small>* File size max 5MB</small></p>
+                                  </div>
+                                  <div class="col-lg-6 mt-3">
+                                    <div class="position-relative">
+                                      <div class="position-absolute top-0 end-0">
+                                        <button 
+                                        type="button" 
+                                        class="btn btn-primary btn-sm" 
+                                        data-bs-toggle="modal" 
+                                        data-bs-target="#addFile" 
+                                        @click="addFile6()"
+                                        >
+                                          Upload Document
+                                        </button>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="rounded box-d" id="myBorder">
+                                    <div class="mt-3">
+                                      <table class="table">
+                                        <tr>
+                                          <td class="">
+                                            <strong>Project Term</strong>
+                                            <p>1.2mb</p>
+                                          </td>
+                                          <td class="d-flex justify-content-end">
+                                            <button type="submit" class="btn btn-danger btn-sm"><span class="fas fa-trash"></span></button>
+                                          </td>
+                                        </tr>
+                                      </table>
+                                    </div>
+                                  </div>
+
+                                  <!-- Slot Request -->
+                                  <div class="col-lg-6 mt-5">
+                                    <h3>Slot Request</h3>
+                                    <p class="text-muted"><small>by <a href="#">{{ user }}</a></small></p>
+                                  </div>
+                                  <div class="col-lg-6 mt-5">
+                                    <div class="position-relative">
+                                      <div class="position-absolute top-0 end-0">
+                                        <button type="button" class="btn btn-info btn-sm">Request to CBO</button>
+                                      </div>
+                                    </div>
+                                  </div>
                                   <div class="row">
-                                    <!-- Fill in Contact Person of Customer -->
-                                    <div class="col-lg-6">
-                                      <h3>Fill in Contact Person of Customer</h3>
-                                      <p class="text-muted"><small>02:30 AM by <a href="">You</a></small></p>
-                                    </div>
-                                    <div class="col-lg-6">
-                                      <div class="position-relative">
-                                        <div class="position-absolute top-0 end-0">
-                                        <a href="" class="btn btn-primary btn-sm">Add Contact Person</a>
-                                        </div>
+                                    <div class="col-lg-4">
+                                      <div class="mb-3">
+                                        <label>Hangar</label>
+                                        <input type="number" class="form-control form-control-solid" name=""/>
+                                      </div>
+                                      <div class="mb-3">
+                                        <label>Line Hangar</label>
+                                        <input type="number" class="form-control form-control-solid" name=""/>
                                       </div>
                                     </div>
-                                    <div class="rounded box-d" style="border:dashed #CDE7FE;">
-                                      <div class="mt-3">
-                                        <table class="table">
-                                          <tr>
-                                            <td class="text-center">
-                                              <strong>Endang Tardiana</strong>
-                                            </td>
-                                            <td class="text-center">
-                                              <strong>081703621382</strong>
-                                            </td>
-                                            <td class="text-center">
-                                              <strong>endang.tardiana@garuda-indonesia.co.id</strong>	
-                                            </td>
-                                            <td class="text-center">
-                                              <strong>SM. Engine & Component Planning & Contro</strong>
-                                            </td>
-                                            <td class="text-center">
-                                              <strong>JKTMLE, Hangar 2 GMF AeroAsia</strong>
-                                            </td>
-                                            <td class="text-center">
-                                              <a href="" class="btn btn-danger btn-sm"><span class="fas fa-trash"></span></a>
-                                            </td>
-                                          </tr>
-                                        </table>
+                                    <div class="col-lg-4">
+                                      <div class="mb-3">
+                                        <label>Registration</label>
+                                        <input type="text" class="form-control form-control-solid" readonly name=""/>
+                                      </div>
+                                      <div class="mb-3">
+                                        <label>TAT</label>
+                                        <input type="number" class="form-control form-control-solid" name=""/>
                                       </div>
                                     </div>
-
-                                    <!-- Upload Attachment RFQ or Email Request -->
-                                    <div class="col-lg-6 mt-3">
-                                      <h3>Upload Attachment RFQ or Email Request</h3>
-                                      <p class="text-muted"><small>02:30 AM by <a href="">You</a></small></p>
-                                    </div>
-                                    <div class="col-lg-6 mt-3">
-                                      <div class="position-relative">
-                                        <div class="position-absolute top-0 end-0">
-                                        <a href="" class="btn btn-primary btn-sm">Upload Document</a>
-                                        </div>
+                                    <div class="col-lg-4">
+                                      <div class="mb-3">
+                                        <label>Start Date</label>
+                                        <input type="date" class="form-control form-control-solid" name=""/>
+                                      </div>
+                                      <div class="mb-3">
+                                        <label>End Date</label>
+                                        <input type="date" class="form-control form-control-solid" name=""/>
                                       </div>
                                     </div>
-                                    <div class="rounded box-d" style="border:dashed #CDE7FE;">
-                                      <div class="mt-3">
-                                        <table class="table">
-                                          <tr>
-                                            <td class="">
-                                              <strong>Project Term</strong>
-                                              <p>1.2mb</p>
-                                            </td>
-                                            <td class="d-flex justify-content-end">
-                                              <a href="" class="btn btn-danger btn-sm"><span class="fas fa-trash"></span></a>
-                                            </td>
-                                          </tr>
-                                        </table>
-                                      </div>
-                                    </div>
-
-                                    <!-- Upload Attachment Workscope -->
-                                    <div class="col-lg-6 mt-3">
-                                      <h3>Upload Attachment Workscope</h3>
-                                      <p class="text-muted"><small>02:30 AM by <a href="">You</a></small></p>
-                                    </div>
-                                    <div class="col-lg-6 mt-3">
-                                      <div class="position-relative">
-                                        <div class="position-absolute top-0 end-0">
-                                        <a href="" class="btn btn-primary btn-sm">Upload Document</a>
-                                        </div>
-                                      </div>
-                                    </div>
-                                    <div class="rounded box-d" style="border:dashed #CDE7FE;">
-                                      <div class="mt-3">
-                                        <table class="table">
-                                          <tr>
-                                            <td>
-                                              <strong>Project Term</strong>
-                                              <p>1.2mb</p>
-                                            </td>
-                                            <td class="d-flex justify-content-end">
-                                              <a href="" class="btn btn-danger btn-sm"><span class="fas fa-trash"></span></a>
-                                            </td>
-                                          </tr>
-                                        </table>
-                                      </div>
-                                    </div>
-
-                                    <div class="text-center mt-20">
-                                      <button type="button" class="btn btn-danger">Back</button>
-                                      <button type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addContact">Upgrade & Notify CBO</button>
-                                    </div>
-
                                   </div>
-                                </form>
-                              </div>
-                              <!--begin::Step 1-->
 
-                              <!--begin::Step 1-->
-                              <div class="flex-column" data-kt-stepper-element="content">
-                                <form action="">
+                                  <div class="text-center mt-10">
+                                    <button type="submit" class="btn btn-primary">Upgrade & Notify CBO</button>
+                                  </div>
+
+                                </div>
+                              </form>
+                            </div>
+                            <!--begin::Step 2-->
+
+                            <!--begin::Step 1-->
+                            <div class="flex-column" data-kt-stepper-element="content">
+                              <form action="">
+                                <div class="row">
+                                  <!-- <h5>File has been upload</h5> -->
+                                  <!-- Attachment of WO/PO number customer document -->
+                                  <div class="col-lg-6 mt-3">
+                                    <h3>Attachment of WO/PO number customer document</h3>
+                                    <p class="text-muted"><small>by <a href="#">{{ user }}</a></small></p>
+                                  </div>
+                                  <div class="col-lg-6 mt-3">
+                                    <div class="position-relative">
+                                      <div class="position-absolute top-0 end-0">
+                                        <button type="button" class="btn btn-success btn-sm">Closed Sales</button>
+                                        <button 
+                                        type="button" 
+                                        class="btn btn-primary btn-sm" 
+                                        data-bs-toggle="modal" 
+                                        data-bs-target="#addFile" 
+                                        @click="addFile7()"
+                                        >
+                                          Upload Document
+                                        </button>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="rounded box-d" id="myBorder">
+                                    <div class="mt-3">
+                                      <table class="table">
+                                        <tr>
+                                          <td class="">
+                                            <strong>Project Term</strong>
+                                            <p>1.2mb</p>
+                                          </td>
+                                          <td class="d-flex justify-content-end">
+                                            <button type="submit" class="btn btn-danger btn-sm"><span class="fas fa-trash"></span></button>
+                                          </td>
+                                        </tr>
+                                      </table>
+                                    </div>
+                                  </div>
+
+                                  <!-- Input SO Number -->
+                                  <div class="col-lg-6 mt-5">
+                                    <h3>Input SO Number</h3>
+                                  </div>
                                   <div class="row">
-                                    <h5>File has been upload</h5>
-                                    <!-- Attachment of Financial Assesment Form (optional) -->
-                                    <div class="col-lg-6 mt-3">
-                                      <h3>Attachment of Financial Assesment Form (optional)</h3>
-                                      <p class="text-muted"><small>02:30 AM by <a href="">You</a></small></p>
+                                    <label for="">SO Number</label>
+                                    <div class="input-group mb-3">
+                                      <input type="text" class="form-control">
+                                      <button class="btn btn-sm" type="button" id="textSync">Sync</button>
                                     </div>
-                                    <div class="col-lg-6 mt-3">
-                                      <div class="position-relative">
-                                        <div class="position-absolute top-0 end-0">
-                                        <a href="" class="btn btn-outline-primary btn-outline btn-sm">Upload Document</a>
-                                        </div>
-                                      </div>
-                                    </div>
-                                    <div class="rounded box-d" style="border:dashed #CDE7FE;">
-                                      <div class="mt-3">
-                                        <table class="table">
-                                          <tr>
-                                            <td class="">
-                                              <strong>Project Term</strong>
-                                              <p>1.2mb</p>
-                                            </td>
-                                            <td class="d-flex justify-content-end">
-                                              <a href="" class="btn btn-danger btn-sm"><span class="fas fa-trash"></span></a>
-                                            </td>
-                                          </tr>
-                                        </table>
-                                      </div>
-                                    </div>
-
-                                    <!-- Attachment of Maintenance Proposal for Customer -->
-                                    <div class="col-lg-6 mt-3">
-                                      <h3>Attachment of Maintenance Proposal for Customer</h3>
-                                      <p class="text-muted"><small>02:30 AM by <a href="">You</a></small></p>
-                                    </div>
-                                    <div class="col-lg-6 mt-3">
-                                      <div class="position-relative">
-                                        <div class="position-absolute top-0 end-0">
-                                          <a href="" class="btn btn-outline-primary btn-outline btn-sm">Upload Document</a>
-                                          <a href="" class="btn btn-outline-warning btn-outline btn-sm">Sync</a>
-                                          <a href="" class="btn btn-success btn-sm">Notify COGS</a>
-                                        </div>
-                                      </div>
-                                    </div>
-                                    <div class="rounded box-d" style="border:dashed #CDE7FE;">
-                                      <div class="mt-3">
-                                        <table class="table">
-                                          <tr>
-                                            <td class="">
-                                              <strong>Project Term</strong>
-                                              <p>1.2mb</p>
-                                            </td>
-                                            <td class="d-flex justify-content-end">
-                                              <a href="" class="btn btn-danger btn-sm"><span class="fas fa-trash"></span></a>
-                                            </td>
-                                          </tr>
-                                        </table>
-                                      </div>
-                                    </div>
-
-                                    <!-- Attachment of Profitability Analysis Form Signed -->
-                                    <div class="col-lg-6 mt-3">
-                                      <h3>Attachment of Profitability Analysis Form Signed</h3>
-                                      <p class="text-muted"><small>02:30 AM by <a href="">You</a></small></p>
-                                    </div>
-                                    <div class="col-lg-6 mt-3">
-                                      <div class="position-relative">
-                                        <div class="position-absolute top-0 end-0">
-                                          <span class="btn btn-sm" style="background-color: #F1E0D0; color: #955F2D;">Waiting Approve VP TP</span>
-                                          <a href="" class="btn btn-outline-primary btn-outline btn-sm">Upload Document</a>
-                                        </div>
-                                      </div>
-                                    </div>
-                                    <div class="rounded box-d" style="border:dashed #CDE7FE;">
-                                      <div class="mt-3">
-                                        <table class="table">
-                                          <tr>
-                                            <td>
-                                              <strong>Project Term</strong>
-                                              <p>1.2mb</p>
-                                            </td>
-                                            <td class="d-flex justify-content-end">
-                                              <a href="" class="btn btn-danger btn-sm"><span class="fas fa-trash"></span></a>
-                                            </td>
-                                          </tr>
-                                        </table>
-                                      </div>
-                                    </div>
-
-                                    <div class="text-center mt-20">
-                                      <button type="button" class="btn btn-danger">Back</button>
-                                      <button type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addContact">Upgrade & Notify CBO</button>
-                                    </div>
-
                                   </div>
-                                </form>
-                              </div>
-                              <!--begin::Step 1-->
 
-                              <!--begin::Step 2-->
-                              <div class="flex-column" data-kt-stepper-element="content">
-                                <form action="">
-                                  <div class="row">
-                                    <h5>File has been upload</h5>
-                                    <!-- Attachment of Customer Approval (SOW Signed / Proposal Approved) -->
-                                    <div class="col-lg-6 mt-3">
-                                      <h3>Attachment of Customer Approval (SOW Signed / Proposal Approved)</h3>
-                                      <p class="text-muted"><small>02:30 AM by <a href="">You</a></small></p>
-                                    </div>
-                                    <div class="col-lg-6 mt-3">
-                                      <div class="position-relative">
-                                        <div class="position-absolute top-0 end-0">
-                                        <a href="" class="btn btn-outline-primary btn-outline btn-sm">Upload Document</a>
-                                        </div>
-                                      </div>
-                                    </div>
-                                    <div class="rounded box-d" style="border:dashed #CDE7FE;">
-                                      <div class="mt-3">
-                                        <table class="table">
-                                          <tr>
-                                            <td class="">
-                                              <strong>Project Term</strong>
-                                              <p>1.2mb</p>
-                                            </td>
-                                            <td class="d-flex justify-content-end">
-                                              <a href="" class="btn btn-danger btn-sm"><span class="fas fa-trash"></span></a>
-                                            </td>
-                                          </tr>
-                                        </table>
-                                      </div>
-                                    </div>
-
-                                    <!-- Slot Request -->
-                                    <div class="col-lg-6 mt-5">
-                                      <h3>Slot Request</h3>
-                                      <p class="text-muted"><small>02:30 AM by <a href="">You</a></small></p>
-                                    </div>
-                                    <div class="col-lg-6 mt-5">
-                                      <div class="position-relative">
-                                        <div class="position-absolute top-0 end-0">
-                                        <a href="" class="btn btn-outline-primary btn-outline btn-sm">Request to CBO</a>
-                                        </div>
-                                      </div>
-                                    </div>
-                                    <div class="row">
-                                      <div class="col-lg-4">
-                                        <div class="mb-3">
-                                          <label>Hangar</label>
-                                          <input type="number" class="form-control form-control-solid" name=""/>
-                                        </div>
-                                        <div class="mb-3">
-                                          <label>Line Hangar</label>
-                                          <input type="number" class="form-control form-control-solid" name=""/>
-                                        </div>
-                                      </div>
-                                      <div class="col-lg-4">
-                                        <div class="mb-3">
-                                          <label>Registration</label>
-                                          <input type="text" class="form-control form-control-solid" readonly name=""/>
-                                        </div>
-                                        <div class="mb-3">
-                                          <label>TAT</label>
-                                          <input type="number" class="form-control form-control-solid" name=""/>
-                                        </div>
-                                      </div>
-                                      <div class="col-lg-4">
-                                        <div class="mb-3">
-                                          <label>Start Date</label>
-                                          <input type="date" class="form-control form-control-solid" name=""/>
-                                        </div>
-                                        <div class="mb-3">
-                                          <label>End Date</label>
-                                          <input type="date" class="form-control form-control-solid" name=""/>
-                                        </div>
-                                      </div>
-                                    </div>
-
-                                    <div class="text-center mt-20">
-                                      <button type="button" class="btn btn-danger">Back</button>
-                                      <button type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addContact">Upgrade & Notify CBO</button>
-                                    </div>
-
+                                  <div class="text-center mt-10">
+                                    <button type="submit" class="btn btn-primary">Request to Closed</button>
                                   </div>
-                                </form>
-                              </div>
-                              <!--begin::Step 2-->
 
-                              <!--begin::Step 1-->
-                              <div class="flex-column" data-kt-stepper-element="content">
-                                <form action="">
-                                  <div class="row">
-                                    <h5>File has been upload</h5>
-                                    <!-- Attachment of Customer Approval (SOW Signed / Proposal Approved) -->
-                                    <div class="col-lg-6 mt-3">
-                                      <h3>Attachment of Customer Approval (SOW Signed / Proposal Approved)</h3>
-                                      <p class="text-muted"><small>02:30 AM by <a href="">You</a></small></p>
-                                    </div>
-                                    <div class="col-lg-6 mt-3">
-                                      <div class="position-relative">
-                                        <div class="position-absolute top-0 end-0">
-                                          <a href="" class="btn btn-outline-primary btn-outline btn-sm">Closed Sales</a>
-                                          <a href="" class="btn btn-primary btn-sm">Upload Document</a>
-                                        </div>
-                                      </div>
-                                    </div>
-                                    <div class="rounded box-d" style="border:dashed #CDE7FE;">
-                                      <div class="mt-3">
-                                        <table class="table">
-                                          <tr>
-                                            <td class="">
-                                              <strong>Project Term</strong>
-                                              <p>1.2mb</p>
-                                            </td>
-                                            <td class="d-flex justify-content-end">
-                                              <a href="" class="btn btn-danger btn-sm"><span class="fas fa-trash"></span></a>
-                                            </td>
-                                          </tr>
-                                        </table>
-                                      </div>
-                                    </div>
+                                </div>
+                              </form>
+                            </div>
+                            <!--begin::Step 1-->
+                        </div>
+                        <!--end::Group-->
 
-                                    <!-- Input SO Number -->
-                                    <div class="col-lg-6 mt-5">
-                                      <h3>Input SO Number</h3>
-                                    </div>
-                                    <div class="row">
-                                      <label for="">SO Number</label>
-                                      <div class="input-group mb-3">
-                                        <input type="text" class="form-control">
-                                        <button class="btn btn-sm" type="button" style="background-color: #F1E0D0; color: #955F2D;">Sync</button>
-                                      </div>
-                                    </div>
+                        <!--begin::Actions-->
+                        <div class="d-flex flex-stack">
+                            <!--begin::Wrapper-->
+                            <div class="me-2">
+                                <button type="button" class="btn btn-light btn-active-light-primary" data-kt-stepper-action="previous">
+                                    Back
+                                </button>
+                            </div>
+                            <!--end::Wrapper-->
 
-                                    <div class="text-center mt-20">
-                                      <button type="button" class="btn btn-danger">Back</button>
-                                      <button type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addContact">Request to Closed</button>
-                                    </div>
+                            <!--begin::Wrapper-->
+                            <div>
+                                <button type="button" class="btn btn-primary" data-kt-stepper-action="submit">
+                                    <span class="indicator-label">
+                                        Submit
+                                    </span>
+                                    <span class="indicator-progress">
+                                        Please wait... <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                                    </span>
+                                </button>
 
-                                  </div>
-                                </form>
-                              </div>
-                              <!--begin::Step 1-->
-                          </div>
-                          <!--end::Group-->
-
-                          <!--begin::Actions-->
-                          <div class="d-flex flex-stack">
-                              <!--begin::Wrapper-->
-                              <div class="me-2">
-                                  <button type="button" class="btn btn-light btn-active-light-primary" data-kt-stepper-action="previous">
-                                      Back
-                                  </button>
-                              </div>
-                              <!--end::Wrapper-->
-
-                              <!--begin::Wrapper-->
-                              <div>
-                                  <button type="button" class="btn btn-primary" data-kt-stepper-action="submit">
-                                      <span class="indicator-label">
-                                          Submit
-                                      </span>
-                                      <span class="indicator-progress">
-                                          Please wait... <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
-                                      </span>
-                                  </button>
-
-                                  <button type="button" class="btn btn-primary" data-kt-stepper-action="next">
-                                      Continue
-                                  </button>
-                              </div>
-                              <!--end::Wrapper-->
-                          </div>
-                          <!--end::Actions-->
-                      </div>
-                      <!--end::Form-->
+                                <button type="button" class="btn btn-primary" data-kt-stepper-action="next">
+                                    Continue
+                                </button>
+                            </div>
+                            <!--end::Wrapper-->
+                        </div>
+                        <!--end::Actions-->
+                    </div>
+                    <!--end::Form-->
                   </div>
                   <!--end::Stepper-->
                 </div>
@@ -791,8 +853,8 @@
                     <!-- Isi -->
                     <div class="row mt-4">
                       <h3>3 File Uploaded</h3>
-                      <p class="text-muted"><small>02:30 AM by <a href="">You</a></small></p>
-                      <div class="rounded box-d" style="border:dashed #CDE7FE;">
+                      <p class="text-muted"><small>by <a href="#">{{ user }}</a></small></p>
+                      <div class="rounded box-d" id="myBorder">
                         <div class="mt-3">
                           <h6>Project Term</h6>
                           <p class="text-muted"><small>1.2mb</small></p>
@@ -814,83 +876,345 @@
                             <th class="text-center">Phone</th>
                             <th class="text-center">Email</th>
                             <th class="text-center">Title</th>
+                            <th class="text-center">Action</th>
                           </tr>
                         </thead>
                         <tbody>
-                          <tr>
+                          <tr v-for="(contacts, contacts_index) in contact"  @dblclick="getItem(contacts_index)">
                             <td class="text-center">
-                              1
+                              {{ contacts_index+1 }}
                             </td>
-                            <td class="text-center">
-                              Endang Tardiana
+                            <td>
+                              {{ contacts.name }}
                             </td>
-                            <td class="text-center">
-                              081703621382
+                            <td>
+                              {{ contacts.phone }}
                             </td>
-                            <td class="text-center">
-                              endang.tardiana@garuda-indonesia.co.id	
+                            <td>
+                              {{ contacts.email }}
                             </td>
-                            <td class="text-center">
-                              SM. Engine & Component Planning & Contro
+                            <td>
+                              {{ contacts.title }}
+                            </td>
+                            <td class="d-flex justify-content-center">
+                              <button class="btn btn-sm btn-light" @click="removeContact(contacts.id)">
+                                <i class="bi bi-trash-fill text-primary"></i>
+                              </button>
                             </td>
                           </tr>
+                          <!-- jika data kosong -->
+                          <!-- <tr v-if="contact.data.length < 1">
+                            <td colspan="6">
+                              <div class="text-muted text-center">Data not found</div>
+                            </td>
+                          </tr> -->
                         </tbody>
                       </table>
                     </div>
+                    <!-- Pagination -->
+                    <!-- <div class="row">
+                      <div class="col d-flex justify-content-start align-items-center">
+                        <nav aria-label="Page navigation example">
+                          <ul class="pagination">
+                            <li class="page-item align-self-center">Rows per page:</li>
+                            <li class="page-item">
+                              <select
+                                class="form-control form-control-sm"
+                                v-model="paginate"
+                                @change="listContact()"
+                              >
+                                <option value="10">10</option>
+                                <option value="25">25</option>
+                                <option value="50">50</option>
+                                <option value="100">100</option>
+                              </select>
+                            </li>
+                          </ul>
+                        </nav>
+                      </div>
+                      <div class="col d-flex justify-content-end align-items-center">
+                        <nav aria-label="Page navigation example">
+                          <ul class="pagination">
+                            <li class="page-item">
+                              <button
+                                type="button"
+                                class="page-link"
+                                :class="{
+                                  disabled: !contact.prev_page_url,
+                                }"
+                                @click="contact.prev_page_url && list(contact.prev_page_url)"
+                              >
+                                Previous
+                              </button>
+                            </li>
+                            <li
+                              class="page-item"
+                              style="margin-left: 15px; margin-right: 15px"
+                            >
+                              <input
+                                type="text"
+                                class="form-control form-control-sm text-center"
+                                v-model="current_page"
+                                @keypress="directPage"
+                                style="width: 60px"
+                              />
+                            </li>
+                            <li class="page-item">
+                              <button
+                                type="button"
+                                class="page-link"
+                                :class="{
+                                  disabled: !contact.next_page_url,
+                                }"
+                                @click="contact.next_page_url && list(contact.next_page_url)"
+                              >
+                                Next
+                              </button>
+                            </li>
+                          </ul>
+                        </nav>
+                      </div>
+                    </div> -->
                     <div class="text-center mt-20">
-                      <button type="button" class="btn btn-danger">Back</button>
-                      <button type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addContact">Add Contact Person</button>
+                      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addContact" @click="addContact()">
+                        Add Contact Person
+                      </button>
                     </div>
                   </div>
                 </div>
 
-                <!-- Modal Add Contact -->
-                <div class="modal fade" id="addContact" tabindex="-1" aria-labelledby="addContactLabel" aria-hidden="true">
-                  <div class="modal-dialog">
+                <!-- Modal Contact -->
+                <div class="modal fade" tabindex="-1" id="addContact" data-bs-backdrop="static">
+                  <div class="modal-dialog modal-dialog-centered modal-lg">
                     <div class="modal-content">
                       <div class="modal-header">
-                        <h5 class="modal-title" id="addContactLabel">Add Contact</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <h3 v-if="modal_contact" class="modal-title">Add Contact Person</h3>
+                        <h3 v-else class="modal-title">Edit Contact Person</h3>
+
+                        <!--begin::Close-->
+                        <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close"
+                        >
+                          <span class="svg-icon svg-icon-1" @click="closeModalContact()">
+                            <svg
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <rect
+                                opacity="0.5"
+                                x="6"
+                                y="17.3137"
+                                width="16"
+                                height="2"
+                                rx="1"
+                                transform="rotate(-45 6 17.3137)"
+                                fill="currentColor"
+                              ></rect>
+                              <rect
+                                x="7.41422"
+                                y="6"
+                                width="16"
+                                height="2"
+                                rx="1"
+                                transform="rotate(45 7.41422 6)"
+                                fill="currentColor"
+                              ></rect>
+                            </svg>
+                          </span>
+                        </div>
+                        <!--end::Close-->
                       </div>
                       <div class="modal-body">
-                        <form action="">
-                          <div class="mb-3">
-                            <label class="form-label">Name</label>
-                            <input type="text" class="form-control" name="">
+                        <form @submit.prevent="submitContact">
+                          <input type="hidden" v-if="sales_detail" v-model="sales_detail.id">
+                          <div class="row">
+                            <div class="col-lg-6">
+                              <div class="form-group mb-3">
+                                <label class="form-label fw-bold">Name</label>
+                                <input
+                                  type="text"
+                                  class="form-control"
+                                  v-model="p_contact.name"
+                                  :class="{
+                                    'is-invalid': errors.name,
+                                  }"
+                                />
+                                <span v-if="errors.name" class="error invalid-feedback">{{
+                                  errors.name[0]
+                                }}</span>
+                              </div>
+                              <div class="form-group mb-3">
+                                <label class="form-label fw-bold">Phone</label>
+                                <input
+                                  type="number"
+                                  class="form-control"
+                                  v-model="p_contact.phone"
+                                  :class="{
+                                    'is-invalid': errors.phone,
+                                  }"
+                                />
+                                <span v-if="errors.phone" class="error invalid-feedback">{{
+                                  errors.phone[0]
+                                }}</span>
+                              </div>
+                              <div class="form-group mb-3">
+                                <label class="form-label fw-bold">Email</label>
+                                <input
+                                  type="email"
+                                  class="form-control"
+                                  v-model="p_contact.email"
+                                  :class="{
+                                    'is-invalid': errors.email,
+                                  }"
+                                />
+                                <span
+                                  v-if="errors.email"
+                                  class="error invalid-feedback"
+                                  >{{ errors.email[0] }}</span
+                                >
+                              </div>
+                            </div>
+                            <div class="col-lg-6">
+                              <div class="form-group mb-3">
+                                <label class="form-label fw-bold">Address</label>
+                                <input
+                                  type="text"
+                                  class="form-control"
+                                  v-model="p_contact.address"
+                                  :class="{
+                                    'is-invalid': errors.address,
+                                  }"
+                                />
+                                <span
+                                  v-if="errors.address"
+                                  class="error invalid-feedback"
+                                  >{{ errors.address[0] }}</span
+                                >
+                              </div>
+                              <div class="form-group mb-3">
+                                <label class="form-label fw-bold">Title</label>
+                                <input
+                                  type="text"
+                                  class="form-control"
+                                  v-model="p_contact.title"
+                                  :class="{
+                                    'is-invalid': errors.title,
+                                  }"
+                                />
+                                <span
+                                  v-if="errors.title"
+                                  class="error invalid-feedback"
+                                  >{{ errors.title[0] }}</span
+                                >
+                              </div>
+                              <div class="form-group mb-3">
+                                <label class="form-label fw-bold">Status</label>
+                                <select class="form-select" v-model="p_contact.status">
+                                  <option value="1">Active</option>
+                                  <option value="0">Deactive</option>
+                                </select>
+                                <span
+                                  v-if="errors.status"
+                                  class="error invalid-feedback"
+                                  >{{ errors.status[0] }}</span
+                                >
+                              </div>
+                            </div>
                           </div>
-                          <div class="mb-3">
-                            <label class="form-label">Phone</label>
-                            <input type="number" class="form-control" name="">
-                          </div>
-                          <div class="mb-3">
-                            <label class="form-label">Email</label>
-                            <input type="email" class="form-control" name="">
-                          </div>
-                          <div class="mb-3">
-                            <label class="form-label">Title</label>
-                            <input type="text" class="form-control" name="">
-                          </div>
-                          <div class="mb-3">
-                            <label class="form-label">Address</label>
-                            <textarea type="text" class="form-control" name=""></textarea>
-                          </div>
-                          <div class="mb-3">
-                            <label class="form-label">Status</label>
-                            <select class="form-select">
-                              <option value="">Active</option>
-                            </select>
+                          <div class="row mt-10">
+                            <div class="col d-flex justify-content-end">
+                              <button type="button" class="btn btn-light mx-2" data-bs-dismiss="modal" id="close_modal_contact" @click="closeModalContact()">
+                                Close
+                              </button>
+                              <button type="submit" class="btn btn-primary">Save</button>
+                            </div>
                           </div>
                         </form>
                       </div>
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save</button>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Modal Upload -->
+                <div class="modal fade" tabindex="-1" id="addFile" data-bs-backdrop="static">
+                  <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h3 v-if="modal_upload == 1" class="modal-title">Upload Attachment RFQ or Email Request</h3>
+                        <h3 v-if="modal_upload == 2" class="modal-title">Upload Attachment Workscope</h3>
+                        <h3 v-if="modal_upload == 3" class="modal-title">Attachment of Financial Assesment Form (optional)</h3>
+                        <h3 v-if="modal_upload == 4" class="modal-title">Attachment of Maintenance Proposal for Customer</h3>
+                        <h3 v-if="modal_upload == 5" class="modal-title">Attachment of Profitability Analysis Form Signed</h3>
+                        <h3 v-if="modal_upload == 6" class="modal-title">Attachment of Customer Approval (SOW Signed / Proposal Approved)</h3>
+                        <h3 v-if="modal_upload == 7" class="modal-title">Attachment of WO/PO number customer document</h3>
+
+                        <!--begin::Close-->
+                        <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
+                          <span class="svg-icon svg-icon-1" @click="closeModalFile()">
+                            <svg
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <rect
+                                opacity="0.5"
+                                x="6"
+                                y="17.3137"
+                                width="16"
+                                height="2"
+                                rx="1"
+                                transform="rotate(-45 6 17.3137)"
+                                fill="currentColor"
+                              ></rect>
+                              <rect
+                                x="7.41422"
+                                y="6"
+                                width="16"
+                                height="2"
+                                rx="1"
+                                transform="rotate(45 7.41422 6)"
+                                fill="currentColor"
+                              ></rect>
+                            </svg>
+                          </span>
+                        </div>
+                        <!--end::Close-->
+                      </div>
+                      <div class="modal-body">
+                        <form>
+                          <div class="form-group mb-3">
+                            <input type="file"
+                            @change="attachFile()" 
+                            id="files" 
+                            ref="files" 
+                            class="form-control" multiple  
+                            :class="{
+                              'is-invalid': errors.files,
+                            }"
+                            />
+                            <span v-if="errors.files" class="error invalid-feedback">{{
+                              errors.files[0]
+                            }}</span>
+                          </div>
+                          <div class="row mt-10">
+                            <div class="col d-flex justify-content-end">
+                              <button type="button" class="btn btn-light mx-2" data-bs-dismiss="modal" id="close_modal_file" @click="closeModalFile()">
+                                Close
+                              </button>
+                              <button type="button" @click="submitFile()" class="btn btn-primary">Save</button>
+                            </div>
+                          </div>
+                        </form>
                       </div>
                     </div>
                   </div>
                 </div>
 
-                <!-- Tab Reschedule -->
+                <!-- Tab Reschedule/Cancel -->
                 <div class="tab-pane fade" id="reschedule-tab-pane" role="tabpanel" aria-labelledby="reschedule-tab" tabindex="0">
                   <div class="mt-5">
                     <ul class="nav nav-tabs nav-line-tabs nav-line-tabs-2x mb-5 fs-6">
@@ -898,17 +1222,14 @@
                           <a class="nav-link active" data-bs-toggle="tab" href="#kt_tab_pane_1">Reschedule/Reject</a>
                       </li>
                       <li class="nav-item">
-                          <a class="nav-link" data-bs-toggle="tab" href="#kt_tab_pane_2">Reschedule/Cancel</a>
+                          <a class="nav-link" data-bs-toggle="tab" href="#kt_tab_pane_2">Cancel</a>
                       </li>
                     </ul>
 
                     <div class="tab-content" id="myTabContent">
+                      <!-- Reschedule Form -->
                       <div class="tab-pane fade show active" id="kt_tab_pane_1" role="tabpanel">
                           <form action="">
-                            <div class="mb-3">
-                              <label class="form-label">Reschedule/Reject</label>
-                              <input type="text" name="" class="form-control" id="">
-                            </div>
                             <div class="mb-3">
                               <label class="form-label">Hanggar</label>
                               <input type="number" name="" class="form-control" id="">
@@ -934,31 +1255,38 @@
                               <input type="text" name="" class="form-control" id="" readonly>
                             </div>
                             <div class="text-center mt-5">
-                              <button type="reset" class="btn btn-danger">Cancel</button>
+                              <button type="reset" class="btn btn-danger">Reset</button>
                               <button type="submit" class="btn btn-primary">Confirm</button>
                             </div>
                           </form>
                       </div>
+                      <!-- Cancel Form -->
                       <div class="tab-pane fade" id="kt_tab_pane_2" role="tabpanel">
                         <form action="">
                           <div class="mb-3">
-                            <label class="form-label">Reschedule/Cancel</label>
-                            <select class="form-select">
-                              <option value="">Cancel</option>
-                            </select>
-                          </div>
-                          <div class="mb-3">
                             <label class="form-label">Category</label>
-                            <select class="form-select">
-                              <option value="">-- Select One --</option>
-                            </select>
+                            <div class="row mb-5">
+                              <div class="col">
+                                <div class="input-group mb-3">
+                                  <multiselect
+                                    v-model="value"
+                                    placeholder="Select Category"
+                                    label="name"
+                                    track-by="code"
+                                    :options="optionsCategory"
+                                    :multiple="true"
+                                    :taggable="false"
+                                  ></multiselect>
+                                </div>
+                              </div>
+                            </div>
                           </div>
                           <div class="mb-3">
                             <label class="form-label">Reason of Cancel <span class="text-danger">*</span></label>
                             <textarea name="" class="form-control" cols="30" rows="10"></textarea>
                           </div>
                           <div class="text-center mt-5">
-                            <button type="reset" class="btn btn-danger">Cancel</button>
+                            <button type="reset" class="btn btn-danger">Reset</button>
                             <button type="submit" class="btn btn-primary">Confirm</button>
                           </div>
                         </form>
@@ -977,37 +1305,350 @@
     </div>
     <!-- End Content -->
   </div>
-
 </template>
-
-
 <script>
+import debounce from 'lodash/debounce'
 export default {
   layout: 'template',
   name: 'MySalesPlanDetailPage',
+  data() {
+    return {
+      user: this.$auth.user.user,
+      sales: {
+        data: [],
+        link: [],
+      },
+      files: [],
+      value: [],  
+      optionsCategory: [
+        { name: 'Category1', code: 'c1' },
+        { name: 'Category2', code: 'c2' },
+        { name: 'Category3', code: 'c3' },
+      ],    
+      p_contact: {
+        id: null,
+        name: null,
+        phone: null,
+        email: null,
+        address: null,
+        title: null,
+        status: null,
+      },
+      search: null,
+      type: null,
+      order: 'id',
+      by: 'desc',
+      paginate: '10',
+      modal_contact: false,
+      modal_upload: null,
+      current_page: null,
+      sales_detail: null,
+      contact: null,
+      requirement_id: null,
+      sales_id: null,
+      files: '',
+      contacts: null,
+      level4: null,
+      level3: null,
+      level2: null,
+      level1: null,
+      errors: {
+        name: null,
+        phone: null,
+        email: null,
+        address: null,
+        title: null,
+        status: null,
+        files: null,
+      },
+    }
+  },
   mounted() {
     KTStepper.getInstance()
     KTFormRepeaterBasic.init()
     this.step()
   },
-  // watch: {
-  //   search: debounce(function () {
-  //     this.list()
-  //   }, 500),
-  // },
+  watch: {
+    search: debounce(function () {
+      this.listDetail()
+      this.listContact()
+      this.listFile()
+    }, 500),
+  },
+  created() {
+    this.listDetail()
+    this.listContact()
+    this.listFile()
+  },
   methods: {
+    directPage: debounce(function () {
+      if (this.current_page < 1) {
+        this.current_page = 1
+      } else if (this.current_page > this.contact.last_page) {
+        this.current_page = this.contact.last_page
+      }
+      let url = new URL(this.contact.first_page_url)
+      let search_params = url.searchParams
+      search_params.set('page', this.current_page)
+      url.search = search_params.toString()
+      let new_url = url.toString()
+      this.listContact(new_url)
+    }, 500),
+    formatPrice(value) {
+      let val = (value/1).toFixed(0).replace(',', ',')
+      return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+    },
     step() {
       var element = document.querySelector("#kt_stepper_example_basic");
-
       var stepper = new KTStepper(element);
-
       stepper.on("kt.stepper.next", function (stepper) {
-          stepper.goNext(); // go next step
+          stepper.goNext(); 
       });
-
       stepper.on("kt.stepper.previous", function (stepper) {
-          stepper.goPrevious(); // go previous step
+          stepper.goPrevious(); 
       });
+    },
+    attachFile() {
+      this.files = this.$refs.files.files;
+    },
+    loading() {
+      Swal.fire({
+        timer: 500,
+        didOpen: () => {
+          Swal.showLoading()
+        },
+        background: 'transparent',
+        allowOutsideClick: false,
+      })
+    },
+    listDetail() {
+      this.$axios
+      .get(`api/sales-show/${this.$route.query.id}`)
+      .then((response) => {
+        this.sales_detail = response.data.data.salesDetail
+        this.level4 = response.data.data.level4
+        Swal.close()
+      })
+      .catch((error) => console.log(error))
+    },
+    listContact(paginate) {
+      this.loading()
+      paginate = paginate || `/api/contact-person/`
+      this.$axios
+      .get(paginate, {
+        params: {
+          search: this.search,
+          order: this.order,
+          by: this.by,
+          paginate: this.paginate,
+        },
+      })
+      .then((response) => {
+        this.contact = response.data.data
+        this.current_page = this.contact.current_page
+        console.log(this.contact)
+        Swal.close()
+      })
+      .catch((error) => console.log(error))
+    },
+    listFile(paginate) {
+      this.loading()
+      paginate = paginate || `/api/file/`
+      this.$axios
+      .get(paginate, {
+        params: {
+          search: this.search,
+          order: this.order,
+          by: this.by,
+          paginate: this.paginate,
+        },
+      })
+      .then((response) => {
+        this.files = response.data.data
+        // console.log(this.files)
+        Swal.close()
+      })
+      .catch((error) => console.log(error))
+    },
+
+    submitFile() {
+      this.loading()
+      let formData = new FormData();
+      for( var i = 0; i < this.files.length; i++ ){
+        let file = this.files[i];
+        formData.append('files[' + i + ']', file);  
+      }
+      formData.append('sales_id', this.sales_detail.id);
+      formData.append('requirement_id', this.level4.sequence);
+      this.$axios
+        .post('/api/file-create', 
+        formData, 
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          },
+        })
+        .then((response) => {
+          toastr.success(response.data.message)
+          console.log('Uplaod Berhasil');
+          this.listFile()
+          this.listDetail()
+          this.closeModalFile()
+        })
+        .catch((error) => {
+          if (error.response.status == 422) {
+            this.errors = error.response.data.errors
+            toastr.error(error.response.data.message)
+          }
+        });
+    },
+    removeFile(id) {
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!',
+      })
+          .then((result) => {
+            if (result.isConfirmed) {
+              this.$axios.delete('/api/file-delete/' + id)
+          .then((response) => {
+            toastr.success(response.data.message)
+            this.listFile()
+            this.listDetail()
+          })
+        }
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+    },
+    addFile1() {
+      this.level4.sequence = 2
+      this.modal_upload = 1
+    },
+    addFile2() {
+      this.level4.sequence = 3
+      this.modal_upload = 2
+    },
+    addFile3() {
+      this.level4.sequence = 4
+      this.modal_upload = 3 
+    }, 
+    addFile4() {
+      this.level4.sequence = 5
+      this.modal_upload = 4 
+    },
+    addFile5() {
+      this.level4.sequence = 6
+      this.modal_upload = 5 
+    },
+    addFile6() {
+      this.level4.sequence = 7
+      this.modal_upload = 6 
+    },
+    addFile7() {
+      this.level4.sequence = 9
+      this.modal_upload = 7 
+    },
+
+    submitContact() {
+      if (this.modal_contact) {
+        this.createContact()
+      } else {
+        this.updateContact()
+      }
+    },
+    addContact() {
+      this.modal_contact = true
+    },
+    createContact() {
+      this.loading()
+      this.$axios
+        .post('/api/contact-person-create', {
+          id: this.p_contact.id,
+          sales_id: this.sales_detail.id,
+          name: this.p_contact.name,
+          phone: this.p_contact.phone,
+          email: this.p_contact.email,
+          address: this.p_contact.address,
+          title: this.p_contact.title,
+          status: this.p_contact.status,
+        })
+        .then((response) => {
+          toastr.success(response.data.message)
+          this.listContact()
+          this.closeModalContact()
+        })
+        .catch((error) => {
+          if (error.response.status == 422) {
+            this.errors = error.response.data.errors
+            toastr.error(error.response.data.message)
+          }
+        })
+    },
+    removeContact(id) {
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!',
+      })
+          .then((result) => {
+            if (result.isConfirmed) {
+              this.$axios.delete('/api/contact-person-delete/' + id, {
+                params: {
+                  sales_id: this.sales_detail.id,
+                },
+            })
+          .then((response) => {
+            toastr.success(response.data.message)
+            this.listContact()
+            this.listDetail()
+          })
+        }
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+    },
+
+    closeModalFile() {
+      this.listFile()
+      this.clearFormFile()
+    },
+    clearFormFile() {
+      this.files = null
+      this.$refs.files.value = null;
+      this.errors.files = null
+      this.errors.sales_detail = null
+      this.errors.requirement_id = null
+    },
+
+    closeModalContact() {
+      document.getElementById('close_modal_contact').click()
+      this.clearFormContact()
+    },
+    clearFormContact() {
+      this.p_contact.id = null
+      this.p_contact.name = null
+      this.p_contact.phone = null
+      this.p_contact.email = null
+      this.p_contact.address = null
+      this.p_contact.title = null
+      this.p_contact.status = null
+      this.errors.name = null
+      this.errors.phone = null
+      this.errors.email = null
+      this.errors.address = null
+      this.errors.title = null
+      this.errors.status = null
     },
   }
 }
@@ -1019,4 +1660,58 @@ export default {
 .mb-20 {
   margin-bottom: 20px;
 }
-</style>
+
+#cardTop {
+  width: 218px;
+}
+
+#cardMarketShare {
+  border: dotted #04C8C8; 
+  border-radius: 10px; 
+  padding-top: 10px;
+}
+
+#cardSalesPlan {
+  border: dotted #50CD89; 
+  border-radius: 10px; 
+  padding-top: 10px;
+}
+
+#cardDevisiasi {
+  border: dotted #F1416C; 
+  border-radius: 10px; 
+  padding-top: 10px;
+}
+
+#textMarketShare {
+  color: #04C8C8;
+}
+
+#textSalesPlan {
+  color: #50CD89;
+}
+
+#textDevisiasi {
+  color: #F1416C;
+}
+
+#textSync {
+  background-color: #F1E0D0; 
+  color: #955F2D;
+}
+
+#textWaiting {
+  background-color: #F1E0D0; 
+  color: #955F2D;
+}
+
+#bodyAMS {
+  background: #F1F5F9; 
+  padding: 10px;
+  border-radius: 8px
+}
+
+#myBorder {
+  border:dashed #CDE7FE;
+}
+</style>  

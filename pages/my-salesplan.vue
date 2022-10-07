@@ -7,6 +7,9 @@
           <h3 class="mt-3">My Salesplan</h3>
         </div>
         <div class="col-lg-6 col-sm-12 d-flex justify-content-end">
+          <button type="button" class="btn btn-outline btn-outline-primary me-2 mb-2" data-bs-toggle="modal" data-bs-target="#filterdate">
+            Filter & Date <i class="fa-solid fa-chevron-down"></i>
+          </button>
           <button type="button" class="btn btn-outline btn-outline-primary me-2 mb-2" data-bs-toggle="modal" data-bs-target="#filterdate">Filter & Date <i class="fa-solid fa-chevron-down"></i></button>
         </div>
 
@@ -516,9 +519,7 @@
             </div>
             <!-- Table -->
             <div class="table-responsive">
-              <table
-                class="table table-row-bordered table-row-gray-200 gy-4"
-              >
+              <table class="table table-row-bordered table-row-gray-200 gy-4">
                 <thead>
                   <tr class="fw-bold fs-6 text-gray-800">
                     <th class="text-center">No</th>
@@ -560,8 +561,8 @@
                       <div v-if="p_sales.other === 'RKAP'">
                         <span class="badge badge-info">RKAP</span>
                       </div>
-                      <div v-if="p_sales.other === 'NOT-RKAP'">
-                        <span class="badge badge-primary">NO-RKAP</span>
+                      <div v-if="p_sales.other === 'Additional'">
+                        <span class="badge badge-primary">Additional</span>
                       </div>
                     </td>
                     <!-- Type -->
@@ -600,13 +601,13 @@
                         <span class="badge badge-danger">30%</span>
                       </div>
                       <div v-if="p_sales.progress === 40">
-                        <span class="badge badge-info">40%</span>
+                        <span class="badge badge-warning">40%</span>
                       </div>
                       <div v-if="p_sales.progress === 50">
-                        <span class="badge badge-info">50%</span>
+                        <span class="badge badge-warning">50%</span>
                       </div>
                       <div v-if="p_sales.progress === 60">
-                        <span class="badge badge-info">60%</span>
+                        <span class="badge badge-warning">60%</span>
                       </div>
                       <div v-if="p_sales.progress === 70">
                         <span class="badge badge-primary">70%</span>
@@ -633,7 +634,7 @@
                         <span class="badge badge-warning">Close in</span>
                       </div>
                       <div v-if="p_sales.status === 'Closed Sales'">
-                        <span class="badge badge-primary">Closed</span>
+                        <span class="badge badge-primary">Closed Sales</span>
                       </div>
                     </td>
                     <td class="text-center">
@@ -759,8 +760,8 @@ export default {
       by: 'desc',
       paginate: '10',
       current_page: null,
-      sales_all: null,
       sales_user: null,
+      sales_all: null,
       errors: {
         customer: null,
         prospect: null,

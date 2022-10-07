@@ -525,14 +525,15 @@
                                   </div>
                                   <div class="rounded box-d" id="myBorder">
                                     <div class="mt-3">
-                                      <table class="table">
-                                        <tr>
-                                          <td class="">
-                                            <strong>Project Term</strong>
-                                            <p>1.2mb</p>
+                                      <table class="table" v-if="files">
+                                        <tr v-for="files in level3[0].data" :key="files">
+                                          <td>
+                                              <a :href="`http://127.0.0.1:8000/storage/`+files.path" class="btn btn-outline-primary btn-outline btn-sm" target="_blank">
+                                                <strong>{{ files.file_name }}</strong>
+                                              </a>
                                           </td>
                                           <td class="d-flex justify-content-end">
-                                            <button type="submit" class="btn btn-danger btn-sm"><span class="fas fa-trash"></span></button>
+                                            <button type="button" class="btn btn-danger btn-sm" @click="removeFile(files.id)"><span class="fas fa-trash"></span></button>
                                           </td>
                                         </tr>
                                       </table>
@@ -563,14 +564,15 @@
                                   </div>
                                   <div class="rounded box-d" id="myBorder">
                                     <div class="mt-3">
-                                      <table class="table">
-                                        <tr>
-                                          <td class="">
-                                            <strong>Project Term</strong>
-                                            <p>1.2mb</p>
+                                      <table class="table" v-if="files">
+                                        <tr v-for="files in level3[1].data" :key="files">
+                                          <td>
+                                              <a :href="`http://127.0.0.1:8000/storage/`+files.path" class="btn btn-outline-primary btn-outline btn-sm" target="_blank">
+                                                <strong>{{ files.file_name }}</strong>
+                                              </a>
                                           </td>
                                           <td class="d-flex justify-content-end">
-                                            <button type="submit" class="btn btn-danger btn-sm"><span class="fas fa-trash"></span></button>
+                                            <button type="button" class="btn btn-danger btn-sm" @click="removeFile(files.id)"><span class="fas fa-trash"></span></button>
                                           </td>
                                         </tr>
                                       </table>
@@ -601,14 +603,15 @@
                                   <!-- End Modal Upload Profitability  -->
                                   <div class="rounded box-d" id="myBorder">
                                     <div class="mt-3">
-                                      <table class="table">
-                                        <tr>
+                                      <table class="table" v-if="files">
+                                        <tr v-for="files in level3[2].data" :key="files">
                                           <td>
-                                            <strong>Project Term</strong>
-                                            <p>1.2mb</p>
+                                              <a :href="`http://127.0.0.1:8000/storage/`+files.path" class="btn btn-outline-primary btn-outline btn-sm" target="_blank">
+                                                <strong>{{ files.file_name }}</strong>
+                                              </a>
                                           </td>
                                           <td class="d-flex justify-content-end">
-                                            <button type="submit" class="btn btn-danger btn-sm"><span class="fas fa-trash"></span></button>
+                                            <button type="button" class="btn btn-danger btn-sm" @click="removeFile(files.id)"><span class="fas fa-trash"></span></button>
                                           </td>
                                         </tr>
                                       </table>
@@ -1427,6 +1430,7 @@ export default {
       .then((response) => {
         this.sales_detail = response.data.data.salesDetail
         this.level4 = response.data.data.level4
+        this.level3 = response.data.data.level3
         Swal.close()
       })
       .catch((error) => console.log(error))
@@ -1490,9 +1494,6 @@ export default {
         })
         .then((response) => {
           toastr.success(response.data.message)
-          console.log('Uplaod Berhasil');
-          this.listFile()
-          this.listDetail()
           this.closeModalFile()
         })
         .catch((error) => {
@@ -1621,6 +1622,7 @@ export default {
 
     closeModalFile() {
       this.listFile()
+      this.listDetail()
       this.clearFormFile()
     },
     clearFormFile() {

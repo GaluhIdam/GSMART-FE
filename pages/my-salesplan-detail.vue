@@ -496,16 +496,6 @@
                                     </div>
                                   </div>
 
-                                  <!-- <div v-if="sales_detail.status === 'Open'"> -->
-                                    <div class="text-center mt-10">
-                                      <!-- <button type="button" class="btn btn-primary" disabled v-if="sales_detail.level === 4">Continue</button> -->
-                                      <!-- <button type="button" class="btn btn-primary" data-kt-stepper-action="next" v-else>Continue</button> -->
-                                      <!-- <button type="button" class="btn btn-primary" data-kt-stepper-action="next">
-                                        Continue
-                                      </button> -->
-                                    </div>
-                                  <!-- </div> -->
-
                                 </div>
                               </form>
                             </div>
@@ -719,7 +709,7 @@
                                     <div class="col-lg-4" v-if="sales_detail">
                                       <div class="mb-3">
                                         <label>Registration</label>
-                                        <input type="text" class="form-control form-control-solid" v-model="sales_detail.acReg" readonly/>
+                                        <input type="text" class="form-control form-control-solid" v-model="sales_detail.registration" readonly/>
                                       </div>
                                       <div class="mb-3">
                                         <label>TAT</label>
@@ -736,15 +726,6 @@
                                         <input type="text" class="form-control form-control-solid" v-model="sales_detail.endDate" readonly/>
                                       </div>
                                     </div>
-                                  </div>
-
-                                  <div class="text-center mt-10">
-                                    <!-- <button type="button" class="btn btn-light btn-active-light-primary" data-kt-stepper-action="previous">
-                                      Back
-                                    </button>
-                                    <button type="button" class="btn btn-primary" data-kt-stepper-action="next">
-                                      Continue
-                                    </button> -->
                                   </div>
 
                                 </div>
@@ -803,14 +784,14 @@
                                     <div class="row">
                                       <label for="">SO Number</label>
                                       <div class="input-group mb-3">
-                                        <input type="text" class="form-control">
-                                        <button class="btn btn-sm" type="button" @click="" id="textSync">Sync</button>
+                                        <input type="text" class="form-control" v-model="sales_detail.so_number" ref="so_number" id="so_number">
+                                        <button class="btn btn-sm" type="button" @click="createSO()" id="textSync">Sync</button>
                                       </div>
                                     </div>
                                   </form>
 
                                   <div class="text-center mt-10">
-                                    <button type="submit" class="btn btn-primary">Request to Closed</button>
+                                    <button type="button" class="btn btn-primary">Request to Closed</button>
                                   </div>
 
                                 </div>
@@ -1036,7 +1017,7 @@
                   <div class="mt-5">
                     <ul class="nav nav-tabs nav-line-tabs nav-line-tabs-2x mb-5 fs-6">
                       <li class="nav-item">
-                          <a class="nav-link active" data-bs-toggle="tab" href="#kt_tab_pane_1">Reschedule/Reject</a>
+                          <a class="nav-link active" data-bs-toggle="tab" href="#kt_tab_pane_1">Reschedule</a>
                       </li>
                       <li class="nav-item">
                           <a class="nav-link" data-bs-toggle="tab" href="#kt_tab_pane_2">Cancel</a>
@@ -1368,6 +1349,7 @@ export default {
         status: null,
       },
       search: null,
+      so_number: null,
       ams_id: null,
       type: null,
       order: 'id',
@@ -1680,6 +1662,23 @@ export default {
       .catch((error) => {
         console.log(error)
       })
+    },
+
+    createSO() {
+      this.loading()
+      const formData = new FormData();
+      formData.append("so_number", this.$refs.so_number.value);
+      this.$axios
+        .post(`/api/sales-so-number/${this.$route.query.id}`, formData)
+        .then((response) => {
+          toastr.success(response.data.message)
+        })
+        .catch((error) => {
+          if (error.response.status == 422) {
+            this.errors = error.response.data.errors
+            toastr.error(error.response.data.message)
+          }
+        })
     },
 
     closeModalFile() {

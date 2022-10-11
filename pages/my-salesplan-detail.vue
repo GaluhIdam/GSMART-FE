@@ -447,7 +447,10 @@
                                       <table class="table" v-if="files">
                                         <tr v-for="files in level4[1].data" :key="files.id">
                                           <td>
-                                              <a :href="`http://127.0.0.1:8000/storage/`+files.path" class="btn btn-outline-primary btn-outline btn-sm" target="_blank">
+                                              <!-- <a :href="`http://127.0.0.1:8000/storage/`+files.path" class="btn btn-outline-primary btn-outline btn-sm" target="_blank">
+                                                <strong>{{ files.file_name }}</strong>
+                                              </a> -->
+                                              <a :href="files.full_path" class="btn btn-outline-primary btn-outline btn-sm" target="_blank">
                                                 <strong>{{ files.file_name }}</strong>
                                               </a>
                                           </td>

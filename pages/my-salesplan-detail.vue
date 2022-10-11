@@ -65,27 +65,33 @@
                     <h5 class="modal-title w-100" id="switchAMSLabel">Switch AMS</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
-                  <div class="modal-body">
-                    <form action="">
-                      <div class="mb-3">
-                        <label class="form-label">To</label>
-                        <input type="text" class="form-control">
-                      </div>
-                      <div class="mb-3">
-                        <label class="form-label">Description</label> <br>
-                        <div id="bodyAMS" v-if="sales_detail">
-                          Level: <b>{{ sales_detail.level }}</b> Status: <b>{{ sales_detail.status }}</b> Other: <b>{{ sales_detail.other }}</b> Type: <b>{{ sales_detail.type }}</b> Month Sales: <b>{{ sales_detail.monthSales }}</b>
-                          Years: <b>{{ sales_detail.year }}</b> Start Date Project: <b>{{ sales_detail.start_date }}</b> End Date Project: <b>{{ sales_detail.endDate }}</b>
-                          TAT: <b>{{ sales_detail.tat }} Days</b> Progress: <b>{{ sales_detail.progress }}%</b> Product: <b>{{ sales_detail.product }}</b> Location: <b>{{ sales_detail.location }}</b>
-                          Maintenance: <b>{{ sales_detail.maintenance }}</b>
+                  <form>
+                    <div class="modal-body">
+                      <form action="">
+                        <div class="mb-3">
+                          <label class="form-label">To</label>
+                          <select v-model="ams_id" class="form-select">
+                            <option v-for="amss in ams" :value="amss.id">
+                              {{ amss.initial }} - {{ amss.user.name }}
+                            </option>
+                          </select>
                         </div>
-                      </div>
-                    </form>
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Back</button>
-                    <button type="submit" class="btn btn-primary">Send</button>
-                  </div>
+                        <div class="mb-3">
+                          <label class="form-label">Description</label> <br>
+                          <div id="bodyAMS" v-if="sales_detail">
+                            Level: <b>{{ sales_detail.level }}</b> Status: <b>{{ sales_detail.status }}</b> Other: <b>{{ sales_detail.other }}</b> Type: <b>{{ sales_detail.type }}</b> Month Sales: <b>{{ sales_detail.monthSales }}</b>
+                            Years: <b>{{ sales_detail.year }}</b> Start Date Project: <b>{{ sales_detail.start_date }}</b> End Date Project: <b>{{ sales_detail.endDate }}</b>
+                            TAT: <b>{{ sales_detail.tat }} Days</b> Progress: <b>{{ sales_detail.progress }}%</b> Product: <b>{{ sales_detail.product }}</b> Location: <b>{{ sales_detail.location }}</b>
+                            Maintenance: <b>{{ sales_detail.maintenance }}</b>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="close_modal_ams" @click="closeModalAMS()">Close</button>
+                      <button type="button" class="btn btn-primary" @click="">Send</button>
+                    </div>
+                  </form>
                 </div>
               </div>
             </div>
@@ -373,11 +379,12 @@
                     <!--begin::Form-->
                     <div class="form mx-auto" novalidate="novalidate" id="kt_stepper_example_basic_div">
                         <!--begin::Group-->
-                        <div class="mb-5">
+                        <div class="mb-5" v-if="sales_detail">
 
                             <!--begin::Step 4-->
-                            <div class="flex-column current" data-kt-stepper-element="content">
-                              <form action="">
+                            <div class="flex-column current" data-kt-stepper-element="content" v-if="sales_detail.level === 4 || sales_detail.level === 3 || sales_detail.level === 2 || sales_detail.level === 1">
+                              <!-- <form v-if="sales_detail"> -->
+                              <form>
                                 <div class="row">
                                   <!-- Fill in Contact Person of Customer -->
                                   <div class="col-lg-6">
@@ -394,7 +401,7 @@
                                   <div class="rounded box-d" id="myBorder">
                                     <div class="mt-3 table-responsive">
                                       <table class="table" v-if="contact">
-                                        <tr v-for="contact in level4[0].data" :key="contact">
+                                        <tr v-for="contact in level4[0].data" :key="contact.id">
                                           <td>
                                             <strong>{{ contact.name }}</strong>
                                           </td>
@@ -438,7 +445,7 @@
                                   <div class="rounded box-d" id="myBorder">
                                     <div class="mt-3 table-responsive">
                                       <table class="table" v-if="files">
-                                        <tr v-for="files in level4[1].data" :key="files">
+                                        <tr v-for="files in level4[1].data" :key="files.id">
                                           <td>
                                               <a :href="`http://127.0.0.1:8000/storage/`+files.path" class="btn btn-outline-primary btn-outline btn-sm" target="_blank">
                                                 <strong>{{ files.file_name }}</strong>
@@ -475,7 +482,7 @@
                                   <div class="rounded box-d" id="myBorder">
                                     <div class="mt-3">
                                       <table class="table" v-if="files">
-                                        <tr v-for="files in level4[2].data" :key="files">
+                                        <tr v-for="files in level4[2].data" :key="files.id">
                                           <td>
                                               <a :href="`http://127.0.0.1:8000/storage/`+files.path" class="btn btn-outline-primary btn-outline btn-sm" target="_blank">
                                                 <strong>{{ files.file_name }}</strong>
@@ -489,9 +496,15 @@
                                     </div>
                                   </div>
 
-                                  <div class="text-center mt-10">
-                                    <button type="submit" class="btn btn-primary">Upgrade & Notify CBO</button>
-                                  </div>
+                                  <!-- <div v-if="sales_detail.status === 'Open'"> -->
+                                    <div class="text-center mt-10">
+                                      <!-- <button type="button" class="btn btn-primary" disabled v-if="sales_detail.level === 4">Continue</button> -->
+                                      <!-- <button type="button" class="btn btn-primary" data-kt-stepper-action="next" v-else>Continue</button> -->
+                                      <!-- <button type="button" class="btn btn-primary" data-kt-stepper-action="next">
+                                        Continue
+                                      </button> -->
+                                    </div>
+                                  <!-- </div> -->
 
                                 </div>
                               </form>
@@ -499,8 +512,8 @@
                             <!--begin::Step 4-->
 
                             <!--begin::Step 3-->
-                            <div class="flex-column" data-kt-stepper-element="content">
-                              <form action="">
+                            <div class="flex-column" data-kt-stepper-element="content" v-if="sales_detail.level === 3 || sales_detail.level === 2 || sales_detail.level === 1">
+                              <form>
                                 <div class="row">
                                   <!-- <h5>File has been upload</h5> -->
                                   <!-- Attachment of Financial Assesment Form (optional) -->
@@ -526,7 +539,7 @@
                                   <div class="rounded box-d" id="myBorder">
                                     <div class="mt-3">
                                       <table class="table" v-if="files">
-                                        <tr v-for="files in level3[0].data" :key="files">
+                                        <tr v-for="files in level3[0].data" :key="files.id">
                                           <td>
                                               <a :href="`http://127.0.0.1:8000/storage/`+files.path" class="btn btn-outline-primary btn-outline btn-sm" target="_blank">
                                                 <strong>{{ files.file_name }}</strong>
@@ -565,7 +578,7 @@
                                   <div class="rounded box-d" id="myBorder">
                                     <div class="mt-3">
                                       <table class="table" v-if="files">
-                                        <tr v-for="files in level3[1].data" :key="files">
+                                        <tr v-for="files in level3[1].data" :key="files.id">
                                           <td>
                                               <a :href="`http://127.0.0.1:8000/storage/`+files.path" class="btn btn-outline-primary btn-outline btn-sm" target="_blank">
                                                 <strong>{{ files.file_name }}</strong>
@@ -604,7 +617,7 @@
                                   <div class="rounded box-d" id="myBorder">
                                     <div class="mt-3">
                                       <table class="table" v-if="files">
-                                        <tr v-for="files in level3[2].data" :key="files">
+                                        <tr v-for="files in level3[2].data" :key="files.id">
                                           <td>
                                               <a :href="`http://127.0.0.1:8000/storage/`+files.path" class="btn btn-outline-primary btn-outline btn-sm" target="_blank">
                                                 <strong>{{ files.file_name }}</strong>
@@ -619,7 +632,12 @@
                                   </div>
 
                                   <div class="text-center mt-10">
-                                    <button type="submit" class="btn btn-primary">Upgrade & Notify CBO</button>
+                                    <!-- <button type="button" class="btn btn-light btn-active-light-primary" data-kt-stepper-action="previous">
+                                      Back
+                                    </button>
+                                    <button type="button" class="btn btn-primary" data-kt-stepper-action="next">
+                                      Continue
+                                    </button> -->
                                   </div>
 
                                 </div>
@@ -628,7 +646,7 @@
                             <!--begin::Step 3-->
 
                             <!--begin::Step 2-->
-                            <div class="flex-column" data-kt-stepper-element="content">
+                            <div class="flex-column" data-kt-stepper-element="content" v-if="sales_detail.level === 2 || sales_detail.level === 1">
                               <form action="">
                                 <div class="row">
                                   <!-- <h5>File has been upload</h5> -->
@@ -655,7 +673,7 @@
                                   <div class="rounded box-d" id="myBorder">
                                     <div class="mt-3">
                                       <table class="table" v-if="files">
-                                        <tr v-for="files in level2[0].data" :key="files">
+                                        <tr v-for="files in level2[0].data" :key="files.id">
                                           <td>
                                               <a :href="`http://127.0.0.1:8000/storage/`+files.path" class="btn btn-outline-primary btn-outline btn-sm" target="_blank">
                                                 <strong>{{ files.file_name }}</strong>
@@ -721,7 +739,12 @@
                                   </div>
 
                                   <div class="text-center mt-10">
-                                    <button type="button" class="btn btn-primary">Upgrade & Notify CBO</button>
+                                    <!-- <button type="button" class="btn btn-light btn-active-light-primary" data-kt-stepper-action="previous">
+                                      Back
+                                    </button>
+                                    <button type="button" class="btn btn-primary" data-kt-stepper-action="next">
+                                      Continue
+                                    </button> -->
                                   </div>
 
                                 </div>
@@ -730,7 +753,7 @@
                             <!--begin::Step 2-->
 
                             <!--begin::Step 1-->
-                            <div class="flex-column" data-kt-stepper-element="content">
+                            <div class="flex-column" data-kt-stepper-element="content" v-if="sales_detail.level === 1">
                               <form action="">
                                 <div class="row">
                                   <!-- <h5>File has been upload</h5> -->
@@ -757,14 +780,15 @@
                                   </div>
                                   <div class="rounded box-d" id="myBorder">
                                     <div class="mt-3">
-                                      <table class="table">
-                                        <tr>
-                                          <td class="">
-                                            <strong>Project Term</strong>
-                                            <p>1.2mb</p>
+                                      <table class="table" v-if="files">
+                                        <tr v-for="files in level1[0].data" :key="files.id">
+                                          <td>
+                                              <a :href="`http://127.0.0.1:8000/storage/`+files.path" class="btn btn-outline-primary btn-outline btn-sm" target="_blank">
+                                                <strong>{{ files.file_name }}</strong>
+                                              </a>
                                           </td>
                                           <td class="d-flex justify-content-end">
-                                            <button type="submit" class="btn btn-danger btn-sm"><span class="fas fa-trash"></span></button>
+                                            <button type="button" class="btn btn-danger btn-sm" @click="removeFile(files.id)"><span class="fas fa-trash"></span></button>
                                           </td>
                                         </tr>
                                       </table>
@@ -775,13 +799,15 @@
                                   <div class="col-lg-6 mt-5">
                                     <h3>Input SO Number</h3>
                                   </div>
-                                  <div class="row">
-                                    <label for="">SO Number</label>
-                                    <div class="input-group mb-3">
-                                      <input type="text" class="form-control">
-                                      <button class="btn btn-sm" type="button" id="textSync">Sync</button>
+                                  <form>
+                                    <div class="row">
+                                      <label for="">SO Number</label>
+                                      <div class="input-group mb-3">
+                                        <input type="text" class="form-control">
+                                        <button class="btn btn-sm" type="button" @click="" id="textSync">Sync</button>
+                                      </div>
                                     </div>
-                                  </div>
+                                  </form>
 
                                   <div class="text-center mt-10">
                                     <button type="submit" class="btn btn-primary">Request to Closed</button>
@@ -806,7 +832,7 @@
 
                             <!--begin::Wrapper-->
                             <div>
-                                <!-- <button type="button" class="btn btn-primary" data-kt-stepper-action="submit">
+                                <!-- <button type="button" class="btn btn-primary" data-kt-stepper-action="submit" disabled>
                                     <span class="indicator-label">
                                         Done
                                     </span>
@@ -832,7 +858,7 @@
                 <div class="tab-pane fade" id="history-tab-pane" role="tabpanel" aria-labelledby="history-tab" tabindex="0">
                   <div class="mt-5">
                     <!-- Filter -->
-                    <div class="row">
+                    <!-- <div class="row">
                       <div class="col-lg-8"></div>
                         <div class="col-lg-4 col-sm-12 d-flex justify-content-end">
                           <select class="form-select" v-model="month">
@@ -849,11 +875,8 @@
                             <option value="11">November</option>
                             <option value="12">December</option>
                           </select>
-                          <!-- <button type="button" @click="listFileHistory()" class="btn btn-primary btn-sm"> 
-                            Filter
-                          </button> -->
                         </div>
-                    </div>
+                    </div> -->
                     
                     <div v-for="file_history in file_histories">
                       <div class="row">
@@ -869,7 +892,7 @@
                         <div class="rounded box-d mb-5" id="myBorder">
                           <div class="mt-3">
                             <table class="table">
-                              <tr v-for="file in file_history.files" :key="file_history">
+                              <tr v-for="file in file_history.files" :key="file.id">
                                 <td>
                                     <form>
                                       <a :href="`http://127.0.0.1:8000/storage/`+file.path" 
@@ -1092,7 +1115,7 @@
 
                 <!-- Modal Contact -->
                 <div class="modal fade" tabindex="-1" id="addContact" data-bs-backdrop="static">
-                  <div class="modal-dialog modal-dialog-centered modal-lg">
+                  <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                       <div class="modal-header">
                         <h3 v-if="modal_contact" class="modal-title">Add Contact Person</h3>
@@ -1328,6 +1351,7 @@ export default {
         link: [],
       },
       files: [],
+      ams: null,
       value: [],  
       optionsCategory: [
         { name: 'Category1', code: 'c1' },
@@ -1344,6 +1368,7 @@ export default {
         status: null,
       },
       search: null,
+      ams_id: null,
       type: null,
       order: 'id',
       by: 'desc',
@@ -1362,6 +1387,7 @@ export default {
       level3: null,
       level2: null,
       level1: null,
+      name: null,
       file_histories: [],
       errors: {
         name: null,
@@ -1385,6 +1411,7 @@ export default {
       this.listContact()
       this.listFile()
       this.listFileHistory()
+      this.listAMS()
     }, 500),
   },
   created() {
@@ -1392,6 +1419,7 @@ export default {
     this.listContact()
     this.listFile()
     this.listFileHistory()
+    this.listAMS()
   },
   methods: {
     directPage: debounce(function () {
@@ -1442,6 +1470,7 @@ export default {
         this.level4 = response.data.data.level4
         this.level3 = response.data.data.level3
         this.level2 = response.data.data.level2
+        this.level1 = response.data.data.level1
         Swal.close()
       })
       .catch((error) => console.log(error))
@@ -1461,7 +1490,6 @@ export default {
       .then((response) => {
         this.contact = response.data.data.data
         this.current_page = this.contact.current_page
-        console.log(this.contact)
         Swal.close()
       })
       .catch((error) => console.log(error))
@@ -1494,6 +1522,16 @@ export default {
       })
       .then((response) => {
         this.file_histories = response.data.data.history
+        Swal.close()
+      })
+      .catch((error) => console.log(error))
+    },
+    listAMS() {
+      this.loading()
+      this.$axios
+      .get(`api/ams/`)
+      .then((response) => {
+        this.ams = response.data.data.data
         Swal.close()
       })
       .catch((error) => console.log(error))
@@ -1676,6 +1714,18 @@ export default {
       this.errors.title = null
       this.errors.status = null
     },
+
+    closeModalAMS() {
+      document.getElementById('close_modal_ams').click()
+      this.clearFormAMS()
+    },
+    clearFormAMS() {
+      this.files = null
+      this.initial = null
+      this.name = null
+      this.errors.sales_detail = null
+      this.errors.requirement_id = null
+    },
   }
 }
 </script>
@@ -1724,6 +1774,7 @@ export default {
 #textSync {
   background-color: #F1E0D0; 
   color: #955F2D;
+  margin-left: 10px;
 }
 
 #textWaiting {

@@ -109,14 +109,14 @@
                 <div class="carousel-inner">
                   <div class="carousel-item active">
                     <div class="text-center">
-                      <h2 id="textGreen" v-if="sales_user">${{ sales_user.level1.total }}</h2>
+                      <h2 id="textGreen" v-if="sales_user">${{ formatPrice(sales_user.level1.total) }}</h2>
                       <p class="text-muted">Awernesss</p>
                     </div>
                     <div class="d-grid gap-2">
                       <a href="#" class="btn btn-outline btn-outline-dashed btn-outline-success d-flex justify-content-start btn-active-light-success me-2 mb-2">
                         <div class="d-flex align-items-center gap-2">
-                          <span id="btnGreen" v-if="sales_user">{{ sales_user.level1.countOpen }}</span>
-                          <span id="textGreen" v-if="sales_user">${{ sales_user.level1.open }}</span>
+                          <span id="btnGreen" v-if="sales_user">{{ formatPrice(sales_user.level1.countOpen) }}</span>
+                          <span id="textGreen" v-if="sales_user">${{ formatPrice(sales_user.level1.open) }}</span>
                         </div>
                         <div class="d-flex align-items-center justify-content-end">
                           <span class="text-muted ms-10" id="fontSm">Open</span>
@@ -124,8 +124,8 @@
                       </a>
                       <a href="#" class="btn btn-outline btn-outline-dashed btn-outline-danger d-flex justify-content-start btn-active-light-danger me-2 mb-2">
                         <div class="d-flex align-items-center gap-2">
-                          <span id="btnRed" v-if="sales_user">{{ sales_user.level1.countClosed }}</span>
-                          <span id="textRed" v-if="sales_user">${{ sales_user.level1.closed }}</span>
+                          <span id="btnRed" v-if="sales_user">{{ formatPrice(sales_user.level1.countClosed) }}</span>
+                          <span id="textRed" v-if="sales_user">${{ formatPrice(sales_user.level1.closed) }}</span>
                         </div>
                         <div class="d-flex align-items-center justify-content-end">
                           <span class="text-muted ms-10" id="fontSm">Closed</span>
@@ -135,14 +135,14 @@
                   </div>
                   <div class="carousel-item">
                     <div class="text-center">
-                      <h2 id="textGreen" v-if="sales_user">${{ sales_user.level1.total }}</h2>
+                      <h2 id="textGreen" v-if="sales_user">${{ formatPrice(sales_user.level1.total) }}</h2>
                       <p class="text-muted">Contract Signing</p>
                     </div>
                     <div class="text-center d-grid gap-2">
                       <a href="#" class="btn btn-outline btn-outline-dashed btn-outline-warning d-flex justify-content-start btn-active-light-warning me-2 mb-2">
                         <div class="d-flex align-items-center gap-2">
-                          <span id="btnGold" v-if="sales_user">{{ sales_user.level1.countCloseIn }}</span>
-                          <span id="textGold" v-if="sales_user">${{ sales_user.level1.closeIn }}</span>
+                          <span id="btnGold" v-if="sales_user">{{ formatPrice(sales_user.level1.countCloseIn) }}</span>
+                          <span id="textGold" v-if="sales_user">${{ formatPrice(sales_user.level1.closeIn) }}</span>
                         </div>
                         <div class="d-flex align-items-center justify-content-end">
                           <span class="text-muted ms-10" id="fontSm">Close in</span>
@@ -150,8 +150,8 @@
                       </a>
                       <a href="#" class="btn btn-outline btn-outline-dashed btn-outline-info d-flex justify-content-start btn-active-light-info me-2 mb-2">
                         <div class="d-flex align-items-center gap-2">
-                          <span id="btnPurple" v-if="sales_user">{{ sales_user.level1.countCancel }}</span>
-                          <span id="textPurple" v-if="sales_user">${{ sales_user.level1.cancel }}</span>
+                          <span id="btnPurple" v-if="sales_user">{{ formatPrice(sales_user.level1.countCancel) }}</span>
+                          <span id="textPurple" v-if="sales_user">${{ formatPrice(sales_user.level1.cancel) }}</span>
                         </div>
                         <div class="d-flex align-items-center justify-content-end">
                           <span class="text-muted ms-10" id="fontSm">Cancel</span>

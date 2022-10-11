@@ -10,7 +10,6 @@
           <button type="button" class="btn btn-outline btn-outline-primary me-2 mb-2" data-bs-toggle="modal" data-bs-target="#filterdate">
             Filter & Date <i class="fa-solid fa-chevron-down"></i>
           </button>
-          <button type="button" class="btn btn-outline btn-outline-primary me-2 mb-2" data-bs-toggle="modal" data-bs-target="#filterdate">Filter & Date <i class="fa-solid fa-chevron-down"></i></button>
         </div>
 
         <!-- Modal filterdate  -->

@@ -65,27 +65,33 @@
                     <h5 class="modal-title w-100" id="switchAMSLabel">Switch AMS</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
-                  <div class="modal-body">
-                    <form action="">
-                      <div class="mb-3">
-                        <label class="form-label">To</label>
-                        <input type="text" class="form-control">
-                      </div>
-                      <div class="mb-3">
-                        <label class="form-label">Description</label> <br>
-                        <div id="bodyAMS" v-if="sales_detail">
-                          Level: <b>{{ sales_detail.level }}</b> Status: <b>{{ sales_detail.status }}</b> Other: <b>{{ sales_detail.other }}</b> Type: <b>{{ sales_detail.type }}</b> Month Sales: <b>{{ sales_detail.monthSales }}</b>
-                          Years: <b>{{ sales_detail.year }}</b> Start Date Project: <b>{{ sales_detail.start_date }}</b> End Date Project: <b>{{ sales_detail.endDate }}</b>
-                          TAT: <b>{{ sales_detail.tat }} Days</b> Progress: <b>{{ sales_detail.progress }}%</b> Product: <b>{{ sales_detail.product }}</b> Location: <b>{{ sales_detail.location }}</b>
-                          Maintenance: <b>{{ sales_detail.maintenance }}</b>
+                  <form>
+                    <div class="modal-body">
+                      <form action="">
+                        <div class="mb-3">
+                          <label class="form-label">To</label>
+                          <select v-model="ams_id" class="form-select">
+                            <option v-for="amss in ams" :value="amss.id">
+                              {{ amss.initial }} - {{ amss.user.name }}
+                            </option>
+                          </select>
                         </div>
-                      </div>
-                    </form>
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Back</button>
-                    <button type="submit" class="btn btn-primary">Send</button>
-                  </div>
+                        <div class="mb-3">
+                          <label class="form-label">Description</label> <br>
+                          <div id="bodyAMS" v-if="sales_detail">
+                            Level: <b>{{ sales_detail.level }}</b> Status: <b>{{ sales_detail.status }}</b> Other: <b>{{ sales_detail.other }}</b> Type: <b>{{ sales_detail.type }}</b> Month Sales: <b>{{ sales_detail.monthSales }}</b>
+                            Years: <b>{{ sales_detail.year }}</b> Start Date Project: <b>{{ sales_detail.start_date }}</b> End Date Project: <b>{{ sales_detail.endDate }}</b>
+                            TAT: <b>{{ sales_detail.tat }} Days</b> Progress: <b>{{ sales_detail.progress }}%</b> Product: <b>{{ sales_detail.product }}</b> Location: <b>{{ sales_detail.location }}</b>
+                            Maintenance: <b>{{ sales_detail.maintenance }}</b>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="close_modal_ams" @click="closeModalAMS()">Close</button>
+                      <button type="button" class="btn btn-primary" @click="">Send</button>
+                    </div>
+                  </form>
                 </div>
               </div>
             </div>
@@ -373,11 +379,12 @@
                     <!--begin::Form-->
                     <div class="form mx-auto" novalidate="novalidate" id="kt_stepper_example_basic_div">
                         <!--begin::Group-->
-                        <div class="mb-5">
+                        <div class="mb-5" v-if="sales_detail">
 
                             <!--begin::Step 4-->
-                            <div class="flex-column current" data-kt-stepper-element="content">
-                              <form action="">
+                            <div class="flex-column current" data-kt-stepper-element="content" v-if="sales_detail.level === 4 || sales_detail.level === 3 || sales_detail.level === 2 || sales_detail.level === 1">
+                              <!-- <form v-if="sales_detail"> -->
+                              <form>
                                 <div class="row">
                                   <!-- Fill in Contact Person of Customer -->
                                   <div class="col-lg-6">
@@ -394,7 +401,7 @@
                                   <div class="rounded box-d" id="myBorder">
                                     <div class="mt-3 table-responsive">
                                       <table class="table" v-if="contact">
-                                        <tr v-for="contact in level4[0].data" :key="contact">
+                                        <tr v-for="contact in level4[0].data" :key="contact.id">
                                           <td>
                                             <strong>{{ contact.name }}</strong>
                                           </td>
@@ -438,9 +445,9 @@
                                   <div class="rounded box-d" id="myBorder">
                                     <div class="mt-3 table-responsive">
                                       <table class="table" v-if="files">
-                                        <tr v-for="files in level4[1].data" :key="files">
+                                        <tr v-for="files in level4[1].data" :key="files.id">
                                           <td>
-                                              <a :href="`http://127.0.0.1:8000/storage/`+files.path" class="btn btn-outline-primary btn-outline btn-sm" target="_blank">
+                                              <a :href="files.full_path" class="btn btn-outline-primary btn-outline btn-sm" target="_blank">
                                                 <strong>{{ files.file_name }}</strong>
                                               </a>
                                           </td>
@@ -475,9 +482,9 @@
                                   <div class="rounded box-d" id="myBorder">
                                     <div class="mt-3">
                                       <table class="table" v-if="files">
-                                        <tr v-for="files in level4[2].data" :key="files">
+                                        <tr v-for="files in level4[2].data" :key="files.id">
                                           <td>
-                                              <a :href="`http://127.0.0.1:8000/storage/`+files.path" class="btn btn-outline-primary btn-outline btn-sm" target="_blank">
+                                              <a :href="files.full_path" class="btn btn-outline-primary btn-outline btn-sm" target="_blank">
                                                 <strong>{{ files.file_name }}</strong>
                                               </a>
                                           </td>
@@ -489,18 +496,14 @@
                                     </div>
                                   </div>
 
-                                  <div class="text-center mt-10">
-                                    <button type="submit" class="btn btn-primary">Upgrade & Notify CBO</button>
-                                  </div>
-
                                 </div>
                               </form>
                             </div>
                             <!--begin::Step 4-->
 
                             <!--begin::Step 3-->
-                            <div class="flex-column" data-kt-stepper-element="content">
-                              <form action="">
+                            <div class="flex-column" data-kt-stepper-element="content" v-if="sales_detail.level === 3 || sales_detail.level === 2 || sales_detail.level === 1">
+                              <form>
                                 <div class="row">
                                   <!-- <h5>File has been upload</h5> -->
                                   <!-- Attachment of Financial Assesment Form (optional) -->
@@ -526,9 +529,9 @@
                                   <div class="rounded box-d" id="myBorder">
                                     <div class="mt-3">
                                       <table class="table" v-if="files">
-                                        <tr v-for="files in level3[0].data" :key="files">
+                                        <tr v-for="files in level3[0].data" :key="files.id">
                                           <td>
-                                              <a :href="`http://127.0.0.1:8000/storage/`+files.path" class="btn btn-outline-primary btn-outline btn-sm" target="_blank">
+                                              <a :href="files.full_path" class="btn btn-outline-primary btn-outline btn-sm" target="_blank">
                                                 <strong>{{ files.file_name }}</strong>
                                               </a>
                                           </td>
@@ -565,9 +568,9 @@
                                   <div class="rounded box-d" id="myBorder">
                                     <div class="mt-3">
                                       <table class="table" v-if="files">
-                                        <tr v-for="files in level3[1].data" :key="files">
+                                        <tr v-for="files in level3[1].data" :key="files.id">
                                           <td>
-                                              <a :href="`http://127.0.0.1:8000/storage/`+files.path" class="btn btn-outline-primary btn-outline btn-sm" target="_blank">
+                                              <a :href="files.full_path" class="btn btn-outline-primary btn-outline btn-sm" target="_blank">
                                                 <strong>{{ files.file_name }}</strong>
                                               </a>
                                           </td>
@@ -604,9 +607,9 @@
                                   <div class="rounded box-d" id="myBorder">
                                     <div class="mt-3">
                                       <table class="table" v-if="files">
-                                        <tr v-for="files in level3[2].data" :key="files">
+                                        <tr v-for="files in level3[2].data" :key="files.id">
                                           <td>
-                                              <a :href="`http://127.0.0.1:8000/storage/`+files.path" class="btn btn-outline-primary btn-outline btn-sm" target="_blank">
+                                              <a :href="files.full_path" class="btn btn-outline-primary btn-outline btn-sm" target="_blank">
                                                 <strong>{{ files.file_name }}</strong>
                                               </a>
                                           </td>
@@ -619,7 +622,12 @@
                                   </div>
 
                                   <div class="text-center mt-10">
-                                    <button type="submit" class="btn btn-primary">Upgrade & Notify CBO</button>
+                                    <!-- <button type="button" class="btn btn-light btn-active-light-primary" data-kt-stepper-action="previous">
+                                      Back
+                                    </button>
+                                    <button type="button" class="btn btn-primary" data-kt-stepper-action="next">
+                                      Continue
+                                    </button> -->
                                   </div>
 
                                 </div>
@@ -628,7 +636,7 @@
                             <!--begin::Step 3-->
 
                             <!--begin::Step 2-->
-                            <div class="flex-column" data-kt-stepper-element="content">
+                            <div class="flex-column" data-kt-stepper-element="content" v-if="sales_detail.level === 2 || sales_detail.level === 1">
                               <form action="">
                                 <div class="row">
                                   <!-- <h5>File has been upload</h5> -->
@@ -654,14 +662,15 @@
                                   </div>
                                   <div class="rounded box-d" id="myBorder">
                                     <div class="mt-3">
-                                      <table class="table">
-                                        <tr>
-                                          <td class="">
-                                            <strong>Project Term</strong>
-                                            <p>1.2mb</p>
+                                      <table class="table" v-if="files">
+                                        <tr v-for="files in level2[0].data" :key="files.id">
+                                          <td>
+                                              <a :href="files.full_path" class="btn btn-outline-primary btn-outline btn-sm" target="_blank">
+                                                <strong>{{ files.file_name }}</strong>
+                                              </a>
                                           </td>
                                           <td class="d-flex justify-content-end">
-                                            <button type="submit" class="btn btn-danger btn-sm"><span class="fas fa-trash"></span></button>
+                                            <button type="button" class="btn btn-danger btn-sm" @click="removeFile(files.id)"><span class="fas fa-trash"></span></button>
                                           </td>
                                         </tr>
                                       </table>
@@ -681,40 +690,42 @@
                                     </div>
                                   </div>
                                   <div class="row">
-                                    <div class="col-lg-4">
+                                    <div class="col-lg-4" v-if="sales_detail">
                                       <div class="mb-3">
                                         <label>Hangar</label>
-                                        <input type="number" class="form-control form-control-solid" name=""/>
+                                        <input type="text" class="form-control form-control-solid" v-model="sales_detail.location" readonly/>
                                       </div>
                                       <div class="mb-3">
                                         <label>Line Hangar</label>
-                                        <input type="number" class="form-control form-control-solid" name=""/>
+                                        <input type="number" class="form-control form-control-solid"/>
+                                        <!-- <select class="form-select form-control-soli" aria-label="Default select example">
+                                          <option selected>Select Line</option>
+                                          <option value="1">One</option>
+                                          <option value="2">Two</option>
+                                          <option value="3">Three</option>
+                                        </select> -->
                                       </div>
                                     </div>
-                                    <div class="col-lg-4">
+                                    <div class="col-lg-4" v-if="sales_detail">
                                       <div class="mb-3">
                                         <label>Registration</label>
-                                        <input type="text" class="form-control form-control-solid" readonly name=""/>
+                                        <input type="text" class="form-control form-control-solid" v-model="sales_detail.registration" readonly/>
                                       </div>
                                       <div class="mb-3">
                                         <label>TAT</label>
-                                        <input type="number" class="form-control form-control-solid" name=""/>
+                                        <input type="number" class="form-control form-control-solid" v-model="sales_detail.tat" readonly/>
                                       </div>
                                     </div>
-                                    <div class="col-lg-4">
+                                    <div class="col-lg-4" v-if="sales_detail">
                                       <div class="mb-3">
                                         <label>Start Date</label>
-                                        <input type="date" class="form-control form-control-solid" name=""/>
+                                        <input type="text" class="form-control form-control-solid" v-model="sales_detail.startDate" readonly/>
                                       </div>
                                       <div class="mb-3">
                                         <label>End Date</label>
-                                        <input type="date" class="form-control form-control-solid" name=""/>
+                                        <input type="text" class="form-control form-control-solid" v-model="sales_detail.endDate" readonly/>
                                       </div>
                                     </div>
-                                  </div>
-
-                                  <div class="text-center mt-10">
-                                    <button type="submit" class="btn btn-primary">Upgrade & Notify CBO</button>
                                   </div>
 
                                 </div>
@@ -723,7 +734,7 @@
                             <!--begin::Step 2-->
 
                             <!--begin::Step 1-->
-                            <div class="flex-column" data-kt-stepper-element="content">
+                            <div class="flex-column" data-kt-stepper-element="content" v-if="sales_detail.level === 1">
                               <form action="">
                                 <div class="row">
                                   <!-- <h5>File has been upload</h5> -->
@@ -750,14 +761,15 @@
                                   </div>
                                   <div class="rounded box-d" id="myBorder">
                                     <div class="mt-3">
-                                      <table class="table">
-                                        <tr>
-                                          <td class="">
-                                            <strong>Project Term</strong>
-                                            <p>1.2mb</p>
+                                      <table class="table" v-if="files">
+                                        <tr v-for="files in level1[0].data" :key="files.id">
+                                          <td>
+                                              <a :href="files.full_path" class="btn btn-outline-primary btn-outline btn-sm" target="_blank">
+                                                <strong>{{ files.file_name }}</strong>
+                                              </a>
                                           </td>
                                           <td class="d-flex justify-content-end">
-                                            <button type="submit" class="btn btn-danger btn-sm"><span class="fas fa-trash"></span></button>
+                                            <button type="button" class="btn btn-danger btn-sm" @click="removeFile(files.id)"><span class="fas fa-trash"></span></button>
                                           </td>
                                         </tr>
                                       </table>
@@ -768,16 +780,18 @@
                                   <div class="col-lg-6 mt-5">
                                     <h3>Input SO Number</h3>
                                   </div>
-                                  <div class="row">
-                                    <label for="">SO Number</label>
-                                    <div class="input-group mb-3">
-                                      <input type="text" class="form-control">
-                                      <button class="btn btn-sm" type="button" id="textSync">Sync</button>
+                                  <form>
+                                    <div class="row">
+                                      <label for="">SO Number</label>
+                                      <div class="input-group mb-3">
+                                        <input type="text" class="form-control" v-model="sales_detail.so_number" ref="so_number" id="so_number">
+                                        <button class="btn btn-sm" type="button" @click="createSO()" id="textSync">Sync</button>
+                                      </div>
                                     </div>
-                                  </div>
+                                  </form>
 
                                   <div class="text-center mt-10">
-                                    <button type="submit" class="btn btn-primary">Request to Closed</button>
+                                    <button type="button" class="btn btn-primary">Request to Closed</button>
                                   </div>
 
                                 </div>
@@ -799,14 +813,14 @@
 
                             <!--begin::Wrapper-->
                             <div>
-                                <button type="button" class="btn btn-primary" data-kt-stepper-action="submit">
+                                <!-- <button type="button" class="btn btn-primary" data-kt-stepper-action="submit" disabled>
                                     <span class="indicator-label">
-                                        Submit
+                                        Done
                                     </span>
                                     <span class="indicator-progress">
                                         Please wait... <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
                                     </span>
-                                </button>
+                                </button> -->
 
                                 <button type="button" class="btn btn-primary" data-kt-stepper-action="next">
                                     Continue
@@ -825,42 +839,53 @@
                 <div class="tab-pane fade" id="history-tab-pane" role="tabpanel" aria-labelledby="history-tab" tabindex="0">
                   <div class="mt-5">
                     <!-- Filter -->
-                    <div class="row">
-                      <div class="col-lg-6 col-sm-12">
-                        <h3 class="mt-3"><span class="fas fa-calendar-days"></span> 08 July 2022</h3>
+                    <!-- <div class="row">
+                      <div class="col-lg-8"></div>
+                        <div class="col-lg-4 col-sm-12 d-flex justify-content-end">
+                          <select class="form-select" v-model="month">
+                            <option value="1">January</option>
+                            <option value="2">February</option>
+                            <option value="3">March</option>
+                            <option value="4">April</option>
+                            <option value="5">May</option>
+                            <option value="6">June</option>
+                            <option value="7">July</option>
+                            <option value="8">August</option>
+                            <option value="9">September</option>
+                            <option value="10">October</option>
+                            <option value="11">November</option>
+                            <option value="12">December</option>
+                          </select>
+                        </div>
+                    </div> -->
+                    
+                    <div v-for="file_history in file_histories">
+                      <div class="row">
+                        <div class="col-lg-6 col-sm-12" v-if="file_history">
+                          <h3 class="mt-3"><span class="fas fa-calendar-days"></span> {{ file_history.uploadedAt }}</h3>
+                        </div>
                       </div>
-                      <div class="col-lg-6 col-sm-12 d-flex justify-content-end">
-                        <ul class="nav nav-tabs nav-line-tabs nav-line-tabs-2x mb-5 fs-6">
-                          <li class="nav-item">
-                              <a class="nav-link active" data-bs-toggle="tab" href="#kt_tab_pane_4">Today</a>
-                          </li>
-                          <li class="nav-item">
-                              <a class="nav-link" data-bs-toggle="tab" href="#kt_tab_pane_5">Week</a>
-                          </li>
-                          <li class="nav-item">
-                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Month</a>
-                            <ul class="dropdown-menu">
-                                <li><a class="nav-link dropdown-item" data-bs-toggle="tab" href="#kt_tab_pane_10">January</a></li>
-                            </ul>
-                          </li>
-                          <li class="nav-item">
-                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Year</a>
-                            <ul class="dropdown-menu">
-                                <li><a class="nav-link dropdown-item" data-bs-toggle="tab" href="#kt_tab_pane_10">2022</a></li>
-                            </ul>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
 
-                    <!-- Isi -->
-                    <div class="row mt-4">
-                      <h3>3 File Uploaded</h3>
-                      <p class="text-muted"><small>by <a href="#">{{ user }}</a></small></p>
-                      <div class="rounded box-d" id="myBorder">
-                        <div class="mt-3">
-                          <h6>Project Term</h6>
-                          <p class="text-muted"><small>1.2mb</small></p>
+                      <!-- Isi -->
+                      <div class="row mt-4" v-if="file_history">
+                        <h3>{{ file_history.totalFiles }} File Uploaded</h3>
+                        <p class="text-muted"><small>by <a href="#">{{ user }}</a></small></p>
+                        <div class="rounded box-d mb-5" id="myBorder">
+                          <div class="mt-3">
+                            <table class="table">
+                              <tr v-for="file in file_history.files" :key="file.id">
+                                <td>
+                                    <form>
+                                      <a :href="file.full_path" 
+                                        class="btn btn-outline-primary btn-outline btn-sm" 
+                                        target="_blank">
+                                        <strong>{{ file.file_name }}</strong>
+                                      </a>
+                                    </form>
+                                </td>
+                              </tr>
+                            </table>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -871,7 +896,7 @@
                 <div class="tab-pane fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">
                   <div class="mt-5">
                     <div class="table-responsive">
-                      <table class="table table-row-bordered table-row-gray-200 gy-4">
+                      <table class="table table-row-bordered table-row-gray-200 gy-4" v-if="contact">
                         <thead>
                           <tr class="fw-bold fs-6 text-gray-800">
                             <th class="text-center">No</th>
@@ -883,24 +908,24 @@
                           </tr>
                         </thead>
                         <tbody>
-                          <tr v-for="(contacts, contacts_index) in contact"  @dblclick="getItem(contacts_index)">
+                          <tr v-for="(contact, contact_index) in level4[0].data"  @dblclick="getItem(contact_index)">
                             <td class="text-center">
-                              {{ contacts_index+1 }}
+                              {{ contact_index+1 }}
                             </td>
                             <td>
-                              {{ contacts.name }}
+                              {{ contact.name }}
                             </td>
                             <td>
-                              {{ contacts.phone }}
+                              {{ contact.phone }}
                             </td>
                             <td>
-                              {{ contacts.email }}
+                              {{ contact.email }}
                             </td>
                             <td>
-                              {{ contacts.title }}
+                              {{ contact.title }}
                             </td>
                             <td class="d-flex justify-content-center">
-                              <button class="btn btn-sm btn-light" @click="removeContact(contacts.id)">
+                              <button class="btn btn-sm btn-light" @click="removeContact(contact.id)">
                                 <i class="bi bi-trash-fill text-primary"></i>
                               </button>
                             </td>
@@ -978,6 +1003,7 @@
                         </nav>
                       </div>
                     </div> -->
+
                     <div class="text-center mt-20">
                       <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addContact" @click="addContact()">
                         Add Contact Person
@@ -986,9 +1012,91 @@
                   </div>
                 </div>
 
+                <!-- Tab Reschedule/Cancel -->
+                <div class="tab-pane fade" id="reschedule-tab-pane" role="tabpanel" aria-labelledby="reschedule-tab" tabindex="0">
+                  <div class="mt-5">
+                    <ul class="nav nav-tabs nav-line-tabs nav-line-tabs-2x mb-5 fs-6">
+                      <li class="nav-item">
+                          <a class="nav-link active" data-bs-toggle="tab" href="#kt_tab_pane_1">Reschedule</a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link" data-bs-toggle="tab" href="#kt_tab_pane_2">Cancel</a>
+                      </li>
+                    </ul>
+
+                    <div class="tab-content" id="myTabContent">
+                      <!-- Reschedule Form -->
+                      <div class="tab-pane fade show active" id="kt_tab_pane_1" role="tabpanel">
+                          <form action="">
+                            <div class="mb-3">
+                              <label class="form-label">Hanggar</label>
+                              <input type="number" name="" class="form-control" id="">
+                            </div>
+                            <div class="mb-3">
+                              <label class="form-label">Registration</label>
+                              <input type="text" name="" class="form-control" id="" readonly>
+                            </div>
+                            <div class="mb-3">
+                              <label class="form-label">CBO Date</label>
+                              <input type="date" name="" class="form-control" id="">
+                            </div>
+                            <div class="mb-3">
+                              <label class="form-label">TAT</label>
+                              <input type="number" name="" class="form-control" id="">
+                            </div>
+                            <div class="mb-3">
+                              <label class="form-label">Current Date</label>
+                              <input type="date" name="" class="form-control" id="">
+                            </div>
+                            <div class="mb-3">
+                              <label class="form-label">Sales Month</label>
+                              <input type="text" name="" class="form-control" id="" readonly>
+                            </div>
+                            <div class="text-center mt-5">
+                              <button type="reset" class="btn btn-danger">Reset</button>
+                              <button type="submit" class="btn btn-primary">Confirm</button>
+                            </div>
+                          </form>
+                      </div>
+                      <!-- Cancel Form -->
+                      <div class="tab-pane fade" id="kt_tab_pane_2" role="tabpanel">
+                        <form action="">
+                          <div class="mb-3">
+                            <label class="form-label">Category</label>
+                            <div class="row mb-5">
+                              <div class="col">
+                                <div class="input-group mb-3">
+                                  <multiselect
+                                    v-model="value"
+                                    placeholder="Select Category"
+                                    label="name"
+                                    track-by="code"
+                                    :options="optionsCategory"
+                                    :multiple="true"
+                                    :taggable="false"
+                                  ></multiselect>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="mb-3">
+                            <label class="form-label">Reason of Cancel <span class="text-danger">*</span></label>
+                            <textarea name="" class="form-control" cols="30" rows="10"></textarea>
+                          </div>
+                          <div class="text-center mt-5">
+                            <button type="reset" class="btn btn-danger">Reset</button>
+                            <button type="submit" class="btn btn-primary">Confirm</button>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                    
+                  </div>
+                </div>
+
                 <!-- Modal Contact -->
                 <div class="modal fade" tabindex="-1" id="addContact" data-bs-backdrop="static">
-                  <div class="modal-dialog modal-dialog-centered modal-lg">
+                  <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                       <div class="modal-header">
                         <h3 v-if="modal_contact" class="modal-title">Add Contact Person</h3>
@@ -1033,97 +1141,81 @@
                         <form @submit.prevent="submitContact">
                           <input type="hidden" v-if="sales_detail" v-model="sales_detail.id">
                           <div class="row">
-                            <div class="col-lg-6">
-                              <div class="form-group mb-3">
-                                <label class="form-label fw-bold">Name</label>
-                                <input
-                                  type="text"
-                                  class="form-control"
-                                  v-model="p_contact.name"
-                                  :class="{
-                                    'is-invalid': errors.name,
-                                  }"
-                                />
-                                <span v-if="errors.name" class="error invalid-feedback">{{
-                                  errors.name[0]
-                                }}</span>
-                              </div>
-                              <div class="form-group mb-3">
-                                <label class="form-label fw-bold">Phone</label>
-                                <input
-                                  type="number"
-                                  class="form-control"
-                                  v-model="p_contact.phone"
-                                  :class="{
-                                    'is-invalid': errors.phone,
-                                  }"
-                                />
-                                <span v-if="errors.phone" class="error invalid-feedback">{{
-                                  errors.phone[0]
-                                }}</span>
-                              </div>
-                              <div class="form-group mb-3">
-                                <label class="form-label fw-bold">Email</label>
-                                <input
-                                  type="email"
-                                  class="form-control"
-                                  v-model="p_contact.email"
-                                  :class="{
-                                    'is-invalid': errors.email,
-                                  }"
-                                />
-                                <span
-                                  v-if="errors.email"
-                                  class="error invalid-feedback"
-                                  >{{ errors.email[0] }}</span
-                                >
-                              </div>
+                            <div class="form-group mb-3">
+                              <label class="form-label fw-bold">Name</label>
+                              <input
+                                type="text"
+                                class="form-control"
+                                v-model="p_contact.name"
+                                :class="{
+                                  'is-invalid': errors.name,
+                                }"
+                              />
+                              <span v-if="errors.name" class="error invalid-feedback">{{
+                                errors.name[0]
+                              }}</span>
                             </div>
-                            <div class="col-lg-6">
-                              <div class="form-group mb-3">
-                                <label class="form-label fw-bold">Address</label>
-                                <input
-                                  type="text"
-                                  class="form-control"
-                                  v-model="p_contact.address"
-                                  :class="{
-                                    'is-invalid': errors.address,
-                                  }"
-                                />
-                                <span
-                                  v-if="errors.address"
-                                  class="error invalid-feedback"
-                                  >{{ errors.address[0] }}</span
-                                >
-                              </div>
-                              <div class="form-group mb-3">
-                                <label class="form-label fw-bold">Title</label>
-                                <input
-                                  type="text"
-                                  class="form-control"
-                                  v-model="p_contact.title"
-                                  :class="{
-                                    'is-invalid': errors.title,
-                                  }"
-                                />
-                                <span
-                                  v-if="errors.title"
-                                  class="error invalid-feedback"
-                                  >{{ errors.title[0] }}</span
-                                >
-                              </div>
-                              <div class="form-group mb-3">
-                                <label class="form-label fw-bold">Status</label>
-                                <select class="form-select" v-model="p_contact.status">
-                                  <option value="1">Active</option>
-                                  <option value="0">Deactive</option>
-                                </select>
-                                <span
-                                  v-if="errors.status"
-                                  class="error invalid-feedback"
-                                  >{{ errors.status[0] }}</span
-                                >
-                              </div>
+                            <div class="form-group mb-3">
+                              <label class="form-label fw-bold">Phone</label>
+                              <input
+                                type="number"
+                                class="form-control"
+                                v-model="p_contact.phone"
+                                :class="{
+                                  'is-invalid': errors.phone,
+                                }"
+                              />
+                              <span v-if="errors.phone" class="error invalid-feedback">{{
+                                errors.phone[0]
+                              }}</span>
+                            </div>
+                            <div class="form-group mb-3">
+                              <label class="form-label fw-bold">Email</label>
+                              <input
+                                type="email"
+                                class="form-control"
+                                v-model="p_contact.email"
+                                :class="{
+                                  'is-invalid': errors.email,
+                                }"
+                              />
+                              <span
+                                v-if="errors.email"
+                                class="error invalid-feedback"
+                                >{{ errors.email[0] }}</span
+                              >
+                            </div>
+                            <div class="form-group mb-3">
+                              <label class="form-label fw-bold">Address</label>
+                              <input
+                                type="text"
+                                class="form-control"
+                                v-model="p_contact.address"
+                                :class="{
+                                  'is-invalid': errors.address,
+                                }"
+                              />
+                              <span
+                                v-if="errors.address"
+                                class="error invalid-feedback"
+                                >{{ errors.address[0] }}</span
+                              >
+                            </div>
+                            <div class="form-group mb-3">
+                              <label class="form-label fw-bold">Title</label>
+                              <input
+                                type="text"
+                                class="form-control"
+                                v-model="p_contact.title"
+                                :class="{
+                                  'is-invalid': errors.title,
+                                }"
+                              />
+                              <span
+                                v-if="errors.title"
+                                class="error invalid-feedback"
+                                >{{ errors.title[0] }}</span
+                              >
                             </div>
                           </div>
                           <div class="row mt-10">
@@ -1216,88 +1308,6 @@
                     </div>
                   </div>
                 </div>
-
-                <!-- Tab Reschedule/Cancel -->
-                <div class="tab-pane fade" id="reschedule-tab-pane" role="tabpanel" aria-labelledby="reschedule-tab" tabindex="0">
-                  <div class="mt-5">
-                    <ul class="nav nav-tabs nav-line-tabs nav-line-tabs-2x mb-5 fs-6">
-                      <li class="nav-item">
-                          <a class="nav-link active" data-bs-toggle="tab" href="#kt_tab_pane_1">Reschedule/Reject</a>
-                      </li>
-                      <li class="nav-item">
-                          <a class="nav-link" data-bs-toggle="tab" href="#kt_tab_pane_2">Cancel</a>
-                      </li>
-                    </ul>
-
-                    <div class="tab-content" id="myTabContent">
-                      <!-- Reschedule Form -->
-                      <div class="tab-pane fade show active" id="kt_tab_pane_1" role="tabpanel">
-                          <form action="">
-                            <div class="mb-3">
-                              <label class="form-label">Hanggar</label>
-                              <input type="number" name="" class="form-control" id="">
-                            </div>
-                            <div class="mb-3">
-                              <label class="form-label">Registration</label>
-                              <input type="text" name="" class="form-control" id="" readonly>
-                            </div>
-                            <div class="mb-3">
-                              <label class="form-label">CBO Date</label>
-                              <input type="date" name="" class="form-control" id="">
-                            </div>
-                            <div class="mb-3">
-                              <label class="form-label">TAT</label>
-                              <input type="number" name="" class="form-control" id="">
-                            </div>
-                            <div class="mb-3">
-                              <label class="form-label">Current Date</label>
-                              <input type="date" name="" class="form-control" id="">
-                            </div>
-                            <div class="mb-3">
-                              <label class="form-label">Sales Month</label>
-                              <input type="text" name="" class="form-control" id="" readonly>
-                            </div>
-                            <div class="text-center mt-5">
-                              <button type="reset" class="btn btn-danger">Reset</button>
-                              <button type="submit" class="btn btn-primary">Confirm</button>
-                            </div>
-                          </form>
-                      </div>
-                      <!-- Cancel Form -->
-                      <div class="tab-pane fade" id="kt_tab_pane_2" role="tabpanel">
-                        <form action="">
-                          <div class="mb-3">
-                            <label class="form-label">Category</label>
-                            <div class="row mb-5">
-                              <div class="col">
-                                <div class="input-group mb-3">
-                                  <multiselect
-                                    v-model="value"
-                                    placeholder="Select Category"
-                                    label="name"
-                                    track-by="code"
-                                    :options="optionsCategory"
-                                    :multiple="true"
-                                    :taggable="false"
-                                  ></multiselect>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="mb-3">
-                            <label class="form-label">Reason of Cancel <span class="text-danger">*</span></label>
-                            <textarea name="" class="form-control" cols="30" rows="10"></textarea>
-                          </div>
-                          <div class="text-center mt-5">
-                            <button type="reset" class="btn btn-danger">Reset</button>
-                            <button type="submit" class="btn btn-primary">Confirm</button>
-                          </div>
-                        </form>
-                      </div>
-                    </div>
-                    
-                  </div>
-                </div>
               </div>
             </div>
             <!-- End Tab -->
@@ -1322,6 +1332,7 @@ export default {
         link: [],
       },
       files: [],
+      ams: null,
       value: [],  
       optionsCategory: [
         { name: 'Category1', code: 'c1' },
@@ -1338,6 +1349,8 @@ export default {
         status: null,
       },
       search: null,
+      so_number: null,
+      ams_id: null,
       type: null,
       order: 'id',
       by: 'desc',
@@ -1350,11 +1363,14 @@ export default {
       requirement_id: null,
       sales_id: null,
       files: '',
+      month: null,
       contacts: null,
       level4: null,
       level3: null,
       level2: null,
       level1: null,
+      name: null,
+      file_histories: [],
       errors: {
         name: null,
         phone: null,
@@ -1376,12 +1392,16 @@ export default {
       this.listDetail()
       this.listContact()
       this.listFile()
+      this.listFileHistory()
+      this.listAMS()
     }, 500),
   },
   created() {
     this.listDetail()
     this.listContact()
     this.listFile()
+    this.listFileHistory()
+    this.listAMS()
   },
   methods: {
     directPage: debounce(function () {
@@ -1431,13 +1451,15 @@ export default {
         this.sales_detail = response.data.data.salesDetail
         this.level4 = response.data.data.level4
         this.level3 = response.data.data.level3
+        this.level2 = response.data.data.level2
+        this.level1 = response.data.data.level1
         Swal.close()
       })
       .catch((error) => console.log(error))
     },
     listContact(paginate) {
       this.loading()
-      paginate = paginate || `/api/contact-person/`
+      paginate = paginate || `/api/contact-person`
       this.$axios
       .get(paginate, {
         params: {
@@ -1448,9 +1470,8 @@ export default {
         },
       })
       .then((response) => {
-        this.contact = response.data.data
+        this.contact = response.data.data.data
         this.current_page = this.contact.current_page
-        console.log(this.contact)
         Swal.close()
       })
       .catch((error) => console.log(error))
@@ -1469,7 +1490,30 @@ export default {
       })
       .then((response) => {
         this.files = response.data.data
-        // console.log(this.files)
+        Swal.close()
+      })
+      .catch((error) => console.log(error))
+    },
+    listFileHistory() {
+      this.loading()
+      this.$axios
+      .get(`api/file-history/${this.$route.query.id}`, {
+        params: {
+          month: this.month,
+        }
+      })
+      .then((response) => {
+        this.file_histories = response.data.data.history
+        Swal.close()
+      })
+      .catch((error) => console.log(error))
+    },
+    listAMS() {
+      this.loading()
+      this.$axios
+      .get(`api/ams/`)
+      .then((response) => {
+        this.ams = response.data.data.data
         Swal.close()
       })
       .catch((error) => console.log(error))
@@ -1620,6 +1664,23 @@ export default {
       })
     },
 
+    createSO() {
+      this.loading()
+      const formData = new FormData();
+      formData.append("so_number", this.$refs.so_number.value);
+      this.$axios
+        .post(`/api/sales-so-number/${this.$route.query.id}`, formData)
+        .then((response) => {
+          toastr.success(response.data.message)
+        })
+        .catch((error) => {
+          if (error.response.status == 422) {
+            this.errors = error.response.data.errors
+            toastr.error(error.response.data.message)
+          }
+        })
+    },
+
     closeModalFile() {
       this.listFile()
       this.listDetail()
@@ -1651,6 +1712,18 @@ export default {
       this.errors.address = null
       this.errors.title = null
       this.errors.status = null
+    },
+
+    closeModalAMS() {
+      document.getElementById('close_modal_ams').click()
+      this.clearFormAMS()
+    },
+    clearFormAMS() {
+      this.files = null
+      this.initial = null
+      this.name = null
+      this.errors.sales_detail = null
+      this.errors.requirement_id = null
     },
   }
 }
@@ -1700,6 +1773,7 @@ export default {
 #textSync {
   background-color: #F1E0D0; 
   color: #955F2D;
+  margin-left: 10px;
 }
 
 #textWaiting {

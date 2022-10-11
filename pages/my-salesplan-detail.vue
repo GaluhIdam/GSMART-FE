@@ -876,7 +876,7 @@
                               <tr v-for="file in file_history.files" :key="file.id">
                                 <td>
                                     <form>
-                                      <a :href="`http://127.0.0.1:8000/storage/`+file.path" 
+                                      <a :href="file.full_path" 
                                         class="btn btn-outline-primary btn-outline btn-sm" 
                                         target="_blank">
                                         <strong>{{ file.file_name }}</strong>

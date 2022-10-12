@@ -838,24 +838,46 @@
                                       </div>
                                     </div>
                                   </div>
-                                  <div class="row">
-                                    <div class="col-lg-4" v-if="sales_detail">
+                                  <div class="row" v-if="sales_detail">
+                                    <div class="col-lg-4" >
                                       <div class="mb-3">
                                         <label>Hangar</label>
                                         <input type="text" class="form-control form-control-solid" v-model="sales_detail.location" readonly/>
                                       </div>
                                       <div class="mb-3">
                                         <label>Line Hangar</label>
-                                        <input type="number" class="form-control form-control-solid"/>
-                                        <!-- <select class="form-select form-control-soli" aria-label="Default select example">
-                                          <option selected>Select Line</option>
-                                          <option value="1">One</option>
-                                          <option value="2">Two</option>
-                                          <option value="3">Three</option>
+                                          <div class="row">
+                                            <div class="col-9">
+                                              <select v-model="sales_detail.line_id" class="form-select">
+                                                <option :value="1">1</option>
+                                                <option :value="2">2</option>
+                                                <option :value="3">3</option>
+                                                <option :value="4">4</option>
+                                                <option :value="5">5</option>
+                                                <option :value="6">6</option>
+                                                <option :value="7">7</option>
+                                                <option :value="8">8</option>
+                                                <option :value="9">9</option>
+                                                <option :value="10">10</option>
+                                                <option :value="11">11</option>
+                                                <option :value="12">12</option>
+                                                <option :value="13">13</option>
+                                                <option :value="14">14</option>
+                                              </select>
+                                            </div>
+                                            <div class="col-3">
+                                              <button class="btn btn-primary btn-sm" type="button" @click="updateSlot()">Save</button>
+                                            </div>
+                                          </div>
+
+                                        <!-- <select v-model="lines_id" class="form-select">
+                                          <option v-for="line_options in line_option" :value="line_options.id">
+                                            {{ line_options.code }} - {{ line_options.name }}
+                                          </option>
                                         </select> -->
                                       </div>
                                     </div>
-                                    <div class="col-lg-4" v-if="sales_detail">
+                                    <div class="col-lg-4">
                                       <div class="mb-3">
                                         <label>Registration</label>
                                         <input type="text" class="form-control form-control-solid" v-model="sales_detail.registration" readonly/>
@@ -1485,8 +1507,10 @@ export default {
       value: [], 
       hangar_id: null,
       maintenance_id: null,
+      lines_id: null,
       maintenance_option: [],
       hangar_option: [],
+      line_option: [],
       contact_person: [], 
       optionsCategory: [
         { name: 'Category1', code: 'c1' },
@@ -1562,6 +1586,7 @@ export default {
     this.listFileHistory()
     this.listAMS()
     this.listHangar()
+    this.listLine()
     this.listMaintenance()
   },
   methods: {
@@ -1691,6 +1716,19 @@ export default {
           this.maintenance_option = response.data.data.data
         })
     },
+    listLine() {
+      this.$axios
+        .get('api/lines', {
+          params: {
+            order: 'created_at',
+            by: 'ASC',
+          },
+        })
+        .then((response) => {
+          this.line_option = response.data.data
+          console.log(this.line_option)
+        })
+    },
     listHangar() {
       this.$axios
         .get('api/hangar', {
@@ -1729,7 +1767,6 @@ export default {
         })
         .then((response) => {
           toastr.success(response.data.message)
-          // this.listDetail()
         })
         .catch((error) => {
           if (error.response.status == 422) {
@@ -1741,8 +1778,9 @@ export default {
     updateSlot() {
       this.loading()
       this.$axios
-      .get(`api/sales-slot-request/${this.$route.query.id}`, {
-        so_number: this.so_number
+      .put(`api/sales-slot-request/${this.$route.query.id}`, {
+        sales_id: this.$route.query.id,
+        line_id: this.sales_detail.line_id,
       })
       .then((response) => {
         toastr.success(response.data.message)

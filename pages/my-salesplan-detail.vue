@@ -48,9 +48,9 @@
               </div>
               <div class="col-lg-6">
                 <div class="text-right">
-                  <div class="position-absolute top-0 end-0 mx-15 mt-4">
+                  <div class="position-absolute top-0 end-0 mx-15 mt-4" v-if="sales_detail">
                     <button class="btn btn-outline btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#switchAMS">Switch AMS</button>
-                    <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editSales"><i class="fa-solid fa-pen"></i> Edit Sales Plan</button>
+                    <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editSales" v-if="sales_detail.type === 'TMB'"><i class="fa-solid fa-pen"></i> Edit Sales Plan</button>
                   </div>
                 </div>
               </div>
@@ -159,13 +159,13 @@
                             <input
                               type="text"
                               class="form-control"
-                              v-model="sales_detail.acreg"
+                              v-model="sales_detail.acReg"
                               :class="{
-                                'is-invalid': errors.acreg,
+                                'is-invalid': errors.acReg,
                               }"
                             />
-                            <span v-if="errors.acreg" class="error invalid-feedback">{{
-                              errors.acreg[0]
+                            <span v-if="errors.acReg" class="error invalid-feedback">{{
+                              errors.acReg[0]
                             }}</span>
                           </div>
                           <div class="form-group mb-3">
@@ -202,15 +202,15 @@
                             <input
                               type="number"
                               class="form-control"
-                              v-model="sales_detail.value"
+                              v-model="sales_detail.totalSales"
                               :class="{
-                                'is-invalid': errors.value,
+                                'is-invalid': errors.totalSales,
                               }"
                             />
                             <span
-                              v-if="errors.value"
+                              v-if="errors.totalSales"
                               class="error invalid-feedback"
-                              >{{ errors.value[0] }}</span
+                              >{{ errors.totalSales[0] }}</span
                             >
                           </div>
                           <div class="form-group mb-3">
@@ -1754,9 +1754,9 @@ export default {
           sales_id: this.$route.query.id,
           maintenance_id: this.maintenance_id,
           hangar_id: this.hangar_id,
-          acreg: this.sales_detail.acreg,
+          acReg: this.sales_detail.acReg,
           tat: this.sales_detail.tat,
-          value: this.sales_detail.value,
+          totalSales: this.sales_detail.totalSales,
           start_date: this.sales_detail.start_date,
         })
         .then((response) => {

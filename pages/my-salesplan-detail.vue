@@ -933,8 +933,8 @@
                                     <div class="row">
                                       <label for="">SO Number</label>
                                       <div class="input-group mb-3">
-                                        <input type="text" class="form-control" v-model="sales_detail.so_number" ref="so_number" id="so_number">
-                                        <button class="btn btn-sm" type="button" @click="createSO()" id="textSync">Sync</button>
+                                          <input type="text" class="form-control" v-model="sales_detail.so_number">
+                                          <button class="btn btn-sm" type="button" @click="updateSO()" id="textSync">Sync</button>
                                       </div>
                                     </div>
                                   </form>
@@ -1532,6 +1532,7 @@ export default {
         title: null,
         status: null,
         files: null,
+        so_number: null,
         maintenance_id: null,
         acreg: null,
         tat: null,
@@ -1719,14 +1720,16 @@ export default {
       })
       .catch((error) => console.log(error))
     },
-    createSO() {
+    updateSO() {
       this.loading()
-      const formData = new FormData();
-      formData.append("so_number", this.$refs.so_number.value);
       this.$axios
-        .post(`/api/sales-so-number/${this.$route.query.id}`, formData)
+        .put(`/api/sales-so-number/${this.$route.query.id}`, {
+          sales_id: this.$route.query.id,
+          so_number: this.sales_detail.so_number,
+        })
         .then((response) => {
           toastr.success(response.data.message)
+          // this.listDetail()
         })
         .catch((error) => {
           if (error.response.status == 422) {
@@ -1735,7 +1738,7 @@ export default {
           }
         })
     },
-    createSlot() {
+    updateSlot() {
       this.loading()
       this.$axios
       .get(`api/sales-slot-request/${this.$route.query.id}`, {

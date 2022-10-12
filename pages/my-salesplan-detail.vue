@@ -381,7 +381,7 @@
               </div>
               <div class="col-lg-2">
                 <p class="text-muted">Location</p>
-                <p v-if="sales_detail"><b>{{ sales_detail.location }}</b></p>
+                <p v-if="sales_detail"><b>{{ sales_detail.location.name }}</b></p>
                 <p class="text-muted mt-5">Product</p>
                 <p v-if="sales_detail"><b>{{ sales_detail.product }}</b></p>
               </div>
@@ -1198,37 +1198,42 @@
 
                     <div class="tab-content" id="myTabContent">
                       <!-- Reschedule Form -->
-                      <div class="tab-pane fade show active" id="kt_tab_pane_1" role="tabpanel">
-                          <form action="">
-                            <div class="mb-3">
-                              <label class="form-label">Hanggar</label>
-                              <input type="number" name="" class="form-control" id="">
-                            </div>
-                            <div class="mb-3">
-                              <label class="form-label">Registration</label>
-                              <input type="text" name="" class="form-control" id="" readonly>
-                            </div>
-                            <div class="mb-3">
-                              <label class="form-label">CBO Date</label>
-                              <input type="date" name="" class="form-control" id="">
-                            </div>
-                            <div class="mb-3">
-                              <label class="form-label">TAT</label>
-                              <input type="number" name="" class="form-control" id="">
-                            </div>
-                            <div class="mb-3">
-                              <label class="form-label">Current Date</label>
-                              <input type="date" name="" class="form-control" id="">
-                            </div>
-                            <div class="mb-3">
-                              <label class="form-label">Sales Month</label>
-                              <input type="text" name="" class="form-control" id="" readonly>
-                            </div>
-                            <div class="text-center mt-5">
-                              <button type="reset" class="btn btn-danger">Reset</button>
-                              <button type="submit" class="btn btn-primary">Confirm</button>
-                            </div>
-                          </form>
+                      <div class="tab-pane fade show active" id="kt_tab_pane_1" role="tabpanel" v-if="sales_detail">
+                        <form @submit.prevent="salesReschedule">
+                          <div class="mb-3">
+                            <label class="form-label">Hanggar</label>
+                            <input type="text" class="form-control" readonly v-model="sales_detail.location.id">
+                          </div>
+                          <div class="mb-3">
+                            <label class="form-label">Registration</label>
+                            <input type="text" class="form-control" v-model="sales_detail.registration" readonly>
+                          </div>
+                          <div class="mb-3">
+                            <label class="form-label">CBO Date</label>
+                            <input type="date" class="form-control" v-model="sales_detail.start_date">
+                          </div>
+                          <div class="mb-3">
+                            <label class="form-label">End Date</label>
+                            <input type="date" class="form-control" v-model="end_date">
+                          </div>
+                          <div class="mb-3">
+                            <label class="form-label">TAT</label>
+                            <input type="number" class="form-control" v-model="sales_detail.tat" readonly>
+                          </div>
+                          <div class="mb-3">
+                            <label class="form-label">Current Date</label>
+                            <input type="date" class="form-control" v-model="current_date">
+                          </div>
+                          <div class="mb-3">
+                            <label class="form-label">Sales Month</label>
+                            <input type="text" class="form-control" v-model="sales_detail.monthSales" readonly>
+                          </div>
+                          <div class="text-center mt-5">
+                            <button type="reset" class="btn btn-danger">Reset</button>
+                            <button type="submit" class="btn btn-primary">Confirm</button>
+                            <!-- <button type="submit" class="btn btn-primary" @click="salesReschedule()">Confirm</button> -->
+                          </div>
+                        </form>
                       </div>
                       <!-- Cancel Form -->
                       <div class="tab-pane fade" id="kt_tab_pane_2" role="tabpanel">
@@ -1503,16 +1508,6 @@ export default {
         data: [],
         link: [],
       },
-      files: [],
-      ams: null,
-      value: [], 
-      hangar_id: null,
-      maintenance_id: null,
-      lines_id: null,
-      maintenance_option: [],
-      hangar_option: [],
-      line_option: [],
-      contact_person: [], 
       optionsCategory: [
         { name: 'Category1', code: 'c1' },
         { name: 'Category2', code: 'c2' },
@@ -1533,6 +1528,18 @@ export default {
       order: 'id',
       by: 'desc',
       paginate: '10',
+      files: [],
+      ams: null,
+      value: [], 
+      hangar_id: null,
+      maintenance_id: null,
+      lines_id: null,
+      end_date: null,
+      current_date: null,
+      maintenance_option: [],
+      hangar_option: [],
+      line_option: [],
+      contact_person: [], 
       modal_contact: false,
       modal_upload: null,
       current_page: null,
@@ -1719,15 +1726,9 @@ export default {
     },
     listLine() {
       this.$axios
-        .get('api/lines', {
-          params: {
-            order: 'created_at',
-            by: 'ASC',
-          },
-        })
+        .get('api/line')
         .then((response) => {
           this.line_option = response.data.data
-          console.log(this.line_option)
         })
     },
     listHangar() {
@@ -1806,6 +1807,28 @@ export default {
           this.listDetail()
           this.clearFormEditSales()
           this.closeModalEditSales()
+        })
+        .catch((error) => {
+          if (error.response.status == 422) {
+            this.errors = error.response.data.errors
+            toastr.error(error.response.data.message)
+            console.log(errors)
+          }
+        })
+    },
+    salesReschedule() {
+      this.loading()
+      this.$axios
+        .put(`api/sales-reschedule/${this.$route.query.id}`, {
+          sales_id: this.$route.query.id,
+          hangar_id: this.sales_detail.location.id,
+          current_date: this.current_date,
+          start_date: this.sales_detail.start_date,
+          tat: this.sales_detail.tat,
+        })
+        .then((response) => {
+          toastr.success(response.data.message)
+          this.listDetail()
         })
         .catch((error) => {
           if (error.response.status == 422) {
@@ -1960,7 +1983,6 @@ export default {
         console.log(error)
       })
     },
-
 
     closeModalFile() {
       this.listFile()

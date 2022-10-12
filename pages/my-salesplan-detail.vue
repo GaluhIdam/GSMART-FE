@@ -250,8 +250,9 @@
               <div class="col-lg-4 col-md-12 col-sm-12">
                 <div class="card mb-3" style="max-width: 540px;">
                   <div class="row no-gutters">
-                    <div class="col-md-2 mt-2">
-                      <img src="https://dummyimage.com/70x70/000/fff" class="rounded" style="width: 70px;">
+                    <div class="col-md-2 mt-2" v-if="sales_detail">
+                      <img :src="sales_detail.customer.full_path" class="rounded" alt="No Image" style="width: 70px;">
+                      <!-- <img src="https://dummyimage.com/70x70/000/fff" class="rounded" style="width: 70px;"> -->
                     </div>
                     <div class="col-md-10" style="margin-top: -20px;">
                       <div class="card-body">

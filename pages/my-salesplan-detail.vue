@@ -543,8 +543,17 @@
                                   </div>
                                   <div class="col-lg-6">
                                     <div class="position-relative">
-                                      <div class="position-absolute top-0 end-0">
-                                        <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#addContact" @click="addContact()">Add Contact Person</button>
+                                      <div class="position-absolute top-0 end-0" v-if="sales_detail">
+                                        <button 
+                                          type="button" 
+                                          class="btn btn-primary btn-sm" 
+                                          data-bs-toggle="modal" 
+                                          data-bs-target="#addContact" 
+                                          @click="addContact()"
+                                          v-if="sales_detail.status === 'Open'"
+                                          >
+                                          Add Contact Person
+                                        </button>
                                       </div>
                                     </div>
                                   </div>
@@ -579,13 +588,14 @@
                                   </div>
                                   <div class="col-lg-6 mt-3">
                                     <div class="position-relative">
-                                      <div class="position-absolute top-0 end-0">
+                                      <div class="position-absolute top-0 end-0" v-if="sales_detail">
                                         <button 
                                         type="button" 
                                         class="btn btn-primary btn-sm" 
                                         data-bs-toggle="modal" 
                                         data-bs-target="#addFile" 
                                         @click="addFile1()"
+                                        v-if="sales_detail.status === 'Open'"
                                         >
                                           Upload Document
                                         </button>
@@ -616,13 +626,14 @@
                                   </div>
                                   <div class="col-lg-6 mt-3">
                                     <div class="position-relative">
-                                      <div class="position-absolute top-0 end-0">
+                                      <div class="position-absolute top-0 end-0" v-if="sales_detail">
                                         <button 
                                         type="button" 
                                         class="btn btn-primary btn-sm" 
                                         data-bs-toggle="modal" 
                                         data-bs-target="#addFile" 
                                         @click="addFile2()"
+                                        v-if="sales_detail.status === 'Open'"
                                         >
                                           Upload Document
                                         </button>
@@ -655,7 +666,6 @@
                             <div class="flex-column" data-kt-stepper-element="content" v-if="sales_detail.level === 3 || sales_detail.level === 2 || sales_detail.level === 1">
                               <form>
                                 <div class="row">
-                                  <!-- <h5>File has been upload</h5> -->
                                   <!-- Attachment of Financial Assesment Form (optional) -->
                                   <div class="col-lg-6 mt-3">
                                     <h3>Attachment of Financial Assesment Form (optional)</h3>
@@ -663,13 +673,14 @@
                                   </div>
                                   <div class="col-lg-6 mt-3">
                                     <div class="position-relative">
-                                      <div class="position-absolute top-0 end-0">
+                                      <div class="position-absolute top-0 end-0" v-if="sales_detail">
                                         <button 
                                         type="button" 
                                         class="btn btn-primary btn-sm" 
                                         data-bs-toggle="modal" 
                                         data-bs-target="#addFile" 
                                         @click="addFile3()"
+                                        v-if="sales_detail.status === 'Open'"
                                         >
                                           Upload Document
                                         </button>
@@ -700,7 +711,7 @@
                                   </div>
                                   <div class="col-lg-6 mt-3">
                                     <div class="position-relative">
-                                      <div class="position-absolute top-0 end-0">
+                                      <div class="position-absolute top-0 end-0" v-if="sales_detail">
                                         <button type="button" class="btn btn-outline-warning btn-outline btn-sm">Sync</button>
                                         <button type="button" class="btn btn-success btn-sm">Notify COGS</button>
                                         <button 
@@ -709,6 +720,7 @@
                                         data-bs-toggle="modal" 
                                         data-bs-target="#addFile" 
                                         @click="addFile4()"
+                                        v-if="sales_detail.status === 'Open'"
                                         >
                                           Upload Document
                                         </button>
@@ -739,7 +751,7 @@
                                   </div>
                                   <div class="col-lg-6 mt-3">
                                     <div class="position-relative">
-                                      <div class="position-absolute top-0 end-0">
+                                      <div class="position-absolute top-0 end-0" v-if="sales_detail">
                                         <span class="btn btn-sm" id="textWaiting">Waiting Approve VP TP</span>
                                         <button 
                                         type="button" 
@@ -747,13 +759,13 @@
                                         data-bs-toggle="modal" 
                                         data-bs-target="#addFile" 
                                         @click="addFile5()"
+                                        v-if="sales_detail.status === 'Open'"
                                         >
                                           Upload Document
                                         </button>
                                       </div>
                                     </div>
                                   </div>
-                                  <!-- End Modal Upload Profitability  -->
                                   <div class="rounded box-d" id="myBorder">
                                     <div class="mt-3">
                                       <table class="table" v-if="files">
@@ -771,15 +783,6 @@
                                     </div>
                                   </div>
 
-                                  <div class="text-center mt-10">
-                                    <!-- <button type="button" class="btn btn-light btn-active-light-primary" data-kt-stepper-action="previous">
-                                      Back
-                                    </button>
-                                    <button type="button" class="btn btn-primary" data-kt-stepper-action="next">
-                                      Continue
-                                    </button> -->
-                                  </div>
-
                                 </div>
                               </form>
                             </div>
@@ -789,7 +792,6 @@
                             <div class="flex-column" data-kt-stepper-element="content" v-if="sales_detail.level === 2 || sales_detail.level === 1">
                               <form action="">
                                 <div class="row">
-                                  <!-- <h5>File has been upload</h5> -->
                                   <!-- Attachment of Customer Approval (SOW Signed / Proposal Approved) -->
                                   <div class="col-lg-6 mt-3">
                                     <h3>Attachment of Customer Approval (SOW Signed / Proposal Approved)</h3>
@@ -797,13 +799,14 @@
                                   </div>
                                   <div class="col-lg-6 mt-3">
                                     <div class="position-relative">
-                                      <div class="position-absolute top-0 end-0">
+                                      <div class="position-absolute top-0 end-0" v-if="sales_detail">
                                         <button 
                                         type="button" 
                                         class="btn btn-primary btn-sm" 
                                         data-bs-toggle="modal" 
                                         data-bs-target="#addFile" 
                                         @click="addFile6()"
+                                        v-if="sales_detail.status === 'Open'"
                                         >
                                           Upload Document
                                         </button>
@@ -843,7 +846,7 @@
                                     <div class="col-lg-4" >
                                       <div class="mb-3">
                                         <label>Hangar</label>
-                                        <input type="text" class="form-control form-control-solid" v-model="sales_detail.location" readonly/>
+                                        <input type="text" class="form-control form-control-solid" v-model="sales_detail.location.id" readonly/>
                                       </div>
                                       <div class="mb-3">
                                         <label>Line Hangar</label>
@@ -867,7 +870,7 @@
                                               </select>
                                             </div>
                                             <div class="col-3">
-                                              <button class="btn btn-primary btn-sm" type="button" @click="updateSlot()">Save</button>
+                                              <button class="btn btn-primary btn-sm" type="button" @click="updateSlot()" v-if="sales_detail.status === 'Open'">Save</button>
                                             </div>
                                           </div>
 
@@ -909,7 +912,6 @@
                             <div class="flex-column" data-kt-stepper-element="content" v-if="sales_detail.level === 1">
                               <form action="">
                                 <div class="row">
-                                  <!-- <h5>File has been upload</h5> -->
                                   <!-- Attachment of WO/PO number customer document -->
                                   <div class="col-lg-6 mt-3">
                                     <h3>Attachment of WO/PO number customer document</h3>
@@ -917,14 +919,15 @@
                                   </div>
                                   <div class="col-lg-6 mt-3">
                                     <div class="position-relative">
-                                      <div class="position-absolute top-0 end-0">
-                                        <button type="button" class="btn btn-success btn-sm">Closed Sales</button>
+                                      <div class="position-absolute top-0 end-0" v-if="sales_detail">
+                                        <button type="button" class="btn btn-success btn-sm" v-if="sales_detail.status === 'Open'">Closed Sales</button>
                                         <button 
                                         type="button" 
                                         class="btn btn-primary btn-sm" 
                                         data-bs-toggle="modal" 
                                         data-bs-target="#addFile" 
                                         @click="addFile7()"
+                                        v-if="sales_detail.status === 'Open'"
                                         >
                                           Upload Document
                                         </button>
@@ -957,13 +960,21 @@
                                       <label for="">SO Number</label>
                                       <div class="input-group mb-3">
                                           <input type="text" class="form-control" v-model="sales_detail.so_number">
-                                          <button class="btn btn-sm" type="button" @click="updateSO()" id="textSync">Sync</button>
+                                          <button 
+                                            class="btn btn-sm" 
+                                            type="button" 
+                                            @click="updateSO()" 
+                                            id="textSync"
+                                            v-if="sales_detail.status === 'Open'"
+                                            >
+                                            Sync
+                                          </button>
                                       </div>
                                     </div>
                                   </form>
 
                                   <div class="text-center mt-10">
-                                    <button type="button" class="btn btn-primary">Request to Closed</button>
+                                    <button type="button" class="btn btn-primary" v-if="sales_detail.status === 'Open'">Request to Closed</button>
                                   </div>
 
                                 </div>
@@ -1237,28 +1248,31 @@
                       </div>
                       <!-- Cancel Form -->
                       <div class="tab-pane fade" id="kt_tab_pane_2" role="tabpanel">
-                        <form action="">
+                        <form @submit.prevent="salesCancel">
                           <div class="mb-3">
                             <label class="form-label">Category</label>
                             <div class="row mb-5">
                               <div class="col">
                                 <div class="input-group mb-3">
-                                  <multiselect
-                                    v-model="value"
-                                    placeholder="Select Category"
-                                    label="name"
-                                    track-by="code"
-                                    :options="optionsCategory"
-                                    :multiple="true"
-                                    :taggable="false"
-                                  ></multiselect>
+                                  <!-- <select v-model="category" class="form-select">
+                                    <option :value="category">Category 1</option>
+                                    <option :value="category">Category 2</option>
+                                    <option :value="category">Category 3</option>
+                                  </select> -->
+                                  <input type="text" v-model="category" class="form-control">
+                                  <span v-if="errors.category" class="error invalid-feedback">
+                                    {{ errors.category[0] }}
+                                  </span>
                                 </div>
                               </div>
                             </div>
                           </div>
                           <div class="mb-3">
                             <label class="form-label">Reason of Cancel <span class="text-danger">*</span></label>
-                            <textarea name="" class="form-control" cols="30" rows="10"></textarea>
+                            <textarea class="form-control" cols="30" rows="Category0" v-model="reason"></textarea>
+                            <span v-if="errors.reason" class="error invalid-feedback">
+                              {{ errors.reason[0] }}
+                            </span>
                           </div>
                           <div class="text-center mt-5">
                             <button type="reset" class="btn btn-danger">Reset</button>
@@ -1507,12 +1521,7 @@ export default {
       sales: {
         data: [],
         link: [],
-      },
-      optionsCategory: [
-        { name: 'Category1', code: 'c1' },
-        { name: 'Category2', code: 'c2' },
-        { name: 'Category3', code: 'c3' },
-      ],    
+      },  
       p_contact: {
         id: null,
         name: null,
@@ -1555,6 +1564,8 @@ export default {
       level2: null,
       level1: null,
       ams_id: null,
+      category: null,
+      reason: null,
       file_histories: [],
       errors: {
         name: null,
@@ -1570,7 +1581,8 @@ export default {
         tat: null,
         location: null,
         value: null,
-        start_date: null,
+        category: null,
+        reason: null,
       },
     }
   },
@@ -1756,7 +1768,6 @@ export default {
         this.$router.push({
           name: 'my-salesplan'
         });
-        Swal.close()
       })
       .catch((error) => console.log(error))
     },
@@ -1829,6 +1840,28 @@ export default {
         .then((response) => {
           toastr.success(response.data.message)
           this.listDetail()
+        })
+        .catch((error) => {
+          if (error.response.status == 422) {
+            this.errors = error.response.data.errors
+            toastr.error(error.response.data.message)
+            console.log(errors)
+          }
+        })
+    },
+    salesCancel() {
+      this.loading()
+      this.$axios
+        .put(`api/sales-reject/${this.$route.query.id}`, {
+          sales_id: this.$route.query.id,
+          category: this.category,
+          reason: this.reason,
+        })
+        .then((response) => {
+          toastr.success(response.data.message)
+          this.$router.push({
+            name: 'my-salesplan'
+          });
         })
         .catch((error) => {
           if (error.response.status == 422) {

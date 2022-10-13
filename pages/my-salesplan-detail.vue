@@ -317,7 +317,7 @@
                 <div v-if="sales_detail.status === 'Close in'">
                   <span class="badge badge-warning"><b>Close in</b></span>
                 </div>
-                <div v-if="sales_detail.status === 'Closed Sales'">
+                <div v-if="sales_detail.status === 'Closed'">
                   <span class="badge badge-primary"><b>Closed</b></span>
                 </div>
               </div>
@@ -946,7 +946,13 @@
                                   <div class="col-lg-6 mt-3">
                                     <div class="position-relative">
                                       <div class="position-absolute top-0 end-0" v-if="sales_detail">
-                                        <button type="button" class="btn btn-success btn-sm" v-if="sales_detail.status === 'Open'">Closed Sales</button>
+                                        <input type="hidden" v-model="status" value="2">
+                                        <button type="button" class="btn btn-success btn-sm" 
+                                          @click="closeSales()" 
+                                          v-if = "sales_detail.status === 'Open'"
+                                          >
+                                          Closed Sales
+                                        </button>
                                         <button 
                                         type="button" 
                                         class="btn btn-primary btn-sm" 
@@ -1580,6 +1586,7 @@ export default {
       maintenance_option: [],
       hangar_option: [],
       line: null,
+      status: null,
       contact_person: [], 
       modal_contact: false,
       modal_upload: null,
@@ -1926,10 +1933,10 @@ export default {
           }
         })
     },
-    requestClosed() {
+    closeSales() {
       this.loading()
       this.$axios
-        .put(`api/sales-close/${this.$route.query.id}`, {
+        .put(`api/sales-upgrade-level/${this.$route.query.id}`, {
           status: this.status,
         })
         .then((response) => {

@@ -1951,6 +1951,26 @@ export default {
           }
         })
     },
+    requestClosed() {
+      this.loading()
+      this.$axios
+        .put(`api/sales-close/${this.$route.query.id}`, {
+          status: this.status,
+        })
+        .then((response) => {
+          toastr.success(response.data.message)
+          this.$router.push({
+            name: 'my-salesplan'
+          });
+        })
+        .catch((error) => {
+          if (error.response.status == 422) {
+            this.errors = error.response.data.errors
+            toastr.error(error.response.data.message)
+            console.log(errors)
+          }
+        })
+    },
 
     submitFile() {
       this.loading()

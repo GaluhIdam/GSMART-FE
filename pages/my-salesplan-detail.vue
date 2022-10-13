@@ -81,8 +81,8 @@
                           <div id="bodyAMS" v-if="sales_detail">
                             Level: <b>{{ sales_detail.level }}</b> Status: <b>{{ sales_detail.status }}</b> Other: <b>{{ sales_detail.other }}</b> Type: <b>{{ sales_detail.type }}</b> Month Sales: <b>{{ sales_detail.monthSales }}</b>
                             Years: <b>{{ sales_detail.year }}</b> Start Date Project: <b>{{ sales_detail.start_date }}</b> End Date Project: <b>{{ sales_detail.endDate }}</b>
-                            TAT: <b>{{ sales_detail.tat }} Days</b> Progress: <b>{{ sales_detail.progress }}%</b> Product: <b>{{ sales_detail.product }}</b> Location: <b>{{ sales_detail.location }}</b>
-                            Maintenance: <b>{{ sales_detail.maintenance }}</b>
+                            TAT: <b>{{ sales_detail.tat }} Days</b> Progress: <b>{{ sales_detail.progress }}%</b> Product: <b>{{ sales_detail.product.name }}</b> Location: <b>{{ sales_detail.location.name }}</b>
+                            Maintenance: <b>{{ sales_detail.maintenance.name }}</b>
                           </div>
                         </div>
                       </form>
@@ -657,6 +657,14 @@
                                     </div>
                                   </div>
 
+                                  <div class="text-center mt-5">
+                                    <form>
+                                      <input type="hidden" v-model="upgrade" value="1">
+                                      <button type="button" class="btn btn-info btn-sm" @click="upgradeLevel()">Upgrade Level</button>
+                                    </form>
+                                  </div>
+
+
                                 </div>
                               </form>
                             </div>
@@ -783,6 +791,13 @@
                                     </div>
                                   </div>
 
+                                  <div class="text-center mt-5">
+                                    <form>
+                                      <input type="hidden" v-model="upgrade" value="1">
+                                      <button type="button" class="btn btn-info btn-sm" @click="upgradeLevel()">Upgrade Level</button>
+                                    </form>
+                                  </div>
+
                                 </div>
                               </form>
                             </div>
@@ -790,7 +805,7 @@
 
                             <!--begin::Step 2-->
                             <div class="flex-column" data-kt-stepper-element="content" v-if="sales_detail.level === 2 || sales_detail.level === 1">
-                              <form action="">
+                              <form>
                                 <div class="row">
                                   <!-- Attachment of Customer Approval (SOW Signed / Proposal Approved) -->
                                   <div class="col-lg-6 mt-3">
@@ -892,6 +907,13 @@
                                     </div>
                                   </div>
 
+                                  <div class="text-center mt-5">
+                                    <form>
+                                      <input type="hidden" v-model="upgrade" value="1">
+                                      <button type="button" class="btn btn-info btn-sm" @click="upgradeLevel()">Upgrade Level</button>
+                                    </form>
+                                  </div>
+
                                 </div>
                               </form>
                             </div>
@@ -963,7 +985,7 @@
                                   </form>
 
                                   <div class="text-center mt-10">
-                                    <button type="button" class="btn btn-primary" v-if="sales_detail.status === 'Open'">Request to Closed</button>
+                                    <button type="button" class="btn btn-primary btn-sm" v-if="sales_detail.status === 'Open'">Request to Closed</button>
                                   </div>
 
                                 </div>
@@ -1530,6 +1552,7 @@ export default {
       ams: null,
       value: [], 
       hangar_id: null,
+      upgrade: null,
       maintenance_id: null,
       line_id: null,
       end_date: null,
@@ -1649,6 +1672,7 @@ export default {
         this.level2 = response.data.data.level2
         this.level1 = response.data.data.level1
         Swal.close()
+        console.log(this.sales_detail)
       })
       .catch((error) => console.log(error))
     },
@@ -1854,6 +1878,25 @@ export default {
           this.$router.push({
             name: 'my-salesplan'
           });
+        })
+        .catch((error) => {
+          if (error.response.status == 422) {
+            this.errors = error.response.data.errors
+            toastr.error(error.response.data.message)
+            console.log(errors)
+          }
+        })
+    },
+    upgradeLevel() {
+      this.loading()
+      this.$axios
+        .put(`api/sales-upgrade-level/${this.$route.query.id}`, {
+          sales_id: this.$route.query.id,
+          upgrade: this.upgrade,
+        })
+        .then((response) => {
+          toastr.success(response.data.message)
+          this.listDetail()
         })
         .catch((error) => {
           if (error.response.status == 422) {

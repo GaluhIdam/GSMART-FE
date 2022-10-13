@@ -18,7 +18,7 @@
             <div class="modal-content">
               <div class="modal-header text-center">
                 <h1 class="modal-title w-100" id="filterdateLabel">Filter & Date</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" @click="closeModal()"></button>
               </div>
               <form>
                 <div class="modal-body">
@@ -40,7 +40,7 @@
                 </div>
                 <div class="modal-footer">
                   <div class="col-md-12 text-center">
-                    <button type="button" class="btn btn-light mx-3" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-light mx-3" data-bs-dismiss="modal" @click="closeModal()">Cancel</button>
                     <button type="button" class="btn btn-primary" data-bs-dismiss="modal" @click="list()">Filter</button>
                   </div>
                 </div>
@@ -836,6 +836,16 @@ export default {
       let new_url = url.toString()
       this.list(new_url)
     }, 500),
+
+    closeModal() {
+      this.list()
+      this.clearForm()
+    },
+    clearForm() {
+      this.start_date = null
+      this.end_date = null
+      this.type = null
+    },
   }
 }
 </script>

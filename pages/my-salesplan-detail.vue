@@ -146,7 +146,7 @@
                           <div class="form-group mb-3">
                             <label class="form-label fw-bold">Maintenance</label>
                             <select v-model="maintenance_id" class="form-select">
-                              <option v-for="maintenance_options in maintenance_option" :value="maintenance_options.id">
+                              <option v-for="maintenance_options in maintenance_option" :value="maintenance_options.id" :selected="maintenance_options.id = maintenance_id">
                                 {{ maintenance_options.name }}
                               </option>
                             </select>
@@ -189,7 +189,7 @@
                           <div class="form-group mb-3">
                             <label class="form-label fw-bold">Location</label>
                             <select v-model="hangar_id" class="form-select">
-                              <option v-for="hangar_options in hangar_option" :value="hangar_options.id">
+                              <option v-for="hangar_options in hangar_option" :value="hangar_options.id" :selected="hangar_options.id = hangar_id">
                                 {{ hangar_options.name }}
                               </option>
                             </select>
@@ -383,11 +383,11 @@
                 <p class="text-muted">Location</p>
                 <p v-if="sales_detail"><b>{{ sales_detail.location.name }}</b></p>
                 <p class="text-muted mt-5">Product</p>
-                <p v-if="sales_detail"><b>{{ sales_detail.product }}</b></p>
+                <p v-if="sales_detail"><b>{{ sales_detail.product.name }}</b></p>
               </div>
               <div class="col-lg-3">
                 <p class="text-muted">Maintenance</p>
-                <p v-if="sales_detail"><b>{{ sales_detail.maintenance }}</b></p>
+                <p v-if="sales_detail"><b>{{ sales_detail.maintenance.description }}</b></p>
               </div>
             </div>
             <!-- End Detail -->
@@ -607,7 +607,7 @@
                                       <table class="table" v-if="files">
                                         <tr v-for="files in level4[1].data" :key="files.id">
                                           <td>
-                                              <a :href="files.full_path" class="btn btn-outline-primary btn-outline btn-sm" target="_blank">
+                                              <a :href="files.full_path" class="btn btn-outline-primary btn-outline btn-sm mb-2" target="_blank">
                                                 <strong>{{ files.file_name }}</strong>
                                               </a>
                                           </td>
@@ -645,7 +645,7 @@
                                       <table class="table" v-if="files">
                                         <tr v-for="files in level4[2].data" :key="files.id">
                                           <td>
-                                              <a :href="files.full_path" class="btn btn-outline-primary btn-outline btn-sm" target="_blank">
+                                              <a :href="files.full_path" class="btn btn-outline-primary btn-outline btn-sm mb-2" target="_blank">
                                                 <strong>{{ files.file_name }}</strong>
                                               </a>
                                           </td>
@@ -692,7 +692,7 @@
                                       <table class="table" v-if="files">
                                         <tr v-for="files in level3[0].data" :key="files.id">
                                           <td>
-                                              <a :href="files.full_path" class="btn btn-outline-primary btn-outline btn-sm" target="_blank">
+                                              <a :href="files.full_path" class="btn btn-outline-primary btn-outline btn-sm mb-2" target="_blank">
                                                 <strong>{{ files.file_name }}</strong>
                                               </a>
                                           </td>
@@ -732,7 +732,7 @@
                                       <table class="table" v-if="files">
                                         <tr v-for="files in level3[1].data" :key="files.id">
                                           <td>
-                                              <a :href="files.full_path" class="btn btn-outline-primary btn-outline btn-sm" target="_blank">
+                                              <a :href="files.full_path" class="btn btn-outline-primary btn-outline btn-sm mb-2" target="_blank">
                                                 <strong>{{ files.file_name }}</strong>
                                               </a>
                                           </td>
@@ -771,7 +771,7 @@
                                       <table class="table" v-if="files">
                                         <tr v-for="files in level3[2].data" :key="files.id">
                                           <td>
-                                              <a :href="files.full_path" class="btn btn-outline-primary btn-outline btn-sm" target="_blank">
+                                              <a :href="files.full_path" class="btn btn-outline-primary btn-outline btn-sm mb-2" target="_blank">
                                                 <strong>{{ files.file_name }}</strong>
                                               </a>
                                           </td>
@@ -818,7 +818,7 @@
                                       <table class="table" v-if="files">
                                         <tr v-for="files in level2[0].data" :key="files.id">
                                           <td>
-                                              <a :href="files.full_path" class="btn btn-outline-primary btn-outline btn-sm" target="_blank">
+                                              <a :href="files.full_path" class="btn btn-outline-primary btn-outline btn-sm mb-2" target="_blank">
                                                 <strong>{{ files.file_name }}</strong>
                                               </a>
                                           </td>
@@ -928,7 +928,7 @@
                                       <table class="table" v-if="files">
                                         <tr v-for="files in level1[0].data" :key="files.id">
                                           <td>
-                                              <a :href="files.full_path" class="btn btn-outline-primary btn-outline btn-sm" target="_blank">
+                                              <a :href="files.full_path" class="btn btn-outline-primary btn-outline btn-sm mb-2" target="_blank">
                                                 <strong>{{ files.file_name }}</strong>
                                               </a>
                                           </td>
@@ -1248,7 +1248,7 @@
                                     <option :value="category">Category 2</option>
                                     <option :value="category">Category 3</option>
                                   </select> -->
-                                  <input type="text" v-model="category" class="form-control">
+                                  <input type="text" v-model="category" class="form-control" :class="{ 'is-invalid': errors.category, }">
                                   <span v-if="errors.category" class="error invalid-feedback">
                                     {{ errors.category[0] }}
                                   </span>
@@ -1258,7 +1258,7 @@
                           </div>
                           <div class="mb-3">
                             <label class="form-label">Reason of Cancel <span class="text-danger">*</span></label>
-                            <textarea class="form-control" cols="30" rows="Category0" v-model="reason"></textarea>
+                            <textarea class="form-control" cols="30" rows="10" v-model="reason" :class="{ 'is-invalid': errors.reason, }"></textarea>
                             <span v-if="errors.reason" class="error invalid-feedback">
                               {{ errors.reason[0] }}
                             </span>
@@ -1960,6 +1960,7 @@ export default {
       this.$axios
         .post('/api/contact-person-create', {
           id: this.p_contact.id,
+          customer_id: this.sales_detail.customer.id,
           sales_id: this.sales_detail.id,
           name: this.p_contact.name,
           phone: this.p_contact.phone,
@@ -1971,6 +1972,7 @@ export default {
         .then((response) => {
           toastr.success(response.data.message)
           this.listContact()
+          this.listDetail()
           this.closeModalContact()
         })
         .catch((error) => {

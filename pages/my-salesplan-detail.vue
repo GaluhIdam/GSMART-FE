@@ -660,7 +660,12 @@
                                   <div class="text-center mt-5">
                                     <form>
                                       <input type="hidden" v-model="upgrade" value="1">
-                                      <button type="button" class="btn btn-info btn-sm" @click="upgradeLevel()">Upgrade Level</button>
+                                      <button type="button" class="btn btn-info btn-sm" 
+                                        @click="upgradeLevel()" 
+                                        v-if = "sales_detail.status === 'Open'"
+                                        >
+                                        Upgrade Level
+                                      </button>
                                     </form>
                                   </div>
 
@@ -794,7 +799,12 @@
                                   <div class="text-center mt-5">
                                     <form>
                                       <input type="hidden" v-model="upgrade" value="1">
-                                      <button type="button" class="btn btn-info btn-sm" @click="upgradeLevel()">Upgrade Level</button>
+                                      <button type="button" class="btn btn-info btn-sm" 
+                                        @click="upgradeLevel()" 
+                                        v-if = "sales_detail.status === 'Open'"
+                                        >
+                                        Upgrade Level
+                                      </button>
                                     </form>
                                   </div>
 
@@ -910,7 +920,12 @@
                                   <div class="text-center mt-5">
                                     <form>
                                       <input type="hidden" v-model="upgrade" value="1">
-                                      <button type="button" class="btn btn-info btn-sm" @click="upgradeLevel()">Upgrade Level</button>
+                                      <button type="button" class="btn btn-info btn-sm" 
+                                        @click="upgradeLevel()" 
+                                        v-if = "sales_detail.status === 'Open'"
+                                        >
+                                        Upgrade Level
+                                      </button>
                                     </form>
                                   </div>
 
@@ -985,7 +1000,12 @@
                                   </form>
 
                                   <div class="text-center mt-10">
-                                    <button type="button" class="btn btn-primary btn-sm" v-if="sales_detail.status === 'Open'">Request to Closed</button>
+                                    <form>
+                                      <input type="hidden" v-model="status" value="3">
+                                      <button type="button" class="btn btn-primary btn-sm" @click="requestClosed()" v-if="sales_detail.status === 'Open'">
+                                        Request to Closed
+                                      </button>
+                                    </form>
                                   </div>
 
                                 </div>
@@ -1893,6 +1913,24 @@ export default {
         .put(`api/sales-upgrade-level/${this.$route.query.id}`, {
           sales_id: this.$route.query.id,
           upgrade: this.upgrade,
+        })
+        .then((response) => {
+          toastr.success(response.data.message)
+          this.listDetail()
+        })
+        .catch((error) => {
+          if (error.response.status == 422) {
+            this.errors = error.response.data.errors
+            toastr.error(error.response.data.message)
+            console.log(errors)
+          }
+        })
+    },
+    requestClosed() {
+      this.loading()
+      this.$axios
+        .put(`api/sales-close/${this.$route.query.id}`, {
+          status: this.status,
         })
         .then((response) => {
           toastr.success(response.data.message)

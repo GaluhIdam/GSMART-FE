@@ -48,9 +48,9 @@
               </div>
               <div class="col-lg-6">
                 <div class="text-right">
-                  <div class="position-absolute top-0 end-0 mx-15 mt-4">
+                  <div class="position-absolute top-0 end-0 mx-15 mt-4" v-if="sales_detail">
                     <button class="btn btn-outline btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#switchAMS">Switch AMS</button>
-                    <button class="btn btn-primary btn-sm"><i class="fa-solid fa-pen"></i> Edit Salesplan</button>
+                    <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editSales" v-if="sales_detail.type === 'TMB'"><i class="fa-solid fa-pen"></i> Edit Sales Plan</button>
                   </div>
                 </div>
               </div>
@@ -95,14 +95,164 @@
                 </div>
               </div>
             </div>
+
+            <!-- Modal editSales -->
+            <div class="modal fade" tabindex="-1" id="editSales" data-bs-backdrop="static">
+              <div class="modal-dialog modal-dialog-centered modal-lg">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h3 class="modal-title">Edit Sales Plan</h3>
+
+                    <!--begin::Close-->
+                    <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close"
+                    >
+                      <span class="svg-icon svg-icon-1" @click="closeModalContact()">
+                        <svg
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <rect
+                            opacity="0.5"
+                            x="6"
+                            y="17.3137"
+                            width="16"
+                            height="2"
+                            rx="1"
+                            transform="rotate(-45 6 17.3137)"
+                            fill="currentColor"
+                          ></rect>
+                          <rect
+                            x="7.41422"
+                            y="6"
+                            width="16"
+                            height="2"
+                            rx="1"
+                            transform="rotate(45 7.41422 6)"
+                            fill="currentColor"
+                          ></rect>
+                        </svg>
+                      </span>
+                    </div>
+                    <!--end::Close-->
+                  </div>
+                  <div class="modal-body">
+                    <form @submit.prevent="salesUpdate" v-if="sales_detail">
+                      <input type="hidden" v-model="sales_detail.id">
+                      <div class="row">
+                        <div class="col-lg-6">
+                          <div class="form-group mb-3">
+                            <label class="form-label fw-bold">Maintenance</label>
+                            <select v-model="maintenance_id" class="form-select">
+                              <option v-for="maintenance_options in maintenance_option" :value="maintenance_options.id">
+                                {{ maintenance_options.name }}
+                              </option>
+                            </select>
+                            <span v-if="errors.maintenance_id" class="error invalid-feedback">
+                              {{ errors.maintenance_id[0] }}
+                            </span>
+                          </div>
+                          <div class="form-group mb-3">
+                            <label class="form-label fw-bold">Registration</label>
+                            <input
+                              type="text"
+                              class="form-control"
+                              v-model="sales_detail.acReg"
+                              :class="{
+                                'is-invalid': errors.acReg,
+                              }"
+                            />
+                            <span v-if="errors.acReg" class="error invalid-feedback">{{
+                              errors.acReg[0]
+                            }}</span>
+                          </div>
+                          <div class="form-group mb-3">
+                            <label class="form-label fw-bold">TAT</label>
+                            <input
+                              type="number"
+                              class="form-control"
+                              v-model="sales_detail.tat"
+                              :class="{
+                                'is-invalid': errors.tat,
+                              }"
+                            />
+                            <span
+                              v-if="errors.tat"
+                              class="error invalid-feedback"
+                              >{{ errors.tat[0] }}</span
+                            >
+                          </div>
+                        </div>
+                        <div class="col-lg-6">
+                          <div class="form-group mb-3">
+                            <label class="form-label fw-bold">Location</label>
+                            <select v-model="hangar_id" class="form-select">
+                              <option v-for="hangar_options in hangar_option" :value="hangar_options.id">
+                                {{ hangar_options.name }}
+                              </option>
+                            </select>
+                            <span v-if="errors.hangar_id" class="error invalid-feedback">
+                              {{ errors.hangar_id[0] }}
+                            </span>
+                          </div>
+                          <div class="form-group mb-3">
+                            <label class="form-label fw-bold">Sales Plan</label>
+                            <input
+                              type="number"
+                              class="form-control"
+                              v-model="sales_detail.totalSales"
+                              :class="{
+                                'is-invalid': errors.totalSales,
+                              }"
+                            />
+                            <span
+                              v-if="errors.totalSales"
+                              class="error invalid-feedback"
+                              >{{ errors.totalSales[0] }}</span
+                            >
+                          </div>
+                          <div class="form-group mb-3">
+                            <label class="form-label fw-bold">Start Date</label>
+                            <input
+                              type="date"
+                              class="form-control"
+                              v-model="sales_detail.start_date"
+                              :class="{
+                                'is-invalid': errors.start_date,
+                              }"
+                            />
+                            <span
+                              v-if="errors.start_date"
+                              class="error invalid-feedback"
+                              >{{ errors.start_date[0] }}</span
+                            >
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row mt-10">
+                        <div class="col d-flex justify-content-end">
+                          <button type="button" class="btn btn-light mx-2" data-bs-dismiss="modal" id="close_modal_edit_sales">
+                            Close
+                          </button>
+                          <button type="submit" class="btn btn-primary">Save</button>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
             
             <!-- Card -->
             <div class="row mt-3">
               <div class="col-lg-4 col-md-12 col-sm-12">
                 <div class="card mb-3" style="max-width: 540px;">
                   <div class="row no-gutters">
-                    <div class="col-md-2 mt-2">
-                      <img src="https://dummyimage.com/70x70/000/fff" class="rounded" style="width: 70px;">
+                    <div class="col-md-2 mt-2" v-if="sales_detail">
+                      <img :src="sales_detail.customer.full_path" class="rounded" alt="No Image" style="width: 70px;">
+                      <!-- <img src="https://dummyimage.com/70x70/000/fff" class="rounded" style="width: 70px;"> -->
                     </div>
                     <div class="col-md-10" style="margin-top: -20px;">
                       <div class="card-body">
@@ -231,7 +381,7 @@
               </div>
               <div class="col-lg-2">
                 <p class="text-muted">Location</p>
-                <p v-if="sales_detail"><b>{{ sales_detail.location }}</b></p>
+                <p v-if="sales_detail"><b>{{ sales_detail.location.name }}</b></p>
                 <p class="text-muted mt-5">Product</p>
                 <p v-if="sales_detail"><b>{{ sales_detail.product }}</b></p>
               </div>
@@ -689,24 +839,46 @@
                                       </div>
                                     </div>
                                   </div>
-                                  <div class="row">
-                                    <div class="col-lg-4" v-if="sales_detail">
+                                  <div class="row" v-if="sales_detail">
+                                    <div class="col-lg-4" >
                                       <div class="mb-3">
                                         <label>Hangar</label>
                                         <input type="text" class="form-control form-control-solid" v-model="sales_detail.location" readonly/>
                                       </div>
                                       <div class="mb-3">
                                         <label>Line Hangar</label>
-                                        <input type="number" class="form-control form-control-solid"/>
-                                        <!-- <select class="form-select form-control-soli" aria-label="Default select example">
-                                          <option selected>Select Line</option>
-                                          <option value="1">One</option>
-                                          <option value="2">Two</option>
-                                          <option value="3">Three</option>
+                                          <div class="row">
+                                            <div class="col-9">
+                                              <select v-model="sales_detail.line_id" class="form-select">
+                                                <option :value="1">1</option>
+                                                <option :value="2">2</option>
+                                                <option :value="3">3</option>
+                                                <option :value="4">4</option>
+                                                <option :value="5">5</option>
+                                                <option :value="6">6</option>
+                                                <option :value="7">7</option>
+                                                <option :value="8">8</option>
+                                                <option :value="9">9</option>
+                                                <option :value="10">10</option>
+                                                <option :value="11">11</option>
+                                                <option :value="12">12</option>
+                                                <option :value="13">13</option>
+                                                <option :value="14">14</option>
+                                              </select>
+                                            </div>
+                                            <div class="col-3">
+                                              <button class="btn btn-primary btn-sm" type="button" @click="updateSlot()">Save</button>
+                                            </div>
+                                          </div>
+
+                                        <!-- <select v-model="lines_id" class="form-select">
+                                          <option v-for="line_options in line_option" :value="line_options.id">
+                                            {{ line_options.code }} - {{ line_options.name }}
+                                          </option>
                                         </select> -->
                                       </div>
                                     </div>
-                                    <div class="col-lg-4" v-if="sales_detail">
+                                    <div class="col-lg-4">
                                       <div class="mb-3">
                                         <label>Registration</label>
                                         <input type="text" class="form-control form-control-solid" v-model="sales_detail.registration" readonly/>
@@ -784,8 +956,8 @@
                                     <div class="row">
                                       <label for="">SO Number</label>
                                       <div class="input-group mb-3">
-                                        <input type="text" class="form-control" v-model="sales_detail.so_number" ref="so_number" id="so_number">
-                                        <button class="btn btn-sm" type="button" @click="createSO()" id="textSync">Sync</button>
+                                          <input type="text" class="form-control" v-model="sales_detail.so_number">
+                                          <button class="btn btn-sm" type="button" @click="updateSO()" id="textSync">Sync</button>
                                       </div>
                                     </div>
                                   </form>
@@ -1026,37 +1198,42 @@
 
                     <div class="tab-content" id="myTabContent">
                       <!-- Reschedule Form -->
-                      <div class="tab-pane fade show active" id="kt_tab_pane_1" role="tabpanel">
-                          <form action="">
-                            <div class="mb-3">
-                              <label class="form-label">Hanggar</label>
-                              <input type="number" name="" class="form-control" id="">
-                            </div>
-                            <div class="mb-3">
-                              <label class="form-label">Registration</label>
-                              <input type="text" name="" class="form-control" id="" readonly>
-                            </div>
-                            <div class="mb-3">
-                              <label class="form-label">CBO Date</label>
-                              <input type="date" name="" class="form-control" id="">
-                            </div>
-                            <div class="mb-3">
-                              <label class="form-label">TAT</label>
-                              <input type="number" name="" class="form-control" id="">
-                            </div>
-                            <div class="mb-3">
-                              <label class="form-label">Current Date</label>
-                              <input type="date" name="" class="form-control" id="">
-                            </div>
-                            <div class="mb-3">
-                              <label class="form-label">Sales Month</label>
-                              <input type="text" name="" class="form-control" id="" readonly>
-                            </div>
-                            <div class="text-center mt-5">
-                              <button type="reset" class="btn btn-danger">Reset</button>
-                              <button type="submit" class="btn btn-primary">Confirm</button>
-                            </div>
-                          </form>
+                      <div class="tab-pane fade show active" id="kt_tab_pane_1" role="tabpanel" v-if="sales_detail">
+                        <form @submit.prevent="salesReschedule">
+                          <div class="mb-3">
+                            <label class="form-label">Hanggar</label>
+                            <input type="text" class="form-control" readonly v-model="sales_detail.location.id">
+                          </div>
+                          <div class="mb-3">
+                            <label class="form-label">Registration</label>
+                            <input type="text" class="form-control" v-model="sales_detail.registration" readonly>
+                          </div>
+                          <div class="mb-3">
+                            <label class="form-label">CBO Date</label>
+                            <input type="date" class="form-control" v-model="sales_detail.start_date">
+                          </div>
+                          <div class="mb-3">
+                            <label class="form-label">End Date</label>
+                            <input type="date" class="form-control" v-model="end_date">
+                          </div>
+                          <div class="mb-3">
+                            <label class="form-label">TAT</label>
+                            <input type="number" class="form-control" v-model="sales_detail.tat" readonly>
+                          </div>
+                          <div class="mb-3">
+                            <label class="form-label">Current Date</label>
+                            <input type="date" class="form-control" v-model="current_date">
+                          </div>
+                          <div class="mb-3">
+                            <label class="form-label">Sales Month</label>
+                            <input type="text" class="form-control" v-model="sales_detail.monthSales" readonly>
+                          </div>
+                          <div class="text-center mt-5">
+                            <button type="reset" class="btn btn-danger">Reset</button>
+                            <button type="submit" class="btn btn-primary">Confirm</button>
+                            <!-- <button type="submit" class="btn btn-primary" @click="salesReschedule()">Confirm</button> -->
+                          </div>
+                        </form>
                       </div>
                       <!-- Cancel Form -->
                       <div class="tab-pane fade" id="kt_tab_pane_2" role="tabpanel">
@@ -1331,9 +1508,6 @@ export default {
         data: [],
         link: [],
       },
-      files: [],
-      ams: null,
-      value: [],  
       optionsCategory: [
         { name: 'Category1', code: 'c1' },
         { name: 'Category2', code: 'c2' },
@@ -1350,11 +1524,22 @@ export default {
       },
       search: null,
       so_number: null,
-      ams_id: null,
       type: null,
       order: 'id',
       by: 'desc',
       paginate: '10',
+      files: [],
+      ams: null,
+      value: [], 
+      hangar_id: null,
+      maintenance_id: null,
+      lines_id: null,
+      end_date: null,
+      current_date: null,
+      maintenance_option: [],
+      hangar_option: [],
+      line_option: [],
+      contact_person: [], 
       modal_contact: false,
       modal_upload: null,
       current_page: null,
@@ -1369,7 +1554,7 @@ export default {
       level3: null,
       level2: null,
       level1: null,
-      name: null,
+      ams_id: null,
       file_histories: [],
       errors: {
         name: null,
@@ -1379,6 +1564,13 @@ export default {
         title: null,
         status: null,
         files: null,
+        so_number: null,
+        maintenance_id: null,
+        acreg: null,
+        tat: null,
+        location: null,
+        value: null,
+        start_date: null,
       },
     }
   },
@@ -1393,7 +1585,6 @@ export default {
       this.listContact()
       this.listFile()
       this.listFileHistory()
-      this.listAMS()
     }, 500),
   },
   created() {
@@ -1402,6 +1593,9 @@ export default {
     this.listFile()
     this.listFileHistory()
     this.listAMS()
+    this.listHangar()
+    this.listLine()
+    this.listMaintenance()
   },
   methods: {
     directPage: debounce(function () {
@@ -1517,6 +1711,132 @@ export default {
         Swal.close()
       })
       .catch((error) => console.log(error))
+    },
+    listMaintenance() {
+      this.$axios
+        .get('api/maintenance', {
+          params: {
+            order: 'created_at',
+            by: 'ASC',
+          },
+        })
+        .then((response) => {
+          this.maintenance_option = response.data.data.data
+        })
+    },
+    listLine() {
+      this.$axios
+        .get('api/line')
+        .then((response) => {
+          this.line_option = response.data.data
+        })
+    },
+    listHangar() {
+      this.$axios
+        .get('api/hangar', {
+          params: {
+            order: 'created_at',
+            by: 'ASC',
+          },
+        })
+        .then((response) => {
+          this.hangar_option = response.data.data
+        })
+    },
+
+    swtichAMS() {
+      this.loading()
+      this.$axios
+      .get(`api/sales-switch-ams/${this.$route.query.id}`, {
+        ams_id: this.ams_id
+      })
+      .then((response) => {
+        toastr.success(response.data.message)
+        Swal.close()
+        this.$router.push({
+          name: 'my-salesplan'
+        });
+        Swal.close()
+      })
+      .catch((error) => console.log(error))
+    },
+    updateSO() {
+      this.loading()
+      this.$axios
+        .put(`/api/sales-so-number/${this.$route.query.id}`, {
+          sales_id: this.$route.query.id,
+          so_number: this.sales_detail.so_number,
+        })
+        .then((response) => {
+          toastr.success(response.data.message)
+        })
+        .catch((error) => {
+          if (error.response.status == 422) {
+            this.errors = error.response.data.errors
+            toastr.error(error.response.data.message)
+          }
+        })
+    },
+    updateSlot() {
+      this.loading()
+      this.$axios
+      .put(`api/sales-slot-request/${this.$route.query.id}`, {
+        sales_id: this.$route.query.id,
+        line_id: this.sales_detail.line_id,
+      })
+      .then((response) => {
+        toastr.success(response.data.message)
+        Swal.close()
+      })
+      .catch((error) => console.log(error))
+    },
+    salesUpdate() {
+      this.loading()
+      this.$axios
+        .put(`/api/sales-update/${this.$route.query.id}`, {
+          sales_id: this.$route.query.id,
+          maintenance_id: this.maintenance_id,
+          hangar_id: this.hangar_id,
+          acReg: this.sales_detail.acReg,
+          tat: this.sales_detail.tat,
+          totalSales: this.sales_detail.totalSales,
+          start_date: this.sales_detail.start_date,
+        })
+        .then((response) => {
+          toastr.success(response.data.message)
+          this.listDetail()
+          this.clearFormEditSales()
+          this.closeModalEditSales()
+        })
+        .catch((error) => {
+          if (error.response.status == 422) {
+            this.errors = error.response.data.errors
+            toastr.error(error.response.data.message)
+            console.log(errors)
+          }
+        })
+    },
+    salesReschedule() {
+      this.loading()
+      this.$axios
+        .put(`api/sales-reschedule/${this.$route.query.id}`, {
+          sales_id: this.$route.query.id,
+          hangar_id: this.sales_detail.location.id,
+          current_date: this.current_date,
+          start_date: this.sales_detail.start_date,
+          tat: this.sales_detail.tat,
+        })
+        .then((response) => {
+          toastr.success(response.data.message)
+          this.listDetail()
+        })
+        .catch((error) => {
+          if (error.response.status == 422) {
+            this.errors = error.response.data.errors
+            toastr.error(error.response.data.message)
+            console.log(errors)
+          }
+        })
     },
 
     submitFile() {
@@ -1664,23 +1984,6 @@ export default {
       })
     },
 
-    createSO() {
-      this.loading()
-      const formData = new FormData();
-      formData.append("so_number", this.$refs.so_number.value);
-      this.$axios
-        .post(`/api/sales-so-number/${this.$route.query.id}`, formData)
-        .then((response) => {
-          toastr.success(response.data.message)
-        })
-        .catch((error) => {
-          if (error.response.status == 422) {
-            this.errors = error.response.data.errors
-            toastr.error(error.response.data.message)
-          }
-        })
-    },
-
     closeModalFile() {
       this.listFile()
       this.listDetail()
@@ -1724,6 +2027,26 @@ export default {
       this.name = null
       this.errors.sales_detail = null
       this.errors.requirement_id = null
+    },
+
+    clearFormEditSales(){
+      this.maintenance_id = null
+      this.hangar_id = null
+      this.sales_detail.acreg = null
+      this.sales_detail.tat = null
+      this.sales_detail.value = null
+      this.sales_detail.start_date = null
+      
+      this.errors.maintenance_id = null
+      this.errors.hangar_id = null
+      this.errors.acreg = null
+      this.errors.tat = null
+      this.errors.value = null
+      this.errors.start_date = null
+    },
+    closeModalEditSales() {
+      document.getElementById('close_modal_edit_sales').click()
+      this.clearFormEditSales()
     },
   }
 }

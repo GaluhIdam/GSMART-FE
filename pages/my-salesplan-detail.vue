@@ -852,21 +852,14 @@
                                         <label>Line Hangar</label>
                                           <div class="row">
                                             <div class="col-9">
-                                              <select v-model="sales_detail.line_id" class="form-select">
-                                                <option :value="1">1</option>
-                                                <option :value="2">2</option>
-                                                <option :value="3">3</option>
-                                                <option :value="4">4</option>
-                                                <option :value="5">5</option>
-                                                <option :value="6">6</option>
-                                                <option :value="7">7</option>
-                                                <option :value="8">8</option>
-                                                <option :value="9">9</option>
-                                                <option :value="10">10</option>
-                                                <option :value="11">11</option>
-                                                <option :value="12">12</option>
-                                                <option :value="13">13</option>
-                                                <option :value="14">14</option>
+                                              <select v-model="line_id" class="form-select">
+                                                <option 
+                                                v-for="lines in line" 
+                                                v-if="lines.hangar_id === sales_detail.location.id"
+                                                :value="lines.id"
+                                                >
+                                                  {{ lines.name }}
+                                                </option>
                                               </select>
                                             </div>
                                             <div class="col-3">
@@ -874,11 +867,7 @@
                                             </div>
                                           </div>
 
-                                        <!-- <select v-model="lines_id" class="form-select">
-                                          <option v-for="line_options in line_option" :value="line_options.id">
-                                            {{ line_options.code }} - {{ line_options.name }}
-                                          </option>
-                                        </select> -->
+                                        
                                       </div>
                                     </div>
                                     <div class="col-lg-4">
@@ -1542,12 +1531,12 @@ export default {
       value: [], 
       hangar_id: null,
       maintenance_id: null,
-      lines_id: null,
+      line_id: null,
       end_date: null,
       current_date: null,
       maintenance_option: [],
       hangar_option: [],
-      line_option: [],
+      line: null,
       contact_person: [], 
       modal_contact: false,
       modal_upload: null,
@@ -1737,11 +1726,14 @@ export default {
         })
     },
     listLine() {
+      this.loading()
       this.$axios
-        .get('api/line')
-        .then((response) => {
-          this.line_option = response.data.data
-        })
+      .get(`api/line/`)
+      .then((response) => {
+        this.line = response.data.data
+        Swal.close()
+      })
+      .catch((error) => console.log(error))
     },
     listHangar() {
       this.$axios
@@ -1793,7 +1785,7 @@ export default {
       this.$axios
       .put(`api/sales-slot-request/${this.$route.query.id}`, {
         sales_id: this.$route.query.id,
-        line_id: this.sales_detail.line_id,
+        line_id: this.line_id,
       })
       .then((response) => {
         toastr.success(response.data.message)

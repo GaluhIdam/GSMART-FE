@@ -81,8 +81,8 @@
                           <div id="bodyAMS" v-if="sales_detail">
                             Level: <b>{{ sales_detail.level }}</b> Status: <b>{{ sales_detail.status }}</b> Other: <b>{{ sales_detail.other }}</b> Type: <b>{{ sales_detail.type }}</b> Month Sales: <b>{{ sales_detail.monthSales }}</b>
                             Years: <b>{{ sales_detail.year }}</b> Start Date Project: <b>{{ sales_detail.start_date }}</b> End Date Project: <b>{{ sales_detail.endDate }}</b>
-                            TAT: <b>{{ sales_detail.tat }} Days</b> Progress: <b>{{ sales_detail.progress }}%</b> Product: <b>{{ sales_detail.product }}</b> Location: <b>{{ sales_detail.location }}</b>
-                            Maintenance: <b>{{ sales_detail.maintenance }}</b>
+                            TAT: <b>{{ sales_detail.tat }} Days</b> Progress: <b>{{ sales_detail.progress }}%</b> Product: <b>{{ sales_detail.product.name }}</b> Location: <b>{{ sales_detail.location.name }}</b>
+                            Maintenance: <b>{{ sales_detail.maintenance.name }}</b>
                           </div>
                         </div>
                       </form>
@@ -146,7 +146,7 @@
                           <div class="form-group mb-3">
                             <label class="form-label fw-bold">Maintenance</label>
                             <select v-model="maintenance_id" class="form-select">
-                              <option v-for="maintenance_options in maintenance_option" :value="maintenance_options.id">
+                              <option v-for="maintenance_options in maintenance_option" :value="maintenance_options.id" :selected="maintenance_options.id = maintenance_id">
                                 {{ maintenance_options.name }}
                               </option>
                             </select>
@@ -189,7 +189,7 @@
                           <div class="form-group mb-3">
                             <label class="form-label fw-bold">Location</label>
                             <select v-model="hangar_id" class="form-select">
-                              <option v-for="hangar_options in hangar_option" :value="hangar_options.id">
+                              <option v-for="hangar_options in hangar_option" :value="hangar_options.id" :selected="hangar_options.id = hangar_id">
                                 {{ hangar_options.name }}
                               </option>
                             </select>
@@ -317,7 +317,7 @@
                 <div v-if="sales_detail.status === 'Close in'">
                   <span class="badge badge-warning"><b>Close in</b></span>
                 </div>
-                <div v-if="sales_detail.status === 'Closed Sales'">
+                <div v-if="sales_detail.status === 'Closed'">
                   <span class="badge badge-primary"><b>Closed</b></span>
                 </div>
               </div>
@@ -383,11 +383,11 @@
                 <p class="text-muted">Location</p>
                 <p v-if="sales_detail"><b>{{ sales_detail.location.name }}</b></p>
                 <p class="text-muted mt-5">Product</p>
-                <p v-if="sales_detail"><b>{{ sales_detail.product }}</b></p>
+                <p v-if="sales_detail"><b>{{ sales_detail.product.name }}</b></p>
               </div>
               <div class="col-lg-3">
                 <p class="text-muted">Maintenance</p>
-                <p v-if="sales_detail"><b>{{ sales_detail.maintenance }}</b></p>
+                <p v-if="sales_detail"><b>{{ sales_detail.maintenance.description }}</b></p>
               </div>
             </div>
             <!-- End Detail -->
@@ -543,8 +543,17 @@
                                   </div>
                                   <div class="col-lg-6">
                                     <div class="position-relative">
-                                      <div class="position-absolute top-0 end-0">
-                                        <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#addContact" @click="addContact()">Add Contact Person</button>
+                                      <div class="position-absolute top-0 end-0" v-if="sales_detail">
+                                        <button 
+                                          type="button" 
+                                          class="btn btn-primary btn-sm" 
+                                          data-bs-toggle="modal" 
+                                          data-bs-target="#addContact" 
+                                          @click="addContact()"
+                                          v-if="sales_detail.status === 'Open'"
+                                          >
+                                          Add Contact Person
+                                        </button>
                                       </div>
                                     </div>
                                   </div>
@@ -579,13 +588,14 @@
                                   </div>
                                   <div class="col-lg-6 mt-3">
                                     <div class="position-relative">
-                                      <div class="position-absolute top-0 end-0">
+                                      <div class="position-absolute top-0 end-0" v-if="sales_detail">
                                         <button 
                                         type="button" 
                                         class="btn btn-primary btn-sm" 
                                         data-bs-toggle="modal" 
                                         data-bs-target="#addFile" 
                                         @click="addFile1()"
+                                        v-if="sales_detail.status === 'Open'"
                                         >
                                           Upload Document
                                         </button>
@@ -597,7 +607,7 @@
                                       <table class="table" v-if="files">
                                         <tr v-for="files in level4[1].data" :key="files.id">
                                           <td>
-                                              <a :href="files.full_path" class="btn btn-outline-primary btn-outline btn-sm" target="_blank">
+                                              <a :href="files.full_path" class="btn btn-outline-primary btn-outline btn-sm mb-2" target="_blank">
                                                 <strong>{{ files.file_name }}</strong>
                                               </a>
                                           </td>
@@ -616,13 +626,14 @@
                                   </div>
                                   <div class="col-lg-6 mt-3">
                                     <div class="position-relative">
-                                      <div class="position-absolute top-0 end-0">
+                                      <div class="position-absolute top-0 end-0" v-if="sales_detail">
                                         <button 
                                         type="button" 
                                         class="btn btn-primary btn-sm" 
                                         data-bs-toggle="modal" 
                                         data-bs-target="#addFile" 
                                         @click="addFile2()"
+                                        v-if="sales_detail.status === 'Open'"
                                         >
                                           Upload Document
                                         </button>
@@ -634,7 +645,7 @@
                                       <table class="table" v-if="files">
                                         <tr v-for="files in level4[2].data" :key="files.id">
                                           <td>
-                                              <a :href="files.full_path" class="btn btn-outline-primary btn-outline btn-sm" target="_blank">
+                                              <a :href="files.full_path" class="btn btn-outline-primary btn-outline btn-sm mb-2" target="_blank">
                                                 <strong>{{ files.file_name }}</strong>
                                               </a>
                                           </td>
@@ -646,6 +657,19 @@
                                     </div>
                                   </div>
 
+                                  <div class="text-center mt-5">
+                                    <form>
+                                      <input type="hidden" v-model="upgrade" value="1">
+                                      <button type="button" class="btn btn-info btn-sm" 
+                                        @click="upgradeLevel()" 
+                                        v-if = "sales_detail.status === 'Open'"
+                                        >
+                                        Upgrade Level
+                                      </button>
+                                    </form>
+                                  </div>
+
+
                                 </div>
                               </form>
                             </div>
@@ -655,7 +679,6 @@
                             <div class="flex-column" data-kt-stepper-element="content" v-if="sales_detail.level === 3 || sales_detail.level === 2 || sales_detail.level === 1">
                               <form>
                                 <div class="row">
-                                  <!-- <h5>File has been upload</h5> -->
                                   <!-- Attachment of Financial Assesment Form (optional) -->
                                   <div class="col-lg-6 mt-3">
                                     <h3>Attachment of Financial Assesment Form (optional)</h3>
@@ -663,13 +686,14 @@
                                   </div>
                                   <div class="col-lg-6 mt-3">
                                     <div class="position-relative">
-                                      <div class="position-absolute top-0 end-0">
+                                      <div class="position-absolute top-0 end-0" v-if="sales_detail">
                                         <button 
                                         type="button" 
                                         class="btn btn-primary btn-sm" 
                                         data-bs-toggle="modal" 
                                         data-bs-target="#addFile" 
                                         @click="addFile3()"
+                                        v-if="sales_detail.status === 'Open'"
                                         >
                                           Upload Document
                                         </button>
@@ -681,7 +705,7 @@
                                       <table class="table" v-if="files">
                                         <tr v-for="files in level3[0].data" :key="files.id">
                                           <td>
-                                              <a :href="files.full_path" class="btn btn-outline-primary btn-outline btn-sm" target="_blank">
+                                              <a :href="files.full_path" class="btn btn-outline-primary btn-outline btn-sm mb-2" target="_blank">
                                                 <strong>{{ files.file_name }}</strong>
                                               </a>
                                           </td>
@@ -700,7 +724,7 @@
                                   </div>
                                   <div class="col-lg-6 mt-3">
                                     <div class="position-relative">
-                                      <div class="position-absolute top-0 end-0">
+                                      <div class="position-absolute top-0 end-0" v-if="sales_detail">
                                         <button type="button" class="btn btn-outline-warning btn-outline btn-sm">Sync</button>
                                         <button type="button" class="btn btn-success btn-sm">Notify COGS</button>
                                         <button 
@@ -709,6 +733,7 @@
                                         data-bs-toggle="modal" 
                                         data-bs-target="#addFile" 
                                         @click="addFile4()"
+                                        v-if="sales_detail.status === 'Open'"
                                         >
                                           Upload Document
                                         </button>
@@ -720,7 +745,7 @@
                                       <table class="table" v-if="files">
                                         <tr v-for="files in level3[1].data" :key="files.id">
                                           <td>
-                                              <a :href="files.full_path" class="btn btn-outline-primary btn-outline btn-sm" target="_blank">
+                                              <a :href="files.full_path" class="btn btn-outline-primary btn-outline btn-sm mb-2" target="_blank">
                                                 <strong>{{ files.file_name }}</strong>
                                               </a>
                                           </td>
@@ -739,7 +764,7 @@
                                   </div>
                                   <div class="col-lg-6 mt-3">
                                     <div class="position-relative">
-                                      <div class="position-absolute top-0 end-0">
+                                      <div class="position-absolute top-0 end-0" v-if="sales_detail">
                                         <span class="btn btn-sm" id="textWaiting">Waiting Approve VP TP</span>
                                         <button 
                                         type="button" 
@@ -747,19 +772,19 @@
                                         data-bs-toggle="modal" 
                                         data-bs-target="#addFile" 
                                         @click="addFile5()"
+                                        v-if="sales_detail.status === 'Open'"
                                         >
                                           Upload Document
                                         </button>
                                       </div>
                                     </div>
                                   </div>
-                                  <!-- End Modal Upload Profitability  -->
                                   <div class="rounded box-d" id="myBorder">
                                     <div class="mt-3">
                                       <table class="table" v-if="files">
                                         <tr v-for="files in level3[2].data" :key="files.id">
                                           <td>
-                                              <a :href="files.full_path" class="btn btn-outline-primary btn-outline btn-sm" target="_blank">
+                                              <a :href="files.full_path" class="btn btn-outline-primary btn-outline btn-sm mb-2" target="_blank">
                                                 <strong>{{ files.file_name }}</strong>
                                               </a>
                                           </td>
@@ -771,13 +796,16 @@
                                     </div>
                                   </div>
 
-                                  <div class="text-center mt-10">
-                                    <!-- <button type="button" class="btn btn-light btn-active-light-primary" data-kt-stepper-action="previous">
-                                      Back
-                                    </button>
-                                    <button type="button" class="btn btn-primary" data-kt-stepper-action="next">
-                                      Continue
-                                    </button> -->
+                                  <div class="text-center mt-5">
+                                    <form>
+                                      <input type="hidden" v-model="upgrade" value="1">
+                                      <button type="button" class="btn btn-info btn-sm" 
+                                        @click="upgradeLevel()" 
+                                        v-if = "sales_detail.status === 'Open'"
+                                        >
+                                        Upgrade Level
+                                      </button>
+                                    </form>
                                   </div>
 
                                 </div>
@@ -787,9 +815,8 @@
 
                             <!--begin::Step 2-->
                             <div class="flex-column" data-kt-stepper-element="content" v-if="sales_detail.level === 2 || sales_detail.level === 1">
-                              <form action="">
+                              <form>
                                 <div class="row">
-                                  <!-- <h5>File has been upload</h5> -->
                                   <!-- Attachment of Customer Approval (SOW Signed / Proposal Approved) -->
                                   <div class="col-lg-6 mt-3">
                                     <h3>Attachment of Customer Approval (SOW Signed / Proposal Approved)</h3>
@@ -797,13 +824,14 @@
                                   </div>
                                   <div class="col-lg-6 mt-3">
                                     <div class="position-relative">
-                                      <div class="position-absolute top-0 end-0">
+                                      <div class="position-absolute top-0 end-0" v-if="sales_detail">
                                         <button 
                                         type="button" 
                                         class="btn btn-primary btn-sm" 
                                         data-bs-toggle="modal" 
                                         data-bs-target="#addFile" 
                                         @click="addFile6()"
+                                        v-if="sales_detail.status === 'Open'"
                                         >
                                           Upload Document
                                         </button>
@@ -815,7 +843,7 @@
                                       <table class="table" v-if="files">
                                         <tr v-for="files in level2[0].data" :key="files.id">
                                           <td>
-                                              <a :href="files.full_path" class="btn btn-outline-primary btn-outline btn-sm" target="_blank">
+                                              <a :href="files.full_path" class="btn btn-outline-primary btn-outline btn-sm mb-2" target="_blank">
                                                 <strong>{{ files.file_name }}</strong>
                                               </a>
                                           </td>
@@ -843,39 +871,28 @@
                                     <div class="col-lg-4" >
                                       <div class="mb-3">
                                         <label>Hangar</label>
-                                        <input type="text" class="form-control form-control-solid" v-model="sales_detail.location" readonly/>
+                                        <input type="text" class="form-control form-control-solid" v-model="sales_detail.location.id" readonly/>
                                       </div>
                                       <div class="mb-3">
                                         <label>Line Hangar</label>
                                           <div class="row">
                                             <div class="col-9">
-                                              <select v-model="sales_detail.line_id" class="form-select">
-                                                <option :value="1">1</option>
-                                                <option :value="2">2</option>
-                                                <option :value="3">3</option>
-                                                <option :value="4">4</option>
-                                                <option :value="5">5</option>
-                                                <option :value="6">6</option>
-                                                <option :value="7">7</option>
-                                                <option :value="8">8</option>
-                                                <option :value="9">9</option>
-                                                <option :value="10">10</option>
-                                                <option :value="11">11</option>
-                                                <option :value="12">12</option>
-                                                <option :value="13">13</option>
-                                                <option :value="14">14</option>
+                                              <select v-model="line_id" class="form-select">
+                                                <option 
+                                                v-for="lines in line" 
+                                                v-if="lines.hangar_id === sales_detail.location.id"
+                                                :value="lines.id"
+                                                >
+                                                  {{ lines.name }}
+                                                </option>
                                               </select>
                                             </div>
                                             <div class="col-3">
-                                              <button class="btn btn-primary btn-sm" type="button" @click="updateSlot()">Save</button>
+                                              <button class="btn btn-primary btn-sm" type="button" @click="updateSlot()" v-if="sales_detail.status === 'Open'">Save</button>
                                             </div>
                                           </div>
 
-                                        <!-- <select v-model="lines_id" class="form-select">
-                                          <option v-for="line_options in line_option" :value="line_options.id">
-                                            {{ line_options.code }} - {{ line_options.name }}
-                                          </option>
-                                        </select> -->
+                                        
                                       </div>
                                     </div>
                                     <div class="col-lg-4">
@@ -900,6 +917,18 @@
                                     </div>
                                   </div>
 
+                                  <div class="text-center mt-5">
+                                    <form>
+                                      <input type="hidden" v-model="upgrade" value="1">
+                                      <button type="button" class="btn btn-info btn-sm" 
+                                        @click="upgradeLevel()" 
+                                        v-if = "sales_detail.status === 'Open'"
+                                        >
+                                        Upgrade Level
+                                      </button>
+                                    </form>
+                                  </div>
+
                                 </div>
                               </form>
                             </div>
@@ -909,7 +938,6 @@
                             <div class="flex-column" data-kt-stepper-element="content" v-if="sales_detail.level === 1">
                               <form action="">
                                 <div class="row">
-                                  <!-- <h5>File has been upload</h5> -->
                                   <!-- Attachment of WO/PO number customer document -->
                                   <div class="col-lg-6 mt-3">
                                     <h3>Attachment of WO/PO number customer document</h3>
@@ -917,14 +945,21 @@
                                   </div>
                                   <div class="col-lg-6 mt-3">
                                     <div class="position-relative">
-                                      <div class="position-absolute top-0 end-0">
-                                        <button type="button" class="btn btn-success btn-sm">Closed Sales</button>
+                                      <div class="position-absolute top-0 end-0" v-if="sales_detail">
+                                        <input type="hidden" v-model="status" value="2">
+                                        <button type="button" class="btn btn-success btn-sm" 
+                                          @click="closeSales()" 
+                                          v-if = "sales_detail.status === 'Open'"
+                                          >
+                                          Closed Sales
+                                        </button>
                                         <button 
                                         type="button" 
                                         class="btn btn-primary btn-sm" 
                                         data-bs-toggle="modal" 
                                         data-bs-target="#addFile" 
                                         @click="addFile7()"
+                                        v-if="sales_detail.status === 'Open'"
                                         >
                                           Upload Document
                                         </button>
@@ -936,7 +971,7 @@
                                       <table class="table" v-if="files">
                                         <tr v-for="files in level1[0].data" :key="files.id">
                                           <td>
-                                              <a :href="files.full_path" class="btn btn-outline-primary btn-outline btn-sm" target="_blank">
+                                              <a :href="files.full_path" class="btn btn-outline-primary btn-outline btn-sm mb-2" target="_blank">
                                                 <strong>{{ files.file_name }}</strong>
                                               </a>
                                           </td>
@@ -957,13 +992,26 @@
                                       <label for="">SO Number</label>
                                       <div class="input-group mb-3">
                                           <input type="text" class="form-control" v-model="sales_detail.so_number">
-                                          <button class="btn btn-sm" type="button" @click="updateSO()" id="textSync">Sync</button>
+                                          <button 
+                                            class="btn btn-sm" 
+                                            type="button" 
+                                            @click="updateSO()" 
+                                            id="textSync"
+                                            v-if="sales_detail.status === 'Open'"
+                                            >
+                                            Sync
+                                          </button>
                                       </div>
                                     </div>
                                   </form>
 
                                   <div class="text-center mt-10">
-                                    <button type="button" class="btn btn-primary">Request to Closed</button>
+                                    <form>
+                                      <input type="hidden" v-model="status" value="3">
+                                      <button type="button" class="btn btn-primary btn-sm" @click="requestClosed()" v-if="sales_detail.status === 'Open'">
+                                        Request to Closed
+                                      </button>
+                                    </form>
                                   </div>
 
                                 </div>
@@ -1237,28 +1285,31 @@
                       </div>
                       <!-- Cancel Form -->
                       <div class="tab-pane fade" id="kt_tab_pane_2" role="tabpanel">
-                        <form action="">
+                        <form @submit.prevent="salesCancel">
                           <div class="mb-3">
                             <label class="form-label">Category</label>
                             <div class="row mb-5">
                               <div class="col">
                                 <div class="input-group mb-3">
-                                  <multiselect
-                                    v-model="value"
-                                    placeholder="Select Category"
-                                    label="name"
-                                    track-by="code"
-                                    :options="optionsCategory"
-                                    :multiple="true"
-                                    :taggable="false"
-                                  ></multiselect>
+                                  <!-- <select v-model="category" class="form-select">
+                                    <option :value="category">Category 1</option>
+                                    <option :value="category">Category 2</option>
+                                    <option :value="category">Category 3</option>
+                                  </select> -->
+                                  <input type="text" v-model="category" class="form-control" :class="{ 'is-invalid': errors.category, }">
+                                  <span v-if="errors.category" class="error invalid-feedback">
+                                    {{ errors.category[0] }}
+                                  </span>
                                 </div>
                               </div>
                             </div>
                           </div>
                           <div class="mb-3">
                             <label class="form-label">Reason of Cancel <span class="text-danger">*</span></label>
-                            <textarea name="" class="form-control" cols="30" rows="10"></textarea>
+                            <textarea class="form-control" cols="30" rows="10" v-model="reason" :class="{ 'is-invalid': errors.reason, }"></textarea>
+                            <span v-if="errors.reason" class="error invalid-feedback">
+                              {{ errors.reason[0] }}
+                            </span>
                           </div>
                           <div class="text-center mt-5">
                             <button type="reset" class="btn btn-danger">Reset</button>
@@ -1507,12 +1558,7 @@ export default {
       sales: {
         data: [],
         link: [],
-      },
-      optionsCategory: [
-        { name: 'Category1', code: 'c1' },
-        { name: 'Category2', code: 'c2' },
-        { name: 'Category3', code: 'c3' },
-      ],    
+      },  
       p_contact: {
         id: null,
         name: null,
@@ -1532,13 +1578,15 @@ export default {
       ams: null,
       value: [], 
       hangar_id: null,
+      upgrade: null,
       maintenance_id: null,
-      lines_id: null,
+      line_id: null,
       end_date: null,
       current_date: null,
       maintenance_option: [],
       hangar_option: [],
-      line_option: [],
+      line: null,
+      status: null,
       contact_person: [], 
       modal_contact: false,
       modal_upload: null,
@@ -1555,6 +1603,8 @@ export default {
       level2: null,
       level1: null,
       ams_id: null,
+      category: null,
+      reason: null,
       file_histories: [],
       errors: {
         name: null,
@@ -1570,7 +1620,8 @@ export default {
         tat: null,
         location: null,
         value: null,
-        start_date: null,
+        category: null,
+        reason: null,
       },
     }
   },
@@ -1648,6 +1699,7 @@ export default {
         this.level2 = response.data.data.level2
         this.level1 = response.data.data.level1
         Swal.close()
+        console.log(this.sales_detail)
       })
       .catch((error) => console.log(error))
     },
@@ -1725,11 +1777,14 @@ export default {
         })
     },
     listLine() {
+      this.loading()
       this.$axios
-        .get('api/line')
-        .then((response) => {
-          this.line_option = response.data.data
-        })
+      .get(`api/line/`)
+      .then((response) => {
+        this.line = response.data.data
+        Swal.close()
+      })
+      .catch((error) => console.log(error))
     },
     listHangar() {
       this.$axios
@@ -1756,7 +1811,6 @@ export default {
         this.$router.push({
           name: 'my-salesplan'
         });
-        Swal.close()
       })
       .catch((error) => console.log(error))
     },
@@ -1782,7 +1836,7 @@ export default {
       this.$axios
       .put(`api/sales-slot-request/${this.$route.query.id}`, {
         sales_id: this.$route.query.id,
-        line_id: this.sales_detail.line_id,
+        line_id: this.line_id,
       })
       .then((response) => {
         toastr.success(response.data.message)
@@ -1829,6 +1883,85 @@ export default {
         .then((response) => {
           toastr.success(response.data.message)
           this.listDetail()
+        })
+        .catch((error) => {
+          if (error.response.status == 422) {
+            this.errors = error.response.data.errors
+            toastr.error(error.response.data.message)
+            console.log(errors)
+          }
+        })
+    },
+    salesCancel() {
+      this.loading()
+      this.$axios
+        .put(`api/sales-reject/${this.$route.query.id}`, {
+          sales_id: this.$route.query.id,
+          category: this.category,
+          reason: this.reason,
+        })
+        .then((response) => {
+          toastr.success(response.data.message)
+          this.$router.push({
+            name: 'my-salesplan'
+          });
+        })
+        .catch((error) => {
+          if (error.response.status == 422) {
+            this.errors = error.response.data.errors
+            toastr.error(error.response.data.message)
+            console.log(errors)
+          }
+        })
+    },
+    upgradeLevel() {
+      this.loading()
+      this.$axios
+        .put(`api/sales-upgrade-level/${this.$route.query.id}`, {
+          sales_id: this.$route.query.id,
+          upgrade: this.upgrade,
+        })
+        .then((response) => {
+          toastr.success(response.data.message)
+          this.listDetail()
+        })
+        .catch((error) => {
+          if (error.response.status == 422) {
+            this.errors = error.response.data.errors
+            toastr.error(error.response.data.message)
+            console.log(errors)
+          }
+        })
+    },
+    closeSales() {
+      this.loading()
+      this.$axios
+        .put(`api/sales-upgrade-level/${this.$route.query.id}`, {
+          status: this.status,
+        })
+        .then((response) => {
+          toastr.success(response.data.message)
+          this.listDetail()
+        })
+        .catch((error) => {
+          if (error.response.status == 422) {
+            this.errors = error.response.data.errors
+            toastr.error(error.response.data.message)
+            console.log(errors)
+          }
+        })
+    },
+    requestClosed() {
+      this.loading()
+      this.$axios
+        .put(`api/sales-close/${this.$route.query.id}`, {
+          status: this.status,
+        })
+        .then((response) => {
+          toastr.success(response.data.message)
+          this.$router.push({
+            name: 'my-salesplan'
+          });
         })
         .catch((error) => {
           if (error.response.status == 422) {
@@ -1935,6 +2068,7 @@ export default {
       this.$axios
         .post('/api/contact-person-create', {
           id: this.p_contact.id,
+          customer_id: this.sales_detail.customer.id,
           sales_id: this.sales_detail.id,
           name: this.p_contact.name,
           phone: this.p_contact.phone,
@@ -1946,6 +2080,7 @@ export default {
         .then((response) => {
           toastr.success(response.data.message)
           this.listContact()
+          this.listDetail()
           this.closeModalContact()
         })
         .catch((error) => {

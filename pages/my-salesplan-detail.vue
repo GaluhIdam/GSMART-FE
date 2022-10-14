@@ -662,7 +662,7 @@
                                       <input type="hidden" v-model="upgrade" value="1">
                                       <button type="button" class="btn btn-info btn-sm" 
                                         @click="upgradeLevel()" 
-                                        v-if = "sales_detail.status === 'Open'"
+                                        v-if = "sales_detail.status === 'Open' && sales_detail.level == 4"
                                         >
                                         Upgrade Level
                                       </button>
@@ -801,7 +801,7 @@
                                       <input type="hidden" v-model="upgrade" value="1">
                                       <button type="button" class="btn btn-info btn-sm" 
                                         @click="upgradeLevel()" 
-                                        v-if = "sales_detail.status === 'Open'"
+                                        v-if = "sales_detail.status === 'Open' && sales_detail.level == 4"
                                         >
                                         Upgrade Level
                                       </button>
@@ -922,7 +922,7 @@
                                       <input type="hidden" v-model="upgrade" value="1">
                                       <button type="button" class="btn btn-info btn-sm" 
                                         @click="upgradeLevel()" 
-                                        v-if = "sales_detail.status === 'Open'"
+                                        v-if = "sales_detail.status === 'Open' && sales_detail.level == 2"
                                         >
                                         Upgrade Level
                                       </button>

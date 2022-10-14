@@ -633,7 +633,7 @@
                         <span class="badge badge-warning">Close in</span>
                       </div>
                       <div v-if="p_sales.status === 'Closed'">
-                        <span class="badge badge-primary">Closed Sales</span>
+                        <span class="badge badge-primary">Closed</span>
                       </div>
                     </td>
                     <td class="text-center">

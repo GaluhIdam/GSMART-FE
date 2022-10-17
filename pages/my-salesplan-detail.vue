@@ -2021,6 +2021,9 @@ export default {
         })
         .then((response) => {
           toastr.success(response.data.message)
+          this.listFile()
+          this.listDetail()
+          this.listFileHistory()
           this.closeModalFile()
           this.clearFormFile()
         })

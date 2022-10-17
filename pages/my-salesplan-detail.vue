@@ -2048,6 +2048,7 @@ export default {
             toastr.success(response.data.message)
             this.listFile()
             this.listDetail()
+            this.listFileHistory()
           })
         }
       })

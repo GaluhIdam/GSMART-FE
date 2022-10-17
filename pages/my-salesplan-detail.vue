@@ -89,14 +89,14 @@
                     </div>
                     <div class="modal-footer">
                       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="close_modal_ams" @click="closeModalAMS()">Close</button>
-                      <button type="button" class="btn btn-primary" @click="">Send</button>
+                      <button type="button" class="btn btn-primary" @click="swtichAMS()">Send</button>
                     </div>
                   </form>
                 </div>
               </div>
             </div>
 
-            <!-- Modal editSales -->
+            <!-- Modal edit Sales -->
             <div class="modal fade" tabindex="-1" id="editSales" data-bs-backdrop="static">
               <div class="modal-dialog modal-dialog-centered modal-lg">
                 <div class="modal-content">
@@ -146,7 +146,15 @@
                           <div class="form-group mb-3">
                             <label class="form-label fw-bold">Maintenance</label>
                             <select v-model="maintenance_id" class="form-select">
-                              <option v-for="maintenance_options in maintenance_option" :value="maintenance_options.id" :selected="maintenance_options.id = maintenance_id">
+                              <option 
+                                v-for="maintenance_options in maintenance_option" 
+                                :value="maintenance_options.id" 
+                              >
+                              <!-- <option 
+                                v-for="maintenance_options in maintenance_option" 
+                                :value="maintenance_options.id" 
+                                :selected="maintenance_options.id = maintenance_id"
+                              > -->
                                 {{ maintenance_options.name }}
                               </option>
                             </select>
@@ -189,7 +197,15 @@
                           <div class="form-group mb-3">
                             <label class="form-label fw-bold">Location</label>
                             <select v-model="hangar_id" class="form-select">
-                              <option v-for="hangar_options in hangar_option" :value="hangar_options.id" :selected="hangar_options.id = hangar_id">
+                              <option 
+                                v-for="hangar_options in hangar_option" 
+                                :value="hangar_options.id" 
+                              >
+                              <!-- <option 
+                                v-for="hangar_options in hangar_option" 
+                                :value="hangar_options.id" 
+                                :selected="hangar_options.id = hangar_id"
+                              > -->
                                 {{ hangar_options.name }}
                               </option>
                             </select>
@@ -1164,11 +1180,11 @@
                             </td>
                           </tr>
                           <!-- jika data kosong -->
-                          <!-- <tr v-if="contact.data.length < 1">
+                          <tr v-if="contact.length < 1">
                             <td colspan="6">
                               <div class="text-muted text-center">Data not found</div>
                             </td>
-                          </tr> -->
+                          </tr>
                         </tbody>
                       </table>
                     </div>
@@ -1203,7 +1219,7 @@
                                 :class="{
                                   disabled: !contact.prev_page_url,
                                 }"
-                                @click="contact.prev_page_url && list(contact.prev_page_url)"
+                                @click="contact.prev_page_url && listContact(contact.prev_page_url)"
                               >
                                 Previous
                               </button>
@@ -1227,7 +1243,7 @@
                                 :class="{
                                   disabled: !contact.next_page_url,
                                 }"
-                                @click="contact.next_page_url && list(contact.next_page_url)"
+                                @click="contact.next_page_url && listContact(contact.next_page_url)"
                               >
                                 Next
                               </button>
@@ -1318,7 +1334,7 @@
                             </div>
                           </div>
                           <div class="mb-3">
-                            <label class="form-label">Reason of Cancel <span class="text-danger">*</span></label>
+                            <label class="form-label">Reason of Cancel</label>
                             <textarea class="form-control" cols="30" rows="10" v-model="reason" :class="{ 'is-invalid': errors.reason, }"></textarea>
                             <span v-if="errors.reason" class="error invalid-feedback">
                               {{ errors.reason[0] }}
@@ -1712,7 +1728,6 @@ export default {
         this.level2 = response.data.data.level2
         this.level1 = response.data.data.level1
         Swal.close()
-        console.log(this.sales_detail)
       })
       .catch((error) => console.log(error))
     },
@@ -1815,7 +1830,7 @@ export default {
     swtichAMS() {
       this.loading()
       this.$axios
-      .get(`api/sales-switch-ams/${this.$route.query.id}`, {
+      .put(`api/sales-switch-ams/${this.$route.query.id}`, {
         ams_id: this.ams_id
       })
       .then((response) => {
@@ -1840,6 +1855,8 @@ export default {
         .catch((error) => {
           if (error.response.status == 422) {
             this.errors = error.response.data.errors
+            toastr.error(error.response.data.message)
+          } else if (error.response.status == 403) {
             toastr.error(error.response.data.message)
           }
         })
@@ -2005,6 +2022,7 @@ export default {
         .then((response) => {
           toastr.success(response.data.message)
           this.closeModalFile()
+          this.clearFormFile()
         })
         .catch((error) => {
           if (error.response.status == 422) {
@@ -2133,6 +2151,7 @@ export default {
     },
 
     closeModalFile() {
+      document.getElementById('close_modal_file').click()
       this.listFile()
       this.listDetail()
       this.clearFormFile()

@@ -89,14 +89,14 @@
                     </div>
                     <div class="modal-footer">
                       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="close_modal_ams" @click="closeModalAMS()">Close</button>
-                      <button type="button" class="btn btn-primary" @click="">Send</button>
+                      <button type="button" class="btn btn-primary" @click="swtichAMS()">Send</button>
                     </div>
                   </form>
                 </div>
               </div>
             </div>
 
-            <!-- Modal editSales -->
+            <!-- Modal edit Sales -->
             <div class="modal fade" tabindex="-1" id="editSales" data-bs-backdrop="static">
               <div class="modal-dialog modal-dialog-centered modal-lg">
                 <div class="modal-content">
@@ -146,7 +146,15 @@
                           <div class="form-group mb-3">
                             <label class="form-label fw-bold">Maintenance</label>
                             <select v-model="maintenance_id" class="form-select">
-                              <option v-for="maintenance_options in maintenance_option" :value="maintenance_options.id" :selected="maintenance_options.id = maintenance_id">
+                              <option 
+                                v-for="maintenance_options in maintenance_option" 
+                                :value="maintenance_options.id" 
+                              >
+                              <!-- <option 
+                                v-for="maintenance_options in maintenance_option" 
+                                :value="maintenance_options.id" 
+                                :selected="maintenance_options.id = maintenance_id"
+                              > -->
                                 {{ maintenance_options.name }}
                               </option>
                             </select>
@@ -189,7 +197,15 @@
                           <div class="form-group mb-3">
                             <label class="form-label fw-bold">Location</label>
                             <select v-model="hangar_id" class="form-select">
-                              <option v-for="hangar_options in hangar_option" :value="hangar_options.id" :selected="hangar_options.id = hangar_id">
+                              <option 
+                                v-for="hangar_options in hangar_option" 
+                                :value="hangar_options.id" 
+                              >
+                              <!-- <option 
+                                v-for="hangar_options in hangar_option" 
+                                :value="hangar_options.id" 
+                                :selected="hangar_options.id = hangar_id"
+                              > -->
                                 {{ hangar_options.name }}
                               </option>
                             </select>
@@ -663,6 +679,7 @@
                                       <button type="button" class="btn btn-info btn-sm" 
                                         @click="upgradeLevel()" 
                                         v-if = "sales_detail.status === 'Open' && sales_detail.level == 4"
+                                        v-permission="['upgrade_level']"
                                         >
                                         Upgrade Level
                                       </button>
@@ -801,7 +818,8 @@
                                       <input type="hidden" v-model="upgrade" value="1">
                                       <button type="button" class="btn btn-info btn-sm" 
                                         @click="upgradeLevel()" 
-                                        v-if = "sales_detail.status === 'Open' && sales_detail.level == 4"
+                                        v-if = "sales_detail.status === 'Open' && sales_detail.level == 3"
+                                        v-permission="['upgrade_level']"
                                         >
                                         Upgrade Level
                                       </button>
@@ -875,7 +893,7 @@
                                       </div>
                                       <div class="mb-3">
                                         <label>Line Hangar</label>
-                                          <div class="row">
+                                          <div class="row" v-permission="['slot_request']">
                                             <div class="col-9">
                                               <select v-model="line_id" class="form-select">
                                                 <option 
@@ -923,6 +941,7 @@
                                       <button type="button" class="btn btn-info btn-sm" 
                                         @click="upgradeLevel()" 
                                         v-if = "sales_detail.status === 'Open' && sales_detail.level == 2"
+                                        v-permission="['upgrade_level']"
                                         >
                                         Upgrade Level
                                       </button>
@@ -990,8 +1009,18 @@
                                   <form>
                                     <div class="row">
                                       <label for="">SO Number</label>
-                                      <div class="input-group mb-3">
-                                          <input type="text" class="form-control" v-model="sales_detail.so_number">
+                                      <div class="input-group mb-3" v-permission="['input_so_number']">
+                                          <input 
+                                            type="text" 
+                                            class="form-control" 
+                                            v-model="sales_detail.so_number"
+                                            :class="{
+                                              'is-invalid': errors.so_number,
+                                            }"
+                                          />
+                                          <span v-if="errors.so_number" class="error invalid-feedback">{{
+                                            errors.so_number[0]
+                                          }}</span>
                                           <button 
                                             class="btn btn-sm" 
                                             type="button" 
@@ -1008,7 +1037,7 @@
                                   <div class="text-center mt-10">
                                     <form>
                                       <input type="hidden" v-model="status" value="3">
-                                      <button type="button" class="btn btn-primary btn-sm" @click="requestClosed()" v-if="sales_detail.status === 'Open'">
+                                      <button type="button" class="btn btn-primary btn-sm" @click="requestClosed()" v-if="sales_detail.status === 'Closed'">
                                         Request to Closed
                                       </button>
                                     </form>
@@ -1151,11 +1180,11 @@
                             </td>
                           </tr>
                           <!-- jika data kosong -->
-                          <!-- <tr v-if="contact.data.length < 1">
+                          <tr v-if="contact.length < 1">
                             <td colspan="6">
                               <div class="text-muted text-center">Data not found</div>
                             </td>
-                          </tr> -->
+                          </tr>
                         </tbody>
                       </table>
                     </div>
@@ -1190,7 +1219,7 @@
                                 :class="{
                                   disabled: !contact.prev_page_url,
                                 }"
-                                @click="contact.prev_page_url && list(contact.prev_page_url)"
+                                @click="contact.prev_page_url && listContact(contact.prev_page_url)"
                               >
                                 Previous
                               </button>
@@ -1214,7 +1243,7 @@
                                 :class="{
                                   disabled: !contact.next_page_url,
                                 }"
-                                @click="contact.next_page_url && list(contact.next_page_url)"
+                                @click="contact.next_page_url && listContact(contact.next_page_url)"
                               >
                                 Next
                               </button>
@@ -1246,15 +1275,15 @@
 
                     <div class="tab-content" id="myTabContent">
                       <!-- Reschedule Form -->
-                      <div class="tab-pane fade show active" id="kt_tab_pane_1" role="tabpanel" v-if="sales_detail">
+                      <div class="tab-pane fade show active" id="kt_tab_pane_1" role="tabpanel" v-if="sales_detail" v-permission="['reschedule_sales']">
                         <form @submit.prevent="salesReschedule">
                           <div class="mb-3">
                             <label class="form-label">Hanggar</label>
-                            <input type="text" class="form-control" readonly v-model="sales_detail.location.id">
+                            <input type="text" class="form-control" readonly v-model="sales_detail.location.id" id="readOnly">
                           </div>
                           <div class="mb-3">
                             <label class="form-label">Registration</label>
-                            <input type="text" class="form-control" v-model="sales_detail.registration" readonly>
+                            <input type="text" class="form-control" v-model="sales_detail.registration" readonly id="readOnly">
                           </div>
                           <div class="mb-3">
                             <label class="form-label">CBO Date</label>
@@ -1266,7 +1295,7 @@
                           </div>
                           <div class="mb-3">
                             <label class="form-label">TAT</label>
-                            <input type="number" class="form-control" v-model="sales_detail.tat" readonly>
+                            <input type="number" class="form-control" v-model="sales_detail.tat" readonly id="readOnly">
                           </div>
                           <div class="mb-3">
                             <label class="form-label">Current Date</label>
@@ -1274,7 +1303,7 @@
                           </div>
                           <div class="mb-3">
                             <label class="form-label">Sales Month</label>
-                            <input type="text" class="form-control" v-model="sales_detail.monthSales" readonly>
+                            <input type="text" class="form-control" v-model="sales_detail.monthSales" readonly id="readOnly">
                           </div>
                           <div class="text-center mt-5">
                             <button type="reset" class="btn btn-danger">Reset</button>
@@ -1305,7 +1334,7 @@
                             </div>
                           </div>
                           <div class="mb-3">
-                            <label class="form-label">Reason of Cancel <span class="text-danger">*</span></label>
+                            <label class="form-label">Reason of Cancel</label>
                             <textarea class="form-control" cols="30" rows="10" v-model="reason" :class="{ 'is-invalid': errors.reason, }"></textarea>
                             <span v-if="errors.reason" class="error invalid-feedback">
                               {{ errors.reason[0] }}
@@ -1699,7 +1728,6 @@ export default {
         this.level2 = response.data.data.level2
         this.level1 = response.data.data.level1
         Swal.close()
-        console.log(this.sales_detail)
       })
       .catch((error) => console.log(error))
     },
@@ -1802,7 +1830,7 @@ export default {
     swtichAMS() {
       this.loading()
       this.$axios
-      .get(`api/sales-switch-ams/${this.$route.query.id}`, {
+      .put(`api/sales-switch-ams/${this.$route.query.id}`, {
         ams_id: this.ams_id
       })
       .then((response) => {
@@ -1827,6 +1855,8 @@ export default {
         .catch((error) => {
           if (error.response.status == 422) {
             this.errors = error.response.data.errors
+            toastr.error(error.response.data.message)
+          } else if (error.response.status == 403) {
             toastr.error(error.response.data.message)
           }
         })
@@ -1991,7 +2021,11 @@ export default {
         })
         .then((response) => {
           toastr.success(response.data.message)
+          this.listFile()
+          this.listDetail()
+          this.listFileHistory()
           this.closeModalFile()
+          this.clearFormFile()
         })
         .catch((error) => {
           if (error.response.status == 422) {
@@ -2017,6 +2051,7 @@ export default {
             toastr.success(response.data.message)
             this.listFile()
             this.listDetail()
+            this.listFileHistory()
           })
         }
       })
@@ -2120,6 +2155,7 @@ export default {
     },
 
     closeModalFile() {
+      document.getElementById('close_modal_file').click()
       this.listFile()
       this.listDetail()
       this.clearFormFile()
@@ -2193,7 +2229,9 @@ export default {
 .mb-20 {
   margin-bottom: 20px;
 }
-
+#readOnly {
+  background-color:#f0f0f5;
+}
 #cardTop {
   width: 218px;
 }

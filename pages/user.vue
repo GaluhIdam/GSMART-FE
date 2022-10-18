@@ -243,7 +243,7 @@
     </div>
 
     <div class="modal fade" tabindex="-1" id="modal" data-bs-backdrop="static">
-      <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
           <div class="modal-header">
             <h3 v-if="modal_create" class="modal-title">Add User</h3>
@@ -289,63 +289,152 @@
           </div>
           <div class="modal-body">
             <form @submit.prevent="submit">
-              <div class="form-group mb-3">
-                <label class="form-label fw-bold">Name</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  v-model="users.name"
-                  :class="{
-                    'is-invalid': errors.name,
-                  }"
-                />
-                <span v-if="errors.name" class="error invalid-feedback">{{
-                  errors.name[0]
-                }}</span>
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group mb-3">
+                    <label class="form-label fw-bold">Name</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      v-model="users.name"
+                      :class="{
+                        'is-invalid': errors.name,
+                      }"
+                    />
+                    <span v-if="errors.name" class="error invalid-feedback">{{
+                      errors.name[0]
+                    }}</span>
+                  </div>
+                  <div class="form-group mb-3">
+                    <label class="form-label fw-bold">Username</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      v-model="users.username"
+                      v-if="modal_create"
+                      :class="{
+                        'is-invalid': errors.username,
+                      }"
+                    />
+                    <input
+                      type="text"
+                      class="form-control"
+                      v-model="users.username"
+                      v-else
+                      :class="{
+                        'is-invalid': errors.username,
+                      }"
+                      id="readOnly"
+                      readonly
+                    />
+                    <span v-if="errors.username" class="error invalid-feedback">{{
+                      errors.username[0]
+                    }}</span>
+                  </div>
+                  <div class="form-group mb-3">
+                    <label class="form-label fw-bold">Password</label>
+                    <input
+                      type="password"
+                      class="form-control"
+                      v-model="users.password"
+                      :class="{
+                        'is-invalid': errors.password,
+                      }"
+                    />
+                    <span v-if="errors.password" class="error invalid-feedback">{{
+                      errors.password[0]
+                    }}</span>
+                  </div>
+                  <div class="form-group mb-3">
+                    <label class="form-label fw-bold">Role</label>
+                    <select v-model="users.role_id" class="form-select">
+                      <option :value="null" disabled>Select Role</option>
+                      <option 
+                        v-for="role_options in role_option" 
+                        :value="role_options.id" 
+                        :class="{
+                          'is-invalid': errors.role_id,
+                        }"
+                      >
+                        {{ role_options.name }}
+                      </option>
+                    </select>
+                    <span v-if="errors.role_id" class="error invalid-feedback">{{
+                      errors.role_id[0]
+                    }}</span>
+                  </div>
+                </div>
+
+                <div class="col-lg-6">
+                  <div class="form-group mb-3">
+                    <label class="form-label fw-bold">Employee Number</label>
+                    <input
+                      type="number"
+                      class="form-control"
+                      v-model="users.nopeg"
+                      v-if="modal_create"
+                      :class="{
+                        'is-invalid': errors.nopeg,
+                      }"
+                    />
+                    <input
+                      type="text"
+                      class="form-control"
+                      v-model="users.nopeg"
+                      v-else
+                      :class="{
+                        'is-invalid': errors.nopeg,
+                      }"
+                      id="readOnly"
+                      readonly
+                    />
+                    <span v-if="errors.nopeg" class="error invalid-feedback">{{
+                      errors.nopeg[0]
+                    }}</span>
+                  </div>
+                  <div class="form-group mb-3">
+                    <label class="form-label fw-bold">Email</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      v-model="users.email"
+                      v-if="modal_create"
+                      :class="{
+                        'is-invalid': errors.email,
+                      }"
+                    />
+                    <input
+                      type="text"
+                      class="form-control"
+                      v-model="users.email"
+                      v-else
+                      :class="{
+                        'is-invalid': errors.email,
+                      }"
+                      readonly
+                      id="readOnly"
+                    />
+                    <span v-if="errors.email" class="error invalid-feedback">{{
+                      errors.email[0]
+                    }}</span>
+                  </div>
+                  <div class="form-group mb-3">
+                    <label class="form-label fw-bold">Unit</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      v-model="users.unit"
+                      :class="{
+                        'is-invalid': errors.unit,
+                      }"
+                    />
+                    <span v-if="errors.unit" class="error invalid-feedback">{{
+                      errors.unit[0]
+                    }}</span>
+                  </div>
+                </div>
               </div>
 
-              <div class="form-group mb-3">
-                <label class="form-label fw-bold">Employee Number</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  v-model="users.nopeg"
-                  :class="{
-                    'is-invalid': errors.nopeg,
-                  }"
-                />
-                <span v-if="errors.nopeg" class="error invalid-feedback">{{
-                  errors.nopeg[0]
-                }}</span>
-              </div>
-              <div class="form-group mb-3">
-                <label class="form-label fw-bold">Email</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  v-model="users.email"
-                  :class="{
-                    'is-invalid': errors.email,
-                  }"
-                />
-                <span v-if="errors.email" class="error invalid-feedback">{{
-                  errors.email[0]
-                }}</span>
-              </div>
-              <div class="form-group mb-3">
-                <label class="form-label fw-bold">Unit</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  v-model="users.unit"
-                  :class="{
-                    'is-invalid': errors.unit,
-                  }"
-                />
-                <span v-if="errors.unit" class="error invalid-feedback">{{
-                  errors.unit[0]
-                }}</span>
-              </div>
               <div class="row mt-10">
                 <div class="col">
                   <button
@@ -395,6 +484,9 @@ export default {
       users: {
         id: null,
         name: null,
+        username: null,
+        password: null,
+        role_id: null,
         nopeg: null,
         email: null,
         unit: null,
@@ -402,12 +494,17 @@ export default {
       modal_create: false,
       search: null,
       order: 'id',
+      role_option: null,
+      role_id: null,
       by: 'desc',
       paginate: '10',
       current_page: null,
       errors: {
         name: null,
         nopeg: null,
+        username: null,
+        password: null,
+        role_id: null,
         email: null,
         unit: null,
       },
@@ -415,9 +512,11 @@ export default {
   },
   created() {
     this.list()
+    this.role()
   },
   watch: {
     search: debounce(function () {
+      this.role()
       this.list()
     }, 500),
   },
@@ -440,6 +539,17 @@ export default {
           Swal.close()
         })
         .catch((error) => console.log(error))
+    },
+    role() {
+      this.loading()
+      this.$axios
+      .get(`api/role/`)
+      .then((response) => {
+        this.role_option = response.data.data.data
+        console.log(this.role_option)
+        Swal.close()
+      })
+      .catch((error) => console.log(error))
     },
     directPage: debounce(function () {
       if (this.current_page < 1) {
@@ -469,6 +579,9 @@ export default {
       this.$axios
         .post('/api/users-create', {
           name: this.users.name,
+          username: this.users.username,
+          password: this.users.password,
+          role_id: this.users.role_id,
           nopeg: this.users.nopeg,
           email: this.users.email,
           unit: this.users.unit,
@@ -490,6 +603,9 @@ export default {
       this.modal_create = false
       this.users.id = users.id
       this.users.name = users.name
+      this.users.username = users.username
+      this.users.password = users.password
+      this.users.role_id = users.role_id
       this.users.nopeg = users.nopeg
       this.users.email = users.email
       this.users.unit = users.unit
@@ -500,6 +616,9 @@ export default {
       this.$axios
         .put('/api/users-update/' + this.users.id, {
           name: this.users.name,
+          username: this.users.username,
+          password: this.users.password,
+          role_id: this.users.role_id,
           nopeg: this.users.nopeg,
           email: this.users.email,
           unit: this.users.unit,
@@ -551,10 +670,16 @@ export default {
     clearForm() {
       this.users.id = null
       this.users.name = null
+      this.users.username = null
+      this.users.password = null
+      this.users.role_id = null
       this.users.nopeg = null
       this.users.email = null
       this.users.unit = null
       this.errors.name = null
+      this.errors.username = null
+      this.errors.password = null
+      this.errors.role_id = null
       this.errors.nopeg = null
       this.errors.email = null
       this.errors.unit = null
@@ -566,3 +691,9 @@ export default {
   },
 }
 </script>
+
+<style>
+#readOnly {
+  background-color:#f0f0f5;
+}
+</style>

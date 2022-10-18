@@ -889,7 +889,7 @@ export default {
 
 #cardTop {
   width: 207px;
-  margin-left: -15px;
+  margin-left: -11px;
 }
 
 #btnGreen {

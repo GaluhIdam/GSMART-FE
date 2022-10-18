@@ -1162,7 +1162,7 @@
 
                 <!-- Tab Contact -->
                 <div class="tab-pane fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">
-                  <div class="mt-5">
+                  <div class="mt-5" v-if="sales_detail">
                     <div class="table-responsive">
                       <table class="table table-row-bordered table-row-gray-200 gy-4" v-if="contact">
                         <thead>
@@ -1282,7 +1282,7 @@
 
                 <!-- Tab Reschedule/Cancel -->
                 <div class="tab-pane fade" id="reschedule-tab-pane" role="tabpanel" aria-labelledby="reschedule-tab" tabindex="0">
-                  <div class="mt-5">
+                  <div class="mt-5" v-if="sales_detail">
                     <ul class="nav nav-tabs nav-line-tabs nav-line-tabs-2x mb-5 fs-6">
                       <li class="nav-item">
                           <a class="nav-link active" data-bs-toggle="tab" href="#kt_tab_pane_1">Reschedule</a>

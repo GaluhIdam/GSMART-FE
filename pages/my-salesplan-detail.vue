@@ -633,7 +633,7 @@
                                                 <strong>{{ files.file_name }}</strong>
                                               </a>
                                           </td>
-                                          <td class="d-flex justify-content-end">
+                                          <td class="d-flex justify-content-end" v-if="sales_detail.status === 'Open'">
                                             <button type="button" class="btn btn-danger btn-sm" @click="removeFile(files.id)" v-permission="['delete_files']"><span class="fas fa-trash"></span></button>
                                           </td>
                                         </tr>
@@ -672,7 +672,7 @@
                                                 <strong>{{ files.file_name }}</strong>
                                               </a>
                                           </td>
-                                          <td class="d-flex justify-content-end">
+                                          <td class="d-flex justify-content-end" v-if="sales_detail.status === 'Open'">
                                             <button type="button" class="btn btn-danger btn-sm" @click="removeFile(files.id)" v-permission="['delete_files']"><span class="fas fa-trash"></span></button>
                                           </td>
                                         </tr>
@@ -734,7 +734,7 @@
                                                 <strong>{{ files.file_name }}</strong>
                                               </a>
                                           </td>
-                                          <td class="d-flex justify-content-end">
+                                          <td class="d-flex justify-content-end" v-if="sales_detail.status === 'Open'">
                                             <button type="button" class="btn btn-danger btn-sm" @click="removeFile(files.id)" v-permission="['delete_files']"><span class="fas fa-trash"></span></button>
                                           </td>
                                         </tr>
@@ -775,7 +775,7 @@
                                                 <strong>{{ files.file_name }}</strong>
                                               </a>
                                           </td>
-                                          <td class="d-flex justify-content-end">
+                                          <td class="d-flex justify-content-end" v-if="sales_detail.status === 'Open'">
                                             <button type="button" class="btn btn-danger btn-sm" @click="removeFile(files.id)" v-permission="['delete_files']"><span class="fas fa-trash"></span></button>
                                           </td>
                                         </tr>
@@ -815,7 +815,7 @@
                                                 <strong>{{ files.file_name }}</strong>
                                               </a>
                                           </td>
-                                          <td class="d-flex justify-content-end">
+                                          <td class="d-flex justify-content-end" v-if="sales_detail.status === 'Open'">
                                             <button type="button" class="btn btn-danger btn-sm" @click="removeFile(files.id)" v-permission="['delete_files']"><span class="fas fa-trash"></span></button>
                                           </td>
                                         </tr>
@@ -876,7 +876,7 @@
                                                 <strong>{{ files.file_name }}</strong>
                                               </a>
                                           </td>
-                                          <td class="d-flex justify-content-end">
+                                          <td class="d-flex justify-content-end" v-if="sales_detail.status === 'Open'">
                                             <button type="button" class="btn btn-danger btn-sm" @click="removeFile(files.id)" v-permission="['delete_files']"><span class="fas fa-trash"></span></button>
                                           </td>
                                         </tr>
@@ -1013,7 +1013,7 @@
                                                 <strong>{{ files.file_name }}</strong>
                                               </a>
                                           </td>
-                                          <td class="d-flex justify-content-end">
+                                          <td class="d-flex justify-content-end" v-if="sales_detail.status === 'Open'">
                                             <button type="button" class="btn btn-danger btn-sm" @click="removeFile(files.id)" v-permission="['delete_files']"><span class="fas fa-trash"></span></button>
                                           </td>
                                         </tr>
@@ -1272,7 +1272,7 @@
                       </div>
                     </div> -->
 
-                    <div class="text-center mt-20">
+                    <div class="text-center mt-20" v-if="sales_detail.status === 'Open'">
                       <button type="button" class="btn btn-primary" data-bs-toggle="modal" v-permission="['create_contacts']" data-bs-target="#addContact" @click="addContact()">
                         Add Contact Person
                       </button>
@@ -1360,7 +1360,7 @@
                             <label class="form-label">Sales Month</label>
                             <input type="text" class="form-control" v-model="sales_detail.monthSales" readonly id="readOnly">
                           </div>
-                          <div class="text-center mt-5">
+                          <div class="text-center mt-5" v-if="sales_detail.status === 'Open'">
                             <button type="reset" class="btn btn-danger">Reset</button>
                             <button type="submit" class="btn btn-primary" v-permission="['update_sales_reschedule', 'create_sales_reschedule']">Confirm</button>
                           </div>
@@ -1394,7 +1394,7 @@
                               {{ errors.reason[0] }}
                             </span>
                           </div>
-                          <div class="text-center mt-5">
+                          <div class="text-center mt-5" v-if="sales_detail.status === 'Open'">
                             <button type="reset" class="btn btn-danger">Reset</button>
                             <button type="submit" class="btn btn-primary">Confirm</button>
                           </div>

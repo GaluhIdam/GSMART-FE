@@ -581,7 +581,7 @@
                                   <div class="rounded box-d" id="myBorder">
                                     <div class="mt-3 table-responsive">
                                       <table class="table" v-if="contact">
-                                        <tr v-for="contact in level4[0].data" :key="contact.id">
+                                        <tr v-for="contact in level4[0].data" :key="contact.id" id="heightContact">
                                           <td>
                                             <strong>{{ contact.name }}</strong>
                                           </td>
@@ -2322,6 +2322,11 @@ export default {
 #readOnly {
   background-color:#f0f0f5;
 }
+
+#heightContact {
+  height: 35px
+}
+
 #cardTop {
   width: 218px;
 }

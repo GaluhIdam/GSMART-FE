@@ -346,7 +346,12 @@
                   <span class="badge badge-primary mx-2"><b>Additional</b></span>
                 </div>
                 <p class="text-muted mt-5 mx-2">Type</p>
-                <span class="badge badge-info mx-2" v-if="sales_detail"><b>{{ sales_detail.type }}</b></span>
+                <div v-if="sales_detail.type === 'TMB'">
+                  <span class="badge badge-danger mx-2">TMB</span>
+                </div>
+                <div v-if="sales_detail.type === 'PBTH'">
+                  <span class="badge badge-warning mx-2">PBTH</span>
+                </div>
               </div>
               <div class="col-lg-2" v-if="sales_detail">
                 <p class="text-muted mx-10">Progress</p>
@@ -576,7 +581,7 @@
                                   <div class="rounded box-d" id="myBorder">
                                     <div class="mt-3 table-responsive">
                                       <table class="table" v-if="contact">
-                                        <tr v-for="contact in level4[0].data" :key="contact.id">
+                                        <tr v-for="contact in level4[0].data" :key="contact.id" id="heightContact">
                                           <td>
                                             <strong>{{ contact.name }}</strong>
                                           </td>
@@ -612,6 +617,7 @@
                                         data-bs-target="#addFile" 
                                         @click="addFile1()"
                                         v-if="sales_detail.status === 'Open'"
+                                        v-permission="['upload_files']"
                                         >
                                           Upload Document
                                         </button>
@@ -627,8 +633,8 @@
                                                 <strong>{{ files.file_name }}</strong>
                                               </a>
                                           </td>
-                                          <td class="d-flex justify-content-end">
-                                            <button type="button" class="btn btn-danger btn-sm" @click="removeFile(files.id)"><span class="fas fa-trash"></span></button>
+                                          <td class="d-flex justify-content-end" v-if="sales_detail.status === 'Open'">
+                                            <button type="button" class="btn btn-danger btn-sm" @click="removeFile(files.id)" v-permission="['delete_files']"><span class="fas fa-trash"></span></button>
                                           </td>
                                         </tr>
                                       </table>
@@ -650,6 +656,7 @@
                                         data-bs-target="#addFile" 
                                         @click="addFile2()"
                                         v-if="sales_detail.status === 'Open'"
+                                        v-permission="['upload_files']"
                                         >
                                           Upload Document
                                         </button>
@@ -665,8 +672,8 @@
                                                 <strong>{{ files.file_name }}</strong>
                                               </a>
                                           </td>
-                                          <td class="d-flex justify-content-end">
-                                            <button type="button" class="btn btn-danger btn-sm" @click="removeFile(files.id)"><span class="fas fa-trash"></span></button>
+                                          <td class="d-flex justify-content-end" v-if="sales_detail.status === 'Open'">
+                                            <button type="button" class="btn btn-danger btn-sm" @click="removeFile(files.id)" v-permission="['delete_files']"><span class="fas fa-trash"></span></button>
                                           </td>
                                         </tr>
                                       </table>
@@ -711,6 +718,7 @@
                                         data-bs-target="#addFile" 
                                         @click="addFile3()"
                                         v-if="sales_detail.status === 'Open'"
+                                        v-permission="['upload_files']"
                                         >
                                           Upload Document
                                         </button>
@@ -726,8 +734,8 @@
                                                 <strong>{{ files.file_name }}</strong>
                                               </a>
                                           </td>
-                                          <td class="d-flex justify-content-end">
-                                            <button type="button" class="btn btn-danger btn-sm" @click="removeFile(files.id)"><span class="fas fa-trash"></span></button>
+                                          <td class="d-flex justify-content-end" v-if="sales_detail.status === 'Open'">
+                                            <button type="button" class="btn btn-danger btn-sm" @click="removeFile(files.id)" v-permission="['delete_files']"><span class="fas fa-trash"></span></button>
                                           </td>
                                         </tr>
                                       </table>
@@ -751,6 +759,7 @@
                                         data-bs-target="#addFile" 
                                         @click="addFile4()"
                                         v-if="sales_detail.status === 'Open'"
+                                        v-permission="['upload_files']"
                                         >
                                           Upload Document
                                         </button>
@@ -766,8 +775,8 @@
                                                 <strong>{{ files.file_name }}</strong>
                                               </a>
                                           </td>
-                                          <td class="d-flex justify-content-end">
-                                            <button type="button" class="btn btn-danger btn-sm" @click="removeFile(files.id)"><span class="fas fa-trash"></span></button>
+                                          <td class="d-flex justify-content-end" v-if="sales_detail.status === 'Open'">
+                                            <button type="button" class="btn btn-danger btn-sm" @click="removeFile(files.id)" v-permission="['delete_files']"><span class="fas fa-trash"></span></button>
                                           </td>
                                         </tr>
                                       </table>
@@ -790,6 +799,7 @@
                                         data-bs-target="#addFile" 
                                         @click="addFile5()"
                                         v-if="sales_detail.status === 'Open'"
+                                        v-permission="['upload_files']"
                                         >
                                           Upload Document
                                         </button>
@@ -805,8 +815,8 @@
                                                 <strong>{{ files.file_name }}</strong>
                                               </a>
                                           </td>
-                                          <td class="d-flex justify-content-end">
-                                            <button type="button" class="btn btn-danger btn-sm" @click="removeFile(files.id)"><span class="fas fa-trash"></span></button>
+                                          <td class="d-flex justify-content-end" v-if="sales_detail.status === 'Open'">
+                                            <button type="button" class="btn btn-danger btn-sm" @click="removeFile(files.id)" v-permission="['delete_files']"><span class="fas fa-trash"></span></button>
                                           </td>
                                         </tr>
                                       </table>
@@ -850,6 +860,7 @@
                                         data-bs-target="#addFile" 
                                         @click="addFile6()"
                                         v-if="sales_detail.status === 'Open'"
+                                        v-permission="['upload_files']"
                                         >
                                           Upload Document
                                         </button>
@@ -865,8 +876,8 @@
                                                 <strong>{{ files.file_name }}</strong>
                                               </a>
                                           </td>
-                                          <td class="d-flex justify-content-end">
-                                            <button type="button" class="btn btn-danger btn-sm" @click="removeFile(files.id)"><span class="fas fa-trash"></span></button>
+                                          <td class="d-flex justify-content-end" v-if="sales_detail.status === 'Open'">
+                                            <button type="button" class="btn btn-danger btn-sm" @click="removeFile(files.id)" v-permission="['delete_files']"><span class="fas fa-trash"></span></button>
                                           </td>
                                         </tr>
                                       </table>
@@ -893,7 +904,7 @@
                                       </div>
                                       <div class="mb-3">
                                         <label>Line Hangar</label>
-                                          <div class="row" v-permission="['slot_request']">
+                                          <div class="row">
                                             <div class="col-9">
                                               <select v-model="line_id" class="form-select">
                                                 <option 
@@ -906,10 +917,17 @@
                                               </select>
                                             </div>
                                             <div class="col-3">
-                                              <button class="btn btn-primary btn-sm" type="button" @click="updateSlot()" v-if="sales_detail.status === 'Open'">Save</button>
+                                              <button 
+                                                class="btn btn-primary btn-sm" 
+                                                type="button" 
+                                                @click="updateSlot()" 
+                                                v-if="sales_detail.status === 'Open'"
+                                                v-permission="['slot_request']"
+                                              >
+                                                Save
+                                              </button>
                                             </div>
                                           </div>
-
                                         
                                       </div>
                                     </div>
@@ -979,6 +997,7 @@
                                         data-bs-target="#addFile" 
                                         @click="addFile7()"
                                         v-if="sales_detail.status === 'Open'"
+                                        v-permission="['upload_files']"
                                         >
                                           Upload Document
                                         </button>
@@ -994,8 +1013,8 @@
                                                 <strong>{{ files.file_name }}</strong>
                                               </a>
                                           </td>
-                                          <td class="d-flex justify-content-end">
-                                            <button type="button" class="btn btn-danger btn-sm" @click="removeFile(files.id)"><span class="fas fa-trash"></span></button>
+                                          <td class="d-flex justify-content-end" v-if="sales_detail.status === 'Open'">
+                                            <button type="button" class="btn btn-danger btn-sm" @click="removeFile(files.id)" v-permission="['delete_files']"><span class="fas fa-trash"></span></button>
                                           </td>
                                         </tr>
                                       </table>
@@ -1143,7 +1162,7 @@
 
                 <!-- Tab Contact -->
                 <div class="tab-pane fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">
-                  <div class="mt-5">
+                  <div class="mt-5" v-if="sales_detail">
                     <div class="table-responsive">
                       <table class="table table-row-bordered table-row-gray-200 gy-4" v-if="contact">
                         <thead>
@@ -1174,17 +1193,17 @@
                               {{ contact.title }}
                             </td>
                             <td class="d-flex justify-content-center">
-                              <button class="btn btn-sm btn-light" @click="removeContact(contact.id)">
+                              <button class="btn btn-sm btn-light" @click="removeContact(contact.id)" v-permission="['delete_contacts']">
                                 <i class="bi bi-trash-fill text-primary"></i>
                               </button>
                             </td>
                           </tr>
                           <!-- jika data kosong -->
-                          <tr v-if="contact.length < 1">
+                          <!-- <tr v-if="contact.length < 1">
                             <td colspan="6">
                               <div class="text-muted text-center">Data not found</div>
                             </td>
-                          </tr>
+                          </tr> -->
                         </tbody>
                       </table>
                     </div>
@@ -1253,8 +1272,8 @@
                       </div>
                     </div> -->
 
-                    <div class="text-center mt-20">
-                      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addContact" @click="addContact()">
+                    <div class="text-center mt-20" v-if="sales_detail.status === 'Open'">
+                      <button type="button" class="btn btn-primary" data-bs-toggle="modal" v-permission="['create_contacts']" data-bs-target="#addContact" @click="addContact()">
                         Add Contact Person
                       </button>
                     </div>
@@ -1263,7 +1282,7 @@
 
                 <!-- Tab Reschedule/Cancel -->
                 <div class="tab-pane fade" id="reschedule-tab-pane" role="tabpanel" aria-labelledby="reschedule-tab" tabindex="0">
-                  <div class="mt-5">
+                  <div class="mt-5" v-if="sales_detail">
                     <ul class="nav nav-tabs nav-line-tabs nav-line-tabs-2x mb-5 fs-6">
                       <li class="nav-item">
                           <a class="nav-link active" data-bs-toggle="tab" href="#kt_tab_pane_1">Reschedule</a>
@@ -1287,11 +1306,35 @@
                           </div>
                           <div class="mb-3">
                             <label class="form-label">CBO Date</label>
-                            <input type="date" class="form-control" v-model="sales_detail.start_date">
+                            <input 
+                              type="date" 
+                              class="form-control" 
+                              v-model="sales_detail.start_date"
+                              :class="{
+                                'is-invalid': errors.start_date,
+                              }"
+                            >
+                            <span
+                              v-if="errors.start_date"
+                              class="error invalid-feedback"
+                              >{{ errors.start_date[0] }}</span
+                            >
                           </div>
                           <div class="mb-3">
                             <label class="form-label">End Date</label>
-                            <input type="date" class="form-control" v-model="end_date">
+                            <input 
+                              type="date" 
+                              class="form-control" 
+                              v-model="end_date" 
+                              :class="{
+                                'is-invalid': errors.end_date,
+                              }"
+                            >
+                              <span
+                                v-if="errors.end_date"
+                                class="error invalid-feedback"
+                                >{{ errors.end_date[0] }}</span
+                              >
                           </div>
                           <div class="mb-3">
                             <label class="form-label">TAT</label>
@@ -1299,16 +1342,27 @@
                           </div>
                           <div class="mb-3">
                             <label class="form-label">Current Date</label>
-                            <input type="date" class="form-control" v-model="current_date">
+                            <input 
+                              type="date" 
+                              class="form-control" 
+                              v-model="current_date"
+                              :class="{
+                                'is-invalid': errors.current_date,
+                              }"
+                            >
+                            <span
+                              v-if="errors.current_date"
+                              class="error invalid-feedback"
+                              >{{ errors.current_date[0] }}</span
+                            >
                           </div>
                           <div class="mb-3">
                             <label class="form-label">Sales Month</label>
                             <input type="text" class="form-control" v-model="sales_detail.monthSales" readonly id="readOnly">
                           </div>
-                          <div class="text-center mt-5">
+                          <div class="text-center mt-5" v-if="sales_detail.status === 'Open'">
                             <button type="reset" class="btn btn-danger">Reset</button>
-                            <button type="submit" class="btn btn-primary">Confirm</button>
-                            <!-- <button type="submit" class="btn btn-primary" @click="salesReschedule()">Confirm</button> -->
+                            <button type="submit" class="btn btn-primary" v-permission="['update_sales_reschedule', 'create_sales_reschedule']">Confirm</button>
                           </div>
                         </form>
                       </div>
@@ -1340,7 +1394,7 @@
                               {{ errors.reason[0] }}
                             </span>
                           </div>
-                          <div class="text-center mt-5">
+                          <div class="text-center mt-5" v-if="sales_detail.status === 'Open'">
                             <button type="reset" class="btn btn-danger">Reset</button>
                             <button type="submit" class="btn btn-primary">Confirm</button>
                           </div>
@@ -1480,7 +1534,7 @@
                               <button type="button" class="btn btn-light mx-2" data-bs-dismiss="modal" id="close_modal_contact" @click="closeModalContact()">
                                 Close
                               </button>
-                              <button type="submit" class="btn btn-primary">Save</button>
+                              <button type="submit" class="btn btn-primary" v-permission="['create_contacts']">Save</button>
                             </div>
                           </div>
                         </form>
@@ -1557,7 +1611,7 @@
                               <button type="button" class="btn btn-light mx-2" data-bs-dismiss="modal" id="close_modal_file" @click="closeModalFile()">
                                 Close
                               </button>
-                              <button type="button" @click="submitFile()" class="btn btn-primary">Save</button>
+                              <button type="button" @click="submitFile()" v-permission="['upload_files']" class="btn btn-primary">Save</button>
                             </div>
                           </div>
                         </form>
@@ -1750,24 +1804,34 @@ export default {
       })
       .catch((error) => console.log(error))
     },
-    listFile(paginate) {
+    listFile() {
       this.loading()
-      paginate = paginate || `/api/file/`
       this.$axios
-      .get(paginate, {
-        params: {
-          search: this.search,
-          order: this.order,
-          by: this.by,
-          paginate: this.paginate,
-        },
-      })
+      .get(`api/file/`)
       .then((response) => {
         this.files = response.data.data
         Swal.close()
       })
       .catch((error) => console.log(error))
     },
+    // listFile(paginate) {
+    //   this.loading()
+    //   paginate = paginate || `/api/file/`
+    //   this.$axios
+    //   .get(paginate, {
+    //     params: {
+    //       search: this.search,
+    //       order: this.order,
+    //       by: this.by,
+    //       paginate: this.paginate,
+    //     },
+    //   })
+    //   .then((response) => {
+    //     this.files = response.data.data
+    //     Swal.close()
+    //   })
+    //   .catch((error) => console.log(error))
+    // },
     listFileHistory() {
       this.loading()
       this.$axios
@@ -1840,7 +1904,14 @@ export default {
           name: 'my-salesplan'
         });
       })
-      .catch((error) => console.log(error))
+      .catch((error) => {
+        if (error.response.status == 422) {
+          this.errors = error.response.data.errors
+          toastr.error(error.response.data.message)
+        } else if (error.response.status == 403) {
+          toastr.error(error.response.data.message)
+        }
+      })
     },
     updateSO() {
       this.loading()
@@ -1872,7 +1943,14 @@ export default {
         toastr.success(response.data.message)
         Swal.close()
       })
-      .catch((error) => console.log(error))
+      .catch((error) => {
+        if (error.response.status == 422) {
+          this.errors = error.response.data.errors
+          toastr.error(error.response.data.message)
+        } else if (error.response.status == 403) {
+          toastr.error(error.response.data.message)
+        }
+      })
     },
     salesUpdate() {
       this.loading()
@@ -1918,7 +1996,8 @@ export default {
           if (error.response.status == 422) {
             this.errors = error.response.data.errors
             toastr.error(error.response.data.message)
-            console.log(errors)
+          } else if (error.response.status == 403) {
+            toastr.error(error.response.data.message)
           }
         })
     },
@@ -1940,7 +2019,8 @@ export default {
           if (error.response.status == 422) {
             this.errors = error.response.data.errors
             toastr.error(error.response.data.message)
-            console.log(errors)
+          } else if (error.response.status == 403) {
+            toastr.error(error.response.data.message)
           }
         })
     },
@@ -1959,7 +2039,8 @@ export default {
           if (error.response.status == 422) {
             this.errors = error.response.data.errors
             toastr.error(error.response.data.message)
-            console.log(errors)
+          } else if (error.response.status == 403) {
+            toastr.error(error.response.data.message)
           }
         })
     },
@@ -1977,7 +2058,8 @@ export default {
           if (error.response.status == 422) {
             this.errors = error.response.data.errors
             toastr.error(error.response.data.message)
-            console.log(errors)
+          } else if (error.response.status == 403) {
+            toastr.error(error.response.data.message)
           }
         })
     },
@@ -1997,7 +2079,8 @@ export default {
           if (error.response.status == 422) {
             this.errors = error.response.data.errors
             toastr.error(error.response.data.message)
-            console.log(errors)
+          } else if (error.response.status == 403) {
+            toastr.error(error.response.data.message)
           }
         })
     },
@@ -2031,8 +2114,10 @@ export default {
           if (error.response.status == 422) {
             this.errors = error.response.data.errors
             toastr.error(error.response.data.message)
+          } else if (error.response.status == 403) {
+            toastr.error(error.response.data.message)
           }
-        });
+        })
     },
     removeFile(id) {
       Swal.fire({
@@ -2044,10 +2129,10 @@ export default {
         cancelButtonColor: '#d33',
         confirmButtonText: 'Yes, delete it!',
       })
-          .then((result) => {
-            if (result.isConfirmed) {
-              this.$axios.delete('/api/file-delete/' + id)
-          .then((response) => {
+      .then((result) => {
+        if (result.isConfirmed) {
+          this.$axios.delete('/api/file-delete/' + id)
+        .then((response) => {
             toastr.success(response.data.message)
             this.listFile()
             this.listDetail()
@@ -2056,7 +2141,12 @@ export default {
         }
       })
       .catch((error) => {
-        console.log(error)
+        if (error.response.status == 422) {
+          this.errors = error.response.data.errors
+          toastr.error(error.response.data.message)
+        } else if (error.response.status == 403) {
+          toastr.error(error.response.data.message)
+        }
       })
     },
     addFile1() {
@@ -2232,6 +2322,11 @@ export default {
 #readOnly {
   background-color:#f0f0f5;
 }
+
+#heightContact {
+  height: 35px
+}
+
 #cardTop {
   width: 218px;
 }

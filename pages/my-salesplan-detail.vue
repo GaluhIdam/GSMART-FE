@@ -1188,7 +1188,7 @@
                               {{ contact.title }}
                             </td>
                             <td class="d-flex justify-content-center">
-                              <button class="btn btn-sm btn-light" @click="removeContact(contact.id)">
+                              <button class="btn btn-sm btn-light" @click="removeContact(contact.id)" v-permission="['delete_contacts']">
                                 <i class="bi bi-trash-fill text-primary"></i>
                               </button>
                             </td>
@@ -1268,7 +1268,7 @@
                     </div> -->
 
                     <div class="text-center mt-20">
-                      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addContact" @click="addContact()">
+                      <button type="button" class="btn btn-primary" data-bs-toggle="modal" v-permission="['create_contacts']" data-bs-target="#addContact" @click="addContact()">
                         Add Contact Person
                       </button>
                     </div>
@@ -1529,7 +1529,7 @@
                               <button type="button" class="btn btn-light mx-2" data-bs-dismiss="modal" id="close_modal_contact" @click="closeModalContact()">
                                 Close
                               </button>
-                              <button type="submit" class="btn btn-primary">Save</button>
+                              <button type="submit" class="btn btn-primary" v-permission="['create_contacts']">Save</button>
                             </div>
                           </div>
                         </form>
@@ -1606,7 +1606,7 @@
                               <button type="button" class="btn btn-light mx-2" data-bs-dismiss="modal" id="close_modal_file" @click="closeModalFile()">
                                 Close
                               </button>
-                              <button type="button" @click="submitFile()" class="btn btn-primary">Save</button>
+                              <button type="button" @click="submitFile()" v-permission="['upload_files']" class="btn btn-primary">Save</button>
                             </div>
                           </div>
                         </form>

@@ -346,7 +346,12 @@
                   <span class="badge badge-primary mx-2"><b>Additional</b></span>
                 </div>
                 <p class="text-muted mt-5 mx-2">Type</p>
-                <span class="badge badge-info mx-2" v-if="sales_detail"><b>{{ sales_detail.type }}</b></span>
+                <div v-if="sales_detail.type === 'TMB'">
+                  <span class="badge badge-danger mx-2">TMB</span>
+                </div>
+                <div v-if="sales_detail.type === 'PBTH'">
+                  <span class="badge badge-warning mx-2">PBTH</span>
+                </div>
               </div>
               <div class="col-lg-2" v-if="sales_detail">
                 <p class="text-muted mx-10">Progress</p>

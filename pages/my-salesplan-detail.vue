@@ -1364,7 +1364,7 @@
                           </div>
                           <div class="text-center mt-5" v-if="sales_detail.status === 'Open'">
                             <button type="reset" class="btn btn-danger">Reset</button>
-                            <button type="submit" class="btn btn-primary" v-permission="['update_sales_reschedule', 'create_sales_reschedule']">Confirm</button>
+                            <button type="submit" class="btn btn-primary" v-permission="['reschedule_sales']">Confirm</button>
                           </div>
                         </form>
                       </div>

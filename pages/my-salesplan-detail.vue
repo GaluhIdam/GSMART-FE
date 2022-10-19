@@ -2215,6 +2215,8 @@ export default {
           if (error.response.status == 422) {
             this.errors = error.response.data.errors
             toastr.error(error.response.data.message)
+          } else if (error.response.status == 403) {
+            toastr.error(error.response.data.message)
           }
         })
     },
@@ -2243,7 +2245,9 @@ export default {
         }
       })
       .catch((error) => {
-        console.log(error)
+        if (error.response.status == 403) {
+          toastr.error(error.response.data.message)
+        }
       })
     },
 

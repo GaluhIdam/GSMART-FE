@@ -89,7 +89,7 @@
                     </div>
                     <div class="modal-footer">
                       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="close_modal_ams" @click="closeModalAMS()">Close</button>
-                      <button type="button" class="btn btn-primary" @click="swtichAMS()">Send</button>
+                      <button type="button" class="btn btn-primary" @click="swtichAMS()" v-permission="['switch_ams']">Send</button>
                     </div>
                   </form>
                 </div>

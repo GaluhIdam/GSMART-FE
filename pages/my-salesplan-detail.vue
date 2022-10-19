@@ -1107,25 +1107,27 @@
                 <div class="tab-pane fade" id="history-tab-pane" role="tabpanel" aria-labelledby="history-tab" tabindex="0">
                   <div class="mt-5">
                     <!-- Filter -->
-                    <!-- <div class="row">
+                    <div class="row">
                       <div class="col-lg-8"></div>
-                        <div class="col-lg-4 col-sm-12 d-flex justify-content-end">
-                          <select class="form-select" v-model="month">
-                            <option value="1">January</option>
-                            <option value="2">February</option>
-                            <option value="3">March</option>
-                            <option value="4">April</option>
-                            <option value="5">May</option>
-                            <option value="6">June</option>
-                            <option value="7">July</option>
-                            <option value="8">August</option>
-                            <option value="9">September</option>
-                            <option value="10">October</option>
-                            <option value="11">November</option>
-                            <option value="12">December</option>
-                          </select>
-                        </div>
-                    </div> -->
+                      <div class="col-lg-4 col-sm-12 d-flex justify-content-end align-items-center">
+                        <label for="" class="form-label me-3">Select Month</label>
+                        <select class="form-select" v-model="filter">
+                          <option value="1">January</option>
+                          <option value="2">February</option>
+                          <option value="3">March</option>
+                          <option value="4">April</option>
+                          <option value="5">May</option>
+                          <option value="6">June</option>
+                          <option value="7">July</option>
+                          <option value="8">August</option>
+                          <option value="9">September</option>
+                          <option value="10">October</option>
+                          <option value="11">November</option>
+                          <option value="12">December</option>
+                        </select>
+                        <button type="button" class="btn btn-info btn-sm ms-3" @click="listFileHistory(); clearFormHistory();">Filter</button>
+                      </div>
+                    </div>
                     
                     <div v-for="file_history in file_histories">
                       <div class="row">
@@ -1619,6 +1621,7 @@
                     </div>
                   </div>
                 </div>
+
               </div>
             </div>
             <!-- End Tab -->
@@ -1679,7 +1682,7 @@ export default {
       requirement_id: null,
       sales_id: null,
       files: '',
-      month: null,
+      filter: null,
       contacts: null,
       level4: null,
       level3: null,
@@ -1837,7 +1840,7 @@ export default {
       this.$axios
       .get(`api/file-history/${this.$route.query.id}`, {
         params: {
-          month: this.month,
+          filter: this.filter,
         }
       })
       .then((response) => {
@@ -2308,6 +2311,10 @@ export default {
     closeModalEditSales() {
       document.getElementById('close_modal_edit_sales').click()
       this.clearFormEditSales()
+    },
+
+    clearFormHistory() {
+      this.filter = null
     },
   }
 }

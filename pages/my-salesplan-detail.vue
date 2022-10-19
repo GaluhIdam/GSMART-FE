@@ -252,7 +252,7 @@
                           <button type="button" class="btn btn-light mx-2" data-bs-dismiss="modal" id="close_modal_edit_sales">
                             Close
                           </button>
-                          <button type="submit" class="btn btn-primary">Save</button>
+                          <button type="submit" class="btn btn-primary" v-permission="['update_sales']">Save</button>
                         </div>
                       </div>
                     </form>

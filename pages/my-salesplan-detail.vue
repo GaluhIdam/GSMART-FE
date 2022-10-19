@@ -1398,7 +1398,7 @@
                           </div>
                           <div class="text-center mt-5" v-if="sales_detail.status === 'Open'">
                             <button type="reset" class="btn btn-danger">Reset</button>
-                            <button type="submit" class="btn btn-primary">Confirm</button>
+                            <button type="submit" class="btn btn-primary" v-permission="['reject_sales']">Confirm</button>
                           </div>
                         </form>
                       </div>

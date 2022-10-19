@@ -987,6 +987,7 @@
                                         <button type="button" class="btn btn-success btn-sm" 
                                           @click="closeSales()" 
                                           v-if = "sales_detail.status === 'Open'"
+                                          v-permission="['upgrade_level']"
                                           >
                                           Closed Sales
                                         </button>
@@ -1056,7 +1057,7 @@
                                   <div class="text-center mt-10">
                                     <form>
                                       <input type="hidden" v-model="status" value="3">
-                                      <button type="button" class="btn btn-primary btn-sm" @click="requestClosed()" v-if="sales_detail.status === 'Closed'">
+                                      <button type="button" class="btn btn-primary btn-sm" @click="requestClosed()" v-permission="['close_sales']" v-if="sales_detail.status === 'Closed'">
                                         Request to Closed
                                       </button>
                                     </form>

@@ -680,7 +680,7 @@
                                     </div>
                                   </div>
 
-                                  <div class="text-center mt-5">
+                                  <div class="text-center mt-5" v-if="role == 'TPR' || role == 'Administrator'">
                                     <form>
                                       <input type="hidden" v-model="upgrade" value="1">
                                       <button type="button" class="btn btn-info btn-sm" 
@@ -1641,7 +1641,8 @@ export default {
   name: 'MySalesPlanDetailPage',
   data() {
     return {
-      user: this.$auth.user.user,
+      user: this.$auth.user.user.name,
+      role: this.$auth.user.user.role.name,
       sales: {
         data: [],
         link: [],
@@ -1910,7 +1911,6 @@ export default {
       })
       .catch((error) => {
         if (error.response.status == 422) {
-          this.errors = error.response.data.errors
           toastr.error(error.response.data.message)
         } else if (error.response.status == 403) {
           toastr.error(error.response.data.message)
@@ -1929,7 +1929,6 @@ export default {
         })
         .catch((error) => {
           if (error.response.status == 422) {
-            this.errors = error.response.data.errors
             toastr.error(error.response.data.message)
           } else if (error.response.status == 403) {
             toastr.error(error.response.data.message)
@@ -1949,7 +1948,6 @@ export default {
       })
       .catch((error) => {
         if (error.response.status == 422) {
-          this.errors = error.response.data.errors
           toastr.error(error.response.data.message)
         } else if (error.response.status == 403) {
           toastr.error(error.response.data.message)
@@ -1976,9 +1974,7 @@ export default {
         })
         .catch((error) => {
           if (error.response.status == 422) {
-            this.errors = error.response.data.errors
             toastr.error(error.response.data.message)
-            console.log(errors)
           }
         })
     },
@@ -1998,7 +1994,6 @@ export default {
         })
         .catch((error) => {
           if (error.response.status == 422) {
-            this.errors = error.response.data.errors
             toastr.error(error.response.data.message)
           } else if (error.response.status == 403) {
             toastr.error(error.response.data.message)
@@ -2021,7 +2016,6 @@ export default {
         })
         .catch((error) => {
           if (error.response.status == 422) {
-            this.errors = error.response.data.errors
             toastr.error(error.response.data.message)
           } else if (error.response.status == 403) {
             toastr.error(error.response.data.message)
@@ -2041,7 +2035,6 @@ export default {
         })
         .catch((error) => {
           if (error.response.status == 422) {
-            this.errors = error.response.data.errors
             toastr.error(error.response.data.message)
           } else if (error.response.status == 403) {
             toastr.error(error.response.data.message)

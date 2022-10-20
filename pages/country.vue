@@ -133,11 +133,9 @@
                     v-for="(countrie, p_countries_index) in countries.data"
                     :key="p_countries_index"
                   >
-                    <td class="text-center">
-                      {{ countries.from + p_countries_index }}.
-                    </td>
+                    <td class="text-center">{{ countries.from + p_countries_index }}.</td>
                     <td class="text-center">{{ countrie.name }}</td>
-                    <td class="text-center">{{ countrie.regions.name }}</td>
+                    <td class="text-center">{{ countrie.region.name }}</td>
 
                     <td class="d-flex justify-content-center">
                       <button class="btn btn-sm btn-light">
@@ -159,7 +157,7 @@
                       </button>
                     </td>
                   </tr>
-                  <tr v-if="countries.data.length < 1">
+                  <tr v-if="countries.length < 1">
                     <td colspan="8">
                       <div class="text-muted text-center">Data not found</div>
                     </td>
@@ -181,7 +179,7 @@
                       v-model="paginate"
                       @change="list()"
                     >
-                      <option value="10">10</option>
+                      <option value="1">10</option>
                       <option value="25">25</option>
                       <option value="50">50</option>
                       <option value="100">100</option>

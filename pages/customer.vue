@@ -116,24 +116,14 @@
                 </thead>
                 <tbody>
                   <tr
-                    v-for="(item, item_index) in customers.data"
-                    :key="item_index"
+                    v-for="(customer, customer_index) in customer.data"
+                    :key="customer_index"
                   >
-                    <td class="text-center">
-                      {{ customers.from + item_index }}.
-                    </td>
-                    <td class="text-center">
-                      {{ item.code }}
-                    </td>
-                    <td class="text-center">
-                      {{ item.name }}
-                    </td>
-                    <td class="text-center">
-                      {{ item.country.name }}
-                    </td>
-                    <td class="text-center">
-                      {{ item.country.regions.name }}
-                    </td>
+                    <td class="text-center">{{ customer_index+1 }}.</td>
+                    <td class="text-center">{{ customer.code }}</td>
+                    <td class="text-center">{{ customer.name }}</td>
+                    <td class="text-center">{{ customer.country.name }}</td>
+                    <td class="text-center">{{ customer.country.region.name }}</td>
                     <td class="d-flex justify-content-center">
                       <button class="btn btn-sm btn-light">
                         <i class="bi bi-toggles text-primary"></i>
@@ -142,19 +132,19 @@
                         class="btn btn-sm btn-light"
                         data-bs-toggle="modal"
                         data-bs-target="#modal"
-                        @click="edit(item)"
+                        @click="edit(customer)"
                       >
                         <i class="bi bi-pencil-square text-primary"></i>
                       </button>
                       <button
                         class="btn btn-sm btn-light"
-                        @click="hapus(item.id)"
+                        @click="hapus(customer.id)"
                       >
                         <i class="bi bi-trash-fill text-primary"></i>
                       </button>
                     </td>
                   </tr>
-                  <tr v-if="customers.data.length < 1">
+                  <tr v-if="customers.length < 1">
                     <td colspan="8">
                       <div class="text-muted text-center">Data not found</div>
                     </td>
@@ -193,10 +183,10 @@
                       type="button"
                       class="page-link"
                       :class="{
-                        disabled: !customers.prev_page_url,
+                        disabled: !customer.prev_page_url,
                       }"
                       @click="
-                        customers.prev_page_url && list(customers.prev_page_url)
+                        customer.prev_page_url && listCustomer(customer.prev_page_url)
                       "
                     >
                       Previous
@@ -219,10 +209,10 @@
                       type="button"
                       class="page-link"
                       :class="{
-                        disabled: !customers.next_page_url,
+                        disabled: !customer.next_page_url,
                       }"
                       @click="
-                        customers.next_page_url && list(customers.next_page_url)
+                        customer.next_page_url && listCustomer(customer.next_page_url)
                       "
                     >
                       Next
@@ -525,10 +515,11 @@ export default {
     }, 100),
   },
   methods: {
-    listCustomer() {
+    listCustomer(paginate) {
       this.loading()
+      paginate = paginate || `/api/customer`
       this.$axios
-        .get('api/customer', {
+        .get(paginate, {
           params: {
             search: this.search,
             order: this.order,
@@ -537,8 +528,9 @@ export default {
           },
         })
         .then((response) => {
-          this.customers = response.data.data
-          this.current_page = this.customers.current_page
+          this.customer = response.data.data
+          console.log(this.customer)
+          this.current_page = this.customer.current_page
           Swal.close()
         })
         .catch((error) => console.log(error))

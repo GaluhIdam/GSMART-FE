@@ -139,225 +139,228 @@
                     <span class="menu-bullet">
                       <span class="bullet bullet-dot"></span>
                     </span>
-                    <span class="menu-title">My Sales Plan</span>
+                    <span class="menu-title"  v-if="role == 'TPR' || role == 'CBO' || role == 'Administrator'">All Sales Plan</span>
+                    <span class="menu-title"  v-if="role == 'AMS'">My Sales Plan</span>
                   </Nuxt-link>
                 </div>
               </div>
             </div>
-            <div class="menu-item">
-              <NuxtLink class="menu-link" to="/customer" active-class="active">
-                <span class="menu-icon">
-                  <img
-                    class="h-20px w-20px"
-                    src="~/assets/media/icons/duotune/general/gen022.svg"
-                  />
-                </span>
-                <span class="menu-title">Customers</span>
-              </NuxtLink>
-            </div>
-            <div class="menu-item">
-              <NuxtLink class="menu-link" to="/ams" active-class="active">
-                <span class="menu-icon">
-                  <img
-                    class="h-20px w-20px"
-                    src="~/assets/media/icons/duotune/general/gen022.svg"
-                  />
-                </span>
-                <span class="menu-title">AMS</span>
-              </NuxtLink>
-            </div>
-            <div class="menu-item">
-              <NuxtLink class="menu-link" to="/country" active-class="active">
-                <span class="menu-icon">
-                  <img
-                    class="h-20px w-20px"
-                    src="~/assets/media/icons/duotune/general/gen022.svg"
-                  />
-                </span>
-                <span class="menu-title">Country</span>
-              </NuxtLink>
-            </div>
-            <div class="menu-item">
-              <NuxtLink class="menu-link" to="/Region" active-class="active">
-                <span class="menu-icon">
-                  <img
-                    class="h-20px w-20px"
-                    src="~/assets/media/icons/duotune/general/gen022.svg"
-                  />
-                </span>
-                <span class="menu-title">Region</span>
-              </NuxtLink>
-            </div>
-            <div class="menu-item">
-              <NuxtLink class="menu-link" to="/area" active-class="active">
-                <span class="menu-icon">
-                  <img
-                    class="h-20px w-20px"
-                    src="~/assets/media/icons/duotune/general/gen022.svg"
-                  />
-                </span>
-                <span class="menu-title">Area</span>
-              </NuxtLink>
-            </div>
-            <div class="menu-item">
-              <NuxtLink class="menu-link" to="/user" active-class="active">
-                <span class="menu-icon">
-                  <img
-                    class="h-20px w-20px"
-                    src="~/assets/media/icons/duotune/general/gen022.svg"
-                  />
-                </span>
-                <span class="menu-title">User</span>
-              </NuxtLink>
-            </div>
-            <div class="menu-item">
-              <NuxtLink class="menu-link" to="/role" active-class="active">
-                <span class="menu-icon">
-                  <img
-                    class="h-20px w-20px"
-                    src="~/assets/media/icons/duotune/general/gen022.svg"
-                  />
-                </span>
-                <span class="menu-title">Role</span>
-              </NuxtLink>
-            </div>
-            <div class="menu-item">
-              <NuxtLink
-                class="menu-link"
-                to="/permission"
-                active-class="active"
-              >
-                <span class="menu-icon">
-                  <img
-                    class="h-20px w-20px"
-                    src="~/assets/media/icons/duotune/general/gen022.svg"
-                  />
-                </span>
-                <span class="menu-title">Permission</span>
-              </NuxtLink>
-            </div>
-            <div class="menu-item">
-              <NuxtLink
-                class="menu-link"
-                to="/transaction-type"
-                active-class="active"
-              >
-                <span class="menu-icon">
-                  <img
-                    class="h-20px w-20px"
-                    src="~/assets/media/icons/duotune/general/gen022.svg"
-                  />
-                </span>
-                <span class="menu-title">Transaction Type</span>
-              </NuxtLink>
-            </div>
-            <div class="menu-item">
-              <NuxtLink
-                class="menu-link"
-                to="/prospect-type"
-                active-class="active"
-              >
-                <span class="menu-icon">
-                  <img
-                    class="h-20px w-20px"
-                    src="~/assets/media/icons/duotune/general/gen022.svg"
-                  />
-                </span>
-                <span class="menu-title">Prospect Type</span>
-              </NuxtLink>
-            </div>
-            <div class="menu-item">
-              <Nuxt-link
-                class="menu-link"
-                to="/strategic-initiative"
-                active-class="active"
-              >
-                <span class="menu-icon">
-                  <img
-                    class="h-20px w-20px"
-                    src="~/assets/media/icons/duotune/general/gen022.svg"
-                  />
-                </span>
-                <span class="menu-title">Strategic initiative</span>
-              </Nuxt-link>
-            </div>
-            <div class="menu-item">
-              <Nuxt-link class="menu-link" to="/product" active-class="active">
-                <span class="menu-icon">
-                  <img
-                    class="h-20px w-20px"
-                    src="~/assets/media/icons/duotune/general/gen022.svg"
-                  />
-                </span>
-                <span class="menu-title">Product</span>
-              </Nuxt-link>
-            </div>
-            <div class="menu-item">
-              <Nuxt-link
-                class="menu-link"
-                to="/aircraft-type"
-                active-class="active"
-              >
-                <span class="menu-icon">
-                  <img
-                    class="h-20px w-20px"
-                    src="~/assets/media/icons/duotune/general/gen022.svg"
-                  />
-                </span>
-                <span class="menu-title">Aircraft Type</span>
-              </Nuxt-link>
-            </div>
-            <div class="menu-item">
-              <Nuxt-link
-                class="menu-link"
-                to="/component"
-                active-class="active"
-              >
-                <span class="menu-icon">
-                  <img
-                    class="h-20px w-20px"
-                    src="~/assets/media/icons/duotune/general/gen022.svg"
-                  />
-                </span>
-                <span class="menu-title">Component</span>
-              </Nuxt-link>
-            </div>
-            <div class="menu-item">
-              <Nuxt-link class="menu-link" to="/engine" active-class="active">
-                <span class="menu-icon">
-                  <img
-                    class="h-20px w-20px"
-                    src="~/assets/media/icons/duotune/general/gen022.svg"
-                  />
-                </span>
-                <span class="menu-title">Engine</span>
-              </Nuxt-link>
-            </div>
-            <div class="menu-item">
-              <Nuxt-link class="menu-link" to="/apu" active-class="active">
-                <span class="menu-icon">
-                  <img
-                    class="h-20px w-20px"
-                    src="~/assets/media/icons/duotune/general/gen022.svg"
-                  />
-                </span>
-                <span class="menu-title">APU</span>
-              </Nuxt-link>
-            </div>
-            <div class="menu-item">
-              <Nuxt-link
-                class="menu-link"
-                to="/maintenance"
-                active-class="active"
-              >
-                <span class="menu-icon">
-                  <img
-                    class="h-20px w-20px"
-                    src="~/assets/media/icons/duotune/general/gen022.svg"
-                  />
-                </span>
-                <span class="menu-title">Maintenance</span>
-              </Nuxt-link>
+            <div v-if="role == 'Administrator'">
+              <div class="menu-item">
+                <NuxtLink class="menu-link" to="/customer" active-class="active">
+                  <span class="menu-icon">
+                    <img
+                      class="h-20px w-20px"
+                      src="~/assets/media/icons/duotune/general/gen022.svg"
+                    />
+                  </span>
+                  <span class="menu-title">Customers</span>
+                </NuxtLink>
+              </div>
+              <div class="menu-item">
+                <NuxtLink class="menu-link" to="/ams" active-class="active">
+                  <span class="menu-icon">
+                    <img
+                      class="h-20px w-20px"
+                      src="~/assets/media/icons/duotune/general/gen022.svg"
+                    />
+                  </span>
+                  <span class="menu-title">AMS</span>
+                </NuxtLink>
+              </div>
+              <div class="menu-item">
+                <NuxtLink class="menu-link" to="/country" active-class="active">
+                  <span class="menu-icon">
+                    <img
+                      class="h-20px w-20px"
+                      src="~/assets/media/icons/duotune/general/gen022.svg"
+                    />
+                  </span>
+                  <span class="menu-title">Country</span>
+                </NuxtLink>
+              </div>
+              <div class="menu-item">
+                <NuxtLink class="menu-link" to="/Region" active-class="active">
+                  <span class="menu-icon">
+                    <img
+                      class="h-20px w-20px"
+                      src="~/assets/media/icons/duotune/general/gen022.svg"
+                    />
+                  </span>
+                  <span class="menu-title">Region</span>
+                </NuxtLink>
+              </div>
+              <div class="menu-item">
+                <NuxtLink class="menu-link" to="/area" active-class="active">
+                  <span class="menu-icon">
+                    <img
+                      class="h-20px w-20px"
+                      src="~/assets/media/icons/duotune/general/gen022.svg"
+                    />
+                  </span>
+                  <span class="menu-title">Area</span>
+                </NuxtLink>
+              </div>
+              <div class="menu-item">
+                <NuxtLink class="menu-link" to="/user" active-class="active">
+                  <span class="menu-icon">
+                    <img
+                      class="h-20px w-20px"
+                      src="~/assets/media/icons/duotune/general/gen022.svg"
+                    />
+                  </span>
+                  <span class="menu-title">User</span>
+                </NuxtLink>
+              </div>
+              <div class="menu-item">
+                <NuxtLink class="menu-link" to="/role" active-class="active">
+                  <span class="menu-icon">
+                    <img
+                      class="h-20px w-20px"
+                      src="~/assets/media/icons/duotune/general/gen022.svg"
+                    />
+                  </span>
+                  <span class="menu-title">Role</span>
+                </NuxtLink>
+              </div>
+              <div class="menu-item">
+                <NuxtLink
+                  class="menu-link"
+                  to="/permission"
+                  active-class="active"
+                >
+                  <span class="menu-icon">
+                    <img
+                      class="h-20px w-20px"
+                      src="~/assets/media/icons/duotune/general/gen022.svg"
+                    />
+                  </span>
+                  <span class="menu-title">Permission</span>
+                </NuxtLink>
+              </div>
+              <div class="menu-item">
+                <NuxtLink
+                  class="menu-link"
+                  to="/transaction-type"
+                  active-class="active"
+                >
+                  <span class="menu-icon">
+                    <img
+                      class="h-20px w-20px"
+                      src="~/assets/media/icons/duotune/general/gen022.svg"
+                    />
+                  </span>
+                  <span class="menu-title">Transaction Type</span>
+                </NuxtLink>
+              </div>
+              <div class="menu-item">
+                <NuxtLink
+                  class="menu-link"
+                  to="/prospect-type"
+                  active-class="active"
+                >
+                  <span class="menu-icon">
+                    <img
+                      class="h-20px w-20px"
+                      src="~/assets/media/icons/duotune/general/gen022.svg"
+                    />
+                  </span>
+                  <span class="menu-title">Prospect Type</span>
+                </NuxtLink>
+              </div>
+              <div class="menu-item">
+                <Nuxt-link
+                  class="menu-link"
+                  to="/strategic-initiative"
+                  active-class="active"
+                >
+                  <span class="menu-icon">
+                    <img
+                      class="h-20px w-20px"
+                      src="~/assets/media/icons/duotune/general/gen022.svg"
+                    />
+                  </span>
+                  <span class="menu-title">Strategic initiative</span>
+                </Nuxt-link>
+              </div>
+              <div class="menu-item">
+                <Nuxt-link class="menu-link" to="/product" active-class="active">
+                  <span class="menu-icon">
+                    <img
+                      class="h-20px w-20px"
+                      src="~/assets/media/icons/duotune/general/gen022.svg"
+                    />
+                  </span>
+                  <span class="menu-title">Product</span>
+                </Nuxt-link>
+              </div>
+              <div class="menu-item">
+                <Nuxt-link
+                  class="menu-link"
+                  to="/aircraft-type"
+                  active-class="active"
+                >
+                  <span class="menu-icon">
+                    <img
+                      class="h-20px w-20px"
+                      src="~/assets/media/icons/duotune/general/gen022.svg"
+                    />
+                  </span>
+                  <span class="menu-title">Aircraft Type</span>
+                </Nuxt-link>
+              </div>
+              <div class="menu-item">
+                <Nuxt-link
+                  class="menu-link"
+                  to="/component"
+                  active-class="active"
+                >
+                  <span class="menu-icon">
+                    <img
+                      class="h-20px w-20px"
+                      src="~/assets/media/icons/duotune/general/gen022.svg"
+                    />
+                  </span>
+                  <span class="menu-title">Component</span>
+                </Nuxt-link>
+              </div>
+              <div class="menu-item">
+                <Nuxt-link class="menu-link" to="/engine" active-class="active">
+                  <span class="menu-icon">
+                    <img
+                      class="h-20px w-20px"
+                      src="~/assets/media/icons/duotune/general/gen022.svg"
+                    />
+                  </span>
+                  <span class="menu-title">Engine</span>
+                </Nuxt-link>
+              </div>
+              <div class="menu-item">
+                <Nuxt-link class="menu-link" to="/apu" active-class="active">
+                  <span class="menu-icon">
+                    <img
+                      class="h-20px w-20px"
+                      src="~/assets/media/icons/duotune/general/gen022.svg"
+                    />
+                  </span>
+                  <span class="menu-title">APU</span>
+                </Nuxt-link>
+              </div>
+              <div class="menu-item">
+                <Nuxt-link
+                  class="menu-link"
+                  to="/maintenance"
+                  active-class="active"
+                >
+                  <span class="menu-icon">
+                    <img
+                      class="h-20px w-20px"
+                      src="~/assets/media/icons/duotune/general/gen022.svg"
+                    />
+                  </span>
+                  <span class="menu-title">Maintenance</span>
+                </Nuxt-link>
+              </div>
             </div>
           </div>
           <!--end::Menu-->
@@ -371,7 +374,15 @@
 </template>
 
 <script>
-export default {}
+export default {
+  data() {
+    return {
+      user: this.$auth.user.user.name,
+      email: this.$auth.user.user.email,
+      role: this.$auth.user.user.role.name,
+    }
+  },
+}
 </script>
 
 <style></style>

@@ -228,8 +228,8 @@ export default {
   },
   data() {
     return {
-      user: this.$auth.user.user,
-      email: this.$auth.user.email,
+      user: this.$auth.user.user.name,
+      email: this.$auth.user.user.email,
     }
   },
   methods: {

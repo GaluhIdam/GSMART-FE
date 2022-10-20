@@ -89,7 +89,7 @@
                     </div>
                     <div class="modal-footer">
                       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="close_modal_ams" @click="closeModalAMS()">Close</button>
-                      <button type="button" class="btn btn-primary" @click="swtichAMS()">Send</button>
+                      <button type="button" class="btn btn-primary" @click="swtichAMS()" v-permission="['switch_ams']">Send</button>
                     </div>
                   </form>
                 </div>
@@ -252,7 +252,7 @@
                           <button type="button" class="btn btn-light mx-2" data-bs-dismiss="modal" id="close_modal_edit_sales">
                             Close
                           </button>
-                          <button type="submit" class="btn btn-primary">Save</button>
+                          <button type="submit" class="btn btn-primary" v-permission="['update_sales']">Save</button>
                         </div>
                       </div>
                     </form>
@@ -571,7 +571,7 @@
                                           data-bs-toggle="modal" 
                                           data-bs-target="#addContact" 
                                           @click="addContact()"
-                                          v-if="sales_detail.status === 'Open'"
+                                          v-if="sales_detail.status === 'Open' && role == 'AMS' || role == 'Administrator' || role == 'TPR'"
                                           >
                                           Add Contact Person
                                         </button>
@@ -616,7 +616,7 @@
                                         data-bs-toggle="modal" 
                                         data-bs-target="#addFile" 
                                         @click="addFile1()"
-                                        v-if="sales_detail.status === 'Open'"
+                                        v-if="sales_detail.status === 'Open' && role == 'AMS' || role == 'Administrator' || role == 'TPR'"
                                         v-permission="['upload_files']"
                                         >
                                           Upload Document
@@ -634,7 +634,14 @@
                                               </a>
                                           </td>
                                           <td class="d-flex justify-content-end" v-if="sales_detail.status === 'Open'">
-                                            <button type="button" class="btn btn-danger btn-sm" @click="removeFile(files.id)" v-permission="['delete_files']"><span class="fas fa-trash"></span></button>
+                                            <button type="button" 
+                                              class="btn btn-danger btn-sm" 
+                                              @click="removeFile(files.id)" 
+                                              v-permission="['delete_files']"
+                                              v-if = "sales_detail.status === 'Open' && sales_detail.level == 4"
+                                              >
+                                              <span class="fas fa-trash"></span>
+                                            </button>
                                           </td>
                                         </tr>
                                       </table>
@@ -650,13 +657,13 @@
                                     <div class="position-relative">
                                       <div class="position-absolute top-0 end-0" v-if="sales_detail">
                                         <button 
-                                        type="button" 
-                                        class="btn btn-primary btn-sm" 
-                                        data-bs-toggle="modal" 
-                                        data-bs-target="#addFile" 
-                                        @click="addFile2()"
-                                        v-if="sales_detail.status === 'Open'"
-                                        v-permission="['upload_files']"
+                                          type="button" 
+                                          class="btn btn-primary btn-sm" 
+                                          data-bs-toggle="modal" 
+                                          data-bs-target="#addFile" 
+                                          @click="addFile2()"
+                                          v-if="sales_detail.status === 'Open' && role == 'AMS' || role == 'Administrator' || role == 'TPR'"
+                                          v-permission="['upload_files']"
                                         >
                                           Upload Document
                                         </button>
@@ -673,14 +680,21 @@
                                               </a>
                                           </td>
                                           <td class="d-flex justify-content-end" v-if="sales_detail.status === 'Open'">
-                                            <button type="button" class="btn btn-danger btn-sm" @click="removeFile(files.id)" v-permission="['delete_files']"><span class="fas fa-trash"></span></button>
+                                            <button type="button" 
+                                              class="btn btn-danger btn-sm" 
+                                              @click="removeFile(files.id)" 
+                                              v-permission="['delete_files']"
+                                              v-if = "sales_detail.status === 'Open' && sales_detail.level == 4"
+                                              >
+                                              <span class="fas fa-trash"></span>
+                                            </button>
                                           </td>
                                         </tr>
                                       </table>
                                     </div>
                                   </div>
 
-                                  <div class="text-center mt-5">
+                                  <div class="text-center mt-5" v-if="role == 'TPR' || role == 'Administrator'">
                                     <form>
                                       <input type="hidden" v-model="upgrade" value="1">
                                       <button type="button" class="btn btn-info btn-sm" 
@@ -692,7 +706,6 @@
                                       </button>
                                     </form>
                                   </div>
-
 
                                 </div>
                               </form>
@@ -717,7 +730,7 @@
                                         data-bs-toggle="modal" 
                                         data-bs-target="#addFile" 
                                         @click="addFile3()"
-                                        v-if="sales_detail.status === 'Open'"
+                                        v-if="sales_detail.status === 'Open' && role == 'AMS' || role == 'Administrator' || role == 'TPR'"
                                         v-permission="['upload_files']"
                                         >
                                           Upload Document
@@ -735,7 +748,14 @@
                                               </a>
                                           </td>
                                           <td class="d-flex justify-content-end" v-if="sales_detail.status === 'Open'">
-                                            <button type="button" class="btn btn-danger btn-sm" @click="removeFile(files.id)" v-permission="['delete_files']"><span class="fas fa-trash"></span></button>
+                                            <button type="button" 
+                                              class="btn btn-danger btn-sm" 
+                                              @click="removeFile(files.id)" 
+                                              v-permission="['delete_files']"
+                                              v-if = "sales_detail.status === 'Open' && sales_detail.level == 3"
+                                              >
+                                              <span class="fas fa-trash"></span>
+                                            </button>
                                           </td>
                                         </tr>
                                       </table>
@@ -758,7 +778,7 @@
                                         data-bs-toggle="modal" 
                                         data-bs-target="#addFile" 
                                         @click="addFile4()"
-                                        v-if="sales_detail.status === 'Open'"
+                                        v-if="sales_detail.status === 'Open' && role == 'AMS' || role == 'Administrator' || role == 'TPR'"
                                         v-permission="['upload_files']"
                                         >
                                           Upload Document
@@ -776,7 +796,14 @@
                                               </a>
                                           </td>
                                           <td class="d-flex justify-content-end" v-if="sales_detail.status === 'Open'">
-                                            <button type="button" class="btn btn-danger btn-sm" @click="removeFile(files.id)" v-permission="['delete_files']"><span class="fas fa-trash"></span></button>
+                                            <button type="button" 
+                                              class="btn btn-danger btn-sm" 
+                                              @click="removeFile(files.id)" 
+                                              v-permission="['delete_files']"
+                                              v-if = "sales_detail.status === 'Open' && sales_detail.level == 3"
+                                              >
+                                              <span class="fas fa-trash"></span>
+                                            </button>
                                           </td>
                                         </tr>
                                       </table>
@@ -798,7 +825,7 @@
                                         data-bs-toggle="modal" 
                                         data-bs-target="#addFile" 
                                         @click="addFile5()"
-                                        v-if="sales_detail.status === 'Open'"
+                                        v-if="sales_detail.status === 'Open' && role == 'AMS' || role == 'Administrator' || role == 'TPR'"
                                         v-permission="['upload_files']"
                                         >
                                           Upload Document
@@ -816,14 +843,21 @@
                                               </a>
                                           </td>
                                           <td class="d-flex justify-content-end" v-if="sales_detail.status === 'Open'">
-                                            <button type="button" class="btn btn-danger btn-sm" @click="removeFile(files.id)" v-permission="['delete_files']"><span class="fas fa-trash"></span></button>
+                                            <button type="button" 
+                                              class="btn btn-danger btn-sm" 
+                                              @click="removeFile(files.id)" 
+                                              v-permission="['delete_files']"
+                                              v-if = "sales_detail.status === 'Open' && sales_detail.level == 3"
+                                              >
+                                              <span class="fas fa-trash"></span>
+                                            </button>
                                           </td>
                                         </tr>
                                       </table>
                                     </div>
                                   </div>
 
-                                  <div class="text-center mt-5">
+                                  <div class="text-center mt-5" v-if="role == 'TPR' || role == 'Administrator'">
                                     <form>
                                       <input type="hidden" v-model="upgrade" value="1">
                                       <button type="button" class="btn btn-info btn-sm" 
@@ -859,7 +893,7 @@
                                         data-bs-toggle="modal" 
                                         data-bs-target="#addFile" 
                                         @click="addFile6()"
-                                        v-if="sales_detail.status === 'Open'"
+                                        v-if="sales_detail.status === 'Open' && role == 'AMS' || role == 'Administrator' || role == 'TPR'"
                                         v-permission="['upload_files']"
                                         >
                                           Upload Document
@@ -877,7 +911,14 @@
                                               </a>
                                           </td>
                                           <td class="d-flex justify-content-end" v-if="sales_detail.status === 'Open'">
-                                            <button type="button" class="btn btn-danger btn-sm" @click="removeFile(files.id)" v-permission="['delete_files']"><span class="fas fa-trash"></span></button>
+                                            <button type="button" 
+                                              class="btn btn-danger btn-sm" 
+                                              @click="removeFile(files.id)" 
+                                              v-permission="['delete_files']"
+                                              v-if = "sales_detail.status === 'Open' && sales_detail.level == 2"
+                                              >
+                                              <span class="fas fa-trash"></span>
+                                            </button>
                                           </td>
                                         </tr>
                                       </table>
@@ -902,7 +943,7 @@
                                         <label>Hangar</label>
                                         <input type="text" class="form-control form-control-solid" v-model="sales_detail.location.id" readonly/>
                                       </div>
-                                      <div class="mb-3">
+                                      <div class="mb-3" v-if="role == 'AMS' || role == 'Administrator'">
                                         <label>Line Hangar</label>
                                           <div class="row">
                                             <div class="col-9">
@@ -953,7 +994,7 @@
                                     </div>
                                   </div>
 
-                                  <div class="text-center mt-5">
+                                  <div class="text-center mt-5" v-if="role == 'TPR' || role == 'Administrator'">
                                     <form>
                                       <input type="hidden" v-model="upgrade" value="1">
                                       <button type="button" class="btn btn-info btn-sm" 
@@ -986,7 +1027,8 @@
                                         <input type="hidden" v-model="status" value="2">
                                         <button type="button" class="btn btn-success btn-sm" 
                                           @click="closeSales()" 
-                                          v-if = "sales_detail.status === 'Open'"
+                                          v-if = "sales_detail.status === 'Open' && role == 'AMS' || role == 'Administrator' || role == 'TPR'"
+                                          v-permission="['upgrade_level']"
                                           >
                                           Closed Sales
                                         </button>
@@ -996,7 +1038,7 @@
                                         data-bs-toggle="modal" 
                                         data-bs-target="#addFile" 
                                         @click="addFile7()"
-                                        v-if="sales_detail.status === 'Open'"
+                                        v-if="sales_detail.status === 'Open' && role == 'AMS' || role == 'Administrator' || role == 'TPR'"
                                         v-permission="['upload_files']"
                                         >
                                           Upload Document
@@ -1014,7 +1056,14 @@
                                               </a>
                                           </td>
                                           <td class="d-flex justify-content-end" v-if="sales_detail.status === 'Open'">
-                                            <button type="button" class="btn btn-danger btn-sm" @click="removeFile(files.id)" v-permission="['delete_files']"><span class="fas fa-trash"></span></button>
+                                            <button type="button" 
+                                              class="btn btn-danger btn-sm" 
+                                              @click="removeFile(files.id)" 
+                                              v-permission="['delete_files']"
+                                              v-if = "sales_detail.status === 'Open' && sales_detail.level == 1"
+                                              >
+                                              <span class="fas fa-trash"></span>
+                                            </button>
                                           </td>
                                         </tr>
                                       </table>
@@ -1037,18 +1086,18 @@
                                               'is-invalid': errors.so_number,
                                             }"
                                           />
-                                          <span v-if="errors.so_number" class="error invalid-feedback">{{
-                                            errors.so_number[0]
-                                          }}</span>
                                           <button 
                                             class="btn btn-sm" 
                                             type="button" 
-                                            @click="updateSO()" 
                                             id="textSync"
-                                            v-if="sales_detail.status === 'Open'"
+                                            @click="updateSO()" 
+                                            v-if="sales_detail.status === 'Open' && role == 'CBO' || role == 'Administrator'"
                                             >
                                             Sync
                                           </button>
+                                          <span v-if="errors.so_number" class="error invalid-feedback">{{
+                                            errors.so_number[0]
+                                          }}</span>
                                       </div>
                                     </div>
                                   </form>
@@ -1056,7 +1105,13 @@
                                   <div class="text-center mt-10">
                                     <form>
                                       <input type="hidden" v-model="status" value="3">
-                                      <button type="button" class="btn btn-primary btn-sm" @click="requestClosed()" v-if="sales_detail.status === 'Closed'">
+                                      <button 
+                                      type="button" 
+                                      class="btn btn-primary btn-sm" 
+                                      @click="requestClosed()" 
+                                      v-permission="['close_sales']" 
+                                      v-if="sales_detail.status === 'Closed' && role == 'AMS' || role == 'Administrator' || role == 'TPR'"
+                                      >
                                         Request to Closed
                                       </button>
                                     </form>
@@ -1107,25 +1162,27 @@
                 <div class="tab-pane fade" id="history-tab-pane" role="tabpanel" aria-labelledby="history-tab" tabindex="0">
                   <div class="mt-5">
                     <!-- Filter -->
-                    <!-- <div class="row">
+                    <div class="row">
                       <div class="col-lg-8"></div>
-                        <div class="col-lg-4 col-sm-12 d-flex justify-content-end">
-                          <select class="form-select" v-model="month">
-                            <option value="1">January</option>
-                            <option value="2">February</option>
-                            <option value="3">March</option>
-                            <option value="4">April</option>
-                            <option value="5">May</option>
-                            <option value="6">June</option>
-                            <option value="7">July</option>
-                            <option value="8">August</option>
-                            <option value="9">September</option>
-                            <option value="10">October</option>
-                            <option value="11">November</option>
-                            <option value="12">December</option>
-                          </select>
-                        </div>
-                    </div> -->
+                      <div class="col-lg-4 col-sm-12 d-flex justify-content-end align-items-center">
+                        <label for="" class="form-label me-3">Select Month</label>
+                        <select class="form-select" v-model="filter">
+                          <option value="1">January</option>
+                          <option value="2">February</option>
+                          <option value="3">March</option>
+                          <option value="4">April</option>
+                          <option value="5">May</option>
+                          <option value="6">June</option>
+                          <option value="7">July</option>
+                          <option value="8">August</option>
+                          <option value="9">September</option>
+                          <option value="10">October</option>
+                          <option value="11">November</option>
+                          <option value="12">December</option>
+                        </select>
+                        <button type="button" class="btn btn-info btn-sm ms-3" @click="listFileHistory(); clearFormHistory();">Filter</button>
+                      </div>
+                    </div>
                     
                     <div v-for="file_history in file_histories">
                       <div class="row">
@@ -1172,7 +1229,7 @@
                             <th class="text-center">Phone</th>
                             <th class="text-center">Email</th>
                             <th class="text-center">Title</th>
-                            <th class="text-center">Action</th>
+                            <th class="text-center" v-if="role == 'AMS' || role == 'Administrator' || role == 'TPR'">Action</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -1192,87 +1249,17 @@
                             <td>
                               {{ contact.title }}
                             </td>
-                            <td class="d-flex justify-content-center">
-                              <button class="btn btn-sm btn-light" @click="removeContact(contact.id)" v-permission="['delete_contacts']">
+                            <td class="d-flex justify-content-center" v-if="role == 'AMS' || role == 'Administrator' || role == 'TPR'">
+                              <button class="btn btn-sm btn-light"  @click="removeContact(contact.id)" v-permission="['delete_contacts']">
                                 <i class="bi bi-trash-fill text-primary"></i>
                               </button>
                             </td>
                           </tr>
-                          <!-- jika data kosong -->
-                          <!-- <tr v-if="contact.length < 1">
-                            <td colspan="6">
-                              <div class="text-muted text-center">Data not found</div>
-                            </td>
-                          </tr> -->
                         </tbody>
                       </table>
                     </div>
-                    <!-- Pagination -->
-                    <!-- <div class="row">
-                      <div class="col d-flex justify-content-start align-items-center">
-                        <nav aria-label="Page navigation example">
-                          <ul class="pagination">
-                            <li class="page-item align-self-center">Rows per page:</li>
-                            <li class="page-item">
-                              <select
-                                class="form-control form-control-sm"
-                                v-model="paginate"
-                                @change="listContact()"
-                              >
-                                <option value="10">10</option>
-                                <option value="25">25</option>
-                                <option value="50">50</option>
-                                <option value="100">100</option>
-                              </select>
-                            </li>
-                          </ul>
-                        </nav>
-                      </div>
-                      <div class="col d-flex justify-content-end align-items-center">
-                        <nav aria-label="Page navigation example">
-                          <ul class="pagination">
-                            <li class="page-item">
-                              <button
-                                type="button"
-                                class="page-link"
-                                :class="{
-                                  disabled: !contact.prev_page_url,
-                                }"
-                                @click="contact.prev_page_url && listContact(contact.prev_page_url)"
-                              >
-                                Previous
-                              </button>
-                            </li>
-                            <li
-                              class="page-item"
-                              style="margin-left: 15px; margin-right: 15px"
-                            >
-                              <input
-                                type="text"
-                                class="form-control form-control-sm text-center"
-                                v-model="current_page"
-                                @keypress="directPage"
-                                style="width: 60px"
-                              />
-                            </li>
-                            <li class="page-item">
-                              <button
-                                type="button"
-                                class="page-link"
-                                :class="{
-                                  disabled: !contact.next_page_url,
-                                }"
-                                @click="contact.next_page_url && listContact(contact.next_page_url)"
-                              >
-                                Next
-                              </button>
-                            </li>
-                          </ul>
-                        </nav>
-                      </div>
-                    </div> -->
 
-                    <div class="text-center mt-20" v-if="sales_detail.status === 'Open'">
+                    <div class="text-center mt-20" v-if="sales_detail.status === 'Open' && role == 'AMS' || role == 'Administrator' || role == 'TPR'">
                       <button type="button" class="btn btn-primary" data-bs-toggle="modal" v-permission="['create_contacts']" data-bs-target="#addContact" @click="addContact()">
                         Add Contact Person
                       </button>
@@ -1281,7 +1268,7 @@
                 </div>
 
                 <!-- Tab Reschedule/Cancel -->
-                <div class="tab-pane fade" id="reschedule-tab-pane" role="tabpanel" aria-labelledby="reschedule-tab" tabindex="0">
+                <div class="tab-pane fade" id="reschedule-tab-pane" role="tabpanel" aria-labelledby="reschedule-tab" tabindex="0" v-if="role == 'AMS' || role == 'Administrator'">
                   <div class="mt-5" v-if="sales_detail">
                     <ul class="nav nav-tabs nav-line-tabs nav-line-tabs-2x mb-5 fs-6">
                       <li class="nav-item">
@@ -1362,7 +1349,7 @@
                           </div>
                           <div class="text-center mt-5" v-if="sales_detail.status === 'Open'">
                             <button type="reset" class="btn btn-danger">Reset</button>
-                            <button type="submit" class="btn btn-primary" v-permission="['update_sales_reschedule', 'create_sales_reschedule']">Confirm</button>
+                            <button type="submit" class="btn btn-primary" v-permission="['reschedule_sales']">Confirm</button>
                           </div>
                         </form>
                       </div>
@@ -1396,7 +1383,7 @@
                           </div>
                           <div class="text-center mt-5" v-if="sales_detail.status === 'Open'">
                             <button type="reset" class="btn btn-danger">Reset</button>
-                            <button type="submit" class="btn btn-primary">Confirm</button>
+                            <button type="submit" class="btn btn-primary" v-permission="['reject_sales']">Confirm</button>
                           </div>
                         </form>
                       </div>
@@ -1619,6 +1606,7 @@
                     </div>
                   </div>
                 </div>
+
               </div>
             </div>
             <!-- End Tab -->
@@ -1637,7 +1625,8 @@ export default {
   name: 'MySalesPlanDetailPage',
   data() {
     return {
-      user: this.$auth.user.user,
+      user: this.$auth.user.user.name,
+      role: this.$auth.user.user.role.name,
       sales: {
         data: [],
         link: [],
@@ -1679,7 +1668,7 @@ export default {
       requirement_id: null,
       sales_id: null,
       files: '',
-      month: null,
+      filter: null,
       contacts: null,
       level4: null,
       level3: null,
@@ -1814,30 +1803,12 @@ export default {
       })
       .catch((error) => console.log(error))
     },
-    // listFile(paginate) {
-    //   this.loading()
-    //   paginate = paginate || `/api/file/`
-    //   this.$axios
-    //   .get(paginate, {
-    //     params: {
-    //       search: this.search,
-    //       order: this.order,
-    //       by: this.by,
-    //       paginate: this.paginate,
-    //     },
-    //   })
-    //   .then((response) => {
-    //     this.files = response.data.data
-    //     Swal.close()
-    //   })
-    //   .catch((error) => console.log(error))
-    // },
     listFileHistory() {
       this.loading()
       this.$axios
       .get(`api/file-history/${this.$route.query.id}`, {
         params: {
-          month: this.month,
+          filter: this.filter,
         }
       })
       .then((response) => {
@@ -1906,7 +1877,6 @@ export default {
       })
       .catch((error) => {
         if (error.response.status == 422) {
-          this.errors = error.response.data.errors
           toastr.error(error.response.data.message)
         } else if (error.response.status == 403) {
           toastr.error(error.response.data.message)
@@ -1945,7 +1915,6 @@ export default {
       })
       .catch((error) => {
         if (error.response.status == 422) {
-          this.errors = error.response.data.errors
           toastr.error(error.response.data.message)
         } else if (error.response.status == 403) {
           toastr.error(error.response.data.message)
@@ -1972,9 +1941,7 @@ export default {
         })
         .catch((error) => {
           if (error.response.status == 422) {
-            this.errors = error.response.data.errors
             toastr.error(error.response.data.message)
-            console.log(errors)
           }
         })
     },
@@ -1994,7 +1961,6 @@ export default {
         })
         .catch((error) => {
           if (error.response.status == 422) {
-            this.errors = error.response.data.errors
             toastr.error(error.response.data.message)
           } else if (error.response.status == 403) {
             toastr.error(error.response.data.message)
@@ -2017,7 +1983,6 @@ export default {
         })
         .catch((error) => {
           if (error.response.status == 422) {
-            this.errors = error.response.data.errors
             toastr.error(error.response.data.message)
           } else if (error.response.status == 403) {
             toastr.error(error.response.data.message)
@@ -2037,7 +2002,6 @@ export default {
         })
         .catch((error) => {
           if (error.response.status == 422) {
-            this.errors = error.response.data.errors
             toastr.error(error.response.data.message)
           } else if (error.response.status == 403) {
             toastr.error(error.response.data.message)
@@ -2212,6 +2176,8 @@ export default {
           if (error.response.status == 422) {
             this.errors = error.response.data.errors
             toastr.error(error.response.data.message)
+          } else if (error.response.status == 403) {
+            toastr.error(error.response.data.message)
           }
         })
     },
@@ -2240,7 +2206,9 @@ export default {
         }
       })
       .catch((error) => {
-        console.log(error)
+        if (error.response.status == 403) {
+          toastr.error(error.response.data.message)
+        }
       })
     },
 
@@ -2308,6 +2276,10 @@ export default {
     closeModalEditSales() {
       document.getElementById('close_modal_edit_sales').click()
       this.clearFormEditSales()
+    },
+
+    clearFormHistory() {
+      this.filter = null
     },
   }
 }

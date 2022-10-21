@@ -11,7 +11,8 @@
             active-class="active"
             >
             <i class="fa-solid fa-angle-left"></i>
-              <span class="menu-title">My Salesplan</span>
+              <span class="menu-title"  v-if="role == 'TPR' || role == 'CBO' || role == 'Administrator'">All Sales Plan</span>
+              <span class="menu-title"  v-if="role == 'AMS'">My Sales Plan</span>
           </Nuxt-link>
         </div>
         <div class="col-lg-6">
@@ -25,7 +26,8 @@
                       to="/my-salesplan"
                       active-class="active"
                       >
-                        <span class="menu-title">My Salesplan</span> &nbsp;
+                      <span class="menu-title"  v-if="role == 'TPR' || role == 'CBO' || role == 'Administrator'">All Sales Plan</span>
+                      <span class="menu-title"  v-if="role == 'AMS'">My Sales Plan</span> &nbsp;
                     </Nuxt-link>
                   </li>
                   <li class="breadcrumb-item active" aria-current="page">Detail </li>

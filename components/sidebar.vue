@@ -112,7 +112,8 @@
                     src="~/assets/media/icons/duotune/general/gen022.svg"
                   />
                 </span>
-                <span class="menu-title">My Prospect</span>
+                <span class="menu-title"  v-if="role == 'Administrator'">All Prospect</span>
+                <span class="menu-title"  v-if="role == 'TPC' || role == 'AMS'">My Prospect</span>
               </NuxtLink>
             </div>
             <div class="menu-item">

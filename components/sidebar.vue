@@ -104,7 +104,7 @@
                 <span class="menu-title">Dashboard</span>
               </NuxtLink>
             </div>
-            <div class="menu-item">
+            <div class="menu-item" v-if="role == 'Administrator' || role == 'TPC' || role == 'AMS'">
               <NuxtLink class="menu-link" to="/my-prospect" active-class="active">
                 <span class="menu-icon">
                   <img
@@ -112,7 +112,8 @@
                     src="~/assets/media/icons/duotune/general/gen022.svg"
                   />
                 </span>
-                <span class="menu-title">My Prospect</span>
+                <span class="menu-title" v-if="role == 'Administrator'">All Prospect</span>
+                <span class="menu-title" v-if="role == 'TPC' || role == 'AMS'">My Prospect</span>
               </NuxtLink>
             </div>
             <div class="menu-item">

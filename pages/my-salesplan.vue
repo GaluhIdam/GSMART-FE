@@ -4,7 +4,8 @@
 
       <div class="row mb-5">
         <div class="col-lg-6 col-sm-12">
-          <h3 class="mt-3">My Salesplan</h3>
+          <h3 class="mt-3" v-if="role == 'TPR' || role == 'CBO' || role == 'Administrator'">All Sales Plan</h3>
+          <h3 class="mt-3" v-if="role == 'AMS'">My Sales Plan</h3>
         </div>
         <div class="col-lg-6 col-sm-12 d-flex justify-content-end">
           <button type="button" class="btn btn-outline btn-outline-primary me-2 mb-2" data-bs-toggle="modal" data-bs-target="#filterdate">
@@ -629,6 +630,8 @@ export default {
   name: 'MySalesPlanPage',
   data() {
     return {
+      user: this.$auth.user.user.name,
+      role: this.$auth.user.user.role.name,
       sales: {
         data: [],
         link: [],

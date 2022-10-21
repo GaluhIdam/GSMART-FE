@@ -11,7 +11,8 @@
             active-class="active"
             >
             <i class="fa-solid fa-angle-left"></i>
-              <span class="menu-title">My Salesplan</span>
+              <span class="menu-title"  v-if="role == 'TPR' || role == 'CBO' || role == 'Administrator'">All Sales Plan</span>
+              <span class="menu-title"  v-if="role == 'AMS'">My Sales Plan</span>
           </Nuxt-link>
         </div>
         <div class="col-lg-6">
@@ -25,7 +26,8 @@
                       to="/my-salesplan"
                       active-class="active"
                       >
-                        <span class="menu-title">My Salesplan</span> &nbsp;
+                      <span class="menu-title"  v-if="role == 'TPR' || role == 'CBO' || role == 'Administrator'">All Sales Plan</span>
+                      <span class="menu-title"  v-if="role == 'AMS'">My Sales Plan</span> &nbsp;
                     </Nuxt-link>
                   </li>
                   <li class="breadcrumb-item active" aria-current="page">Detail </li>
@@ -932,8 +934,16 @@
                                   </div>
                                   <div class="col-lg-6 mt-5">
                                     <div class="position-relative">
-                                      <div class="position-absolute top-0 end-0">
-                                        <button type="button" class="btn btn-info btn-sm">Request to CBO</button>
+                                      <div class="position-absolute top-0 end-0" v-if="sales_detail">
+                                        <button 
+                                        type="button" 
+                                        class="btn btn-info btn-sm"
+                                        data-bs-toggle="modal" 
+                                        data-bs-target="#slotRequest" 
+                                        v-if = "sales_detail.status === 'Open' && sales_detail.level == 2 && role == 'AMS' || role == 'Administrator'"
+                                        >
+                                          Request to CBO
+                                        </button>
                                       </div>
                                     </div>
                                   </div>
@@ -945,33 +955,12 @@
                                       </div>
                                       <div class="mb-3">
                                         <label>Line Hangar</label>
-                                          <div class="row" v-if="level2[1].status == 0">
-                                            <div class="col-9">
-                                              <select v-model="line_id" class="form-select" v-if="role == 'AMS' || role == 'Administrator'">
-                                                <option 
-                                                v-for="lines in line" 
-                                                v-if="lines.hangar_id === sales_detail.location.id"
-                                                :value="lines.id"
-                                                >
-                                                  {{ lines.name }}
-                                                </option>
-                                              </select>
+                                          <div class="row">
+                                            <div class="col-12" v-if="level2[1].status == 0">
+                                              <input type="text" class="form-control form-control-solid" readonly>
                                             </div>
-                                            <div class="col-3">
-                                              <button 
-                                                class="btn btn-primary btn-sm" 
-                                                type="button" 
-                                                @click="updateSlot()" 
-                                                v-if="sales_detail.status === 'Open'"
-                                                v-permission="['slot_request']"
-                                              >
-                                                Save
-                                              </button>
-                                            </div>
-                                          </div>
-                                          <div class="row" v-else>
-                                            <div class="col-12">
-                                              <input type="text" v-model="level2[1].data.line.name" class="form-control form-control-solid" readonly v-if="role == 'TPR' || role == 'Administrator'|| role == 'CBO'">
+                                            <div class="col-12" v-else>
+                                              <input type="text" v-model="level2[1].data.line.name" class="form-control form-control-solid" readonly>
                                             </div>
                                           </div>
                                         
@@ -1633,6 +1622,93 @@
                   </div>
                 </div>
 
+                <!-- Modal slotRequest -->
+                <div class="modal fade" tabindex="-1" id="slotRequest" data-bs-backdrop="static">
+                  <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h3 class="modal-title">Request Hangar Slot to CBO</h3>
+                        <!--begin::Close-->
+                        <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
+                          <span class="svg-icon svg-icon-1" @click="closeRequestSlot()">
+                            <svg
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <rect
+                                opacity="0.5"
+                                x="6"
+                                y="17.3137"
+                                width="16"
+                                height="2"
+                                rx="1"
+                                transform="rotate(-45 6 17.3137)"
+                                fill="currentColor"
+                              ></rect>
+                              <rect
+                                x="7.41422"
+                                y="6"
+                                width="16"
+                                height="2"
+                                rx="1"
+                                transform="rotate(45 7.41422 6)"
+                                fill="currentColor"
+                              ></rect>
+                            </svg>
+                          </span>
+                        </div>
+                        <!--end::Close-->
+                      </div>
+                      <div class="modal-body">
+                        <form v-if="sales_detail">
+                          <div class="mb-3">
+                            <label>To <span class="text-danger">*</span></label>
+                            <select v-model="user_id" class="form-select">
+                              <option 
+                              v-for="user_options in user_option" 
+                              :value="user_options.id"
+                              >
+                                {{ user_options.name }} - {{ user_options.email }}
+                              </option>
+                            </select>
+                            <small class="text-muted">Send notification to selected employee</small>
+                          </div>
+                          <div class="mb-3">
+                            <label>Hangar <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control form-control-solid" v-model="sales_detail.location.id" readonly/>
+                          </div>
+                          <div class="form-group mb-3">
+                            <label for="">Line <span class="text-danger">*</span></label>
+                            <select v-model="line_id" class="form-select">
+                              <option 
+                              v-for="lines in line" 
+                              v-if="lines.hangar_id === sales_detail.location.id"
+                              :value="lines.id"
+                              >
+                                {{ lines.name }}
+                              </option>
+                            </select>
+                            <span v-if="errors.lines" class="error invalid-feedback">{{
+                              errors.lines[0]
+                            }}</span>
+                          </div>
+                          <div class="row mt-10">
+                            <div class="col d-flex justify-content-end">
+                              <button type="button" class="btn btn-danger btn-sm mx-2" data-bs-dismiss="modal" id="close_modal_slot" @click="closeRequestSlot()">
+                                Discard
+                              </button>
+                              <button type="button" @click="requestSlot()" class="btn btn-primary btn-sm">Send</button>
+                            </div>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
               </div>
             </div>
             <!-- End Tab -->
@@ -1686,10 +1762,12 @@ export default {
       line: null,
       status: null,
       contact_person: [], 
+      user_option: null,
       modal_contact: false,
       modal_upload: null,
       current_page: null,
       sales_detail: null,
+      user_id: null,
       contact: null,
       requirement_id: null,
       sales_id: null,
@@ -1745,6 +1823,7 @@ export default {
     this.listHangar()
     this.listLine()
     this.listMaintenance()
+    this.listUser()
   },
   methods: {
     directPage: debounce(function () {
@@ -1796,7 +1875,6 @@ export default {
         this.level3 = response.data.data.level3
         this.level2 = response.data.data.level2
         this.level1 = response.data.data.level1
-        console.log(this.level2)
         Swal.close()
       })
       .catch((error) => console.log(error))
@@ -1887,6 +1965,16 @@ export default {
         .then((response) => {
           this.hangar_option = response.data.data
         })
+    },
+    listUser() {
+      this.loading()
+      this.$axios
+      .get(`api/users/`)
+      .then((response) => {
+        this.user_option = response.data.data.data
+        Swal.close()
+      })
+      .catch((error) => console.log(error))
     },
 
     swtichAMS() {
@@ -2328,6 +2416,15 @@ export default {
     closeModalEditSales() {
       document.getElementById('close_modal_edit_sales').click()
       this.clearFormEditSales()
+    },
+
+    clearFormRequestSlot() {
+      this.user_id = null
+      this.line_id = null
+    },
+    closeRequestSlot() {
+      document.getElementById('close_modal_slot').click()
+      this.clearFormRequestSlot()
     },
 
     clearFormHistory() {

@@ -276,7 +276,7 @@
                 </div>
               </div>
             </div>
-            <div class="card-footer">
+            <div class="card-footer border-0">
               <div class="carousel-indicators">
                 <button type="button" data-bs-target="#card1carousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
                 <button type="button" data-bs-target="#card1carousel" data-bs-slide-to="1" aria-label="Slide 2"></button>

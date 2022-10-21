@@ -132,6 +132,8 @@
                 </a>
               </div>
             </div>
+            <div class="card-footer border-0">
+            </div>
           </div>
         </div>
 
@@ -167,6 +169,8 @@
                 </a>
               </div>
             </div>
+            <div class="card-footer border-0">
+            </div>
           </div>
         </div>
 
@@ -201,6 +205,8 @@
                   </div>
                 </a>
               </div>
+            </div>
+            <div class="card-footer border-0">
             </div>
           </div>
         </div>

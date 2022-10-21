@@ -1081,7 +1081,6 @@
                                   </div>
                                   <form>
                                     <div class="row">
-                                      <label for="">SO Number</label>
                                       <div class="input-group mb-3" v-permission="['input_so_number']" v-if="level1[1].status == 0">
                                           <input 
                                             type="text" 
@@ -1304,111 +1303,115 @@
 
                     <div class="tab-content" id="myTabContent">
                       <!-- Reschedule Form -->
-                      <div class="tab-pane fade show active" id="kt_tab_pane_1" role="tabpanel" v-if="role == 'AMS' || role == 'Administrator'">
-                        <form @submit.prevent="salesReschedule" v-if="sales_detail" >
-                          <div class="mb-3">
-                            <label class="form-label">Hanggar</label>
-                            <input type="text" class="form-control" readonly v-model="sales_detail.location.id" id="readOnly">
-                          </div>
-                          <div class="mb-3">
-                            <label class="form-label">Registration</label>
-                            <input type="text" class="form-control" v-model="sales_detail.registration" readonly id="readOnly">
-                          </div>
-                          <div class="mb-3">
-                            <label class="form-label">CBO Date</label>
-                            <input 
-                              type="date" 
-                              class="form-control" 
-                              v-model="sales_detail.start_date"
-                              :class="{
-                                'is-invalid': errors.start_date,
-                              }"
-                            >
-                            <span
-                              v-if="errors.start_date"
-                              class="error invalid-feedback"
-                              >{{ errors.start_date[0] }}</span
-                            >
-                          </div>
-                          <div class="mb-3">
-                            <label class="form-label">End Date</label>
-                            <input 
-                              type="date" 
-                              class="form-control" 
-                              v-model="end_date" 
-                              :class="{
-                                'is-invalid': errors.end_date,
-                              }"
-                            >
-                              <span
-                                v-if="errors.end_date"
-                                class="error invalid-feedback"
-                                >{{ errors.end_date[0] }}</span
+                      <div v-if="role == 'AMS' || role == 'Administrator'">
+                        <div class="tab-pane fade show active" id="kt_tab_pane_1" role="tabpanel">
+                          <form @submit.prevent="salesReschedule" v-if="sales_detail" >
+                            <div class="mb-3">
+                              <label class="form-label">Hanggar</label>
+                              <input type="text" class="form-control" readonly v-model="sales_detail.location.id" id="readOnly">
+                            </div>
+                            <div class="mb-3">
+                              <label class="form-label">Registration</label>
+                              <input type="text" class="form-control" v-model="sales_detail.registration" readonly id="readOnly">
+                            </div>
+                            <div class="mb-3">
+                              <label class="form-label">CBO Date</label>
+                              <input 
+                                type="date" 
+                                class="form-control" 
+                                v-model="sales_detail.start_date"
+                                :class="{
+                                  'is-invalid': errors.start_date,
+                                }"
                               >
-                          </div>
-                          <div class="mb-3">
-                            <label class="form-label">TAT</label>
-                            <input type="number" class="form-control" v-model="sales_detail.tat" readonly id="readOnly">
-                          </div>
-                          <div class="mb-3">
-                            <label class="form-label">Current Date</label>
-                            <input 
-                              type="date" 
-                              class="form-control" 
-                              v-model="current_date"
-                              :class="{
-                                'is-invalid': errors.current_date,
-                              }"
-                            >
-                            <span
-                              v-if="errors.current_date"
-                              class="error invalid-feedback"
-                              >{{ errors.current_date[0] }}</span
-                            >
-                          </div>
-                          <div class="mb-3">
-                            <label class="form-label">Sales Month</label>
-                            <input type="text" class="form-control" v-model="sales_detail.monthSales" readonly id="readOnly">
-                          </div>
-                          <div class="text-center mt-5" v-if="sales_detail.status === 'Open'">
-                            <button type="reset" class="btn btn-danger">Reset</button>
-                            <button type="submit" class="btn btn-primary" v-permission="['reschedule_sales']">Confirm</button>
-                          </div>
-                        </form>
+                              <span
+                                v-if="errors.start_date"
+                                class="error invalid-feedback"
+                                >{{ errors.start_date[0] }}</span
+                              >
+                            </div>
+                            <div class="mb-3">
+                              <label class="form-label">End Date</label>
+                              <input 
+                                type="date" 
+                                class="form-control" 
+                                v-model="end_date" 
+                                :class="{
+                                  'is-invalid': errors.end_date,
+                                }"
+                              >
+                                <span
+                                  v-if="errors.end_date"
+                                  class="error invalid-feedback"
+                                  >{{ errors.end_date[0] }}</span
+                                >
+                            </div>
+                            <div class="mb-3">
+                              <label class="form-label">TAT</label>
+                              <input type="number" class="form-control" v-model="sales_detail.tat" readonly id="readOnly">
+                            </div>
+                            <div class="mb-3">
+                              <label class="form-label">Current Date</label>
+                              <input 
+                                type="date" 
+                                class="form-control" 
+                                v-model="current_date"
+                                :class="{
+                                  'is-invalid': errors.current_date,
+                                }"
+                              >
+                              <span
+                                v-if="errors.current_date"
+                                class="error invalid-feedback"
+                                >{{ errors.current_date[0] }}</span
+                              >
+                            </div>
+                            <div class="mb-3">
+                              <label class="form-label">Sales Month</label>
+                              <input type="text" class="form-control" v-model="sales_detail.monthSales" readonly id="readOnly">
+                            </div>
+                            <div class="text-center mt-5" v-if="sales_detail.status === 'Open'">
+                              <button type="reset" class="btn btn-danger">Reset</button>
+                              <button type="submit" class="btn btn-primary" v-permission="['reschedule_sales']">Confirm</button>
+                            </div>
+                          </form>
+                        </div>
                       </div>
                       <!-- Cancel Form -->
-                      <div class="tab-pane fade show active" id="kt_tab_pane_2" role="tabpanel" v-if="role == 'TPR' || role == 'Administrator'">
-                        <form @submit.prevent="salesCancel">
-                          <div class="mb-3">
-                            <label class="form-label">Category</label>
-                            <div class="row mb-5">
-                              <div class="col">
-                                <div class="input-group mb-3">
-                                  <!-- <select v-model="category" class="form-select">
-                                    <option :value="category">Category 1</option>
-                                    <option :value="category">Category 2</option>
-                                    <option :value="category">Category 3</option>
-                                  </select> -->
-                                  <input type="text" v-model="category" class="form-control" :class="{ 'is-invalid': errors.category, }">
-                                  <span v-if="errors.category" class="error invalid-feedback">
-                                    {{ errors.category[0] }}
-                                  </span>
+                      <div  v-if="role == 'TPR' || role == 'Administrator'">
+                        <div class="tab-pane fade show active" id="kt_tab_pane_2" role="tabpanel">
+                          <form @submit.prevent="salesCancel">
+                            <div class="mb-3">
+                              <label class="form-label">Category</label>
+                              <div class="row mb-5">
+                                <div class="col">
+                                  <div class="input-group mb-3">
+                                    <!-- <select v-model="category" class="form-select">
+                                      <option :value="category">Category 1</option>
+                                      <option :value="category">Category 2</option>
+                                      <option :value="category">Category 3</option>
+                                    </select> -->
+                                    <input type="text" v-model="category" class="form-control" :class="{ 'is-invalid': errors.category, }">
+                                    <span v-if="errors.category" class="error invalid-feedback">
+                                      {{ errors.category[0] }}
+                                    </span>
+                                  </div>
                                 </div>
                               </div>
                             </div>
-                          </div>
-                          <div class="mb-3">
-                            <label class="form-label">Reason of Cancel</label>
-                            <textarea class="form-control" cols="30" rows="10" v-model="reason" :class="{ 'is-invalid': errors.reason, }"></textarea>
-                            <span v-if="errors.reason" class="error invalid-feedback">
-                              {{ errors.reason[0] }}
-                            </span>
-                          </div>
-                          <div class="text-center mt-5" v-if="sales_detail.status === 'Open'">
-                            <button type="reset" class="btn btn-danger">Reset</button>
-                            <button type="submit" class="btn btn-primary" v-permission="['reject_sales']">Confirm</button>
-                          </div>
-                        </form>
+                            <div class="mb-3">
+                              <label class="form-label">Reason of Cancel</label>
+                              <textarea class="form-control" cols="30" rows="10" v-model="reason" :class="{ 'is-invalid': errors.reason, }"></textarea>
+                              <span v-if="errors.reason" class="error invalid-feedback">
+                                {{ errors.reason[0] }}
+                              </span>
+                            </div>
+                            <div class="text-center mt-5" v-if="sales_detail.status === 'Open'">
+                              <button type="reset" class="btn btn-danger">Reset</button>
+                              <button type="submit" class="btn btn-primary" v-permission="['reject_sales']">Confirm</button>
+                            </div>
+                          </form>
+                        </div>
                       </div>
                     </div>
                     
@@ -2033,44 +2036,68 @@ export default {
         })
     },
     closeSales() {
-      this.loading()
-      this.$axios
-        .put(`api/sales-upgrade-level/${this.$route.query.id}`, {
-          status: this.status,
-        })
-        .then((response) => {
-          toastr.success(response.data.message)
-          this.listDetail()
-        })
-        .catch((error) => {
-          if (error.response.status == 422) {
-            this.errors = error.response.data.errors
-            toastr.error(error.response.data.message)
-          } else if (error.response.status == 403) {
-            toastr.error(error.response.data.message)
-          }
-        })
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, closed it!',
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+          this.$axios
+          .put(`api/sales-upgrade-level/${this.$route.query.id}`, {
+            status: this.status,
+          })
+          .then((response) => {
+            toastr.success(response.data.message)
+            this.listDetail()
+          })
+        }
+      })
+      .catch((error) => {
+        if (error.response.status == 422) {
+          this.errors = error.response.data.errors
+          toastr.error(error.response.data.message)
+        } else if (error.response.status == 403) {
+          toastr.error(error.response.data.message)
+        }
+      })
     },
     requestClosed() {
-      this.loading()
-      this.$axios
-        .put(`api/sales-close/${this.$route.query.id}`, {
-          status: this.status,
-        })
-        .then((response) => {
-          toastr.success(response.data.message)
-          this.$router.push({
-            name: 'my-salesplan'
-          });
-        })
-        .catch((error) => {
-          if (error.response.status == 422) {
-            this.errors = error.response.data.errors
-            toastr.error(error.response.data.message)
-          } else if (error.response.status == 403) {
-            toastr.error(error.response.data.message)
-          }
-        })
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, request to closed it!',
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+          this.$axios
+          .put(`api/sales-close/${this.$route.query.id}`, {
+            status: this.status,
+          })
+          .then((response) => {
+            toastr.success(response.data.message)
+            this.$router.push({
+              name: 'my-salesplan'
+            });
+          })
+        }
+      })
+      .catch((error) => {
+        if (error.response.status == 422) {
+          this.errors = error.response.data.errors
+          toastr.error(error.response.data.message)
+        } else if (error.response.status == 403) {
+          toastr.error(error.response.data.message)
+        }
+      })
     },
 
     submitFile() {

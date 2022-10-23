@@ -222,12 +222,7 @@
         <div class="card-body">
           <div class="row">
             <div class="col-md-4">
-            <input
-                type="text"
-                class="form-control form-control-solid"
-                name="convidenve_level"
-                v-model="convidenve_level"
-              />
+            <input type="text" class="form-control form-control-solid" name="convidenve_level" v-model="convidenve_level">
               </div>
               <div class="col-md-4">
               <button @click="calculateSalesPlan(convidenve_level)" class="btn btn-primary">Calculate</button>

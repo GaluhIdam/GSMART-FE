@@ -66,20 +66,33 @@
                   order of topics.
                 </p>
                 <div class="col">
-                  <div class="border-dashed p-4">
-                    <h1 class="fw-bold mb-0">$ {{ prospect2.totalMarketShare }}</h1>
+                  <div class="border-dashed p-4" v-if="prospect2.totalMarketShare">
+                    <h1 class="fw-bold mb-0">$ {{ formatNumber(prospect2.totalMarketShare) }}</h1>
+                    <p class="mb-0 fw-bold text-gray-500">Total Market Share</p>
+                    
+                  </div>
+                  <div class="border-dashed p-4" v-else>
+                    <h1 class="fw-bold mb-0">$</h1>
                     <p class="mb-0 fw-bold text-gray-500">Total Market Share</p>
                   </div>
                 </div>
                 <div class="col">
-                  <div class="border-dashed p-4">
-                    <h1 class="fw-bold mb-0">$ {{ prospect2.totalSalesPlan }}</h1>
+                  <div class="border-dashed p-4" v-if="prospect2.totalSalesPlan">
+                    <h1 class="fw-bold mb-0">$ {{ formatNumber(prospect2.totalSalesPlan) }}</h1>
+                    <p class="mb-0 fw-bold text-gray-500">Total Salesplan</p>
+                  </div>
+                  <div class="border-dashed p-4" v-else>
+                    <h1 class="fw-bold mb-0">$</h1>
                     <p class="mb-0 fw-bold text-gray-500">Total Salesplan</p>
                   </div>
                 </div>
                 <div class="col">
-                  <div class="border-dashed p-4">
-                    <h1 class="fw-bold mb-0">$ {{ prospect2.deviation }}</h1>
+                  <div class="border-dashed p-4" v-if="prospect2.deviation">
+                    <h1 class="fw-bold mb-0">$ {{ formatNumber(prospect2.deviation) }}</h1>
+                    <p class="mb-0 fw-bold text-gray-500">Deviation</p>
+                  </div>
+                  <div class="border-dashed p-4" v-else>
+                    <h1 class="fw-bold mb-0">$</h1>
                     <p class="mb-0 fw-bold text-gray-500">Deviation</p>
                   </div>
                 </div>
@@ -185,46 +198,64 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <tr
-                          v-for="(
-                            prospect, prospect_index
-                          ) in prospect"
-                          :key="prospect_index"
-                        >
+                        <tr v-for="(prospect, prospect_index) in prospect" :key="prospect_index">
                           <td class="text-center">
                             {{ prospect3.from + prospect_index }}
                           </td>
                           <td class="text-center">{{ prospect.year }}</td>
-                          <td class="text-center">{{ prospect.transaction_type.name }}</td>
-                          <td class="text-center">{{ prospect.prospect_type.name }}</td>
-                          <td class="text-center">{{ prospect.strategic_initiative.name }}</td>
-                          <td class="text-center">{{ prospect.pm.name }}</td>
-                          <td class="text-center">{{ prospect.ams_customer.customer.code }}</td>
-                          <td class="text-center">{{ prospect.ams_customer.customer.name }}</td>
-                          <td class="text-center">{{ prospect.ams_customer.ams.initial }}</td>
+                          <td class="text-center">{{ prospect.transaction }}</td>
+                          <td class="text-center">{{ prospect.type }}</td>
+
+                          <!-- Conditional Strategic Initiative -->
                           <td>
-                            <div v-if="prospect.market_share" class="text-center" style="color: #50CD89">
-                              ${{ prospect.market_share }}
+                            <div v-if="prospect.strategicInitiative" class="text-center">
+                              {{ prospect.strategicInitiative }}
                             </div>
-                            <div v-else class="text-center" style="color: #50CD89">
-                              $
+                            <div v-else class="text-center">
+                              -
                             </div>
                           </td>
+                          <!-- End Of Conditional Strategic Initiative -->
 
-                            <td v-if="prospect.sales" class="text-center" style="color: #50CD89">
-                              ${{ prospect.sales.value }}
-                            </td>
-                            <td v-else class="text-center" style="color: #50CD89">
-                              $
-                            </td>
+                          <!-- Conditional PM -->
+                          <td>
+                            <div v-if="prospect.prjoectManager" class="text-center">
+                              {{ prospect.prjoectManager }}
+                            </div>
+                            <div v-else class="text-center">
+                              -
+                            </div>
+                          </td>
+                          <!-- End Of Conditional PM -->
+
+                          <td class="text-center">{{ prospect.customer.code }}</td>
+                          <td class="text-center">{{ prospect.customer.name }}</td>
+                          <td class="text-center">{{ prospect.ams }}</td>
+
+                          <!-- Conditional Market Share -->
+                          <td>
+                            <div v-if="prospect.marketShare" class="text-center" style="color: #50CD89">
+                              ${{ formatNumber(prospect.marketShare) }} 
+                            </div>
+                            <div v-else class="text-center">
+                              -
+                            </div>
+                          </td>
+                          <!-- End Of Conditional Market Share -->
+
+                          <!-- Conditional Sales Value -->
+                          <td>
+                            <div v-if="prospect.salesPlan" class="text-center" style="color: #50CD89">
+                              ${{ formatNumber(prospect.salesPlan) }}
+                            </div>
+                            <div v-else class="text-center">
+                              -
+                            </div>
+                          </td>
+                          <!-- End Of Conditional Sales Value -->
                           
                           <td class="text-center">
-                            <nuxt-link
-                              v-if="prospect"
-                              :to="{ path: 'view-prospect', query: { id: prospect.ams_customer.customer.id }}"
-                              class="btn btn-sm btn-light"
-                              >View</nuxt-link
-                            >
+                            <nuxt-link :to="{ path: 'view-prospect', query: { id: prospect.customer.id }}" class="btn btn-sm btn-light">View</nuxt-link>
                           </td>
                         </tr>
                         <tr v-if="prospect.length < 1">
@@ -260,46 +291,64 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <tr
-                          v-for="(
-                            prospect, prospect_index
-                          ) in prospect"
-                          :key="prospect_index"
-                        >
+                        <tr v-for="(prospect, prospect_index) in prospect" :key="prospect_index">
                           <td class="text-center">
                             {{ prospect3.from + prospect_index }}
                           </td>
                           <td class="text-center">{{ prospect.year }}</td>
-                          <td class="text-center">{{ prospect.transaction_type.name }}</td>
-                          <td class="text-center">{{ prospect.prospect_type.name }}</td>
-                          <td class="text-center">{{ prospect.strategic_initiative.name }}</td>
-                          <td class="text-center">{{ prospect.pm.name }}</td>
-                          <td class="text-center">{{ prospect.ams_customer.customer.code }}</td>
-                          <td class="text-center">{{ prospect.ams_customer.customer.name }}</td>
-                          <td class="text-center">{{ prospect.ams_customer.ams.initial }}</td>
+                          <td class="text-center">{{ prospect.transaction }}</td>
+                          <td class="text-center">{{ prospect.type }}</td>
+
+                          <!-- Conditional Strategic Initiative -->
                           <td>
-                            <div v-if="prospect.market_share" class="text-center" style="color: #50CD89">
-                              ${{ prospect.market_share }}
+                            <div v-if="prospect.strategicInitiative" class="text-center">
+                              {{ prospect.strategicInitiative }}
                             </div>
-                            <div v-else class="text-center" style="color: #50CD89">
-                              $
+                            <div v-else class="text-center">
+                              -
                             </div>
                           </td>
+                          <!-- End Of Conditional Strategic Initiative -->
 
-                            <td v-if="prospect.sales" class="text-center" style="color: #50CD89">
-                              ${{ prospect.sales.value }}
-                            </td>
-                            <td v-else class="text-center" style="color: #50CD89">
-                              $
-                            </td>
+                          <!-- Conditional PM -->
+                          <td>
+                            <div v-if="prospect.prjoectManager" class="text-center">
+                              {{ prospect.prjoectManager }}
+                            </div>
+                            <div v-else class="text-center">
+                              -
+                            </div>
+                          </td>
+                          <!-- End Of Conditional PM -->
+
+                          <td class="text-center">{{ prospect.customer.code }}</td>
+                          <td class="text-center">{{ prospect.customer.name }}</td>
+                          <td class="text-center">{{ prospect.ams }}</td>
+
+                          <!-- Conditional Market Share -->
+                          <td>
+                            <div v-if="prospect.marketShare" class="text-center" style="color: #50CD89">
+                              ${{ formatNumber(prospect.marketShare) }} 
+                            </div>
+                            <div v-else class="text-center">
+                              -
+                            </div>
+                          </td>
+                          <!-- End Of Conditional Market Share -->
+
+                          <!-- Conditional Sales Value -->
+                          <td>
+                            <div v-if="prospect.salesPlan" class="text-center" style="color: #50CD89">
+                              ${{ formatNumber(prospect.salesPlan) }}
+                            </div>
+                            <div v-else class="text-center">
+                              -
+                            </div>
+                          </td>
+                          <!-- End Of Conditional Sales Value -->
                           
                           <td class="text-center">
-                            <nuxt-link
-                              v-if="prospect"
-                              :to="{ path: 'view-prospect', query: { id: prospect.ams_customer.customer.id }}"
-                              class="btn btn-sm btn-light"
-                              >View</nuxt-link
-                            >
+                            <nuxt-link :to="{ path: 'view-prospect', query: { id: prospect.customer.id }}" class="btn btn-sm btn-light">View</nuxt-link>
                           </td>
                         </tr>
                         <tr v-if="prospect.length < 1">
@@ -335,46 +384,64 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <tr
-                          v-for="(
-                            prospect, prospect_index
-                          ) in prospect"
-                          :key="prospect_index"
-                        >
+                        <tr v-for="(prospect, prospect_index) in prospect" :key="prospect_index">
                           <td class="text-center">
                             {{ prospect3.from + prospect_index }}
                           </td>
                           <td class="text-center">{{ prospect.year }}</td>
-                          <td class="text-center">{{ prospect.transaction_type.name }}</td>
-                          <td class="text-center">{{ prospect.prospect_type.name }}</td>
-                          <td class="text-center">{{ prospect.strategic_initiative.name }}</td>
-                          <td class="text-center">{{ prospect.pm.name }}</td>
-                          <td class="text-center">{{ prospect.ams_customer.customer.code }}</td>
-                          <td class="text-center">{{ prospect.ams_customer.customer.name }}</td>
-                          <td class="text-center">{{ prospect.ams_customer.ams.initial }}</td>
+                          <td class="text-center">{{ prospect.transaction }}</td>
+                          <td class="text-center">{{ prospect.type }}</td>
+
+                          <!-- Conditional Strategic Initiative -->
                           <td>
-                            <div v-if="prospect.market_share" class="text-center" style="color: #50CD89">
-                              ${{ prospect.market_share }}
+                            <div v-if="prospect.strategicInitiative" class="text-center">
+                              {{ prospect.strategicInitiative }}
                             </div>
-                            <div v-else class="text-center" style="color: #50CD89">
-                              $
+                            <div v-else class="text-center">
+                              -
                             </div>
                           </td>
+                          <!-- End Of Conditional Strategic Initiative -->
 
-                            <td v-if="prospect.sales" class="text-center" style="color: #50CD89">
-                              ${{ prospect.sales.value }}
-                            </td>
-                            <td v-else class="text-center" style="color: #50CD89">
-                              $
-                            </td>
+                          <!-- Conditional PM -->
+                          <td>
+                            <div v-if="prospect.prjoectManager" class="text-center">
+                              {{ prospect.prjoectManager }}
+                            </div>
+                            <div v-else class="text-center">
+                              -
+                            </div>
+                          </td>
+                          <!-- End Of Conditional PM -->
+
+                          <td class="text-center">{{ prospect.customer.code }}</td>
+                          <td class="text-center">{{ prospect.customer.name }}</td>
+                          <td class="text-center">{{ prospect.ams }}</td>
+
+                          <!-- Conditional Market Share -->
+                          <td>
+                            <div v-if="prospect.marketShare" class="text-center" style="color: #50CD89">
+                              ${{ prospect.marketShare }} 
+                            </div>
+                            <div v-else class="text-center">
+                              -
+                            </div>
+                          </td>
+                          <!-- End Of Conditional Market Share -->
+
+                          <!-- Conditional Sales Value -->
+                          <td>
+                            <div v-if="prospect.salesPlan" class="text-center" style="color: #50CD89">
+                              ${{ prospect.salesPlan }}
+                            </div>
+                            <div v-else class="text-center">
+                              -
+                            </div>
+                          </td>
+                          <!-- End Of Conditional Sales Value -->
                           
                           <td class="text-center">
-                            <nuxt-link
-                              v-if="prospect"
-                              :to="{ path: 'view-prospect', query: { id: prospect.ams_customer.customer.id }}"
-                              class="btn btn-sm btn-light"
-                              >View</nuxt-link
-                            >
+                            <nuxt-link :to="{ path: 'view-prospect', query: { id: prospect.customer.id }}" class="btn btn-sm btn-light">View</nuxt-link>
                           </td>
                         </tr>
                         <tr v-if="prospect.length < 1">
@@ -410,46 +477,64 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <tr
-                          v-for="(
-                            prospect, prospect_index
-                          ) in prospect"
-                          :key="prospect_index"
-                        >
+                        <tr v-for="(prospect, prospect_index) in prospect" :key="prospect_index">
                           <td class="text-center">
                             {{ prospect3.from + prospect_index }}
                           </td>
                           <td class="text-center">{{ prospect.year }}</td>
-                          <td class="text-center">{{ prospect.transaction_type.name }}</td>
-                          <td class="text-center">{{ prospect.prospect_type.name }}</td>
-                          <td class="text-center">{{ prospect.strategic_initiative.name }}</td>
-                          <td class="text-center">{{ prospect.pm.name }}</td>
-                          <td class="text-center">{{ prospect.ams_customer.customer.code }}</td>
-                          <td class="text-center">{{ prospect.ams_customer.customer.name }}</td>
-                          <td class="text-center">{{ prospect.ams_customer.ams.initial }}</td>
+                          <td class="text-center">{{ prospect.transaction }}</td>
+                          <td class="text-center">{{ prospect.type }}</td>
+
+                          <!-- Conditional Strategic Initiative -->
                           <td>
-                            <div v-if="prospect.market_share" class="text-center" style="color: #50CD89">
-                              ${{ prospect.market_share }}
+                            <div v-if="prospect.strategicInitiative" class="text-center">
+                              {{ prospect.strategicInitiative }}
                             </div>
-                            <div v-else class="text-center" style="color: #50CD89">
-                              $
+                            <div v-else class="text-center">
+                              -
                             </div>
                           </td>
+                          <!-- End Of Conditional Strategic Initiative -->
 
-                            <td v-if="prospect.sales" class="text-center" style="color: #50CD89">
-                              ${{ prospect.sales.value }}
-                            </td>
-                            <td v-else class="text-center" style="color: #50CD89">
-                              $
-                            </td>
+                          <!-- Conditional PM -->
+                          <td>
+                            <div v-if="prospect.prjoectManager" class="text-center">
+                              {{ prospect.prjoectManager }}
+                            </div>
+                            <div v-else class="text-center">
+                              -
+                            </div>
+                          </td>
+                          <!-- End Of Conditional PM -->
+
+                          <td class="text-center">{{ prospect.customer.code }}</td>
+                          <td class="text-center">{{ prospect.customer.name }}</td>
+                          <td class="text-center">{{ prospect.ams }}</td>
+
+                          <!-- Conditional Market Share -->
+                          <td>
+                            <div v-if="prospect.marketShare" class="text-center" style="color: #50CD89">
+                              ${{ prospect.marketShare }} 
+                            </div>
+                            <div v-else class="text-center">
+                              -
+                            </div>
+                          </td>
+                          <!-- End Of Conditional Market Share -->
+
+                          <!-- Conditional Sales Value -->
+                          <td>
+                            <div v-if="prospect.salesPlan" class="text-center" style="color: #50CD89">
+                              ${{ prospect.salesPlan }}
+                            </div>
+                            <div v-else class="text-center">
+                              -
+                            </div>
+                          </td>
+                          <!-- End Of Conditional Sales Value -->
                           
                           <td class="text-center">
-                            <nuxt-link
-                              v-if="prospect"
-                              :to="{ path: 'view-prospect', query: { id: prospect.ams_customer.customer.id }}"
-                              class="btn btn-sm btn-light"
-                              >View</nuxt-link
-                            >
+                            <nuxt-link :to="{ path: 'view-prospect', query: { id: prospect.customer.id }}" class="btn btn-sm btn-light">View</nuxt-link>
                           </td>
                         </tr>
                         <tr v-if="prospect.length < 1">
@@ -697,7 +782,7 @@
                   </div>
                 </div>
                 <div class="col-md-9">
-                  <form class="w-100 p-3">
+                  <form class="w-100 p-3" @submit.prevent="submit">
                     <div class="row mt-5">
                       <!--begin::Content-->
                       <div class="flex-row-fluid">
@@ -858,6 +943,7 @@
                                       <input
                                         type="text"
                                         class="form-control form-control-sm"
+                                        v-model="prospect.year"
                                       />
                                     </div>
                                     <div class="mb-3">
@@ -867,10 +953,13 @@
                                         >Customer</label
                                       >
                                       <multiselect
-                                        v-model="customer_value"
+                                        v-model="selected_customer"
                                         :options="customer_options"
                                         placeholder=""
                                         label="name"
+                                        @select="listAms"
+                                        :close-on-select="true"
+                                        :clear-on-select="false"
                                       ></multiselect>
                                     </div>
                                     <div class="mb-3">
@@ -880,25 +969,23 @@
                                         >Area & AMS</label
                                       >
                                       <multiselect
-                                        v-if="customer_value == null"
-                                        :disabled="!customer_value"
-                                        v-model="area_ams_value"
-                                        :options="area_ams_options"
+                                        v-if="selected_customer == null"
+                                        :disabled="!selected_customer"
+                                        v-model="selected_ams"
+                                        :options="areaAms_options"
                                         placeholder=""
-                                        label="name"
+                                        label="initial"
                                       ></multiselect>
                                       <multiselect
                                         v-else
-                                        v-model="area_ams_value"
-                                        :options="area_ams_options"
+                                        v-model="selected_ams"
+                                        :options="areaAms_options"
                                         placeholder=""
-                                        label="name"
+                                        label="initial"
                                       ></multiselect>
                                     </div>
                                   </div>
-                                  <div
-                                    v-else-if="prospect.prospect_type_id == 2"
-                                  >
+                                  <div v-else-if="prospect.prospect_type_id == 2">
                                     <div class="mb-3">
                                       <label
                                         for="exampleFormControlInput1"
@@ -908,6 +995,7 @@
                                       <input
                                         type="text"
                                         class="form-control form-control-sm"
+                                        v-model="prospect.year"
                                       />
                                     </div>
                                     <div class="mb-3">
@@ -917,10 +1005,13 @@
                                         >Customer</label
                                       >
                                       <multiselect
-                                        v-model="customer_value"
+                                        v-model="selected_customer"
                                         :options="customer_options"
                                         placeholder=""
                                         label="name"
+                                        @select="listAms"
+                                        :close-on-select="true"
+                                        :clear-on-select="false"
                                       ></multiselect>
                                     </div>
                                     <div class="mb-3">
@@ -930,19 +1021,19 @@
                                         >Area & AMS</label
                                       >
                                       <multiselect
-                                        v-if="customer_value == null"
-                                        :disabled="!customer_value"
-                                        v-model="area_ams_value"
-                                        :options="area_ams_options"
+                                        v-if="selected_customer == null"
+                                        :disabled="!selected_customer"
+                                        v-model="selected_ams"
+                                        :options="areaAms_options"
                                         placeholder=""
-                                        label="name"
+                                        label="initial"
                                       ></multiselect>
                                       <multiselect
                                         v-else
-                                        v-model="area_ams_value"
-                                        :options="area_ams_options"
+                                        v-model="selected_ams"
+                                        :options="areaAms_options"
                                         placeholder=""
-                                        label="name"
+                                        label="initial"
                                       ></multiselect>
                                     </div>
                                     <div class="mb-3">
@@ -952,7 +1043,7 @@
                                         >Strategic Initiative</label
                                       >
                                       <multiselect
-                                        v-model="strategic_initiative_value"
+                                        v-model="selected_strategic_initiative"
                                         :options="strategic_initiative_options"
                                         placeholder=""
                                         label="name"
@@ -965,12 +1056,15 @@
                                         >Project Manager</label
                                       >
                                       <multiselect
-                                        v-model="project_manager_value"
+                                        v-model="selected_pm"
                                         :options="project_manager_options"
                                         placeholder=""
                                         label="name"
                                       ></multiselect>
                                     </div>
+                                  </div>
+                                  <div v-else>
+                                    <h3 class="mt-5">Select at least 1 prospect type</h3>
                                   </div>
                                 </div>
                               </div>
@@ -1114,7 +1208,7 @@
                                     <div class="input-group mb-3">
                                       <multiselect
                                         v-model="product_value"
-                                        placeholder="search and select product"
+                                        placeholder="select product"
                                         label="name"
                                         :options="product_options"
                                       ></multiselect>
@@ -1157,11 +1251,12 @@
                                         <label class="form-label"
                                           >Aircraft Type</label
                                         >
-                                        <input
-                                          v-model="item.aircraft_type"
-                                          type="text"
-                                          class="form-control mb-2 mb-md-0"
-                                        />
+                                        <multiselect
+                                        v-model="item.aircraft_type"
+                                        :options="acType_options"
+                                        placeholder=""
+                                        label="name"
+                                      ></multiselect>
                                       </div>
                                       <div class="col-md-3 text-center">
                                         <label class="form-label"
@@ -1185,11 +1280,12 @@
                                         <label class="form-label"
                                           >Maintenance Event</label
                                         >
-                                        <input
-                                          type="text"
-                                          v-model="item.maintenance_event"
-                                          class="form-control mb-2 mb-md-0"
-                                        />
+                                        <multiselect
+                                        v-model="item.maintenance_id"
+                                        :options="maintenance_options"
+                                        placeholder=""
+                                        label="name"
+                                      ></multiselect>
                                       </div>
                                       <div class="col-md-1">
                                         <button
@@ -1221,9 +1317,7 @@
 
                                 <!--end::Repeater-->
                               </div>
-                              <div
-                                v-else-if="prospect.transaction_type_id == 2"
-                              >
+                              <div v-else-if="prospect.transaction_type_id == 2">
                                 <div class="row mb-5">
                                   <div class="col">
                                     <div class="input-group mb-3">
@@ -1232,9 +1326,9 @@
                                       >
                                       <multiselect
                                         v-model="product_value"
+                                        :options="product_options"
                                         label="name"
                                         placeholder="search and select product"
-                                        :options="product_options"
                                       ></multiselect>
                                     </div>
                                   </div>
@@ -1244,10 +1338,10 @@
                                         >Select Aircraft Type</label
                                       >
                                       <multiselect
-                                        v-model="aircraft_type_value"
-                                        placeholder="search and select aircraft type"
+                                        v-model="acType_value"
+                                        :options="acType_options"
+                                        placeholder="select aircraft type"
                                         label="name"
-                                        :options="aircraft_type_options"
                                       ></multiselect>
                                     </div>
                                   </div>
@@ -1257,12 +1351,12 @@
                                       type="button"
                                       :disabled="
                                         product_value == null ||
-                                        aircraft_type_value == null
+                                        acType_value == null
                                       "
                                       @click="
                                         addPBTH(
                                           product_value,
-                                          aircraft_type_value
+                                          acType_value
                                         )
                                       "
                                     >
@@ -1287,7 +1381,7 @@
                                       <p class="text-muted mb-1 fw-bold">
                                         Market Share
                                       </p>
-                                      <h2 class="fw-bold">$3,920.00</h2>
+                                      <h2 class="fw-bold">${{ data_pbth.market_share }}</h2>
                                       <p
                                         class="
                                           text-muted
@@ -1336,6 +1430,8 @@
                                                   >Target Rate</label
                                                 >
                                                 <input
+                                                  required
+                                                  @change="countMarketShare()"
                                                   type="text"
                                                   v-model="target_month.rate"
                                                   class="
@@ -1355,6 +1451,8 @@
                                                   >Target FH</label
                                                 >
                                                 <input
+                                                  required
+                                                  @change="countMarketShare()"
                                                   type="text"
                                                   v-model="
                                                     target_month.flight_hour
@@ -1383,6 +1481,9 @@
                                   </div>
                                 </div>
                               </div>
+                              <div v-else>
+                                    <h3 class="mt-5">Select at least 1 Transaction type</h3>
+                              </div>
                             </div>
                             <!--end::Step 4-->
                           </div>
@@ -1398,6 +1499,7 @@
                           type="button"
                           data-bs-dismiss="modal"
                           class="btn btn-light text-primary mt-5"
+                          id="close_modal"
                         >
                           Close
                         </button>
@@ -1406,6 +1508,7 @@
                           class="btn btn-light text-primary mt-5"
                           data-kt-stepper-action="previous"
                           @click="backStep()"
+                          id="previous_step"
                         >
                           Back
                         </button>
@@ -1423,24 +1526,27 @@
                         >
                           Next
                         </button>
+                        <span class="indicator-label btn d-none" id="close_modal" data-bs-dismiss="modal">Close</span>
                         <!--end::Wrapper-->
 
                         <!--begin::Wrapper-->
-                        <button
-                          type="button"
-                          class="btn btn-primary mt-5"
-                          data-kt-stepper-action="submit"
-                        >
-                          <span class="indicator-label"> Save </span>
+                        <button type="button" class="btn btn-primary mt-5" data-kt-stepper-action="submit">
+
+                          <div v-if="prospect.transaction_type_id == 1 && prospect.prospect_type_id == 1">
+                            <span class="indicator-label" @click="createTMBOrganic()">Save</span>
+                          </div>
+                          <div v-else-if="prospect.transaction_type_id == 2 && prospect.prospect_type_id == 2">
+                            <span class="indicator-label" @click="createPBTHInorganic()">Save</span>
+                          </div>
+                          <div v-else-if="prospect.transaction_type_id == 1 && prospect.prospect_type_id == 2">
+                            <span class="indicator-label" @click="createTMBInorganic()">Save</span>
+                          </div>
+                          <div v-else-if="prospect.transaction_type_id == 2 && prospect.prospect_type_id == 1">
+                            <span class="indicator-label" @click="createPBTHOrganic()">Save</span>
+                          </div>
                           <span class="indicator-progress">
                             Please wait...
-                            <span
-                              class="
-                                spinner-border spinner-border-sm
-                                align-middle
-                                ms-2
-                              "
-                            ></span>
+                            <span class="spinner-border spinner-border-smalign-middlems-2"></span>
                           </span>
                         </button>
                         <!--end::Wrapper-->
@@ -1470,88 +1576,30 @@ export default {
   layout: 'template',
   data() {
     return {
+      role: this.$auth.user.user.role.name,
+      acType_value: null,
       currentYear:  new Date().getFullYear(),
-      airc4aft_type_value: null,
+      selected_customer: null,
+      selected_ams: null,
+      selected_strategic_initiative: null,
+      selected_pm: null,
       product_value: null,
-      area_ams_value: null,
       customer_value: null,
       strategic_initiative_value: null,
       project_manager_value: null,
+      areaAms_value: null,
+      areaAms_options: [],
+      acType_options: [],
+      maintenance_options: [],
       product_options: [],
       aircraft_type_options: [],
       customer_options: [],
-      area_ams_options: [],
       strategic_initiative_options: [],
       project_manager_options: [],
       prospect: [],
       prospect2: [],
       prospect3: [],
       step_number: 1,
-      // chart: new ApexCharts(),
-      pie_one: {
-        series: [1],
-        chartOptions: {
-          chart: {
-            type: 'radialBar',
-            offsetY: -25,
-            offsetX: 110,
-            sparkline: {
-              enabled: true,
-            },
-          },
-          plotOptions: {
-            radialBar: {
-              startAngle: -90,
-              endAngle: 90,
-              track: {
-                background: '#e7e7e7',
-                strokeWidth: '97%',
-                margin: 5, // margin is in pixels
-                dropShadow: {
-                  enabled: true,
-                  top: 2,
-                  left: 0,
-                  color: '#999',
-                  opacity: 1,
-                  blur: 2,
-                },
-              },
-              dataLabels: {
-                name: {
-                  show: true,
-                  offsetY: -20,
-                },
-                value: {
-                  offsetY: -5,
-                  fontSize: '22px',
-                },
-              },
-            },
-          },
-          grid: {
-            padding: {
-              top: -10,
-              bottom: 25,
-            },
-            margin: {
-              top: 20,
-              bottom: 20,
-            },
-          },
-          fill: {
-            type: 'gradient',
-            gradient: {
-              shade: 'light',
-              shadeIntensity: 0.4,
-              inverseColors: false,
-              opacityFrom: 1,
-              opacityTo: 1,
-              stops: [0, 50, 53, 91],
-            },
-          },
-          labels: ['Deviation'],
-        },
-      },
       prospect_type: {
         data: [],
       },
@@ -1579,6 +1627,7 @@ export default {
         description: null,
       },
       year: this.currentYear,
+      market_share: null
     }
   },
   created() {
@@ -1590,7 +1639,8 @@ export default {
     this.listStrategicInitiative()
     this.listUser()
     this.listProspect()
-    this.listAms()
+    this.listAcType()
+    this.listMaintenance()
   },
   mounted() {
     KTStepper.getInstance()
@@ -1602,6 +1652,38 @@ export default {
     }, 500),
   },
   methods: {
+        failMessage() {
+          toastr.options = {
+            closeButton: false,
+            debug: false,
+            newestOnTop: false,
+            progressBar: false,
+            positionClass: 'toastr-top-right',
+            preventDuplicates: false,
+            onclick: null,
+            showDuration: '300',
+            hideDuration: '1000',
+            timeOut: '5000',
+            extendedTimeOut: '1000',
+            showEasing: 'swing',
+            hideEasing: 'linear',
+            showMethod: 'fadeIn',
+            hideMethod: 'fadeOut',
+          }
+          toastr.error('Please completed your form!')
+    },
+    countMarketShare() {
+      this.pbth.forEach(element => {
+        element.market_share = 0
+        element.target.forEach(target => {
+          element.market_share += target.rate * target.flight_hour
+        });
+      });
+    },
+    formatNumber(value) {
+      let val = (value/1).toFixed(2).replace(',', ',')
+      return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+    },
     nextStep() {
       this.step_number++
     },
@@ -1616,9 +1698,9 @@ export default {
           {
             product_id: value.id,
             aircraft_type: null,
-            marker_share: null,
+            market_share: null,
             remark: null,
-            maintenance_event: null,
+            maintenance_id: null,
           },
         ],
       })
@@ -1626,20 +1708,21 @@ export default {
     addTMB(data_index, data) {
       this.tmb[data_index].product.push({
         product_id: data.id,
-        ac_type_id: null,
+        aircraft_type: null,
         market_share: null,
         remark: null,
-        maintenance_event: null,
+        maintenance_id: null,
       })
     },
-    addPBTH(product_value, aircraft_type_value) {
+    addPBTH(product_value, acType_value) {
       this.pbth.push({
         product_id: product_value.id,
         product_name: product_value.name,
-        aircraft_type_id: aircraft_type_value.id,
-        aircraft_type_name: aircraft_type_value.name,
+        aircraft_type_id: acType_value.id,
+        aircraft_type_name: acType_value.name,
+        market_share : 0,
         target: [
-          {
+         {
             month: 'January',
             rate: null,
             flight_hour: null,
@@ -1699,8 +1782,9 @@ export default {
             rate: null,
             flight_hour: null,
           },
-        ],
+      ],
       })
+      console.log(this.pbth)
     },
     removeProspectTMB(data_index) {
       this.tmb.splice(data_index, 1)
@@ -1724,8 +1808,37 @@ export default {
         })
         .then((response) => {
           this.customer_options = response.data.data.data
-          console.log("Data Customer")
-          console.log(this.customer_options)
+        })
+    },
+    listAcType() {
+      this.$axios
+        .get('api/aircraft-type', {
+          params: {
+            order: 'created_at',
+            by: 'ASC',
+          },
+        })
+        .then((response) => {
+          this.acType_options = response.data.data.data
+        })
+    },
+    listMaintenance() {
+      this.$axios
+        .get('api/maintenance', {
+          params: {
+            order: 'created_at',
+            by: 'ASC',
+          },
+        })
+        .then((response) => {
+          this.maintenance_options = response.data.data.data
+        })
+    },
+    listAms({id}) {
+      this.$axios
+        .get(`api/ams-show/${id}`)
+        .then((response) => {
+          this.areaAms_options = response.data.data
         })
     },
     listStrategicInitiative() {
@@ -1801,6 +1914,7 @@ export default {
         .then((response) => {
           // Data Prospect
           this.prospect = response.data.data.prospect.data
+          // console.log(this.prospect)
           // Data Total Market share, Total salesplan & Deviation
           this.prospect2 = response.data.data
           // Pagination
@@ -1810,29 +1924,12 @@ export default {
           // Current Page
           this.current_page = this.prospect3.current_page
           Swal.close()
-          this.chart = new ApexCharts().updateSeries([{
-            data: [32, 44, 31, 41, 22]
-          }])
         })
         .catch((error) => console.log(error))
     },
     filterYear(year){
       this.year = year
       this.listProspect()
-    },
-    listAms() {
-      this.$axios
-        .get('api/ams', {
-          params: {
-            order: 'created_at',
-            by: 'ASC',
-          },
-        })
-        .then((response) => {
-          this.area_ams_options = response.data.data.data
-          console.log("Data AMS")
-          console.log(this.area_ams_options)
-        })
     },
     listTransactionType() {
       this.loading()
@@ -1863,31 +1960,117 @@ export default {
       let new_url = url.toString()
       this.listProspect(new_url)
     }, 500),
-    create() {
+    createTMBOrganic() {
+      if(this.prospect.prospect_type_id == null || this.prospect.year == null || this.selected_ams.id == null || this.prospect.transaction_type_id == null || this.tmb == null) {
+      this.failMessage()
+      } else {
       this.loading()
       this.$axios
         .post('/api/prospect-create', {
+          prospect_type_id: this.prospect.prospect_type_id,
           year: this.prospect.year,
-          transaction_type: this.prospect.transaction_type_id,
-          prospect_type: this.prospect.prospect_type_id,
-          strategic_initiative: this.prospect.strategic_initiative_id,
-          pm: this.prospect.pm_id,
-          ams_customer: this.prospect.ams_customer_id,
-          prospect_id_tmb: this.prospect.prospect,
-          prospect_id_tmb: this.prospect,
+          ams_customer_id: this.selected_ams.id,
+          transaction_type_id: this.prospect.transaction_type_id,
+          tmb: this.tmb,
         })
         .then((response) => {
           toastr.success(response.data.message)
-          this.list()
           this.closeModal()
+          this.listProspect()
         })
         .catch((error) => {
-          if (error.response.status == 422) {
+          if (error.response.status) {
             this.errors = error.response.data.errors
-
             toastr.error(error.response.data.message)
+            this.closeModal()
           }
         })
+      }
+    },
+    createTMBInorganic() {
+      if(this.prospect.prospect_type_id == null || this.prospect.year == null || this.selected_ams.id == null || this.prospect.transaction_type_id == null || this.selected_strategic_initiative.id || this.selected_pm.id ||this.tmb == null) {
+      this.failMessage()
+      } else {
+      this.loading()
+      this.$axios
+        .post('/api/prospect-create', {
+          prospect_type_id: this.prospect.prospect_type_id,
+          year: this.prospect.year,
+          ams_customer_id: this.selected_ams.id,
+          transaction_type_id: this.prospect.transaction_type_id,
+          strategic_initiative_id: this.selected_strategic_initiative.id,
+          pm_id: this.selected_pm.id,
+          tmb: this.tmb,
+        })
+        .then((response) => {
+          this.closeModal()
+          toastr.success(response.data.message)
+          this.listProspect()
+        })
+        .catch((error) => {
+          if (error.response.status) {
+            this.errors = error.response.data.errors
+            toastr.error(error.response.data.message)
+            this.closeModal()
+          }
+        })
+      }
+    },
+    createPBTHOrganic() {
+      if(this.prospect.prospect_type_id == null || this.prospect.year == null || this.selected_ams.id == null || this.prospect.transaction_type_id == null || this.pbth == null) {
+      this.failMessage()
+      } else {
+      this.loading()
+      this.$axios
+        .post('/api/prospect-create', {
+          prospect_type_id: this.prospect.prospect_type_id,
+          year: this.prospect.year,
+          ams_customer_id: this.selected_ams.id,
+          transaction_type_id: this.prospect.transaction_type_id,
+          pbth: this.pbth,
+        })
+        .then((response) => {
+          this.closeModal()
+          toastr.success(response.data.message)
+          this.listProspect()
+        })
+        .catch((error) => {
+          if (error.response.status) {
+            this.errors = error.response.data.errors
+            toastr.error(error.response.data.message)
+            this.closeModal()
+          }
+        })
+      }
+    },
+    createPBTHInorganic() {
+      if(this.prospect.prospect_type_id == null || this.prospect.year == null || this.selected_ams.id == null || this.prospect.transaction_type_id == null || this.selected_strategic_initiative.id || this.selected_pm.id ||this.pbth == null) {
+      this.failMessage()
+      } else {
+      this.loading()
+      this.$axios
+        .post('/api/prospect-create', {
+          prospect_type_id: this.prospect.prospect_type_id,
+          year: this.prospect.year,
+          ams_customer_id: this.selected_ams.id,
+          transaction_type_id: this.prospect.transaction_type_id,
+          strategic_initiative_id: this.selected_strategic_initiative.id,
+          pm_id: this.selected_pm.id,
+          pbth: this.pbth,
+        })
+        .then((response) => {
+          this.closeModal()
+          toastr.success(response.data.message)
+          this.listProspect()
+        })
+        .catch((error) => {
+          if (error.response.status) {
+            this.errors = error.response.data.errors
+            toastr.error(error.response.data.message)
+            this.closeModal()
+          }
+        })
+      }
     },
     loading() {
       Swal.fire({
@@ -1900,15 +2083,25 @@ export default {
       })
     },
     clearForm() {
-      this.transaction.id = null
-      this.transaction.name = null
-      this.transaction.description = null
-      this.errors.name = null
-      this.errors.description = null
+      this.prospect = []
+      this.selected_customer = null
+      this.selected_ams = null
+      this.selected_strategic_initiative = null
+      this.selected_pm = null
+      this.acType_value = null
+      this.product_value = null
+      this.tmb = []
+      this.pbth = []
+      this.resetStepper()
     },
     closeModal() {
       document.getElementById('close_modal').click()
       this.clearForm()
+    },
+    resetStepper(){
+      document.getElementById('previous_step').click()
+      document.getElementById('previous_step').click()
+      document.getElementById('previous_step').click()
     },
     step() {
       var element = document.querySelector('#kt_stepper_example_vertical')

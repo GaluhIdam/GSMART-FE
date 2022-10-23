@@ -7,28 +7,9 @@
         class="app-container container-fluid d-flex flex-stack"
       >
         <!--begin::Page title-->
-        <div
-          class="
-            page-title
-            d-flex
-            flex-column
-            justify-content-center
-            flex-wrap
-            me-3
-          "
-        >
+        <div class=" page-title d-flex flex-column justify-content-center flex-wrap me-3">
           <!--begin::Title-->
-          <p
-            class="
-              page-heading
-              d-flex
-              text-dark
-              fs-6
-              flex-column
-              justify-content-center
-              my-0
-            "
-          >
+          <p class=" page-heading d-flex text-dark fs-6 flex-column justify-content-center my-0">
             View Prospect
           </p>
           <!--end::Title-->
@@ -57,30 +38,40 @@
         <div class="row">
           <div class="col-md-5 p-16">
             <span class="btn btn-light btn-sm p-5">
-              <img src="~/assets/media/logos/logo-gai.png" alt="logo" class="img-fluid" width="25" height="25">
+              <img :src=customer_image v-if="customer_image" class="img-fluid" width="25" height="25">
+              <p v-else></p>
             </span>
             <span class="badge text-muted text-bg-light d-block text-start mt-2">PBTH</span>
             <h2 class="mt-1">Airframe</h2>
-            <div class="text-muted fw-semibold fs-5">Project for B737-800 MAX</div>
+            <div class="text-muted fw-semibold fs-5" v-if="registration">Project for {{ registration }}</div>
+            <div class="text-muted fw-semibold fs-5" v-else>Project for</div>
             <div class="text-muted fs-6">Remark for this project..</div>
             <div class="row mt-3">
               <div class="col-6">
                 <div class="border-dashed rounded p-4">
-                  <h1 class="fw-bolder mb-0 fs-5">$1,500,000.00</h1>
+                  <h1 class="fw-bolder mb-0 fs-5">${{ formatNumber(market_share) }}</h1>
                   <p class="mb-0 fw-bold text-gray-500">Market Share</p>
                 </div>
               </div>
               <div class="col-6">
-                <div class="border-dashed rounded p-4">
-                  <h1 class="fw-bolder mb-0 fs-5">$5,850,000.00</h1>
+                <div class="border-dashed rounded p-4" v-if="sales_plan">
+                  <h1 class="fw-bolder mb-0 fs-5">${{ formatNumber(sales_plan) }}</h1>
+                  <p class="mb-0 fw-bold text-gray-500">Sales Plan</p>
+                </div>
+                <div class="border-dashed rounded p-4" v-else>
+                  <h1 class="fw-bolder mb-0 fs-5">$0</h1>
                   <p class="mb-0 fw-bold text-gray-500">Sales Plan</p>
                 </div>
               </div>
             </div>
             <div class="row mt-1">
               <div class="col-6">
-                <div class="border-dashed rounded p-4">
-                  <h1 class="fw-bolder mb-0 fs-5">$650,000.00</h1>
+                <div class="border-dashed rounded p-4" v-if="deviation">
+                  <h1 class="fw-bolder mb-0 fs-5">${{ formatNumber(deviation) }}</h1>
+                  <p class="mb-0 fw-bold text-gray-500">Deviation</p>
+                </div>
+                <div class="border-dashed rounded p-4" v-else>
+                  <h1 class="fw-bolder mb-0 fs-5">$0</h1>
                   <p class="mb-0 fw-bold text-gray-500">Deviation</p>
                 </div>
               </div>
@@ -94,54 +85,25 @@
               <div class="col-6 text-end">
                   <div type="button"
                     class="btn btn-sm text-light"
-                    style="background-color: #1BC5BD"
                     data-bs-toggle="modal"
-                    data-bs-target="#modal"
-                    @click="add()">
+                    data-bs-target="#contactPersonModal"
+                    @click="clearForm()"
+                    style="background-color: #1BC5BD">
                     <i class="fa-solid fa-user-plus text-light"></i>
                     Add Contact Person</div>
               </div>
-            </div>
-
-            <div class="modal fade" tabindex="-1" id="modal" data-bs-backdrop="static">
+              <div class="modal fade" tabindex="-1" id="contactPersonModal" data-bs-backdrop="static">
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header">
             <h3 class="modal-title">Add Contact Person</h3>
 
             <!--begin::Close-->
-            <div
-              class="btn btn-icon btn-sm btn-active-light-primary ms-2"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            >
-              <span class="svg-icon svg-icon-1" @click="closeModal()">
-                <svg
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <rect
-                    opacity="0.5"
-                    x="6"
-                    y="17.3137"
-                    width="16"
-                    height="2"
-                    rx="1"
-                    transform="rotate(-45 6 17.3137)"
-                    fill="currentColor"
-                  ></rect>
-                  <rect
-                    x="7.41422"
-                    y="6"
-                    width="16"
-                    height="2"
-                    rx="1"
-                    transform="rotate(45 7.41422 6)"
-                    fill="currentColor"
-                  ></rect>
+            <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close" id="close_modal_contact_person">
+              <span class="svg-icon svg-icon-1">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"> 
+                <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="currentColor"></rect>
+                  <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="currentColor"></rect>
                 </svg>
               </span>
             </div>
@@ -151,26 +113,13 @@
             <form @submit.prevent="submit">
               <div class="form-group mb-3">
                 <label class="form-label fw-bold">Name</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  v-model="contact_persons.name"
-                  :class="{
-                    'is-invalid': errors.name,
-                  }"
-                />
-                <span v-if="errors.name" class="error invalid-feedback">{{
-                  errors.name[0]
-                }}</span>
+                <input type="text" v-model="contact_person.name" class="form-control" :class="{'is-invalid': errors.name}">
+                      <span v-if="errors.name" class="error invalid-feedback">{{errors.name[0]}}</span>
               </div>
 
               <div class="form-group mb-3">
                 <label class="form-label fw-bold">Email</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  v-model="contact_persons.email"
-                  :class="{
+                <input type="text" class="form-control" v-model="contact_person.email" :class="{
                     'is-invalid': errors.email,
                   }"
                 />
@@ -180,11 +129,7 @@
               </div>
               <div class="form-group mb-3">
                 <label class="form-label fw-bold">Phone</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  v-model="contact_persons.phone"
-                  :class="{
+                <input type="text" class="form-control" v-model="contact_person.phone" :class="{
                     'is-invalid': errors.phone,
                   }"
                 />
@@ -194,11 +139,7 @@
               </div>
               <div class="form-group mb-3">
                 <label class="form-label fw-bold">Address</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  v-model="contact_persons.address"
-                  :class="{
+                <input type="text" class="form-control" v-model="contact_person.address" :class="{
                     'is-invalid': errors.address,
                   }"
                 />
@@ -208,40 +149,37 @@
               </div>
               <div class="form-group mb-3">
                 <label class="form-label fw-bold">Customer</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  v-model="contact_persons.customer_id"
-                  :class="{
-                    'is-invalid': errors.customer_id,
-                  }"
-                />
+                <multiselect v-model="contact_person.customer_id" :options="customer_options" :searchable="true" :class="{'is-invalid': errors.customer_id,}" label="name"></multiselect>
                 <span v-if="errors.customer_id" class="error invalid-feedback">{{
                   errors.customer_id[0]
                 }}</span>
               </div>
+              <div class="form-group mb-3">
+                <label class="form-label fw-bold">Title</label>
+                <input type="text" class="form-control" v-model="contact_person.title" :class="{
+                    'is-invalid': errors.title,
+                  }"
+                />
+                <span v-if="errors.title" class="error invalid-feedback">{{
+                  errors.title[0]
+                }}</span>
+              </div>
               <div class="row mt-10">
                 <div class="col">
-                  <button
-                    type="button"
-                    class="btn btn-light"
-                    data-bs-dismiss="modal"
-                    id="close_modal"
-                    @click="closeModal()"
-                  >
+                  <button type="button" class="btn btn-light" @click="closeModal()">
                     Back
                   </button>
                 </div>
                 <div class="col d-flex justify-content-end">
-                  <button type="submit" class="btn btn-primary">Save</button>
+                  <button type="button" class="btn btn-primary" @click="createContactPerson()">Save</button>
                 </div>
               </div>
             </form>
           </div>
         </div>
       </div>
-    </div>
-
+            </div>
+            </div>
             <div class="table-responsive">
               <table class="table table-row-bordered table-row-gray-200 gy-4">
                 <thead>
@@ -254,22 +192,18 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr
-                      v-for="(
-                      contact_person, contact_persons_index
-                      ) in contact_person.data"
-                      :key="contact_persons_index"
-                  >
-                    <td class="text-start">{{ contact_person.name }}</td>
-                    <td class="text-start">{{ contact_person.email }}</td>
-                    <td class="text-start">{{ contact_person.phone }}</td>
-                    <td class="text-start">{{ contact_person.address }}</td>
-
+                  <tr v-for="(data, contact_person_index) in contact_persons" :key="contact_person_index">
                     <td class="text-start">
-                      <button
-                        class="btn btn-sm btn-light"
-                        v-on:click="remove(contact_person.id)"
-                      >
+                      <div class="row mx-auto">
+                      <span class="btn bg-primary btn-sm text-light col-4">{{ data.firstalphabet }}</span>
+                      <span class="col-8">{{ data.name }}</span>
+                      </div>
+                    </td>
+                    <td class="text-start">{{ data.email }}</td>
+                    <td class="text-start">{{ data.phone }}</td>
+                    <td class="text-start">{{ data.address }}</td>
+                    <td class="text-start">
+                      <button class="btn btn-sm btn-light" v-on:click="removeContactPerson(data.id)">
                         <i class="bi bi-trash-fill text-primary"></i>
                       </button>
                     </td>
@@ -291,13 +225,13 @@
             <input
                 type="text"
                 class="form-control form-control-solid"
-                name="search"
-                v-model="search"
+                name="convidenve_level"
+                v-model="convidenve_level"
               />
               </div>
               <div class="col-md-4">
-              <button class="btn btn-primary">Calculate</button>
-              <button class="btn btn-primary">Save</button>
+              <button @click="calculateSalesPlan(convidenve_level)" class="btn btn-primary">Calculate</button>
+              <button class="btn btn-primary" @click="createSalesPlan()">Save</button>
               </div>
             </div>
         </div>
@@ -319,13 +253,13 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <!-- v-for="(pbth, pbth_index) in pbth.data" :key="pbth_index" -->
-                    <td class="text-center">a</td>
-                    <td class="text-center">a</td>
-                    <td class="text-center">a</td>
-                    <td class="text-center">a</td>
-                    <td class="text-center">a</td>
+                  <tr v-for="(data, pbth_index) in pbth" :key="pbth_index">
+                    <td class="text-center">{{ data.month}}</td>
+                    <td class="text-center">{{ data.flight_hour }}</td>
+                    <td class="text-center">{{ data.rate }} %</td>
+                    <td class="text-center">{{ data.planFH }}</td>
+                    <td class="text-center" style="color: #50CD89" v-if="data.value">{{ formatNumber(data.value) }}</td>
+                    <td class="text-center" style="color: #50CD89" v-else>0</td>
                   </tr>
                 </tbody>
               </table>
@@ -342,86 +276,153 @@ export default {
   layout: 'template',
   data() {
     return {
+      deviation : this.market_share - this.sales_plan,
+      customer_options: [],
+      pbth: [],
+      sales_plan: [],
+      registration: [],
+      customer_image: [],
+      market_share: [],
+      deviation: [],
+      contact_persons: [],
       contact_person: {
-        data: [],
-        },
-        contact_persons: {
-        id: null,
         name: null,
         email: null,
+        address : null,
         phone: null,
-        address: null,
         customer_id: null,
+        title: null
       },
       modal_create: false,
+      convidenve_level: null,
       errors: {
         name: null,
-        nopeg: null,
         email: null,
-        unit: null,
+        address: null,
+        phone: null,
+        customer_id: null,
+        title: null,
       },
       }
     },
-    created() {
-    this.list()
+  created() {
     this.listContactPersons()
+    this.listPBTH()
+    this.listCustomer()
   },
   methods: {
-    list(paginate) {
-      this.loading()
-      paginate = paginate || `/api/contact-persons`
-      this.$axios
-        .get(paginate, {
-          params: {
-            search: this.search,
-            order: this.order,
-            by: this.by,
-            paginate: this.paginate,
-          },
-        })
-        .then((response) => {
-          this.contact_person = response.data.data
-          this.current_page = this.contact_person.current_page
-          Swal.close()
-        })
-        .catch((error) => console.log(error))
+    formatNumber(value) {
+      let val = (value/1).toFixed(2).replace(',', ',')
+      return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
     },
     listContactPersons() {
       this.$axios
-        .get('api/contact-persons', {
+        .get('api/contact-person')
+        .then((response) => {
+          this.contact_person = response.data.data
+        })
+    },
+    listCustomer() {
+      this.$axios
+        .get('api/customer', {
           params: {
             order: 'created_at',
             by: 'ASC',
           },
         })
         .then((response) => {
-          this.contact_person = response.data
-          console.log(response.data.data)
+          this.customer_options = response.data.data.data
+        })
+    },
+    listContactPersons() {
+      this.$axios
+        .get('api/contact-person')
+        .then((response) => {
+          this.contact_persons = response.data.data
         })
     },
     listPBTH() {
       this.$axios
-        .get('api/pbth', {
-          params: {
-            order: 'created_at',
-            by: 'ASC',
-          },
+        .get(`api/prospect-pbth/${this.$route.query.id}`)
+        .then((response) => {
+          // Data PBTH
+          this.pbth = response.data.data.prospect
+          // Data Customer
+          this.customer_image = response.data.data.customer.full_path
+          // Get Customer ID
+          this.customer_id = response.data.data.customer.id
+          // Registration Format
+          this.registration = response.data.data.registration
+          // Sales Plan Value
+          this.sales_plan = response.data.data.sales_plan
+          // Market Share Value
+          this.market_share = response.data.data.market_share
+          // Deviation Value
+          this.deviation = response.data.data.deviation
+          this.pbth.forEach(element => {
+            element.planFH = 0
+            element.value = 0
+          });
+        })
+    },
+    calculateSalesPlan(){
+      this.pbth.forEach(element => {
+        element.month = element.month + ' '
+        element.planFH = element.flight_hour * this.convidenve_level
+        element.value = element.planFH * element.rate
+      });
+    },
+    createSalesPlan(){
+      this.loading()
+      this.$axios
+      .post('/api/sales-create-pbth', {
+        prospect_id : this.$route.query.id,
+        pbth : this.pbth
+      })
+      .then((response) => {
+        toastr.success(response.data.message)
+        this.$router.push('/view-prospect' + '?id=' + this.customer_id)
+      })
+      .catch((error) => {
+          if (error.response.status == 422) {
+            this.errors = error.response.data.errors
+            toastr.error(error.response.data.message)
+          }
+        })
+    },
+    submit(){
+      this.createContactPerson()
+    },
+    createContactPerson() {
+      this.loading()
+      this.$axios
+        .post('/api/contact-person-create', {
+          name : this.contact_person.name,
+          phone : this.contact_person.phone,
+          email : this.contact_person.email,
+          address : this.contact_person.address,
+          customer_id : this.contact_person.customer_id.id,
+          title : this.contact_person.title,
         })
         .then((response) => {
-          this.pbth = response.data
-          console.log(response.data)
+          toastr.success(response.data.message)
+          this.listContactPersons()
+          this.closeModal()
+        })
+        .catch((error) => {
+          if (error.response.status == 422) {
+            this.errors = error.response.data.errors
+            toastr.error(error.response.data.message)
+          }
         })
     },
-    add() {
-      this.modal_create = true
-    },
     clearForm() {
-      this.contact_persons.id = null
-      this.contact_persons.name = null
-      this.contact_persons.email = null
-      this.contact_persons.phone = null
-      this.contact_persons.address = null
-      this.contact_persons.customer_id = null
+      this.contact_person.name = null
+      this.contact_person.email = null
+      this.contact_person.address = null
+      this.contact_person.phone = null
+      this.contact_person.customer_id = null
+      this.contact_person.title = null
       this.errors.name = null
       this.errors.email = null
       this.errors.phone = null
@@ -429,7 +430,7 @@ export default {
       this.errors.customer_id = null
     },
     closeModal() {
-      document.getElementById('close_modal').click()
+      document.getElementById('close_modal_contact_person').click()
       this.clearForm()
     },
     remove(id) {
@@ -444,9 +445,9 @@ export default {
       })
         .then((result) => {
           if (result.isConfirmed) {
-            this.$axios.delete('/api/contact-persons-delete/' + id).then((response) => {
+            this.$axios.delete('/api/contact-person-delete/' + id).then((response) => {
               toastr.success(response.data.message)
-              this.list()
+              this.listContactPersons()
             })
           }
         })

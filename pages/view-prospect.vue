@@ -56,16 +56,13 @@
       <div class="card shadow-sm mt-5">
         <div class="row">
           <div class="col-md-3 p-16">
-            <img
-              src="~/assets/media/logos/garuda-indonesia.jpg"
-              class="img-fluid"
-              alt="logo"
-            />
+            <img :src=customer_image v-if="customer_image" class="img-fluid">
+            <p v-else></p>
           </div>
           <div class="col-md-9">
             <div class="row mt-15 mb-2">
               <h2 class="mb-0">
-                Garuda Indonesia
+                {{ customer.name }}
                 <span class="badge bg-white">
                   <span class="svg-icon svg-icon-primary svg-icon-2hx mt-0"
                     ><svg
@@ -111,7 +108,7 @@
                     />
                   </svg>
                   <span class="badge bg-white text-muted fs-6 mb-0 p-0"
-                    >GIA</span
+                    >{{ customer.code }}</span
                   >
                 </span>
               </div>
@@ -135,11 +132,11 @@
                     />
                   </svg>
                   <span class="badge bg-white text-muted fs-6 mb-0 p-0"
-                    >Area 1</span
+                    >{{ customer_area.name }}</span
                   >
                 </span>
               </div>
-              <div class="col-sm-3">
+              <div class="col-sm-5">
                 <span class="svg-icon svg-icon-muted svg-icon-2"
                   ><svg
                     width="24"
@@ -159,7 +156,7 @@
                     />
                   </svg>
                   <span class="badge bg-white text-muted fs-6 mb-0 p-0">
-                    Indonesia - Domestic
+                    {{ customer_country.name + ' - ' + customer_region.name }}
                   </span>
                 </span>
               </div>
@@ -167,19 +164,22 @@
             <div class="row mt-5">
               <div class="col-3">
                 <div class="border-dashed rounded p-4">
-                  <h1 class="fw-bolder mb-0">$1,500,000.00</h1>
+                  <h1 class="fw-bolder mb-0" v-if="prospect_total.marketShare">${{ formatNumber(prospect_total.marketShare) }}</h1>
+                  <h1 class="fw-bolder mb-0" v-else>$</h1>
                   <p class="mb-0 fw-bold text-gray-500">Total Market Share</p>
                 </div>
               </div>
               <div class="col-3">
                 <div class="border-dashed rounded p-4">
-                  <h1 class="fw-bolder mb-0">$1,300,000.00</h1>
+                  <h1 class="fw-bolder mb-0" v-if="prospect_total.marketShare">$ {{ formatNumber(prospect_total.salesPlan) }}</h1>
+                  <h1 class="fw-bolder mb-0" v-else>$</h1>
                   <p class="mb-0 fw-bold text-gray-500">Total Salesplan</p>
                 </div>
               </div>
               <div class="col-3">
                 <div class="border-dashed rounded p-4">
-                  <h1 class="fw-bolder mb-0">$1,300,000.00</h1>
+                  <h1 class="fw-bolder mb-0" v-if="prospect_total.deviation">${{ formatNumber(prospect_total.deviation) }}</h1>
+                  <h1 class="fw-bolder mb-0" v-else>$</h1>
                   <p class="mb-0 fw-bold text-gray-500">New Deals</p>
                 </div>
               </div>
@@ -211,48 +211,32 @@
             id="kt_tab_pane_1"
             role="tabpanel"
           >
-          <div class="card shadow-sm container">
+          <div class="card shadow-sm container py-10">
             Overview
             </div>
           </div>
           <div class="tab-pane fade" id="kt_tab_pane_2" role="tabpanel">
             <div class="row">
-              <div class="col-4">
-                <div
-                  class="card shadow-sm border-bottom border-5 border-primary"
-                >
-                  <div
-                    class="row d-flex justify-content-between mt-5 ms-5 me-5"
-                  >
+              
+              <div class="col-4 mb-3" v-for="(data, prospect_customer_index) in prospect_customer"  :key="prospect_customer_index">
+                <div class="card shadow-sm border-bottom border-5 border-primary" style="min-height: 420px">
+                  <div class="row d-flex justify-content-between mt-5 ms-5 me-5">
                     <div class="col-2 p-1">
                       <span class="btn btn-light btn-sm p-5">
-                        <img
-                          src="~/assets/media/logos/logo-gai.png"
-                          alt="logo"
-                          class="img-fluid"
-                        />
+                        <img :src=customer_image v-if="customer_image" alt="logo" class="img-fluid">
+                        <p v-else></p>
                       </span>
                     </div>
                     <div class="col-3 p-1 d-flex justify-content-end">
-                      <span
-                        class="
-                          fs-7
-                          p-3
-                          align-self-center
-                          badge
-                          rounded
-                          text-bg-light text-primary
-                        "
-                        >Pick Up</span
-                      >
+                      <span class=" fs-7 p-3 align-self-center badge rounded text-bg-light text-primary">Pick Up</span>
                     </div>
                   </div>
                   <div class="row mt-5 ms-5 me-5">
                     <div class="col p-1">
-                      <span class="badge text-muted text-bg-light">PBTH</span>
+                      <span class="badge text-muted text-bg-light">{{ data.transaction_type.name }}</span>
                       <h1 class="fw-bold">Airframe</h1>
-                      <p class="text-muted fs-4 fw-bold">
-                        Project for B737-800 MAX
+                      <p class="text-muted fs-5 fw-bold" style="min-height: 50px">
+                        Project for {{ data.registration }}
                       </p>
                       <p class="text-muted fs-8 fw-bold">
                         Remark for this project..
@@ -260,213 +244,53 @@
                     </div>
                   </div>
                   <div class="row mt-5 ms-5 me-5">
-                    <div class="col-6 p-2">
+                    <div class="col-6 p-2" v-if="data.market_share ">
                       <div class="border-dashed p-2 rounded">
-                        <p class="fw-bolder mb-0">$1,500,000.00</p>
+                        <p class="fw-bolder mb-0">${{ formatNumber(data.market_share) }}</p>
                         <p class="mb-0 fs-7 text-gray-500">
                           Total Market Share
                         </p>
                       </div>
                     </div>
-                    <div class="col-6 p-2">
+                    <div class="col-6 p-2" v-else>
                       <div class="border-dashed p-2 rounded">
-                        <p class="fw-bolder mb-0">$1,300,000.00</p>
-                        <p class="mb-0 fs-7 text-gray-500">Total Salesplan</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div
-                    class="
-                      row
-                      mt-10
-                      ms-5
-                      me-5
-                      mb-5
-                      d-flex-justify-content-between
-                    "
-                  >
-                    <div class="col-md-6">
-                      <a href="" class="rounded-circle">
-                        <img
-                          width="40"
-                          class="img-fluid rounded-circle"
-                          src="~/assets/media/avatars/300-1.jpg"
-                          alt="profile"
-                        />
-                      </a>
-                    </div>
-                    <div class="col-md-6 d-flex justify-content-end">
-                      <nuxt-link class="btn btn-primary btn-sm" type="button"
-                        to="/view-prospect-pbth">Pick Up</nuxt-link>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-4">
-                <div
-                  class="card shadow-sm border-bottom border-5 border-primary"
-                >
-                  <div
-                    class="row d-flex justify-content-between mt-5 ms-5 me-5"
-                  >
-                    <div class="col-2 p-1">
-                      <span class="btn btn-light btn-sm p-5">
-                        <img
-                          src="~/assets/media/logos/logo-gai.png"
-                          alt="logo"
-                          class="img-fluid"
-                        />
-                      </span>
-                    </div>
-                    <div class="col-3 p-1 d-flex justify-content-end">
-                      <span
-                        class="
-                          fs-7
-                          p-3
-                          align-self-center
-                          badge
-                          rounded
-                          text-bg-light text-primary
-                        "
-                        >Pick Up</span
-                      >
-                    </div>
-                  </div>
-                  <div class="row mt-5 ms-5 me-5">
-                    <div class="col p-1">
-                      <span class="badge text-muted text-bg-light">TMB</span>
-                      <h1 class="fw-bold">Airframe</h1>
-                      <p class="text-muted fs-4 fw-bold">
-                        Project for B737-800 MAX
-                      </p>
-                      <p class="text-muted fs-8 fw-bold">
-                        Remark for this project..
-                      </p>
-                    </div>
-                  </div>
-                  <div class="row mt-5 ms-5 me-5">
-                    <div class="col-6 p-2">
-                      <div class="border-dashed p-2 rounded">
-                        <p class="fw-bolder mb-0">$1,500,000.00</p>
+                        <p class="fw-bolder mb-0">-</p>
                         <p class="mb-0 fs-7 text-gray-500">
                           Total Market Share
                         </p>
                       </div>
                     </div>
-                    <div class="col-6 p-2">
+                    <div class="col-6 p-2" v-if="data.sales_plan">
                       <div class="border-dashed p-2 rounded">
-                        <p class="fw-bolder mb-0">$1,300,000.00</p>
+                        <p class="fw-bolder mb-0">${{ formatNumber(data.sales_plan) }}</p>
+                        <p class="mb-0 fs-7 text-gray-500">Total Salesplan</p>
+                      </div>
+                    </div>
+                    <div class="col-6 p-2" v-else>
+                      <div class="border-dashed p-2 rounded">
+                        <p class="fw-bolder mb-0">-</p>
                         <p class="mb-0 fs-7 text-gray-500">Total Salesplan</p>
                       </div>
                     </div>
                   </div>
-                  <div
-                    class="
-                      row
-                      mt-10
-                      ms-5
-                      me-5
-                      mb-5
-                      d-flex-justify-content-between
-                    "
-                  >
+                  <div class=" row mt-10 ms-5 me-5 mb-5 d-flex-justify-content-between">
                     <div class="col-md-6">
-                      <a href="" class="rounded-circle">
-                        <img
-                          width="40"
-                          class="img-fluid rounded-circle"
-                          src="~/assets/media/avatars/300-1.jpg"
-                          alt="profile"
-                        />
-                      </a>
+                        <span class="btn bg-primary btn-sm text-light"> {{ contact_person }} </span>
+                        <span class="btn bg-primary btn-sm text-light"> {{ contact_person1 }} </span>
+                        <span class="btn bg-primary btn-sm text-light"> {{ contact_person2 }} </span>
                     </div>
-                    <div class="col-md-6 d-flex justify-content-end">
-                      <nuxt-link class="btn btn-primary btn-sm" type="button"
-                        to="/view-prospect-tmb">Pick Up</nuxt-link>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-4">
-                <div
-                  class="card shadow-sm border-bottom border-5 border-primary"
-                >
-                  <div
-                    class="row d-flex justify-content-between mt-5 ms-5 me-5"
-                  >
-                    <div class="col-2 p-1">
-                      <span class="btn btn-light btn-sm p-5">
-                        <img
-                          src="~/assets/media/logos/logo-gai.png"
-                          alt="logo"
-                          class="img-fluid"
-                        />
-                      </span>
-                    </div>
-                    <div class="col-3 p-1 d-flex justify-content-end">
-                      <span
-                        class="
-                          fs-7
-                          p-3
-                          align-self-center
-                          badge
-                          rounded
-                          text-bg-light text-primary
-                        "
-                        >Pick Up</span
-                      >
-                    </div>
-                  </div>
-                  <div class="row mt-5 ms-5 me-5">
-                    <div class="col p-1">
-                      <span class="badge text-muted text-bg-light">PBTH</span>
-                      <h1 class="fw-bold">Airframe</h1>
-                      <p class="text-muted fs-4 fw-bold">
-                        Project for B737-800 MAX
-                      </p>
-                      <p class="text-muted fs-8 fw-bold">
-                        Remark for this project..
-                      </p>
-                    </div>
-                  </div>
-                  <div class="row mt-5 ms-5 me-5">
-                    <div class="col-6 p-2">
-                      <div class="border-dashed p-2 rounded">
-                        <p class="fw-bolder mb-0">$1,500,000.00</p>
-                        <p class="mb-0 fs-7 text-gray-500">
-                          Total Market Share
-                        </p>
+                    <div v-if="data.transaction_type_id == 1" class="col-md-6 d-flex justify-content-end">
+                      <div>
+                        <nuxt-link :to="{ path: 'view-prospect-tmb', query: { id: data.id }}" class="btn btn-primary btn-sm">Pick Up</nuxt-link>
                       </div>
                     </div>
-                    <div class="col-6 p-2">
-                      <div class="border-dashed p-2 rounded">
-                        <p class="fw-bolder mb-0">$1,300,000.00</p>
-                        <p class="mb-0 fs-7 text-gray-500">Total Salesplan</p>
+                    <div v-else class="col-md-6 d-flex justify-content-end">
+                      <div v-if="data.sales.length > 0">
+                        <nuxt-link :to="{ path: 'view-prospect-pbth', query: { id: data.id }}" class="btn btn-primary disabled btn-sm">Done</nuxt-link>
                       </div>
-                    </div>
-                  </div>
-                  <div
-                    class="
-                      row
-                      mt-10
-                      ms-5
-                      me-5
-                      mb-5
-                      d-flex-justify-content-between
-                    "
-                  >
-                    <div class="col-md-6">
-                      <a href="" class="rounded-circle">
-                        <img
-                          width="40"
-                          class="img-fluid rounded-circle"
-                          src="~/assets/media/avatars/300-1.jpg"
-                          alt="profile"
-                        />
-                      </a>
-                    </div>
-                    <div class="col-md-6 d-flex justify-content-end">
-                      <button class="btn btn-primary btn-sm">Pick Up</button>
+                      <div class="col-md-6 d-flex justify-content-end" v-else>
+                        <nuxt-link :to="{ path: 'view-prospect-pbth', query: { id: data.id }}" class="btn btn-primary btn-sm">Pick Up</nuxt-link>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -485,24 +309,63 @@ export default {
   layout: 'template',
   data() {
     return {
+      contact_person: [],
+      contact_person1: [],
+      contact_person2: [],
+      prospect_customer: [],
+      prospect_total: [],
       customer: [],
-      id: null,
+      customer_area: [],
+      customer_region: [],
+      customer_country: [],
+      customer_image: [],
       }
     },
     created() {
-    this.listProspect()
+      this.listContactPersons()
+      this.listProspectCustomer()
+      this.Customer()
   },
   methods: {
-    listProspect() {
+    formatNumber(value) {
+      let val = (value/1).toFixed(2).replace(',', ',')
+      return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+    },
+    listContactPersons() {
       this.$axios
-        .get('api/prospect-show/${id}', {
-          params: {
-            id: this.id
-          },
-        })
+        .get('api/contact-person')
         .then((response) => {
-          this.prospect = response.data.data.data
-          console.log(this.prospect)
+          this.contact_person = response.data.data[0].firstalphabet
+          this.contact_person1 = response.data.data[1].firstalphabet
+          this.contact_person2 = response.data.data[2].firstalphabet
+        })
+    },
+    listProspectCustomer() {
+      this.loading()
+      this.$axios
+        .get(`api/prospect-show/${this.$route.query.id}`)
+        .then((response) => {
+          // Data Prospect
+          this.prospect_customer = response.data.data.prospect
+          // Data Total
+          this.prospect_total = response.data.data
+        })
+    },
+    Customer() {
+      this.loading()
+      this.$axios
+        .get(`api/customer-show/${this.$route.query.id}`)
+        .then((response) => {
+          // Data Customer
+          this.customer = response.data.data[0]
+          // Data Area Customer
+          this.customer_area = response.data.data[0].ams_customers[0].area
+          // Data Country Customer
+          this.customer_country = response.data.data[0].country
+          // Data Region Customer
+          this.customer_region = response.data.data[0].country.region
+          this.customer_image = response.data.data[0].full_path
+          console.log(this.customer_image)
         })
     },
     loading() {

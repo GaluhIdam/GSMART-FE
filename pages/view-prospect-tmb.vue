@@ -246,6 +246,65 @@
               </div>
             </div>
         </div>
+    <div class="modal fade" tabindex="-1" id="modal" data-bs-backdrop="static">
+      <div class="modal-dialog modal-xl modal-dialog-centered">
+        <div class="modal-content py-5">
+          <div class="modal-header">
+            <h3 class="modal-title" v-if="modal_create">Add Registration</h3>
+            <h3 class="modal-title" v-if="modal_update">Edit Registration</h3>
+            <div type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="close_modal_sales">
+            </div>
+          </div>
+          <div class="modal-body">
+            <form @submit.prevent="submit">
+              <div class="row">
+                <div class="col-md-6">
+                    <div class="mb-3">
+                      <label for="Maintenance" class="form-label">Maintenance</label>
+                      <multiselect v-model="tmbSale.maintenance_id" :options="maintenance_option" label="name" 
+                      :class="{'is-invalid': errors.maintenance_id}"></multiselect>
+                      <span v-if="errors.maintenance_id" class="error invalid-feedback">{{errors.maintenance_id[0]}}</span>
+                    </div>
+                    <div class="mb-3">
+                      <label for="Registration" class="form-label">Registration</label>
+                      <input type="text" v-model="tmbSale.ac_reg" class="form-control" open-direction="bottom" :class="{'is-invalid': errors.ac_reg}">
+                      <span v-if="errors.ac_reg" class="error invalid-feedback">{{errors.ac_reg[0]}}</span>
+                    </div>
+                    <div class="mb-3">
+                      <label for="TAT" class="form-label">TAT</label>
+                      <input type="text" v-model="tmbSale.tat" class="form-control" :class="{'is-invalid': errors.tat}">
+                      <span v-if="errors.tat" class="error invalid-feedback">{{errors.tat[0]}}</span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                      <label for="Hangar" class="form-label">Hangar</label>
+                      <multiselect v-model="tmbSale.hangar_id" :options="hangar_option" label="name" 
+                      :class="{'is-invalid': errors.hangar_id}"></multiselect>
+                      <span v-if="errors.hangar_id" class="error invalid-feedback">{{errors.hangar_id[0]}}</span>
+                    </div>
+                    <div class="mb-3">
+                      <label for="Sales Plan" class="form-label">Sales Plan</label>
+                      <input type="text" v-model="tmbSale.value" class="form-control" :class="{'is-invalid': errors.value}">
+                      <span v-if="errors.value" class="error invalid-feedback">{{errors.value[0]}}</span>
+                    </div>
+                    <div class="mb-3">
+                      <label for="Start Date" class="form-label">Start Date</label>
+                      <input type="date" v-model="tmbSale.start_date" class="form-control" :class="{'is-invalid': errors.start_date}">
+                      <span v-if="errors.start_date" class="error invalid-feedback">{{errors.start_date[0]}}</span>
+                    </div>
+                </div>
+                <div class="col-md-12 justify-content-between d-flex">
+                  <div class="btn btn-secondary mt-3" data-bs-dismiss="modal">Back</div>
+                    <button type="submit" v-if="modal_create" class="btn btn-primary mt-3">Submit</button>
+                    <button type="submit" v-else class="btn btn-primary mt-3">Update</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
         <div class="card-body">
           <div class="row d-flex align-items-center">
           </div>

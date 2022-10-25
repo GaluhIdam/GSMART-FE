@@ -556,7 +556,6 @@
 
                             <!--begin::Step 4-->
                             <div class="flex-column current" data-kt-stepper-element="content" v-if="sales_detail.level === 4 || sales_detail.level === 3 || sales_detail.level === 2 || sales_detail.level === 1">
-                              <!-- <form v-if="sales_detail"> -->
                               <form>
                                 <div class="row">
                                   <!-- Fill in Contact Person of Customer -->
@@ -593,12 +592,6 @@
                                           <td>
                                             <strong>{{ contact.email }}</strong>	
                                           </td>
-                                          <!-- <td>
-                                            <strong>{{ contact.title }}</strong>
-                                          </td>
-                                          <td>
-                                            <strong>{{ contact.address }}</strong>
-                                          </td> -->
                                         </tr>
                                       </table>
                                     </div>
@@ -708,6 +701,18 @@
                                       </button>
                                     </form>
                                   </div>
+                                  <div class="text-center mt-5" v-if="role == 'AMS'">
+                                    <form>
+                                      <button type="button" 
+                                        class="btn btn-info btn-sm" 
+                                        data-bs-toggle="modal" 
+                                        data-bs-target="#notifyUpgrade" 
+                                        v-if = "sales_detail.status === 'Open' && sales_detail.level == 4 && sales_detail.upgrade == true"
+                                        >
+                                        Request to Upgrade
+                                      </button>
+                                    </form>
+                                  </div>
 
                                 </div>
                               </form>
@@ -773,7 +778,15 @@
                                     <div class="position-relative" v-if="sales_detail">
                                       <div class="position-absolute top-0 end-0" v-if="sales_detail.status === 'Open'">
                                         <button type="button" class="btn btn-outline-warning btn-outline btn-sm">Sync</button>
-                                        <button type="button" class="btn btn-success btn-sm">Notify COGS</button>
+                                        <button 
+                                          type="button" 
+                                          class="btn btn-success btn-sm"
+                                          data-bs-toggle="modal" 
+                                          data-bs-target="#notifyCOGS" 
+                                          v-if="role == 'TPR' || role == 'Administrator'"
+                                        >
+                                          Notify COGS
+                                        </button>
                                         <button 
                                         type="button" 
                                         class="btn btn-primary btn-sm" 
@@ -871,6 +884,20 @@
                                       </button>
                                     </form>
                                   </div>
+                                  <div class="text-center mt-5" v-if="role == 'AMS'">
+                                    <form>
+                                      <button 
+                                        type="button" 
+                                        class="btn btn-info btn-sm" 
+                                        data-bs-toggle="modal" 
+                                        data-bs-target="#notifyUpgrade" 
+                                        @click="notifyLevel()" 
+                                        v-if = "sales_detail.status === 'Open' && sales_detail.level == 3 && sales_detail.upgrade == true"
+                                        >
+                                        Request to Upgrade
+                                      </button>
+                                    </form>
+                                  </div>
 
                                 </div>
                               </form>
@@ -935,6 +962,15 @@
                                   <div class="col-lg-6 mt-5">
                                     <div class="position-relative">
                                       <div class="position-absolute top-0 end-0" v-if="sales_detail">
+                                        <span class="btn btn-sm" v-if="level2[1].status === 1" id="textApproved" disabled>Approved</span>
+                                        <button 
+                                          type="button" 
+                                          class="btn btn-success btn-sm"
+                                          @click="slotConfirm()"
+                                          v-if = "sales_detail.status === 'Open' && sales_detail.level == 2 && role == 'CBO' || role == 'Administrator'"
+                                        >
+                                          Approve
+                                        </button>
                                         <span class="btn btn-sm" v-if="sales_detail.upgrade == true" id="textApproved" disabled>Approved</span>
                                         <button 
                                             type="button" 
@@ -945,11 +981,11 @@
                                             Approve
                                         </button>
                                         <button 
-                                        type="button" 
-                                        class="btn btn-info btn-sm"
-                                        data-bs-toggle="modal" 
-                                        data-bs-target="#slotRequest" 
-                                        v-if = "sales_detail.status === 'Open' && sales_detail.level == 2 && role == 'AMS' || role == 'Administrator'"
+                                          type="button" 
+                                          class="btn btn-info btn-sm"
+                                          data-bs-toggle="modal" 
+                                          data-bs-target="#slotRequest" 
+                                          v-if = "sales_detail.status === 'Open' && sales_detail.level == 2 && role == 'AMS' || role == 'Administrator'"
                                         >
                                           Request to CBO
                                         </button>
@@ -957,23 +993,56 @@
                                     </div>
                                   </div>
                                   <div class="row" v-if="sales_detail">
-                                    <div class="col-lg-4" >
+                                    <div class="col-lg-4">
                                       <div class="mb-3">
                                         <label>Hangar</label>
                                         <input type="text" class="form-control form-control-solid" v-model="sales_detail.location.id" readonly/>
                                       </div>
                                       <div class="mb-3">
-                                        <label>Line Hangar</label>
-                                          <div class="row">
-                                            <div class="col-12" v-if="level2[1].status == 0">
-                                              <input type="text" class="form-control form-control-solid" readonly>
-                                            </div>
-                                            <div class="col-12" v-else>
-                                              <input type="text" v-model="level2[1].data.line.name" class="form-control form-control-solid" readonly>
-                                            </div>
+                                        <label>Line Hangar Request</label>
+                                        <div class="row" v-if="level2[1].status === 0">
+                                          <div class="col-12">
+                                            <input type="text" class="form-control form-control-solid" readonly v-if="role == 'TPR' || role == 'Administrator'|| role == 'CBO' || role == 'AMS'">
                                           </div>
-                                        
+                                        </div>
+                                        <div class="row" v-else>
+                                          <div class="col-12">
+                                            <input type="text" v-model="level2[1].data.line.name" class="form-control form-control-solid" readonly v-if="role == 'TPR' || role == 'Administrator'|| role == 'CBO'">
+                                          </div>
+                                        </div>
                                       </div>
+
+                                      <!-- Confirm Line Hanggar -->
+                                      <!-- 
+                                      <div class="row" v-if="role == 'CBO' || role == 'Administrator'">
+                                        <div class="col-9">
+                                          <div class="mb-3">
+                                            <label>Choose Line Hangar</label>
+                                            <select v-model="line_id" class="form-select">
+                                              <option :value="null" disabled>Select Line</option>
+                                              <option 
+                                                v-for="lines in line" 
+                                                v-if="lines.hangar_id === sales_detail.location.id"
+                                                :value="lines.id"
+                                              >
+                                                {{ lines.name }}
+                                              </option>
+                                            </select>
+                                          </div>
+                                        </div>
+                                        <div class="col-3">
+                                          <button 
+                                            class="btn btn-primary btn-sm mt-7" 
+                                            type="button" 
+                                            @click="updateSlot()"
+                                            v-if="sales_detail.status === 'Open'"
+                                            v-permission="['slot_request']"
+                                          >
+                                            Edit
+                                          </button>
+                                        </div>
+                                      </div> 
+                                      -->
                                     </div>
                                     <div class="col-lg-4">
                                       <div class="mb-3">
@@ -1006,6 +1075,19 @@
                                         v-permission="['upgrade_level']"
                                         >
                                         Upgrade Level
+                                      </button>
+                                    </form>
+                                  </div>
+                                  <div class="text-center mt-5" v-if="role == 'AMS'">
+                                    <form>
+                                      <button 
+                                        type="button" 
+                                        class="btn btn-info btn-sm" 
+                                        data-bs-toggle="modal" 
+                                        data-bs-target="#notifyUpgrade" 
+                                        v-if = "sales_detail.status === 'Open' && sales_detail.level == 2 && sales_detail.upgrade == true"
+                                        >
+                                        Request to Upgrade
                                       </button>
                                     </form>
                                   </div>
@@ -1609,6 +1691,7 @@
                             id="files" 
                             ref="files" 
                             class="form-control" multiple  
+                            style="height: 200px; "
                             :class="{
                               'is-invalid': errors.files,
                             }"
@@ -1676,8 +1759,10 @@
                           <div class="mb-3">
                             <label>To <span class="text-danger">*</span></label>
                             <select v-model="user_id" class="form-select">
+                              <option :value="null" disabled>Select User</option>
                               <option 
                               v-for="user_options in user_option" 
+                              v-if="user_options.role_id === 4"
                               :value="user_options.id"
                               >
                                 {{ user_options.name }} - {{ user_options.email }}
@@ -1692,6 +1777,7 @@
                           <div class="form-group mb-3">
                             <label for="">Line <span class="text-danger">*</span></label>
                             <select v-model="line_id" class="form-select">
+                              <option :value="null" disabled>Select Line</option>
                               <option 
                               v-for="lines in line" 
                               v-if="lines.hangar_id === sales_detail.location.id"
@@ -1709,7 +1795,147 @@
                               <button type="button" class="btn btn-danger btn-sm mx-2" data-bs-dismiss="modal" id="close_modal_slot" @click="closeRequestSlot()">
                                 Discard
                               </button>
-                              <button type="button" @click="requestSlot()" class="btn btn-primary btn-sm">Send</button>
+                              <button type="button" @click="slotRequest()" class="btn btn-primary btn-sm">Send</button>
+                            </div>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Modal notifyUpgrade -->
+                <div class="modal fade" tabindex="-1" id="notifyUpgrade" data-bs-backdrop="static">
+                  <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h3 class="modal-title">Notify Request to Upgrade</h3>
+                        <!--begin::Close-->
+                        <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
+                          <span class="svg-icon svg-icon-1" @click="closeNotifyLevel()">
+                            <svg
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <rect
+                                opacity="0.5"
+                                x="6"
+                                y="17.3137"
+                                width="16"
+                                height="2"
+                                rx="1"
+                                transform="rotate(-45 6 17.3137)"
+                                fill="currentColor"
+                              ></rect>
+                              <rect
+                                x="7.41422"
+                                y="6"
+                                width="16"
+                                height="2"
+                                rx="1"
+                                transform="rotate(45 7.41422 6)"
+                                fill="currentColor"
+                              ></rect>
+                            </svg>
+                          </span>
+                        </div>
+                        <!--end::Close-->
+                      </div>
+                      <div class="modal-body">
+                        <form>
+                          <div class="mb-3">
+                            <label>To <span class="text-danger">*</span></label>
+                            <select v-model="user_id" class="form-select">
+                              <option :value="null" disabled>Select User</option>
+                              <option 
+                              v-for="user_options in user_option" 
+                              v-if="user_options.role_id === 3"
+                              :value="user_options.id"
+                              >
+                                {{ user_options.name }} - {{ user_options.email }}
+                              </option>
+                            </select>
+                            <small class="text-muted">Send notification to selected employee</small>
+                          </div>
+                          <div class="row mt-10">
+                            <div class="col d-flex justify-content-end">
+                              <button type="button" class="btn btn-danger btn-sm mx-2" data-bs-dismiss="modal" id="close_modal_notify" @click="closeNotifyLevel()">
+                                Discard
+                              </button>
+                              <button type="button" @click="notifyUpgrade()" class="btn btn-primary btn-sm">Send</button>
+                            </div>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Modal notifyCOGS -->
+                <div class="modal fade" tabindex="-1" id="notifyCOGS" data-bs-backdrop="static">
+                  <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h3 class="modal-title">Notify to COGS</h3>
+                        <!--begin::Close-->
+                        <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
+                          <span class="svg-icon svg-icon-1" @click="closeNotifyCOGS()">
+                            <svg
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <rect
+                                opacity="0.5"
+                                x="6"
+                                y="17.3137"
+                                width="16"
+                                height="2"
+                                rx="1"
+                                transform="rotate(-45 6 17.3137)"
+                                fill="currentColor"
+                              ></rect>
+                              <rect
+                                x="7.41422"
+                                y="6"
+                                width="16"
+                                height="2"
+                                rx="1"
+                                transform="rotate(45 7.41422 6)"
+                                fill="currentColor"
+                              ></rect>
+                            </svg>
+                          </span>
+                        </div>
+                        <!--end::Close-->
+                      </div>
+                      <div class="modal-body">
+                        <form v-if="sales_detail">
+                          <div class="mb-3">
+                            <label>To <span class="text-danger">*</span></label>
+                            <select v-model="user_id" class="form-select">
+                              <option :value="null" disabled>Select User</option>
+                              <option 
+                              v-for="user_options in user_option" 
+                              v-if="user_options.role_id === 4"
+                              :value="user_options.id"
+                              >
+                                {{ user_options.name }} - {{ user_options.email }}
+                              </option>
+                            </select>
+                            <small class="text-muted">Send notification to selected employee</small>
+                          </div>
+                          <div class="row mt-10">
+                            <div class="col d-flex justify-content-end">
+                              <button type="button" class="btn btn-danger btn-sm mx-2" data-bs-dismiss="modal" id="close_modal_cogs" @click="closeNotifyCOGS()">
+                                Discard
+                              </button>
+                              <button type="button" @click="notifyCOGS()" class="btn btn-primary btn-sm">Send</button>
                             </div>
                           </div>
                         </form>
@@ -1981,6 +2207,7 @@ export default {
       .get(`api/users/`)
       .then((response) => {
         this.user_option = response.data.data.data
+        console.log(this.user_option)
         Swal.close()
       })
       .catch((error) => console.log(error))
@@ -2025,12 +2252,11 @@ export default {
           }
         })
     },
-    updateSlot() {
+    slotConfirm() {
       this.loading()
       this.$axios
-      .put(`api/sales-slot-request/${this.$route.query.id}`, {
+      .put(`api/sales-slot-confirm/${this.$route.query.id}`, {
         sales_id: this.$route.query.id,
-        line_id: this.line_id,
       })
       .then((response) => {
         toastr.success(response.data.message)
@@ -2131,6 +2357,71 @@ export default {
             toastr.error(error.response.data.message)
           }
         })
+    },
+    notifyCOGS() {
+      this.loading()
+      this.$axios
+        .post(`api/sales-request-cogs/`, {
+          sales_id: this.$route.query.id,
+          user_id: this.user_id,
+          target_url: this.$route.fullPath,
+        })
+        .then((response) => {
+          toastr.success(response.data.message)
+          this.listDetail()
+          this.closeNotifyCOGS()
+        })
+        .catch((error) => {
+          if (error.response.status == 422) {
+            toastr.error(error.response.data.message)
+          } else if (error.response.status == 403) {
+            toastr.error(error.response.data.message)
+          }
+        })
+    },
+    notifyUpgrade() {
+      this.loading()
+      this.$axios
+        .post(`api/sales-request-upgrade/`, {
+          sales_id: this.$route.query.id,
+          user_id: this.user_id,
+          target_url: this.$route.fullPath,
+        })
+        .then((response) => {
+          toastr.success(response.data.message)
+          this.listDetail()
+          this.closenotifyUpgrade()
+        })
+        .catch((error) => {
+          if (error.response.status == 422) {
+            toastr.error(error.response.data.message)
+          } else if (error.response.status == 403) {
+            toastr.error(error.response.data.message)
+          }
+        })
+    },
+    slotRequest() {
+      this.loading()
+      this.$axios
+      .post(`api/sales-slot-request/`, {
+        sales_id: this.$route.query.id,
+        line_id: this.line_id,
+        user_id: this.user_id,
+        target_url: this.$route.fullPath,
+      })
+      .then((response) => {
+        toastr.success(response.data.message)
+        this.listDetail()
+        this.closeRequestSlot()
+        Swal.close()
+      })
+      .catch((error) => {
+        if (error.response.status == 422) {
+          toastr.error(error.response.data.message)
+        } else if (error.response.status == 403) {
+          toastr.error(error.response.data.message)
+        }
+      })
     },
     closeSales() {
       Swal.fire({
@@ -2436,6 +2727,32 @@ export default {
       this.clearFormRequestSlot()
     },
 
+    clearFormNotifyLevel() {
+      this.user_id = null
+      this.line_id = null
+    },
+    closeNotifyLevel() {
+      document.getElementById('close_modal_notify').click()
+      this.clearFormNotifyLevel()
+    },
+    
+    clearFormnotifyUpgrade() {
+      this.user_id = null
+      this.line_id = null
+    },
+    closenotifyUpgrade() {
+      document.getElementById('close_modal_notify').click()
+      this.clearFormnotifyUpgrade()
+    },
+
+    clearFormNotifyCOGS() {
+      this.user_id = null
+    },
+    closeNotifyCOGS() {
+      document.getElementById('close_modal_cogs').click()
+      this.clearFormNotifyCOGS()
+    },
+
     clearFormHistory() {
       this.filter = null
     },
@@ -2500,6 +2817,11 @@ export default {
 #textWaiting {
   background-color: #F1E0D0; 
   color: #955F2D;
+}
+
+#textApproved {
+  background-color: #50cd89; 
+  color: #fff;
 }
 
 #bodyAMS {

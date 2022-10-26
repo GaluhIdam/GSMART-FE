@@ -2103,7 +2103,14 @@ export default {
         this.level1 = response.data.data.level1
         Swal.close()
       })
-      .catch((error) => console.log(error))
+      .catch((error) => {
+        if (error.response.status == 404) {
+          toastr.error(error.response.data.message)
+          this.$router.push({
+            name: 'my-salesplan'
+          });
+        } 
+      })
     },
     listContact(paginate) {
       this.loading()

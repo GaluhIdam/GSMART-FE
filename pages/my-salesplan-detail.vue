@@ -962,7 +962,6 @@
                                   <div class="col-lg-6 mt-5">
                                     <div class="position-relative">
                                       <div class="position-absolute top-0 end-0" v-if="sales_detail">
-                                        <!-- <span class="btn btn-sm" v-if="sales_detail.upgrade == true" id="textApproved" disabled>Approved</span> -->
                                         <button 
                                             type="button" 
                                             class="btn btn-success btn-sm"
@@ -2103,7 +2102,14 @@ export default {
         this.level1 = response.data.data.level1
         Swal.close()
       })
-      .catch((error) => console.log(error))
+      .catch((error) => {
+        if (error.response.status == 404) {
+          toastr.error(error.response.data.message)
+          this.$router.push({
+            name: 'my-salesplan'
+          });
+        } 
+      })
     },
     listContact(paginate) {
       this.loading()

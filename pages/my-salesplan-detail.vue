@@ -572,7 +572,7 @@
                                           data-bs-toggle="modal" 
                                           data-bs-target="#addContact" 
                                           @click="addContact()"
-                                          v-if = "role == 'AMS' || role == 'Administrator' || role == 'TPR'"
+                                          v-if = "role == 'AMS' || role == 'Administrator'"
                                           >
                                           Add Contact Person
                                         </button>
@@ -611,7 +611,7 @@
                                         data-bs-toggle="modal" 
                                         data-bs-target="#addFile" 
                                         @click="addFile1()"
-                                        v-if="role == 'AMS' || role == 'Administrator' || role == 'TPR'"
+                                        v-if="role == 'AMS' || role == 'Administrator'"
                                         v-permission="['upload_files']"
                                         >
                                           Upload Document
@@ -633,7 +633,7 @@
                                               class="btn btn-danger btn-sm" 
                                               @click="removeFile(files.id)" 
                                               v-permission="['delete_files']"
-                                              v-if = "sales_detail.status === 'Open'  && role == 'AMS' || role == 'Administrator' || role == 'TPR'"
+                                              v-if = "sales_detail.status === 'Open'  && role == 'AMS' || role == 'Administrator'"
                                               >
                                               <span class="fas fa-trash"></span>
                                             </button>
@@ -657,7 +657,7 @@
                                           data-bs-toggle="modal" 
                                           data-bs-target="#addFile" 
                                           @click="addFile2()"
-                                          v-if="role == 'AMS' || role == 'Administrator' || role == 'TPR'"
+                                          v-if="role == 'AMS' || role == 'Administrator'"
                                           v-permission="['upload_files']"
                                         >
                                           Upload Document
@@ -679,7 +679,7 @@
                                               class="btn btn-danger btn-sm" 
                                               @click="removeFile(files.id)" 
                                               v-permission="['delete_files']"
-                                              v-if = "sales_detail.status === 'Open'  && role == 'AMS' || role == 'Administrator' || role == 'TPR'"
+                                              v-if = "sales_detail.status === 'Open'  && role == 'AMS' || role == 'Administrator'"
                                               >
                                               <span class="fas fa-trash"></span>
                                             </button>
@@ -737,7 +737,7 @@
                                         data-bs-toggle="modal" 
                                         data-bs-target="#addFile" 
                                         @click="addFile3()"
-                                        v-if="role == 'AMS' || role == 'Administrator' || role == 'TPR'"
+                                        v-if="role == 'AMS' || role == 'Administrator'"
                                         v-permission="['upload_files']"
                                         >
                                           Upload Document
@@ -759,7 +759,7 @@
                                               class="btn btn-danger btn-sm" 
                                               @click="removeFile(files.id)" 
                                               v-permission="['delete_files']"
-                                              v-if = "sales_detail.status === 'Open' && sales_detail.level == 3 && role == 'AMS' || role == 'Administrator' || role == 'TPR'"
+                                              v-if = "sales_detail.status === 'Open' && sales_detail.level == 3 && role == 'AMS' || role == 'Administrator'"
                                               >
                                               <span class="fas fa-trash"></span>
                                             </button>
@@ -815,7 +815,7 @@
                                               class="btn btn-danger btn-sm" 
                                               @click="removeFile(files.id)" 
                                               v-permission="['delete_files']"
-                                              v-if = "sales_detail.status === 'Open' && sales_detail.level == 3 && role == 'AMS' || role == 'Administrator' || role == 'TPR'"
+                                              v-if = "sales_detail.status === 'Open' && sales_detail.level == 3 && role == 'AMS' || role == 'Administrator'"
                                               >
                                               <span class="fas fa-trash"></span>
                                             </button>
@@ -840,7 +840,7 @@
                                         data-bs-toggle="modal" 
                                         data-bs-target="#addFile" 
                                         @click="addFile5()"
-                                        v-if="role == 'AMS' || role == 'Administrator' || role == 'TPR'"
+                                        v-if="role == 'AMS' || role == 'Administrator'"
                                         v-permission="['upload_files']"
                                         >
                                           Upload Document
@@ -862,7 +862,7 @@
                                               class="btn btn-danger btn-sm" 
                                               @click="removeFile(files.id)" 
                                               v-permission="['delete_files']"
-                                              v-if = "sales_detail.status === 'Open' && sales_detail.level == 3 && role == 'AMS' || role == 'Administrator' || role == 'TPR'"
+                                              v-if = "sales_detail.status === 'Open' && sales_detail.level == 3 && role == 'AMS' || role == 'Administrator'"
                                               >
                                               <span class="fas fa-trash"></span>
                                             </button>
@@ -922,7 +922,7 @@
                                         data-bs-toggle="modal" 
                                         data-bs-target="#addFile" 
                                         @click="addFile6()"
-                                        v-if="role == 'AMS' || role == 'Administrator' || role == 'TPR'"
+                                        v-if="role == 'AMS' || role == 'Administrator'"
                                         v-permission="['upload_files']"
                                         >
                                           Upload Document
@@ -944,7 +944,7 @@
                                               class="btn btn-danger btn-sm" 
                                               @click="removeFile(files.id)" 
                                               v-permission="['delete_files']"
-                                              v-if = "sales_detail.status === 'Open' && sales_detail.level == 2 && role == 'AMS' || role == 'Administrator' || role == 'TPR'"
+                                              v-if = "sales_detail.status === 'Open' && sales_detail.level == 2 && role == 'AMS' || role == 'Administrator'"
                                               >
                                               <span class="fas fa-trash"></span>
                                             </button>
@@ -970,6 +970,15 @@
                                           v-if = "sales_detail.status === 'Open' && sales_detail.level == 2 && role == 'CBO' || role == 'Administrator'"
                                         >
                                           Approve
+                                        </button>
+                                        <span class="btn btn-sm" v-if="sales_detail.upgrade == true" id="textApproved" disabled>Approved</span>
+                                        <button 
+                                            type="button" 
+                                            class="btn btn-success btn-sm"
+                                            @click="slotConfirm()"
+                                            v-if = "sales_detail.status === 'Open' && sales_detail.upgrade == false && sales_detail.level == 2 && role == 'CBO' || role == 'Administrator'"
+                                          >
+                                            Approve
                                         </button>
                                         <button 
                                           type="button" 
@@ -1114,7 +1123,7 @@
                                         data-bs-toggle="modal" 
                                         data-bs-target="#addFile" 
                                         @click="addFile7()"
-                                        v-if="role == 'AMS' || role == 'Administrator' || role == 'TPR'"
+                                        v-if="role == 'AMS' || role == 'Administrator'"
                                         v-permission="['upload_files']"
                                         >
                                           Upload Document
@@ -1136,7 +1145,7 @@
                                               class="btn btn-danger btn-sm" 
                                               @click="removeFile(files.id)" 
                                               v-permission="['delete_files']"
-                                              v-if = "sales_detail.status === 'Open' && sales_detail.level == 1 && role == 'AMS' || role == 'Administrator' || role == 'TPR'"
+                                              v-if = "sales_detail.status === 'Open' && sales_detail.level == 1 && role == 'AMS' || role == 'Administrator'"
                                               >
                                               <span class="fas fa-trash"></span>
                                             </button>

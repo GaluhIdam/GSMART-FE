@@ -149,9 +149,6 @@
                     </td>
 
                     <td class="d-flex justify-content-center">
-                      <button class="btn btn-sm btn-light">
-                        <i class="bi bi-toggles text-primary"></i>
-                      </button>
                       <button
                         class="btn btn-sm btn-light"
                         data-bs-toggle="modal"

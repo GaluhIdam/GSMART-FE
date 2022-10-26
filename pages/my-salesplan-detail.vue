@@ -963,6 +963,15 @@
                                     <div class="position-relative">
                                       <div class="position-absolute top-0 end-0" v-if="sales_detail">
                                         <button 
+                                          type="button" 
+                                          class="btn btn-success btn-sm"
+                                          @click="slotConfirm()"
+                                          v-if = "sales_detail.status === 'Open' && sales_detail.level == 2 && role == 'CBO' || role == 'Administrator'"
+                                        >
+                                          Approve
+                                        </button>
+                                        <span class="btn btn-sm" v-if="sales_detail.upgrade == true" id="textApproved" disabled>Approved</span>
+                                        <button 
                                             type="button" 
                                             class="btn btn-success btn-sm"
                                             @click="slotConfirm()"

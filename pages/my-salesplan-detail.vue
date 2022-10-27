@@ -2293,67 +2293,103 @@ export default {
         })
     },
     salesReschedule() {
-      this.loading()
-      this.$axios
-        .put(`api/sales-reschedule/${this.$route.query.id}`, {
-          sales_id: this.$route.query.id,
-          hangar_id: this.sales_detail.location.id,
-          current_date: this.current_date,
-          start_date: this.sales_detail.start_date,
-          tat: this.sales_detail.tat,
-        })
-        .then((response) => {
-          toastr.success(response.data.message)
-          this.listDetail()
-        })
-        .catch((error) => {
-          if (error.response.status == 422) {
-            toastr.error(error.response.data.message)
-          } else if (error.response.status == 403) {
-            toastr.error(error.response.data.message)
-          }
-        })
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, upgrade level!',
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+          this.$axios
+          .put(`api/sales-reschedule/${this.$route.query.id}`, {
+            sales_id: this.$route.query.id,
+            hangar_id: this.sales_detail.location.id,
+            current_date: this.current_date,
+            start_date: this.sales_detail.start_date,
+            tat: this.sales_detail.tat,
+          })
+          .then((response) => {
+            toastr.success(response.data.message)
+            this.listDetail()
+          })
+        }
+      })
+      .catch((error) => {
+        if (error.response.status == 422) {
+          toastr.error(error.response.data.message)
+        } else if (error.response.status == 403) {
+          toastr.error(error.response.data.message)
+        }
+      })
     },
     salesCancel() {
-      this.loading()
-      this.$axios
-        .put(`api/sales-reject/${this.$route.query.id}`, {
-          sales_id: this.$route.query.id,
-          category: this.category,
-          reason: this.reason,
-        })
-        .then((response) => {
-          toastr.success(response.data.message)
-          this.$router.push({
-            name: 'my-salesplan'
-          });
-        })
-        .catch((error) => {
-          if (error.response.status == 422) {
-            toastr.error(error.response.data.message)
-          } else if (error.response.status == 403) {
-            toastr.error(error.response.data.message)
-          }
-        })
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, upgrade level!',
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+          this.$axios
+          .put(`api/sales-reject/${this.$route.query.id}`, {
+            sales_id: this.$route.query.id,
+            category: this.category,
+            reason: this.reason,
+          })
+          .then((response) => {
+            toastr.success(response.data.message)
+            this.$router.push({
+              name: 'my-salesplan'
+            });
+          })
+        }
+      })
+      .catch((error) => {
+        if (error.response.status == 422) {
+          toastr.error(error.response.data.message)
+        } else if (error.response.status == 403) {
+          toastr.error(error.response.data.message)
+        }
+      })
     },
     upgradeLevel() {
-      this.loading()
-      this.$axios
-        .put(`api/sales-upgrade-level/${this.$route.query.id}`, {
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, upgrade level!',
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+          this.$axios
+          .put(`api/sales-upgrade-level/${this.$route.query.id}`, {
           sales_id: this.$route.query.id,
           upgrade: this.upgrade,
-        })
-        .then((response) => {
-          toastr.success(response.data.message)
-          this.listDetail()
-        })
-        .catch((error) => {
-          if (error.response.status == 422) {
-            toastr.error(error.response.data.message)
-          } else if (error.response.status == 403) {
-            toastr.error(error.response.data.message)
-          }
-        })
+          })
+          .then((response) => {
+            toastr.success(response.data.message)
+            this.listDetail()
+          })
+        }
+      })
+      .catch((error) => {
+        if (error.response.status == 422) {
+          toastr.error(error.response.data.message)
+        } else if (error.response.status == 403) {
+          toastr.error(error.response.data.message)
+        }
+      })
     },
     notifyCOGS() {
       this.loading()

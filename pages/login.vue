@@ -123,7 +123,10 @@ export default {
         .catch((error) => {
           console.log(error.response)
           if (error.response.status == 401) {
-            this.errors = 'Please insert your account!'
+            this.errors = 'Username or Password is invalid!'
+            this.failMessage()
+          } else if (error.response.status == 422) {
+            this.errors = 'Please insert Username or Password!'
             this.failMessage()
           }
         })

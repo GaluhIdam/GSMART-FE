@@ -969,7 +969,7 @@
                                           >
                                             Approve
                                         </button>
-                                        <span class="btn btn-sm" id="textApproved" v-if="level2[1].status == 1 && sales_detail.status === 'Open'">
+                                        <span class="btn btn-sm" id="textApproved" v-if="level2[1].status == 1 && sales_detail.status === 'Open' && sales_detail.level == 2">
                                           Approved by CBO
                                         </span>
                                         <button 
@@ -1151,7 +1151,7 @@
                                   </div>
                                   <form>
                                     <div class="row">
-                                      <div class="input-group mb-3" v-permission="['input_so_number']" v-if="level1[1].status == 0">
+                                      <div class="input-group mb-3" v-permission="['input_so_number']" v-if="level1[1].data == ''">
                                           <input 
                                             type="text" 
                                             class="form-control" 
@@ -2231,23 +2231,37 @@ export default {
       })
     },
     updateSO() {
-      this.loading()
-      this.$axios
-        .put(`/api/sales-so-number/${this.$route.query.id}`, {
-          sales_id: this.$route.query.id,
-          so_number: this.sales_detail.so_number,
-        })
-        .then((response) => {
-          toastr.success(response.data.message)
-        })
-        .catch((error) => {
-          if (error.response.status == 422) {
-            this.errors = error.response.data.errors
-            toastr.error(error.response.data.message)
-          } else if (error.response.status == 403) {
-            toastr.error(error.response.data.message)
-          }
-        })
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, Update SO Number!',
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+          this.$axios
+          .put(`/api/sales-so-number/${this.$route.query.id}`, {
+            sales_id: this.$route.query.id,
+            so_number: this.sales_detail.so_number,
+          })
+          .then((response) => {
+            toastr.success(response.data.message)
+            this.listDetail()
+            Swal.close()
+          })
+        }
+      })
+      .catch((error) => {
+        if (error.response.status == 422) {
+          this.errors = error.response.data.errors
+          toastr.error(error.response.data.message)
+        } else if (error.response.status == 403) {
+          toastr.error(error.response.data.message)
+        }
+      })
     },
     slotConfirm() {
       Swal.fire({

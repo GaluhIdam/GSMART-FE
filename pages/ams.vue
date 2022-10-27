@@ -138,9 +138,6 @@
                     <td class="text-center">{{ p_ams.initial }}</td>
                     <td class="text-center">{{ p_ams.user.name }}</td>
                     <td class="d-flex justify-content-center">
-                      <button class="btn btn-sm btn-light">
-                        <i class="bi bi-toggles text-primary"></i>
-                      </button>
                       <button
                         class="btn btn-sm btn-light"
                         data-bs-toggle="modal"
@@ -297,16 +294,16 @@
                 }}</span>
               </div>
               <div class="form-group mb-3">
-                <label class="form-label fw-bold">User ID</label>
-                <multiselect
-                  v-model="p_ams.user_id"
-                  :options="users"
-                  open-direction="bottom"
-                  placeholder=""
-                  label="name"
-                  :searchable="true"
-                  :class="{ 'is-invalid': errors.region_id }"
-                ></multiselect>
+                <label class="form-label fw-bold">User</label>
+                <select v-model="p_ams.user_id" class="form-select">
+                  <option 
+                  v-for="user_options in users" 
+                  v-if="user_options.role_id === 5"
+                  :value="user_options.id"
+                  >
+                    {{ user_options.name }} - {{ user_options.email }}
+                  </option>
+                </select>
                 <span v-if="errors.user_id" class="error invalid-feedback">{{
                   errors.user_id[0]
                 }}</span>
@@ -453,7 +450,7 @@ export default {
       this.modal_create = false
       this.p_ams.id = p_ams.id
       this.p_ams.initial = p_ams.initial
-      this.p_ams.user_id = p_ams.user
+      this.p_ams.user_id = p_ams.user_id
     },
     update() {
       this.loading()
@@ -461,7 +458,7 @@ export default {
       this.$axios
         .put('/api/ams-update/' + this.p_ams.id, {
           initial: this.p_ams.initial,
-          user_id: this.p_ams.user_id.id,
+          user_id: this.p_ams.user_id,
         })
         .then((response) => {
           toastr.success(response.data.message)

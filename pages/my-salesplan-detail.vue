@@ -966,7 +966,7 @@
                                             type="button" 
                                             class="btn btn-success btn-sm"
                                             @click="slotConfirm()"
-                                            v-if = "sales_detail.status === 'Open' && sales_detail.upgrade == false && sales_detail.level == 2 && role == 'CBO' || role == 'Administrator'"
+                                            v-if = "sales_detail.status === 'Open' && sales_detail.level == 2 && sales_detail.upgrade == false && role == 'CBO' || role == 'Administrator'"
                                           >
                                             Approve
                                         </button>
@@ -992,12 +992,12 @@
                                         <label>Line Hangar Request</label>
                                         <div class="row" v-if="level2[1].status === 0">
                                           <div class="col-12">
-                                            <input type="text" class="form-control form-control-solid" readonly v-if="role == 'TPR' || role == 'Administrator'|| role == 'CBO' || role == 'AMS'">
+                                            <input type="text" class="form-control form-control-solid" readonly>
                                           </div>
                                         </div>
                                         <div class="row" v-else>
                                           <div class="col-12">
-                                            <input type="text" v-model="level2[1].data.line.name" class="form-control form-control-solid" readonly v-if="role == 'TPR' || role == 'Administrator'|| role == 'CBO'">
+                                            <input type="text" v-model="level2[1].data.line.name" class="form-control form-control-solid" readonly>
                                           </div>
                                         </div>
                                       </div>
@@ -1102,7 +1102,7 @@
                                         <input type="hidden" v-model="status" value="2">
                                         <button type="button" class="btn btn-success btn-sm" 
                                           @click="closeSales()" 
-                                          v-if="role == 'Administrator' || role == 'TPR'"
+                                          v-if="role == 'Administrator'"
                                           v-permission="['upgrade_level']"
                                           >
                                           Closed Sales
@@ -1185,14 +1185,14 @@
                                   </form>
 
                                   <div class="text-center mt-10" v-if="sales_detail">
-                                    <form v-if="sales_detail.status === 'Closed' ">
+                                    <form v-if="sales_detail.status === 'Closed'">
                                       <input type="hidden" v-model="status" value="3">
                                       <button 
                                       type="button" 
                                       class="btn btn-primary btn-sm" 
                                       @click="requestClosed()" 
                                       v-permission="['close_sales']" 
-                                      v-if="role == 'Administrator' || role == 'TPR'"
+                                      v-if="role == 'Administrator'"
                                       >
                                         Request to Closed
                                       </button>
@@ -2102,7 +2102,14 @@ export default {
         this.level1 = response.data.data.level1
         Swal.close()
       })
-      .catch((error) => console.log(error))
+      .catch((error) => {
+        if (error.response.status == 404) {
+          toastr.error(error.response.data.message)
+          this.$router.push({
+            name: 'my-salesplan'
+          });
+        } 
+      })
     },
     listContact(paginate) {
       this.loading()

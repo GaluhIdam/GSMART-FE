@@ -969,7 +969,7 @@
                                           >
                                             Approve
                                         </button>
-                                        <span class="btn btn-sm" id="textApproved" v-if="level2[1].status == 1">
+                                        <span class="btn btn-sm" id="textApproved" v-if="level2[1].status == 1 && sales_detail.status === 'Open'">
                                           Approved by CBO
                                         </span>
                                         <button 
@@ -1102,7 +1102,7 @@
                                         <input type="hidden" v-model="status" value="2">
                                         <button type="button" class="btn btn-success btn-sm" 
                                           @click="closeSales()" 
-                                          v-if="role == 'Administrator'"
+                                          v-if="role == 'Administrator' || role == 'AMS'"
                                           v-permission="['upgrade_level']"
                                           >
                                           Closed Sales
@@ -1192,7 +1192,7 @@
                                       class="btn btn-primary btn-sm" 
                                       @click="requestClosed()" 
                                       v-permission="['close_sales']" 
-                                      v-if="role == 'Administrator'"
+                                      v-if="role == 'Administrator' || role == 'AMS'"
                                       >
                                         Request to Closed
                                       </button>

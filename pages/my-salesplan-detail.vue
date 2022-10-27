@@ -51,8 +51,8 @@
               <div class="col-lg-6">
                 <div class="text-right">
                   <div class="position-absolute top-0 end-0 mx-15 mt-4" v-if="sales_detail">
-                    <button class="btn btn-outline btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#switchAMS" v-if="sales_detail.status === 'Open'">Switch AMS</button>
-                    <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editSales" v-if="sales_detail.type === 'TMB' && sales_detail.status === 'Open'"><i class="fa-solid fa-pen"></i> Edit Sales Plan</button>
+                    <button class="btn btn-outline btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#switchAMS" v-if="sales_detail.status === 'Open' && role == 'AMS'">Switch AMS</button>
+                    <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editSales" v-if="sales_detail.type === 'TMB' && sales_detail.status === 'Open' && role == 'TPR'"><i class="fa-solid fa-pen"></i> Edit Sales Plan</button>
                   </div>
                 </div>
               </div>

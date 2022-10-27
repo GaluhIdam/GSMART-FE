@@ -565,7 +565,7 @@
                                   </div>
                                   <div class="col-lg-6">
                                     <div class="position-relative" v-if="sales_detail">
-                                      <div class="position-absolute top-0 end-0" v-if="sales_detail.status === 'Open'">
+                                      <div class="position-absolute top-0 end-0" v-if="sales_detail.level == 4 && sales_detail.status === 'Open'">
                                         <button 
                                           type="button" 
                                           class="btn btn-primary btn-sm" 
@@ -604,7 +604,7 @@
                                   </div>
                                   <div class="col-lg-6 mt-3">
                                     <div class="position-relative" v-if="sales_detail">
-                                      <div class="position-absolute top-0 end-0" v-if="sales_detail.status === 'Open'">
+                                      <div class="position-absolute top-0 end-0" v-if="sales_detail.level == 4 && sales_detail.status === 'Open'">
                                         <button 
                                         type="button" 
                                         class="btn btn-primary btn-sm" 
@@ -628,12 +628,12 @@
                                                 <strong>{{ files.file_name }}</strong>
                                               </a>
                                           </td>
-                                          <td class="d-flex justify-content-end" v-if="sales_detail.status === 'Open'">
+                                          <td class="d-flex justify-content-end" v-if="sales_detail.level == 4 && sales_detail.status === 'Open'">
                                             <button type="button" 
                                               class="btn btn-danger btn-sm" 
                                               @click="removeFile(files.id)" 
                                               v-permission="['delete_files']"
-                                              v-if = "sales_detail.status === 'Open' && sales_detail.level === 4 && role == 'AMS' || role == 'Administrator'"
+                                              v-if = "role == 'AMS' || role == 'Administrator'"
                                               >
                                               <span class="fas fa-trash"></span>
                                             </button>
@@ -650,7 +650,7 @@
                                   </div>
                                   <div class="col-lg-6 mt-3">
                                     <div class="position-relative" v-if="sales_detail">
-                                      <div class="position-absolute top-0 end-0" v-if="sales_detail.status === 'Open'">
+                                      <div class="position-absolute top-0 end-0" v-if="sales_detail.level == 4 && sales_detail.status === 'Open'">
                                         <button 
                                           type="button" 
                                           class="btn btn-primary btn-sm" 
@@ -674,12 +674,12 @@
                                                 <strong>{{ files.file_name }}</strong>
                                               </a>
                                           </td>
-                                          <td class="d-flex justify-content-end" v-if="sales_detail.status === 'Open'">
+                                          <td class="d-flex justify-content-end" v-if="sales_detail.level == 4 && sales_detail.status === 'Open'">
                                             <button type="button" 
                                               class="btn btn-danger btn-sm" 
                                               @click="removeFile(files.id)" 
                                               v-permission="['delete_files']"
-                                              v-if = "sales_detail.status === 'Open' && sales_detail.level === 4 && role == 'AMS' || role == 'Administrator'"
+                                              v-if = "role == 'AMS' || role == 'Administrator'"
                                               >
                                               <span class="fas fa-trash"></span>
                                             </button>
@@ -730,7 +730,7 @@
                                   </div>
                                   <div class="col-lg-6 mt-3">
                                     <div class="position-relative" v-if="sales_detail">
-                                      <div class="position-absolute top-0 end-0" v-if="sales_detail.status === 'Open'">
+                                      <div class="position-absolute top-0 end-0" v-if="sales_detail.level == 3 && sales_detail.status === 'Open'">
                                         <button 
                                         type="button" 
                                         class="btn btn-primary btn-sm" 
@@ -754,12 +754,12 @@
                                                 <strong>{{ files.file_name }}</strong>
                                               </a>
                                           </td>
-                                          <td class="d-flex justify-content-end" v-if="sales_detail.status === 'Open'">
+                                          <td class="d-flex justify-content-end" v-if="sales_detail.level == 3 && sales_detail.status === 'Open'">
                                             <button type="button" 
                                               class="btn btn-danger btn-sm" 
                                               @click="removeFile(files.id)" 
                                               v-permission="['delete_files']"
-                                              v-if = "sales_detail.status === 'Open' && sales_detail.level == 3 && role == 'AMS' || role == 'Administrator'"
+                                              v-if = "role == 'AMS' || role == 'Administrator'"
                                               >
                                               <span class="fas fa-trash"></span>
                                             </button>
@@ -776,7 +776,7 @@
                                   </div>
                                   <div class="col-lg-6 mt-3">
                                     <div class="position-relative" v-if="sales_detail">
-                                      <div class="position-absolute top-0 end-0" v-if="sales_detail.status === 'Open'">
+                                      <div class="position-absolute top-0 end-0" v-if="sales_detail.level == 3 && sales_detail.status === 'Open'">
                                         <button type="button" class="btn btn-outline-warning btn-outline btn-sm">Sync</button>
                                         <button 
                                           type="button" 
@@ -810,12 +810,12 @@
                                                 <strong>{{ files.file_name }}</strong>
                                               </a>
                                           </td>
-                                          <td class="d-flex justify-content-end" v-if="sales_detail.status === 'Open'">
+                                          <td class="d-flex justify-content-end" v-if="sales_detail.level == 3 && sales_detail.status === 'Open'">
                                             <button type="button" 
                                               class="btn btn-danger btn-sm" 
                                               @click="removeFile(files.id)" 
                                               v-permission="['delete_files']"
-                                              v-if = "sales_detail.status === 'Open' && sales_detail.level == 3 && role == 'AMS' || role == 'Administrator'"
+                                              v-if = "role == 'AMS' || role == 'Administrator'"
                                               >
                                               <span class="fas fa-trash"></span>
                                             </button>
@@ -832,7 +832,7 @@
                                   </div>
                                   <div class="col-lg-6 mt-3">
                                     <div class="position-relative" v-if="sales_detail">
-                                      <div class="position-absolute top-0 end-0" v-if="sales_detail.status === 'Open'">
+                                      <div class="position-absolute top-0 end-0" v-if="sales_detail.level == 3 && sales_detail.status === 'Open'">
                                         <span class="btn btn-sm" id="textWaiting">Waiting Approve VP TP</span>
                                         <button 
                                         type="button" 
@@ -857,12 +857,12 @@
                                                 <strong>{{ files.file_name }}</strong>
                                               </a>
                                           </td>
-                                          <td class="d-flex justify-content-end" v-if="sales_detail.status === 'Open'">
+                                          <td class="d-flex justify-content-end" v-if="sales_detail.level == 3 && sales_detail.status === 'Open'">
                                             <button type="button" 
                                               class="btn btn-danger btn-sm" 
                                               @click="removeFile(files.id)" 
                                               v-permission="['delete_files']"
-                                              v-if = "sales_detail.status === 'Open' && sales_detail.level == 3 && role == 'AMS' || role == 'Administrator'"
+                                              v-if = "role == 'AMS' || role == 'Administrator'"
                                               >
                                               <span class="fas fa-trash"></span>
                                             </button>
@@ -915,7 +915,7 @@
                                   </div>
                                   <div class="col-lg-6 mt-3">
                                     <div class="position-relative" v-if="sales_detail">
-                                      <div class="position-absolute top-0 end-0" v-if="sales_detail.status === 'Open'">
+                                      <div class="position-absolute top-0 end-0" v-if="sales_detail.level == 2 && sales_detail.status === 'Open'">
                                         <button 
                                         type="button" 
                                         class="btn btn-primary btn-sm" 
@@ -939,12 +939,12 @@
                                                 <strong>{{ files.file_name }}</strong>
                                               </a>
                                           </td>
-                                          <td class="d-flex justify-content-end" v-if="sales_detail.status === 'Open'">
+                                          <td class="d-flex justify-content-end" v-if="sales_detail.level == 2 && sales_detail.status === 'Open'">
                                             <button type="button" 
                                               class="btn btn-danger btn-sm" 
                                               @click="removeFile(files.id)" 
                                               v-permission="['delete_files']"
-                                              v-if = "sales_detail.status === 'Open' && sales_detail.level == 2 && role == 'AMS' || role == 'Administrator'"
+                                              v-if = "role == 'AMS' || role == 'Administrator'"
                                               >
                                               <span class="fas fa-trash"></span>
                                             </button>
@@ -1098,7 +1098,7 @@
                                   </div>
                                   <div class="col-lg-6 mt-3">
                                     <div class="position-relative" v-if="sales_detail">
-                                      <div class="position-absolute top-0 end-0" v-if="sales_detail.status === 'Open'">
+                                      <div class="position-absolute top-0 end-0" v-if="sales_detail.level == 1 && sales_detail.status === 'Open'">
                                         <input type="hidden" v-model="status" value="2">
                                         <button type="button" class="btn btn-success btn-sm" 
                                           @click="closeSales()" 
@@ -1130,12 +1130,12 @@
                                                 <strong>{{ files.file_name }}</strong>
                                               </a>
                                           </td>
-                                          <td class="d-flex justify-content-end" v-if="sales_detail.status === 'Open'">
+                                          <td class="d-flex justify-content-end" v-if="sales_detail.level == 1 && sales_detail.status === 'Open'">
                                             <button type="button" 
                                               class="btn btn-danger btn-sm" 
                                               @click="removeFile(files.id)" 
                                               v-permission="['delete_files']"
-                                              v-if = "sales_detail.status === 'Open' && sales_detail.level == 1 && role == 'AMS' || role == 'Administrator'"
+                                              v-if = "role == 'AMS' || role == 'Administrator'"
                                               >
                                               <span class="fas fa-trash"></span>
                                             </button>

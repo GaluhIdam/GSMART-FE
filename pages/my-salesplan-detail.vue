@@ -51,8 +51,8 @@
               <div class="col-lg-6">
                 <div class="text-right">
                   <div class="position-absolute top-0 end-0 mx-15 mt-4" v-if="sales_detail">
-                    <button class="btn btn-outline btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#switchAMS" v-if="sales_detail.status === 'Open'">Switch AMS</button>
-                    <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editSales" v-if="sales_detail.type === 'TMB' && sales_detail.status === 'Open'"><i class="fa-solid fa-pen"></i> Edit Sales Plan</button>
+                    <button class="btn btn-outline btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#switchAMS" v-if="sales_detail.status === 'Open' && role == 'AMS'">Switch AMS</button>
+                    <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editSales" v-if="sales_detail.type === 'TMB' && sales_detail.status === 'Open' && role == 'TPR'"><i class="fa-solid fa-pen"></i> Edit Sales Plan</button>
                   </div>
                 </div>
               </div>
@@ -969,7 +969,7 @@
                                           >
                                             Approve
                                         </button>
-                                        <span class="btn btn-sm" id="textApproved" v-if="level2[1].status == 1">
+                                        <span class="btn btn-sm" id="textApproved" v-if="level2[1].status == 1 && sales_detail.status === 'Open' && sales_detail.level == 2">
                                           Approved by CBO
                                         </span>
                                         <button 
@@ -1102,7 +1102,7 @@
                                         <input type="hidden" v-model="status" value="2">
                                         <button type="button" class="btn btn-success btn-sm" 
                                           @click="closeSales()" 
-                                          v-if="role == 'Administrator'"
+                                          v-if="role == 'Administrator' || role == 'TPR'"
                                           v-permission="['upgrade_level']"
                                           >
                                           Closed Sales
@@ -1151,7 +1151,7 @@
                                   </div>
                                   <form>
                                     <div class="row">
-                                      <div class="input-group mb-3" v-permission="['input_so_number']" v-if="level1[1].status == 0">
+                                      <div class="input-group mb-3" v-permission="['input_so_number']" v-if="level1[1].data == '' && sales_detail.status === 'Open' && role == 'CBO' || role == 'Administrator'">
                                           <input 
                                             type="text" 
                                             class="form-control" 
@@ -1165,7 +1165,6 @@
                                             type="button" 
                                             id="textSync"
                                             @click="updateSO()" 
-                                            v-if="sales_detail.status === 'Open' && role == 'CBO' || role == 'Administrator'"
                                             >
                                             Sync
                                           </button>
@@ -1192,7 +1191,7 @@
                                       class="btn btn-primary btn-sm" 
                                       @click="requestClosed()" 
                                       v-permission="['close_sales']" 
-                                      v-if="role == 'Administrator'"
+                                      v-if="role == 'Administrator' || role == 'TPR'"
                                       >
                                         Request to Closed
                                       </button>
@@ -2231,23 +2230,37 @@ export default {
       })
     },
     updateSO() {
-      this.loading()
-      this.$axios
-        .put(`/api/sales-so-number/${this.$route.query.id}`, {
-          sales_id: this.$route.query.id,
-          so_number: this.sales_detail.so_number,
-        })
-        .then((response) => {
-          toastr.success(response.data.message)
-        })
-        .catch((error) => {
-          if (error.response.status == 422) {
-            this.errors = error.response.data.errors
-            toastr.error(error.response.data.message)
-          } else if (error.response.status == 403) {
-            toastr.error(error.response.data.message)
-          }
-        })
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, Update SO Number!',
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+          this.$axios
+          .put(`/api/sales-so-number/${this.$route.query.id}`, {
+            sales_id: this.$route.query.id,
+            so_number: this.sales_detail.so_number,
+          })
+          .then((response) => {
+            toastr.success(response.data.message)
+            this.listDetail()
+            Swal.close()
+          })
+        }
+      })
+      .catch((error) => {
+        if (error.response.status == 422) {
+          this.errors = error.response.data.errors
+          toastr.error(error.response.data.message)
+        } else if (error.response.status == 403) {
+          toastr.error(error.response.data.message)
+        }
+      })
     },
     slotConfirm() {
       Swal.fire({

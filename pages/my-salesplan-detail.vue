@@ -1102,7 +1102,7 @@
                                         <input type="hidden" v-model="status" value="2">
                                         <button type="button" class="btn btn-success btn-sm" 
                                           @click="closeSales()" 
-                                          v-if="role == 'Administrator' || role == 'AMS'"
+                                          v-if="role == 'Administrator' || role == 'TPR'"
                                           v-permission="['upgrade_level']"
                                           >
                                           Closed Sales
@@ -1151,7 +1151,7 @@
                                   </div>
                                   <form>
                                     <div class="row">
-                                      <div class="input-group mb-3" v-permission="['input_so_number']" v-if="level1[1].data == ''">
+                                      <div class="input-group mb-3" v-permission="['input_so_number']" v-if="level1[1].data == '' && sales_detail.status === 'Open' && role == 'CBO' || role == 'Administrator'">
                                           <input 
                                             type="text" 
                                             class="form-control" 
@@ -1165,7 +1165,6 @@
                                             type="button" 
                                             id="textSync"
                                             @click="updateSO()" 
-                                            v-if="sales_detail.status === 'Open' && role == 'CBO' || role == 'Administrator'"
                                             >
                                             Sync
                                           </button>
@@ -1192,7 +1191,7 @@
                                       class="btn btn-primary btn-sm" 
                                       @click="requestClosed()" 
                                       v-permission="['close_sales']" 
-                                      v-if="role == 'Administrator' || role == 'AMS'"
+                                      v-if="role == 'Administrator' || role == 'TPR'"
                                       >
                                         Request to Closed
                                       </button>

@@ -815,7 +815,7 @@
                                               class="btn btn-danger btn-sm" 
                                               @click="removeFile(files.id)" 
                                               v-permission="['delete_files']"
-                                              v-if = "role == 'AMS' || role == 'Administrator'"
+                                              v-if = "role == 'CBO' || role == 'Administrator'"
                                               >
                                               <span class="fas fa-trash"></span>
                                             </button>
@@ -891,7 +891,6 @@
                                         class="btn btn-info btn-sm" 
                                         data-bs-toggle="modal" 
                                         data-bs-target="#notifyUpgrade" 
-                                        @click="notifyLevel()" 
                                         v-if = "sales_detail.status === 'Open' && sales_detail.level == 3 && sales_detail.upgrade == true"
                                         >
                                         Request to Upgrade
@@ -966,16 +965,19 @@
                                             type="button" 
                                             class="btn btn-success btn-sm"
                                             @click="slotConfirm()"
-                                            v-if = "sales_detail.status === 'Open' && sales_detail.level == 2 && sales_detail.upgrade == false && role == 'CBO' || role == 'Administrator'"
+                                            v-if = "level2[1].status == 0 && sales_detail.status === 'Open' && sales_detail.level == 2 && sales_detail.upgrade == false && role == 'CBO' || role == 'Administrator'"
                                           >
                                             Approve
                                         </button>
+                                        <span class="btn btn-sm" id="textApproved" v-if="level2[1].status == 1">
+                                          Approved by CBO
+                                        </span>
                                         <button 
                                           type="button" 
                                           class="btn btn-info btn-sm"
                                           data-bs-toggle="modal" 
                                           data-bs-target="#slotRequest" 
-                                          v-if = "sales_detail.status === 'Open' && sales_detail.level == 2 && role == 'AMS' || role == 'Administrator'"
+                                          v-if = "level2[1].status == 0 && sales_detail.status === 'Open' && sales_detail.level == 2 && role == 'AMS' || role == 'Administrator'"
                                         >
                                           Request to CBO
                                         </button>
@@ -990,14 +992,12 @@
                                       </div>
                                       <div class="mb-3">
                                         <label>Line Hangar Request</label>
-                                        <div class="row" v-if="level2[1].status === 0">
-                                          <div class="col-12">
-                                            <input type="text" class="form-control form-control-solid" readonly>
-                                          </div>
-                                        </div>
-                                        <div class="row" v-else>
-                                          <div class="col-12">
+                                        <div class="row" >
+                                          <div class="col-12" v-if="level2[1].data != null">
                                             <input type="text" v-model="level2[1].data.line.name" class="form-control form-control-solid" readonly>
+                                          </div>
+                                          <div class="col-12" v-else>
+                                            <input type="text" class="form-control form-control-solid" readonly>
                                           </div>
                                         </div>
                                       </div>
@@ -2250,15 +2250,27 @@ export default {
         })
     },
     slotConfirm() {
-      this.loading()
-      this.$axios
-      .put(`api/sales-slot-confirm/${this.$route.query.id}`, {
-        sales_id: this.$route.query.id,
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, Approve it!',
       })
-      .then((response) => {
-        toastr.success(response.data.message)
-        this.listDetail()
-        Swal.close()
+      .then((result) => {
+        if (result.isConfirmed) {
+          this.$axios
+          .put(`api/sales-slot-confirm/${this.$route.query.id}`, {
+            sales_id: this.$route.query.id,
+          })
+          .then((response) => {
+            toastr.success(response.data.message)
+            this.listDetail()
+            Swal.close()
+          })
+        }
       })
       .catch((error) => {
         if (error.response.status == 422) {
@@ -2853,7 +2865,7 @@ export default {
 }
 
 #textApproved {
-  background-color: #50cd89; 
+  background-color: #2146C7; 
   color: #fff;
 }
 

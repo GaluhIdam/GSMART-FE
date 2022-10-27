@@ -633,7 +633,7 @@
                                               class="btn btn-danger btn-sm" 
                                               @click="removeFile(files.id)" 
                                               v-permission="['delete_files']"
-                                              v-if = "sales_detail.status === 'Open'  && role == 'AMS' || role == 'Administrator'"
+                                              v-if = "sales_detail.status === 'Open' && sales_detail.level === 4 && role == 'AMS' || role == 'Administrator'"
                                               >
                                               <span class="fas fa-trash"></span>
                                             </button>
@@ -679,7 +679,7 @@
                                               class="btn btn-danger btn-sm" 
                                               @click="removeFile(files.id)" 
                                               v-permission="['delete_files']"
-                                              v-if = "sales_detail.status === 'Open'  && role == 'AMS' || role == 'Administrator'"
+                                              v-if = "sales_detail.status === 'Open' && sales_detail.level === 4 && role == 'AMS' || role == 'Administrator'"
                                               >
                                               <span class="fas fa-trash"></span>
                                             </button>

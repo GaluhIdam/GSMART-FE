@@ -969,7 +969,8 @@
                                           >
                                             Approve
                                         </button>
-                                        <span class="btn btn-sm" id="textApproved" v-if="level2[1].status == 1 && sales_detail.status === 'Open' && sales_detail.level == 2">
+                                        <span class="btn btn-sm" id="textWaiting" v-if="level2[1].data != null && level2[1].status == 0 && role != 'CBO'">Waiting for Approval </span>
+                                        <span class="btn btn-sm" id="textApproved" v-if="level2[1].status == 1 && role != 'CBO'">
                                           Approved by CBO
                                         </span>
                                         <button 

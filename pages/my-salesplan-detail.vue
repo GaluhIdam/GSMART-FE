@@ -1103,7 +1103,7 @@
                                         <input type="hidden" v-model="status" value="2">
                                         <button type="button" class="btn btn-success btn-sm" 
                                           @click="closeSales()" 
-                                          v-if="role == 'Administrator' || role == 'TPR'"
+                                          v-if="sales_detail.upgrade == true && role == 'Administrator' || role == 'TPR'"
                                           v-permission="['upgrade_level']"
                                           >
                                           Closed Sales

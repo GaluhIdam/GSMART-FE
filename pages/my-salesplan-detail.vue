@@ -965,11 +965,12 @@
                                             type="button" 
                                             class="btn btn-success btn-sm"
                                             @click="slotConfirm()"
-                                            v-if = "level2[1].status == 0 && sales_detail.status === 'Open' && sales_detail.level == 2 && sales_detail.upgrade == false && role == 'CBO' || role == 'Administrator'"
+                                            v-if = "level2[1].data != null && sales_detail.status === 'Open' && sales_detail.level == 2 && sales_detail.upgrade == false && role == 'CBO' || role == 'Administrator'"
                                           >
                                             Approve
                                         </button>
-                                        <span class="btn btn-sm" id="textApproved" v-if="level2[1].status == 1 && sales_detail.status === 'Open' && sales_detail.level == 2">
+                                        <span class="btn btn-sm" id="textWaiting" v-if="level2[1].data != null && level2[1].status == 0 && role != 'CBO'">Waiting for Approval </span>
+                                        <span class="btn btn-sm" id="textApproved" v-if="level2[1].status == 1 && role != 'CBO'">
                                           Approved by CBO
                                         </span>
                                         <button 
@@ -977,7 +978,7 @@
                                           class="btn btn-info btn-sm"
                                           data-bs-toggle="modal" 
                                           data-bs-target="#slotRequest" 
-                                          v-if = "level2[1].status == 0 && sales_detail.status === 'Open' && sales_detail.level == 2 && role == 'AMS' || role == 'Administrator'"
+                                          v-if = "level2[1].data == null && sales_detail.status === 'Open' && sales_detail.level == 2 && role == 'AMS' || role == 'Administrator'"
                                         >
                                           Request to CBO
                                         </button>
@@ -1102,7 +1103,7 @@
                                         <input type="hidden" v-model="status" value="2">
                                         <button type="button" class="btn btn-success btn-sm" 
                                           @click="closeSales()" 
-                                          v-if="role == 'Administrator' || role == 'TPR'"
+                                          v-if="sales_detail.upgrade == true && role == 'TPR' || role == 'Administrator'"
                                           v-permission="['upgrade_level']"
                                           >
                                           Closed Sales
@@ -1151,7 +1152,7 @@
                                   </div>
                                   <form>
                                     <div class="row">
-                                      <div class="input-group mb-3" v-permission="['input_so_number']" v-if="level1[1].data == '' && sales_detail.status === 'Open' && role == 'CBO' || role == 'Administrator'">
+                                      <div class="input-group mb-3" v-if="level1[1].data == null && sales_detail.status === 'Open' && role == 'CBO' || role == 'Administrator'">
                                           <input 
                                             type="text" 
                                             class="form-control" 
@@ -1165,6 +1166,7 @@
                                             type="button" 
                                             id="textSync"
                                             @click="updateSO()" 
+                                            v-permission="['input_so_number']" 
                                             >
                                             Sync
                                           </button>
@@ -2287,6 +2289,7 @@ export default {
       })
       .catch((error) => {
         if (error.response.status == 422) {
+          this.errors = error.response.data.errors
           toastr.error(error.response.data.message)
         } else if (error.response.status == 403) {
           toastr.error(error.response.data.message)

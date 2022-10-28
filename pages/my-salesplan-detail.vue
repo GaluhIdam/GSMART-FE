@@ -965,7 +965,7 @@
                                             type="button" 
                                             class="btn btn-success btn-sm"
                                             @click="slotConfirm()"
-                                            v-if = "level2[1].status == 0 && sales_detail.status === 'Open' && sales_detail.level == 2 && sales_detail.upgrade == false && role == 'CBO' || role == 'Administrator'"
+                                            v-if = "level2[1].data != null && sales_detail.status === 'Open' && sales_detail.level == 2 && sales_detail.upgrade == false && role == 'CBO' || role == 'Administrator'"
                                           >
                                             Approve
                                         </button>
@@ -978,7 +978,7 @@
                                           class="btn btn-info btn-sm"
                                           data-bs-toggle="modal" 
                                           data-bs-target="#slotRequest" 
-                                          v-if = "level2[1].status == 0 && sales_detail.status === 'Open' && sales_detail.level == 2 && role == 'AMS' || role == 'Administrator'"
+                                          v-if = "level2[1].data == null && sales_detail.status === 'Open' && sales_detail.level == 2 && role == 'AMS' || role == 'Administrator'"
                                         >
                                           Request to CBO
                                         </button>
@@ -2288,6 +2288,7 @@ export default {
       })
       .catch((error) => {
         if (error.response.status == 422) {
+          this.errors = error.response.data.errors
           toastr.error(error.response.data.message)
         } else if (error.response.status == 403) {
           toastr.error(error.response.data.message)

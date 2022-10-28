@@ -1152,7 +1152,7 @@
                                   </div>
                                   <form>
                                     <div class="row">
-                                      <div class="input-group mb-3" v-if="level1[1].data == '' && sales_detail.status === 'Open' && role == 'CBO' || role == 'Administrator'">
+                                      <div class="input-group mb-3" v-if="level1[1].data == null && sales_detail.status === 'Open' && role == 'CBO' || role == 'Administrator'">
                                           <input 
                                             type="text" 
                                             class="form-control" 

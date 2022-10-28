@@ -1103,7 +1103,7 @@
                                         <input type="hidden" v-model="status" value="2">
                                         <button type="button" class="btn btn-success btn-sm" 
                                           @click="closeSales()" 
-                                          v-if="sales_detail.upgrade == true && role == 'Administrator' || role == 'TPR'"
+                                          v-if="sales_detail.upgrade == true && role == 'TPR' || role == 'Administrator'"
                                           v-permission="['upgrade_level']"
                                           >
                                           Closed Sales
@@ -1152,7 +1152,7 @@
                                   </div>
                                   <form>
                                     <div class="row">
-                                      <div class="input-group mb-3" v-permission="['input_so_number']" v-if="level1[1].data == '' && sales_detail.status === 'Open' && role == 'CBO' || role == 'Administrator'">
+                                      <div class="input-group mb-3" v-if="level1[1].data == '' && sales_detail.status === 'Open' && role == 'CBO' || role == 'Administrator'">
                                           <input 
                                             type="text" 
                                             class="form-control" 
@@ -1166,6 +1166,7 @@
                                             type="button" 
                                             id="textSync"
                                             @click="updateSO()" 
+                                            v-permission="['input_so_number']" 
                                             >
                                             Sync
                                           </button>

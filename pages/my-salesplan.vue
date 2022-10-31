@@ -41,7 +41,7 @@
                 </div>
                 <div class="modal-footer">
                   <div class="col-md-12 text-center">
-                    <button type="button" class="btn btn-light mx-3" data-bs-dismiss="modal" @click="closeModal()">Cancel</button>
+                    <button type="button" class="btn btn-light mx-3" data-bs-dismiss="modal" @click="closeModal()">Reset</button>
                     <button type="button" class="btn btn-primary" data-bs-dismiss="modal" @click="list()">Filter</button>
                   </div>
                 </div>

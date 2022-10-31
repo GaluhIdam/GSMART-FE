@@ -1045,13 +1045,13 @@ export default {
     }, 500),
 
     closeModal() {
-      this.list()
       this.clearForm()
     },
     clearForm() {
       this.start_date = null
       this.end_date = null
       this.type = null
+      this.list()
     },
   },
 }

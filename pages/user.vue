@@ -540,7 +540,7 @@ export default {
     role() {
       this.loading()
       this.$axios
-      .get(`api/role/`)
+      .get(`api/role`)
       .then((response) => {
         this.role_option = response.data.data.data
         console.log(this.role_option)

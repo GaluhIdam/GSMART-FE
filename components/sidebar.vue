@@ -265,7 +265,7 @@
                       <span class="menu-bullet">
                         <span class="bullet bullet-dot"></span>
                       </span>
-                      <span class="menu-title">Prodcut</span>
+                      <span class="menu-title">Product</span>
                     </Nuxt-link>
                     <Nuxt-link
                       class="menu-link"

@@ -104,28 +104,51 @@
                 <span class="menu-title">Dashboard</span>
               </NuxtLink>
             </div>
-            <div class="menu-item" v-if="role == 'Administrator' || role == 'TPC' || role == 'AMS'">
-              <NuxtLink class="menu-link" to="/my-prospect" active-class="active">
+            <div
+              class="menu-item"
+              v-if="role == 'Administrator' || role == 'TPC' || role == 'AMS'"
+            >
+              <NuxtLink
+                class="menu-link"
+                to="/my-prospect"
+                active-class="active"
+              >
                 <span class="menu-icon">
                   <img
                     class="h-20px w-20px"
                     src="~/assets/media/icons/duotune/general/gen022.svg"
                   />
                 </span>
-                <span class="menu-title" v-if="role == 'Administrator'">All Prospect</span>
-                <span class="menu-title" v-if="role == 'TPC' || role == 'AMS'">My Prospect</span>
+                <span class="menu-title" v-if="role == 'Administrator'"
+                  >All Prospect</span
+                >
+                <span class="menu-title" v-if="role == 'TPC' || role == 'AMS'"
+                  >My Prospect</span
+                >
               </NuxtLink>
             </div>
             <div class="menu-item">
-              <NuxtLink class="menu-link" to="/my-salesplan" active-class="active">
+              <NuxtLink
+                class="menu-link"
+                to="/my-salesplan"
+                active-class="active"
+              >
                 <span class="menu-icon">
                   <img
                     class="h-20px w-20px"
                     src="~/assets/media/icons/duotune/general/gen022.svg"
                   />
                 </span>
-                <span class="menu-title"  v-if="role == 'TPR' || role == 'CBO' || role == 'Administrator'">All Sales Plan</span>
-                <span class="menu-title"  v-if="role == 'AMS'">My Sales Plan</span>
+                <span
+                  class="menu-title"
+                  v-if="
+                    role == 'TPR' || role == 'CBO' || role == 'Administrator'
+                  "
+                  >All Sales Plan</span
+                >
+                <span class="menu-title" v-if="role == 'AMS'"
+                  >My Sales Plan</span
+                >
               </NuxtLink>
             </div>
 
@@ -336,9 +359,9 @@
 export default {
   data() {
     return {
-      user: this.$auth.user.user.name,
-      email: this.$auth.user.user.email,
-      role: this.$auth.user.user.role.name,
+      user: this.$auth.user.name,
+      email: this.$auth.user.email,
+      role: this.$auth.user.role.name,
     }
   },
 }

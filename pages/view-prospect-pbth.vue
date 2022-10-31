@@ -271,6 +271,7 @@ export default {
   layout: 'template',
   data() {
     return {
+      role: this.$auth.user.user.role.name,
       deviation : this.market_share - this.sales_plan,
       customer_options: [],
       pbth: [],
@@ -301,11 +302,60 @@ export default {
       }
     },
   created() {
+    this.loading()
     this.listContactPersons()
     this.listPBTH()
     this.listCustomer()
+    this.checkRole()
   },
   methods: {
+    authMessage() {
+      toastr.options = {
+        closeButton: false,
+        debug: false,
+        newestOnTop: false,
+        progressBar: false,
+        positionClass: 'toastr-top-right',
+        preventDuplicates: false,
+        onclick: null,
+        showDuration: '300',
+        hideDuration: '1000',
+        timeOut: '5000',
+        extendedTimeOut: '1000',
+        showEasing: 'swing',
+        hideEasing: 'linear',
+        showMethod: 'fadeIn',
+        hideMethod: 'fadeOut',
+      }
+      toastr.error('Sorry, You Are Not Allowed to Access Prospect PBTH Page!')
+    },
+    PBTHMessage() {
+      toastr.options = {
+        closeButton: false,
+        debug: false,
+        newestOnTop: false,
+        progressBar: false,
+        positionClass: 'toastr-top-right',
+        preventDuplicates: false,
+        onclick: null,
+        showDuration: '300',
+        hideDuration: '1000',
+        timeOut: '5000',
+        extendedTimeOut: '1000',
+        showEasing: 'swing',
+        hideEasing: 'linear',
+        showMethod: 'fadeIn',
+        hideMethod: 'fadeOut',
+      }
+      toastr.error('Sorry, Prospect Has Been Picked Up!')
+    },
+    checkRole(){
+      if(this.role == 'AMS' || this.role == 'Administrator'){
+      } else {
+        this.$router.push('/');
+        this.authMessage()
+      }
+    },
     formatNumber(value) {
       let val = (value/1).toFixed(2).replace(',', ',')
       return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
@@ -350,6 +400,10 @@ export default {
           this.registration = response.data.data.registration
           // Sales Plan Value
           this.sales_plan = response.data.data.sales_plan
+          if(this.sales_plan.length > 0) {
+            this.PBTHMessage()
+            this.$router.push('/my-prospect');
+          }
           // Market Share Value
           this.market_share = response.data.data.market_share
           // Deviation Value
@@ -358,7 +412,12 @@ export default {
             element.planFH = 0
             element.value = 0
           });
-        })
+        }).catch((error) => {
+        if (error.response.status == 404) {
+          toastr.error(error.response.data.message)
+          this.$router.go(-1)
+        }
+      })
     },
     calculateSalesPlan(){
       this.pbth.forEach(element => {

@@ -418,6 +418,7 @@ export default {
   layout: 'template',
   data() {
     return {
+      role: this.$auth.user.user.role.name,
       selected_customer: null,
       customer: [],
       maintenance_option: [],
@@ -476,6 +477,7 @@ export default {
     this.listMaintenance()
     this.listHangar()
     this.listCustomer()
+    this.checkRole()
     },
     watch: {
     search: debounce(function () {
@@ -483,6 +485,33 @@ export default {
     }, 500),
   },
   methods: {
+    authMessage() {
+      toastr.options = {
+        closeButton: false,
+        debug: false,
+        newestOnTop: false,
+        progressBar: false,
+        positionClass: 'toastr-top-right',
+        preventDuplicates: false,
+        onclick: null,
+        showDuration: '300',
+        hideDuration: '1000',
+        timeOut: '5000',
+        extendedTimeOut: '1000',
+        showEasing: 'swing',
+        hideEasing: 'linear',
+        showMethod: 'fadeIn',
+        hideMethod: 'fadeOut',
+      }
+      toastr.error('Sorry, You Are Not Allowed to Access Prospect TMB Page!')
+    },
+    checkRole(){
+      if(this.role == 'AMS' || this.role == 'Administrator'){
+      } else {
+        this.$router.push('/');
+        this.authMessage()
+      }
+    },
     formatNumber(value) {
       let val = (value/1).toFixed(2).replace(',', ',')
       return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
@@ -490,7 +519,6 @@ export default {
     closeModal() {
       document.getElementById('close_modal_contact_person').click()
       document.getElementById('close_modal_sales').click()
-      this.clearForm()
     },
     listCustomer() {
       this.$axios
@@ -573,7 +601,6 @@ export default {
     },
     submit() {
       if (this.modal_create){
-        this.clearForm()
         this.create()
       } else if(this.modal_update) {
         this.update()
@@ -598,7 +625,6 @@ export default {
           toastr.success(response.data.message)
           this.closeModal()
           this.listSalesTmb()
-          this.clearForm()
         })
         .catch((error) => {
           if (error.response.status) {
@@ -622,7 +648,6 @@ export default {
         .then((response) => {
           toastr.success(response.data.message)
           this.listSalesTmb()
-          this.clearForm()
           this.closeModal()
         })
         .catch((error) => {
@@ -667,7 +692,7 @@ export default {
       this.tmbSale.start_date = tmbSale.start_date
     },
     add() {
-      // this.clearForm()
+      this.clearForm()
       this.modal_create = true
       this.modal_update = false
     },
@@ -682,12 +707,12 @@ export default {
       })
     },
     clearForm(){
-      // this.tmbSale.ac_reg = null
-      // this.tmbSale.tat = null
-      // this.tmbSale.value = null
-      // this.tmbSale.start_date = null
-      // this.tmbSale.maintenance_id = null
-      // this.tmbSale.hangar_id = null
+      this.tmbSale.ac_reg = null
+      this.tmbSale.tat = null
+      this.tmbSale.value = null
+      this.tmbSale.start_date = null
+      this.tmbSale.maintenance_id = null
+      this.tmbSale.hangar_id = null
       this.contact_person.name = null
       this.contact_person.email = null
       this.contact_person.address = null

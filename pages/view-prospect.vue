@@ -165,22 +165,22 @@
               <div class="col-3">
                 <div class="border-dashed rounded p-4">
                   <h1 class="fw-bolder mb-0" v-if="prospect_total.marketShare">${{ formatNumber(prospect_total.marketShare) }}</h1>
-                  <h1 class="fw-bolder mb-0" v-else>$</h1>
+                  <h1 class="fw-bolder mb-0" v-else>$ 0</h1>
                   <p class="mb-0 fw-bold text-gray-500">Total Market Share</p>
                 </div>
               </div>
               <div class="col-3">
                 <div class="border-dashed rounded p-4">
-                  <h1 class="fw-bolder mb-0" v-if="prospect_total.marketShare">$ {{ formatNumber(prospect_total.salesPlan) }}</h1>
-                  <h1 class="fw-bolder mb-0" v-else>$</h1>
+                  <h1 class="fw-bolder mb-0" v-if="prospect_total.salesPlan">$ {{ formatNumber(prospect_total.salesPlan) }}</h1>
+                  <h1 class="fw-bolder mb-0" v-else>$ 0 </h1>
                   <p class="mb-0 fw-bold text-gray-500">Total Salesplan</p>
                 </div>
               </div>
               <div class="col-3">
                 <div class="border-dashed rounded p-4">
                   <h1 class="fw-bolder mb-0" v-if="prospect_total.deviation">${{ formatNumber(prospect_total.deviation) }}</h1>
-                  <h1 class="fw-bolder mb-0" v-else>$</h1>
-                  <p class="mb-0 fw-bold text-gray-500">New Deals</p>
+                  <h1 class="fw-bolder mb-0" v-else>$ 0</h1>
+                  <p class="mb-0 fw-bold text-gray-500">Deviation</p>
                 </div>
               </div>
             </div>
@@ -228,7 +228,13 @@
                       </span>
                     </div>
                     <div class="col-3 p-1 d-flex justify-content-end">
-                      <span class=" fs-7 p-3 align-self-center badge rounded text-bg-light text-primary">Pick Up</span>
+                      <div v-if="data.transaction_type.name == 'PBTH'">
+                        <span class=" fs-7 p-3 align-self-center badge rounded text-bg-light text-primary" v-if="data.sales.length > 0">Done</span>
+                        <span class=" fs-7 p-3 align-self-center badge rounded text-bg-light text-primary" v-else>Pick Up</span>
+                      </div>
+                      <div v-else>
+                        <span class=" fs-7 p-3 align-self-center badge rounded text-bg-light text-primary">Pick Up</span>
+                      </div>
                     </div>
                   </div>
                   <div class="row mt-5 ms-5 me-5">
@@ -254,7 +260,7 @@
                     </div>
                     <div class="col-6 p-2" v-else>
                       <div class="border-dashed p-2 rounded">
-                        <p class="fw-bolder mb-0">-</p>
+                        <p class="fw-bolder mb-0">$ 0</p>
                         <p class="mb-0 fs-7 text-gray-500">
                           Total Market Share
                         </p>
@@ -268,7 +274,7 @@
                     </div>
                     <div class="col-6 p-2" v-else>
                       <div class="border-dashed p-2 rounded">
-                        <p class="fw-bolder mb-0">-</p>
+                        <p class="fw-bolder mb-0">$ 0</p>
                         <p class="mb-0 fs-7 text-gray-500">Total Salesplan</p>
                       </div>
                     </div>
@@ -279,17 +285,50 @@
                         <span class="btn bg-primary btn-sm text-light"> {{ contact_person1 }} </span>
                         <span class="btn bg-primary btn-sm text-light"> {{ contact_person2 }} </span>
                     </div>
+                    
                     <div v-if="data.transaction_type_id == 1" class="col-md-6 d-flex justify-content-end">
-                      <div>
+                      <div v-if="role == 'Administrator' || role == 'AMS'">
                         <nuxt-link :to="{ path: 'view-prospect-tmb', query: { id: data.id }}" class="btn btn-primary btn-sm">Pick Up</nuxt-link>
                       </div>
-                    </div>
-                    <div v-else class="col-md-6 d-flex justify-content-end">
-                      <div v-if="data.sales.length > 0">
-                        <nuxt-link :to="{ path: 'view-prospect-pbth', query: { id: data.id }}" class="btn btn-primary disabled btn-sm">Done</nuxt-link>
+                      <div v-else>
+                      <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#notAuthorized">
+                        Pick Up
+                      </button>
                       </div>
-                      <div class="col-md-6 d-flex justify-content-end" v-else>
-                        <nuxt-link :to="{ path: 'view-prospect-pbth', query: { id: data.id }}" class="btn btn-primary btn-sm">Pick Up</nuxt-link>
+                    </div>
+
+                    <div v-else class="col-md-6 d-flex justify-content-end">
+                      <div v-if="role == 'Administrator' || role == 'AMS'">
+                        <div v-if="data.sales.length > 0">
+                          <nuxt-link :to="{ path: 'view-prospect-pbth', query: { id: data.id }}" class="btn btn-primary disabled btn-sm">
+                            Done
+                          </nuxt-link>
+                        </div>
+                        <div v-else>
+                          <nuxt-link :to="{ path: 'view-prospect-pbth', query: { id: data.id }}" class="btn btn-primary btn-sm">Pick Up</nuxt-link>
+                        </div>
+                      </div>
+                      <div v-else>
+                        <nuxt-link :to="{ path: 'view-prospect-pbth', query: { id: data.id }}" class="btn btn-primary disabled btn-sm">
+                          Done
+                        </nuxt-link>
+                      </div>
+                    </div>
+                    
+                    <div class="modal fade" id="notAuthorized" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Notification</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <div class="modal-body">
+                            Sorry, You Are Not Allowed to Access This Feature
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -309,6 +348,7 @@ export default {
   layout: 'template',
   data() {
     return {
+      role: this.$auth.user.user.role.name,
       contact_person: [],
       contact_person1: [],
       contact_person2: [],
@@ -325,8 +365,36 @@ export default {
       this.listContactPersons()
       this.listProspectCustomer()
       this.Customer()
+      this.checkRole()
   },
   methods: {
+    authMessage() {
+      toastr.options = {
+        closeButton: false,
+        debug: false,
+        newestOnTop: false,
+        progressBar: false,
+        positionClass: 'toastr-top-right',
+        preventDuplicates: false,
+        onclick: null,
+        showDuration: '300',
+        hideDuration: '1000',
+        timeOut: '5000',
+        extendedTimeOut: '1000',
+        showEasing: 'swing',
+        hideEasing: 'linear',
+        showMethod: 'fadeIn',
+        hideMethod: 'fadeOut',
+      }
+      toastr.error('Sorry, You Are Not Allowed to Access Prospect Page!')
+    },
+    checkRole(){
+      if(this.role == 'TPC' || this.role == 'AMS' || this.role == 'Administrator'){
+      } else {
+        this.$router.push('/');
+        this.authMessage()
+      }
+    },
     formatNumber(value) {
       let val = (value/1).toFixed(2).replace(',', ',')
       return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
@@ -349,7 +417,16 @@ export default {
           this.prospect_customer = response.data.data.prospect
           // Data Total
           this.prospect_total = response.data.data
-        })
+          this.salesPlan = response.data.data.salesPlan
+          console.log(this.prospect_total)
+        }).catch((error) => {
+        if (error.response.status == 404) {
+          toastr.error(error.response.data.message)
+          this.$router.push({
+            name: 'my-prospect'
+          });
+        }
+      })
     },
     Customer() {
       this.loading()
@@ -365,8 +442,14 @@ export default {
           // Data Region Customer
           this.customer_region = response.data.data[0].country.region
           this.customer_image = response.data.data[0].full_path
-          console.log(this.customer_image)
-        })
+        }).catch((error) => {
+        if (error.response.status == 404) {
+          toastr.error(error.response.data.message)
+          this.$router.push({
+            name: 'my-prospect'
+          });
+        }
+      })
     },
     loading() {
       Swal.fire({

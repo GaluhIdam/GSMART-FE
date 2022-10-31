@@ -56,7 +56,11 @@
       <div class="card shadow-sm mt-5">
         <div class="row">
           <div class="col-md-3 p-16">
-            <img :src=customer_image v-if="customer_image" class="img-fluid">
+            <img
+              :src="customer_image"
+              v-if="customer_image"
+              class="img-fluid"
+            />
             <p v-else></p>
           </div>
           <div class="col-md-9">
@@ -107,9 +111,9 @@
                       fill="currentColor"
                     />
                   </svg>
-                  <span class="badge bg-white text-muted fs-6 mb-0 p-0"
-                    >{{ customer.code }}</span
-                  >
+                  <span class="badge bg-white text-muted fs-6 mb-0 p-0">{{
+                    customer.code
+                  }}</span>
                 </span>
               </div>
               <div class="col-sm-2">
@@ -131,9 +135,9 @@
                       fill="currentColor"
                     />
                   </svg>
-                  <span class="badge bg-white text-muted fs-6 mb-0 p-0"
-                    >{{ customer_area.name }}</span
-                  >
+                  <span class="badge bg-white text-muted fs-6 mb-0 p-0">{{
+                    customer_area.name
+                  }}</span>
                 </span>
               </div>
               <div class="col-sm-5">
@@ -164,21 +168,27 @@
             <div class="row mt-5">
               <div class="col-3">
                 <div class="border-dashed rounded p-4">
-                  <h1 class="fw-bolder mb-0" v-if="prospect_total.marketShare">${{ formatNumber(prospect_total.marketShare) }}</h1>
+                  <h1 class="fw-bolder mb-0" v-if="prospect_total.marketShare">
+                    ${{ formatNumber(prospect_total.marketShare) }}
+                  </h1>
                   <h1 class="fw-bolder mb-0" v-else>$ 0</h1>
                   <p class="mb-0 fw-bold text-gray-500">Total Market Share</p>
                 </div>
               </div>
               <div class="col-3">
                 <div class="border-dashed rounded p-4">
-                  <h1 class="fw-bolder mb-0" v-if="prospect_total.salesPlan">$ {{ formatNumber(prospect_total.salesPlan) }}</h1>
-                  <h1 class="fw-bolder mb-0" v-else>$ 0 </h1>
+                  <h1 class="fw-bolder mb-0" v-if="prospect_total.salesPlan">
+                    $ {{ formatNumber(prospect_total.salesPlan) }}
+                  </h1>
+                  <h1 class="fw-bolder mb-0" v-else>$ 0</h1>
                   <p class="mb-0 fw-bold text-gray-500">Total Salesplan</p>
                 </div>
               </div>
               <div class="col-3">
                 <div class="border-dashed rounded p-4">
-                  <h1 class="fw-bolder mb-0" v-if="prospect_total.deviation">${{ formatNumber(prospect_total.deviation) }}</h1>
+                  <h1 class="fw-bolder mb-0" v-if="prospect_total.deviation">
+                    ${{ formatNumber(prospect_total.deviation) }}
+                  </h1>
                   <h1 class="fw-bolder mb-0" v-else>$ 0</h1>
                   <p class="mb-0 fw-bold text-gray-500">Deviation</p>
                 </div>
@@ -211,37 +221,85 @@
             id="kt_tab_pane_1"
             role="tabpanel"
           >
-          <div class="card shadow-sm container py-10">
-            Overview
-            </div>
+            <div class="card shadow-sm container py-10">Overview</div>
           </div>
           <div class="tab-pane fade" id="kt_tab_pane_2" role="tabpanel">
             <div class="row">
-              
-              <div class="col-4 mb-3" v-for="(data, prospect_customer_index) in prospect_customer"  :key="prospect_customer_index">
-                <div class="card shadow-sm border-bottom border-5 border-primary" style="min-height: 420px">
-                  <div class="row d-flex justify-content-between mt-5 ms-5 me-5">
+              <div
+                class="col-4 mb-3"
+                v-for="(data, prospect_customer_index) in prospect_customer"
+                :key="prospect_customer_index"
+              >
+                <div
+                  class="card shadow-sm border-bottom border-5 border-primary"
+                  style="min-height: 420px"
+                >
+                  <div
+                    class="row d-flex justify-content-between mt-5 ms-5 me-5"
+                  >
                     <div class="col-2 p-1">
                       <span class="btn btn-light btn-sm p-5">
-                        <img :src=customer_image v-if="customer_image" alt="logo" class="img-fluid">
+                        <img
+                          :src="customer_image"
+                          v-if="customer_image"
+                          alt="logo"
+                          class="img-fluid"
+                        />
                         <p v-else></p>
                       </span>
                     </div>
                     <div class="col-3 p-1 d-flex justify-content-end">
                       <div v-if="data.transaction_type.name == 'PBTH'">
-                        <span class=" fs-7 p-3 align-self-center badge rounded text-bg-light text-primary" v-if="data.sales.length > 0">Done</span>
-                        <span class=" fs-7 p-3 align-self-center badge rounded text-bg-light text-primary" v-else>Pick Up</span>
+                        <span
+                          class="
+                            fs-7
+                            p-3
+                            align-self-center
+                            badge
+                            rounded
+                            text-bg-light text-primary
+                          "
+                          v-if="data.sales.length > 0"
+                          >Done</span
+                        >
+                        <span
+                          class="
+                            fs-7
+                            p-3
+                            align-self-center
+                            badge
+                            rounded
+                            text-bg-light text-primary
+                          "
+                          v-else
+                          >Pick Up</span
+                        >
                       </div>
                       <div v-else>
-                        <span class=" fs-7 p-3 align-self-center badge rounded text-bg-light text-primary">Pick Up</span>
+                        <span
+                          class="
+                            fs-7
+                            p-3
+                            align-self-center
+                            badge
+                            rounded
+                            text-bg-light text-primary
+                          "
+                          >Pick Up</span
+                        >
                       </div>
                     </div>
                   </div>
                   <div class="row mt-5 ms-5 me-5">
                     <div class="col p-1">
-                      <span class="badge text-muted text-bg-light">{{ data.transaction_type.name }}</span>
+                      <span class="badge text-muted text-bg-light">{{
+                        data.transaction_type.name
+                      }}</span>
                       <h1 class="fw-bold">Airframe</h1>
-                      <p class="text-muted fs-5 fw-bold" style="min-height: 50px">
+                      <p
+                        class="text-muted fs-5 fw-bold"
+                        style="min-height: 50px"
+                      >
                         Project for {{ data.registration }}
                       </p>
                       <p class="text-muted fs-8 fw-bold">
@@ -250,9 +308,11 @@
                     </div>
                   </div>
                   <div class="row mt-5 ms-5 me-5">
-                    <div class="col-6 p-2" v-if="data.market_share ">
+                    <div class="col-6 p-2" v-if="data.market_share">
                       <div class="border-dashed p-2 rounded">
-                        <p class="fw-bolder mb-0">${{ formatNumber(data.market_share) }}</p>
+                        <p class="fw-bolder mb-0">
+                          ${{ formatNumber(data.market_share) }}
+                        </p>
                         <p class="mb-0 fs-7 text-gray-500">
                           Total Market Share
                         </p>
@@ -268,7 +328,9 @@
                     </div>
                     <div class="col-6 p-2" v-if="data.sales_plan">
                       <div class="border-dashed p-2 rounded">
-                        <p class="fw-bolder mb-0">${{ formatNumber(data.sales_plan) }}</p>
+                        <p class="fw-bolder mb-0">
+                          ${{ formatNumber(data.sales_plan) }}
+                        </p>
                         <p class="mb-0 fs-7 text-gray-500">Total Salesplan</p>
                       </div>
                     </div>
@@ -279,54 +341,122 @@
                       </div>
                     </div>
                   </div>
-                  <div class=" row mt-10 ms-5 me-5 mb-5 d-flex-justify-content-between">
+                  <div
+                    class="
+                      row
+                      mt-10
+                      ms-5
+                      me-5
+                      mb-5
+                      d-flex-justify-content-between
+                    "
+                  >
                     <div class="col-md-6">
-                        <span class="btn bg-primary btn-sm text-light"> {{ contact_person }} </span>
-                        <span class="btn bg-primary btn-sm text-light"> {{ contact_person1 }} </span>
-                        <span class="btn bg-primary btn-sm text-light"> {{ contact_person2 }} </span>
+                      <span class="btn bg-primary btn-sm text-light">
+                        {{ contact_person }}
+                      </span>
+                      <span class="btn bg-primary btn-sm text-light">
+                        {{ contact_person1 }}
+                      </span>
+                      <span class="btn bg-primary btn-sm text-light">
+                        {{ contact_person2 }}
+                      </span>
                     </div>
-                    
-                    <div v-if="data.transaction_type_id == 1" class="col-md-6 d-flex justify-content-end">
+
+                    <div
+                      v-if="data.transaction_type_id == 1"
+                      class="col-md-6 d-flex justify-content-end"
+                    >
                       <div v-if="role == 'Administrator' || role == 'AMS'">
-                        <nuxt-link :to="{ path: 'view-prospect-tmb', query: { id: data.id }}" class="btn btn-primary btn-sm">Pick Up</nuxt-link>
+                        <nuxt-link
+                          :to="{
+                            path: 'view-prospect-tmb',
+                            query: { id: data.id },
+                          }"
+                          class="btn btn-primary btn-sm"
+                          >Pick Up</nuxt-link
+                        >
                       </div>
                       <div v-else>
-                      <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#notAuthorized">
-                        Pick Up
-                      </button>
+                        <button
+                          type="button"
+                          class="btn btn-sm btn-primary"
+                          data-bs-toggle="modal"
+                          data-bs-target="#notAuthorized"
+                        >
+                          Pick Up
+                        </button>
                       </div>
                     </div>
 
                     <div v-else class="col-md-6 d-flex justify-content-end">
                       <div v-if="role == 'Administrator' || role == 'AMS'">
                         <div v-if="data.sales.length > 0">
-                          <nuxt-link :to="{ path: 'view-prospect-pbth', query: { id: data.id }}" class="btn btn-primary disabled btn-sm">
+                          <nuxt-link
+                            :to="{
+                              path: 'view-prospect-pbth',
+                              query: { id: data.id },
+                            }"
+                            class="btn btn-primary disabled btn-sm"
+                          >
                             Done
                           </nuxt-link>
                         </div>
                         <div v-else>
-                          <nuxt-link :to="{ path: 'view-prospect-pbth', query: { id: data.id }}" class="btn btn-primary btn-sm">Pick Up</nuxt-link>
+                          <nuxt-link
+                            :to="{
+                              path: 'view-prospect-pbth',
+                              query: { id: data.id },
+                            }"
+                            class="btn btn-primary btn-sm"
+                            >Pick Up</nuxt-link
+                          >
                         </div>
                       </div>
                       <div v-else>
-                        <nuxt-link :to="{ path: 'view-prospect-pbth', query: { id: data.id }}" class="btn btn-primary disabled btn-sm">
+                        <nuxt-link
+                          :to="{
+                            path: 'view-prospect-pbth',
+                            query: { id: data.id },
+                          }"
+                          class="btn btn-primary disabled btn-sm"
+                        >
                           Done
                         </nuxt-link>
                       </div>
                     </div>
-                    
-                    <div class="modal fade" id="notAuthorized" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+                    <div
+                      class="modal fade"
+                      id="notAuthorized"
+                      tabindex="-1"
+                      aria-labelledby="exampleModalLabel"
+                      aria-hidden="true"
+                    >
                       <div class="modal-dialog">
                         <div class="modal-content">
                           <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="exampleModalLabel">Notification</h1>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">
+                              Notification
+                            </h1>
+                            <button
+                              type="button"
+                              class="btn-close"
+                              data-bs-dismiss="modal"
+                              aria-label="Close"
+                            ></button>
                           </div>
                           <div class="modal-body">
                             Sorry, You Are Not Allowed to Access This Feature
                           </div>
                           <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button
+                              type="button"
+                              class="btn btn-secondary"
+                              data-bs-dismiss="modal"
+                            >
+                              Close
+                            </button>
                           </div>
                         </div>
                       </div>
@@ -348,7 +478,7 @@ export default {
   layout: 'template',
   data() {
     return {
-      role: this.$auth.user.user.role.name,
+      role: this.$auth.user.role.name,
       contact_person: [],
       contact_person1: [],
       contact_person2: [],
@@ -359,13 +489,13 @@ export default {
       customer_region: [],
       customer_country: [],
       customer_image: [],
-      }
-    },
-    created() {
-      this.listContactPersons()
-      this.listProspectCustomer()
-      this.Customer()
-      this.checkRole()
+    }
+  },
+  created() {
+    this.listContactPersons()
+    this.listProspectCustomer()
+    this.Customer()
+    this.checkRole()
   },
   methods: {
     authMessage() {
@@ -388,25 +518,27 @@ export default {
       }
       toastr.error('Sorry, You Are Not Allowed to Access Prospect Page!')
     },
-    checkRole(){
-      if(this.role == 'TPC' || this.role == 'AMS' || this.role == 'Administrator'){
+    checkRole() {
+      if (
+        this.role == 'TPC' ||
+        this.role == 'AMS' ||
+        this.role == 'Administrator'
+      ) {
       } else {
-        this.$router.push('/');
+        this.$router.push('/')
         this.authMessage()
       }
     },
     formatNumber(value) {
-      let val = (value/1).toFixed(2).replace(',', ',')
-      return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+      let val = (value / 1).toFixed(2).replace(',', ',')
+      return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
     },
     listContactPersons() {
-      this.$axios
-        .get('api/contact-person')
-        .then((response) => {
-          this.contact_person = response.data.data[0].firstalphabet
-          this.contact_person1 = response.data.data[1].firstalphabet
-          this.contact_person2 = response.data.data[2].firstalphabet
-        })
+      this.$axios.get('api/contact-person').then((response) => {
+        this.contact_person = response.data.data[0].firstalphabet
+        this.contact_person1 = response.data.data[1].firstalphabet
+        this.contact_person2 = response.data.data[2].firstalphabet
+      })
     },
     listProspectCustomer() {
       this.loading()
@@ -419,14 +551,15 @@ export default {
           this.prospect_total = response.data.data
           this.salesPlan = response.data.data.salesPlan
           console.log(this.prospect_total)
-        }).catch((error) => {
-        if (error.response.status == 404) {
-          toastr.error(error.response.data.message)
-          this.$router.push({
-            name: 'my-prospect'
-          });
-        }
-      })
+        })
+        .catch((error) => {
+          if (error.response.status == 404) {
+            toastr.error(error.response.data.message)
+            this.$router.push({
+              name: 'my-prospect',
+            })
+          }
+        })
     },
     Customer() {
       this.loading()
@@ -442,14 +575,15 @@ export default {
           // Data Region Customer
           this.customer_region = response.data.data[0].country.region
           this.customer_image = response.data.data[0].full_path
-        }).catch((error) => {
-        if (error.response.status == 404) {
-          toastr.error(error.response.data.message)
-          this.$router.push({
-            name: 'my-prospect'
-          });
-        }
-      })
+        })
+        .catch((error) => {
+          if (error.response.status == 404) {
+            toastr.error(error.response.data.message)
+            this.$router.push({
+              name: 'my-prospect',
+            })
+          }
+        })
     },
     loading() {
       Swal.fire({
@@ -461,8 +595,8 @@ export default {
         allowOutsideClick: false,
       })
     },
-    }
-  }
+  },
+}
 </script>
 <style>
 </style>

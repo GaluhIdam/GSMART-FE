@@ -2134,7 +2134,7 @@ export default {
     listFile() {
       this.loading()
       this.$axios
-      .get(`api/file/`)
+      .get(`api/file`)
       .then((response) => {
         this.files = response.data.data
         Swal.close()
@@ -2158,7 +2158,7 @@ export default {
     listAMS() {
       this.loading()
       this.$axios
-      .get(`api/ams/`)
+      .get(`api/ams`)
       .then((response) => {
         this.ams = response.data.data.data
         Swal.close()
@@ -2180,7 +2180,7 @@ export default {
     listLine() {
       this.loading()
       this.$axios
-      .get(`api/line/`)
+      .get(`api/line`)
       .then((response) => {
         this.line = response.data.data
         Swal.close()
@@ -2202,7 +2202,7 @@ export default {
     listUser() {
       this.loading()
       this.$axios
-      .get(`api/users/`)
+      .get(`api/users`)
       .then((response) => {
         this.user_option = response.data.data.data
         console.log(this.user_option)
@@ -2422,7 +2422,7 @@ export default {
     notifyCOGS() {
       this.loading()
       this.$axios
-        .post(`api/sales-request-cogs/`, {
+        .post(`api/sales-request-cogs`, {
           sales_id: this.$route.query.id,
           user_id: this.user_id,
           target_url: this.$route.fullPath,
@@ -2443,7 +2443,7 @@ export default {
     notifyUpgrade() {
       this.loading()
       this.$axios
-        .post(`api/sales-request-upgrade/`, {
+        .post(`api/sales-request-upgrade`, {
           sales_id: this.$route.query.id,
           user_id: this.user_id,
           target_url: this.$route.fullPath,
@@ -2464,7 +2464,7 @@ export default {
     slotRequest() {
       this.loading()
       this.$axios
-      .post(`api/sales-slot-request/`, {
+      .post(`api/sales-slot-request`, {
         sales_id: this.$route.query.id,
         line_id: this.line_id,
         user_id: this.user_id,

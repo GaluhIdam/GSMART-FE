@@ -18,19 +18,19 @@
     "axios": "^0.27.2",
     "core-js": "^3.19.3",
     "lodash.debounce": "^4.0.8",
-    "nuxt": "^2.15.8",
+    "nuxt": "^2.12.2",
     "vue": "^2.6.14",
     "vue-apexcharts": "^1.6.2",
     "vue-multiselect": "^2.1.6",
     "vue-server-renderer": "^2.6.14",
-    "vue-template-compiler": "^2.6.14",
-    "webpack": "^4.46.0"
+    "vue-template-compiler": "^2.6.14"
   },
   "devDependencies": {
     "eslint-config-prettier": "^8.3.0",
     "prettier": "^2.5.1",
     "sass": "^1.53.0",
-    "sass-loader": "^10.3.1"
+    "sass-loader": "^10.3.1",
+    "webpack": "^4.46.0"
   },
   "description": "## Build Setup",
   "main": "nuxt.config.js",

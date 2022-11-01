@@ -30,7 +30,7 @@
               fw-bold
             "
           >
-            product
+            Product
           </p>
           <!--end::Title-->
         </div>
@@ -46,7 +46,7 @@
           <li class="breadcrumb-item">
             <span class="bullet bg-gray-400 w-5px h-2px"></span>
           </li>
-          <li class="breadcrumb-item text-muted">products</li>
+          <li class="breadcrumb-item text-muted">Product</li>
           <!--end::Item-->
         </ul>
         <!--end::Page title-->
@@ -56,7 +56,7 @@
     <div class="container mb-10">
       <div class="card shadow-sm mt-5">
         <div class="card-header">
-          <h3 class="card-title fw-bold">List of products</h3>
+          <h3 class="card-title fw-bold">List of Products</h3>
           <div class="card-toolbar">
             <button
               type="button"
@@ -134,15 +134,12 @@
                     :key="p_product_index"
                   >
                     <td class="text-center">
-                      {{ product.from + p_product_index }}
+                      {{ product.from + p_product_index }}.
                     </td>
                     <td class="text-center">{{ p_product.name }}</td>
                     <td class="text-center">{{ p_product.description }}</td>
 
                     <td class="d-flex justify-content-center">
-                      <button class="btn btn-sm btn-light">
-                        <i class="bi bi-toggles text-primary"></i>
-                      </button>
                       <button
                         class="btn btn-sm btn-light"
                         data-bs-toggle="modal"

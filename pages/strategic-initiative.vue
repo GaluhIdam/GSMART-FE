@@ -56,7 +56,7 @@
     <div class="container mb-10">
       <div class="card shadow-sm mt-5">
         <div class="card-header">
-          <h3 class="card-title fw-bold">List of Strategic Initiative</h3>
+          <h3 class="card-title fw-bold">List of Strategic Initiatives</h3>
           <div class="card-toolbar">
             <button
               type="button"
@@ -137,8 +137,9 @@
                   >
                     <td class="text-center">
                       {{
-                        strategic_initiative.from + p_strategic_initiative_index
-                      }}
+                        strategic_initiative.from +
+                        p_strategic_initiative_index
+                      }}.
                     </td>
                     <td class="text-center">
                       {{ p_strategic_initiative.name }}
@@ -148,9 +149,6 @@
                     </td>
 
                     <td class="d-flex justify-content-center">
-                      <button class="btn btn-sm btn-light">
-                        <i class="bi bi-toggles text-primary"></i>
-                      </button>
                       <button
                         class="btn btn-sm btn-light"
                         data-bs-toggle="modal"

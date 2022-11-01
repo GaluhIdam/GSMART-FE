@@ -56,7 +56,7 @@
     <div class="container mb-10">
       <div class="card shadow-sm mt-5">
         <div class="card-header">
-          <h3 class="card-title fw-bold">List of Transaction Type</h3>
+          <h3 class="card-title fw-bold">List of Transaction Types</h3>
           <div class="card-toolbar">
             <button
               type="button"
@@ -136,14 +136,11 @@
                     :key="transaction_index"
                   >
                     <td class="text-center">
-                      {{ transaction_type.from + transaction_index }}
+                      {{ transaction_type.from + transaction_index }}.
                     </td>
                     <td class="text-center">{{ transaction.name }}</td>
                     <td class="text-center">{{ transaction.description }}</td>
                     <td class="d-flex justify-content-center">
-                      <button class="btn btn-sm btn-light">
-                        <i class="bi bi-toggles text-primary"></i>
-                      </button>
                       <button
                         class="btn btn-sm btn-light"
                         data-bs-toggle="modal"

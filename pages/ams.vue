@@ -134,13 +134,10 @@
                     v-for="(p_ams, p_ams_index) in ams.data"
                     :key="p_ams_index"
                   >
-                    <td class="text-center">{{ ams.from + p_ams_index }}</td>
+                    <td class="text-center">{{ ams.from + p_ams_index }}.</td>
                     <td class="text-center">{{ p_ams.initial }}</td>
-                    <td class="text-center">{{ p_ams.user_id }}</td>
+                    <td class="text-center">{{ p_ams.user.name }}</td>
                     <td class="d-flex justify-content-center">
-                      <button class="btn btn-sm btn-light">
-                        <i class="bi bi-toggles text-primary"></i>
-                      </button>
                       <button
                         class="btn btn-sm btn-light"
                         data-bs-toggle="modal"
@@ -297,17 +294,14 @@
                 }}</span>
               </div>
               <div class="form-group mb-3">
-                <label class="form-label fw-bold">User ID</label>
-                <select
-                  class="form-select"
-                  v-model="p_ams.user_id"
-                  :class="{
-                    'is-invalid': errors.user_id,
-                  }"
-                >
-                  <option selected disabled>Select User</option>
-                  <option v-for="user in users" v-bind:value="user.id">
-                    {{ user.name }}
+                <label class="form-label fw-bold">User</label>
+                <select v-model="p_ams.user_id" class="form-select">
+                  <option 
+                  v-for="user_options in users" 
+                  v-if="user_options.role_id === 5"
+                  :value="user_options.id"
+                  >
+                    {{ user_options.name }} - {{ user_options.email }}
                   </option>
                 </select>
                 <span v-if="errors.user_id" class="error invalid-feedback">{{
@@ -362,7 +356,7 @@ export default {
         data: [],
         link: [],
       },
-      users: null,
+      users: [],
       p_ams: {
         id: null,
         initial: null,

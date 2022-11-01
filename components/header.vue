@@ -50,11 +50,7 @@
             <!--begin::Mobile logo-->
             <div class="d-flex align-items-center flex-grow-1 flex-lg-grow-0">
               <a href="#" class="d-lg-none">
-                <img
-                  alt="Logo"
-                  src="~/assets/media/logos/default-small.svg"
-                  class="h-30px"
-                />
+                <h5>G-SMART</h5>
               </a>
             </div>
             <!--end::Mobile logo-->
@@ -232,8 +228,8 @@ export default {
   },
   data() {
     return {
-      user: this.$auth.user.user,
-      email: this.$auth.user.email,
+      user: this.$auth.user.user.name,
+      email: this.$auth.user.user.email,
     }
   },
   methods: {

@@ -176,7 +176,7 @@
                       v-model="paginate"
                       @change="list()"
                     >
-                      <option value="1">10</option>
+                      <option value="10">10</option>
                       <option value="25">25</option>
                       <option value="50">50</option>
                       <option value="100">100</option>
@@ -299,15 +299,17 @@
               </div>
               <div class="form-group mb-3">
                 <label class="form-label fw-bold">Region</label>
-                <multiselect
-                  v-model="countrie.region_id"
-                  :options="regions"
-                  open-direction="bottom"
-                  placeholder=""
-                  label="name"
-                  :searchable="true"
-                  :class="{ 'is-invalid': errors.region }"
-                ></multiselect>
+                <select v-model="countrie.region_id" class="form-select">
+                  <option 
+                    v-for="region_options in region_option" 
+                    :value="region_options.id" 
+                    :class="{
+                      'is-invalid': errors.region_id,
+                    }"
+                  >
+                    {{ region_options.name }}
+                  </option>
+                </select>
                 <span v-if="errors.region" class="error invalid-feedback">{{
                   errors.region[0]
                 }}</span>
@@ -371,6 +373,7 @@ export default {
       by: 'desc',
       paginate: '10',
       current_page: null,
+      region_id: null,
       errors: {
         name: null,
         region_id: null,
@@ -435,7 +438,7 @@ export default {
       this.$axios
         .post('/api/countries-create', {
           name: this.countrie.name,
-          region_id: this.countrie.regions.id,
+          region_id: this.countrie.region_id,
         })
         .then((response) => {
           toastr.success(response.data.message)
@@ -461,7 +464,7 @@ export default {
       this.$axios
         .put('/api/countries-update/' + this.countrie.id, {
           name: this.countrie.name,
-          region_id: this.countrie.region_id.id,
+          region_id: this.countrie.region_id,
         })
         .then((response) => {
           toastr.success(response.data.message)
@@ -521,12 +524,14 @@ export default {
       this.clearForm()
     },
     region() {
+      this.loading()
       this.$axios
-        .get('/api/region')
-        .then((response) => {
-          this.regions = response.data.data.data
-        })
-        .catch((error) => console.log(error))
+      .get(`api/region`)
+      .then((response) => {
+        this.region_option = response.data.data.data
+        Swal.close()
+      })
+      .catch((error) => console.log(error))
     },
   },
 }

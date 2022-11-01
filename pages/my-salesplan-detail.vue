@@ -148,13 +148,13 @@
                           <div class="form-group mb-3">
                             <label class="form-label fw-bold">Maintenance</label>
                             <select v-model="maintenance_id" class="form-select">
-                              <option
-                                v-for="maintenance_options in maintenance_option"
-                                :value="maintenance_options.id"
+                              <option 
+                                v-for="maintenance_options in maintenance_option" 
+                                :value="maintenance_options.id" 
                               >
-                              <!-- <option
-                                v-for="maintenance_options in maintenance_option"
-                                :value="maintenance_options.id"
+                              <!-- <option 
+                                v-for="maintenance_options in maintenance_option" 
+                                :value="maintenance_options.id" 
                                 :selected="maintenance_options.id = maintenance_id"
                               > -->
                                 {{ maintenance_options.name }}
@@ -199,13 +199,13 @@
                           <div class="form-group mb-3">
                             <label class="form-label fw-bold">Location</label>
                             <select v-model="hangar_id" class="form-select">
-                              <option
-                                v-for="hangar_options in hangar_option"
-                                :value="hangar_options.id"
+                              <option 
+                                v-for="hangar_options in hangar_option" 
+                                :value="hangar_options.id" 
                               >
-                              <!-- <option
-                                v-for="hangar_options in hangar_option"
-                                :value="hangar_options.id"
+                              <!-- <option 
+                                v-for="hangar_options in hangar_option" 
+                                :value="hangar_options.id" 
                                 :selected="hangar_options.id = hangar_id"
                               > -->
                                 {{ hangar_options.name }}
@@ -262,7 +262,7 @@
                 </div>
               </div>
             </div>
-
+            
             <!-- Card -->
             <div class="row mt-3">
               <div class="col-lg-4 col-md-12 col-sm-12">
@@ -566,11 +566,11 @@
                                   <div class="col-lg-6">
                                     <div class="position-relative" v-if="sales_detail">
                                       <div class="position-absolute top-0 end-0" v-if="sales_detail.level == 4 && sales_detail.status === 'Open'">
-                                        <button
-                                          type="button"
-                                          class="btn btn-primary btn-sm"
-                                          data-bs-toggle="modal"
-                                          data-bs-target="#addContact"
+                                        <button 
+                                          type="button" 
+                                          class="btn btn-primary btn-sm" 
+                                          data-bs-toggle="modal" 
+                                          data-bs-target="#addContact" 
                                           @click="addContact()"
                                           v-if = "role == 'AMS' || role == 'Administrator'"
                                           >
@@ -590,7 +590,7 @@
                                             <strong>{{ contact.phone }}</strong>
                                           </td>
                                           <td>
-                                            <strong>{{ contact.email }}</strong>
+                                            <strong>{{ contact.email }}</strong>	
                                           </td>
                                         </tr>
                                       </table>
@@ -605,11 +605,11 @@
                                   <div class="col-lg-6 mt-3">
                                     <div class="position-relative" v-if="sales_detail">
                                       <div class="position-absolute top-0 end-0" v-if="sales_detail.level == 4 && sales_detail.status === 'Open'">
-                                        <button
-                                        type="button"
-                                        class="btn btn-primary btn-sm"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#addFile"
+                                        <button 
+                                        type="button" 
+                                        class="btn btn-primary btn-sm" 
+                                        data-bs-toggle="modal" 
+                                        data-bs-target="#addFile" 
                                         @click="addFile1()"
                                         v-if="role == 'AMS' || role == 'Administrator'"
                                         v-permission="['upload_files']"
@@ -629,9 +629,9 @@
                                               </a>
                                           </td>
                                           <td class="d-flex justify-content-end" v-if="sales_detail.level == 4 && sales_detail.status === 'Open'">
-                                            <button type="button"
-                                              class="btn btn-danger btn-sm"
-                                              @click="removeFile(files.id)"
+                                            <button type="button" 
+                                              class="btn btn-danger btn-sm" 
+                                              @click="removeFile(files.id)" 
                                               v-permission="['delete_files']"
                                               v-if = "role == 'AMS' || role == 'Administrator'"
                                               >
@@ -642,7 +642,7 @@
                                       </table>
                                     </div>
                                   </div>
-
+                                  
                                   <!-- Upload Attachment Workscope -->
                                   <div class="col-lg-6 mt-3">
                                     <h3>Upload Attachment Workscope</h3>
@@ -651,11 +651,11 @@
                                   <div class="col-lg-6 mt-3">
                                     <div class="position-relative" v-if="sales_detail">
                                       <div class="position-absolute top-0 end-0" v-if="sales_detail.level == 4 && sales_detail.status === 'Open'">
-                                        <button
-                                          type="button"
-                                          class="btn btn-primary btn-sm"
-                                          data-bs-toggle="modal"
-                                          data-bs-target="#addFile"
+                                        <button 
+                                          type="button" 
+                                          class="btn btn-primary btn-sm" 
+                                          data-bs-toggle="modal" 
+                                          data-bs-target="#addFile" 
                                           @click="addFile2()"
                                           v-if="role == 'AMS' || role == 'Administrator'"
                                           v-permission="['upload_files']"
@@ -675,9 +675,9 @@
                                               </a>
                                           </td>
                                           <td class="d-flex justify-content-end" v-if="sales_detail.level == 4 && sales_detail.status === 'Open'">
-                                            <button type="button"
-                                              class="btn btn-danger btn-sm"
-                                              @click="removeFile(files.id)"
+                                            <button type="button" 
+                                              class="btn btn-danger btn-sm" 
+                                              @click="removeFile(files.id)" 
                                               v-permission="['delete_files']"
                                               v-if = "role == 'AMS' || role == 'Administrator'"
                                               >
@@ -692,8 +692,8 @@
                                   <div class="text-center mt-5" v-if="role == 'TPR' || role == 'Administrator'">
                                     <form>
                                       <input type="hidden" v-model="upgrade" value="1">
-                                      <button type="button" class="btn btn-info btn-sm"
-                                        @click="upgradeLevel()"
+                                      <button type="button" class="btn btn-info btn-sm" 
+                                        @click="upgradeLevel()" 
                                         v-if = "sales_detail.status === 'Open' && sales_detail.level == 4 && sales_detail.upgrade == true"
                                         v-permission="['upgrade_level']"
                                         >
@@ -703,10 +703,10 @@
                                   </div>
                                   <div class="text-center mt-5" v-if="role == 'AMS'">
                                     <form>
-                                      <button type="button"
-                                        class="btn btn-info btn-sm"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#notifyUpgrade"
+                                      <button type="button" 
+                                        class="btn btn-info btn-sm" 
+                                        data-bs-toggle="modal" 
+                                        data-bs-target="#notifyUpgrade" 
                                         v-if = "sales_detail.status === 'Open' && sales_detail.level == 4 && sales_detail.upgrade == true"
                                         >
                                         Request to Upgrade
@@ -731,11 +731,11 @@
                                   <div class="col-lg-6 mt-3">
                                     <div class="position-relative" v-if="sales_detail">
                                       <div class="position-absolute top-0 end-0" v-if="sales_detail.level == 3 && sales_detail.status === 'Open'">
-                                        <button
-                                        type="button"
-                                        class="btn btn-primary btn-sm"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#addFile"
+                                        <button 
+                                        type="button" 
+                                        class="btn btn-primary btn-sm" 
+                                        data-bs-toggle="modal" 
+                                        data-bs-target="#addFile" 
                                         @click="addFile3()"
                                         v-if="role == 'AMS' || role == 'Administrator'"
                                         v-permission="['upload_files']"
@@ -755,9 +755,9 @@
                                               </a>
                                           </td>
                                           <td class="d-flex justify-content-end" v-if="sales_detail.level == 3 && sales_detail.status === 'Open'">
-                                            <button type="button"
-                                              class="btn btn-danger btn-sm"
-                                              @click="removeFile(files.id)"
+                                            <button type="button" 
+                                              class="btn btn-danger btn-sm" 
+                                              @click="removeFile(files.id)" 
                                               v-permission="['delete_files']"
                                               v-if = "role == 'AMS' || role == 'Administrator'"
                                               >
@@ -778,20 +778,20 @@
                                     <div class="position-relative" v-if="sales_detail">
                                       <div class="position-absolute top-0 end-0" v-if="sales_detail.level == 3 && sales_detail.status === 'Open'">
                                         <button type="button" class="btn btn-outline-warning btn-outline btn-sm">Sync</button>
-                                        <button
-                                          type="button"
+                                        <button 
+                                          type="button" 
                                           class="btn btn-success btn-sm"
-                                          data-bs-toggle="modal"
-                                          data-bs-target="#notifyCOGS"
+                                          data-bs-toggle="modal" 
+                                          data-bs-target="#notifyCOGS" 
                                           v-if="role == 'TPR' || role == 'Administrator'"
                                         >
                                           Notify COGS
                                         </button>
-                                        <button
-                                        type="button"
-                                        class="btn btn-primary btn-sm"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#addFile"
+                                        <button 
+                                        type="button" 
+                                        class="btn btn-primary btn-sm" 
+                                        data-bs-toggle="modal" 
+                                        data-bs-target="#addFile" 
                                         @click="addFile4()"
                                         v-if="role == 'CBO' || role == 'Administrator'"
                                         v-permission="['upload_files']"
@@ -811,9 +811,9 @@
                                               </a>
                                           </td>
                                           <td class="d-flex justify-content-end" v-if="sales_detail.level == 3 && sales_detail.status === 'Open'">
-                                            <button type="button"
-                                              class="btn btn-danger btn-sm"
-                                              @click="removeFile(files.id)"
+                                            <button type="button" 
+                                              class="btn btn-danger btn-sm" 
+                                              @click="removeFile(files.id)" 
                                               v-permission="['delete_files']"
                                               v-if = "role == 'CBO' || role == 'Administrator'"
                                               >
@@ -834,11 +834,11 @@
                                     <div class="position-relative" v-if="sales_detail">
                                       <div class="position-absolute top-0 end-0" v-if="sales_detail.level == 3 && sales_detail.status === 'Open'">
                                         <span class="btn btn-sm" id="textWaiting">Waiting Approve VP TP</span>
-                                        <button
-                                        type="button"
-                                        class="btn btn-primary btn-sm"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#addFile"
+                                        <button 
+                                        type="button" 
+                                        class="btn btn-primary btn-sm" 
+                                        data-bs-toggle="modal" 
+                                        data-bs-target="#addFile" 
                                         @click="addFile5()"
                                         v-if="role == 'AMS' || role == 'Administrator'"
                                         v-permission="['upload_files']"
@@ -858,9 +858,9 @@
                                               </a>
                                           </td>
                                           <td class="d-flex justify-content-end" v-if="sales_detail.level == 3 && sales_detail.status === 'Open'">
-                                            <button type="button"
-                                              class="btn btn-danger btn-sm"
-                                              @click="removeFile(files.id)"
+                                            <button type="button" 
+                                              class="btn btn-danger btn-sm" 
+                                              @click="removeFile(files.id)" 
                                               v-permission="['delete_files']"
                                               v-if = "role == 'AMS' || role == 'Administrator'"
                                               >
@@ -875,8 +875,8 @@
                                   <div class="text-center mt-5" v-if="role == 'TPR' || role == 'Administrator'">
                                     <form>
                                       <input type="hidden" v-model="upgrade" value="1">
-                                      <button type="button" class="btn btn-info btn-sm"
-                                        @click="upgradeLevel()"
+                                      <button type="button" class="btn btn-info btn-sm" 
+                                        @click="upgradeLevel()" 
                                         v-if = "sales_detail.status === 'Open' && sales_detail.level == 3 && sales_detail.upgrade == true"
                                         v-permission="['upgrade_level']"
                                         >
@@ -886,11 +886,11 @@
                                   </div>
                                   <div class="text-center mt-5" v-if="role == 'AMS'">
                                     <form>
-                                      <button
-                                        type="button"
-                                        class="btn btn-info btn-sm"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#notifyUpgrade"
+                                      <button 
+                                        type="button" 
+                                        class="btn btn-info btn-sm" 
+                                        data-bs-toggle="modal" 
+                                        data-bs-target="#notifyUpgrade" 
                                         v-if = "sales_detail.status === 'Open' && sales_detail.level == 3 && sales_detail.upgrade == true"
                                         >
                                         Request to Upgrade
@@ -915,11 +915,11 @@
                                   <div class="col-lg-6 mt-3">
                                     <div class="position-relative" v-if="sales_detail">
                                       <div class="position-absolute top-0 end-0" v-if="sales_detail.level == 2 && sales_detail.status === 'Open'">
-                                        <button
-                                        type="button"
-                                        class="btn btn-primary btn-sm"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#addFile"
+                                        <button 
+                                        type="button" 
+                                        class="btn btn-primary btn-sm" 
+                                        data-bs-toggle="modal" 
+                                        data-bs-target="#addFile" 
                                         @click="addFile6()"
                                         v-if="role == 'AMS' || role == 'Administrator'"
                                         v-permission="['upload_files']"
@@ -939,9 +939,9 @@
                                               </a>
                                           </td>
                                           <td class="d-flex justify-content-end" v-if="sales_detail.level == 2 && sales_detail.status === 'Open'">
-                                            <button type="button"
-                                              class="btn btn-danger btn-sm"
-                                              @click="removeFile(files.id)"
+                                            <button type="button" 
+                                              class="btn btn-danger btn-sm" 
+                                              @click="removeFile(files.id)" 
                                               v-permission="['delete_files']"
                                               v-if = "role == 'AMS' || role == 'Administrator'"
                                               >
@@ -961,8 +961,8 @@
                                   <div class="col-lg-6 mt-5">
                                     <div class="position-relative">
                                       <div class="position-absolute top-0 end-0" v-if="sales_detail">
-                                        <button
-                                            type="button"
+                                        <button 
+                                            type="button" 
                                             class="btn btn-success btn-sm"
                                             @click="slotConfirm()"
                                             v-if = "level2[1].data != null && sales_detail.status === 'Open' && sales_detail.level == 2 && sales_detail.upgrade == false && role == 'CBO' || role == 'Administrator'"
@@ -973,11 +973,11 @@
                                         <span class="btn btn-sm" id="textApproved" v-if="level2[1].status == 1 && role != 'CBO'">
                                           Approved by CBO
                                         </span>
-                                        <button
-                                          type="button"
+                                        <button 
+                                          type="button" 
                                           class="btn btn-info btn-sm"
-                                          data-bs-toggle="modal"
-                                          data-bs-target="#slotRequest"
+                                          data-bs-toggle="modal" 
+                                          data-bs-target="#slotRequest" 
                                           v-if = "level2[1].data == null && sales_detail.status === 'Open' && sales_detail.level == 2 && role == 'AMS' || role == 'Administrator'"
                                         >
                                           Request to CBO
@@ -1004,15 +1004,15 @@
                                       </div>
 
                                       <!-- Confirm Line Hanggar -->
-                                      <!--
+                                      <!-- 
                                       <div class="row" v-if="role == 'CBO' || role == 'Administrator'">
                                         <div class="col-9">
                                           <div class="mb-3">
                                             <label>Choose Line Hangar</label>
                                             <select v-model="line_id" class="form-select">
                                               <option :value="null" disabled>Select Line</option>
-                                              <option
-                                                v-for="lines in line"
+                                              <option 
+                                                v-for="lines in line" 
                                                 v-if="lines.hangar_id === sales_detail.location.id"
                                                 :value="lines.id"
                                               >
@@ -1022,9 +1022,9 @@
                                           </div>
                                         </div>
                                         <div class="col-3">
-                                          <button
-                                            class="btn btn-primary btn-sm mt-7"
-                                            type="button"
+                                          <button 
+                                            class="btn btn-primary btn-sm mt-7" 
+                                            type="button" 
                                             @click="updateSlot()"
                                             v-if="sales_detail.status === 'Open'"
                                             v-permission="['slot_request']"
@@ -1032,7 +1032,7 @@
                                             Edit
                                           </button>
                                         </div>
-                                      </div>
+                                      </div> 
                                       -->
                                     </div>
                                     <div class="col-lg-4">
@@ -1060,8 +1060,8 @@
                                   <div class="text-center mt-5" v-if="role == 'TPR' || role == 'Administrator'">
                                     <form>
                                       <input type="hidden" v-model="upgrade" value="1">
-                                      <button type="button" class="btn btn-info btn-sm"
-                                        @click="upgradeLevel()"
+                                      <button type="button" class="btn btn-info btn-sm" 
+                                        @click="upgradeLevel()" 
                                         v-if = "sales_detail.status === 'Open' && sales_detail.level == 2 && sales_detail.upgrade == true"
                                         v-permission="['upgrade_level']"
                                         >
@@ -1071,11 +1071,11 @@
                                   </div>
                                   <div class="text-center mt-5" v-if="role == 'AMS'">
                                     <form>
-                                      <button
-                                        type="button"
-                                        class="btn btn-info btn-sm"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#notifyUpgrade"
+                                      <button 
+                                        type="button" 
+                                        class="btn btn-info btn-sm" 
+                                        data-bs-toggle="modal" 
+                                        data-bs-target="#notifyUpgrade" 
                                         v-if = "sales_detail.status === 'Open' && sales_detail.level == 2 && sales_detail.upgrade == true"
                                         >
                                         Request to Upgrade
@@ -1101,18 +1101,18 @@
                                     <div class="position-relative" v-if="sales_detail">
                                       <div class="position-absolute top-0 end-0" v-if="sales_detail.level == 1 && sales_detail.status === 'Open'">
                                         <input type="hidden" v-model="status" value="2">
-                                        <button type="button" class="btn btn-success btn-sm"
-                                          @click="closeSales()"
+                                        <button type="button" class="btn btn-success btn-sm" 
+                                          @click="closeSales()" 
                                           v-if="sales_detail.upgrade == true && role == 'TPR' || role == 'Administrator'"
                                           v-permission="['upgrade_level']"
                                           >
                                           Closed Sales
                                         </button>
-                                        <button
-                                        type="button"
-                                        class="btn btn-primary btn-sm"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#addFile"
+                                        <button 
+                                        type="button" 
+                                        class="btn btn-primary btn-sm" 
+                                        data-bs-toggle="modal" 
+                                        data-bs-target="#addFile" 
                                         @click="addFile7()"
                                         v-if="role == 'AMS' || role == 'Administrator'"
                                         v-permission="['upload_files']"
@@ -1132,9 +1132,9 @@
                                               </a>
                                           </td>
                                           <td class="d-flex justify-content-end" v-if="sales_detail.level == 1 && sales_detail.status === 'Open'">
-                                            <button type="button"
-                                              class="btn btn-danger btn-sm"
-                                              @click="removeFile(files.id)"
+                                            <button type="button" 
+                                              class="btn btn-danger btn-sm" 
+                                              @click="removeFile(files.id)" 
                                               v-permission="['delete_files']"
                                               v-if = "role == 'AMS' || role == 'Administrator'"
                                               >
@@ -1153,20 +1153,20 @@
                                   <form>
                                     <div class="row">
                                       <div class="input-group mb-3" v-if="level1[1].data == null && sales_detail.status === 'Open' && role == 'CBO' || role == 'Administrator'">
-                                          <input
-                                            type="text"
-                                            class="form-control"
+                                          <input 
+                                            type="text" 
+                                            class="form-control" 
                                             v-model="sales_detail.so_number"
                                             :class="{
                                               'is-invalid': errors.so_number,
                                             }"
                                           />
-                                          <button
-                                            class="btn btn-sm"
-                                            type="button"
+                                          <button 
+                                            class="btn btn-sm" 
+                                            type="button" 
                                             id="textSync"
-                                            @click="updateSO()"
-                                            v-permission="['input_so_number']"
+                                            @click="updateSO()" 
+                                            v-permission="['input_so_number']" 
                                             >
                                             Sync
                                           </button>
@@ -1175,9 +1175,9 @@
                                           }}</span>
                                       </div>
                                       <div class="input-group mb-3" v-else>
-                                        <input
-                                          type="text"
-                                          class="form-control"
+                                        <input 
+                                          type="text" 
+                                          class="form-control" 
                                           v-model="level1[1].data"
                                           readonly
                                         />
@@ -1188,11 +1188,11 @@
                                   <div class="text-center mt-10" v-if="sales_detail">
                                     <form v-if="sales_detail.status === 'Closed'">
                                       <input type="hidden" v-model="status" value="3">
-                                      <button
-                                      type="button"
-                                      class="btn btn-primary btn-sm"
-                                      @click="requestClosed()"
-                                      v-permission="['close_sales']"
+                                      <button 
+                                      type="button" 
+                                      class="btn btn-primary btn-sm" 
+                                      @click="requestClosed()" 
+                                      v-permission="['close_sales']" 
                                       v-if="role == 'Administrator' || role == 'TPR'"
                                       >
                                         Request to Closed
@@ -1241,7 +1241,7 @@
                   <!--end::Stepper-->
                 </div>
 
-                <!-- Tab History -->
+                <!-- Tab History -->  
                 <div class="tab-pane fade" id="history-tab-pane" role="tabpanel" aria-labelledby="history-tab" tabindex="0">
                   <div class="mt-5">
                     <!-- Filter -->
@@ -1266,7 +1266,7 @@
                         <button type="button" class="btn btn-info btn-sm ms-3" @click="listFileHistory(); clearFormHistory();">Filter</button>
                       </div>
                     </div>
-
+                    
                     <div v-for="file_history in file_histories">
                       <div class="row">
                         <div class="col-lg-6 col-sm-12" v-if="file_history">
@@ -1284,8 +1284,8 @@
                               <tr v-for="file in file_history.files" :key="file.id">
                                 <td>
                                     <form>
-                                      <a :href="file.full_path"
-                                        class="btn btn-outline-primary btn-outline btn-sm"
+                                      <a :href="file.full_path" 
+                                        class="btn btn-outline-primary btn-outline btn-sm" 
                                         target="_blank">
                                         <strong>{{ file.file_name }}</strong>
                                       </a>
@@ -1387,9 +1387,9 @@
                             </div>
                             <div class="mb-3">
                               <label class="form-label">CBO Date</label>
-                              <input
-                                type="date"
-                                class="form-control"
+                              <input 
+                                type="date" 
+                                class="form-control" 
                                 v-model="sales_detail.start_date"
                                 :class="{
                                   'is-invalid': errors.start_date,
@@ -1403,10 +1403,10 @@
                             </div>
                             <div class="mb-3">
                               <label class="form-label">End Date</label>
-                              <input
-                                type="date"
-                                class="form-control"
-                                v-model="end_date"
+                              <input 
+                                type="date" 
+                                class="form-control" 
+                                v-model="end_date" 
                                 :class="{
                                   'is-invalid': errors.end_date,
                                 }"
@@ -1423,9 +1423,9 @@
                             </div>
                             <div class="mb-3">
                               <label class="form-label">Current Date</label>
-                              <input
-                                type="date"
-                                class="form-control"
+                              <input 
+                                type="date" 
+                                class="form-control" 
                                 v-model="current_date"
                                 :class="{
                                   'is-invalid': errors.current_date,
@@ -1485,7 +1485,7 @@
                         </div>
                       </div>
                     </div>
-
+                    
                   </div>
                 </div>
 
@@ -1678,10 +1678,10 @@
                         <form>
                           <div class="form-group mb-3">
                             <input type="file"
-                            @change="attachFile()"
-                            id="files"
-                            ref="files"
-                            class="form-control" multiple
+                            @change="attachFile()" 
+                            id="files" 
+                            ref="files" 
+                            class="form-control" multiple  
                             style="height: 200px; "
                             :class="{
                               'is-invalid': errors.files,
@@ -1751,8 +1751,8 @@
                             <label>To <span class="text-danger">*</span></label>
                             <select v-model="user_id" class="form-select">
                               <option :value="null" disabled>Select User</option>
-                              <option
-                              v-for="user_options in user_option"
+                              <option 
+                              v-for="user_options in user_option" 
                               v-if="user_options.role_id === 4"
                               :value="user_options.id"
                               >
@@ -1769,8 +1769,8 @@
                             <label for="">Line <span class="text-danger">*</span></label>
                             <select v-model="line_id" class="form-select">
                               <option :value="null" disabled>Select Line</option>
-                              <option
-                              v-for="lines in line"
+                              <option 
+                              v-for="lines in line" 
                               v-if="lines.hangar_id === sales_detail.location.id"
                               :value="lines.id"
                               >
@@ -1841,8 +1841,8 @@
                             <label>To <span class="text-danger">*</span></label>
                             <select v-model="user_id" class="form-select">
                               <option :value="null" disabled>Select User</option>
-                              <option
-                              v-for="user_options in user_option"
+                              <option 
+                              v-for="user_options in user_option" 
                               v-if="user_options.role_id === 3"
                               :value="user_options.id"
                               >
@@ -1911,8 +1911,8 @@
                             <label>To <span class="text-danger">*</span></label>
                             <select v-model="user_id" class="form-select">
                               <option :value="null" disabled>Select User</option>
-                              <option
-                              v-for="user_options in user_option"
+                              <option 
+                              v-for="user_options in user_option" 
                               v-if="user_options.role_id === 4"
                               :value="user_options.id"
                               >
@@ -1953,12 +1953,12 @@ export default {
   name: 'MySalesPlanDetailPage',
   data() {
     return {
-      user: this.$auth.user.name,
-      role: this.$auth.user.role.name,
+      user: this.$auth.user.user.name,
+      role: this.$auth.user.user.role.name,
       sales: {
         data: [],
         link: [],
-      },
+      },  
       p_contact: {
         id: null,
         name: null,
@@ -1976,7 +1976,7 @@ export default {
       paginate: '10',
       files: [],
       ams: null,
-      value: [],
+      value: [], 
       hangar_id: null,
       upgrade: null,
       maintenance_id: null,
@@ -1987,7 +1987,7 @@ export default {
       hangar_option: [],
       line: null,
       status: null,
-      contact_person: [],
+      contact_person: [], 
       user_option: null,
       modal_contact: false,
       modal_upload: null,
@@ -2073,10 +2073,10 @@ export default {
       var element = document.querySelector("#kt_stepper_example_basic");
       var stepper = new KTStepper(element);
       stepper.on("kt.stepper.next", function (stepper) {
-          stepper.goNext();
+          stepper.goNext(); 
       });
       stepper.on("kt.stepper.previous", function (stepper) {
-          stepper.goPrevious();
+          stepper.goPrevious(); 
       });
     },
     attachFile() {
@@ -2109,7 +2109,7 @@ export default {
           this.$router.push({
             name: 'my-salesplan'
           });
-        }
+        } 
       })
     },
     listContact(paginate) {
@@ -2554,13 +2554,13 @@ export default {
       let formData = new FormData();
       for( var i = 0; i < this.files.length; i++ ){
         let file = this.files[i];
-        formData.append('files[' + i + ']', file);
+        formData.append('files[' + i + ']', file);  
       }
       formData.append('sales_id', this.sales_detail.id);
       formData.append('requirement_id', this.sequence);
       this.$axios
-        .post('/api/file-create',
-        formData,
+        .post('/api/file-create', 
+        formData, 
         {
           headers: {
             'Content-Type': 'multipart/form-data'
@@ -2623,23 +2623,23 @@ export default {
     },
     addFile3() {
       this.sequence = 4
-      this.modal_upload = 3
-    },
+      this.modal_upload = 3 
+    }, 
     addFile4() {
       this.sequence = 5
-      this.modal_upload = 4
+      this.modal_upload = 4 
     },
     addFile5() {
       this.sequence = 6
-      this.modal_upload = 5
+      this.modal_upload = 5 
     },
     addFile6() {
       this.sequence = 7
-      this.modal_upload = 6
+      this.modal_upload = 6 
     },
     addFile7() {
       this.sequence = 9
-      this.modal_upload = 7
+      this.modal_upload = 7 
     },
 
     submitContact() {
@@ -2766,7 +2766,7 @@ export default {
       this.sales_detail.tat = null
       this.sales_detail.value = null
       this.sales_detail.start_date = null
-
+      
       this.errors.maintenance_id = null
       this.errors.hangar_id = null
       this.errors.acreg = null
@@ -2796,7 +2796,7 @@ export default {
       document.getElementById('close_modal_notify').click()
       this.clearFormNotifyLevel()
     },
-
+    
     clearFormnotifyUpgrade() {
       this.user_id = null
       this.line_id = null
@@ -2840,20 +2840,20 @@ export default {
 }
 
 #cardMarketShare {
-  border: dotted #04C8C8;
-  border-radius: 10px;
+  border: dotted #04C8C8; 
+  border-radius: 10px; 
   padding-top: 10px;
 }
 
 #cardSalesPlan {
-  border: dotted #50CD89;
-  border-radius: 10px;
+  border: dotted #50CD89; 
+  border-radius: 10px; 
   padding-top: 10px;
 }
 
 #cardDevisiasi {
-  border: dotted #F1416C;
-  border-radius: 10px;
+  border: dotted #F1416C; 
+  border-radius: 10px; 
   padding-top: 10px;
 }
 
@@ -2870,23 +2870,23 @@ export default {
 }
 
 #textSync {
-  background-color: #F1E0D0;
+  background-color: #F1E0D0; 
   color: #955F2D;
   margin-left: 10px;
 }
 
 #textWaiting {
-  background-color: #F1E0D0;
+  background-color: #F1E0D0; 
   color: #955F2D;
 }
 
 #textApproved {
-  background-color: #2146C7;
+  background-color: #2146C7; 
   color: #fff;
 }
 
 #bodyAMS {
-  background: #F1F5F9;
+  background: #F1F5F9; 
   padding: 10px;
   border-radius: 8px
 }
@@ -2894,4 +2894,4 @@ export default {
 #myBorder {
   border:dashed #CDE7FE;
 }
-</style>
+</style>  

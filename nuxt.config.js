@@ -61,7 +61,7 @@ export default {
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
     // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
-    baseURL: 'https://dev-gsmart.gmf.cloud',
+    baseURL: 'http://localhost:8000',
     credentials: true,
   },
 
@@ -90,24 +90,26 @@ export default {
       home: '/',
     },
     strategies: {
-      local: {
-        token: {
-          property: 'token',
-          global: true,
-          required: true,
-          type: 'Bearer',
-        },
-        user: {
-          property: 'user',
-          autoFetch: true,
-        },
+      laravelSanctum: {
+        provider: 'laravel/sanctum',
+        url: 'http://localhost:8000',
         endpoints: {
-          login: { url: '/api/login', method: 'post' },
-          logout: { url: '/api/logout', method: 'post' },
-          user: { url: '/api/users', method: 'get' },
+          login: {
+            url: '/api/login',
+            method: 'post',
+          },
+          user: {
+            url: '/api/users',
+            method: 'get',
+          },
+          logout: {
+            url: '/api/logout',
+            method: 'post',
+          },
         },
       },
     },
+    // localStorage: false,
   },
   router: {
     middleware: ['auth'],

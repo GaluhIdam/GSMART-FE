@@ -392,7 +392,7 @@
                   <div class="form-group mb-3">
                     <label class="form-label fw-bold">Email</label>
                     <input
-                      type="email"
+                      type="text"
                       class="form-control"
                       v-model="users.email"
                       v-if="modal_create"
@@ -401,7 +401,7 @@
                       }"
                     />
                     <input
-                      type="email"
+                      type="text"
                       class="form-control"
                       v-model="users.email"
                       v-else

@@ -38,13 +38,13 @@
               {{ errors }}
             </p>
           </div>
-          <form method="post" v-on:submit.prevent="userLogin">
+          <form method="post" v-on:submit.prevent="login">
             <div class="form-group mt-5">
               <input
                 type="text"
                 class="form-control rounded-pill"
                 placeholder="582813"
-                v-model="login.username"
+                v-model="username"
               />
             </div>
             <div class="form-group mt-10">
@@ -52,7 +52,7 @@
                 type="password"
                 class="form-control rounded-pill"
                 placeholder="********"
-                v-model="login.password"
+                v-model="password"
               />
             </div>
             <div
@@ -99,22 +99,23 @@ export default {
   },
   data() {
     return {
-      login: {
-        username: '',
-        password: '',
-      },
+      username: '',
+      password: '',
       errors: '',
     }
   },
 
   methods: {
-    async userLogin() {
+    async login() {
       this.loading()
       await this.$auth
-        .loginWith('local', {
-          data: this.login,
+        .loginWith('laravelSanctum', {
+          data: {
+            username: this.username,
+            password: this.password,
+          },
         })
-        .then(() => {
+        .then((result) => {
           this.loading()
           this.$router.push('/')
           this.successMessage()

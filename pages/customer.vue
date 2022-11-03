@@ -498,6 +498,10 @@ export default {
   },
   created() {
     this.listCustomer()
+    this.listCustomer()
+    this.listRegion()
+    this.listAMS()
+    this.listArea()
   },
   mounted() {
     KTFormRepeaterBasic.init()
@@ -750,16 +754,11 @@ export default {
     },
     edit(item) {
       this.modal_create = false
-      this.listCustomer()
-      this.listRegion()
-      this.listAMS()
-      this.listArea()
       this.customer.id = item.id
-      this.modal_create = false
       this.customer.name = item.name
       this.customer.code = item.code
       this.country_value = item.country
-      this.region_value = item.country.regions
+      this.region_value = item.country.region
       this.area_ams = item.amscustomer
       this.isDisabled = false
       this.fail.push({

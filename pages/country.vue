@@ -123,8 +123,17 @@
                 <thead>
                   <tr class="fw-bold fs-6 text-gray-800">
                     <th class="text-center">No</th>
-                    <th class="text-center">Name</th>
-                    <th class="text-center">Region</th>
+                    <!-- Start Name sorting -->
+                    <th v-if="order == 'name' && by == 'asc'" @click="sort('name', 'desc')" class="text-center">Name <i class="fa-solid fa-sort-up" style="color: black"></i></th>
+                    <th v-else-if="order == 'name' && by == 'desc'" @click="sort('id', 'desc')" class="text-center">Name <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+                    <th v-else @click="sort('name', 'asc')" class="text-center">Name <i class="fa-solid fa-sort"></i></th>
+                    <!-- End Name sorting -->
+                    
+                    <!-- Start Region sorting -->
+                    <th v-if="order == 'region' && by == 'asc'" @click="sort('region', 'desc')" class="text-center">Region <i class="fa-solid fa-sort-up" style="color: black"></i></th>
+                    <th v-else-if="order == 'region' && by == 'desc'" @click="sort('id', 'desc')" class="text-center">Region <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+                    <th v-else @click="sort('region', 'asc')" class="text-center">Region <i class="fa-solid fa-sort"></i></th>
+                    <!-- End Region sorting -->
                     <th class="text-center">Action</th>
                   </tr>
                 </thead>
@@ -139,7 +148,7 @@
 
                     <td class="d-flex justify-content-center">
                       <button
-                        class="btn btn-sm btn-light"
+                        class="btn btn-sm btn-light me-5"
                         data-bs-toggle="modal"
                         data-bs-target="#modal"
                         @click="edit(countrie)"
@@ -186,48 +195,23 @@
               </nav>
             </div>
             <div class="col d-flex justify-content-end align-items-center">
-              <nav aria-label="Page navigation example">
+              <nav>
                 <ul class="pagination">
-                  <li class="page-item">
-                    <button
-                      type="button"
-                      class="page-link"
-                      :class="{
-                        disabled: !countries.prev_page_url,
-                      }"
-                      @click="
-                        countries.prev_page_url && list(countries.prev_page_url)
-                      "
-                    >
-                      Previous
-                    </button>
+                  <!-- Start pagination -->
+                  <li v-for="(link, link_index) in countries.links" :key="link_index" class="page-item" :class="{ disabled: !link.url, active: link.active }">
+                      <a href="javascript:void(0)" @click="list(link.url)" class="page-link">
+                          <span v-if="link.label == '&laquo; Previous'">
+                              <i class="fa-solid fa-caret-left"></i>
+                          </span>
+                          <span v-else-if="link.label == 'Next &raquo;'">
+                              <i class="fa-solid fa-caret-right"></i>
+                          </span>
+                          <span v-else>
+                              {{ link.label }}
+                          </span>
+                      </a>
                   </li>
-                  <li
-                    class="page-item"
-                    style="margin-left: 15px; margin-right: 15px"
-                  >
-                    <input
-                      type="text"
-                      class="form-control form-control-sm text-center"
-                      v-model="current_page"
-                      @keypress="directPage"
-                      style="width: 60px"
-                    />
-                  </li>
-                  <li class="page-item">
-                    <button
-                      type="button"
-                      class="page-link"
-                      :class="{
-                        disabled: !countries.next_page_url,
-                      }"
-                      @click="
-                        countries.next_page_url && list(countries.next_page_url)
-                      "
-                    >
-                      Next
-                    </button>
-                  </li>
+                  <!-- End pagination -->
                 </ul>
               </nav>
             </div>
@@ -310,8 +294,8 @@
                     {{ region_options.name }}
                   </option>
                 </select>
-                <span v-if="errors.region" class="error invalid-feedback">{{
-                  errors.region[0]
+                <span v-if="errors.region_id" class="error invalid-feedback">{{
+                  errors.region_id[0]
                 }}</span>
               </div>
 
@@ -356,6 +340,7 @@
 import debounce from 'lodash/debounce'
 export default {
   layout: 'template',
+  name: "CountryPage",
   data() {
     return {
       countries: {
@@ -369,6 +354,7 @@ export default {
       },
       modal_create: false,
       search: null,
+      region_option: null,
       order: 'id',
       by: 'desc',
       paginate: '10',
@@ -391,9 +377,27 @@ export default {
     }, 500),
   },
   methods: {
+    directPage: debounce(function () {
+      if (this.current_page < 1) {
+        this.current_page = 1
+      } else if (this.current_page > this.countries.last_page) {
+        this.current_page = this.countries.last_page
+      }
+      let url = new URL(this.countries.first_page_url)
+      let search_params = url.searchParams
+      search_params.set('page', this.current_page)
+      url.search = search_params.toString()
+      let new_url = url.toString()
+      this.list(new_url)
+    }, 500),
+    sort(order, by) {
+        this.order = order;
+        this.by = by;
+        this.list();
+    },
     list(paginate) {
       this.loading()
-      paginate = paginate || `/api/countries`
+      paginate = paginate || `/api/countries`;
       this.$axios
         .get(paginate, {
           params: {
@@ -410,19 +414,6 @@ export default {
         })
         .catch((error) => console.log(error))
     },
-    directPage: debounce(function () {
-      if (this.current_page < 1) {
-        this.current_page = 1
-      } else if (this.current_page > this.countries.last_page) {
-        this.current_page = this.countries.last_page
-      }
-      let url = new URL(this.countries.first_page_url)
-      let search_params = url.searchParams
-      search_params.set('page', this.current_page)
-      url.search = search_params.toString()
-      let new_url = url.toString()
-      this.list(new_url)
-    }, 500),
     submit() {
       if (this.modal_create) {
         this.create()
@@ -457,7 +448,7 @@ export default {
       this.modal_create = false
       this.countrie.id = countrie.id
       this.countrie.name = countrie.name
-      this.countrie.region_id = countrie.regions
+      this.countrie.region_id = countrie.region_id
     },
     update() {
       this.loading()

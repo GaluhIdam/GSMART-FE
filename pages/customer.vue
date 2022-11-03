@@ -119,11 +119,13 @@
                     v-for="(customer, customer_index) in customer.data"
                     :key="customer_index"
                   >
-                    <td class="text-center">{{ customer_index+1 }}.</td>
+                    <td class="text-center">{{ customer_index + 1 }}.</td>
                     <td class="text-center">{{ customer.code }}</td>
                     <td class="text-center">{{ customer.name }}</td>
                     <td class="text-center">{{ customer.country.name }}</td>
-                    <td class="text-center">{{ customer.country.region.name }}</td>
+                    <td class="text-center">
+                      {{ customer.country.region.name }}
+                    </td>
                     <td class="d-flex justify-content-center">
                       <button
                         class="btn btn-sm btn-light"
@@ -183,7 +185,8 @@
                         disabled: !customer.prev_page_url,
                       }"
                       @click="
-                        customer.prev_page_url && listCustomer(customer.prev_page_url)
+                        customer.prev_page_url &&
+                          listCustomer(customer.prev_page_url)
                       "
                     >
                       Previous
@@ -209,7 +212,8 @@
                         disabled: !customer.next_page_url,
                       }"
                       @click="
-                        customer.next_page_url && listCustomer(customer.next_page_url)
+                        customer.next_page_url &&
+                          listCustomer(customer.next_page_url)
                       "
                     >
                       Next
@@ -381,11 +385,14 @@
                             :searchable="true"
                             :options="area"
                             :class="{
-                              'is-invalid': fail[index].area,
+                              'is-invalid':
+                                fail[index].area == undefined
+                                  ? ''
+                                  : fail[index].area,
                             }"
                           ></multiselect>
                           <span class="error invalid-feedback">{{
-                            fail[index].area
+                            fail[index].area ?? ''
                           }}</span>
                         </div>
                         <div class="col-md-5 text-center">
@@ -397,7 +404,10 @@
                             :searchable="true"
                             :options="ams"
                             :class="{
-                              'is-invalid': fail[index].ams,
+                              'is-invalid':
+                                fail[index].ams == undefined
+                                  ? ''
+                                  : fail[index].ams,
                             }"
                           ></multiselect>
                           <span
@@ -530,7 +540,6 @@ export default {
         })
         .then((response) => {
           this.customer = response.data.data
-          console.log(this.customer)
           this.current_page = this.customer.current_page
           Swal.close()
         })
@@ -753,17 +762,25 @@ export default {
       }
     },
     edit(item) {
-      this.modal_create = false
-      this.customer.id = item.id
-      this.customer.name = item.name
-      this.customer.code = item.code
-      this.country_value = item.country
-      this.region_value = item.country.region
-      this.area_ams = item.amscustomer
-      this.isDisabled = false
-      this.fail.push({
-        area: null,
-        ams: null,
+      this.$axios.get('/api/customer-show/' + item.id).then((result) => {
+        this.listRegion()
+        this.listAMS()
+        this.listArea()
+        this.modal_create = false
+        this.customer.id = result.data.data.id
+        this.customer.name = result.data.data.name
+        this.customer.code = result.data.data.code
+        this.country_value = result.data.data.country
+        this.region_value = result.data.data.country.region
+        this.area_ams = result.data.data.ams_customers
+        for (let i = 0; i < this.area_ams.length; i++) {
+          this.fail.push({
+            area: null,
+            ams: null,
+          })
+        }
+        this.isDisabled = false
+        console.log(this.fail)
       })
     },
     hapus(id) {

@@ -123,8 +123,16 @@
                 <thead>
                   <tr class="fw-bold fs-6 text-gray-800">
                     <th class="text-center">No</th>
-                    <th class="text-center">Name</th>
-                    <th class="text-center">Description</th>
+                    <!-- Start Name sorting -->
+                    <th v-if="order == 'name' && by == 'asc'" @click="sort('name', 'desc')" class="text-center">Name <i class="fa-solid fa-sort-up" style="color: black"></i></th>
+                    <th v-else-if="order == 'name' && by == 'desc'" @click="sort('id', 'desc')" class="text-center">Name <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+                    <th v-else @click="sort('name', 'asc')" class="text-center">Name <i class="fa-solid fa-sort"></i></th>
+                    <!-- End Name sorting -->
+                    <!-- Start description sorting -->
+                    <th v-if="order == 'description' && by == 'asc'" @click="sort('description', 'desc')" class="text-center">Description <i class="fa-solid fa-sort-up" style="color: black"></i></th>
+                    <th v-else-if="order == 'description' && by == 'desc'" @click="sort('id', 'desc')" class="text-center">Description <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+                    <th v-else @click="sort('description', 'asc')" class="text-center">Description <i class="fa-solid fa-sort"></i></th>
+                    <!-- End description sorting -->
                     <th class="text-center">Action</th>
                   </tr>
                 </thead>
@@ -142,7 +150,7 @@
                     <td class="text-center">{{ transaction.description }}</td>
                     <td class="d-flex justify-content-center">
                       <button
-                        class="btn btn-sm btn-light"
+                        class="btn btn-sm btn-light me-5"
                         data-bs-toggle="modal"
                         data-bs-target="#modal"
                         @click="edit(transaction)"
@@ -191,48 +199,21 @@
             <div class="col d-flex justify-content-end align-items-center">
               <nav aria-label="Page navigation example">
                 <ul class="pagination">
-                  <li class="page-item">
-                    <button
-                      type="button"
-                      class="page-link"
-                      :class="{
-                        disabled: !transaction_type.prev_page_url,
-                      }"
-                      @click="
-                        transaction_type.prev_page_url &&
-                          list(transaction_type.prev_page_url)
-                      "
-                    >
-                      Previous
-                    </button>
+                  <!-- Start pagination -->
+                  <li v-for="(link, link_index) in transaction_type.links" :key="link_index" class="page-item" :class="{ disabled: !link.url, active: link.active }">
+                      <a href="javascript:void(0)" @click="list(link.url)" class="page-link">
+                          <span v-if="link.label == '&laquo; Previous'">
+                              <i class="fa-solid fa-caret-left"></i>
+                          </span>
+                          <span v-else-if="link.label == 'Next &raquo;'">
+                              <i class="fa-solid fa-caret-right"></i>
+                          </span>
+                          <span v-else>
+                              {{ link.label }}
+                          </span>
+                      </a>
                   </li>
-                  <li
-                    class="page-item"
-                    style="margin-left: 15px; margin-right: 15px"
-                  >
-                    <input
-                      type="text"
-                      class="form-control form-control-sm text-center"
-                      v-model="current_page"
-                      @keypress="directPage"
-                      style="width: 60px"
-                    />
-                  </li>
-                  <li class="page-item">
-                    <button
-                      type="button"
-                      class="page-link"
-                      :class="{
-                        disabled: !transaction_type.next_page_url,
-                      }"
-                      @click="
-                        transaction_type.next_page_url &&
-                          list(transaction_type.next_page_url)
-                      "
-                    >
-                      Next
-                    </button>
-                  </li>
+                  <!-- End pagination -->
                 </ul>
               </nav>
             </div>
@@ -392,6 +373,11 @@ export default {
     }, 500),
   },
   methods: {
+    sort(order, by) {
+      this.order = order;
+      this.by = by;
+      this.list();
+    },
     list(paginate) {
       this.loading()
       paginate = paginate || `/api/transaction-type`

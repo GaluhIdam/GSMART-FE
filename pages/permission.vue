@@ -112,8 +112,16 @@
                 <thead>
                   <tr class="fw-bold fs-6 text-gray-800">
                     <th class="text-center">No</th>
-                    <th class="text-center">Name</th>
-                    <th class="text-center">Description</th>
+                    <!-- Start name sorting -->
+                    <th v-if="order == 'name' && by == 'asc'" @click="sort('name', 'desc')" class="text-center">Name <i class="fa-solid fa-sort-up" style="color: black"></i></th>
+                    <th v-else-if="order == 'name' && by == 'desc'" @click="sort('id', 'desc')" class="text-center">Name <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+                    <th v-else @click="sort('name', 'asc')" class="text-center">Name <i class="fa-solid fa-sort"></i></th>
+                    <!-- End name sorting -->
+                    <!-- Start description sorting -->
+                    <th v-if="order == 'description' && by == 'asc'" @click="sort('description', 'desc')" class="text-center">Description <i class="fa-solid fa-sort-up" style="color: black"></i></th>
+                    <th v-else-if="order == 'description' && by == 'desc'" @click="sort('id', 'desc')" class="text-center">Description <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+                    <th v-else @click="sort('description', 'asc')" class="text-center">Description <i class="fa-solid fa-sort"></i></th>
+                    <!-- End description sorting -->
                     <th class="text-center">Action</th>
                   </tr>
                 </thead>
@@ -164,51 +172,24 @@
                 </ul>
               </nav>
             </div>
-            <div class="col d-flex justify-content-end align-items-center">
-              <nav aria-label="Page navigation example">
+            <div class="col col-md-8 d-flex justify-content-end align-items-center">
+              <nav>
                 <ul class="pagination">
-                  <li class="page-item">
-                    <button
-                      type="button"
-                      class="page-link"
-                      :class="{
-                        disabled: !permissions.prev_page_url,
-                      }"
-                      @click="
-                        permissions.prev_page_url &&
-                          list(permissions.prev_page_url)
-                      "
-                    >
-                      Previous
-                    </button>
+                  <!-- Start pagination -->
+                  <li v-for="(link, link_index) in permissions.links" :key="link_index" class="page-item" :class="{ disabled: !link.url, active: link.active }">
+                    <a href="javascript:void(0)" @click="list(link.url)" class="page-link">
+                      <span v-if="link.label == '&laquo; Previous'">
+                          <i class="fa-solid fa-caret-left"></i>
+                      </span>
+                      <span v-else-if="link.label == 'Next &raquo;'">
+                          <i class="fa-solid fa-caret-right"></i>
+                      </span>
+                      <span v-else>
+                          {{ link.label }}
+                      </span>
+                    </a>
                   </li>
-                  <li
-                    class="page-item"
-                    style="margin-left: 15px; margin-right: 15px"
-                  >
-                    <input
-                      type="text"
-                      class="form-control form-control-sm text-center"
-                      v-model="current_page"
-                      @keypress="directPage"
-                      style="width: 60px"
-                    />
-                  </li>
-                  <li class="page-item">
-                    <button
-                      type="button"
-                      class="page-link"
-                      :class="{
-                        disabled: !permissions.next_page_url,
-                      }"
-                      @click="
-                        permissions.next_page_url &&
-                          list(permissions.next_page_url)
-                      "
-                    >
-                      Next
-                    </button>
-                  </li>
+                  <!-- End pagination -->
                 </ul>
               </nav>
             </div>
@@ -354,6 +335,11 @@ export default {
     }, 500),
   },
   methods: {
+    sort(order, by) {
+      this.order = order;
+      this.by = by;
+      this.list();
+    },
     list(paginate) {
       this.loading()
       paginate = paginate || `/api/permission`

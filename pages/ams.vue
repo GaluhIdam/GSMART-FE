@@ -123,8 +123,17 @@
                 <thead>
                   <tr class="fw-bold fs-6 text-gray-800">
                     <th class="text-center">No</th>
-                    <th class="text-center">Initial</th>
-                    <th class="text-center">User ID</th>
+                    <!-- Start Initial sorting -->
+                    <th v-if="order == 'initial' && by == 'asc'" @click="sort('initial', 'desc')" class="text-center">Initial <i class="fa-solid fa-sort-up" style="color: black"></i></th>
+                    <th v-else-if="order == 'initial' && by == 'desc'" @click="sort('id', 'desc')" class="text-center">Initial <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+                    <th v-else @click="sort('initial', 'asc')" class="text-center">Initial <i class="fa-solid fa-sort"></i></th>
+                    <!-- End Initial sorting -->
+                    
+                    <!-- Start user sorting -->
+                    <th v-if="order == 'user' && by == 'asc'" @click="sort('user', 'desc')" class="text-center">User <i class="fa-solid fa-sort-up" style="color: black"></i></th>
+                    <th v-else-if="order == 'user' && by == 'desc'" @click="sort('id', 'desc')" class="text-center">User <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+                    <th v-else @click="sort('user', 'asc')" class="text-center">User <i class="fa-solid fa-sort"></i></th>
+                    <!-- End user sorting -->
 
                     <th class="text-center">Action</th>
                   </tr>
@@ -139,7 +148,7 @@
                     <td class="text-center">{{ p_ams.user.name }}</td>
                     <td class="d-flex justify-content-center">
                       <button
-                        class="btn btn-sm btn-light"
+                        class="btn btn-sm btn-light me-5"
                         data-bs-toggle="modal"
                         data-bs-target="#modal"
                         @click="edit(p_ams)"
@@ -185,45 +194,24 @@
                 </ul>
               </nav>
             </div>
-            <div class="col d-flex justify-content-end align-items-center">
-              <nav aria-label="Page navigation example">
+            <div class="col col-lg-8 d-flex justify-content-end align-items-center">
+              <nav>
                 <ul class="pagination">
-                  <li class="page-item">
-                    <button
-                      type="button"
-                      class="page-link"
-                      :class="{
-                        disabled: !ams.prev_page_url,
-                      }"
-                      @click="ams.prev_page_url && list(ams.prev_page_url)"
-                    >
-                      Previous
-                    </button>
+                  <!-- Start pagination -->
+                  <li v-for="(link, link_index) in ams.links" :key="link_index" class="page-item" :class="{ disabled: !link.url, active: link.active }">
+                      <a href="javascript:void(0)" @click="list(link.url)" class="page-link">
+                          <span v-if="link.label == '&laquo; Previous'">
+                              <i class="fa-solid fa-caret-left"></i>
+                          </span>
+                          <span v-else-if="link.label == 'Next &raquo;'">
+                              <i class="fa-solid fa-caret-right"></i>
+                          </span>
+                          <span v-else>
+                              {{ link.label }}
+                          </span>
+                      </a>
                   </li>
-                  <li
-                    class="page-item"
-                    style="margin-left: 15px; margin-right: 15px"
-                  >
-                    <input
-                      type="text"
-                      class="form-control form-control-sm text-center"
-                      v-model="current_page"
-                      @keypress="directPage"
-                      style="width: 60px"
-                    />
-                  </li>
-                  <li class="page-item">
-                    <button
-                      type="button"
-                      class="page-link"
-                      :class="{
-                        disabled: !ams.next_page_url,
-                      }"
-                      @click="ams.next_page_url && list(ams.next_page_url)"
-                    >
-                      Next
-                    </button>
-                  </li>
+                  <!-- End pagination -->
                 </ul>
               </nav>
             </div>
@@ -384,6 +372,11 @@ export default {
     }, 500),
   },
   methods: {
+    sort(order, by) {
+      this.order = order;
+      this.by = by;
+      this.list();
+    },
     list(paginate) {
       this.loading()
       paginate = paginate || `/api/ams`

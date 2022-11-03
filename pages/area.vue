@@ -123,8 +123,16 @@
                 <thead>
                   <tr class="fw-bold fs-6 text-gray-800">
                     <th class="text-center">No</th>
-                    <th class="text-center">Name</th>
-                    <th class="text-center">Scope</th>
+                    <!-- Start Name sorting -->
+                    <th v-if="order == 'name' && by == 'asc'" @click="sort('name', 'desc')" class="text-center">Name <i class="fa-solid fa-sort-up" style="color: black"></i></th>
+                    <th v-else-if="order == 'name' && by == 'desc'" @click="sort('id', 'desc')" class="text-center">Name <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+                    <th v-else @click="sort('name', 'asc')" class="text-center">Name <i class="fa-solid fa-sort"></i></th>
+                    <!-- End Name sorting -->
+                    <!-- Start scope sorting -->
+                    <th v-if="order == 'scope' && by == 'asc'" @click="sort('scope', 'desc')" class="text-center">Scope <i class="fa-solid fa-sort-up" style="color: black"></i></th>
+                    <th v-else-if="order == 'scope' && by == 'desc'" @click="sort('id', 'desc')" class="text-center">Scope <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+                    <th v-else @click="sort('scope', 'asc')" class="text-center">Scope <i class="fa-solid fa-sort"></i></th>
+                    <!-- End scope sorting -->
                     <th class="text-center">Action</th>
                   </tr>
                 </thead>
@@ -185,45 +193,24 @@
                 </ul>
               </nav>
             </div>
-            <div class="col d-flex justify-content-end align-items-center">
+            <div class="col col-lg-8 d-flex justify-content-end align-items-center">
               <nav aria-label="Page navigation example">
                 <ul class="pagination">
-                  <li class="page-item">
-                    <button
-                      type="button"
-                      class="page-link"
-                      :class="{
-                        disabled: !area.prev_page_url,
-                      }"
-                      @click="area.prev_page_url && list(area.prev_page_url)"
-                    >
-                      Previous
-                    </button>
+                  <!-- Start pagination -->
+                  <li v-for="(link, link_index) in area.links" :key="link_index" class="page-item" :class="{ disabled: !link.url, active: link.active }">
+                      <a href="javascript:void(0)" @click="list(link.url)" class="page-link">
+                          <span v-if="link.label == '&laquo; Previous'">
+                              <i class="fa-solid fa-caret-left"></i>
+                          </span>
+                          <span v-else-if="link.label == 'Next &raquo;'">
+                              <i class="fa-solid fa-caret-right"></i>
+                          </span>
+                          <span v-else>
+                              {{ link.label }}
+                          </span>
+                      </a>
                   </li>
-                  <li
-                    class="page-item"
-                    style="margin-left: 15px; margin-right: 15px"
-                  >
-                    <input
-                      type="text"
-                      class="form-control form-control-sm text-center"
-                      v-model="current_page"
-                      @keypress="directPage"
-                      style="width: 60px"
-                    />
-                  </li>
-                  <li class="page-item">
-                    <button
-                      type="button"
-                      class="page-link"
-                      :class="{
-                        disabled: !area.next_page_url,
-                      }"
-                      @click="area.next_page_url && list(area.next_page_url)"
-                    >
-                      Next
-                    </button>
-                  </li>
+                  <!-- End pagination -->
                 </ul>
               </nav>
             </div>
@@ -382,6 +369,11 @@ export default {
     }, 500),
   },
   methods: {
+    sort(order, by) {
+      this.order = order;
+      this.by = by;
+      this.list();
+    },
     list(paginate) {
       this.loading()
       paginate = paginate || `/api/area`

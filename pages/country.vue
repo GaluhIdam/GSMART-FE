@@ -283,7 +283,7 @@
               </div>
               <div class="form-group mb-3">
                 <label class="form-label fw-bold">Region</label>
-                <select v-model="countrie.region_id" class="form-select">
+                <select v-model="countrie.region_id" class="form-select" :class="{ 'is-invalid': errors.region_id }">
                   <option 
                     v-for="region_options in region_option" 
                     :value="region_options.id" 

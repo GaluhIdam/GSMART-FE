@@ -418,7 +418,7 @@ export default {
   layout: 'template',
   data() {
     return {
-      role: this.$auth.user.user.role.name,
+      role: this.$auth.user.role.name,
       selected_customer: null,
       customer: [],
       maintenance_option: [],

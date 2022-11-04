@@ -271,7 +271,7 @@ export default {
   layout: 'template',
   data() {
     return {
-      role: this.$auth.user.user.role.name,
+      role: this.$auth.user.role.name,
       deviation : this.market_share - this.sales_plan,
       customer_options: [],
       pbth: [],

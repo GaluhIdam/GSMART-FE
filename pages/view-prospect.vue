@@ -348,7 +348,7 @@ export default {
   layout: 'template',
   data() {
     return {
-      role: this.$auth.user.user.role.name,
+      role: this.$auth.user.role.name,
       contact_person: [],
       contact_person1: [],
       contact_person2: [],

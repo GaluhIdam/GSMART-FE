@@ -344,7 +344,7 @@
                   </div>
                   <div class="form-group mb-3">
                     <label class="form-label fw-bold">Role</label>
-                    <select v-model="users.role_id" class="form-select">
+                    <select v-model="users.role_id" class="form-select" :class="{ 'is-invalid': errors.role_id }">
                       <option :value="null" disabled>Select Role</option>
                       <option 
                         v-for="role_options in role_option" 

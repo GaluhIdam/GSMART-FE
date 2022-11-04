@@ -180,7 +180,7 @@
               </div>
               <div class="form-group mb-3">
                 <label class="form-label fw-bold">User</label>
-                <select v-model="p_ams.user_id" class="form-select">
+                <select v-model="p_ams.user_id" class="form-select" :class="{'is-invalid': errors.user_id}">
                   <option 
                   v-for="user_options in users" 
                   v-if="user_options.role_id === 5"

@@ -123,7 +123,7 @@
                 <thead>
                   <tr class="fw-bold fs-6 text-gray-800">
                     <th class="text-center">No</th>
-
+                    
                     <th v-if="order == 'name' && by == 'asc'" @click="sort('name', 'desc')" class="text-center">Name <i class="fa-solid fa-sort-up" style="color: black"></i></th>
                     <th v-else-if="order == 'name' && by == 'desc'" @click="sort('id', 'desc')" class="text-center">Name <i class="fa-solid fa-sort-down" style="color: black"></i></th>
                     <th v-else @click="sort('name', 'asc')" class="text-center">Name <i class="fa-solid fa-sort"></i></th>
@@ -331,7 +331,7 @@
                   </div>
                   <div class="form-group mb-3">
                     <label class="form-label fw-bold">Role</label>
-                    <!-- <select v-model="users.role_id" class="form-select">
+                    <select v-model="users.role_id" class="form-select" :class="{ 'is-invalid': errors.role_id }">
                       <option :value="null" disabled>Select Role</option>
                       <option 
                         v-for="role_options in role_option" 
@@ -345,11 +345,7 @@
                     </select>
                     <span v-if="errors.role_id" class="error invalid-feedback">{{
                       errors.role_id[0]
-                    }}</span> -->
-                    <multiselect v-model="users.role_id" :options="role_option" label="name" 
-                      :class="{'is-invalid': errors.role_id}"></multiselect>
-
-                      <span v-if="errors.role_id" class="error invalid-feedback">{{errors.role_id[0]}}</span>
+                    }}</span>
                   </div>
                 </div>
 
@@ -482,7 +478,7 @@ export default {
       modal_create: false,
       search: null,
       order: 'id',
-      role_option: [],
+      role_option: null,
       role_id: null,
       by: 'desc',
       paginate: '10',
@@ -565,7 +561,6 @@ export default {
       }
     },
     add() {
-      this.clearForm();
       this.modal_create = true
     },
     create() {
@@ -575,7 +570,7 @@ export default {
           name: this.users.name,
           username: this.users.username,
           password: this.users.password,
-          role_id: this.users.role_id.id,
+          role_id: this.users.role_id,
           nopeg: this.users.nopeg,
           email: this.users.email,
           unit: this.users.unit,
@@ -599,7 +594,7 @@ export default {
       this.users.name = users.name
       this.users.username = users.username
       this.users.password = users.password
-      this.users.role_id = users.role
+      this.users.role_id = users.role_id
       this.users.nopeg = users.nopeg
       this.users.email = users.email
       this.users.unit = users.unit
@@ -612,7 +607,7 @@ export default {
           name: this.users.name,
           username: this.users.username,
           password: this.users.password,
-          role_id: this.users.role_id.id,
+          role_id: this.users.role_id,
           nopeg: this.users.nopeg,
           email: this.users.email,
           unit: this.users.unit,

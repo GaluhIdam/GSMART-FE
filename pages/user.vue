@@ -123,11 +123,23 @@
                 <thead>
                   <tr class="fw-bold fs-6 text-gray-800">
                     <th class="text-center">No</th>
-                    <th class="text-center">Name</th>
+                    
+                    <th v-if="order == 'name' && by == 'asc'" @click="sort('name', 'desc')" class="text-center">Name <i class="fa-solid fa-sort-up" style="color: black"></i></th>
+                    <th v-else-if="order == 'name' && by == 'desc'" @click="sort('id', 'desc')" class="text-center">Name <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+                    <th v-else @click="sort('name', 'asc')" class="text-center">Name <i class="fa-solid fa-sort"></i></th>
 
-                    <th class="text-center">Employee Number</th>
-                    <th class="text-center">Email</th>
-                    <th class="text-center">Unit</th>
+                    <th v-if="order == 'nopeg' && by == 'asc'" @click="sort('nopeg', 'desc')" class="text-center">Employee Number <i class="fa-solid fa-sort-up" style="color: black"></i></th>
+                    <th v-else-if="order == 'nopeg' && by == 'desc'" @click="sort('id', 'desc')" class="text-center">Employee Number <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+                    <th v-else @click="sort('nopeg', 'asc')" class="text-center">Employee Number <i class="fa-solid fa-sort"></i></th>
+
+                    <th v-if="order == 'email' && by == 'asc'" @click="sort('email', 'desc')" class="text-center">Email <i class="fa-solid fa-sort-up" style="color: black"></i></th>
+                    <th v-else-if="order == 'email' && by == 'desc'" @click="sort('id', 'desc')" class="text-center">Email <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+                    <th v-else @click="sort('email', 'asc')" class="text-center">Email <i class="fa-solid fa-sort"></i></th>
+
+                    <th v-if="order == 'unit' && by == 'asc'" @click="sort('unit', 'desc')" class="text-center">Unit <i class="fa-solid fa-sort-up" style="color: black"></i></th>
+                    <th v-else-if="order == 'unit' && by == 'desc'" @click="sort('id', 'desc')" class="text-center">Unit <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+                    <th v-else @click="sort('unit', 'asc')" class="text-center">Unit <i class="fa-solid fa-sort"></i></th>
+
                     <th class="text-center">Action</th>
                   </tr>
                 </thead>
@@ -146,7 +158,7 @@
 
                     <td class="d-flex justify-content-center">
                       <button
-                        class="btn btn-sm btn-light"
+                        class="btn btn-sm btn-light mx-2"
                         data-bs-toggle="modal"
                         data-bs-target="#modal"
                         @click="edit(users)"
@@ -172,70 +184,45 @@
           </div>
         </div>
         <div class="card-footer">
-          <div class="row">
-            <div class="col d-flex justify-content-start align-items-center">
-              <nav aria-label="Page navigation example">
-                <ul class="pagination">
-                  <li class="page-item align-self-center">Rows per page:</li>
-                  <li class="page-item">
-                    <select
-                      class="form-control form-control-sm"
-                      v-model="paginate"
-                      @change="list()"
-                    >
-                      <option value="10">10</option>
-                      <option value="25">25</option>
-                      <option value="50">50</option>
-                      <option value="100">100</option>
-                    </select>
-                  </li>
-                </ul>
-              </nav>
-            </div>
-            <div class="col d-flex justify-content-end align-items-center">
-              <nav aria-label="Page navigation example">
-                <ul class="pagination">
-                  <li class="page-item">
-                    <button
-                      type="button"
-                      class="page-link"
-                      :class="{
-                        disabled: !user.prev_page_url,
-                      }"
-                      @click="user.prev_page_url && list(user.prev_page_url)"
-                    >
-                      Previous
-                    </button>
-                  </li>
-                  <li
-                    class="page-item"
-                    style="margin-left: 15px; margin-right: 15px"
-                  >
-                    <input
-                      type="text"
-                      class="form-control form-control-sm text-center"
-                      v-model="current_page"
-                      @keypress="directPage"
-                      style="width: 60px"
-                    />
-                  </li>
-                  <li class="page-item">
-                    <button
-                      type="button"
-                      class="page-link"
-                      :class="{
-                        disabled: !user.next_page_url,
-                      }"
-                      @click="user.next_page_url && list(user.next_page_url)"
-                    >
-                      Next
-                    </button>
-                  </li>
-                </ul>
-              </nav>
-            </div>
-          </div>
-        </div>
+                    <div class="row">
+                        <div class="col col-md-4 d-flex justify-content-start align-items-center">
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination">
+                                    <li class="page-item align-self-center">Rows per page:</li>
+                                    <li class="page-item">
+                                        <select class="form-control form-control-sm" v-model="paginate" @change="list()">
+                                            <option value="10">10</option>
+                                            <option value="25">25</option>
+                                            <option value="50">50</option>
+                                            <option value="100">100</option>
+                                        </select>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                        <div class="col col-md-8 d-flex justify-content-end align-items-center">
+                            <nav>
+                                <ul class="pagination">
+                                    <!-- Start pagination -->
+                                    <li v-for="(link, link_index) in user.links" :key="link_index" class="page-item" :class="{ disabled: !link.url, active: link.active }">
+                                        <a href="javascript:void(0)" @click="list(link.url)" class="page-link">
+                                            <span v-if="link.label == '&laquo; Previous'">
+                                                <i class="fa-solid fa-caret-left"></i>
+                                            </span>
+                                            <span v-else-if="link.label == 'Next &raquo;'">
+                                                <i class="fa-solid fa-caret-right"></i>
+                                            </span>
+                                            <span v-else>
+                                                {{ link.label }}
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <!-- End pagination -->
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
       </div>
     </div>
 
@@ -518,6 +505,11 @@ export default {
     }, 500),
   },
   methods: {
+    sort(order, by) {
+      this.order = order;
+      this.by = by;
+      this.list();
+    },
     list(paginate) {
       this.loading()
       paginate = paginate || `/api/users`

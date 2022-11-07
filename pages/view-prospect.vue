@@ -56,8 +56,12 @@
       <div class="card shadow-sm mt-5">
         <div class="row">
           <div class="col-md-3 p-16">
-            <img :src=customer_image v-if="customer_image" class="img-fluid">
-            <p v-else></p>
+            <div v-if="customer_image == null">
+              <p>Image Not Found</p>
+            </div>
+            <div v-else>
+              <img :src=customer_image class="img-fluid">
+            </div>
           </div>
           <div class="col-md-9">
             <div class="row mt-15 mb-2">
@@ -107,9 +111,7 @@
                       fill="currentColor"
                     />
                   </svg>
-                  <span class="badge bg-white text-muted fs-6 mb-0 p-0"
-                    >{{ customer.code }}</span
-                  >
+                  <span class="badge bg-white text-muted fs-6 mb-0 p-0">{{ customer.code }}</span>
                 </span>
               </div>
               <div class="col-sm-2">
@@ -131,9 +133,9 @@
                       fill="currentColor"
                     />
                   </svg>
-                  <span class="badge bg-white text-muted fs-6 mb-0 p-0"
-                    >{{ customer_area.name }}</span
-                  >
+                  <span class="badge bg-white text-muted fs-6 mb-0 p-0">
+                    {{ customer_area.name }}
+                  </span>
                 </span>
               </div>
               <div class="col-sm-5">
@@ -156,7 +158,7 @@
                     />
                   </svg>
                   <span class="badge bg-white text-muted fs-6 mb-0 p-0">
-                    {{ customer_country.name + ' - ' + customer_region.name }}
+                  {{ customer_country.name }} - {{ customer_region.name }}
                   </span>
                 </span>
               </div>
@@ -418,7 +420,6 @@ export default {
           // Data Total
           this.prospect_total = response.data.data
           this.salesPlan = response.data.data.salesPlan
-          console.log(this.prospect_total)
         }).catch((error) => {
         if (error.response.status == 404) {
           toastr.error(error.response.data.message)
@@ -434,15 +435,16 @@ export default {
         .get(`api/customer-show/${this.$route.query.id}`)
         .then((response) => {
           // Data Customer
-          this.customer = response.data.data[0]
+          this.customer = response.data.data
           // Data Area Customer
-          this.customer_area = response.data.data[0].ams_customers[0].area
+          this.customer_area = response.data.data.ams_customers[0].area
           // Data Country Customer
-          this.customer_country = response.data.data[0].country
+          this.customer_country = response.data.data.country
           // Data Region Customer
-          this.customer_region = response.data.data[0].country.region
-          this.customer_image = response.data.data[0].full_path
-        }).catch((error) => {
+          this.customer_region = response.data.data.country.region
+          this.customer_image = response.data.data.full_path
+        })
+        .catch((error) => {
         if (error.response.status == 404) {
           toastr.error(error.response.data.message)
           this.$router.push({

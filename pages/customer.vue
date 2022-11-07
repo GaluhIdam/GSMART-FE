@@ -108,21 +108,93 @@
                   <tr class="fw-bold fs-6 text-gray-800">
                     <th class="text-center">No</th>
 
-                    <th v-if="order == 'code' && by == 'asc'" @click="sort('code', 'desc')" class="text-center">Code <i class="fa-solid fa-sort-up" style="color: black"></i></th>
-                    <th v-else-if="order == 'code' && by == 'desc'" @click="sort('id', 'desc')" class="text-center">Code <i class="fa-solid fa-sort-down" style="color: black"></i></th>
-                    <th v-else @click="sort('code', 'asc')" class="text-center">Code <i class="fa-solid fa-sort"></i></th>
+                    <th
+                      v-if="order == 'code' && by == 'asc'"
+                      @click="sort('code', 'desc')"
+                      class="text-center"
+                    >
+                      Code
+                      <i class="fa-solid fa-sort-up" style="color: black"></i>
+                    </th>
+                    <th
+                      v-else-if="order == 'code' && by == 'desc'"
+                      @click="sort('id', 'desc')"
+                      class="text-center"
+                    >
+                      Code
+                      <i class="fa-solid fa-sort-down" style="color: black"></i>
+                    </th>
+                    <th v-else @click="sort('code', 'asc')" class="text-center">
+                      Code <i class="fa-solid fa-sort"></i>
+                    </th>
 
-                    <th v-if="order == 'name' && by == 'asc'" @click="sort('name', 'desc')" class="text-center">Name <i class="fa-solid fa-sort-up" style="color: black"></i></th>
-                    <th v-else-if="order == 'name' && by == 'desc'" @click="sort('id', 'desc')" class="text-center">Name <i class="fa-solid fa-sort-down" style="color: black"></i></th>
-                    <th v-else @click="sort('name', 'asc')" class="text-center">Name <i class="fa-solid fa-sort"></i></th>
+                    <th
+                      v-if="order == 'name' && by == 'asc'"
+                      @click="sort('name', 'desc')"
+                      class="text-center"
+                    >
+                      Name
+                      <i class="fa-solid fa-sort-up" style="color: black"></i>
+                    </th>
+                    <th
+                      v-else-if="order == 'name' && by == 'desc'"
+                      @click="sort('id', 'desc')"
+                      class="text-center"
+                    >
+                      Name
+                      <i class="fa-solid fa-sort-down" style="color: black"></i>
+                    </th>
+                    <th v-else @click="sort('name', 'asc')" class="text-center">
+                      Name <i class="fa-solid fa-sort"></i>
+                    </th>
 
-                    <th v-if="order == 'country' && by == 'asc'" @click="sort('country', 'desc')" class="text-center">Country <i class="fa-solid fa-sort-up" style="color: black"></i></th>
-                    <th v-else-if="order == 'country' && by == 'desc'" @click="sort('id', 'desc')" class="text-center">Country <i class="fa-solid fa-sort-down" style="color: black"></i></th>
-                    <th v-else @click="sort('country', 'asc')" class="text-center">Country <i class="fa-solid fa-sort"></i></th>
+                    <th
+                      v-if="order == 'country' && by == 'asc'"
+                      @click="sort('country', 'desc')"
+                      class="text-center"
+                    >
+                      Country
+                      <i class="fa-solid fa-sort-up" style="color: black"></i>
+                    </th>
+                    <th
+                      v-else-if="order == 'country' && by == 'desc'"
+                      @click="sort('id', 'desc')"
+                      class="text-center"
+                    >
+                      Country
+                      <i class="fa-solid fa-sort-down" style="color: black"></i>
+                    </th>
+                    <th
+                      v-else
+                      @click="sort('country', 'asc')"
+                      class="text-center"
+                    >
+                      Country <i class="fa-solid fa-sort"></i>
+                    </th>
 
-                    <th v-if="order == 'region' && by == 'asc'" @click="sort('region', 'desc')" class="text-center">Region <i class="fa-solid fa-sort-up" style="color: black"></i></th>
-                    <th v-else-if="order == 'region' && by == 'desc'" @click="sort('id', 'desc')" class="text-center">Region <i class="fa-solid fa-sort-down" style="color: black"></i></th>
-                    <th v-else @click="sort('region', 'asc')" class="text-center">Region <i class="fa-solid fa-sort"></i></th>
+                    <th
+                      v-if="order == 'region' && by == 'asc'"
+                      @click="sort('region', 'desc')"
+                      class="text-center"
+                    >
+                      Region
+                      <i class="fa-solid fa-sort-up" style="color: black"></i>
+                    </th>
+                    <th
+                      v-else-if="order == 'region' && by == 'desc'"
+                      @click="sort('id', 'desc')"
+                      class="text-center"
+                    >
+                      Region
+                      <i class="fa-solid fa-sort-down" style="color: black"></i>
+                    </th>
+                    <th
+                      v-else
+                      @click="sort('region', 'asc')"
+                      class="text-center"
+                    >
+                      Region <i class="fa-solid fa-sort"></i>
+                    </th>
 
                     <th class="text-center">Action</th>
                   </tr>
@@ -132,7 +204,9 @@
                     v-for="(customer, customer_index) in customer.data"
                     :key="customer_index"
                   >
-                    <td class="text-center">{{ customer_page.from + customer_index}}</td>
+                    <td class="text-center">
+                      {{ customer_page.from + customer_index }}
+                    </td>
                     <td class="text-center">{{ customer.code }}</td>
                     <td class="text-center">{{ customer.name }}</td>
                     <td class="text-center">{{ customer.country }}</td>
@@ -165,45 +239,67 @@
           </div>
         </div>
         <div class="card-footer">
-                    <div class="row">
-                        <div class="col col-md-4 d-flex justify-content-start align-items-center">
-                            <nav aria-label="Page navigation example">
-                                <ul class="pagination">
-                                    <li class="page-item align-self-center">Rows per page:</li>
-                                    <li class="page-item">
-                                        <select class="form-control form-control-sm" v-model="paginate" @change="listCustomer()">
-                                            <option value="10">10</option>
-                                            <option value="25">25</option>
-                                            <option value="50">50</option>
-                                            <option value="100">100</option>
-                                        </select>
-                                    </li>
-                                </ul>
-                            </nav>
-                        </div>
-                        <div class="col col-md-8 d-flex justify-content-end align-items-center">
-                            <nav>
-                                <ul class="pagination">
-                                    <!-- Start pagination -->
-                                    <li v-for="(link, link_index) in customer.links" :key="link_index" class="page-item" :class="{ disabled: !link.url, active: link.active }">
-                                        <a href="javascript:void(0)" @click="listCustomer(link.url)" class="page-link">
-                                            <span v-if="link.label == '&laquo; Previous'">
-                                                <i class="fa-solid fa-caret-left"></i>
-                                            </span>
-                                            <span v-else-if="link.label == 'Next &raquo;'">
-                                                <i class="fa-solid fa-caret-right"></i>
-                                            </span>
-                                            <span v-else>
-                                                {{ link.label }}
-                                            </span>
-                                        </a>
-                                    </li>
-                                    <!-- End pagination -->
-                                </ul>
-                            </nav>
-                        </div>
-                    </div>
-                </div>
+          <div class="row">
+            <div
+              class="
+                col col-md-4
+                d-flex
+                justify-content-start
+                align-items-center
+              "
+            >
+              <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                  <li class="page-item align-self-center">Rows per page:</li>
+                  <li class="page-item">
+                    <select
+                      class="form-control form-control-sm"
+                      v-model="paginate"
+                      @change="listCustomer()"
+                    >
+                      <option value="10">10</option>
+                      <option value="25">25</option>
+                      <option value="50">50</option>
+                      <option value="100">100</option>
+                    </select>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+            <div
+              class="col col-md-8 d-flex justify-content-end align-items-center"
+            >
+              <nav>
+                <ul class="pagination">
+                  <!-- Start pagination -->
+                  <li
+                    v-for="(link, link_index) in customer.links"
+                    :key="link_index"
+                    class="page-item"
+                    :class="{ disabled: !link.url, active: link.active }"
+                  >
+                    <a
+                      href="javascript:void(0)"
+                      @click="listCustomer(link.url)"
+                      class="page-link"
+                    >
+                      <span v-if="link.label == '&laquo; Previous'">
+                        <i class="fa-solid fa-caret-left"></i>
+                      </span>
+                      <span v-else-if="link.label == 'Next &raquo;'">
+                        <i class="fa-solid fa-caret-right"></i>
+                      </span>
+                      <span v-else>
+                        {{ link.label }}
+                      </span>
+                    </a>
+                  </li>
+                  <!-- End pagination -->
+                </ul>
+              </nav>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <div class="modal fade" tabindex="-1" id="modal" data-bs-backdrop="static">
@@ -365,14 +461,11 @@
                             :searchable="true"
                             :options="area"
                             :class="{
-                              'is-invalid':
-                                fail[index].area == undefined
-                                  ? ''
-                                  : fail[index].area,
+                              'is-invalid': fail[index].area,
                             }"
                           ></multiselect>
                           <span class="error invalid-feedback">{{
-                            fail[index].area ?? ''
+                            fail[index].area
                           }}</span>
                         </div>
                         <div class="col-md-5 text-center">
@@ -384,10 +477,7 @@
                             :searchable="true"
                             :options="ams"
                             :class="{
-                              'is-invalid':
-                                fail[index].ams == undefined
-                                  ? ''
-                                  : fail[index].ams,
+                              'is-invalid': fail[index].ams,
                             }"
                           ></multiselect>
                           <span
@@ -508,9 +598,9 @@ export default {
   },
   methods: {
     sort(order, by) {
-      this.order = order;
-      this.by = by;
-      this.listCustomer();
+      this.order = order
+      this.by = by
+      this.listCustomer()
     },
     listCustomer(paginate) {
       this.loading()

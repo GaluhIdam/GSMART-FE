@@ -1523,7 +1523,7 @@ export default {
   layout: 'template',
   data() {
     return {
-      role: this.$auth.user.user.role.name,
+      role: this.$auth.user.role.name,
       acType_value: null,
       currentYear:  new Date().getFullYear(),
       selected_customer: null,

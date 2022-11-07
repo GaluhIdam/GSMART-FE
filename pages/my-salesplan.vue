@@ -630,8 +630,8 @@ export default {
   name: 'MySalesPlanPage',
   data() {
     return {
-      user: this.$auth.user.user.name,
-      role: this.$auth.user.user.role.name,
+      user: this.$auth.user.name,
+      role: this.$auth.user.role.name,
       sales: {
         data: [],
         link: [],

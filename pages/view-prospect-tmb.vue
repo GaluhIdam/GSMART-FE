@@ -332,7 +332,7 @@
                     <td class="text-center">{{ paginate_tmbSales.from + tmbSales_index }}</td>
                     <td class="text-center">{{ tmbSale.customer_id}}</td>
                     <td class="text-center">{{ tmbSale.ac_reg }}</td>
-                    <td class="text-center">{{ tmbSale.maintenance_id }}</td>
+                    <td class="text-center">{{ tmbSale.maintenance.name }}</td>
                     <td class="text-center">{{ tmbSale.hangar.name }}</td>
                     <td class="text-center">{{ tmbSale.value }}</td>
                     <td class="text-center">{{ tmbSale.tat }}</td>
@@ -342,9 +342,6 @@
                     <td class="text-center badge text-light bg-primary" style="color: #FFA800" v-if="tmbSale.level == 1">Done</td>
                     <td class="text-center badge" style="color: #FFA800; background-color: #FFF4DE" v-else>In Progress</td>
                     <td class="text-center">
-                      <button class="btn btn-sm btn-light">
-                        <i class="bi bi-toggles text-primary"></i>
-                      </button>
                       <button class="btn btn-sm btn-light" data-bs-toggle="modal" data-bs-target="#modal" @click="edit(tmbSale, tmbSales)">
                         <i class="bi bi-pencil-square text-primary"></i>
                       </button>

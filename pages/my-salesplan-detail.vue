@@ -777,7 +777,6 @@
                                   <div class="col-lg-6 mt-3">
                                     <div class="position-relative" v-if="sales_detail">
                                       <div class="position-absolute top-0 end-0" v-if="sales_detail.level == 3 && sales_detail.status === 'Open'">
-                                        <button type="button" class="btn btn-outline-warning btn-outline btn-sm">Sync</button>
                                         <button 
                                           type="button" 
                                           class="btn btn-success btn-sm"

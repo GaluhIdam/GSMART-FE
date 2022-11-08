@@ -417,15 +417,59 @@
                 <thead>
                   <tr class="fw-bold fs-6 text-gray-800">
                     <th class="text-center">No</th>
-                    <th class="text-center">CUTOMER</th>
-                    <th class="text-center">PRODUCT</th>
-                    <th class="text-center">AC/ENG/APU/COMP</th>
-                    <th class="text-center">REGISTRATION</th>
-                    <th class="text-center">Other</th>
-                    <th class="text-center">Type</th>
-                    <th class="text-center">Level</th>
-                    <th class="text-center">Progress</th>
-                    <th class="text-center">STATUS</th>
+                    <!-- Start customer sorting -->
+                    <th v-if="order == 'customer' && by == 'asc'" @click="sort('customer', 'desc')" class="text-center">CUSTOMER <i class="fa-solid fa-sort-up" style="color: black"></i></th>
+                    <th v-else-if="order == 'customer' && by == 'desc'" @click="sort('id', 'desc')" class="text-center">CUSTOMER <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+                    <th v-else @click="sort('customer', 'asc')" class="text-center">CUSTOMER <i class="fa-solid fa-sort"></i></th>
+                    <!-- End customer sorting -->
+
+                    <!-- Start product sorting -->
+                    <th v-if="order == 'product' && by == 'asc'" @click="sort('product', 'desc')" class="text-center">PRODUCT <i class="fa-solid fa-sort-up" style="color: black"></i></th>
+                    <th v-else-if="order == 'product' && by == 'desc'" @click="sort('id', 'desc')" class="text-center">PRODUCT <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+                    <th v-else @click="sort('product', 'asc')" class="text-center">PRODUCT <i class="fa-solid fa-sort"></i></th>
+                    <!-- End product sorting -->
+
+                    <!-- Start registration sorting -->
+                    <th v-if="order == 'registration' && by == 'asc'" @click="sort('registration', 'desc')" class="text-center">AC/ENG/APU/COMP <i class="fa-solid fa-sort-up" style="color: black"></i></th>
+                    <th v-else-if="order == 'registration' && by == 'desc'" @click="sort('id', 'desc')" class="text-center">AC/ENG/APU/COMP <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+                    <th v-else @click="sort('registration', 'asc')" class="text-center">AC/ENG/APU/COMP <i class="fa-solid fa-sort"></i></th>
+                    <!-- End registration sorting -->
+
+                    <!-- Start acReg sorting -->
+                    <th v-if="order == 'acReg' && by == 'asc'" @click="sort('acReg', 'desc')" class="text-center">REGISTRATION <i class="fa-solid fa-sort-up" style="color: black"></i></th>
+                    <th v-else-if="order == 'acReg' && by == 'desc'" @click="sort('id', 'desc')" class="text-center">REGISTRATION <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+                    <th v-else @click="sort('acReg', 'asc')" class="text-center">REGISTRATION <i class="fa-solid fa-sort"></i></th>
+                    <!-- End acReg sorting -->
+
+                    <!-- Start other sorting -->
+                    <th v-if="order == 'other' && by == 'asc'" @click="sort('other', 'desc')" class="text-center">Other <i class="fa-solid fa-sort-up" style="color: black"></i></th>
+                    <th v-else-if="order == 'other' && by == 'desc'" @click="sort('id', 'desc')" class="text-center">Other <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+                    <th v-else @click="sort('other', 'asc')" class="text-center">Other <i class="fa-solid fa-sort"></i></th>
+                    <!-- End other sorting -->
+
+                    <!-- Start type sorting -->
+                    <th v-if="order == 'type' && by == 'asc'" @click="sort('type', 'desc')" class="text-center">Type <i class="fa-solid fa-sort-up" style="color: black"></i></th>
+                    <th v-else-if="order == 'type' && by == 'desc'" @click="sort('id', 'desc')" class="text-center">Type <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+                    <th v-else @click="sort('type', 'asc')" class="text-center">Type <i class="fa-solid fa-sort"></i></th>
+                    <!-- End type sorting -->
+                    
+                    <!-- Start level sorting -->
+                    <th v-if="order == 'level' && by == 'asc'" @click="sort('level', 'desc')" class="text-center">Level <i class="fa-solid fa-sort-up" style="color: black"></i></th>
+                    <th v-else-if="order == 'level' && by == 'desc'" @click="sort('id', 'desc')" class="text-center">Level <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+                    <th v-else @click="sort('level', 'asc')" class="text-center">Level <i class="fa-solid fa-sort"></i></th>
+                    <!-- End level sorting -->
+
+                    <!-- Start progress sorting -->
+                    <th v-if="order == 'progress' && by == 'asc'" @click="sort('progress', 'desc')" class="text-center">Progress <i class="fa-solid fa-sort-up" style="color: black"></i></th>
+                    <th v-else-if="order == 'progress' && by == 'desc'" @click="sort('id', 'desc')" class="text-center">Progress <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+                    <th v-else @click="sort('progress', 'asc')" class="text-center">Progress <i class="fa-solid fa-sort"></i></th>
+                    <!-- End progress sorting -->
+
+                    <!-- Start status sorting -->
+                    <th v-if="order == 'status' && by == 'asc'" @click="sort('status', 'desc')" class="text-center">STATUS <i class="fa-solid fa-sort-up" style="color: black"></i></th>
+                    <th v-else-if="order == 'status' && by == 'desc'" @click="sort('id', 'desc')" class="text-center">STATUS <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+                    <th v-else @click="sort('status', 'asc')" class="text-center">STATUS <i class="fa-solid fa-sort"></i></th>
+                    <!-- End progress sorting -->
                     <th class="text-center">ACTION</th>
                   </tr>
                 </thead>
@@ -571,45 +615,24 @@
                   </ul>
                 </nav>
               </div>
-              <div class="col d-flex justify-content-end align-items-center">
+              <div class="col col-lg-8 d-flex justify-content-end align-items-center">
                 <nav aria-label="Page navigation example">
                   <ul class="pagination">
-                    <li class="page-item">
-                      <button
-                        type="button"
-                        class="page-link"
-                        :class="{
-                          disabled: !sales.prev_page_url,
-                        }"
-                        @click="sales.prev_page_url && list(sales.prev_page_url)"
-                      >
-                        Previous
-                      </button>
+                    <!-- Start pagination -->
+                    <li v-for="(link, link_index) in sales.links" :key="link_index" class="page-item" :class="{ disabled: !link.url, active: link.active }">
+                        <a href="javascript:void(0)" @click="list(link.url)" class="page-link">
+                          <span v-if="link.label == '&laquo; Previous'">
+                              <i class="fa-solid fa-caret-left"></i>
+                          </span>
+                          <span v-else-if="link.label == 'Next &raquo;'">
+                              <i class="fa-solid fa-caret-right"></i>
+                          </span>
+                          <span v-else>
+                              {{ link.label }}
+                          </span>
+                        </a>
                     </li>
-                    <li
-                      class="page-item"
-                      style="margin-left: 15px; margin-right: 15px"
-                    >
-                      <input
-                        type="text"
-                        class="form-control form-control-sm text-center"
-                        v-model="current_page"
-                        @keypress="directPage"
-                        style="width: 60px"
-                      />
-                    </li>
-                    <li class="page-item">
-                      <button
-                        type="button"
-                        class="page-link"
-                        :class="{
-                          disabled: !sales.next_page_url,
-                        }"
-                        @click="sales.next_page_url && list(sales.next_page_url)"
-                      >
-                        Next
-                      </button>
-                    </li>
+                    <!-- End pagination -->
                   </ul>
                 </nav>
               </div>
@@ -680,6 +703,11 @@ export default {
     this.list()
   },
   methods: {
+    sort(order, by) {
+      this.order = order;
+      this.by = by;
+      this.list();
+    },
     // Mengubah format menjadi ada komanya
     formatPrice(value) {
       let val = (value/1).toFixed(0).replace(',', ',')

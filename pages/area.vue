@@ -147,7 +147,7 @@
 
                     <td class="d-flex justify-content-center">
                       <button
-                        class="btn btn-sm btn-light"
+                        class="btn btn-sm btn-light me-5"
                         data-bs-toggle="modal"
                         data-bs-target="#modal"
                         @click="edit(p_area)"

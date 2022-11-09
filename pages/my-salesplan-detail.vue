@@ -119,11 +119,15 @@
                       <form action="">
                         <div class="mb-3">
                           <label class="form-label">To</label>
-                          <select v-model="ams_id" class="form-select">
+                          <select v-model="ams_id" class="form-select" :class="{ 'is-invalid': errors.ams_id }">
+                            <option :value="null" disabled>Select AMS</option>
                             <option v-for="amss in ams" :value="amss.id">
                               {{ amss.initial }} - {{ amss.user.name }}
                             </option>
                           </select>
+                          <span v-if="errors.ams_id" class="error invalid-feedback">{{
+                            errors.ams_id[0]
+                          }}</span>
                         </div>
                         <div class="mb-3">
                           <label class="form-label">Description</label> <br />
@@ -2309,9 +2313,6 @@
                               class="text-center mt-5"
                               v-if="sales_detail.status === 'Open'"
                             >
-                              <button type="reset" class="btn btn-danger">
-                                Reset
-                              </button>
                               <button
                                 type="submit"
                                 class="btn btn-primary"
@@ -2377,9 +2378,6 @@
                               class="text-center mt-5"
                               v-if="sales_detail.status === 'Open'"
                             >
-                              <button type="reset" class="btn btn-danger">
-                                Reset
-                              </button>
                               <button
                                 type="submit"
                                 class="btn btn-primary"
@@ -3108,6 +3106,7 @@ export default {
       reason: null,
       file_histories: [],
       errors: {
+        ams_id: null,
         name: null,
         phone: null,
         email: null,
@@ -3310,19 +3309,33 @@ export default {
     },
 
     swtichAMS() {
-      this.loading()
-      this.$axios
-        .put(`api/sales-switch-ams/${this.$route.query.id}`, {
-          ams_id: this.ams_id,
-        })
-        .then((response) => {
-          toastr.success(response.data.message)
-          this.$router.push({
-            name: 'my-salesplan',
-          })
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, switch sales!',
+      })
+        .then((result) => {
+          if (result.isConfirmed) {
+            this.$axios
+              .put(`api/sales-switch-ams/${this.$route.query.id}`, {
+                ams_id: this.ams_id,
+              })
+              .then((response) => {
+                this.closeModalAMS()
+                toastr.success(response.data.message)
+                this.$router.push({
+                  name: 'my-salesplan',
+                })
+              })
+          }
         })
         .catch((error) => {
           if (error.response.status == 422) {
+            this.errors = error.response.data.errors
             toastr.error(error.response.data.message)
           } else if (error.response.status == 403) {
             toastr.error(error.response.data.message)
@@ -3432,7 +3445,7 @@ export default {
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, upgrade level!',
+        confirmButtonText: 'Yes, reschedule sales!',
       })
         .then((result) => {
           if (result.isConfirmed) {
@@ -3466,7 +3479,7 @@ export default {
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, upgrade level!',
+        confirmButtonText: 'Yes, cancel sales!',
       })
         .then((result) => {
           if (result.isConfirmed) {

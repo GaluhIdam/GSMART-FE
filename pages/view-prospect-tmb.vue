@@ -62,7 +62,7 @@
                 </div>
               </div>
             </div>
-            <div class="row mt-1">
+            <div class="row mt-5">
               <div class="col-6">
                 <div class="border-dashed rounded p-4" v-if="sales_plan">
                   <h1 class="fw-bolder mb-0 fs-5">${{ formatNumber(deviation) }}</h1>
@@ -271,8 +271,17 @@
                 <div class="col-md-6">
                     <div class="mb-3">
                       <label for="Maintenance" class="form-label">Maintenance</label>
-                      <multiselect v-model="tmbSale.maintenance_id" :options="maintenance_option" label="name" 
-                      :class="{'is-invalid': errors.maintenance_id}"></multiselect>
+                      <select v-model="tmbSale.maintenance_id" class="form-select form-select-lg" :class="{ 'is-invalid': errors.maintenance_id }">
+                      <option 
+                        v-for="maintenance_options in maintenance_option" 
+                        :value="maintenance_options.id" 
+                        :class="{
+                          'is-invalid': errors.maintenance_id,
+                        }"
+                      >
+                        {{ maintenance_options.name }}
+                      </option>
+                    </select>
                       <span v-if="errors.maintenance_id" class="error invalid-feedback">{{errors.maintenance_id[0]}}</span>
                     </div>
                     <div class="mb-3">
@@ -289,8 +298,17 @@
                 <div class="col-md-6">
                     <div class="mb-3">
                       <label for="Hangar" class="form-label">Hangar</label>
-                      <multiselect v-model="tmbSale.hangar_id" :options="hangar_option" label="name" 
-                      :class="{'is-invalid': errors.hangar_id}"></multiselect>
+                      <select v-model="tmbSale.hangar_id" class="form-select form-select-lg" :class="{ 'is-invalid': errors.hangar_id }">
+                      <option 
+                        v-for="hangar_options in hangar_option" 
+                        :value="hangar_options.id" 
+                        :class="{
+                          'is-invalid': errors.hangar_id,
+                        }"
+                      >
+                        {{ hangar_options.name }}
+                      </option>
+                    </select>
                       <span v-if="errors.hangar_id" class="error invalid-feedback">{{errors.hangar_id[0]}}</span>
                     </div>
                     <div class="mb-3">
@@ -620,10 +638,10 @@ export default {
       this.$axios
         .post('/api/sales-create-tmb', {
           prospect_id: this.$route.query.id,
-          maintenance_id: this.tmbSale.maintenance_id.id,
+          maintenance_id: this.tmbSale.maintenance_id,
           ac_reg: this.tmbSale.ac_reg,
           tat: this.tmbSale.tat,
-          hangar_id: this.tmbSale.hangar_id.id,
+          hangar_id: this.tmbSale.hangar_id,
           value: this.tmbSale.value,
           start_date: this.tmbSale.start_date,
         })
@@ -644,10 +662,10 @@ export default {
       this.$axios
         .put('/api/sales-update/' + this.tmbSale.id, {
           prospect_id: this.$route.query.id,
-          maintenance_id: this.tmbSale.maintenance_id.id,
+          maintenance_id: this.tmbSale.maintenance_id,
           ac_reg: this.tmbSale.ac_reg,
           tat: this.tmbSale.tat,
-          hangar_id: this.tmbSale.hangar_id.id,
+          hangar_id: this.tmbSale.hangar_id,
           value: this.tmbSale.value,
           start_date: this.tmbSale.start_date,
         })
@@ -691,10 +709,10 @@ export default {
       this.modal_create = false
       this.modal_update = true
       this.tmbSale.id = tmbSale.id
-      this.tmbSale.maintenance_id = tmbSale.maintenance
+      this.tmbSale.maintenance_id = tmbSale.maintenance_id
       this.tmbSale.ac_reg = tmbSale.ac_reg
       this.tmbSale.tat = tmbSale.tat
-      this.tmbSale.hangar_id = tmbSale.hangar
+      this.tmbSale.hangar_id = tmbSale.hangar_id
       this.tmbSale.value = tmbSale.value
       this.tmbSale.start_date = tmbSale.start_date
     },

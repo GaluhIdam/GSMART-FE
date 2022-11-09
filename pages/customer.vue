@@ -579,7 +579,6 @@ export default {
   },
   created() {
     this.listCustomer()
-    this.listCustomer()
     this.listRegion()
     this.listAMS()
     this.listArea()
@@ -652,10 +651,7 @@ export default {
       this.$axios
         .get('api/region', {
           params: {
-            search: this.search,
-            order: this.order,
-            by: this.by,
-            paginate: this.paginate,
+            paginate: 1000,
           },
         })
         .then((response) => {
@@ -666,14 +662,14 @@ export default {
     listCountry() {
       if (this.region_value) {
         this.$axios
-          .get(`/api/countries`, {
+          .get(`/api/region`, {
             params: {
-              search: this.region_value.id,
+              search: this.region_value.name,
               paginate: 1000,
             },
           })
           .then((response) => {
-            this.country = response.data.data.data
+            this.country = response.data.data.data[0].countries
           })
           .catch((error) => console.log(error))
       }
@@ -819,8 +815,8 @@ export default {
             this.closeModal()
           })
           .catch((error) => {
-            if (error.response.status == 422) {
-              this.errors = error.response.data.errors
+            if (error.response.status == 500) {
+              // this.errors = error.response.data.errors
               for (let i = 0; i < this.area_ams.length; i++) {
                 if (this.area_ams[i].area == null) {
                   this.fail[i].area = 'The area field is required.'

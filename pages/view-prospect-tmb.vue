@@ -149,7 +149,7 @@
                 <label class="form-label fw-bold">Customer</label>
                 <select v-model="contact_person.customer_id" class="form-select form-select-lg" :class="{ 'is-invalid': errors.customer_id }">
                   <option 
-                    v-for="customer_option in customer_options" 
+                    v-for="(customer_option, customer_index) in customer_options" :key="customer_index"
                     :value="customer_option.id" 
                     :class="{
                       'is-invalid': errors.customer_id,

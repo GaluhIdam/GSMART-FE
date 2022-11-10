@@ -57,7 +57,7 @@
       <div class="card shadow-sm mt-5">
         <div class="card-header">
           <h3 class="card-title fw-bold">List of Prospect Types</h3>
-          <div class="card-toolbar">
+          <!-- <div class="card-toolbar">
             <button
               type="button"
               class="btn btn-sm btn-primary"
@@ -67,7 +67,7 @@
             >
               Add Prospect Type
             </button>
-          </div>
+          </div> -->
         </div>
         <div class="card-body">
           <div class="row d-flex align-items-center">
@@ -160,12 +160,12 @@
                       >
                         <i class="bi bi-pencil-square text-primary"></i>
                       </button>
-                      <button
+                      <!-- <button
                         class="btn btn-sm btn-light"
                         v-on:click="remove(p_prospect_type.id)"
                       >
                         <i class="bi bi-trash-fill text-primary"></i>
-                      </button>
+                      </button> -->
                     </td>
                   </tr>
                   <tr v-if="prospect_type.data.length < 1">
@@ -229,8 +229,8 @@
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header">
-            <h3 v-if="modal_create" class="modal-title">Add Maintenance</h3>
-            <h3 v-else class="modal-title">Edit Maintenance</h3>
+            <h3 v-if="modal_create" class="modal-title">Add Prospect Type</h3>
+            <h3 v-else class="modal-title">Edit Prospect Type</h3>
 
             <!--begin::Close-->
             <div
@@ -278,6 +278,7 @@
                   type="text"
                   class="form-control"
                   v-model="p_prospect_type.name"
+                  readonly
                   :class="{
                     'is-invalid': errors.name,
                   }"
@@ -287,7 +288,7 @@
                 }}</span>
               </div>
               <div class="form-group mb-3">
-                <label class="form-label fw-bold"> description </label>
+                <label class="form-label fw-bold"> Description </label>
                 <input
                   type="text"
                   class="form-control"

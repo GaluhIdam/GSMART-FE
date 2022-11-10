@@ -57,7 +57,7 @@
       <div class="card shadow-sm mt-5">
         <div class="card-header">
           <h3 class="card-title fw-bold">List of Roles</h3>
-          <div class="card-toolbar">
+          <!-- <div class="card-toolbar">
             <button
               type="button"
               class="btn btn-sm btn-primary"
@@ -67,7 +67,7 @@
             >
               Add Role
             </button>
-          </div>
+          </div> -->
         </div>
         <div class="card-body">
           <div class="row d-flex align-items-center">
@@ -155,12 +155,12 @@
                       >
                         <i class="bi bi-pencil-square text-primary"></i>
                       </button>
-                      <button
+                      <!-- <button
                         class="btn btn-sm btn-light"
                         v-on:click="remove(role.id)"
                       >
                         <i class="bi bi-trash-fill text-primary"></i>
-                      </button>
+                      </button> -->
                     </td>
                   </tr>
                   <tr v-if="roles.data.length < 1">
@@ -273,6 +273,7 @@
                   type="text"
                   class="form-control"
                   v-model="role.name"
+                  readonly
                   :class="{
                     'is-invalid': errors.name,
                   }"

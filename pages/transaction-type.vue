@@ -57,7 +57,7 @@
       <div class="card shadow-sm mt-5">
         <div class="card-header">
           <h3 class="card-title fw-bold">List of Transaction Types</h3>
-          <div class="card-toolbar">
+          <!-- <div class="card-toolbar">
             <button
               type="button"
               class="btn btn-sm btn-primary"
@@ -67,7 +67,7 @@
             >
               Add Transaction Type
             </button>
-          </div>
+          </div> -->
         </div>
         <div class="card-body">
           <div class="row d-flex align-items-center">
@@ -157,12 +157,12 @@
                       >
                         <i class="bi bi-pencil-square text-primary"></i>
                       </button>
-                      <button
+                      <!-- <button
                         class="btn btn-sm btn-light"
                         v-on:click="remove(transaction.id)"
                       >
                         <i class="bi bi-trash-fill text-primary"></i>
-                      </button>
+                      </button> -->
                     </td>
                   </tr>
                   <tr v-if="transaction_type.data.length < 1">
@@ -276,6 +276,7 @@
                 <input
                   type="text"
                   class="form-control"
+                  readonly
                   v-model="transaction.name"
                   :class="{
                     'is-invalid': errors.name,

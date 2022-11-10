@@ -201,8 +201,8 @@
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header">
-            <h3 v-if="modal_create" class="modal-title">Add product</h3>
-            <h3 v-else class="modal-title">Edit product</h3>
+            <h3 v-if="modal_create" class="modal-title">Add Permission</h3>
+            <h3 v-else class="modal-title">Edit Permission</h3>
 
             <!--begin::Close-->
             <div

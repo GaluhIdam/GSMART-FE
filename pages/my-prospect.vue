@@ -197,8 +197,18 @@
                     exact-active-class="active"
                     data-bs-toggle="tab"
                     href="#kt_tab_pane_1"
-                    @click="filterYear(currentYear)"
+                    @click="filterYearDefault(year)"
                     >All Year</a
+                  >
+                </li>
+                <li class="nav-item">
+                  <a
+                    class="nav-link"
+                    exact-active-class="active"
+                    data-bs-toggle="tab"
+                    href="#kt_tab_pane_2"
+                    @click="filterYear(currentYear)"
+                    >This Year</a
                   >
                 </li>
                 <li class="nav-item">
@@ -206,7 +216,7 @@
                     class="nav-link"
                     active-class="active"
                     data-bs-toggle="tab"
-                    href="#kt_tab_pane_2"
+                    href="#kt_tab_pane_3"
                     @click="filterYear(currentYear - 1)"
                     >{{ currentYear - 1 }}</a
                   >
@@ -216,7 +226,7 @@
                     class="nav-link"
                     active-class="active"
                     data-bs-toggle="tab"
-                    href="#kt_tab_pane_3"
+                    href="#kt_tab_pane_4"
                     @click="filterYear(currentYear - 2)"
                     >{{ currentYear - 2 }}</a
                   >
@@ -226,22 +236,16 @@
                     class="nav-link"
                     active-class="active"
                     data-bs-toggle="tab"
-                    href="#kt_tab_pane_4"
+                    href="#kt_tab_pane_5"
                     @click="filterYear(currentYear - 3)"
                     >{{ currentYear - 3 }}</a
                   >
                 </li>
               </ul>
               <div class="tab-content" id="myTabContent">
-                <div
-                  class="tab-pane fade show active"
-                  id="kt_tab_pane_1"
-                  role="tabpanel"
-                >
+                <div class="tab-pane fade show active" id="kt_tab_pane_1" role="tabpanel">
                   <div class="table-responsive">
-                    <table
-                      class="table table-row-bordered table-row-gray-200 gy-4"
-                    >
+                    <table class="table table-row-bordered table-row-gray-200 gy-4">
                       <thead>
                         <tr class="fw-bold fs-6 text-gray-800">
                           <th class="text-center">No</th>
@@ -736,6 +740,172 @@
                   </div>
                 </div>
                 <div class="tab-pane fade" id="kt_tab_pane_4" role="tabpanel">
+                  <div class="table-responsive">
+                    <table
+                      class="table table-row-bordered table-row-gray-200 gy-4"
+                    >
+                      <thead>
+                        <tr class="fw-bold fs-6 text-gray-800">
+                          <th class="text-center">No</th>
+
+                          <!-- Year -->
+                          <th v-if="order == 'year' && by == 'asc'" @click="sort('year', 'desc')" class="text-center" style="white-space: nowrap;">Year <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
+
+                          <th v-else-if="order == 'year' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">Year <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+
+                          <th v-else @click="sort('year', 'asc')" class="text-center" style="white-space: nowrap;">Year <i class="fa-solid fa-sort"></i></th>
+                          <!-- End Of The Year -->
+
+                          <!-- Transaction -->
+                          <th v-if="order == 'transaction' && by == 'asc'" @click="sort('transaction', 'desc')" class="text-center" style="white-space: nowrap;">Transaction <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
+
+                          <th v-else-if="order == 'transaction' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">Transaction <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+
+                          <th v-else @click="sort('transaction', 'asc')" class="text-center" style="white-space: nowrap;">Transaction <i class="fa-solid fa-sort"></i></th>
+                          <!-- End Of The Transaction -->
+
+                          <!-- Type -->
+                          <th v-if="order == 'type' && by == 'asc'" @click="sort('type', 'desc')" class="text-center" style="white-space: nowrap;">Type <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
+
+                          <th v-else-if="order == 'type' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">Type <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+
+                          <th v-else @click="sort('type', 'asc')" class="text-center" style="white-space: nowrap;">Type <i class="fa-solid fa-sort"></i></th>
+                          <!-- End Of The Type -->
+
+                          <!-- Strategic Initiative -->
+                          <th v-if="order == 'strategicInitiative' && by == 'asc'" @click="sort('strategicInitiative', 'desc')" class="text-center" style="white-space: nowrap;">Strategic Initiative <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
+
+                          <th v-else-if="order == 'strategicInitiative' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">Strategic Initiative <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+
+                          <th v-else @click="sort('strategicInitiative', 'asc')" class="text-center" style="white-space: nowrap;">Strategic Initiative <i class="fa-solid fa-sort"></i></th>
+                          <!-- End Of The Strategic Initiative -->
+
+                          <!-- PM -->
+                          <th v-if="order == 'prjoectManager' && by == 'asc'" @click="sort('prjoectManager', 'desc')" class="text-center" style="white-space: nowrap;">PM <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
+
+                          <th v-else-if="order == 'prjoectManager' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">PM <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+
+                          <th v-else @click="sort('prjoectManager', 'asc')" class="text-center" style="white-space: nowrap;">PM <i class="fa-solid fa-sort"></i></th>
+                          <!-- End Of The PM -->
+
+                          <!-- Customer Code -->
+                          <th v-if="order == 'customer.code' && by == 'asc'" @click="sort('customer.code', 'desc')" class="text-center" style="white-space: nowrap;">Customer Code <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
+
+                          <th v-else-if="order == 'customer.code' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">Customer Code <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+
+                          <th v-else @click="sort('customer.code', 'asc')" class="text-center" style="white-space: nowrap;">Customer Code <i class="fa-solid fa-sort"></i></th>
+                          <!-- End Of The Customer Code -->
+
+                          <!-- Customer -->
+                          <th v-if="order == 'customer.name' && by == 'asc'" @click="sort('customer.name', 'desc')" class="text-center" style="white-space: nowrap;">Customer <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
+
+                          <th v-else-if="order == 'customer.name' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">Customer <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+
+                          <th v-else @click="sort('customer.name', 'asc')" class="text-center" style="white-space: nowrap;">Customer <i class="fa-solid fa-sort"></i></th>
+                          <!-- End Of The Customer -->
+
+                          <!-- AMS -->
+                          <th v-if="order == 'ams' && by == 'asc'" @click="sort('ams', 'desc')" class="text-center" style="white-space: nowrap;">AMS <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
+
+                          <th v-else-if="order == 'ams' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">AMS <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+
+                          <th v-else @click="sort('ams', 'asc')" class="text-center" style="white-space: nowrap;">AMS <i class="fa-solid fa-sort"></i></th>
+                          <!-- End Of The AMS -->
+
+                          <!-- Market Share -->
+                          <th v-if="order == 'marketShare' && by == 'asc'" @click="sort('marketShare', 'desc')" class="text-center" style="white-space: nowrap;">Market Share <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
+
+                          <th v-else-if="order == 'marketShare' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">Market Share <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+
+                          <th v-else @click="sort('marketShare', 'asc')" class="text-center" style="white-space: nowrap;">Market Share <i class="fa-solid fa-sort"></i></th>
+                          <!-- End Of The Market Share -->
+
+                          <!-- Sales Plan -->
+                          <th v-if="order == 'salesPlan' && by == 'asc'" @click="sort('salesPlan', 'desc')" class="text-center" style="white-space: nowrap;">Sales Plan <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
+
+                          <th v-else-if="order == 'salesPlan' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">Sales Plan <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+
+                          <th v-else @click="sort('salesPlan', 'asc')" class="text-center" style="white-space: nowrap;">Sales Plan <i class="fa-solid fa-sort"></i></th>
+                          <!-- End Of The Sales Plan -->
+
+                          <th class="text-center">Action</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr v-for="(prospect, prospect_index) in prospect" :key="prospect_index">
+                          <td class="text-center">
+                            {{ prospect3.from + prospect_index }}
+                          </td>
+                          <td class="text-center">{{ prospect.year }}</td>
+                          <td class="text-center">{{ prospect.transaction }}</td>
+                          <td class="text-center">{{ prospect.type }}</td>
+
+                          <!-- Conditional Strategic Initiative -->
+                          <td>
+                            <div v-if="prospect.strategicInitiative" class="text-center">
+                              {{ prospect.strategicInitiative }}
+                            </div>
+                            <div v-else class="text-center">
+                              -
+                            </div>
+                          </td>
+                          <!-- End Of Conditional Strategic Initiative -->
+
+                          <!-- Conditional PM -->
+                          <td>
+                            <div v-if="prospect.prjoectManager" class="text-center">
+                              {{ prospect.prjoectManager }}
+                            </div>
+                            <div v-else class="text-center">
+                              -
+                            </div>
+                          </td>
+                          <!-- End Of Conditional PM -->
+
+                          <td class="text-center">{{ prospect.customer.code }}</td>
+                          <td class="text-center">{{ prospect.customer.name }}</td>
+                          <td class="text-center">{{ prospect.ams }}</td>
+
+                          <!-- Conditional Market Share -->
+                          <td>
+                            <div v-if="prospect.marketShare" class="text-center" style="color: #50CD89">
+                              ${{ prospect.marketShare }} 
+                            </div>
+                            <div v-else class="text-center" style="color: #50CD89">
+                              $0
+                            </div>
+                          </td>
+                          <!-- End Of Conditional Market Share -->
+
+                          <!-- Conditional Sales Value -->
+                          <td>
+                            <div v-if="prospect.salesPlan" class="text-center" style="color: #50CD89">
+                              ${{ prospect.salesPlan }}
+                            </div>
+                            <div v-else class="text-center" style="color: #50CD89">
+                              $0
+                            </div>
+                          </td>
+                          <!-- End Of Conditional Sales Value -->
+                          
+                          <td class="text-center">
+                            <nuxt-link :to="{ path: 'view-prospect', query: { id: prospect.customer.id }}" class="btn btn-sm btn-light">
+                              View
+                            </nuxt-link>
+                          </td>
+                        </tr>
+                        <tr v-if="prospect.length < 1">
+                          <td colspan="12">
+                            <div class="text-muted text-center">
+                              Data not found
+                            </div>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <div class="tab-pane fade" id="kt_tab_pane_5" role="tabpanel">
                   <div class="table-responsive">
                     <table
                       class="table table-row-bordered table-row-gray-200 gy-4"
@@ -1924,7 +2094,7 @@ export default {
       filter: null,
       current_page: null,
       errors: null,
-      year: this.currentYear,
+      year: null,
       market_share: null
     }
   },
@@ -2264,6 +2434,10 @@ export default {
     },
     filterYear(year){
       this.year = year
+      this.listProspect()
+    },
+    filterYearDefault(year){
+      this.year = null
       this.listProspect()
     },
     listTransactionType() {

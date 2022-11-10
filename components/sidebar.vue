@@ -111,10 +111,7 @@
                 active-class="active"
               >
                 <span class="menu-icon">
-                  <img
-                    class="h-20px w-20px"
-                    src="~/assets/media/icons/duotune/general/gen022.svg"
-                  />
+                  <i class="fa-solid fa-briefcase"></i>
                 </span>
                 <span
                   class="menu-title"
@@ -124,9 +121,9 @@
                     role == 'CBO' ||
                     role == 'Administrator'
                   "
-                  >All Prospect</span
+                  >Prospect</span
                 >
-                <span class="menu-title" v-if="role == 'AMS'">My Prospect</span>
+                <span class="menu-title" v-if="role == 'AMS'">Prospect</span>
               </NuxtLink>
             </div>
             <div class="menu-item">

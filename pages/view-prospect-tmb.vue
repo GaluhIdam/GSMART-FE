@@ -147,7 +147,17 @@
               </div>
               <div class="form-group mb-3">
                 <label class="form-label fw-bold">Customer</label>
-                <multiselect v-model="contact_person.customer_id" :options="customer_options" :searchable="true" :class="{'is-invalid': errors.customer_id,}" label="name"></multiselect>
+                <select v-model="contact_person.customer_id" class="form-select form-select-lg" :class="{ 'is-invalid': errors.customer_id }">
+                  <option 
+                    v-for="(customer_option, customer_index) in customer_options" :key="customer_index"
+                    :value="customer_option.id" 
+                    :class="{
+                      'is-invalid': errors.customer_id,
+                    }"
+                  >
+                    {{ customer_option.name }}
+                  </option>
+                </select>
                 <span v-if="errors.customer_id" class="error invalid-feedback">{{
                   errors.customer_id[0]
                 }}</span>
@@ -193,7 +203,7 @@
                   <tr v-for="(data, contact_person_index) in contact_persons" :key="contact_person_index">
                     <td class="text-start">
                       <div class="row mx-auto">
-                      <span class="btn bg-primary btn-sm text-light col-4">{{ data.firstalphabet }}</span>
+                      <span class="rounded-circle p-5 bg-primary text-light text-center col-4">{{ data.firstalphabet }}</span>
                       <span class="col-8">{{ data.name }}</span>
                       </div>
                     </td>
@@ -416,7 +426,6 @@ export default {
   data() {
     return {
       role: this.$auth.user.role.name,
-      selected_customer: null,
       customer: [],
       maintenance_option: [],
       hangar_option: [],
@@ -662,10 +671,11 @@ export default {
           phone : this.contact_person.phone,
           email : this.contact_person.email,
           address : this.contact_person.address,
-          customer_id : this.contact_person.customer_id.id,
+          customer_id : this.contact_person.customer_id,
           title : this.contact_person.title,
         })
         .then((response) => {
+          this.clearForm()
           toastr.success(response.data.message)
           this.listContactPersons()
           this.closeModal()
@@ -716,6 +726,18 @@ export default {
       this.contact_person.phone = null
       this.contact_person.customer_id = null
       this.contact_person.title = null
+      this.errors.maintenance_id = null
+      this.errors.ac_reg = null
+      this.errors.tat = null
+      this.errors.hangar_id = null
+      this.errors.value = null
+      this.errors.start_date = null
+      this.errors.name = null
+      this.errors.email = null
+      this.errors.address = null
+      this.errors.phone = null
+      this.errors.customer_id = null
+      this.errors.title = null
     },
     directPage: debounce(function () {
       alert(this.paginate_tmbSales.current_page)

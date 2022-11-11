@@ -135,6 +135,51 @@
           </div>
           <div class="card-body">
             <div class="row d-flex align-items-center">
+              <!--begin::Input group-->
+            <div class="position-relative me-md-2">
+              <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
+              <span
+                class="
+                  svg-icon svg-icon-3 svg-icon-gray-500
+                  position-absolute
+                  top-50
+                  translate-middle
+                  ms-6
+                "
+              >
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <rect
+                    opacity="0.5"
+                    x="17.0365"
+                    y="15.1223"
+                    width="8.15546"
+                    height="2"
+                    rx="1"
+                    transform="rotate(45 17.0365 15.1223)"
+                    fill="currentColor"
+                  ></rect>
+                  <path
+                    d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z"
+                    fill="currentColor"
+                  ></path>
+                </svg>
+              </span>
+              <!--end::Svg Icon-->
+              <input
+                type="text"
+                class="form-control form-control-solid ps-10"
+                name="search"
+                v-model="search"
+                placeholder="Search"
+              />
+            </div>
+            <!--end::Input group-->
             </div>
             <div class="py-5">
               <ul
@@ -152,6 +197,16 @@
                     exact-active-class="active"
                     data-bs-toggle="tab"
                     href="#kt_tab_pane_1"
+                    @click="filterYearDefault(year)"
+                    >All Year</a
+                  >
+                </li>
+                <li class="nav-item">
+                  <a
+                    class="nav-link"
+                    exact-active-class="active"
+                    data-bs-toggle="tab"
+                    href="#kt_tab_pane_2"
                     @click="filterYear(currentYear)"
                     >This Year</a
                   >
@@ -161,7 +216,7 @@
                     class="nav-link"
                     active-class="active"
                     data-bs-toggle="tab"
-                    href="#kt_tab_pane_2"
+                    href="#kt_tab_pane_3"
                     @click="filterYear(currentYear - 1)"
                     >{{ currentYear - 1 }}</a
                   >
@@ -171,7 +226,7 @@
                     class="nav-link"
                     active-class="active"
                     data-bs-toggle="tab"
-                    href="#kt_tab_pane_3"
+                    href="#kt_tab_pane_4"
                     @click="filterYear(currentYear - 2)"
                     >{{ currentYear - 2 }}</a
                   >
@@ -181,35 +236,100 @@
                     class="nav-link"
                     active-class="active"
                     data-bs-toggle="tab"
-                    href="#kt_tab_pane_4"
+                    href="#kt_tab_pane_5"
                     @click="filterYear(currentYear - 3)"
                     >{{ currentYear - 3 }}</a
                   >
                 </li>
               </ul>
               <div class="tab-content" id="myTabContent">
-                <div
-                  class="tab-pane fade show active"
-                  id="kt_tab_pane_1"
-                  role="tabpanel"
-                >
+                <div class="tab-pane fade show active" id="kt_tab_pane_1" role="tabpanel">
                   <div class="table-responsive">
-                    <table
-                      class="table table-row-bordered table-row-gray-200 gy-4"
-                    >
+                    <table class="table table-row-bordered table-row-gray-200 gy-4">
                       <thead>
                         <tr class="fw-bold fs-6 text-gray-800">
                           <th class="text-center">No</th>
-                          <th class="text-center">Year</th>
-                          <th class="text-center">Transaction</th>
-                          <th class="text-center">Type</th>
-                          <th class="text-center">Strategic Initiative</th>
-                          <th class="text-center">PM</th>
-                          <th class="text-center">Customer Code</th>
-                          <th class="text-center">Customer</th>
-                          <th class="text-center">AMS</th>
-                          <th class="text-center">Market Share</th>
-                          <th class="text-center">Sales Plan</th>
+
+                          <!-- Year -->
+                          <th v-if="order == 'year' && by == 'asc'" @click="sort('year', 'desc')" class="text-center" style="white-space: nowrap;">Year <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
+
+                          <th v-else-if="order == 'year' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">Year <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+
+                          <th v-else @click="sort('year', 'asc')" class="text-center" style="white-space: nowrap;">Year <i class="fa-solid fa-sort"></i></th>
+                          <!-- End Of The Year -->
+
+                          <!-- Transaction -->
+                          <th v-if="order == 'transaction' && by == 'asc'" @click="sort('transaction', 'desc')" class="text-center" style="white-space: nowrap;">Transaction <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
+
+                          <th v-else-if="order == 'transaction' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">Transaction <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+
+                          <th v-else @click="sort('transaction', 'asc')" class="text-center" style="white-space: nowrap;">Transaction <i class="fa-solid fa-sort"></i></th>
+                          <!-- End Of The Transaction -->
+
+                          <!-- Type -->
+                          <th v-if="order == 'type' && by == 'asc'" @click="sort('type', 'desc')" class="text-center" style="white-space: nowrap;">Type <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
+
+                          <th v-else-if="order == 'type' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">Type <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+
+                          <th v-else @click="sort('type', 'asc')" class="text-center" style="white-space: nowrap;">Type <i class="fa-solid fa-sort"></i></th>
+                          <!-- End Of The Type -->
+
+                          <!-- Strategic Initiative -->
+                          <th v-if="order == 'strategicInitiative' && by == 'asc'" @click="sort('strategicInitiative', 'desc')" class="text-center" style="white-space: nowrap;">Strategic Initiative <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
+
+                          <th v-else-if="order == 'strategicInitiative' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">Strategic Initiative <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+
+                          <th v-else @click="sort('strategicInitiative', 'asc')" class="text-center" style="white-space: nowrap;">Strategic Initiative <i class="fa-solid fa-sort"></i></th>
+                          <!-- End Of The Strategic Initiative -->
+
+                          <!-- PM -->
+                          <th v-if="order == 'prjoectManager' && by == 'asc'" @click="sort('prjoectManager', 'desc')" class="text-center" style="white-space: nowrap;">PM <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
+
+                          <th v-else-if="order == 'prjoectManager' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">PM <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+
+                          <th v-else @click="sort('prjoectManager', 'asc')" class="text-center" style="white-space: nowrap;">PM <i class="fa-solid fa-sort"></i></th>
+                          <!-- End Of The PM -->
+
+                          <!-- Customer Code -->
+                          <th v-if="order == 'customer.code' && by == 'asc'" @click="sort('customer.code', 'desc')" class="text-center" style="white-space: nowrap;">Customer Code <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
+
+                          <th v-else-if="order == 'customer.code' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">Customer Code <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+
+                          <th v-else @click="sort('customer.code', 'asc')" class="text-center" style="white-space: nowrap;">Customer Code <i class="fa-solid fa-sort"></i></th>
+                          <!-- End Of The Customer Code -->
+
+                          <!-- Customer -->
+                          <th v-if="order == 'customer.name' && by == 'asc'" @click="sort('customer.name', 'desc')" class="text-center" style="white-space: nowrap;">Customer <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
+
+                          <th v-else-if="order == 'customer.name' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">Customer <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+
+                          <th v-else @click="sort('customer.name', 'asc')" class="text-center" style="white-space: nowrap;">Customer <i class="fa-solid fa-sort"></i></th>
+                          <!-- End Of The Customer -->
+
+                          <!-- AMS -->
+                          <th v-if="order == 'ams' && by == 'asc'" @click="sort('ams', 'desc')" class="text-center" style="white-space: nowrap;">AMS <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
+
+                          <th v-else-if="order == 'ams' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">AMS <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+
+                          <th v-else @click="sort('ams', 'asc')" class="text-center" style="white-space: nowrap;">AMS <i class="fa-solid fa-sort"></i></th>
+                          <!-- End Of The AMS -->
+
+                          <!-- Market Share -->
+                          <th v-if="order == 'marketShare' && by == 'asc'" @click="sort('marketShare', 'desc')" class="text-center" style="white-space: nowrap;">Market Share <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
+
+                          <th v-else-if="order == 'marketShare' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">Market Share <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+
+                          <th v-else @click="sort('marketShare', 'asc')" class="text-center" style="white-space: nowrap;">Market Share <i class="fa-solid fa-sort"></i></th>
+                          <!-- End Of The Market Share -->
+
+                          <!-- Sales Plan -->
+                          <th v-if="order == 'salesPlan' && by == 'asc'" @click="sort('salesPlan', 'desc')" class="text-center" style="white-space: nowrap;">Sales Plan <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
+
+                          <th v-else-if="order == 'salesPlan' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">Sales Plan <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+
+                          <th v-else @click="sort('salesPlan', 'asc')" class="text-center" style="white-space: nowrap;">Sales Plan <i class="fa-solid fa-sort"></i></th>
+                          <!-- End Of The Sales Plan -->
+
                           <th class="text-center">Action</th>
                         </tr>
                       </thead>
@@ -253,8 +373,8 @@
                             <div v-if="prospect.marketShare" class="text-center" style="color: #50CD89">
                               ${{ formatNumber(prospect.marketShare) }} 
                             </div>
-                            <div v-else class="text-center">
-                              -
+                            <div v-else class="text-center" style="color: #50CD89">
+                              $0
                             </div>
                           </td>
                           <!-- End Of Conditional Market Share -->
@@ -264,8 +384,8 @@
                             <div v-if="prospect.salesPlan" class="text-center" style="color: #50CD89">
                               ${{ formatNumber(prospect.salesPlan) }}
                             </div>
-                            <div v-else class="text-center">
-                              -
+                            <div v-else class="text-center" style="color: #50CD89">
+                              $0
                             </div>
                           </td>
                           <!-- End Of Conditional Sales Value -->
@@ -295,16 +415,87 @@
                       <thead>
                         <tr class="fw-bold fs-6 text-gray-800">
                           <th class="text-center">No</th>
-                          <th class="text-center">Year</th>
-                          <th class="text-center">Transaction</th>
-                          <th class="text-center">Type</th>
-                          <th class="text-center">Strategic Initiative</th>
-                          <th class="text-center">PM</th>
-                          <th class="text-center">Customer Code</th>
-                          <th class="text-center">Customer</th>
-                          <th class="text-center">AMS</th>
-                          <th class="text-center">Market Share</th>
-                          <th class="text-center">Sales Plan</th>
+
+                          <!-- Year -->
+                          <th v-if="order == 'year' && by == 'asc'" @click="sort('year', 'desc')" class="text-center" style="white-space: nowrap;">Year <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
+
+                          <th v-else-if="order == 'year' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">Year <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+
+                          <th v-else @click="sort('year', 'asc')" class="text-center" style="white-space: nowrap;">Year <i class="fa-solid fa-sort"></i></th>
+                          <!-- End Of The Year -->
+
+                          <!-- Transaction -->
+                          <th v-if="order == 'transaction' && by == 'asc'" @click="sort('transaction', 'desc')" class="text-center" style="white-space: nowrap;">Transaction <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
+
+                          <th v-else-if="order == 'transaction' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">Transaction <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+
+                          <th v-else @click="sort('transaction', 'asc')" class="text-center" style="white-space: nowrap;">Transaction <i class="fa-solid fa-sort"></i></th>
+                          <!-- End Of The Transaction -->
+
+                          <!-- Type -->
+                          <th v-if="order == 'type' && by == 'asc'" @click="sort('type', 'desc')" class="text-center" style="white-space: nowrap;">Type <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
+
+                          <th v-else-if="order == 'type' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">Type <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+
+                          <th v-else @click="sort('type', 'asc')" class="text-center" style="white-space: nowrap;">Type <i class="fa-solid fa-sort"></i></th>
+                          <!-- End Of The Type -->
+
+                          <!-- Strategic Initiative -->
+                          <th v-if="order == 'strategicInitiative' && by == 'asc'" @click="sort('strategicInitiative', 'desc')" class="text-center" style="white-space: nowrap;">Strategic Initiative <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
+
+                          <th v-else-if="order == 'strategicInitiative' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">Strategic Initiative <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+
+                          <th v-else @click="sort('strategicInitiative', 'asc')" class="text-center" style="white-space: nowrap;">Strategic Initiative <i class="fa-solid fa-sort"></i></th>
+                          <!-- End Of The Strategic Initiative -->
+
+                          <!-- PM -->
+                          <th v-if="order == 'prjoectManager' && by == 'asc'" @click="sort('prjoectManager', 'desc')" class="text-center" style="white-space: nowrap;">PM <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
+
+                          <th v-else-if="order == 'prjoectManager' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">PM <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+
+                          <th v-else @click="sort('prjoectManager', 'asc')" class="text-center" style="white-space: nowrap;">PM <i class="fa-solid fa-sort"></i></th>
+                          <!-- End Of The PM -->
+
+                          <!-- Customer Code -->
+                          <th v-if="order == 'customer.code' && by == 'asc'" @click="sort('customer.code', 'desc')" class="text-center" style="white-space: nowrap;">Customer Code <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
+
+                          <th v-else-if="order == 'customer.code' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">Customer Code <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+
+                          <th v-else @click="sort('customer.code', 'asc')" class="text-center" style="white-space: nowrap;">Customer Code <i class="fa-solid fa-sort"></i></th>
+                          <!-- End Of The Customer Code -->
+
+                          <!-- Customer -->
+                          <th v-if="order == 'customer.name' && by == 'asc'" @click="sort('customer.name', 'desc')" class="text-center" style="white-space: nowrap;">Customer <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
+
+                          <th v-else-if="order == 'customer.name' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">Customer <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+
+                          <th v-else @click="sort('customer.name', 'asc')" class="text-center" style="white-space: nowrap;">Customer <i class="fa-solid fa-sort"></i></th>
+                          <!-- End Of The Customer -->
+
+                          <!-- AMS -->
+                          <th v-if="order == 'ams' && by == 'asc'" @click="sort('ams', 'desc')" class="text-center" style="white-space: nowrap;">AMS <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
+
+                          <th v-else-if="order == 'ams' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">AMS <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+
+                          <th v-else @click="sort('ams', 'asc')" class="text-center" style="white-space: nowrap;">AMS <i class="fa-solid fa-sort"></i></th>
+                          <!-- End Of The AMS -->
+
+                          <!-- Market Share -->
+                          <th v-if="order == 'marketShare' && by == 'asc'" @click="sort('marketShare', 'desc')" class="text-center" style="white-space: nowrap;">Market Share <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
+
+                          <th v-else-if="order == 'marketShare' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">Market Share <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+
+                          <th v-else @click="sort('marketShare', 'asc')" class="text-center" style="white-space: nowrap;">Market Share <i class="fa-solid fa-sort"></i></th>
+                          <!-- End Of The Market Share -->
+
+                          <!-- Sales Plan -->
+                          <th v-if="order == 'salesPlan' && by == 'asc'" @click="sort('salesPlan', 'desc')" class="text-center" style="white-space: nowrap;">Sales Plan <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
+
+                          <th v-else-if="order == 'salesPlan' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">Sales Plan <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+
+                          <th v-else @click="sort('salesPlan', 'asc')" class="text-center" style="white-space: nowrap;">Sales Plan <i class="fa-solid fa-sort"></i></th>
+                          <!-- End Of The Sales Plan -->
+
                           <th class="text-center">Action</th>
                         </tr>
                       </thead>
@@ -348,8 +539,8 @@
                             <div v-if="prospect.marketShare" class="text-center" style="color: #50CD89">
                               ${{ formatNumber(prospect.marketShare) }} 
                             </div>
-                            <div v-else class="text-center">
-                              -
+                            <div v-else class="text-center" style="color: #50CD89">
+                              $0
                             </div>
                           </td>
                           <!-- End Of Conditional Market Share -->
@@ -359,8 +550,8 @@
                             <div v-if="prospect.salesPlan" class="text-center" style="color: #50CD89">
                               ${{ formatNumber(prospect.salesPlan) }}
                             </div>
-                            <div v-else class="text-center">
-                              -
+                            <div v-else class="text-center" style="color: #50CD89">
+                              $0
                             </div>
                           </td>
                           <!-- End Of Conditional Sales Value -->
@@ -390,16 +581,87 @@
                       <thead>
                         <tr class="fw-bold fs-6 text-gray-800">
                           <th class="text-center">No</th>
-                          <th class="text-center">Year</th>
-                          <th class="text-center">Transaction</th>
-                          <th class="text-center">Type</th>
-                          <th class="text-center">Strategic Initiative</th>
-                          <th class="text-center">PM</th>
-                          <th class="text-center">Customer Code</th>
-                          <th class="text-center">Customer</th>
-                          <th class="text-center">AMS</th>
-                          <th class="text-center">Market Share</th>
-                          <th class="text-center">Sales Plan</th>
+
+                          <!-- Year -->
+                          <th v-if="order == 'year' && by == 'asc'" @click="sort('year', 'desc')" class="text-center" style="white-space: nowrap;">Year <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
+
+                          <th v-else-if="order == 'year' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">Year <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+
+                          <th v-else @click="sort('year', 'asc')" class="text-center" style="white-space: nowrap;">Year <i class="fa-solid fa-sort"></i></th>
+                          <!-- End Of The Year -->
+
+                          <!-- Transaction -->
+                          <th v-if="order == 'transaction' && by == 'asc'" @click="sort('transaction', 'desc')" class="text-center" style="white-space: nowrap;">Transaction <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
+
+                          <th v-else-if="order == 'transaction' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">Transaction <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+
+                          <th v-else @click="sort('transaction', 'asc')" class="text-center" style="white-space: nowrap;">Transaction <i class="fa-solid fa-sort"></i></th>
+                          <!-- End Of The Transaction -->
+
+                          <!-- Type -->
+                          <th v-if="order == 'type' && by == 'asc'" @click="sort('type', 'desc')" class="text-center" style="white-space: nowrap;">Type <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
+
+                          <th v-else-if="order == 'type' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">Type <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+
+                          <th v-else @click="sort('type', 'asc')" class="text-center" style="white-space: nowrap;">Type <i class="fa-solid fa-sort"></i></th>
+                          <!-- End Of The Type -->
+
+                          <!-- Strategic Initiative -->
+                          <th v-if="order == 'strategicInitiative' && by == 'asc'" @click="sort('strategicInitiative', 'desc')" class="text-center" style="white-space: nowrap;">Strategic Initiative <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
+
+                          <th v-else-if="order == 'strategicInitiative' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">Strategic Initiative <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+
+                          <th v-else @click="sort('strategicInitiative', 'asc')" class="text-center" style="white-space: nowrap;">Strategic Initiative <i class="fa-solid fa-sort"></i></th>
+                          <!-- End Of The Strategic Initiative -->
+
+                          <!-- PM -->
+                          <th v-if="order == 'prjoectManager' && by == 'asc'" @click="sort('prjoectManager', 'desc')" class="text-center" style="white-space: nowrap;">PM <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
+
+                          <th v-else-if="order == 'prjoectManager' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">PM <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+
+                          <th v-else @click="sort('prjoectManager', 'asc')" class="text-center" style="white-space: nowrap;">PM <i class="fa-solid fa-sort"></i></th>
+                          <!-- End Of The PM -->
+
+                          <!-- Customer Code -->
+                          <th v-if="order == 'customer.code' && by == 'asc'" @click="sort('customer.code', 'desc')" class="text-center" style="white-space: nowrap;">Customer Code <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
+
+                          <th v-else-if="order == 'customer.code' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">Customer Code <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+
+                          <th v-else @click="sort('customer.code', 'asc')" class="text-center" style="white-space: nowrap;">Customer Code <i class="fa-solid fa-sort"></i></th>
+                          <!-- End Of The Customer Code -->
+
+                          <!-- Customer -->
+                          <th v-if="order == 'customer.name' && by == 'asc'" @click="sort('customer.name', 'desc')" class="text-center" style="white-space: nowrap;">Customer <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
+
+                          <th v-else-if="order == 'customer.name' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">Customer <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+
+                          <th v-else @click="sort('customer.name', 'asc')" class="text-center" style="white-space: nowrap;">Customer <i class="fa-solid fa-sort"></i></th>
+                          <!-- End Of The Customer -->
+
+                          <!-- AMS -->
+                          <th v-if="order == 'ams' && by == 'asc'" @click="sort('ams', 'desc')" class="text-center" style="white-space: nowrap;">AMS <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
+
+                          <th v-else-if="order == 'ams' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">AMS <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+
+                          <th v-else @click="sort('ams', 'asc')" class="text-center" style="white-space: nowrap;">AMS <i class="fa-solid fa-sort"></i></th>
+                          <!-- End Of The AMS -->
+
+                          <!-- Market Share -->
+                          <th v-if="order == 'marketShare' && by == 'asc'" @click="sort('marketShare', 'desc')" class="text-center" style="white-space: nowrap;">Market Share <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
+
+                          <th v-else-if="order == 'marketShare' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">Market Share <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+
+                          <th v-else @click="sort('marketShare', 'asc')" class="text-center" style="white-space: nowrap;">Market Share <i class="fa-solid fa-sort"></i></th>
+                          <!-- End Of The Market Share -->
+
+                          <!-- Sales Plan -->
+                          <th v-if="order == 'salesPlan' && by == 'asc'" @click="sort('salesPlan', 'desc')" class="text-center" style="white-space: nowrap;">Sales Plan <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
+
+                          <th v-else-if="order == 'salesPlan' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">Sales Plan <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+
+                          <th v-else @click="sort('salesPlan', 'asc')" class="text-center" style="white-space: nowrap;">Sales Plan <i class="fa-solid fa-sort"></i></th>
+                          <!-- End Of The Sales Plan -->
+
                           <th class="text-center">Action</th>
                         </tr>
                       </thead>
@@ -443,8 +705,8 @@
                             <div v-if="prospect.marketShare" class="text-center" style="color: #50CD89">
                               ${{ formatNumber(prospect.marketShare) }} 
                             </div>
-                            <div v-else class="text-center">
-                              -
+                            <div v-else class="text-center" style="color: #50CD89">
+                              $0
                             </div>
                           </td>
                           <!-- End Of Conditional Market Share -->
@@ -454,8 +716,8 @@
                             <div v-if="prospect.salesPlan" class="text-center" style="color: #50CD89">
                               ${{ prospect.salesPlan }}
                             </div>
-                            <div v-else class="text-center">
-                              -
+                            <div v-else class="text-center" style="color: #50CD89">
+                              $0
                             </div>
                           </td>
                           <!-- End Of Conditional Sales Value -->
@@ -485,16 +747,87 @@
                       <thead>
                         <tr class="fw-bold fs-6 text-gray-800">
                           <th class="text-center">No</th>
-                          <th class="text-center">Year</th>
-                          <th class="text-center">Transaction</th>
-                          <th class="text-center">Type</th>
-                          <th class="text-center">Strategic Initiative</th>
-                          <th class="text-center">PM</th>
-                          <th class="text-center">Customer Code</th>
-                          <th class="text-center">Customer</th>
-                          <th class="text-center">AMS</th>
-                          <th class="text-center">Market Share</th>
-                          <th class="text-center">Sales Plan</th>
+
+                          <!-- Year -->
+                          <th v-if="order == 'year' && by == 'asc'" @click="sort('year', 'desc')" class="text-center" style="white-space: nowrap;">Year <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
+
+                          <th v-else-if="order == 'year' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">Year <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+
+                          <th v-else @click="sort('year', 'asc')" class="text-center" style="white-space: nowrap;">Year <i class="fa-solid fa-sort"></i></th>
+                          <!-- End Of The Year -->
+
+                          <!-- Transaction -->
+                          <th v-if="order == 'transaction' && by == 'asc'" @click="sort('transaction', 'desc')" class="text-center" style="white-space: nowrap;">Transaction <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
+
+                          <th v-else-if="order == 'transaction' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">Transaction <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+
+                          <th v-else @click="sort('transaction', 'asc')" class="text-center" style="white-space: nowrap;">Transaction <i class="fa-solid fa-sort"></i></th>
+                          <!-- End Of The Transaction -->
+
+                          <!-- Type -->
+                          <th v-if="order == 'type' && by == 'asc'" @click="sort('type', 'desc')" class="text-center" style="white-space: nowrap;">Type <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
+
+                          <th v-else-if="order == 'type' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">Type <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+
+                          <th v-else @click="sort('type', 'asc')" class="text-center" style="white-space: nowrap;">Type <i class="fa-solid fa-sort"></i></th>
+                          <!-- End Of The Type -->
+
+                          <!-- Strategic Initiative -->
+                          <th v-if="order == 'strategicInitiative' && by == 'asc'" @click="sort('strategicInitiative', 'desc')" class="text-center" style="white-space: nowrap;">Strategic Initiative <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
+
+                          <th v-else-if="order == 'strategicInitiative' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">Strategic Initiative <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+
+                          <th v-else @click="sort('strategicInitiative', 'asc')" class="text-center" style="white-space: nowrap;">Strategic Initiative <i class="fa-solid fa-sort"></i></th>
+                          <!-- End Of The Strategic Initiative -->
+
+                          <!-- PM -->
+                          <th v-if="order == 'prjoectManager' && by == 'asc'" @click="sort('prjoectManager', 'desc')" class="text-center" style="white-space: nowrap;">PM <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
+
+                          <th v-else-if="order == 'prjoectManager' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">PM <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+
+                          <th v-else @click="sort('prjoectManager', 'asc')" class="text-center" style="white-space: nowrap;">PM <i class="fa-solid fa-sort"></i></th>
+                          <!-- End Of The PM -->
+
+                          <!-- Customer Code -->
+                          <th v-if="order == 'customer.code' && by == 'asc'" @click="sort('customer.code', 'desc')" class="text-center" style="white-space: nowrap;">Customer Code <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
+
+                          <th v-else-if="order == 'customer.code' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">Customer Code <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+
+                          <th v-else @click="sort('customer.code', 'asc')" class="text-center" style="white-space: nowrap;">Customer Code <i class="fa-solid fa-sort"></i></th>
+                          <!-- End Of The Customer Code -->
+
+                          <!-- Customer -->
+                          <th v-if="order == 'customer.name' && by == 'asc'" @click="sort('customer.name', 'desc')" class="text-center" style="white-space: nowrap;">Customer <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
+
+                          <th v-else-if="order == 'customer.name' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">Customer <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+
+                          <th v-else @click="sort('customer.name', 'asc')" class="text-center" style="white-space: nowrap;">Customer <i class="fa-solid fa-sort"></i></th>
+                          <!-- End Of The Customer -->
+
+                          <!-- AMS -->
+                          <th v-if="order == 'ams' && by == 'asc'" @click="sort('ams', 'desc')" class="text-center" style="white-space: nowrap;">AMS <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
+
+                          <th v-else-if="order == 'ams' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">AMS <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+
+                          <th v-else @click="sort('ams', 'asc')" class="text-center" style="white-space: nowrap;">AMS <i class="fa-solid fa-sort"></i></th>
+                          <!-- End Of The AMS -->
+
+                          <!-- Market Share -->
+                          <th v-if="order == 'marketShare' && by == 'asc'" @click="sort('marketShare', 'desc')" class="text-center" style="white-space: nowrap;">Market Share <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
+
+                          <th v-else-if="order == 'marketShare' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">Market Share <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+
+                          <th v-else @click="sort('marketShare', 'asc')" class="text-center" style="white-space: nowrap;">Market Share <i class="fa-solid fa-sort"></i></th>
+                          <!-- End Of The Market Share -->
+
+                          <!-- Sales Plan -->
+                          <th v-if="order == 'salesPlan' && by == 'asc'" @click="sort('salesPlan', 'desc')" class="text-center" style="white-space: nowrap;">Sales Plan <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
+
+                          <th v-else-if="order == 'salesPlan' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">Sales Plan <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+
+                          <th v-else @click="sort('salesPlan', 'asc')" class="text-center" style="white-space: nowrap;">Sales Plan <i class="fa-solid fa-sort"></i></th>
+                          <!-- End Of The Sales Plan -->
+
                           <th class="text-center">Action</th>
                         </tr>
                       </thead>
@@ -538,8 +871,8 @@
                             <div v-if="prospect.marketShare" class="text-center" style="color: #50CD89">
                               ${{ prospect.marketShare }} 
                             </div>
-                            <div v-else class="text-center">
-                              -
+                            <div v-else class="text-center" style="color: #50CD89">
+                              $0
                             </div>
                           </td>
                           <!-- End Of Conditional Market Share -->
@@ -549,8 +882,174 @@
                             <div v-if="prospect.salesPlan" class="text-center" style="color: #50CD89">
                               ${{ prospect.salesPlan }}
                             </div>
+                            <div v-else class="text-center" style="color: #50CD89">
+                              $0
+                            </div>
+                          </td>
+                          <!-- End Of Conditional Sales Value -->
+                          
+                          <td class="text-center">
+                            <nuxt-link :to="{ path: 'view-prospect', query: { id: prospect.customer.id }}" class="btn btn-sm btn-light">
+                              View
+                            </nuxt-link>
+                          </td>
+                        </tr>
+                        <tr v-if="prospect.length < 1">
+                          <td colspan="12">
+                            <div class="text-muted text-center">
+                              Data not found
+                            </div>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <div class="tab-pane fade" id="kt_tab_pane_5" role="tabpanel">
+                  <div class="table-responsive">
+                    <table
+                      class="table table-row-bordered table-row-gray-200 gy-4"
+                    >
+                      <thead>
+                        <tr class="fw-bold fs-6 text-gray-800">
+                          <th class="text-center">No</th>
+
+                          <!-- Year -->
+                          <th v-if="order == 'year' && by == 'asc'" @click="sort('year', 'desc')" class="text-center" style="white-space: nowrap;">Year <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
+
+                          <th v-else-if="order == 'year' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">Year <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+
+                          <th v-else @click="sort('year', 'asc')" class="text-center" style="white-space: nowrap;">Year <i class="fa-solid fa-sort"></i></th>
+                          <!-- End Of The Year -->
+
+                          <!-- Transaction -->
+                          <th v-if="order == 'transaction' && by == 'asc'" @click="sort('transaction', 'desc')" class="text-center" style="white-space: nowrap;">Transaction <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
+
+                          <th v-else-if="order == 'transaction' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">Transaction <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+
+                          <th v-else @click="sort('transaction', 'asc')" class="text-center" style="white-space: nowrap;">Transaction <i class="fa-solid fa-sort"></i></th>
+                          <!-- End Of The Transaction -->
+
+                          <!-- Type -->
+                          <th v-if="order == 'type' && by == 'asc'" @click="sort('type', 'desc')" class="text-center" style="white-space: nowrap;">Type <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
+
+                          <th v-else-if="order == 'type' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">Type <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+
+                          <th v-else @click="sort('type', 'asc')" class="text-center" style="white-space: nowrap;">Type <i class="fa-solid fa-sort"></i></th>
+                          <!-- End Of The Type -->
+
+                          <!-- Strategic Initiative -->
+                          <th v-if="order == 'strategicInitiative' && by == 'asc'" @click="sort('strategicInitiative', 'desc')" class="text-center" style="white-space: nowrap;">Strategic Initiative <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
+
+                          <th v-else-if="order == 'strategicInitiative' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">Strategic Initiative <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+
+                          <th v-else @click="sort('strategicInitiative', 'asc')" class="text-center" style="white-space: nowrap;">Strategic Initiative <i class="fa-solid fa-sort"></i></th>
+                          <!-- End Of The Strategic Initiative -->
+
+                          <!-- PM -->
+                          <th v-if="order == 'prjoectManager' && by == 'asc'" @click="sort('prjoectManager', 'desc')" class="text-center" style="white-space: nowrap;">PM <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
+
+                          <th v-else-if="order == 'prjoectManager' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">PM <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+
+                          <th v-else @click="sort('prjoectManager', 'asc')" class="text-center" style="white-space: nowrap;">PM <i class="fa-solid fa-sort"></i></th>
+                          <!-- End Of The PM -->
+
+                          <!-- Customer Code -->
+                          <th v-if="order == 'customer.code' && by == 'asc'" @click="sort('customer.code', 'desc')" class="text-center" style="white-space: nowrap;">Customer Code <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
+
+                          <th v-else-if="order == 'customer.code' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">Customer Code <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+
+                          <th v-else @click="sort('customer.code', 'asc')" class="text-center" style="white-space: nowrap;">Customer Code <i class="fa-solid fa-sort"></i></th>
+                          <!-- End Of The Customer Code -->
+
+                          <!-- Customer -->
+                          <th v-if="order == 'customer.name' && by == 'asc'" @click="sort('customer.name', 'desc')" class="text-center" style="white-space: nowrap;">Customer <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
+
+                          <th v-else-if="order == 'customer.name' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">Customer <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+
+                          <th v-else @click="sort('customer.name', 'asc')" class="text-center" style="white-space: nowrap;">Customer <i class="fa-solid fa-sort"></i></th>
+                          <!-- End Of The Customer -->
+
+                          <!-- AMS -->
+                          <th v-if="order == 'ams' && by == 'asc'" @click="sort('ams', 'desc')" class="text-center" style="white-space: nowrap;">AMS <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
+
+                          <th v-else-if="order == 'ams' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">AMS <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+
+                          <th v-else @click="sort('ams', 'asc')" class="text-center" style="white-space: nowrap;">AMS <i class="fa-solid fa-sort"></i></th>
+                          <!-- End Of The AMS -->
+
+                          <!-- Market Share -->
+                          <th v-if="order == 'marketShare' && by == 'asc'" @click="sort('marketShare', 'desc')" class="text-center" style="white-space: nowrap;">Market Share <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
+
+                          <th v-else-if="order == 'marketShare' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">Market Share <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+
+                          <th v-else @click="sort('marketShare', 'asc')" class="text-center" style="white-space: nowrap;">Market Share <i class="fa-solid fa-sort"></i></th>
+                          <!-- End Of The Market Share -->
+
+                          <!-- Sales Plan -->
+                          <th v-if="order == 'salesPlan' && by == 'asc'" @click="sort('salesPlan', 'desc')" class="text-center" style="white-space: nowrap;">Sales Plan <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
+
+                          <th v-else-if="order == 'salesPlan' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">Sales Plan <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+
+                          <th v-else @click="sort('salesPlan', 'asc')" class="text-center" style="white-space: nowrap;">Sales Plan <i class="fa-solid fa-sort"></i></th>
+                          <!-- End Of The Sales Plan -->
+
+                          <th class="text-center">Action</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr v-for="(prospect, prospect_index) in prospect" :key="prospect_index">
+                          <td class="text-center">
+                            {{ prospect3.from + prospect_index }}
+                          </td>
+                          <td class="text-center">{{ prospect.year }}</td>
+                          <td class="text-center">{{ prospect.transaction }}</td>
+                          <td class="text-center">{{ prospect.type }}</td>
+
+                          <!-- Conditional Strategic Initiative -->
+                          <td>
+                            <div v-if="prospect.strategicInitiative" class="text-center">
+                              {{ prospect.strategicInitiative }}
+                            </div>
                             <div v-else class="text-center">
                               -
+                            </div>
+                          </td>
+                          <!-- End Of Conditional Strategic Initiative -->
+
+                          <!-- Conditional PM -->
+                          <td>
+                            <div v-if="prospect.prjoectManager" class="text-center">
+                              {{ prospect.prjoectManager }}
+                            </div>
+                            <div v-else class="text-center">
+                              -
+                            </div>
+                          </td>
+                          <!-- End Of Conditional PM -->
+
+                          <td class="text-center">{{ prospect.customer.code }}</td>
+                          <td class="text-center">{{ prospect.customer.name }}</td>
+                          <td class="text-center">{{ prospect.ams }}</td>
+
+                          <!-- Conditional Market Share -->
+                          <td>
+                            <div v-if="prospect.marketShare" class="text-center" style="color: #50CD89">
+                              ${{ prospect.marketShare }} 
+                            </div>
+                            <div v-else class="text-center" style="color: #50CD89">
+                              $0
+                            </div>
+                          </td>
+                          <!-- End Of Conditional Market Share -->
+
+                          <!-- Conditional Sales Value -->
+                          <td>
+                            <div v-if="prospect.salesPlan" class="text-center" style="color: #50CD89">
+                              ${{ prospect.salesPlan }}
+                            </div>
+                            <div v-else class="text-center" style="color: #50CD89">
+                              $0
                             </div>
                           </td>
                           <!-- End Of Conditional Sales Value -->
@@ -576,70 +1075,49 @@
             </div>
           </div>
           <div class="card-footer">
-            <div class="row">
-              <div class="col d-flex justify-content-start align-items-center">
-                <nav aria-label="Page navigation example">
-                  <ul class="pagination">
-                    <li class="page-item align-self-center">Rows per page:</li>
-                    <li class="page-item">
-                      <select
-                        class="form-control form-control-sm"
-                        v-model="paginate"
-                        @change="listProspect()"
-                      >
-                        <option value="10">10</option>
-                        <option value="25">25</option>
-                        <option value="50">50</option>
-                        <option value="100">100</option>
-                      </select>
-                    </li>
-                  </ul>
-                </nav>
-              </div>
-              <div class="col d-flex justify-content-end align-items-center">
-                <nav aria-label="Page navigation example">
-                  <ul class="pagination">
+          <div class="row">
+            <div class="col d-flex justify-content-start align-items-center">
+              <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                  <li class="page-item align-self-center">Rows per page:</li>
                   <li class="page-item">
-                    <button
-                      type="button"
-                      class="page-link"
-                      :class="{
-                        disabled: !prospect3.prev_page_url,
-                      }"
-                      @click="prospect3.prev_page_url && listProspect(prospect3.prev_page_url)"
+                    <select
+                      class="form-control form-control-sm"
+                      v-model="paginate"
+                      @change="list()"
                     >
-                      Previous
-                    </button>
-                  </li>
-                  <li
-                    class="page-item"
-                    style="margin-left: 15px; margin-right: 15px"
-                  >
-                    <input
-                      type="text"
-                      class="form-control form-control-sm text-center"
-                      v-model="current_page"
-                      @keypress="directPage"
-                      style="width: 60px"
-                    />
-                  </li>
-                  <li class="page-item">
-                    <button
-                      type="button"
-                      class="page-link"
-                      :class="{
-                        disabled: !prospect3.next_page_url,
-                      }"
-                      @click="prospect3.next_page_url && listProspect(prospect3.next_page_url)"
-                    >
-                      Next
-                    </button>
+                      <option value="10">10</option>
+                      <option value="25">25</option>
+                      <option value="50">50</option>
+                      <option value="100">100</option>
+                    </select>
                   </li>
                 </ul>
-                </nav>
-              </div>
+              </nav>
+            </div>
+            <div class="col col-md-8 d-flex justify-content-end align-items-center">
+              <nav>
+                <ul class="pagination">
+                  <!-- Start pagination -->
+                  <li v-for="(link, link_index) in prospect3.links" :key="link_index" class="page-item" :class="{ disabled: !link.url, active: link.active }">
+                    <a href="javascript:void(0)" @click="listProspect(link.url)" class="page-link">
+                      <span v-if="link.label == '&laquo; Previous'">
+                          <i class="fa-solid fa-caret-left"></i>
+                      </span>
+                      <span v-else-if="link.label == 'Next &raquo;'">
+                          <i class="fa-solid fa-caret-right"></i>
+                      </span>
+                      <span v-else>
+                          {{ link.label }}
+                      </span>
+                    </a>
+                  </li>
+                  <!-- End pagination -->
+                </ul>
+              </nav>
             </div>
           </div>
+        </div>
         </div>
       </div>
     </div>
@@ -895,6 +1373,11 @@
                                           class="form-control form-control-sm"
                                           v-model="prospect.year"
                                         />
+                                        <!-- <span v-if="errors.year" class="error invalid-feedback">{{errors.year[0]}}
+                                          :class="{
+                                            'is-invalid': errors.year,
+                                          }"
+                                        </span> -->
                                       </div>
                                       <div class="mb-3">
                                         <label
@@ -933,6 +1416,8 @@
                                           placeholder=""
                                           label="initial"
                                         ></multiselect>
+                                        <!-- <span v-if="errors.ams_customer_id" class="error invalid-feedback">{{errors.ams_customer_id[0]}}
+                                        </span> -->
                                       </div>
                                     </div>
                                     <div v-else-if="prospect.prospect_type_id == 2">
@@ -947,6 +1432,11 @@
                                           class="form-control form-control-sm"
                                           v-model="prospect.year"
                                         />
+                                          <!-- :class="{
+                                            'is-invalid': errors.year,
+                                          }"
+                                        <span v-if="errors.year" class="error invalid-feedback">{{errors.year[0]}}
+                                        </span> -->
                                       </div>
                                       <div class="mb-3">
                                         <label
@@ -985,6 +1475,8 @@
                                           placeholder=""
                                           label="initial"
                                         ></multiselect>
+                                        <!-- <span v-if="errors.ams_customer_id" class="error invalid-feedback">{{errors.ams_customer_id[0]}}
+                                        </span> -->
                                       </div>
                                       <div class="mb-3">
                                         <label
@@ -998,6 +1490,8 @@
                                           placeholder=""
                                           label="name"
                                         ></multiselect>
+                                        <span v-if="errors.strategic_initiative_id" class="error invalid-feedback">{{errors.strategic_initiative_id[0]}}
+                                        </span>
                                       </div>
                                       <div class="mb-3">
                                         <label
@@ -1011,6 +1505,8 @@
                                           placeholder=""
                                           label="name"
                                         ></multiselect>
+                                        <span v-if="errors.pm_id" class="error invalid-feedback">{{errors.pm_id[0]}}
+                                        </span>
                                       </div>
                                     </div>
                                     <div v-else>
@@ -1160,6 +1656,11 @@
                                           label="name"
                                           :options="product_options"
                                         ></multiselect>
+                                          <!-- :class="{
+                                            'is-invalid': errors.tmb.product,
+                                          }" -->
+                                        <!-- <span v-if="errors.tmb.product" class="error invalid-feedback">{{errors.tmb.product[0]}}
+                                        </span> -->
                                       </div>
                                     </div>
                                     <div class="col">
@@ -1204,7 +1705,13 @@
                                           :options="acType_options"
                                           placeholder=""
                                           label="name"
-                                        ></multiselect>
+                                          ></multiselect>
+                                          {{ errors[`tmb.${data_index}.product.${item_index}.aircraft_type.id`] }}
+                                          <span v-if="errors" class="error invalid-feedback">
+
+                                                {{ errors[`tmb.${data_index}.product.${item_index}.aircraft_type.id`] }}
+
+                                            </span>
                                         </div>
                                         <div class="col-md-3 text-center">
                                           <label class="form-label"
@@ -1214,7 +1721,9 @@
                                             type="text"
                                             v-model="item.market_share"
                                             class="form-control mb-2 mb-md-0"
-                                          />
+                                            />
+                                            <!-- <span v-if="errors.tmb.market_share" class="error invalid-feedback">{{errors.tmb.market_share[0]}}
+                                            </span> -->
                                         </div>
                                         <div class="col-md-2 text-center">
                                           <label class="form-label">Remark</label>
@@ -1222,7 +1731,9 @@
                                             type="text"
                                             v-model="item.remark"
                                             class="form-control mb-2 mb-md-0"
-                                          />
+                                            />
+                                            <!-- <span v-if="errors.tmb.remark" class="error invalid-feedback">{{errors.tmb.remark[0]}}
+                                            </span> -->
                                         </div>
                                         <div class="col-md-3 text-center">
                                           <label class="form-label"
@@ -1233,7 +1744,9 @@
                                           :options="maintenance_options"
                                           placeholder=""
                                           label="name"
-                                        ></multiselect>
+                                          ></multiselect>
+                                          <!-- <span v-if="errors.tmb.product.maintenance_id.id" class="error invalid-feedback">{{errors.tmb.maintenance_id.id[0]}}
+                                          </span> -->
                                         </div>
                                         <div class="col-md-1">
                                           <button
@@ -1277,7 +1790,9 @@
                                           :options="product_options"
                                           label="name"
                                           placeholder="search and select product"
-                                        ></multiselect>
+                                          ></multiselect>
+                                          <span v-if="errors.pbth.product" class="error invalid-feedback">{{errors.pbth.product[0]}}
+                                          </span>
                                       </div>
                                     </div>
                                     <div class="col">
@@ -1290,7 +1805,9 @@
                                           :options="acType_options"
                                           placeholder="select aircraft type"
                                           label="name"
-                                        ></multiselect>
+                                          ></multiselect>
+                                          <span v-if="errors.pbth.aircraft_type_id" class="error invalid-feedback">{{errors.pbth.aircraft_type_id[0]}}
+                                          </span>
                                       </div>
                                     </div>
                                     <div class="col d-flex align-items-end">
@@ -1382,10 +1899,13 @@
                                                     @change="countMarketShare()"
                                                     type="text"
                                                     v-model="target_month.rate"
-                                                    class="
-                                                      form-control form-control-sm
-                                                    "
-                                                  />
+                                                    class="form-control form-control-sm"
+                                                    :class="{
+                                                        'is-invalid': errors.pbth.target.rate,
+                                                      }"
+                                                    />
+                                                    <span v-if="errors.pbth.target.rate" class="error invalid-feedback">{{errors.pbth.target.rate[0]}}
+                                                    </span>
                                                 </div>
                                               </div>
                                               <div class="col-md-5">
@@ -1402,13 +1922,14 @@
                                                     required
                                                     @change="countMarketShare()"
                                                     type="text"
-                                                    v-model="
-                                                      target_month.flight_hour
-                                                    "
-                                                    class="
-                                                      form-control form-control-sm
-                                                    "
-                                                  />
+                                                    v-model="target_month.flight_hour"
+                                                    class="form-control form-control-sm"
+                                                    :class="{
+                                                        'is-invalid': errors.pbth.target.rate,
+                                                      }"
+                                                    />
+                                                    <span v-if="errors.pbth.target.rate" class="error invalid-feedback">{{errors.pbth.target.rate[0]}}
+                                                    </span>
                                                 </div>
                                               </div>
                                             </div>
@@ -1491,6 +2012,9 @@
                             <div v-else-if="prospect.transaction_type_id == 2 && prospect.prospect_type_id == 1">
                               <span class="indicator-label" @click="createPBTHOrganic()">Save</span>
                             </div>
+                            <div v-else>
+                              <span class="indicator-label" @click="failMessage()">Save</span>
+                            </div>
                             <span class="indicator-progress">
                               Please wait...
                               <span class="spinner-border spinner-border-smalign-middlems-2"></span>
@@ -1569,11 +2093,8 @@ export default {
       paginate: '10',
       filter: null,
       current_page: null,
-      errors: {
-        name: null,
-        description: null,
-      },
-      year: this.currentYear,
+      errors: null,
+      year: null,
       market_share: null
     }
   },
@@ -1598,8 +2119,16 @@ export default {
     filter: debounce(function () {
       this.listProspect()
     }, 500),
+    search: debounce(function () {
+      this.listProspect()
+    }, 500),
   },
   methods: {
+    sort(order, by) {
+      this.order = order;
+      this.by = by;
+      this.listProspect();
+    },
     failMessage() {
       toastr.options = {
         closeButton: false,
@@ -1759,7 +2288,6 @@ export default {
           },
       ],
       })
-      console.log(this.pbth)
     },
     removeProspectTMB(data_index) {
       this.tmb.splice(data_index, 1)
@@ -1882,14 +2410,16 @@ export default {
       this.$axios
         .get(paginate, {
           params: {
+            search: this.search,
             filter: this.year,
             paginate: this.paginate,
+            order: this.order,
+            by: this.by,
           },
         })
         .then((response) => {
           // Data Prospect
           this.prospect = response.data.data.prospect.data
-          console.log(this.prospect)
           // Data Total Market share, Total salesplan & Deviation
           this.prospect2 = response.data.data
           // Pagination
@@ -1904,6 +2434,10 @@ export default {
     },
     filterYear(year){
       this.year = year
+      this.listProspect()
+    },
+    filterYearDefault(year){
+      this.year = null
       this.listProspect()
     },
     listTransactionType() {
@@ -1936,9 +2470,6 @@ export default {
       this.listProspect(new_url)
     }, 500),
     createTMBOrganic() {
-      if(this.prospect.prospect_type_id == null || this.prospect.year == null || this.selected_ams.id == null || this.prospect.transaction_type_id == null || this.tmb == null) {
-      this.failMessage()
-      } else {
       this.loading()
       this.$axios
         .post('/api/prospect-create', {
@@ -1954,18 +2485,14 @@ export default {
           this.listProspect()
         })
         .catch((error) => {
-          if (error.response.status) {
+          if (error.response.status == 422) {
             this.errors = error.response.data.errors
-            toastr.error(error.response.data.message)
-            this.closeModal()
+            alert(this.errors[`tmb.0.product.0.aircraft_type.id`])
+            toastr.error(this.errors)
           }
         })
-      }
     },
     createTMBInorganic() {
-      if(this.prospect.prospect_type_id == null || this.prospect.year == null || this.selected_ams.id == null || this.prospect.transaction_type_id == null || this.selected_strategic_initiative.id == null || this.selected_pm.id == null ||this.tmb == null) {
-      this.failMessage()
-      } else {
       this.loading()
       this.$axios
         .post('/api/prospect-create', {
@@ -1983,18 +2510,13 @@ export default {
           this.listProspect()
         })
         .catch((error) => {
-          if (error.response.status) {
+          if (error.response.status == 422) {
             this.errors = error.response.data.errors
             toastr.error(error.response.data.message)
-            this.closeModal()
           }
         })
-      }
     },
     createPBTHOrganic() {
-      if(this.prospect.prospect_type_id == null || this.prospect.year == null || this.selected_ams.id == null || this.prospect.transaction_type_id == null || this.pbth == null) {
-      this.failMessage()
-      } else {
       this.loading()
       this.$axios
         .post('/api/prospect-create', {
@@ -2010,18 +2532,13 @@ export default {
           this.listProspect()
         })
         .catch((error) => {
-          if (error.response.status) {
+          if (error.response.status == 422) {
             this.errors = error.response.data.errors
             toastr.error(error.response.data.message)
-            this.closeModal()
           }
         })
-      }
     },
     createPBTHInorganic() {
-      if(this.prospect.prospect_type_id == null || this.prospect.year == null || this.selected_ams.id == null || this.prospect.transaction_type_id == null || this.selected_strategic_initiative.id == null || this.selected_pm.id == null ||this.pbth == null) {
-      this.failMessage()
-      } else {
       this.loading()
       this.$axios
         .post('/api/prospect-create', {
@@ -2039,13 +2556,11 @@ export default {
           this.listProspect()
         })
         .catch((error) => {
-          if (error.response.status) {
+          if (error.response.status == 422) {
             this.errors = error.response.data.errors
             toastr.error(error.response.data.message)
-            this.closeModal()
           }
         })
-      }
     },
     loading() {
       Swal.fire({

@@ -271,8 +271,17 @@
                 <div class="col-md-6">
                     <div class="mb-3">
                       <label for="Maintenance" class="form-label">Maintenance</label>
-                      <multiselect v-model="tmbSale.maintenance_id" :options="maintenance_option" label="name" 
-                      :class="{'is-invalid': errors.maintenance_id}"></multiselect>
+                      <select v-model="tmbSale.maintenance_id" class="form-select form-select-lg" :class="{ 'is-invalid': errors.maintenance_id }">
+                      <option 
+                        v-for="(maintenance_options, maintenance_index) in maintenance_option" :key=maintenance_index
+                        :value="maintenance_options.id" 
+                        :class="{
+                          'is-invalid': errors.maintenance_id,
+                        }"
+                      >
+                        {{ maintenance_options.name }}
+                      </option>
+                    </select>
                       <span v-if="errors.maintenance_id" class="error invalid-feedback">{{errors.maintenance_id[0]}}</span>
                     </div>
                     <div class="mb-3">
@@ -289,8 +298,17 @@
                 <div class="col-md-6">
                     <div class="mb-3">
                       <label for="Hangar" class="form-label">Hangar</label>
-                      <multiselect v-model="tmbSale.hangar_id" :options="hangar_option" label="name" 
-                      :class="{'is-invalid': errors.hangar_id}"></multiselect>
+                      <select v-model="tmbSale.hangar_id" class="form-select form-select-lg" :class="{ 'is-invalid': errors.hangar_id }">
+                      <option 
+                        v-for="(hangar_options, hangar_index) in hangar_option" :key="hangar_index"
+                        :value="hangar_options.id" 
+                        :class="{
+                          'is-invalid': errors.hangar_id,
+                        }"
+                      >
+                        {{ hangar_options.name }}
+                      </option>
+                    </select>
                       <span v-if="errors.hangar_id" class="error invalid-feedback">{{errors.hangar_id[0]}}</span>
                     </div>
                     <div class="mb-3">
@@ -352,7 +370,7 @@
                     <td class="text-center badge text-light bg-primary" style="color: #FFA800" v-if="tmbSale.level == 1">Done</td>
                     <td class="text-center badge" style="color: #FFA800; background-color: #FFF4DE" v-else>In Progress</td>
                     <td class="text-center">
-                      <button class="btn btn-sm btn-light" data-bs-toggle="modal" data-bs-target="#modal" @click="edit(tmbSale, tmbSales)">
+                      <button class="btn btn-sm btn-light mx-2" data-bs-toggle="modal" data-bs-target="#modal" @click="edit(tmbSale, tmbSales)">
                         <i class="bi bi-pencil-square text-primary"></i>
                       </button>
                       <button class="btn btn-sm btn-light" v-on:click="removeTmbSales(tmbSale.id)">
@@ -620,10 +638,10 @@ export default {
       this.$axios
         .post('/api/sales-create-tmb', {
           prospect_id: this.$route.query.id,
-          maintenance_id: this.tmbSale.maintenance_id.id,
+          maintenance_id: this.tmbSale.maintenance_id,
           ac_reg: this.tmbSale.ac_reg,
           tat: this.tmbSale.tat,
-          hangar_id: this.tmbSale.hangar_id.id,
+          hangar_id: this.tmbSale.hangar_id,
           value: this.tmbSale.value,
           start_date: this.tmbSale.start_date,
         })
@@ -644,10 +662,10 @@ export default {
       this.$axios
         .put('/api/sales-update/' + this.tmbSale.id, {
           prospect_id: this.$route.query.id,
-          maintenance_id: this.tmbSale.maintenance_id.id,
+          maintenance_id: this.tmbSale.maintenance_id,
           ac_reg: this.tmbSale.ac_reg,
           tat: this.tmbSale.tat,
-          hangar_id: this.tmbSale.hangar_id.id,
+          hangar_id: this.tmbSale.hangar_id,
           value: this.tmbSale.value,
           start_date: this.tmbSale.start_date,
         })
@@ -688,13 +706,14 @@ export default {
         })
     },
     edit(tmbSale) {
+      this.clearError()
       this.modal_create = false
       this.modal_update = true
       this.tmbSale.id = tmbSale.id
-      this.tmbSale.maintenance_id = tmbSale.maintenance
+      this.tmbSale.maintenance_id = tmbSale.maintenance_id
       this.tmbSale.ac_reg = tmbSale.ac_reg
       this.tmbSale.tat = tmbSale.tat
-      this.tmbSale.hangar_id = tmbSale.hangar
+      this.tmbSale.hangar_id = tmbSale.hangar_id
       this.tmbSale.value = tmbSale.value
       this.tmbSale.start_date = tmbSale.start_date
     },
@@ -738,6 +757,14 @@ export default {
       this.errors.phone = null
       this.errors.customer_id = null
       this.errors.title = null
+    },
+    clearError(){
+      this.errors.maintenance_id = null
+      this.errors.ac_reg = null
+      this.errors.tat = null
+      this.errors.hangar_id = null
+      this.errors.value = null
+      this.errors.start_date = null
     },
     directPage: debounce(function () {
       alert(this.paginate_tmbSales.current_page)

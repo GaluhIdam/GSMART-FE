@@ -380,7 +380,7 @@
               <div class="col-lg-4 col-md-12 col-sm-12">
                 <div class="card mb-3" style="max-width: 540px">
                   <div class="row no-gutters">
-                    <div class="col-md-2 mt-2" v-if="sales_detail">
+                    <div class="col-md-2 mt-2 mb-20" v-if="sales_detail">
                       <img
                         :src="sales_detail.customer.full_path"
                         class="rounded"
@@ -445,9 +445,9 @@
             <!-- End Card -->
 
             <!-- Detail -->
-            <div class="row mt-3">
-              <div class="col-lg-1" v-if="sales_detail">
-                <p class="text-muted">Level</p>
+            <div class="row">
+              <div class="col-lg-1 col-s" v-if="sales_detail">
+                <p class="text-muted mt-5">Level</p>
                 <div v-if="sales_detail.level === 1">
                   <span class="badge badge-success"><b>Level 1</b></span>
                 </div>
@@ -475,62 +475,62 @@
                 </div>
               </div>
               <div class="col-lg-1" v-if="sales_detail">
-                <p class="text-muted mx-2">Other</p>
+                <p class="text-muted mt-5">Other</p>
                 <div v-if="sales_detail.other === 'RKAP'">
-                  <span class="badge badge-info mx-2"><b>RKAP</b></span>
+                  <span class="badge badge-info"><b>RKAP</b></span>
                 </div>
                 <div v-else="sales_detail.other === 'Additional'">
-                  <span class="badge badge-primary mx-2"
+                  <span class="badge badge-primary"
                     ><b>Additional</b></span
                   >
                 </div>
-                <p class="text-muted mt-5 mx-2">Type</p>
+                <p class="text-muted mt-5">Type</p>
                 <div v-if="sales_detail.type === 'TMB'">
-                  <span class="badge badge-danger mx-2">TMB</span>
+                  <span class="badge badge-danger">TMB</span>
                 </div>
                 <div v-if="sales_detail.type === 'PBTH'">
-                  <span class="badge badge-warning mx-2">PBTH</span>
+                  <span class="badge badge-warning">PBTH</span>
                 </div>
               </div>
               <div class="col-lg-2" v-if="sales_detail">
-                <p class="text-muted mx-10">Progress</p>
+                <p class="text-muted mt-5">Progress</p>
                 <div v-if="sales_detail.progress === 10">
-                  <span class="badge badge-danger mx-10">10 %</span>
+                  <span class="badge badge-danger">10 %</span>
                 </div>
                 <div v-if="sales_detail.progress === 20">
-                  <span class="badge badge-danger mx-10">20 %</span>
+                  <span class="badge badge-danger">20 %</span>
                 </div>
                 <div v-if="sales_detail.progress === 30">
-                  <span class="badge badge-danger mx-10">30 %</span>
+                  <span class="badge badge-danger">30 %</span>
                 </div>
                 <div v-if="sales_detail.progress === 40">
-                  <span class="badge badge-warning mx-10">40 %</span>
+                  <span class="badge badge-warning">40 %</span>
                 </div>
                 <div v-if="sales_detail.progress === 50">
-                  <span class="badge badge-warning mx-10">50 %</span>
+                  <span class="badge badge-warning">50 %</span>
                 </div>
                 <div v-if="sales_detail.progress === 60">
-                  <span class="badge badge-warning mx-10">60 %</span>
+                  <span class="badge badge-warning">60 %</span>
                 </div>
                 <div v-if="sales_detail.progress === 70">
-                  <span class="badge badge-primary mx-10">70 %</span>
+                  <span class="badge badge-primary">70 %</span>
                 </div>
                 <div v-if="sales_detail.progress === 80">
-                  <span class="badge badge-primary mx-10">80 %</span>
+                  <span class="badge badge-primary">80 %</span>
                 </div>
                 <div v-if="sales_detail.progress === 90">
-                  <span class="badge badge-success mx-10">90 %</span>
+                  <span class="badge badge-success">90 %</span>
                 </div>
                 <div v-if="sales_detail.progress === 100">
-                  <span class="badge badge-success mx-10">100 %</span>
+                  <span class="badge badge-success">100 %</span>
                 </div>
-                <p class="text-muted mt-5 mx-10">Month Sales</p>
-                <p class="mx-10" v-if="sales_detail">
+                <p class="text-muted mt-5">Month Sales</p>
+                <p v-if="sales_detail">
                   <b>{{ sales_detail.monthSales }}</b>
                 </p>
               </div>
               <div class="col-lg-1">
-                <p class="text-muted">TAT</p>
+                <p class="text-muted mt-5">TAT</p>
                 <p v-if="sales_detail">
                   <b>{{ sales_detail.tat }} Days</b>
                 </p>
@@ -540,7 +540,7 @@
                 </p>
               </div>
               <div class="col-lg-2">
-                <p class="text-muted">Start Date Project</p>
+                <p class="text-muted mt-5">Start Date Project</p>
                 <p v-if="sales_detail">
                   <b>{{ sales_detail.startDate }}</b>
                 </p>
@@ -550,7 +550,7 @@
                 </p>
               </div>
               <div class="col-lg-2">
-                <p class="text-muted">Location</p>
+                <p class="text-muted mt-5">Location</p>
                 <p v-if="sales_detail">
                   <b>{{ sales_detail.location.name }}</b>
                 </p>
@@ -560,7 +560,7 @@
                 </p>
               </div>
               <div class="col-lg-3">
-                <p class="text-muted">Maintenance</p>
+                <p class="text-muted mt-5">Maintenance</p>
                 <p v-if="sales_detail">
                   <b>{{ sales_detail.maintenance.description }}</b>
                 </p>

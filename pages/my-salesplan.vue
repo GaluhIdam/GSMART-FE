@@ -54,7 +54,7 @@
       <!-- Row Total -->
       <div class="rounded box-d" id="cardTopDashed">
         <div class="row">
-          <div class="col-lg-2 mt-1 col-md-6" id="cardTop">
+          <div class="col-lg my-2 mx-1">
             <div class="card card-flush" id="bgGreen">
               <div class="card-body">
                 <p class="text-muted" id="fontSm">Total Target</p>
@@ -62,7 +62,7 @@
               </div>
             </div>
           </div>
-          <div class="col-lg-2 mt-1 col-md-6" id="cardTop">
+          <div class="col-lg my-2 mx-1">
             <div class="card card-flush" id="bgBlue">
               <div class="card-body">
                 <p class="text-muted" id="fontSm">Total Open</p>
@@ -70,7 +70,7 @@
               </div>
             </div>
           </div>
-          <div class="col-lg-2 mt-1 col-md-6" id="cardTop">
+          <div class="col-lg my-2 mx-1">
             <div class="card card-flush" id="bgRed">
               <div class="card-body">
                 <p class="text-muted" id="fontSm">Total Closed</p>
@@ -78,7 +78,7 @@
               </div>
             </div>
           </div>
-          <div class="col-lg-2 mt-1 col-md-6" id="cardTop">
+          <div class="col-lg my-2 mx-1">
             <div class="card card-flush" id="bgPurple">
               <div class="card-body">
                 <p class="text-muted" id="fontSm">Total Open Closed</p>
@@ -86,7 +86,7 @@
               </div>
             </div>
           </div>
-          <div class="col-lg-2 mt-1 col-md-6" id="cardTop">
+          <div class="col-lg my-2 mx-1">
             <div class="card card-flush" id="bgGold">
               <div class="card-body">
                 <p class="text-muted" id="fontSm">Total Cancel</p>
@@ -1274,10 +1274,6 @@ export default {
 
 #cardTopDashed {
   border:dashed #fff;
-}
-
-#cardTop {
-  width: 207px;
 }
 
 #btnGreen {

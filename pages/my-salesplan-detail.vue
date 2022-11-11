@@ -380,7 +380,7 @@
               <div class="col-lg-4 col-md-12 col-sm-12">
                 <div class="card mb-3" style="max-width: 540px">
                   <div class="row no-gutters">
-                    <div class="col-md-2 mt-2" v-if="sales_detail">
+                    <div class="col-md-2 mt-2 mb-20" v-if="sales_detail">
                       <img
                         :src="sales_detail.customer.full_path"
                         class="rounded"
@@ -445,9 +445,9 @@
             <!-- End Card -->
 
             <!-- Detail -->
-            <div class="row mt-3">
-              <div class="col-lg-1" v-if="sales_detail">
-                <p class="text-muted">Level</p>
+            <div class="row">
+              <div class="col-lg-1 col-s" v-if="sales_detail">
+                <p class="text-muted mt-5">Level</p>
                 <div v-if="sales_detail.level === 1">
                   <span class="badge badge-success"><b>Level 1</b></span>
                 </div>
@@ -475,62 +475,62 @@
                 </div>
               </div>
               <div class="col-lg-1" v-if="sales_detail">
-                <p class="text-muted mx-2">Other</p>
+                <p class="text-muted mt-5">Other</p>
                 <div v-if="sales_detail.other === 'RKAP'">
-                  <span class="badge badge-info mx-2"><b>RKAP</b></span>
+                  <span class="badge badge-info"><b>RKAP</b></span>
                 </div>
                 <div v-else="sales_detail.other === 'Additional'">
-                  <span class="badge badge-primary mx-2"
+                  <span class="badge badge-primary"
                     ><b>Additional</b></span
                   >
                 </div>
-                <p class="text-muted mt-5 mx-2">Type</p>
+                <p class="text-muted mt-5">Type</p>
                 <div v-if="sales_detail.type === 'TMB'">
-                  <span class="badge badge-danger mx-2">TMB</span>
+                  <span class="badge badge-danger">TMB</span>
                 </div>
                 <div v-if="sales_detail.type === 'PBTH'">
-                  <span class="badge badge-warning mx-2">PBTH</span>
+                  <span class="badge badge-warning">PBTH</span>
                 </div>
               </div>
               <div class="col-lg-2" v-if="sales_detail">
-                <p class="text-muted mx-10">Progress</p>
+                <p class="text-muted mt-5">Progress</p>
                 <div v-if="sales_detail.progress === 10">
-                  <span class="badge badge-danger mx-10">10 %</span>
+                  <span class="badge badge-danger">10 %</span>
                 </div>
                 <div v-if="sales_detail.progress === 20">
-                  <span class="badge badge-danger mx-10">20 %</span>
+                  <span class="badge badge-danger">20 %</span>
                 </div>
                 <div v-if="sales_detail.progress === 30">
-                  <span class="badge badge-danger mx-10">30 %</span>
+                  <span class="badge badge-danger">30 %</span>
                 </div>
                 <div v-if="sales_detail.progress === 40">
-                  <span class="badge badge-warning mx-10">40 %</span>
+                  <span class="badge badge-warning">40 %</span>
                 </div>
                 <div v-if="sales_detail.progress === 50">
-                  <span class="badge badge-warning mx-10">50 %</span>
+                  <span class="badge badge-warning">50 %</span>
                 </div>
                 <div v-if="sales_detail.progress === 60">
-                  <span class="badge badge-warning mx-10">60 %</span>
+                  <span class="badge badge-warning">60 %</span>
                 </div>
                 <div v-if="sales_detail.progress === 70">
-                  <span class="badge badge-primary mx-10">70 %</span>
+                  <span class="badge badge-primary">70 %</span>
                 </div>
                 <div v-if="sales_detail.progress === 80">
-                  <span class="badge badge-primary mx-10">80 %</span>
+                  <span class="badge badge-primary">80 %</span>
                 </div>
                 <div v-if="sales_detail.progress === 90">
-                  <span class="badge badge-success mx-10">90 %</span>
+                  <span class="badge badge-success">90 %</span>
                 </div>
                 <div v-if="sales_detail.progress === 100">
-                  <span class="badge badge-success mx-10">100 %</span>
+                  <span class="badge badge-success">100 %</span>
                 </div>
-                <p class="text-muted mt-5 mx-10">Month Sales</p>
-                <p class="mx-10" v-if="sales_detail">
+                <p class="text-muted mt-5">Month Sales</p>
+                <p v-if="sales_detail">
                   <b>{{ sales_detail.monthSales }}</b>
                 </p>
               </div>
               <div class="col-lg-1">
-                <p class="text-muted">TAT</p>
+                <p class="text-muted mt-5">TAT</p>
                 <p v-if="sales_detail">
                   <b>{{ sales_detail.tat }} Days</b>
                 </p>
@@ -540,7 +540,7 @@
                 </p>
               </div>
               <div class="col-lg-2">
-                <p class="text-muted">Start Date Project</p>
+                <p class="text-muted mt-5">Start Date Project</p>
                 <p v-if="sales_detail">
                   <b>{{ sales_detail.startDate }}</b>
                 </p>
@@ -550,7 +550,7 @@
                 </p>
               </div>
               <div class="col-lg-2">
-                <p class="text-muted">Location</p>
+                <p class="text-muted mt-5">Location</p>
                 <p v-if="sales_detail">
                   <b>{{ sales_detail.location.name }}</b>
                 </p>
@@ -560,7 +560,7 @@
                 </p>
               </div>
               <div class="col-lg-3">
-                <p class="text-muted">Maintenance</p>
+                <p class="text-muted mt-5">Maintenance</p>
                 <p v-if="sales_detail">
                   <b>{{ sales_detail.maintenance.description }}</b>
                 </p>
@@ -795,7 +795,7 @@
                                   >
                                 </p>
                               </div>
-                              <div class="col-lg-6">
+                              <div class="col-lg-6 mb-20">
                                 <div
                                   class="position-relative"
                                   v-if="sales_detail"
@@ -851,7 +851,7 @@
                                   <small>* File size max 5MB</small>
                                 </p>
                               </div>
-                              <div class="col-lg-6 mt-3">
+                              <div class="col-lg-6 mt-3 mb-20">
                                 <div
                                   class="position-relative"
                                   v-if="sales_detail"
@@ -933,7 +933,7 @@
                                   <small>* File size max 5MB</small>
                                 </p>
                               </div>
-                              <div class="col-lg-6 mt-3">
+                              <div class="col-lg-6 mt-3 mb-20">
                                 <div
                                   class="position-relative"
                                   v-if="sales_detail"
@@ -1080,7 +1080,7 @@
                                   <small>* File size max 5MB</small>
                                 </p>
                               </div>
-                              <div class="col-lg-6 mt-3">
+                              <div class="col-lg-6 mt-3 mb-20">
                                 <div
                                   class="position-relative"
                                   v-if="sales_detail"
@@ -1165,7 +1165,7 @@
                                   <small>* File size max 5MB</small>
                                 </p>
                               </div>
-                              <div class="col-lg-6 mt-3">
+                              <div class="col-lg-6 mt-3 mb-20">
                                 <div
                                   class="position-relative"
                                   v-if="sales_detail"
@@ -1261,7 +1261,7 @@
                                   <small>* File size max 5MB</small>
                                 </p>
                               </div>
-                              <div class="col-lg-6 mt-3">
+                              <div class="col-lg-6 mt-3 mb-20">
                                 <div
                                   class="position-relative"
                                   v-if="sales_detail"
@@ -1406,7 +1406,7 @@
                                   <small>* File size max 5MB</small>
                                 </p>
                               </div>
-                              <div class="col-lg-6 mt-3">
+                              <div class="col-lg-6 mt-3 mb-20">
                                 <div
                                   class="position-relative"
                                   v-if="sales_detail"
@@ -1490,7 +1490,7 @@
                                   >
                                 </p>
                               </div>
-                              <div class="col-lg-6 mt-5">
+                              <div class="col-lg-6 mt-5 mb-20">
                                 <div class="position-relative">
                                   <div
                                     class="position-absolute top-0 end-0"
@@ -1586,38 +1586,6 @@
                                       </div>
                                     </div>
                                   </div>
-
-                                  <!-- Confirm Line Hanggar -->
-                                  <!--
-                                      <div class="row" v-if="role == 'CBO' || role == 'Administrator'">
-                                        <div class="col-9">
-                                          <div class="mb-3">
-                                            <label>Choose Line Hangar</label>
-                                            <select v-model="line_id" class="form-select">
-                                              <option :value="null" disabled>Select Line</option>
-                                              <option
-                                                v-for="lines in line"
-                                                v-if="lines.hangar_id === sales_detail.location.id"
-                                                :value="lines.id"
-                                              >
-                                                {{ lines.name }}
-                                              </option>
-                                            </select>
-                                          </div>
-                                        </div>
-                                        <div class="col-3">
-                                          <button
-                                            class="btn btn-primary btn-sm mt-7"
-                                            type="button"
-                                            @click="updateSlot()"
-                                            v-if="sales_detail.status === 'Open'"
-                                            v-permission="['slot_request']"
-                                          >
-                                            Edit
-                                          </button>
-                                        </div>
-                                      </div>
-                                      -->
                                 </div>
                                 <div class="col-lg-4">
                                   <div class="mb-3">
@@ -1730,7 +1698,7 @@
                                   >
                                 </p>
                               </div>
-                              <div class="col-lg-6 mt-3">
+                              <div class="col-lg-6 mt-3 mb-20">
                                 <div
                                   class="position-relative"
                                   v-if="sales_detail"
@@ -2888,7 +2856,7 @@
                         <form>
                           <div class="mb-3">
                             <label>To <span class="text-danger">*</span></label>
-                            <select v-model="user_id" class="form-select">
+                            <select v-model="user_id" class="form-select" :class="{ 'is-invalid': errors.user_id }">
                               <option :value="null" disabled>
                                 Select User
                               </option>
@@ -2901,6 +2869,9 @@
                                 {{ user_options.email }}
                               </option>
                             </select>
+                            <span v-if="errors.user_id" class="error invalid-feedback">{{
+                              errors.user_id[0]
+                            }}</span>
                             <small class="text-muted"
                               >Send notification to selected employee</small
                             >
@@ -3122,6 +3093,7 @@ export default {
         value: null,
         category: null,
         reason: null,
+        user_id: null,
       },
     }
   },
@@ -3573,6 +3545,7 @@ export default {
         .catch((error) => {
           if (error.response.status == 422) {
             toastr.error(error.response.data.message)
+            this.errors = error.response.data.errors
           } else if (error.response.status == 403) {
             toastr.error(error.response.data.message)
           }

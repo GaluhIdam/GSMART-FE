@@ -278,7 +278,8 @@
                   type="text"
                   class="form-control"
                   v-model="p_prospect_type.name"
-                  readonly
+                  disabled
+                  id="readOnly"
                   :class="{
                     'is-invalid': errors.name,
                   }"
@@ -519,3 +520,9 @@ export default {
   },
 }
 </script>
+
+<style>
+#readOnly {
+  background-color:#f0f0f5;
+}
+</style>

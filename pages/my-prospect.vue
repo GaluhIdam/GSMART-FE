@@ -334,18 +334,26 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <tr v-for="(prospect, prospect_index) in prospect" :key="prospect_index">
+                        <tr
+                          v-for="(data, prospect_index) in prospect"
+                          :key="prospect_index"
+                        >
                           <td class="text-center">
-                            {{ prospect3.from + prospect_index }}
+                            <span v-if="prospect3.from == 1">
+                              {{ prospect3.from + prospect_index }}
+                            </span>
+                            <span v-else>
+                              {{ parseInt(prospect_index) + 1 }}
+                            </span>
                           </td>
-                          <td class="text-center">{{ prospect.year }}</td>
-                          <td class="text-center">{{ prospect.transaction }}</td>
-                          <td class="text-center">{{ prospect.type }}</td>
+                          <td class="text-center">{{ data.year }}</td>
+                          <td class="text-center">{{ data.transaction }}</td>
+                          <td class="text-center">{{ data.type }}</td>
 
                           <!-- Conditional Strategic Initiative -->
                           <td>
-                            <div v-if="prospect.strategicInitiative" class="text-center">
-                              {{ prospect.strategicInitiative }}
+                            <div v-if="data.strategicInitiative" class="text-center">
+                              {{ data.strategicInitiative }}
                             </div>
                             <div v-else class="text-center">
                               -
@@ -355,8 +363,8 @@
 
                           <!-- Conditional PM -->
                           <td>
-                            <div v-if="prospect.prjoectManager" class="text-center">
-                              {{ prospect.prjoectManager }}
+                            <div v-if="data.prjoectManager" class="text-center">
+                              {{ data.prjoectManager }}
                             </div>
                             <div v-else class="text-center">
                               -
@@ -364,14 +372,14 @@
                           </td>
                           <!-- End Of Conditional PM -->
 
-                          <td class="text-center">{{ prospect.customer.code }}</td>
-                          <td class="text-center">{{ prospect.customer.name }}</td>
-                          <td class="text-center">{{ prospect.ams }}</td>
+                          <td class="text-center">{{ data.customer.code }}</td>
+                          <td class="text-center">{{ data.customer.name }}</td>
+                          <td class="text-center">{{ data.ams }}</td>
 
                           <!-- Conditional Market Share -->
                           <td>
-                            <div v-if="prospect.marketShare" class="text-center" style="color: #50CD89">
-                              ${{ formatNumber(prospect.marketShare) }} 
+                            <div v-if="data.marketShare" class="text-center" style="color: #50CD89">
+                              ${{ data.marketShare }} 
                             </div>
                             <div v-else class="text-center" style="color: #50CD89">
                               $0
@@ -381,8 +389,8 @@
 
                           <!-- Conditional Sales Value -->
                           <td>
-                            <div v-if="prospect.salesPlan" class="text-center" style="color: #50CD89">
-                              ${{ formatNumber(prospect.salesPlan) }}
+                            <div v-if="data.salesPlan" class="text-center" style="color: #50CD89">
+                              ${{ data.salesPlan }}
                             </div>
                             <div v-else class="text-center" style="color: #50CD89">
                               $0
@@ -391,7 +399,7 @@
                           <!-- End Of Conditional Sales Value -->
                           
                           <td class="text-center">
-                            <nuxt-link :to="{ path: 'view-prospect', query: { id: prospect.customer.id }}" class="btn btn-sm btn-light">
+                            <nuxt-link :to="{ path: 'view-prospect', query: { id: data.customer.id }}" class="btn btn-sm btn-light">
                               View
                             </nuxt-link>
                           </td>
@@ -409,9 +417,7 @@
                 </div>
                 <div class="tab-pane fade" id="kt_tab_pane_2" role="tabpanel">
                   <div class="table-responsive">
-                    <table
-                      class="table table-row-bordered table-row-gray-200 gy-4"
-                    >
+                    <table class="table table-row-bordered table-row-gray-200 gy-4">
                       <thead>
                         <tr class="fw-bold fs-6 text-gray-800">
                           <th class="text-center">No</th>
@@ -500,18 +506,18 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <tr v-for="(prospect, prospect_index) in prospect" :key="prospect_index">
+                        <tr v-for="(data, prospect_index) in prospect" :key="prospect_index">
                           <td class="text-center">
                             {{ prospect3.from + prospect_index }}
                           </td>
-                          <td class="text-center">{{ prospect.year }}</td>
-                          <td class="text-center">{{ prospect.transaction }}</td>
-                          <td class="text-center">{{ prospect.type }}</td>
+                          <td class="text-center">{{ data.year }}</td>
+                          <td class="text-center">{{ data.transaction }}</td>
+                          <td class="text-center">{{ data.type }}</td>
 
                           <!-- Conditional Strategic Initiative -->
                           <td>
-                            <div v-if="prospect.strategicInitiative" class="text-center">
-                              {{ prospect.strategicInitiative }}
+                            <div v-if="data.strategicInitiative" class="text-center">
+                              {{ data.strategicInitiative }}
                             </div>
                             <div v-else class="text-center">
                               -
@@ -521,8 +527,8 @@
 
                           <!-- Conditional PM -->
                           <td>
-                            <div v-if="prospect.prjoectManager" class="text-center">
-                              {{ prospect.prjoectManager }}
+                            <div v-if="data.prjoectManager" class="text-center">
+                              {{ data.prjoectManager }}
                             </div>
                             <div v-else class="text-center">
                               -
@@ -530,14 +536,14 @@
                           </td>
                           <!-- End Of Conditional PM -->
 
-                          <td class="text-center">{{ prospect.customer.code }}</td>
-                          <td class="text-center">{{ prospect.customer.name }}</td>
-                          <td class="text-center">{{ prospect.ams }}</td>
+                          <td class="text-center">{{ data.customer.code }}</td>
+                          <td class="text-center">{{ data.customer.name }}</td>
+                          <td class="text-center">{{ data.ams }}</td>
 
                           <!-- Conditional Market Share -->
                           <td>
-                            <div v-if="prospect.marketShare" class="text-center" style="color: #50CD89">
-                              ${{ formatNumber(prospect.marketShare) }} 
+                            <div v-if="data.marketShare" class="text-center" style="color: #50CD89">
+                              ${{ data.marketShare }} 
                             </div>
                             <div v-else class="text-center" style="color: #50CD89">
                               $0
@@ -547,8 +553,8 @@
 
                           <!-- Conditional Sales Value -->
                           <td>
-                            <div v-if="prospect.salesPlan" class="text-center" style="color: #50CD89">
-                              ${{ formatNumber(prospect.salesPlan) }}
+                            <div v-if="data.salesPlan" class="text-center" style="color: #50CD89">
+                              ${{ data.salesPlan }}
                             </div>
                             <div v-else class="text-center" style="color: #50CD89">
                               $0
@@ -557,7 +563,7 @@
                           <!-- End Of Conditional Sales Value -->
                           
                           <td class="text-center">
-                            <nuxt-link :to="{ path: 'view-prospect', query: { id: prospect.customer.id }}" class="btn btn-sm btn-light">
+                            <nuxt-link :to="{ path: 'view-prospect', query: { id: data.customer.id }}" class="btn btn-sm btn-light">
                               View
                             </nuxt-link>
                           </td>
@@ -575,9 +581,7 @@
                 </div>
                 <div class="tab-pane fade" id="kt_tab_pane_3" role="tabpanel">
                   <div class="table-responsive">
-                    <table
-                      class="table table-row-bordered table-row-gray-200 gy-4"
-                    >
+                    <table class="table table-row-bordered table-row-gray-200 gy-4">
                       <thead>
                         <tr class="fw-bold fs-6 text-gray-800">
                           <th class="text-center">No</th>
@@ -666,18 +670,18 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <tr v-for="(prospect, prospect_index) in prospect" :key="prospect_index">
+                        <tr v-for="(data, prospect_index) in prospect" :key="prospect_index">
                           <td class="text-center">
                             {{ prospect3.from + prospect_index }}
                           </td>
-                          <td class="text-center">{{ prospect.year }}</td>
-                          <td class="text-center">{{ prospect.transaction }}</td>
-                          <td class="text-center">{{ prospect.type }}</td>
+                          <td class="text-center">{{ data.year }}</td>
+                          <td class="text-center">{{ data.transaction }}</td>
+                          <td class="text-center">{{ data.type }}</td>
 
                           <!-- Conditional Strategic Initiative -->
                           <td>
-                            <div v-if="prospect.strategicInitiative" class="text-center">
-                              {{ prospect.strategicInitiative }}
+                            <div v-if="data.strategicInitiative" class="text-center">
+                              {{ data.strategicInitiative }}
                             </div>
                             <div v-else class="text-center">
                               -
@@ -687,8 +691,8 @@
 
                           <!-- Conditional PM -->
                           <td>
-                            <div v-if="prospect.prjoectManager" class="text-center">
-                              {{ prospect.prjoectManager }}
+                            <div v-if="data.prjoectManager" class="text-center">
+                              {{ data.prjoectManager }}
                             </div>
                             <div v-else class="text-center">
                               -
@@ -696,14 +700,14 @@
                           </td>
                           <!-- End Of Conditional PM -->
 
-                          <td class="text-center">{{ prospect.customer.code }}</td>
-                          <td class="text-center">{{ prospect.customer.name }}</td>
-                          <td class="text-center">{{ prospect.ams }}</td>
+                          <td class="text-center">{{ data.customer.code }}</td>
+                          <td class="text-center">{{ data.customer.name }}</td>
+                          <td class="text-center">{{ data.ams }}</td>
 
                           <!-- Conditional Market Share -->
                           <td>
-                            <div v-if="prospect.marketShare" class="text-center" style="color: #50CD89">
-                              ${{ formatNumber(prospect.marketShare) }} 
+                            <div v-if="data.marketShare" class="text-center" style="color: #50CD89">
+                              ${{ data.marketShare }} 
                             </div>
                             <div v-else class="text-center" style="color: #50CD89">
                               $0
@@ -713,8 +717,8 @@
 
                           <!-- Conditional Sales Value -->
                           <td>
-                            <div v-if="prospect.salesPlan" class="text-center" style="color: #50CD89">
-                              ${{ prospect.salesPlan }}
+                            <div v-if="data.salesPlan" class="text-center" style="color: #50CD89">
+                              ${{ data.salesPlan }}
                             </div>
                             <div v-else class="text-center" style="color: #50CD89">
                               $0
@@ -723,7 +727,7 @@
                           <!-- End Of Conditional Sales Value -->
                           
                           <td class="text-center">
-                            <nuxt-link :to="{ path: 'view-prospect', query: { id: prospect.customer.id }}" class="btn btn-sm btn-light">
+                            <nuxt-link :to="{ path: 'view-prospect', query: { id: data.customer.id }}" class="btn btn-sm btn-light">
                               View
                             </nuxt-link>
                           </td>
@@ -741,9 +745,7 @@
                 </div>
                 <div class="tab-pane fade" id="kt_tab_pane_4" role="tabpanel">
                   <div class="table-responsive">
-                    <table
-                      class="table table-row-bordered table-row-gray-200 gy-4"
-                    >
+                    <table class="table table-row-bordered table-row-gray-200 gy-4">
                       <thead>
                         <tr class="fw-bold fs-6 text-gray-800">
                           <th class="text-center">No</th>
@@ -832,18 +834,18 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <tr v-for="(prospect, prospect_index) in prospect" :key="prospect_index">
+                        <tr v-for="(data, prospect_index) in prospect" :key="prospect_index">
                           <td class="text-center">
                             {{ prospect3.from + prospect_index }}
                           </td>
-                          <td class="text-center">{{ prospect.year }}</td>
-                          <td class="text-center">{{ prospect.transaction }}</td>
-                          <td class="text-center">{{ prospect.type }}</td>
+                          <td class="text-center">{{ data.year }}</td>
+                          <td class="text-center">{{ data.transaction }}</td>
+                          <td class="text-center">{{ data.type }}</td>
 
                           <!-- Conditional Strategic Initiative -->
                           <td>
-                            <div v-if="prospect.strategicInitiative" class="text-center">
-                              {{ prospect.strategicInitiative }}
+                            <div v-if="data.strategicInitiative" class="text-center">
+                              {{ data.strategicInitiative }}
                             </div>
                             <div v-else class="text-center">
                               -
@@ -853,8 +855,8 @@
 
                           <!-- Conditional PM -->
                           <td>
-                            <div v-if="prospect.prjoectManager" class="text-center">
-                              {{ prospect.prjoectManager }}
+                            <div v-if="data.prjoectManager" class="text-center">
+                              {{ data.prjoectManager }}
                             </div>
                             <div v-else class="text-center">
                               -
@@ -862,14 +864,14 @@
                           </td>
                           <!-- End Of Conditional PM -->
 
-                          <td class="text-center">{{ prospect.customer.code }}</td>
-                          <td class="text-center">{{ prospect.customer.name }}</td>
-                          <td class="text-center">{{ prospect.ams }}</td>
+                          <td class="text-center">{{ data.customer.code }}</td>
+                          <td class="text-center">{{ data.customer.name }}</td>
+                          <td class="text-center">{{ data.ams }}</td>
 
                           <!-- Conditional Market Share -->
                           <td>
-                            <div v-if="prospect.marketShare" class="text-center" style="color: #50CD89">
-                              ${{ prospect.marketShare }} 
+                            <div v-if="data.marketShare" class="text-center" style="color: #50CD89">
+                              ${{ data.marketShare }} 
                             </div>
                             <div v-else class="text-center" style="color: #50CD89">
                               $0
@@ -879,8 +881,8 @@
 
                           <!-- Conditional Sales Value -->
                           <td>
-                            <div v-if="prospect.salesPlan" class="text-center" style="color: #50CD89">
-                              ${{ prospect.salesPlan }}
+                            <div v-if="data.salesPlan" class="text-center" style="color: #50CD89">
+                              ${{ data.salesPlan }}
                             </div>
                             <div v-else class="text-center" style="color: #50CD89">
                               $0
@@ -889,7 +891,7 @@
                           <!-- End Of Conditional Sales Value -->
                           
                           <td class="text-center">
-                            <nuxt-link :to="{ path: 'view-prospect', query: { id: prospect.customer.id }}" class="btn btn-sm btn-light">
+                            <nuxt-link :to="{ path: 'view-prospect', query: { id: data.customer.id }}" class="btn btn-sm btn-light">
                               View
                             </nuxt-link>
                           </td>
@@ -907,9 +909,7 @@
                 </div>
                 <div class="tab-pane fade" id="kt_tab_pane_5" role="tabpanel">
                   <div class="table-responsive">
-                    <table
-                      class="table table-row-bordered table-row-gray-200 gy-4"
-                    >
+                    <table class="table table-row-bordered table-row-gray-200 gy-4">
                       <thead>
                         <tr class="fw-bold fs-6 text-gray-800">
                           <th class="text-center">No</th>
@@ -998,18 +998,18 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <tr v-for="(prospect, prospect_index) in prospect" :key="prospect_index">
+                        <tr v-for="(data, prospect_index) in prospect" :key="prospect_index">
                           <td class="text-center">
                             {{ prospect3.from + prospect_index }}
                           </td>
-                          <td class="text-center">{{ prospect.year }}</td>
-                          <td class="text-center">{{ prospect.transaction }}</td>
-                          <td class="text-center">{{ prospect.type }}</td>
+                          <td class="text-center">{{ data.year }}</td>
+                          <td class="text-center">{{ data.transaction }}</td>
+                          <td class="text-center">{{ data.type }}</td>
 
                           <!-- Conditional Strategic Initiative -->
                           <td>
-                            <div v-if="prospect.strategicInitiative" class="text-center">
-                              {{ prospect.strategicInitiative }}
+                            <div v-if="data.strategicInitiative" class="text-center">
+                              {{ data.strategicInitiative }}
                             </div>
                             <div v-else class="text-center">
                               -
@@ -1019,8 +1019,8 @@
 
                           <!-- Conditional PM -->
                           <td>
-                            <div v-if="prospect.prjoectManager" class="text-center">
-                              {{ prospect.prjoectManager }}
+                            <div v-if="data.prjoectManager" class="text-center">
+                              {{ data.prjoectManager }}
                             </div>
                             <div v-else class="text-center">
                               -
@@ -1028,14 +1028,14 @@
                           </td>
                           <!-- End Of Conditional PM -->
 
-                          <td class="text-center">{{ prospect.customer.code }}</td>
-                          <td class="text-center">{{ prospect.customer.name }}</td>
-                          <td class="text-center">{{ prospect.ams }}</td>
+                          <td class="text-center">{{ data.customer.code }}</td>
+                          <td class="text-center">{{ data.customer.name }}</td>
+                          <td class="text-center">{{ data.ams }}</td>
 
                           <!-- Conditional Market Share -->
                           <td>
-                            <div v-if="prospect.marketShare" class="text-center" style="color: #50CD89">
-                              ${{ prospect.marketShare }} 
+                            <div v-if="data.marketShare" class="text-center" style="color: #50CD89">
+                              ${{ data.marketShare }} 
                             </div>
                             <div v-else class="text-center" style="color: #50CD89">
                               $0
@@ -1045,8 +1045,8 @@
 
                           <!-- Conditional Sales Value -->
                           <td>
-                            <div v-if="prospect.salesPlan" class="text-center" style="color: #50CD89">
-                              ${{ prospect.salesPlan }}
+                            <div v-if="data.salesPlan" class="text-center" style="color: #50CD89">
+                              ${{ data.salesPlan }}
                             </div>
                             <div v-else class="text-center" style="color: #50CD89">
                               $0
@@ -1055,7 +1055,7 @@
                           <!-- End Of Conditional Sales Value -->
                           
                           <td class="text-center">
-                            <nuxt-link :to="{ path: 'view-prospect', query: { id: prospect.customer.id }}" class="btn btn-sm btn-light">
+                            <nuxt-link :to="{ path: 'view-prospect', query: { id: data.customer.id }}" class="btn btn-sm btn-light">
                               View
                             </nuxt-link>
                           </td>
@@ -1084,7 +1084,7 @@
                     <select
                       class="form-control form-control-sm"
                       v-model="paginate"
-                      @change="list()"
+                      @change="listProspect()"
                     >
                       <option value="10">10</option>
                       <option value="25">25</option>
@@ -1490,8 +1490,6 @@
                                           placeholder=""
                                           label="name"
                                         ></multiselect>
-                                        <span v-if="errors.strategic_initiative_id" class="error invalid-feedback">{{errors.strategic_initiative_id[0]}}
-                                        </span>
                                       </div>
                                       <div class="mb-3">
                                         <label
@@ -1505,8 +1503,6 @@
                                           placeholder=""
                                           label="name"
                                         ></multiselect>
-                                        <span v-if="errors.pm_id" class="error invalid-feedback">{{errors.pm_id[0]}}
-                                        </span>
                                       </div>
                                     </div>
                                     <div v-else>
@@ -2069,7 +2065,9 @@ export default {
       project_manager_options: [],
       prospect: [],
       prospect2: [],
-      prospect3: [],
+      prospect3: {
+        link: [],
+      },
       step_number: 1,
       prospect_type: {
         data: [],
@@ -2456,16 +2454,15 @@ export default {
         .catch((error) => console.log(error))
     },
     directPage: debounce(function () {
-      alert(this.prospect3.current_page)
       if (this.current_page < 1) {
-        this.prospect3.current_page = 1
-      } else if (this.prospect3.current_page > this.prospect3.last_page) {
-        this.prospect3.current_page = this.prospect3.last_page
+        this.current_page = 1
+      } else if (this.current_page > this.prospect3.last_page) {
+        this.current_page = this.prospect3.last_page
       }
       let url = new URL(this.prospect3.first_page_url)
-      let filter_params = url.filterParams
-      filter_params.set('page', this.prospect3.current_page)
-      url.filter = filter_params.toString()
+      let search_params = url.searchParams
+      search_params.set('page', this.current_page)
+      url.search = search_params.toString()
       let new_url = url.toString()
       this.listProspect(new_url)
     }, 500),

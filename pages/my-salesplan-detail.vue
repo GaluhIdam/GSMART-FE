@@ -795,7 +795,7 @@
                                   >
                                 </p>
                               </div>
-                              <div class="col-lg-6">
+                              <div class="col-lg-6 mb-20">
                                 <div
                                   class="position-relative"
                                   v-if="sales_detail"
@@ -851,7 +851,7 @@
                                   <small>* File size max 5MB</small>
                                 </p>
                               </div>
-                              <div class="col-lg-6 mt-3">
+                              <div class="col-lg-6 mt-3 mb-20">
                                 <div
                                   class="position-relative"
                                   v-if="sales_detail"
@@ -933,7 +933,7 @@
                                   <small>* File size max 5MB</small>
                                 </p>
                               </div>
-                              <div class="col-lg-6 mt-3">
+                              <div class="col-lg-6 mt-3 mb-20">
                                 <div
                                   class="position-relative"
                                   v-if="sales_detail"
@@ -1080,7 +1080,7 @@
                                   <small>* File size max 5MB</small>
                                 </p>
                               </div>
-                              <div class="col-lg-6 mt-3">
+                              <div class="col-lg-6 mt-3 mb-20">
                                 <div
                                   class="position-relative"
                                   v-if="sales_detail"
@@ -1165,7 +1165,7 @@
                                   <small>* File size max 5MB</small>
                                 </p>
                               </div>
-                              <div class="col-lg-6 mt-3">
+                              <div class="col-lg-6 mt-3 mb-20">
                                 <div
                                   class="position-relative"
                                   v-if="sales_detail"
@@ -1261,7 +1261,7 @@
                                   <small>* File size max 5MB</small>
                                 </p>
                               </div>
-                              <div class="col-lg-6 mt-3">
+                              <div class="col-lg-6 mt-3 mb-20">
                                 <div
                                   class="position-relative"
                                   v-if="sales_detail"
@@ -1406,7 +1406,7 @@
                                   <small>* File size max 5MB</small>
                                 </p>
                               </div>
-                              <div class="col-lg-6 mt-3">
+                              <div class="col-lg-6 mt-3 mb-20">
                                 <div
                                   class="position-relative"
                                   v-if="sales_detail"
@@ -1490,7 +1490,7 @@
                                   >
                                 </p>
                               </div>
-                              <div class="col-lg-6 mt-5">
+                              <div class="col-lg-6 mt-5 mb-20">
                                 <div class="position-relative">
                                   <div
                                     class="position-absolute top-0 end-0"
@@ -1586,38 +1586,6 @@
                                       </div>
                                     </div>
                                   </div>
-
-                                  <!-- Confirm Line Hanggar -->
-                                  <!--
-                                      <div class="row" v-if="role == 'CBO' || role == 'Administrator'">
-                                        <div class="col-9">
-                                          <div class="mb-3">
-                                            <label>Choose Line Hangar</label>
-                                            <select v-model="line_id" class="form-select">
-                                              <option :value="null" disabled>Select Line</option>
-                                              <option
-                                                v-for="lines in line"
-                                                v-if="lines.hangar_id === sales_detail.location.id"
-                                                :value="lines.id"
-                                              >
-                                                {{ lines.name }}
-                                              </option>
-                                            </select>
-                                          </div>
-                                        </div>
-                                        <div class="col-3">
-                                          <button
-                                            class="btn btn-primary btn-sm mt-7"
-                                            type="button"
-                                            @click="updateSlot()"
-                                            v-if="sales_detail.status === 'Open'"
-                                            v-permission="['slot_request']"
-                                          >
-                                            Edit
-                                          </button>
-                                        </div>
-                                      </div>
-                                      -->
                                 </div>
                                 <div class="col-lg-4">
                                   <div class="mb-3">
@@ -1730,7 +1698,7 @@
                                   >
                                 </p>
                               </div>
-                              <div class="col-lg-6 mt-3">
+                              <div class="col-lg-6 mt-3 mb-20">
                                 <div
                                   class="position-relative"
                                   v-if="sales_detail"

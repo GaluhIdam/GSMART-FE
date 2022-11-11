@@ -56,8 +56,10 @@
       <div class="card shadow-sm mt-5">
         <div class="row">
           <div class="col-md-3 p-16">
-            <div v-if="customer_image == null">
-              <p>Image Not Found</p>
+            <div v-if="customer_image == null" class="text-center">
+              <span class="btn btn-light btn-sm p-20 fs-1 fw-bold">
+                {{ initial }}
+              </span>
             </div>
             <div v-else>
               <img :src=customer_image class="img-fluid">
@@ -163,7 +165,7 @@
                 </span>
               </div>
             </div>
-            <div class="row mt-5">
+            <div class="row mt-5 pb-15">
               <div class="col-3">
                 <div class="border-dashed rounded p-4">
                   <h1 class="fw-bolder mb-0" v-if="prospect_total.marketShare">${{ formatNumber(prospect_total.marketShare) }}</h1>
@@ -173,7 +175,7 @@
               </div>
               <div class="col-3">
                 <div class="border-dashed rounded p-4">
-                  <h1 class="fw-bolder mb-0" v-if="prospect_total.salesPlan">$ {{ formatNumber(prospect_total.salesPlan) }}</h1>
+                  <h1 class="fw-bolder mb-0" v-if="prospect_total.salesPlan">${{ formatNumber(prospect_total.salesPlan) }}</h1>
                   <h1 class="fw-bolder mb-0" v-else>$ 0 </h1>
                   <p class="mb-0 fw-bold text-gray-500">Total Salesplan</p>
                 </div>
@@ -188,45 +190,22 @@
             </div>
           </div>
         </div>
-        <div class="card-footer py-0">
-          <ul class="nav nav-tabs nav-line-tabs fs-6 mt-5 mb-0">
-            <li class="nav-item">
-              <a
-                class="nav-link active"
-                data-bs-toggle="tab"
-                href="#kt_tab_pane_1"
-                >Overview</a
-              >
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" data-bs-toggle="tab" href="#kt_tab_pane_2"
-                >Project</a
-              >
-            </li>
-          </ul>
-        </div>
       </div>
       <div class="row mt-10">
         <div class="tab-content" id="myTabContent">
-          <div
-            class="tab-pane fade show active"
-            id="kt_tab_pane_1"
-            role="tabpanel"
-          >
-          <div class="card shadow-sm container py-10">
-            Overview
-            </div>
-          </div>
-          <div class="tab-pane fade" id="kt_tab_pane_2" role="tabpanel">
+          <div class="tab-pane fade show active" id="kt_tab_pane_1" role="tabpanel">
             <div class="row">
-              
               <div class="col-4 mb-3" v-for="(data, prospect_customer_index) in prospect_customer"  :key="prospect_customer_index">
                 <div class="card shadow-sm border-bottom border-5 border-primary" style="min-height: 420px">
                   <div class="row d-flex justify-content-between mt-5 ms-5 me-5">
                     <div class="col-2 p-1">
                       <span class="btn btn-light btn-sm p-5">
-                        <img :src=customer_image v-if="customer_image" alt="logo" class="img-fluid">
-                        <p v-else></p>
+                        <div v-if="customer_image == null">
+                          <span class="fw-bold fs-1">{{ initial }}</span>
+                        </div>
+                        <div v-else>
+                          <img :src=customer_image alt="logo" class="img-fluid">
+                        </div>
                       </span>
                     </div>
                     <div class="col-3 p-1 d-flex justify-content-end">
@@ -283,9 +262,23 @@
                   </div>
                   <div class=" row mt-10 ms-5 me-5 mb-5 d-flex-justify-content-between">
                     <div class="col-md-6">
-                        <span class="btn bg-primary btn-sm text-light"> {{ contact_person }} </span>
-                        <span class="btn bg-primary btn-sm text-light"> {{ contact_person1 }} </span>
-                        <span class="btn bg-primary btn-sm text-light"> {{ contact_person2 }} </span>
+
+                      <span v-if="contact_person == null" class="rounded-circle p-5 bg-primary text-light text-center d-none">
+                      </span>
+                      <span v-else class="rounded-circle p-5 bg-primary text-light text-center">
+                        {{ contact_person }}
+                      </span>
+                      <span v-if="contact_person1 == null" class="rounded-circle p-5 bg-primary text-light text-center mx-2 d-none">
+                      </span>
+                      <span v-else class="rounded-circle p-5 bg-primary text-light text-center d-none mx-2">
+                        {{ contact_person1 }}
+                      </span>
+                      <span v-if="contact_person2 == null" class="rounded-circle p-5 bg-primary text-light text-center d-none">
+                      </span>
+                      <span v-else class="rounded-circle p-5 bg-primary text-light text-center d-none">
+                        {{ contact_person2 }}
+                      </span>
+
                     </div>
                     
                     <div v-if="data.transaction_type_id == 1" class="col-md-6 d-flex justify-content-end">
@@ -351,16 +344,18 @@ export default {
   data() {
     return {
       role: this.$auth.user.role.name,
-      contact_person: [],
-      contact_person1: [],
-      contact_person2: [],
+      contact_person: null,
+      contact_person1: null,
+      contact_person2: null,
       prospect_customer: [],
       prospect_total: [],
-      customer: [],
+      customer: {},
       customer_area: [],
       customer_region: [],
       customer_country: [],
       customer_image: [],
+      customer_name: null,
+      initial: null,
       }
     },
     created() {
@@ -442,7 +437,8 @@ export default {
           this.customer_country = response.data.data.country
           // Data Region Customer
           this.customer_region = response.data.data.country.region
-          this.customer_image = response.data.data.full_path
+          this.customer_image = response.data.data.logo_path
+          this.initial = this.customer.name.substring(0,1)
         })
         .catch((error) => {
         if (error.response.status == 404) {

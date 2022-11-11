@@ -1,35 +1,66 @@
 <template>
   <div>
     <div class="container-fluid mt-10 mb-20">
-
       <div class="row mb-5">
         <div class="col-lg-6 col-sm-12">
-          <h3 class="mt-3" v-if="role == 'TPR' || role == 'CBO' || role == 'Administrator'">All Sales Plan</h3>
+          <h3
+            class="mt-3"
+            v-if="role == 'TPR' || role == 'CBO' || role == 'Administrator'"
+          >
+            All Sales Plan
+          </h3>
           <h3 class="mt-3" v-if="role == 'AMS'">My Sales Plan</h3>
         </div>
         <div class="col-lg-6 col-sm-12 d-flex justify-content-end">
-          <button type="button" class="btn btn-outline btn-outline-primary me-2 mb-2" data-bs-toggle="modal" data-bs-target="#filterdate">
+          <button
+            type="button"
+            class="btn btn-outline btn-outline-primary me-2 mb-2"
+            data-bs-toggle="modal"
+            data-bs-target="#filterdate"
+          >
             Filter & Date <i class="fa-solid fa-chevron-down"></i>
           </button>
         </div>
 
         <!-- Modal filterdate  -->
-        <div class="modal fade" id="filterdate" tabindex="-1" aria-labelledby="filterdateLabel" aria-hidden="true">
+        <div
+          class="modal fade"
+          id="filterdate"
+          tabindex="-1"
+          aria-labelledby="filterdateLabel"
+          aria-hidden="true"
+        >
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header text-center">
-                <h1 class="modal-title w-100" id="filterdateLabel">Filter & Date</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" @click="closeModal()"></button>
+                <h1 class="modal-title w-100" id="filterdateLabel">
+                  Filter & Date
+                </h1>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                  @click="closeModal()"
+                ></button>
               </div>
               <form>
                 <div class="modal-body">
                   <div class="mb-3">
                     <label for="" class="form-label">Form Date</label>
-                    <input type="date" class="form-control" v-model="start_date">
+                    <input
+                      type="date"
+                      class="form-control"
+                      v-model="start_date"
+                    />
                   </div>
                   <div class="mb-3">
                     <label for="" class="form-label">To Date</label>
-                    <input type="date" class="form-control" v-model="end_date">
+                    <input
+                      type="date"
+                      class="form-control"
+                      v-model="end_date"
+                    />
                   </div>
                   <div class="mb-3">
                     <label for="" class="form-label">Type</label>
@@ -41,8 +72,22 @@
                 </div>
                 <div class="modal-footer">
                   <div class="col-md-12 text-center">
-                    <button type="button" class="btn btn-light mx-3" data-bs-dismiss="modal" @click="closeModal()">Reset</button>
-                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" @click="list()">Filter</button>
+                    <button
+                      type="button"
+                      class="btn btn-light mx-3"
+                      data-bs-dismiss="modal"
+                      @click="closeModal()"
+                    >
+                      Reset
+                    </button>
+                    <button
+                      type="button"
+                      class="btn btn-primary"
+                      data-bs-dismiss="modal"
+                      @click="list()"
+                    >
+                      Filter
+                    </button>
                   </div>
                 </div>
               </form>
@@ -58,7 +103,9 @@
             <div class="card card-flush" id="bgGreen">
               <div class="card-body">
                 <p class="text-muted" id="fontSm">Total Target</p>
-                <h4 id="textGreen" v-if="sales_user">${{ formatPrice(sales_user.totalTarget) }}</h4>
+                <h4 id="textGreen" v-if="sales_user">
+                  ${{ formatPrice(sales_user.totalTarget) }}
+                </h4>
               </div>
             </div>
           </div>
@@ -66,7 +113,9 @@
             <div class="card card-flush" id="bgBlue">
               <div class="card-body">
                 <p class="text-muted" id="fontSm">Total Open</p>
-                <h4 id="textBlue" v-if="sales_user">${{ formatPrice(sales_user.totalOpen) }}</h4>
+                <h4 id="textBlue" v-if="sales_user">
+                  ${{ formatPrice(sales_user.totalOpen) }}
+                </h4>
               </div>
             </div>
           </div>
@@ -74,7 +123,9 @@
             <div class="card card-flush" id="bgRed">
               <div class="card-body">
                 <p class="text-muted" id="fontSm">Total Closed</p>
-                <h4 id="textRed" v-if="sales_user">${{ formatPrice(sales_user.totalClosed) }}</h4>
+                <h4 id="textRed" v-if="sales_user">
+                  ${{ formatPrice(sales_user.totalClosed) }}
+                </h4>
               </div>
             </div>
           </div>
@@ -82,7 +133,9 @@
             <div class="card card-flush" id="bgPurple">
               <div class="card-body">
                 <p class="text-muted" id="fontSm">Total Open Closed</p>
-                <h4 id="textPurple" v-if="sales_user">${{ formatPrice(sales_user.totalOpenClosed) }}</h4>
+                <h4 id="textPurple" v-if="sales_user">
+                  ${{ formatPrice(sales_user.totalOpenClosed) }}
+                </h4>
               </div>
             </div>
           </div>
@@ -90,7 +143,9 @@
             <div class="card card-flush" id="bgGold">
               <div class="card-body">
                 <p class="text-muted" id="fontSm">Total Cancel</p>
-                <h4 id="textGold" v-if="sales_user">${{ formatPrice(sales_user.totalCancel) }}</h4>
+                <h4 id="textGold" v-if="sales_user">
+                  ${{ formatPrice(sales_user.totalCancel) }}
+                </h4>
               </div>
             </div>
           </div>
@@ -100,32 +155,72 @@
 
       <!-- Row 2 -->
       <div class="row mt-10">
-        
         <!-- Level 4 -->
         <div class="col-lg-3 col-md-6 mt-10">
           <div class="card card-stretch-50 shadow mb-5">
-            <div class="position-absolute top-0 start-50 translate-middle d-flex justify-content-center rounded" id="bgGreen2">
+            <div
+              class="
+                position-absolute
+                top-0
+                start-50
+                translate-middle
+                d-flex
+                justify-content-center
+                rounded
+              "
+              id="bgGreen2"
+            >
               <h1 class="mt-5" id="textGreen">4</h1>
             </div>
             <div class="card-body mt-10">
               <div class="text-center">
-                <h2 id="textGreen" v-if="sales_user">${{ formatPrice(sales_user.level4.total) }}</h2>
+                <h2 id="textGreen" v-if="sales_user">
+                  ${{ formatPrice(sales_user.level4.total) }}
+                </h2>
                 <p class="text-muted">Awareness</p>
               </div>
               <div class="d-grid gap-2">
-                <a href="#" class="btn btn-outline btn-outline-dashed btn-outline-success d-flex justify-content-start btn-active-light-success me-2 mb-2">
+                <a
+                  href="#"
+                  class="
+                    btn btn-outline btn-outline-dashed btn-outline-success
+                    d-flex
+                    justify-content-start
+                    btn-active-light-success
+                    me-2
+                    mb-2
+                  "
+                >
                   <div class="d-flex align-items-center gap-2">
-                    <span id="btnGreen" v-if="sales_user">{{ formatPrice(sales_user.level4.countOpen) }}</span>
-                    <span id="textGreen" v-if="sales_user">${{ formatPrice(sales_user.level4.open) }}</span>
+                    <span id="btnGreen" v-if="sales_user">{{
+                      formatPrice(sales_user.level4.countOpen)
+                    }}</span>
+                    <span id="textGreen" v-if="sales_user"
+                      >${{ formatPrice(sales_user.level4.open) }}</span
+                    >
                   </div>
                   <div class="d-flex align-items-center justify-content-end">
                     <span class="text-muted ms-10" id="fontSm">Open</span>
                   </div>
                 </a>
-                <a href="#" class="btn btn-outline btn-outline-dashed btn-outline-danger d-flex justify-content-start btn-active-light-danger me-2 mb-2">
+                <a
+                  href="#"
+                  class="
+                    btn btn-outline btn-outline-dashed btn-outline-danger
+                    d-flex
+                    justify-content-start
+                    btn-active-light-danger
+                    me-2
+                    mb-2
+                  "
+                >
                   <div class="d-flex align-items-center gap-2">
-                    <span id="btnRed" v-if="sales_user">{{ formatPrice(sales_user.level4.countCancel) }}</span>
-                    <span id="textRed" v-if="sales_user">${{ formatPrice(sales_user.level4.cancel) }}</span>
+                    <span id="btnRed" v-if="sales_user">{{
+                      formatPrice(sales_user.level4.countCancel)
+                    }}</span>
+                    <span id="textRed" v-if="sales_user"
+                      >${{ formatPrice(sales_user.level4.cancel) }}</span
+                    >
                   </div>
                   <div class="d-flex align-items-center justify-content-end">
                     <span class="text-muted ms-10" id="fontSm">Cancel</span>
@@ -133,36 +228,76 @@
                 </a>
               </div>
             </div>
-            <div class="card-footer border-0">
-            </div>
+            <div class="card-footer border-0"></div>
           </div>
         </div>
 
         <!-- Level 3 -->
         <div class="col-lg-3 col-md-6 mt-10">
           <div class="card card-stretch-50 shadow mb-5">
-            <div class="position-absolute top-0 start-50 translate-middle d-flex justify-content-center rounded" id="bgBlue2">
+            <div
+              class="
+                position-absolute
+                top-0
+                start-50
+                translate-middle
+                d-flex
+                justify-content-center
+                rounded
+              "
+              id="bgBlue2"
+            >
               <h1 class="mt-5" id="textBlue">3</h1>
             </div>
             <div class="card-body mt-10">
               <div class="text-center">
-                <h2 id="textBlue" v-if="sales_user">${{ formatPrice(sales_user.level3.total) }}</h2>
+                <h2 id="textBlue" v-if="sales_user">
+                  ${{ formatPrice(sales_user.level3.total) }}
+                </h2>
                 <p class="text-muted">Opportunity</p>
               </div>
               <div class="d-grid gap-2">
-                <a href="#" class="btn btn-outline btn-outline-dashed btn-outline-success d-flex justify-content-start btn-active-light-success me-2 mb-2">
+                <a
+                  href="#"
+                  class="
+                    btn btn-outline btn-outline-dashed btn-outline-success
+                    d-flex
+                    justify-content-start
+                    btn-active-light-success
+                    me-2
+                    mb-2
+                  "
+                >
                   <div class="d-flex align-items-center gap-2">
-                    <span id="btnGreen" v-if="sales_user">{{ formatPrice(sales_user.level3.countOpen) }}</span>
-                    <span id="textGreen" v-if="sales_user">${{ formatPrice(sales_user.level3.open) }}</span>
+                    <span id="btnGreen" v-if="sales_user">{{
+                      formatPrice(sales_user.level3.countOpen)
+                    }}</span>
+                    <span id="textGreen" v-if="sales_user"
+                      >${{ formatPrice(sales_user.level3.open) }}</span
+                    >
                   </div>
                   <div class="d-flex align-items-center justify-content-end">
                     <span class="text-muted ms-10" id="fontSm">Open</span>
                   </div>
                 </a>
-                <a href="#" class="btn btn-outline btn-outline-dashed btn-outline-danger d-flex justify-content-start btn-active-light-danger me-2 mb-2">
+                <a
+                  href="#"
+                  class="
+                    btn btn-outline btn-outline-dashed btn-outline-danger
+                    d-flex
+                    justify-content-start
+                    btn-active-light-danger
+                    me-2
+                    mb-2
+                  "
+                >
                   <div class="d-flex align-items-center gap-2">
-                    <span id="btnRed" v-if="sales_user">{{ formatPrice(sales_user.level3.countCancel) }}</span>
-                    <span id="textRed" v-if="sales_user">${{ formatPrice(sales_user.level3.cancel) }}</span>
+                    <span id="btnRed" v-if="sales_user">{{
+                      formatPrice(sales_user.level3.countCancel)
+                    }}</span>
+                    <span id="textRed" v-if="sales_user"
+                      >${{ formatPrice(sales_user.level3.cancel) }}</span
+                    >
                   </div>
                   <div class="d-flex align-items-center justify-content-end">
                     <span class="text-muted ms-10" id="fontSm">Cancel</span>
@@ -170,36 +305,76 @@
                 </a>
               </div>
             </div>
-            <div class="card-footer border-0">
-            </div>
+            <div class="card-footer border-0"></div>
           </div>
         </div>
 
         <!-- Level 2 -->
         <div class="col-lg-3 col-md-6 mt-10">
           <div class="card card-stretch-50 shadow mb-5">
-            <div class="position-absolute top-0 start-50 translate-middle d-flex justify-content-center rounded" id="bgPurple2">
+            <div
+              class="
+                position-absolute
+                top-0
+                start-50
+                translate-middle
+                d-flex
+                justify-content-center
+                rounded
+              "
+              id="bgPurple2"
+            >
               <h1 class="mt-5" id="textPurple">2</h1>
             </div>
             <div class="card-body mt-10">
               <div class="text-center">
-                <h2 id="textPurple" v-if="sales_user">${{ formatPrice(sales_user.level2.total) }}</h2>
+                <h2 id="textPurple" v-if="sales_user">
+                  ${{ formatPrice(sales_user.level2.total) }}
+                </h2>
                 <p class="text-muted">Attractive Proposal</p>
               </div>
               <div class="d-grid gap-2">
-                <a href="#" class="btn btn-outline btn-outline-dashed btn-outline-success d-flex justify-content-start btn-active-light-success me-2 mb-2">
+                <a
+                  href="#"
+                  class="
+                    btn btn-outline btn-outline-dashed btn-outline-success
+                    d-flex
+                    justify-content-start
+                    btn-active-light-success
+                    me-2
+                    mb-2
+                  "
+                >
                   <div class="d-flex align-items-center gap-2">
-                    <span id="btnGreen" v-if="sales_user">{{ formatPrice(sales_user.level2.countOpen) }}</span>
-                    <span id="textGreen" v-if="sales_user">${{ formatPrice(sales_user.level2.open) }}</span>
+                    <span id="btnGreen" v-if="sales_user">{{
+                      formatPrice(sales_user.level2.countOpen)
+                    }}</span>
+                    <span id="textGreen" v-if="sales_user"
+                      >${{ formatPrice(sales_user.level2.open) }}</span
+                    >
                   </div>
                   <div class="d-flex align-items-center justify-content-end">
                     <span class="text-muted ms-10" id="fontSm">Open</span>
                   </div>
                 </a>
-                <a href="#" class="btn btn-outline btn-outline-dashed btn-outline-danger d-flex justify-content-start btn-active-light-danger me-2 mb-2">
+                <a
+                  href="#"
+                  class="
+                    btn btn-outline btn-outline-dashed btn-outline-danger
+                    d-flex
+                    justify-content-start
+                    btn-active-light-danger
+                    me-2
+                    mb-2
+                  "
+                >
                   <div class="d-flex align-items-center gap-2">
-                    <span id="btnRed" v-if="sales_user">{{ formatPrice(sales_user.level2.countCancel) }}</span>
-                    <span id="textRed" v-if="sales_user">${{ formatPrice(sales_user.level2.cancel) }}</span>
+                    <span id="btnRed" v-if="sales_user">{{
+                      formatPrice(sales_user.level2.countCancel)
+                    }}</span>
+                    <span id="textRed" v-if="sales_user"
+                      >${{ formatPrice(sales_user.level2.cancel) }}</span
+                    >
                   </div>
                   <div class="d-flex align-items-center justify-content-end">
                     <span class="text-muted ms-10" id="fontSm">Cancel</span>
@@ -207,69 +382,156 @@
                 </a>
               </div>
             </div>
-            <div class="card-footer border-0">
-            </div>
+            <div class="card-footer border-0"></div>
           </div>
         </div>
-        
+
         <!-- Level 1 -->
         <div class="col-lg-3 col-md-6 mt-10">
           <div class="card card-stretch-50 shadow mb-5">
-            <div class="position-absolute top-0 start-50 translate-middle d-flex justify-content-center rounded" id="bgGold2">
+            <div
+              class="
+                position-absolute
+                top-0
+                start-50
+                translate-middle
+                d-flex
+                justify-content-center
+                rounded
+              "
+              id="bgGold2"
+            >
               <h1 class="mt-5" id="textGold">1</h1>
             </div>
             <div class="card-body mt-10">
-              <div id="card1carousel" class="carousel slide" data-bs-ride="true">
+              <div
+                id="card1carousel"
+                class="carousel slide"
+                data-bs-ride="true"
+              >
                 <div class="carousel-inner">
                   <div class="carousel-item active">
                     <div class="text-center">
-                      <h2 id="textGold" v-if="sales_user">${{ formatPrice(sales_user.level1.total) }}</h2>
+                      <h2 id="textGold" v-if="sales_user">
+                        ${{ formatPrice(sales_user.level1.total) }}
+                      </h2>
                       <p class="text-muted">Attractive Proposal</p>
                     </div>
                     <div class="d-grid gap-2">
-                      <a href="#" class="btn btn-outline btn-outline-dashed btn-outline-success d-flex justify-content-start btn-active-light-success me-2 mb-2">
+                      <a
+                        href="#"
+                        class="
+                          btn btn-outline btn-outline-dashed btn-outline-success
+                          d-flex
+                          justify-content-start
+                          btn-active-light-success
+                          me-2
+                          mb-2
+                        "
+                      >
                         <div class="d-flex align-items-center gap-2">
-                          <span id="btnGreen" v-if="sales_user">{{ formatPrice(sales_user.level1.countOpen) }}</span>
-                          <span id="textGreen" v-if="sales_user">${{ formatPrice(sales_user.level1.open) }}</span>
+                          <span id="btnGreen" v-if="sales_user">{{
+                            formatPrice(sales_user.level1.countOpen)
+                          }}</span>
+                          <span id="textGreen" v-if="sales_user"
+                            >${{ formatPrice(sales_user.level1.open) }}</span
+                          >
                         </div>
-                        <div class="d-flex align-items-center justify-content-end">
+                        <div
+                          class="d-flex align-items-center justify-content-end"
+                        >
                           <span class="text-muted ms-10" id="fontSm">Open</span>
                         </div>
                       </a>
-                      <a href="#" class="btn btn-outline btn-outline-dashed btn-outline-danger d-flex justify-content-start btn-active-light-danger me-2 mb-2">
+                      <a
+                        href="#"
+                        class="
+                          btn btn-outline btn-outline-dashed btn-outline-danger
+                          d-flex
+                          justify-content-start
+                          btn-active-light-danger
+                          me-2
+                          mb-2
+                        "
+                      >
                         <div class="d-flex align-items-center gap-2">
-                          <span id="btnRed" v-if="sales_user">{{ formatPrice(sales_user.level1.countCancel) }}</span>
-                          <span id="textRed" v-if="sales_user">${{ formatPrice(sales_user.level1.cancel) }}</span>
+                          <span id="btnRed" v-if="sales_user">{{
+                            formatPrice(sales_user.level1.countCancel)
+                          }}</span>
+                          <span id="textRed" v-if="sales_user"
+                            >${{ formatPrice(sales_user.level1.cancel) }}</span
+                          >
                         </div>
-                        <div class="d-flex align-items-center justify-content-end">
-                          <span class="text-muted ms-10" id="fontSm">Cancel</span>
+                        <div
+                          class="d-flex align-items-center justify-content-end"
+                        >
+                          <span class="text-muted ms-10" id="fontSm"
+                            >Cancel</span
+                          >
                         </div>
                       </a>
                     </div>
                   </div>
                   <div class="carousel-item">
                     <div class="text-center">
-                      <h2 id="textGold" v-if="sales_user">${{ formatPrice(sales_user.level1.total) }}</h2>
+                      <h2 id="textGold" v-if="sales_user">
+                        ${{ formatPrice(sales_user.level1.total) }}
+                      </h2>
                       <p class="text-muted">Contract Signing</p>
                     </div>
                     <div class="text-center d-grid gap-2">
-                      
-                      <a href="#" class="btn btn-outline btn-outline-dashed btn-outline-info d-flex justify-content-start btn-active-light-info me-2 mb-2">
+                      <a
+                        href="#"
+                        class="
+                          btn btn-outline btn-outline-dashed btn-outline-info
+                          d-flex
+                          justify-content-start
+                          btn-active-light-info
+                          me-2
+                          mb-2
+                        "
+                      >
                         <div class="d-flex align-items-center gap-2">
-                          <span id="btnPurple" v-if="sales_user">{{ formatPrice(sales_user.level1.countClosed) }}</span>
-                          <span id="textPurple" v-if="sales_user">${{ formatPrice(sales_user.level1.closed) }}</span>
+                          <span id="btnPurple" v-if="sales_user">{{
+                            formatPrice(sales_user.level1.countClosed)
+                          }}</span>
+                          <span id="textPurple" v-if="sales_user"
+                            >${{ formatPrice(sales_user.level1.closed) }}</span
+                          >
                         </div>
-                        <div class="d-flex align-items-center justify-content-end">
-                          <span class="text-muted ms-10" id="fontSm">Closed</span>
+                        <div
+                          class="d-flex align-items-center justify-content-end"
+                        >
+                          <span class="text-muted ms-10" id="fontSm"
+                            >Closed</span
+                          >
                         </div>
                       </a>
-                      <a href="#" class="btn btn-outline btn-outline-dashed btn-outline-warning d-flex justify-content-start btn-active-light-warning me-2 mb-2">
+                      <a
+                        href="#"
+                        class="
+                          btn btn-outline btn-outline-dashed btn-outline-warning
+                          d-flex
+                          justify-content-start
+                          btn-active-light-warning
+                          me-2
+                          mb-2
+                        "
+                      >
                         <div class="d-flex align-items-center gap-2">
-                          <span id="btnGold" v-if="sales_user">{{ formatPrice(sales_user.level1.countCloseIn) }}</span>
-                          <span id="textGold" v-if="sales_user">${{ formatPrice(sales_user.level1.closeIn) }}</span>
+                          <span id="btnGold" v-if="sales_user">{{
+                            formatPrice(sales_user.level1.countCloseIn)
+                          }}</span>
+                          <span id="textGold" v-if="sales_user"
+                            >${{ formatPrice(sales_user.level1.closeIn) }}</span
+                          >
                         </div>
-                        <div class="d-flex align-items-center justify-content-end">
-                          <span class="text-muted ms-10" id="fontSm">Close in</span>
+                        <div
+                          class="d-flex align-items-center justify-content-end"
+                        >
+                          <span class="text-muted ms-10" id="fontSm"
+                            >Close in</span
+                          >
                         </div>
                       </a>
                     </div>
@@ -279,28 +541,53 @@
             </div>
             <div class="card-footer border-0">
               <div class="carousel-indicators">
-                <button type="button" data-bs-target="#card1carousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                <button type="button" data-bs-target="#card1carousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                <button
+                  type="button"
+                  data-bs-target="#card1carousel"
+                  data-bs-slide-to="0"
+                  class="active"
+                  aria-current="true"
+                  aria-label="Slide 1"
+                ></button>
+                <button
+                  type="button"
+                  data-bs-target="#card1carousel"
+                  data-bs-slide-to="1"
+                  aria-label="Slide 2"
+                ></button>
               </div>
             </div>
           </div>
         </div>
-
       </div>
       <!-- End row 2 -->
 
-      <div class="row" v-if="role == 'AMS' || role == 'Administrator' ">
+      <div class="row" v-if="role == 'AMS' || role == 'Administrator'">
         <div class="col-lg-6">
-          <button class="btn btn-primary btn-sm my-3" data-bs-toggle="modal" data-bs-target="#addSales"><i class="fas fa-plus"></i> Additional Sales Plan</button>
-        </div> 
-      </div> 
+          <button
+            class="btn btn-primary btn-sm my-3"
+            data-bs-toggle="modal"
+            data-bs-target="#addSales"
+          >
+            <i class="fas fa-plus"></i> Additional Sales Plan
+          </button>
+        </div>
+      </div>
 
       <!-- Modal addSales  -->
-      <div class="modal fade" id="addSales" tabindex="-1" aria-labelledby="addSalesLabel" aria-hidden="true">
+      <div
+        class="modal fade"
+        id="addSales"
+        tabindex="-1"
+        aria-labelledby="addSalesLabel"
+        aria-hidden="true"
+      >
         <div class="modal-dialog modal-lg">
           <div class="modal-content">
             <div class="modal-header">
-              <h1 class="modal-title" id="addSalesLabel">Additional Sales Plan</h1>
+              <h1 class="modal-title" id="addSalesLabel">
+                Additional Sales Plan
+              </h1>
               <!--begin::Close-->
               <div
                 class="btn btn-icon btn-sm btn-active-light-primary ms-2"
@@ -340,232 +627,228 @@
               <!--end::Close-->
             </div>
             <div class="modal-body">
-              <form action="">
-
-                <div class="row">
-                  <div class="col-lg-6">
-                    <div class="form-group mb-3">
-                      <input type="hidden" v-model="is_rkap" value="0">
-                      <label class="form-label fw-bold">Customer</label>
-                      <multiselect
-                        v-model="customer_value"
-                        :options="customer_option"
-                        open-direction="bottom"
-                        placeholder=""
-                        label="name"
-                        :searchable="true"
-                        :class="{ 'is-invalid': errors.region_id }"
-                      ></multiselect>
-                      <!-- <select v-model="customer_id" class="form-select" :class="{ 'is-invalid': errors.customer_id }">
-                        <option :value="null" selected disabled>Select Customer</option>
-                        <option 
-                          v-for="customer_options in customer_option" 
-                          :value="customer_options.id" 
-                        >
-                          {{ customer_options.name }}
-                        </option>
-                      </select> -->
-                      <span v-if="errors.customer_id" class="error invalid-feedback">{{
-                        errors.customer_id[0]
-                      }}</span>
-                    </div>
-                  </div>
-                  <div class="col-lg-6">
-                    <div class="form-group mb-3">
-                      <label class="form-label fw-bold">Prospect</label>
-                      <multiselect
-                        v-model="prospect_value"
-                        :options="prospect_option"
-                        open-direction="bottom"
-                        :disabled="isDisabled"
-                        :searchable="true"
-                        placeholder=""
-                        label="name"
-                        :class="{ 'is-invalid': errors.prospect_id }"
-                      ></multiselect>
-                      <!-- <select v-model="prospect_id" class="form-select" :class="{ 'is-invalid': errors.prospect_id }">
-                        <option :value="null" selected disabled>Select Prospect</option>
-                        <option 
-                          v-for="prospect_options in prospect_option" 
-                          :value="prospect_options.id" 
-                        >
-                          {{ prospect_options.name }}
-                        </option>
-                      </select> -->
-                      <span v-if="errors.prospect_id" class="error invalid-feedback">{{
-                        errors.prospect_id[0]
-                      }}</span>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="row">
-                  <div class="col-lg-6">
-                    <div class="form-group mb-3">
-                      <label class="form-label fw-bold">Product</label>
-                      <multiselect
-                        v-model="product_value"
-                        :options="product_option"
-                        open-direction="bottom"
-                        placeholder=""
-                        label="name"
-                        :searchable="true"
-                        :class="{ 'is-invalid': errors.product_id }"
-                      ></multiselect>
-                      <!-- <select v-model="product_id" class="form-select" :class="{ 'is-invalid': errors.product_id }">
-                        <option :value="null" selected disabled>Select Product</option>
-                        <option 
-                          v-for="product_options in product_option" 
-                          :value="product_options.id" 
-                        >
-                          {{ product_options.name }}
-                        </option>
-                      </select> -->
-                      <span v-if="errors.product_id" class="error invalid-feedback">{{
-                        errors.product_id[0]
-                      }}</span>
-                    </div>
-                  </div>
-                  <div class="col-lg-6">
-                    <div class="form-group mb-3">
-                      <label class="form-label fw-bold">Maintenance</label>
-                      <multiselect
-                        v-model="maintenance_value"
-                        :options="maintenance_option"
-                        open-direction="bottom"
-                        placeholder=""
-                        label="name"
-                        :searchable="true"
-                        :class="{ 'is-invalid': errors.maintenance_id }"
-                      ></multiselect>
-                      <!-- <select v-model="maintenance_id" class="form-select" :class="{ 'is-invalid': errors.maintenance_id }">
-                        <option :value="null" selected disabled>Select Maintenance</option>
-                        <option 
-                          v-for="maintenance_options in maintenance_option" 
-                          :value="maintenance_options.id" 
-                        >
-                          {{ maintenance_options.name }}
-                        </option>
-                      </select> -->
-                      <span v-if="errors.maintenance_id" class="error invalid-feedback">{{
-                        errors.maintenance_id[0]
-                      }}</span>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="row">
-                  <div class="col-lg-6">
-                    <div class="form-group mb-3">
-                      <label class="form-label fw-bold">Hangar</label>
-                      <multiselect
-                        v-model="hangar_value"
-                        :options="hangar_option"
-                        open-direction="bottom"
-                        placeholder=""
-                        label="name"
-                        :searchable="true"
-                        :class="{ 'is-invalid': errors.hangar_id }"
-                      ></multiselect>
-                      <!-- <select v-model="hangar_id" class="form-select" :class="{ 'is-invalid': errors.hangar_id }">
-                        <option :value="null" selected disabled>Select Hangar</option>
-                        <option 
-                          v-for="hangar_options in hangar_option" 
-                          :value="hangar_options.id" 
-                        >
-                          {{ hangar_options.name }}
-                        </option>
-                      </select> -->
-                      <span v-if="errors.hangar_id" class="error invalid-feedback">{{
-                        errors.hangar_id[0]
-                      }}</span>
-                    </div>
-                  </div>
-                  <div class="col-lg-6">
-                    <div class="form-group mb-3">
-                      <label class="form-label fw-bold">Aircraft Type</label>
-                      <multiselect
-                        v-model="ac_type_value"
-                        :options="ac_type_option"
-                        open-direction="bottom"
-                        placeholder=""
-                        label="name"
-                        :searchable="true"
-                        :class="{ 'is-invalid': errors.ac_type_id }"
-                      ></multiselect>
-                      <!-- <select v-model="ac_type_id" class="form-select" :class="{ 'is-invalid': errors.ac_type_id }">
-                        <option :value="null" selected disabled>Select Aircraft Type</option>
-                        <option 
-                          v-for="actype_options in actype_option" 
-                        >
-                          {{ actype_options.name }}
-                        </option>
-                      </select> -->
-                      <span v-if="errors.ac_type_id" class="error invalid-feedback">{{
-                        errors.ac_type_id[0]
-                      }}</span>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="row">
-                  <div class="col-lg-6">
-                    <div class="form-group mb-3">
-                      <label class="form-label fw-bold">Aircraft Registration</label>
-                      <input type="text" v-model="ac_reg" class="form-control" required :class="{ 'is-invalid': errors.ac_reg }">
-                      <span v-if="errors.ac_reg" class="error invalid-feedback">{{
-                        errors.ac_reg[0]
-                      }}</span>
-                    </div>
-                  </div>
-                  <div class="col-lg-6">
-                    <div class="form-group mb-3">
-                      <label class="form-label fw-bold">Sales Plan</label>
-                      <input type="number" v-model="value" class="form-control" required :class="{ 'is-invalid': errors.value }">
-                      <span v-if="errors.value" class="error invalid-feedback">{{
-                        errors.value[0]
-                      }}</span>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="row">
-                  <div class="col-lg-6">
-                    <div class="form-group mb-3">
-                      <label class="form-label fw-bold">Start Date</label>
-                      <input type="date" v-model="start_date" class="form-control" :class="{ 'is-invalid': errors.start_date }">
-                      <span v-if="errors.start_date" class="error invalid-feedback">{{
-                        errors.start_date[0]
-                      }}</span>
-                    </div>
-                  </div>
-                  <div class="col-lg-6">
-                    <div class="form-group mb-3">
-                      <label class="form-label fw-bold">TAT</label>
-                      <input type="number" v-model="tat" class="form-control" required :class="{ 'is-invalid': errors.tat }">
-                      <span v-if="errors.tat" class="error invalid-feedback">{{
-                        errors.tat[0]
-                      }}</span>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="row mt-10">
-                  <div class="col">
-                    <button
-                      type="button"
-                      class="btn btn-light"
-                      data-bs-dismiss="modal"
-                      @click="closeAddSales()"
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group mb-3">
+                    <input type="hidden" v-model="is_rkap" value="0" />
+                    <label class="form-label fw-bold">Customer</label>
+                    <multiselect
+                      v-model="customer_value"
+                      :options="customer_option"
+                      open-direction="bottom"
+                      @input="
+                        additionalSaleplan(
+                          customer_value != null ? customer_value.id : null
+                        )
+                      "
+                      placeholder=""
+                      label="name"
+                      :searchable="true"
+                      :class="{ 'is-invalid': errors.customer_id }"
+                    ></multiselect>
+                    <span
+                      v-if="errors.customer_id"
+                      class="error invalid-feedback"
+                      >{{ errors.customer_id[0] }}</span
                     >
-                      Back
-                    </button>
-                  </div>
-                  <div class="col d-flex justify-content-end">
-                    <button type="submit" class="btn btn-primary">Save</button>
                   </div>
                 </div>
-              </form>
+                <div class="col-lg-6">
+                  <div class="form-group mb-3">
+                    <label class="form-label fw-bold">Prospect</label>
+                    <multiselect
+                      v-model="prospect_value_salesplan"
+                      :options="prospect_option_salesplan"
+                      open-direction="bottom"
+                      :searchable="true"
+                      placeholder=""
+                      @input="selectSalesPlan()"
+                      label="registration"
+                      :class="{ 'is-invalid': errors.prospect_id }"
+                    ></multiselect>
+                    <span
+                      v-if="errors.prospect_id"
+                      class="error invalid-feedback"
+                      >{{ errors.prospect_id[0] }}</span
+                    >
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group mb-3">
+                    <label class="form-label fw-bold">Product</label>
+                    <input
+                      type="text"
+                      readonly
+                      v-model="product_name_value"
+                      class="form-control"
+                      style="font-weight: normal"
+                      :class="{ 'is-invalid': errors.product_id }"
+                    />
+                    <input type="hidden" readonly v-model="product_id_value" />
+                    <span
+                      v-if="errors.product_id"
+                      class="error invalid-feedback"
+                      >{{ errors.product_id[0] }}</span
+                    >
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group mb-3">
+                    <label class="form-label fw-bold">Maintenance</label>
+                    <input
+                      type="text"
+                      readonly
+                      v-model="maintenance_name_value"
+                      style="font-weight: normal"
+                      class="form-control"
+                      :class="{ 'is-invalid': errors.maintenance_id }"
+                    />
+                    <input
+                      type="hidden"
+                      readonly
+                      v-model="maintenance_id_value"
+                    />
+                    <span
+                      v-if="errors.maintenance_id"
+                      class="error invalid-feedback"
+                      >{{ errors.maintenance_id[0] }}</span
+                    >
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group mb-3">
+                    <label class="form-label fw-bold">Hangar</label>
+                    <multiselect
+                      v-model="hangar_value"
+                      :options="hangar_option"
+                      open-direction="bottom"
+                      placeholder=""
+                      label="name"
+                      :searchable="true"
+                      :class="{ 'is-invalid': errors.hangar_id }"
+                    ></multiselect>
+                    <span
+                      v-if="errors.hangar_id"
+                      class="error invalid-feedback"
+                      >{{ errors.hangar_id[0] }}</span
+                    >
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group mb-3">
+                    <label class="form-label fw-bold">Aircraft Type</label>
+                    <input
+                      type="text"
+                      style="font-weight: normal"
+                      readonly
+                      v-model="aircraft_name_value"
+                      class="form-control"
+                      :class="{ 'is-invalid': errors.ac_type_id }"
+                    />
+                    <input type="hidden" readonly v-model="aircraft_id_value" />
+                    <span
+                      v-if="errors.ac_type_id"
+                      class="error invalid-feedback"
+                      >{{ errors.ac_type_id[0] }}</span
+                    >
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group mb-3">
+                    <label class="form-label fw-bold"
+                      >Aircraft Registration</label
+                    >
+                    <input
+                      type="text"
+                      v-model="ac_reg"
+                      class="form-control"
+                      :class="{ 'is-invalid': errors.ac_reg }"
+                    />
+                    <span v-if="errors.ac_reg" class="error invalid-feedback">{{
+                      errors.ac_reg[0]
+                    }}</span>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group mb-3">
+                    <label class="form-label fw-bold">Sales Plan</label>
+                    <input
+                      type="number"
+                      v-model="value"
+                      class="form-control"
+                      :class="{ 'is-invalid': errors.value }"
+                    />
+                    <span v-if="errors.value" class="error invalid-feedback">{{
+                      errors.value[0]
+                    }}</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group mb-3">
+                    <label class="form-label fw-bold">Start Date</label>
+                    <input
+                      type="date"
+                      v-model="start_date"
+                      class="form-control"
+                      :class="{ 'is-invalid': errors.start_date }"
+                    />
+                    <span
+                      v-if="errors.start_date"
+                      class="error invalid-feedback"
+                      >{{ errors.start_date[0] }}</span
+                    >
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group mb-3">
+                    <label class="form-label fw-bold">TAT</label>
+                    <input
+                      type="number"
+                      v-model="tat"
+                      class="form-control"
+                      :class="{ 'is-invalid': errors.tat }"
+                    />
+                    <span v-if="errors.tat" class="error invalid-feedback">{{
+                      errors.tat[0]
+                    }}</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row mt-10">
+                <div class="col">
+                  <button
+                    type="button"
+                    class="btn btn-light"
+                    data-bs-dismiss="modal"
+                    @click="closeAddSales()"
+                    id="close_modal"
+                  >
+                    Back
+                  </button>
+                </div>
+                <div class="col d-flex justify-content-end">
+                  <button
+                    type="submit"
+                    @click="saveSalesPlan()"
+                    class="btn btn-primary"
+                  >
+                    Save
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -576,17 +859,31 @@
           <h3 class="mt-3">Salesplan Table</h3>
         </div>
         <div class="col-lg-6 col-sm-12 d-flex justify-content-end">
-          <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#salesplanTotal"><i class="fa-solid fa-dollar-sign"></i> Salesplan Total</button>
+          <button
+            class="btn btn-primary btn-sm"
+            data-bs-toggle="modal"
+            data-bs-target="#salesplanTotal"
+          >
+            <i class="fa-solid fa-dollar-sign"></i> Salesplan Total
+          </button>
         </div>
       </div>
-      
+
       <!-- Modal Salesplan total -->
-      <div class="modal fade" id="salesplanTotal" tabindex="-1" aria-labelledby="salesplanTotalLabel" aria-hidden="true">
+      <div
+        class="modal fade"
+        id="salesplanTotal"
+        tabindex="-1"
+        aria-labelledby="salesplanTotalLabel"
+        aria-hidden="true"
+      >
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
               <div class="col-lg-6">
-                <h1 class="modal-title" id="salesplanTotalLabel">Salesplan Total</h1>
+                <h1 class="modal-title" id="salesplanTotalLabel">
+                  Salesplan Total
+                </h1>
               </div>
               <div class="col-lg-6 d-flex justify-content-end">
                 <form action="">
@@ -600,9 +897,11 @@
               <div class="row">
                 <div class="col-lg-6">
                   <div class="card" id="bgBlue">
-                    <div class="card-body ">
+                    <div class="card-body">
                       <p class="text-muted">Total Open</p>
-                      <h2 id="textBlue" v-if="sales_all">${{ formatPrice(sales_all.totalOpen) }}</h2>
+                      <h2 id="textBlue" v-if="sales_all">
+                        ${{ formatPrice(sales_all.totalOpen) }}
+                      </h2>
                     </div>
                   </div>
                 </div>
@@ -610,7 +909,9 @@
                   <div class="card" id="bgRed">
                     <div class="card-body">
                       <p class="text-muted">Total Closed</p>
-                      <h2 id="textRed" v-if="sales_all">${{ formatPrice(sales_all.totalClosed) }}</h2>
+                      <h2 id="textRed" v-if="sales_all">
+                        ${{ formatPrice(sales_all.totalClosed) }}
+                      </h2>
                     </div>
                   </div>
                 </div>
@@ -620,7 +921,9 @@
                   <div class="card" id="bgPurple">
                     <div class="card-body">
                       <p class="text-muted">Total Open Closed</p>
-                      <h2 id="textPurple" v-if="sales_all">${{ formatPrice(sales_all.totalOpenClosed) }}</h2>
+                      <h2 id="textPurple" v-if="sales_all">
+                        ${{ formatPrice(sales_all.totalOpenClosed) }}
+                      </h2>
                     </div>
                   </div>
                 </div>
@@ -628,7 +931,9 @@
                   <div class="card" id="bgGold">
                     <div class="card-body">
                       <p class="text-muted">Total Cancel</p>
-                      <h2 id="textGold" v-if="sales_all">${{ formatPrice(sales_all.totalCancel) }}</h2>
+                      <h2 id="textGold" v-if="sales_all">
+                        ${{ formatPrice(sales_all.totalCancel) }}
+                      </h2>
                     </div>
                   </div>
                 </div>
@@ -637,7 +942,13 @@
             <div class="modal-footer">
               <div class="col-md-12 text-center">
                 <div class="d-grid gap-2">
-                  <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+                  <button
+                    type="button"
+                    class="btn btn-primary"
+                    data-bs-dismiss="modal"
+                  >
+                    Close
+                  </button>
                 </div>
               </div>
             </div>
@@ -700,63 +1011,242 @@
                   <tr class="fw-bold fs-6 text-gray-800">
                     <th class="text-center">No</th>
                     <!-- Start customer sorting -->
-                    <th v-if="order == 'customer' && by == 'asc'" @click="sort('customer', 'desc')" class="text-center">CUSTOMER <i class="fa-solid fa-sort-up" style="color: black"></i></th>
-                    <th v-else-if="order == 'customer' && by == 'desc'" @click="sort('id', 'desc')" class="text-center">CUSTOMER <i class="fa-solid fa-sort-down" style="color: black"></i></th>
-                    <th v-else @click="sort('customer', 'asc')" class="text-center">CUSTOMER <i class="fa-solid fa-sort"></i></th>
+                    <th
+                      v-if="order == 'customer' && by == 'asc'"
+                      @click="sort('customer', 'desc')"
+                      class="text-center"
+                    >
+                      CUSTOMER
+                      <i class="fa-solid fa-sort-up" style="color: black"></i>
+                    </th>
+                    <th
+                      v-else-if="order == 'customer' && by == 'desc'"
+                      @click="sort('id', 'desc')"
+                      class="text-center"
+                    >
+                      CUSTOMER
+                      <i class="fa-solid fa-sort-down" style="color: black"></i>
+                    </th>
+                    <th
+                      v-else
+                      @click="sort('customer', 'asc')"
+                      class="text-center"
+                    >
+                      CUSTOMER <i class="fa-solid fa-sort"></i>
+                    </th>
                     <!-- End customer sorting -->
 
                     <!-- Start product sorting -->
-                    <th v-if="order == 'product' && by == 'asc'" @click="sort('product', 'desc')" class="text-center">PRODUCT <i class="fa-solid fa-sort-up" style="color: black"></i></th>
-                    <th v-else-if="order == 'product' && by == 'desc'" @click="sort('id', 'desc')" class="text-center">PRODUCT <i class="fa-solid fa-sort-down" style="color: black"></i></th>
-                    <th v-else @click="sort('product', 'asc')" class="text-center">PRODUCT <i class="fa-solid fa-sort"></i></th>
+                    <th
+                      v-if="order == 'product' && by == 'asc'"
+                      @click="sort('product', 'desc')"
+                      class="text-center"
+                    >
+                      PRODUCT
+                      <i class="fa-solid fa-sort-up" style="color: black"></i>
+                    </th>
+                    <th
+                      v-else-if="order == 'product' && by == 'desc'"
+                      @click="sort('id', 'desc')"
+                      class="text-center"
+                    >
+                      PRODUCT
+                      <i class="fa-solid fa-sort-down" style="color: black"></i>
+                    </th>
+                    <th
+                      v-else
+                      @click="sort('product', 'asc')"
+                      class="text-center"
+                    >
+                      PRODUCT <i class="fa-solid fa-sort"></i>
+                    </th>
                     <!-- End product sorting -->
 
                     <!-- Start registration sorting -->
-                    <th v-if="order == 'registration' && by == 'asc'" @click="sort('registration', 'desc')" class="text-center">AC/ENG/APU/COMP <i class="fa-solid fa-sort-up" style="color: black"></i></th>
-                    <th v-else-if="order == 'registration' && by == 'desc'" @click="sort('id', 'desc')" class="text-center">AC/ENG/APU/COMP <i class="fa-solid fa-sort-down" style="color: black"></i></th>
-                    <th v-else @click="sort('registration', 'asc')" class="text-center">AC/ENG/APU/COMP <i class="fa-solid fa-sort"></i></th>
+                    <th
+                      v-if="order == 'registration' && by == 'asc'"
+                      @click="sort('registration', 'desc')"
+                      class="text-center"
+                    >
+                      AC/ENG/APU/COMP
+                      <i class="fa-solid fa-sort-up" style="color: black"></i>
+                    </th>
+                    <th
+                      v-else-if="order == 'registration' && by == 'desc'"
+                      @click="sort('id', 'desc')"
+                      class="text-center"
+                    >
+                      AC/ENG/APU/COMP
+                      <i class="fa-solid fa-sort-down" style="color: black"></i>
+                    </th>
+                    <th
+                      v-else
+                      @click="sort('registration', 'asc')"
+                      class="text-center"
+                    >
+                      AC/ENG/APU/COMP <i class="fa-solid fa-sort"></i>
+                    </th>
                     <!-- End registration sorting -->
 
                     <!-- Start acReg sorting -->
-                    <th v-if="order == 'acReg' && by == 'asc'" @click="sort('acReg', 'desc')" class="text-center">REGISTRATION <i class="fa-solid fa-sort-up" style="color: black"></i></th>
-                    <th v-else-if="order == 'acReg' && by == 'desc'" @click="sort('id', 'desc')" class="text-center">REGISTRATION <i class="fa-solid fa-sort-down" style="color: black"></i></th>
-                    <th v-else @click="sort('acReg', 'asc')" class="text-center">REGISTRATION <i class="fa-solid fa-sort"></i></th>
+                    <th
+                      v-if="order == 'acReg' && by == 'asc'"
+                      @click="sort('acReg', 'desc')"
+                      class="text-center"
+                    >
+                      REGISTRATION
+                      <i class="fa-solid fa-sort-up" style="color: black"></i>
+                    </th>
+                    <th
+                      v-else-if="order == 'acReg' && by == 'desc'"
+                      @click="sort('id', 'desc')"
+                      class="text-center"
+                    >
+                      REGISTRATION
+                      <i class="fa-solid fa-sort-down" style="color: black"></i>
+                    </th>
+                    <th
+                      v-else
+                      @click="sort('acReg', 'asc')"
+                      class="text-center"
+                    >
+                      REGISTRATION <i class="fa-solid fa-sort"></i>
+                    </th>
                     <!-- End acReg sorting -->
 
                     <!-- Start other sorting -->
-                    <th v-if="order == 'other' && by == 'asc'" @click="sort('other', 'desc')" class="text-center">Other <i class="fa-solid fa-sort-up" style="color: black"></i></th>
-                    <th v-else-if="order == 'other' && by == 'desc'" @click="sort('id', 'desc')" class="text-center">Other <i class="fa-solid fa-sort-down" style="color: black"></i></th>
-                    <th v-else @click="sort('other', 'asc')" class="text-center">Other <i class="fa-solid fa-sort"></i></th>
+                    <th
+                      v-if="order == 'other' && by == 'asc'"
+                      @click="sort('other', 'desc')"
+                      class="text-center"
+                    >
+                      Other
+                      <i class="fa-solid fa-sort-up" style="color: black"></i>
+                    </th>
+                    <th
+                      v-else-if="order == 'other' && by == 'desc'"
+                      @click="sort('id', 'desc')"
+                      class="text-center"
+                    >
+                      Other
+                      <i class="fa-solid fa-sort-down" style="color: black"></i>
+                    </th>
+                    <th
+                      v-else
+                      @click="sort('other', 'asc')"
+                      class="text-center"
+                    >
+                      Other <i class="fa-solid fa-sort"></i>
+                    </th>
                     <!-- End other sorting -->
 
                     <!-- Start type sorting -->
-                    <th v-if="order == 'type' && by == 'asc'" @click="sort('type', 'desc')" class="text-center">Type <i class="fa-solid fa-sort-up" style="color: black"></i></th>
-                    <th v-else-if="order == 'type' && by == 'desc'" @click="sort('id', 'desc')" class="text-center">Type <i class="fa-solid fa-sort-down" style="color: black"></i></th>
-                    <th v-else @click="sort('type', 'asc')" class="text-center">Type <i class="fa-solid fa-sort"></i></th>
+                    <th
+                      v-if="order == 'type' && by == 'asc'"
+                      @click="sort('type', 'desc')"
+                      class="text-center"
+                    >
+                      Type
+                      <i class="fa-solid fa-sort-up" style="color: black"></i>
+                    </th>
+                    <th
+                      v-else-if="order == 'type' && by == 'desc'"
+                      @click="sort('id', 'desc')"
+                      class="text-center"
+                    >
+                      Type
+                      <i class="fa-solid fa-sort-down" style="color: black"></i>
+                    </th>
+                    <th v-else @click="sort('type', 'asc')" class="text-center">
+                      Type <i class="fa-solid fa-sort"></i>
+                    </th>
                     <!-- End type sorting -->
-                    
+
                     <!-- Start level sorting -->
-                    <th v-if="order == 'level' && by == 'asc'" @click="sort('level', 'desc')" class="text-center">Level <i class="fa-solid fa-sort-up" style="color: black"></i></th>
-                    <th v-else-if="order == 'level' && by == 'desc'" @click="sort('id', 'desc')" class="text-center">Level <i class="fa-solid fa-sort-down" style="color: black"></i></th>
-                    <th v-else @click="sort('level', 'asc')" class="text-center">Level <i class="fa-solid fa-sort"></i></th>
+                    <th
+                      v-if="order == 'level' && by == 'asc'"
+                      @click="sort('level', 'desc')"
+                      class="text-center"
+                    >
+                      Level
+                      <i class="fa-solid fa-sort-up" style="color: black"></i>
+                    </th>
+                    <th
+                      v-else-if="order == 'level' && by == 'desc'"
+                      @click="sort('id', 'desc')"
+                      class="text-center"
+                    >
+                      Level
+                      <i class="fa-solid fa-sort-down" style="color: black"></i>
+                    </th>
+                    <th
+                      v-else
+                      @click="sort('level', 'asc')"
+                      class="text-center"
+                    >
+                      Level <i class="fa-solid fa-sort"></i>
+                    </th>
                     <!-- End level sorting -->
 
                     <!-- Start progress sorting -->
-                    <th v-if="order == 'progress' && by == 'asc'" @click="sort('progress', 'desc')" class="text-center">Progress <i class="fa-solid fa-sort-up" style="color: black"></i></th>
-                    <th v-else-if="order == 'progress' && by == 'desc'" @click="sort('id', 'desc')" class="text-center">Progress <i class="fa-solid fa-sort-down" style="color: black"></i></th>
-                    <th v-else @click="sort('progress', 'asc')" class="text-center">Progress <i class="fa-solid fa-sort"></i></th>
+                    <th
+                      v-if="order == 'progress' && by == 'asc'"
+                      @click="sort('progress', 'desc')"
+                      class="text-center"
+                    >
+                      Progress
+                      <i class="fa-solid fa-sort-up" style="color: black"></i>
+                    </th>
+                    <th
+                      v-else-if="order == 'progress' && by == 'desc'"
+                      @click="sort('id', 'desc')"
+                      class="text-center"
+                    >
+                      Progress
+                      <i class="fa-solid fa-sort-down" style="color: black"></i>
+                    </th>
+                    <th
+                      v-else
+                      @click="sort('progress', 'asc')"
+                      class="text-center"
+                    >
+                      Progress <i class="fa-solid fa-sort"></i>
+                    </th>
                     <!-- End progress sorting -->
 
                     <!-- Start status sorting -->
-                    <th v-if="order == 'status' && by == 'asc'" @click="sort('status', 'desc')" class="text-center">STATUS <i class="fa-solid fa-sort-up" style="color: black"></i></th>
-                    <th v-else-if="order == 'status' && by == 'desc'" @click="sort('id', 'desc')" class="text-center">STATUS <i class="fa-solid fa-sort-down" style="color: black"></i></th>
-                    <th v-else @click="sort('status', 'asc')" class="text-center">STATUS <i class="fa-solid fa-sort"></i></th>
+                    <th
+                      v-if="order == 'status' && by == 'asc'"
+                      @click="sort('status', 'desc')"
+                      class="text-center"
+                    >
+                      STATUS
+                      <i class="fa-solid fa-sort-up" style="color: black"></i>
+                    </th>
+                    <th
+                      v-else-if="order == 'status' && by == 'desc'"
+                      @click="sort('id', 'desc')"
+                      class="text-center"
+                    >
+                      STATUS
+                      <i class="fa-solid fa-sort-down" style="color: black"></i>
+                    </th>
+                    <th
+                      v-else
+                      @click="sort('status', 'asc')"
+                      class="text-center"
+                    >
+                      STATUS <i class="fa-solid fa-sort"></i>
+                    </th>
                     <!-- End progress sorting -->
                     <th class="text-center">ACTION</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr v-for="(p_sales, p_sales_index) in sales.data" :key="p_sales_index">
+                  <tr
+                    v-for="(p_sales, p_sales_index) in sales.data"
+                    :key="p_sales_index"
+                  >
                     <td class="text-center">
                       {{ sales.from + p_sales_index }}
                     </td>
@@ -770,7 +1260,7 @@
                     </td>
                     <!-- AC/ENG/APU/COMP -->
                     <td class="text-center">
-                      {{ p_sales.registration }} 
+                      {{ p_sales.registration }}
                     </td>
                     <!-- REGISTRATION -->
                     <td class="text-center">
@@ -860,10 +1350,13 @@
                     <td class="text-center">
                       <nuxt-link
                         v-if="p_sales"
-                        :to="{ path: '/my-salesplan-detail', query: { id: p_sales.id }}"
-                        >
-                          <span class="menu-title">Detail</span>
-                        </nuxt-link>
+                        :to="{
+                          path: '/my-salesplan-detail',
+                          query: { id: p_sales.id },
+                        }"
+                      >
+                        <span class="menu-title">Detail</span>
+                      </nuxt-link>
                     </td>
                   </tr>
                   <!-- Jika data kosong -->
@@ -897,22 +1390,38 @@
                   </ul>
                 </nav>
               </div>
-              <div class="col col-lg-8 d-flex justify-content-end align-items-center">
+              <div
+                class="
+                  col col-lg-8
+                  d-flex
+                  justify-content-end
+                  align-items-center
+                "
+              >
                 <nav aria-label="Page navigation example">
                   <ul class="pagination">
                     <!-- Start pagination -->
-                    <li v-for="(link, link_index) in sales.links" :key="link_index" class="page-item" :class="{ disabled: !link.url, active: link.active }">
-                        <a href="javascript:void(0)" @click="list(link.url)" class="page-link">
-                          <span v-if="link.label == '&laquo; Previous'">
-                              <i class="fa-solid fa-caret-left"></i>
-                          </span>
-                          <span v-else-if="link.label == 'Next &raquo;'">
-                              <i class="fa-solid fa-caret-right"></i>
-                          </span>
-                          <span v-else>
-                              {{ link.label }}
-                          </span>
-                        </a>
+                    <li
+                      v-for="(link, link_index) in sales.links"
+                      :key="link_index"
+                      class="page-item"
+                      :class="{ disabled: !link.url, active: link.active }"
+                    >
+                      <a
+                        href="javascript:void(0)"
+                        @click="list(link.url)"
+                        class="page-link"
+                      >
+                        <span v-if="link.label == '&laquo; Previous'">
+                          <i class="fa-solid fa-caret-left"></i>
+                        </span>
+                        <span v-else-if="link.label == 'Next &raquo;'">
+                          <i class="fa-solid fa-caret-right"></i>
+                        </span>
+                        <span v-else>
+                          {{ link.label }}
+                        </span>
+                      </a>
                     </li>
                     <!-- End pagination -->
                   </ul>
@@ -925,7 +1434,6 @@
       <!-- End Table -->
     </div>
   </div>
-
 </template>
 
 <script>
@@ -935,6 +1443,14 @@ export default {
   name: 'MySalesPlanPage',
   data() {
     return {
+      prospect_option_salesplan: [],
+      aircraft_name_value: null,
+      aircraft_id_value: null,
+      product_id_value: null,
+      prospect_value_salesplan: null,
+      product_name_value: null,
+      maintenance_name_value: null,
+      maintenance_id_value: null,
       user: this.$auth.user.name,
       role: this.$auth.user.role.name,
       sales: {
@@ -1023,7 +1539,7 @@ export default {
     search: debounce(function () {
       this.list()
     }, 500),
-    customer_id: debounce(function() {
+    customer_id: debounce(function () {
       this.clearProspect()
       this.listProspect()
     }, 100),
@@ -1034,7 +1550,7 @@ export default {
     this.listProduct()
     this.listMaintenance()
     this.listHangar()
-    this.listACType()
+    // this.listACType()
   },
   methods: {
     directPage: debounce(function () {
@@ -1051,13 +1567,13 @@ export default {
       this.list(new_url)
     }, 500),
     sort(order, by) {
-      this.order = order;
-      this.by = by;
-      this.list();
+      this.order = order
+      this.by = by
+      this.list()
     },
     formatPrice(value) {
-      let val = (value/1).toFixed(0).replace(',', ',')
-      return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+      let val = (value / 1).toFixed(0).replace(',', ',')
+      return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
     },
     loading() {
       Swal.fire({
@@ -1115,7 +1631,12 @@ export default {
           },
         })
         .then((response) => {
-          this.product_option = response.data.data.data
+          for (let i = 0; i < response.data.data.data.length; i++) {
+            this.product_option.push({
+              id: response.data.data.data[i].id,
+              name: response.data.data.data[i].name,
+            })
+          }
         })
         .catch((error) => console.log(error))
     },
@@ -1125,6 +1646,7 @@ export default {
           params: {
             order: 'created_at',
             by: 'ASC',
+            paginate: 10000,
           },
         })
         .then((response) => {
@@ -1144,60 +1666,48 @@ export default {
           this.hangar_option = response.data.data
         })
     },
-    listACType() {
-      this.$axios
-        .get('api/aircraft-type', {
-          params: {
-            order: 'created_at',
-            by: 'ASC',
-          },
-        })
-        .then((response) => {
-          this.ac_type_option = response.data.data.data
-        })
-    },
     listProspect() {
       if (this.customer_value) {
         this.$axios
-        .get('api/prospect-get-tmb', {
-          params: {
-            search: this.customer_value.id,
-            paginate: 1000,
-          },
-        })
-        .then((response) => {
-          this.prospect_option = response.data.data
-        })
+          .get('api/prospect-get-tmb', {
+            params: {
+              search: this.customer_value.id,
+              paginate: 1000,
+            },
+          })
+          .then((response) => {
+            this.prospect_option = response.data.data
+          })
       }
     },
 
     addSales() {
       this.loading()
       this.$axios
-      .post(`api/sales-add`, {
-        is_rkap: this.is_rkap,
-        product_id: this.product_value,
-        customer_id: this.customer_value,
-        maintenance_id: this.maintenance_value,
-        hangar_id: this.hangar_value,
-        ac_type_id: this.ac_type_value,
-        ac_reg: this.ac_reg,
-        value: this.value,
-        tat: this.tat,
-        start_date: this.start_date,
-      })
-      .then((response) => {
-        toastr.success(response.data.message)
-        this.list()
-        Swal.close()
-      })
-      .catch((error) => {
-        if (error.response.status == 422) {
-          toastr.error(error.response.data.message)
-        } else if (error.response.status == 403) {
-          toastr.error(error.response.data.message)
-        }
-      })
+        .post(`api/sales-add`, {
+          is_rkap: this.is_rkap,
+          product_id: this.product_value,
+          customer_id: this.customer_value,
+          maintenance_id: this.maintenance_value,
+          hangar_id: this.hangar_value,
+          ac_type_id: this.ac_type_value,
+          ac_reg: this.ac_reg,
+          value: this.value,
+          tat: this.tat,
+          start_date: this.start_date,
+        })
+        .then((response) => {
+          toastr.success(response.data.message)
+          this.list()
+          Swal.close()
+        })
+        .catch((error) => {
+          if (error.response.status == 422) {
+            toastr.error(error.response.data.message)
+          } else if (error.response.status == 403) {
+            toastr.error(error.response.data.message)
+          }
+        })
     },
 
     closeModal() {
@@ -1209,8 +1719,9 @@ export default {
       this.type = null
       this.list()
     },
-    
+
     closeAddSales() {
+      document.getElementById('close_modal').click()
       this.clearFormAddSales()
     },
     clearFormAddSales() {
@@ -1222,7 +1733,15 @@ export default {
       this.salesPlan = null
       this.tat = null
       this.start_date = null
-      this.list()
+
+      this.customer_value = null
+      this.product_name_value = null
+      this.maintenance_name_value = null
+      this.prospect_value_salesplan = null
+      this.ac_reg = null
+      this.hangar_value = null
+      this.aircraft_name_value = null
+      this.value = null
     },
 
     clearProspect() {
@@ -1234,8 +1753,82 @@ export default {
         this.prospect = []
         this.isDisabled = false
       }
-    }
-  }
+    },
+    selectSalesPlan() {
+      var prod_id =
+        this.prospect_value_salesplan != null
+          ? this.prospect_value_salesplan.prospect_tmb[0].tmb.product_id
+          : null
+      var main_id =
+        this.prospect_value_salesplan != null
+          ? this.prospect_value_salesplan.prospect_tmb[0].tmb.maintenance_id
+          : null
+
+      this.aircraft_name_value =
+        this.prospect_value_salesplan != null
+          ? this.prospect_value_salesplan.prospect_tmb[0].tmb.ac_type.name
+          : null
+      this.aircraft_id_value =
+        this.prospect_value_salesplan != null
+          ? this.prospect_value_salesplan.prospect_tmb[0].tmb.ac_type.id
+          : null
+
+      for (let i = 0; i < this.product_option.length; i++) {
+        if (prod_id == this.product_option[i].id) {
+          this.product_name_value = this.product_option[i].name
+          this.product_id_value = this.product_option[i].id
+        } else if (prod_id == null) {
+          this.product_name_value = null
+          this.product_id_value = null
+        }
+      }
+      for (let k = 0; k < this.maintenance_option.length; k++) {
+        if (main_id == this.maintenance_option[k].id) {
+          this.maintenance_name_value = this.maintenance_option[k].name
+        } else if (main_id == null) {
+          this.maintenance_name_value = null
+        }
+      }
+    },
+    saveSalesPlan() {
+      this.$axios
+        .post('/api/sales-create-tmb', {
+          prospect_id:
+            this.prospect_value_salesplan != null
+              ? this.prospect_value_salesplan.id
+              : null,
+          maintenance_id:
+            this.prospect_value_salesplan != null
+              ? this.prospect_value_salesplan.prospect_tmb[0].tmb.maintenance_id
+              : null,
+          hangar_id: this.hangar_value != null ? this.hangar_value.id : null,
+          ac_reg: this.ac_reg,
+          value: this.value,
+          tat: this.tat,
+          start_date: this.start_date,
+        })
+        .then((response) => {
+          toastr.success(response.data.message)
+          this.list()
+          Swal.close()
+          this.closeAddSales()
+        })
+        .catch((error) => {
+          if (error.response.status == 422) {
+            toastr.error(error.response.data.message)
+            this.errors = error.response.data.errors
+          }
+        })
+    },
+    additionalSaleplan(value) {
+      this.$axios
+        .get('/api/prospect-get-tmb?customer=' + value)
+        .then((response) => {
+          this.prospect_option_salesplan = response.data.data
+        })
+        .catch((error) => console.log(error))
+    },
+  },
 }
 </script>
 
@@ -1249,31 +1842,31 @@ export default {
 }
 
 .carousel-indicators [data-bs-target] {
-    box-sizing: content-box;
-    flex: 0 1 auto;
-    width: 10px;
-    height: 10px;
-    padding: 0;
-    margin-right: 3px;
-    margin-left: 3px;
-    text-indent: -999px;
-    cursor: pointer;
-    background-color: #000;
-    background-clip: padding-box;
-    border: 0;
-    border-top: 10px solid transparent;
-    border-bottom: 10px solid transparent;
-    opacity: .5;
-    transition: opacity .6s ease;
-    border-radius: 100%;
+  box-sizing: content-box;
+  flex: 0 1 auto;
+  width: 10px;
+  height: 10px;
+  padding: 0;
+  margin-right: 3px;
+  margin-left: 3px;
+  text-indent: -999px;
+  cursor: pointer;
+  background-color: #000;
+  background-clip: padding-box;
+  border: 0;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  opacity: 0.5;
+  transition: opacity 0.6s ease;
+  border-radius: 100%;
 }
 
-.carousel-indicators .active{
-    background-color: #188AF8;
+.carousel-indicators .active {
+  background-color: #188af8;
 }
 
 #cardTopDashed {
-  border:dashed #fff;
+  border: dashed #fff;
 }
 
 #cardTop {
@@ -1281,95 +1874,95 @@ export default {
 }
 
 #btnGreen {
-  background-color: #DFF0D0; 
-  color: #5E932F; 
-  border-radius: 100%; 
+  background-color: #dff0d0;
+  color: #5e932f;
+  border-radius: 100%;
   padding: 5px 13px 5px 13px;
 }
 
 #btnRed {
-  background-color: #F8E8E8; 
-  color: #952D2D; 
-  border-radius: 100%; 
+  background-color: #f8e8e8;
+  color: #952d2d;
+  border-radius: 100%;
   padding: 5px 13px 5px 13px;
 }
 
 #btnPurple {
-  background-color: #F8E8F6; 
-  color: #952D88; 
-  border-radius: 100%; 
+  background-color: #f8e8f6;
+  color: #952d88;
+  border-radius: 100%;
   padding: 5px 13px 5px 13px;
 }
 
 #btnGold {
-  background-color: #F8F7E8; 
-  color: #958E2D; 
-  border-radius: 100%; 
+  background-color: #f8f7e8;
+  color: #958e2d;
+  border-radius: 100%;
   padding: 5px 13px 5px 13px;
 }
 
 #bgGreen {
-  background: #DFF0D0;
+  background: #dff0d0;
 }
 
 #bgBlue {
-  background: #E8E9F8;
+  background: #e8e9f8;
 }
 
 #bgRed {
-  background: #F8E8E8;
+  background: #f8e8e8;
 }
 
 #bgPurple {
-  background: #F8E8F6;
+  background: #f8e8f6;
 }
 
 #bgGold {
-  background: #F8F7E8;
+  background: #f8f7e8;
 }
 
 #bgGreen2 {
-  background-color: #DFF0D0; 
-  width: 60px; 
+  background-color: #dff0d0;
+  width: 60px;
   height: 60px;
 }
 
 #bgBlue2 {
-  background-color: #D0D3F1; 
-  width: 60px; 
+  background-color: #d0d3f1;
+  width: 60px;
   height: 60px;
 }
 
 #bgPurple2 {
-  background-color: #F1D0EE; 
-  width: 60px; 
+  background-color: #f1d0ee;
+  width: 60px;
   height: 60px;
 }
 
 #bgGold2 {
-  background-color: #F1EFD0; 
-  width: 60px; 
+  background-color: #f1efd0;
+  width: 60px;
   height: 60px;
 }
 
 #textGreen {
-  color: #5E932F;
+  color: #5e932f;
 }
 
 #textRed {
-  color: #952D2D;
+  color: #952d2d;
 }
 
 #textBlue {
-  color: #2D3495;
+  color: #2d3495;
 }
 
 #textPurple {
-  color: #952D88;
+  color: #952d88;
 }
 
 #textGold {
-  color: #958E2D;
+  color: #958e2d;
 }
 
 #fontSm {

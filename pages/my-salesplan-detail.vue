@@ -2888,7 +2888,7 @@
                         <form>
                           <div class="mb-3">
                             <label>To <span class="text-danger">*</span></label>
-                            <select v-model="user_id" class="form-select">
+                            <select v-model="user_id" class="form-select" :class="{ 'is-invalid': errors.user_id }">
                               <option :value="null" disabled>
                                 Select User
                               </option>
@@ -2901,6 +2901,9 @@
                                 {{ user_options.email }}
                               </option>
                             </select>
+                            <span v-if="errors.user_id" class="error invalid-feedback">{{
+                              errors.user_id[0]
+                            }}</span>
                             <small class="text-muted"
                               >Send notification to selected employee</small
                             >
@@ -3122,6 +3125,7 @@ export default {
         value: null,
         category: null,
         reason: null,
+        user_id: null,
       },
     }
   },
@@ -3573,6 +3577,7 @@ export default {
         .catch((error) => {
           if (error.response.status == 422) {
             toastr.error(error.response.data.message)
+            this.errors = error.response.data.errors
           } else if (error.response.status == 403) {
             toastr.error(error.response.data.message)
           }

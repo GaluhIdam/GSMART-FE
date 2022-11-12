@@ -416,10 +416,10 @@ export default {
           // Sales Plan Value
           this.sales_plan = response.data.data.sales_plan
           this.initial = this.customer_name.substring(0,1)
-          // if(this.sales_plan.length > 0) {
-          //   this.PBTHMessage()
-          //   this.$router.push('/my-prospect');
-          // }
+          if(this.sales_plan.length > 0) {
+            this.PBTHMessage()
+            this.$router.push('/my-prospect');
+          }
           // Market Share Value
           this.market_share = response.data.data.market_share
           // Deviation Value

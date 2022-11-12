@@ -38,7 +38,14 @@
         <div class="row">
           <div class="col-md-5 p-16">
             <span class="btn btn-light btn-sm p-5">
-              <img :src=customer_image alt="logo" class="img-fluid" width="25" height="25">
+              <div v-if="customer_image == null">
+                <span class="fs-1 fw-bold">
+                  {{ initial }}
+                </span>
+              </div>
+              <div v-else>
+                <img :src=customer_image class="img-fluid" width="25" height="25">
+              </div>
             </span>
             <span class="badge text-muted text-bg-light d-block text-start mt-2">TMB</span>
             <h2 class="mt-1">Airframe</h2>
@@ -62,9 +69,9 @@
                 </div>
               </div>
             </div>
-            <div class="row mt-1">
+            <div class="row mt-5">
               <div class="col-6">
-                <div class="border-dashed rounded p-4" v-if="sales_plan">
+                <div class="border-dashed rounded p-4" v-if="deviation">
                   <h1 class="fw-bolder mb-0 fs-5">${{ formatNumber(deviation) }}</h1>
                   <p class="mb-0 fw-bold text-gray-500">Deviation</p>
                 </div>
@@ -196,7 +203,7 @@
                     <th class="text-start text-uppercase text-muted">Email</th>
                     <th class="text-start text-uppercase text-muted">Phone</th>
                     <th class="text-start text-uppercase text-muted">Address</th>
-                    <th class="text-start"></th>
+                    <th class="text-start text-uppercase text-muted">Action</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -466,7 +473,7 @@ export default {
       },
       tmb: [],
       sales_plan: [],
-      registration: [],
+      registration: null,
       customer_image: [],
       market_share: [],
       deviation: [],
@@ -489,6 +496,7 @@ export default {
       current_page: null,
       modal_create: false,
       modal_update: false,
+      initial: null,
       paginate_tmbSales: [],
       value: [],
       customer_options: [],
@@ -532,7 +540,7 @@ export default {
     checkRole(){
       if(this.role == 'AMS' || this.role == 'Administrator'){
       } else {
-        this.$router.push('/');
+        this.$router.push('/my-prospect');
         this.authMessage()
       }
     },
@@ -569,7 +577,9 @@ export default {
         .then((response) => {
           // Data TMB
           this.tmb = response.data.data.prospect
-          // Data Customer
+          // Customer Name
+          this.customer_name = response.data.data.customer.name
+          // Customer Image
           this.customer_image = response.data.data.customer.full_path
           // Registration Format
           this.registration = response.data.data.registration
@@ -579,6 +589,8 @@ export default {
           this.market_share = response.data.data.market_share
           // Deviation Value
           this.deviation = response.data.data.deviation
+          // Initial
+          this.initial = this.customer_name.substring(0,1)
         })
     },
     listMaintenance() {

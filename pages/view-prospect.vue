@@ -329,6 +329,11 @@
                   </div>
                 </div>
               </div>
+              <tr v-if="prospect_customer.length < 1">
+                  <div class="text-muted text-center fs-2">
+                    Data not found
+                  </div>
+              </tr>
             </div>
           </div>
         </div>
@@ -437,7 +442,7 @@ export default {
           this.customer_country = response.data.data.country
           // Data Region Customer
           this.customer_region = response.data.data.country.region
-          this.customer_image = response.data.data.logo_path
+          this.customer_image = response.data.data.full_path
           this.initial = this.customer.name.substring(0,1)
         })
         .catch((error) => {

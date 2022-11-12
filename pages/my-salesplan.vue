@@ -679,15 +679,15 @@
                 <div class="col-lg-6">
                   <div class="form-group mb-3">
                     <label class="form-label fw-bold">Product</label>
-                    <input
-                      type="text"
-                      readonly
-                      v-model="product_name_value"
-                      class="form-control"
-                      style="font-weight: normal"
+                    <multiselect
+                      v-model="product_value"
+                      :options="product_option"
+                      open-direction="bottom"
+                      :searchable="true"
+                      placeholder=""
+                      label="name"
                       :class="{ 'is-invalid': errors.product_id }"
-                    />
-                    <input type="hidden" readonly v-model="product_id_value" />
+                    ></multiselect>
                     <span
                       v-if="errors.product_id"
                       class="error invalid-feedback"
@@ -698,19 +698,15 @@
                 <div class="col-lg-6">
                   <div class="form-group mb-3">
                     <label class="form-label fw-bold">Maintenance</label>
-                    <input
-                      type="text"
-                      readonly
-                      v-model="maintenance_name_value"
-                      style="font-weight: normal"
-                      class="form-control"
+                    <multiselect
+                      v-model="maintenance_value"
+                      :options="maintenance_option"
+                      open-direction="bottom"
+                      :searchable="true"
+                      placeholder=""
+                      label="name"
                       :class="{ 'is-invalid': errors.maintenance_id }"
-                    />
-                    <input
-                      type="hidden"
-                      readonly
-                      v-model="maintenance_id_value"
-                    />
+                    ></multiselect>
                     <span
                       v-if="errors.maintenance_id"
                       class="error invalid-feedback"
@@ -743,15 +739,15 @@
                 <div class="col-lg-6">
                   <div class="form-group mb-3">
                     <label class="form-label fw-bold">Aircraft Type</label>
-                    <input
-                      type="text"
-                      style="font-weight: normal"
-                      readonly
-                      v-model="aircraft_name_value"
-                      class="form-control"
+                    <multiselect
+                      v-model="ac_type_value"
+                      :options="ac_type_option"
+                      open-direction="bottom"
+                      :searchable="true"
+                      placeholder=""
+                      label="name"
                       :class="{ 'is-invalid': errors.ac_type_id }"
-                    />
-                    <input type="hidden" readonly v-model="aircraft_id_value" />
+                    ></multiselect>
                     <span
                       v-if="errors.ac_type_id"
                       class="error invalid-feedback"
@@ -1561,7 +1557,7 @@ export default {
     this.listProduct()
     this.listMaintenance()
     this.listHangar()
-    // this.listACType()
+    this.listACType()
   },
   methods: {
     directPage: debounce(function () {
@@ -1678,6 +1674,16 @@ export default {
           this.hangar_option = response.data.data
         })
     },
+    listACType() {
+      this.$axios
+        .get('/api/aircraft-type')
+        .then((response) => {
+          this.ac_type_option = response.data.data.data
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    },
     listProspect() {
       if (this.customer_value) {
         this.$axios
@@ -1746,6 +1752,10 @@ export default {
       this.tat = null
       this.start_date = null
 
+      this.maintenance_value = null
+      this.product_value = null
+      this.ac_type_value = null
+
       this.customer_value = null
       this.product_name_value = null
       this.maintenance_name_value = null
@@ -1810,9 +1820,7 @@ export default {
               ? this.prospect_value_salesplan.id
               : null,
           maintenance_id:
-            this.prospect_value_salesplan != null
-              ? this.prospect_value_salesplan.prospect_tmb[0].tmb.maintenance_id
-              : null,
+            this.maintenance_value != null ? this.maintenance_value.id : null,
           hangar_id: this.hangar_value != null ? this.hangar_value.id : null,
           ac_reg: this.ac_reg,
           value: this.value,

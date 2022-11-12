@@ -208,7 +208,12 @@
                     :key="customer_index"
                   >
                     <td class="text-center">
-                      {{ customer_page.from + customer_index }}
+                      <span v-if="customer_page.from == 1">
+                        {{ customer_page.from + customer_index }}
+                      </span>
+                      <span v-else>
+                        {{ parseInt(customer_index) + 1 }}
+                      </span>
                     </td>
                     <td class="text-center">{{ customer.code }}</td>
                     <td class="text-center">{{ customer.name }}</td>

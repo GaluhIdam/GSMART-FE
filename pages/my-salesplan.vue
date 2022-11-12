@@ -1277,19 +1277,22 @@
                     <!-- Other -->
                     <td class="text-center">
                       <div v-if="p_sales.other === 'RKAP'">
-                        <span class="badge badge-info">RKAP</span>
+                        <span class="badge badge-info">{{ p_sales.other }}</span>
                       </div>
                       <div v-if="p_sales.other === 'Additional'">
-                        <span class="badge badge-primary">Additional</span>
+                        <span class="badge badge-primary">{{ p_sales.other }}</span>
                       </div>
                     </td>
                     <!-- Type -->
                     <td class="text-center">
-                      <div v-if="p_sales.type === 'TMB'">
-                        <span class="badge badge-danger">TMB</span>
+                      <div v-if="p_sales.type === 'TMB Retail'">
+                        <span class="badge badge-danger">{{ p_sales.type }}</span>
+                      </div>
+                      <div v-if="p_sales.type === 'TMB Project'">
+                        <span class="badge badge-primary">{{ p_sales.type }}</span>
                       </div>
                       <div v-if="p_sales.type === 'PBTH'">
-                        <span class="badge badge-warning">PBTH</span>
+                        <span class="badge badge-warning">{{ p_sales.type }}</span>
                       </div>
                     </td>
                     <!-- Sales Level -->
@@ -1310,49 +1313,49 @@
                     <!-- Progress -->
                     <td class="text-center">
                       <div v-if="p_sales.progress === 10">
-                        <span class="badge badge-danger">10%</span>
+                        <span class="badge badge-danger">{{ p_sales.progress }}%</span>
                       </div>
                       <div v-if="p_sales.progress === 20">
-                        <span class="badge badge-danger">20%</span>
+                        <span class="badge badge-danger">{{ p_sales.progress }}%</span>
                       </div>
                       <div v-if="p_sales.progress === 30">
-                        <span class="badge badge-danger">30%</span>
+                        <span class="badge badge-danger">{{ p_sales.progress }}%</span>
                       </div>
                       <div v-if="p_sales.progress === 40">
-                        <span class="badge badge-warning">40%</span>
+                        <span class="badge badge-warning">{{ p_sales.progress }}%</span>
                       </div>
                       <div v-if="p_sales.progress === 50">
-                        <span class="badge badge-warning">50%</span>
+                        <span class="badge badge-warning">{{ p_sales.progress }}%</span>
                       </div>
                       <div v-if="p_sales.progress === 60">
-                        <span class="badge badge-warning">60%</span>
+                        <span class="badge badge-warning">{{ p_sales.progress }}%</span>
                       </div>
                       <div v-if="p_sales.progress === 70">
-                        <span class="badge badge-primary">70%</span>
+                        <span class="badge badge-primary">{{ p_sales.progress }}%</span>
                       </div>
                       <div v-if="p_sales.progress === 80">
-                        <span class="badge badge-primary">80%</span>
+                        <span class="badge badge-primary">{{ p_sales.progress }}%</span>
                       </div>
                       <div v-if="p_sales.progress === 90">
-                        <span class="badge badge-success">90%</span>
+                        <span class="badge badge-success">{{ p_sales.progress }}%</span>
                       </div>
                       <div v-if="p_sales.progress === 100">
-                        <span class="badge badge-success">100%</span>
+                        <span class="badge badge-success">{{ p_sales.progress }}%</span>
                       </div>
                     </td>
                     <!-- Status -->
                     <td class="text-center">
                       <div v-if="p_sales.status === 'Cancel'">
-                        <span class="badge badge-danger">Cancel</span>
+                        <span class="badge badge-danger">{{ p_sales.status }}</span>
                       </div>
                       <div v-if="p_sales.status === 'Open'">
-                        <span class="badge badge-success">Open</span>
+                        <span class="badge badge-success">{{ p_sales.status }}</span>
                       </div>
                       <div v-if="p_sales.status === 'Close in'">
-                        <span class="badge badge-warning">Close in</span>
+                        <span class="badge badge-warning">{{ p_sales.status }}</span>
                       </div>
                       <div v-if="p_sales.status === 'Closed'">
-                        <span class="badge badge-primary">Closed</span>
+                        <span class="badge badge-primary">{{ p_sales.status }}</span>
                       </div>
                     </td>
                     <td class="text-center">
@@ -1613,6 +1616,7 @@ export default {
           this.sales_user = response.data.data.user
           this.sales_all = response.data.data.all
           this.current_page = this.sales.current_page
+          console.log(this.sales)
           Swal.close()
         })
         .catch((error) => console.log(error))

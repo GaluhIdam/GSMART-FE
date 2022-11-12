@@ -437,7 +437,6 @@ export default {
     },
     calculateSalesPlan(){
       this.pbth_length = this.pbth.length
-      this.pbth_length_min = this.pbth.length - 1
       this.pbth.forEach(element => {
         element.month = element.month + ' '
         element.planFH = element.flight_hour * this.convidenve_level

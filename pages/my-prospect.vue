@@ -1672,11 +1672,6 @@
                                           label="name"
                                           :options="product_options"
                                         ></multiselect>
-                                          <!-- :class="{
-                                            'is-invalid': errors.tmb.product,
-                                          }" -->
-                                        <!-- <span v-if="errors.tmb.product" class="error invalid-feedback">{{errors.tmb.product[0]}}
-                                        </span> -->
                                       </div>
                                     </div>
                                     <div class="col">
@@ -1722,12 +1717,6 @@
                                           placeholder=""
                                           label="name"
                                           ></multiselect>
-                                          {{ errors[`tmb.${data_index}.product.${item_index}.aircraft_type.id`] }}
-                                          <span v-if="errors" class="error invalid-feedback">
-
-                                                {{ errors[`tmb.${data_index}.product.${item_index}.aircraft_type.id`] }}
-
-                                            </span>
                                         </div>
                                         <div class="col-md-3 text-center">
                                           <label class="form-label"
@@ -1738,8 +1727,6 @@
                                             v-model="item.market_share"
                                             class="form-control mb-2 mb-md-0"
                                             />
-                                            <!-- <span v-if="errors.tmb.market_share" class="error invalid-feedback">{{errors.tmb.market_share[0]}}
-                                            </span> -->
                                         </div>
                                         <div class="col-md-2 text-center">
                                           <label class="form-label">Remark</label>
@@ -1748,8 +1735,6 @@
                                             v-model="item.remark"
                                             class="form-control mb-2 mb-md-0"
                                             />
-                                            <!-- <span v-if="errors.tmb.remark" class="error invalid-feedback">{{errors.tmb.remark[0]}}
-                                            </span> -->
                                         </div>
                                         <div class="col-md-3 text-center">
                                           <label class="form-label"
@@ -1761,8 +1746,6 @@
                                           placeholder=""
                                           label="name"
                                           ></multiselect>
-                                          <!-- <span v-if="errors.tmb.product.maintenance_id.id" class="error invalid-feedback">{{errors.tmb.maintenance_id.id[0]}}
-                                          </span> -->
                                         </div>
                                         <div class="col-md-1">
                                           <button

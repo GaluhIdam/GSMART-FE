@@ -281,7 +281,7 @@
 
                     </div>
                     
-                    <div v-if="data.transaction_type_id == 1" class="col-md-6 d-flex justify-content-end">
+                    <div v-if="data.transaction_type_id == 1 || data.transaction_type_id == 2" class="col-md-6 d-flex justify-content-end">
                       <div v-if="role == 'Administrator' || role == 'AMS'">
                         <nuxt-link :to="{ path: 'view-prospect-tmb', query: { id: data.id }}" class="btn btn-primary btn-sm">Pick Up</nuxt-link>
                       </div>

@@ -283,11 +283,11 @@
                           <!-- End Of The Strategic Initiative -->
 
                           <!-- PM -->
-                          <th v-if="order == 'prjoectManager' && by == 'asc'" @click="sort('prjoectManager', 'desc')" class="text-center" style="white-space: nowrap;">PM <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
+                          <th v-if="order == 'projectManager' && by == 'asc'" @click="sort('projectManager', 'desc')" class="text-center" style="white-space: nowrap;">PM <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
 
-                          <th v-else-if="order == 'prjoectManager' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">PM <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+                          <th v-else-if="order == 'projectManager' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">PM <i class="fa-solid fa-sort-down" style="color: black"></i></th>
 
-                          <th v-else @click="sort('prjoectManager', 'asc')" class="text-center" style="white-space: nowrap;">PM <i class="fa-solid fa-sort"></i></th>
+                          <th v-else @click="sort('projectManager', 'asc')" class="text-center" style="white-space: nowrap;">PM <i class="fa-solid fa-sort"></i></th>
                           <!-- End Of The PM -->
 
                           <!-- Customer Code -->
@@ -363,8 +363,8 @@
 
                           <!-- Conditional PM -->
                           <td>
-                            <div v-if="data.prjoectManager" class="text-center">
-                              {{ data.prjoectManager }}
+                            <div v-if="data.projectManager" class="text-center">
+                              {{ data.projectManager }}
                             </div>
                             <div v-else class="text-center">
                               -
@@ -379,7 +379,7 @@
                           <!-- Conditional Market Share -->
                           <td>
                             <div v-if="data.marketShare" class="text-center" style="color: #50CD89">
-                              ${{ data.marketShare }} 
+                              ${{ formatNumber(data.marketShare) }} 
                             </div>
                             <div v-else class="text-center" style="color: #50CD89">
                               $0
@@ -390,7 +390,7 @@
                           <!-- Conditional Sales Value -->
                           <td>
                             <div v-if="data.salesPlan" class="text-center" style="color: #50CD89">
-                              ${{ data.salesPlan }}
+                              ${{ formatNumber(data.salesPlan) }}
                             </div>
                             <div v-else class="text-center" style="color: #50CD89">
                               $0
@@ -455,11 +455,11 @@
                           <!-- End Of The Strategic Initiative -->
 
                           <!-- PM -->
-                          <th v-if="order == 'prjoectManager' && by == 'asc'" @click="sort('prjoectManager', 'desc')" class="text-center" style="white-space: nowrap;">PM <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
+                          <th v-if="order == 'projectManager' && by == 'asc'" @click="sort('projectManager', 'desc')" class="text-center" style="white-space: nowrap;">PM <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
 
-                          <th v-else-if="order == 'prjoectManager' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">PM <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+                          <th v-else-if="order == 'projectManager' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">PM <i class="fa-solid fa-sort-down" style="color: black"></i></th>
 
-                          <th v-else @click="sort('prjoectManager', 'asc')" class="text-center" style="white-space: nowrap;">PM <i class="fa-solid fa-sort"></i></th>
+                          <th v-else @click="sort('projectManager', 'asc')" class="text-center" style="white-space: nowrap;">PM <i class="fa-solid fa-sort"></i></th>
                           <!-- End Of The PM -->
 
                           <!-- Customer Code -->
@@ -508,7 +508,12 @@
                       <tbody>
                         <tr v-for="(data, prospect_index) in prospect" :key="prospect_index">
                           <td class="text-center">
-                            {{ prospect3.from + prospect_index }}
+                            <span v-if="prospect3.from == 1">
+                              {{ prospect3.from + prospect_index }}
+                            </span>
+                            <span v-else>
+                              {{ parseInt(prospect_index) + 1 }}
+                            </span>
                           </td>
                           <td class="text-center">{{ data.year }}</td>
                           <td class="text-center">{{ data.transaction }}</td>
@@ -527,8 +532,8 @@
 
                           <!-- Conditional PM -->
                           <td>
-                            <div v-if="data.prjoectManager" class="text-center">
-                              {{ data.prjoectManager }}
+                            <div v-if="data.projectManager" class="text-center">
+                              {{ data.projectManager }}
                             </div>
                             <div v-else class="text-center">
                               -
@@ -543,7 +548,7 @@
                           <!-- Conditional Market Share -->
                           <td>
                             <div v-if="data.marketShare" class="text-center" style="color: #50CD89">
-                              ${{ data.marketShare }} 
+                              ${{ formatNumber(data.marketShare) }} 
                             </div>
                             <div v-else class="text-center" style="color: #50CD89">
                               $0
@@ -554,7 +559,7 @@
                           <!-- Conditional Sales Value -->
                           <td>
                             <div v-if="data.salesPlan" class="text-center" style="color: #50CD89">
-                              ${{ data.salesPlan }}
+                              ${{ formatNumber(data.salesPlan ) }}
                             </div>
                             <div v-else class="text-center" style="color: #50CD89">
                               $0
@@ -619,11 +624,11 @@
                           <!-- End Of The Strategic Initiative -->
 
                           <!-- PM -->
-                          <th v-if="order == 'prjoectManager' && by == 'asc'" @click="sort('prjoectManager', 'desc')" class="text-center" style="white-space: nowrap;">PM <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
+                          <th v-if="order == 'projectManager' && by == 'asc'" @click="sort('projectManager', 'desc')" class="text-center" style="white-space: nowrap;">PM <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
 
-                          <th v-else-if="order == 'prjoectManager' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">PM <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+                          <th v-else-if="order == 'projectManager' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">PM <i class="fa-solid fa-sort-down" style="color: black"></i></th>
 
-                          <th v-else @click="sort('prjoectManager', 'asc')" class="text-center" style="white-space: nowrap;">PM <i class="fa-solid fa-sort"></i></th>
+                          <th v-else @click="sort('projectManager', 'asc')" class="text-center" style="white-space: nowrap;">PM <i class="fa-solid fa-sort"></i></th>
                           <!-- End Of The PM -->
 
                           <!-- Customer Code -->
@@ -672,7 +677,12 @@
                       <tbody>
                         <tr v-for="(data, prospect_index) in prospect" :key="prospect_index">
                           <td class="text-center">
-                            {{ prospect3.from + prospect_index }}
+                            <span v-if="prospect3.from == 1">
+                              {{ prospect3.from + prospect_index }}
+                            </span>
+                            <span v-else>
+                              {{ parseInt(prospect_index) + 1 }}
+                            </span>
                           </td>
                           <td class="text-center">{{ data.year }}</td>
                           <td class="text-center">{{ data.transaction }}</td>
@@ -691,8 +701,8 @@
 
                           <!-- Conditional PM -->
                           <td>
-                            <div v-if="data.prjoectManager" class="text-center">
-                              {{ data.prjoectManager }}
+                            <div v-if="data.projectManager" class="text-center">
+                              {{ data.projectManager }}
                             </div>
                             <div v-else class="text-center">
                               -
@@ -707,7 +717,7 @@
                           <!-- Conditional Market Share -->
                           <td>
                             <div v-if="data.marketShare" class="text-center" style="color: #50CD89">
-                              ${{ data.marketShare }} 
+                              ${{ formatNumber(data.marketShare) }} 
                             </div>
                             <div v-else class="text-center" style="color: #50CD89">
                               $0
@@ -718,7 +728,7 @@
                           <!-- Conditional Sales Value -->
                           <td>
                             <div v-if="data.salesPlan" class="text-center" style="color: #50CD89">
-                              ${{ data.salesPlan }}
+                              ${{ formatNumber(data.salesPlan ) }}
                             </div>
                             <div v-else class="text-center" style="color: #50CD89">
                               $0
@@ -783,11 +793,11 @@
                           <!-- End Of The Strategic Initiative -->
 
                           <!-- PM -->
-                          <th v-if="order == 'prjoectManager' && by == 'asc'" @click="sort('prjoectManager', 'desc')" class="text-center" style="white-space: nowrap;">PM <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
+                          <th v-if="order == 'projectManager' && by == 'asc'" @click="sort('projectManager', 'desc')" class="text-center" style="white-space: nowrap;">PM <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
 
-                          <th v-else-if="order == 'prjoectManager' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">PM <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+                          <th v-else-if="order == 'projectManager' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">PM <i class="fa-solid fa-sort-down" style="color: black"></i></th>
 
-                          <th v-else @click="sort('prjoectManager', 'asc')" class="text-center" style="white-space: nowrap;">PM <i class="fa-solid fa-sort"></i></th>
+                          <th v-else @click="sort('projectManager', 'asc')" class="text-center" style="white-space: nowrap;">PM <i class="fa-solid fa-sort"></i></th>
                           <!-- End Of The PM -->
 
                           <!-- Customer Code -->
@@ -836,7 +846,12 @@
                       <tbody>
                         <tr v-for="(data, prospect_index) in prospect" :key="prospect_index">
                           <td class="text-center">
-                            {{ prospect3.from + prospect_index }}
+                            <span v-if="prospect3.from == 1">
+                              {{ prospect3.from + prospect_index }}
+                            </span>
+                            <span v-else>
+                              {{ parseInt(prospect_index) + 1 }}
+                            </span>
                           </td>
                           <td class="text-center">{{ data.year }}</td>
                           <td class="text-center">{{ data.transaction }}</td>
@@ -855,8 +870,8 @@
 
                           <!-- Conditional PM -->
                           <td>
-                            <div v-if="data.prjoectManager" class="text-center">
-                              {{ data.prjoectManager }}
+                            <div v-if="data.projectManager" class="text-center">
+                              {{ data.projectManager }}
                             </div>
                             <div v-else class="text-center">
                               -
@@ -871,7 +886,7 @@
                           <!-- Conditional Market Share -->
                           <td>
                             <div v-if="data.marketShare" class="text-center" style="color: #50CD89">
-                              ${{ data.marketShare }} 
+                              ${{ formatNumber(data.marketShare) }} 
                             </div>
                             <div v-else class="text-center" style="color: #50CD89">
                               $0
@@ -882,7 +897,7 @@
                           <!-- Conditional Sales Value -->
                           <td>
                             <div v-if="data.salesPlan" class="text-center" style="color: #50CD89">
-                              ${{ data.salesPlan }}
+                              ${{ formatNumber(data.salesPlan ) }}
                             </div>
                             <div v-else class="text-center" style="color: #50CD89">
                               $0
@@ -947,11 +962,11 @@
                           <!-- End Of The Strategic Initiative -->
 
                           <!-- PM -->
-                          <th v-if="order == 'prjoectManager' && by == 'asc'" @click="sort('prjoectManager', 'desc')" class="text-center" style="white-space: nowrap;">PM <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
+                          <th v-if="order == 'projectManager' && by == 'asc'" @click="sort('projectManager', 'desc')" class="text-center" style="white-space: nowrap;">PM <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
 
-                          <th v-else-if="order == 'prjoectManager' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">PM <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+                          <th v-else-if="order == 'projectManager' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">PM <i class="fa-solid fa-sort-down" style="color: black"></i></th>
 
-                          <th v-else @click="sort('prjoectManager', 'asc')" class="text-center" style="white-space: nowrap;">PM <i class="fa-solid fa-sort"></i></th>
+                          <th v-else @click="sort('projectManager', 'asc')" class="text-center" style="white-space: nowrap;">PM <i class="fa-solid fa-sort"></i></th>
                           <!-- End Of The PM -->
 
                           <!-- Customer Code -->
@@ -1000,7 +1015,12 @@
                       <tbody>
                         <tr v-for="(data, prospect_index) in prospect" :key="prospect_index">
                           <td class="text-center">
-                            {{ prospect3.from + prospect_index }}
+                            <span v-if="prospect3.from == 1">
+                              {{ prospect3.from + prospect_index }}
+                            </span>
+                            <span v-else>
+                              {{ parseInt(prospect_index) + 1 }}
+                            </span>
                           </td>
                           <td class="text-center">{{ data.year }}</td>
                           <td class="text-center">{{ data.transaction }}</td>
@@ -1019,8 +1039,8 @@
 
                           <!-- Conditional PM -->
                           <td>
-                            <div v-if="data.prjoectManager" class="text-center">
-                              {{ data.prjoectManager }}
+                            <div v-if="data.projectManager" class="text-center">
+                              {{ data.projectManager }}
                             </div>
                             <div v-else class="text-center">
                               -
@@ -1035,7 +1055,7 @@
                           <!-- Conditional Market Share -->
                           <td>
                             <div v-if="data.marketShare" class="text-center" style="color: #50CD89">
-                              ${{ data.marketShare }} 
+                              ${{ formatNumber(data.marketShare) }} 
                             </div>
                             <div v-else class="text-center" style="color: #50CD89">
                               $0
@@ -1046,7 +1066,7 @@
                           <!-- Conditional Sales Value -->
                           <td>
                             <div v-if="data.salesPlan" class="text-center" style="color: #50CD89">
-                              ${{ data.salesPlan }}
+                              ${{ formatNumber(data.salesPlan ) }}
                             </div>
                             <div v-else class="text-center" style="color: #50CD89">
                               $0
@@ -1642,7 +1662,7 @@
                                 <p class="fs-7 mb-5 text-muted">
                                   If you need more info, please check out FAQ Page
                                 </p>
-                                <div v-if="prospect.transaction_type_id == 1">
+                                <div v-if="prospect.transaction_type_id == 1 || prospect.transaction_type_id == 2">
                                   <div class="row mb-5">
                                     <div class="col-sm-4">
                                       <div class="input-group mb-3">
@@ -1774,7 +1794,7 @@
 
                                   <!--end::Repeater-->
                                 </div>
-                                <div v-else-if="prospect.transaction_type_id == 2">
+                                <div v-else-if="prospect.transaction_type_id == 3">
                                   <div class="row mb-5">
                                     <div class="col">
                                       <div class="input-group mb-3">
@@ -1787,8 +1807,6 @@
                                           label="name"
                                           placeholder="search and select product"
                                           ></multiselect>
-                                          <span v-if="errors.pbth.product" class="error invalid-feedback">{{errors.pbth.product[0]}}
-                                          </span>
                                       </div>
                                     </div>
                                     <div class="col">
@@ -1802,8 +1820,6 @@
                                           placeholder="select aircraft type"
                                           label="name"
                                           ></multiselect>
-                                          <span v-if="errors.pbth.aircraft_type_id" class="error invalid-feedback">{{errors.pbth.aircraft_type_id[0]}}
-                                          </span>
                                       </div>
                                     </div>
                                     <div class="col d-flex align-items-end">
@@ -1896,12 +1912,7 @@
                                                     type="text"
                                                     v-model="target_month.rate"
                                                     class="form-control form-control-sm"
-                                                    :class="{
-                                                        'is-invalid': errors.pbth.target.rate,
-                                                      }"
                                                     />
-                                                    <span v-if="errors.pbth.target.rate" class="error invalid-feedback">{{errors.pbth.target.rate[0]}}
-                                                    </span>
                                                 </div>
                                               </div>
                                               <div class="col-md-5">
@@ -1920,12 +1931,7 @@
                                                     type="text"
                                                     v-model="target_month.flight_hour"
                                                     class="form-control form-control-sm"
-                                                    :class="{
-                                                        'is-invalid': errors.pbth.target.rate,
-                                                      }"
                                                     />
-                                                    <span v-if="errors.pbth.target.rate" class="error invalid-feedback">{{errors.pbth.target.rate[0]}}
-                                                    </span>
                                                 </div>
                                               </div>
                                             </div>

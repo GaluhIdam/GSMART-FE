@@ -1662,7 +1662,7 @@
                                 <p class="fs-7 mb-5 text-muted">
                                   If you need more info, please check out FAQ Page
                                 </p>
-                                <div v-if="prospect.transaction_type_id == 1">
+                                <div v-if="prospect.transaction_type_id == 1 || prospect.transaction_type_id == 2">
                                   <div class="row mb-5">
                                     <div class="col-sm-4">
                                       <div class="input-group mb-3">
@@ -1794,7 +1794,7 @@
 
                                   <!--end::Repeater-->
                                 </div>
-                                <div v-else-if="prospect.transaction_type_id == 2">
+                                <div v-else-if="prospect.transaction_type_id == 3">
                                   <div class="row mb-5">
                                     <div class="col">
                                       <div class="input-group mb-3">
@@ -1807,8 +1807,6 @@
                                           label="name"
                                           placeholder="search and select product"
                                           ></multiselect>
-                                          <span v-if="errors.pbth.product" class="error invalid-feedback">{{errors.pbth.product[0]}}
-                                          </span>
                                       </div>
                                     </div>
                                     <div class="col">
@@ -1822,8 +1820,6 @@
                                           placeholder="select aircraft type"
                                           label="name"
                                           ></multiselect>
-                                          <span v-if="errors.pbth.aircraft_type_id" class="error invalid-feedback">{{errors.pbth.aircraft_type_id[0]}}
-                                          </span>
                                       </div>
                                     </div>
                                     <div class="col d-flex align-items-end">
@@ -1916,12 +1912,7 @@
                                                     type="text"
                                                     v-model="target_month.rate"
                                                     class="form-control form-control-sm"
-                                                    :class="{
-                                                        'is-invalid': errors.pbth.target.rate,
-                                                      }"
                                                     />
-                                                    <span v-if="errors.pbth.target.rate" class="error invalid-feedback">{{errors.pbth.target.rate[0]}}
-                                                    </span>
                                                 </div>
                                               </div>
                                               <div class="col-md-5">
@@ -1940,12 +1931,7 @@
                                                     type="text"
                                                     v-model="target_month.flight_hour"
                                                     class="form-control form-control-sm"
-                                                    :class="{
-                                                        'is-invalid': errors.pbth.target.rate,
-                                                      }"
                                                     />
-                                                    <span v-if="errors.pbth.target.rate" class="error invalid-feedback">{{errors.pbth.target.rate[0]}}
-                                                    </span>
                                                 </div>
                                               </div>
                                             </div>

@@ -39,12 +39,12 @@
           <div class="col-md-5 p-16">
             <span class="btn btn-light btn-sm p-5">
               <div v-if="customer_image == null">
-                <span class="btn btn-light btn-sm p-20 fs-1 fw-bold">
+                <span class="fs-1 fw-bold">
                   {{ initial }}
                 </span>
               </div>
               <div v-else>
-              <img :src=customer_image class="img-fluid" width="25" height="25">
+                <img :src=customer_image class="img-fluid" width="25" height="25">
               </div>
             </span>
             <span class="badge text-muted text-bg-light d-block text-start mt-2">PBTH</span>
@@ -70,7 +70,7 @@
                 </div>
               </div>
             </div>
-            <div class="row mt-1">
+            <div class="row mt-5">
               <div class="col-6">
                 <div class="border-dashed rounded p-4" v-if="deviation">
                   <h1 class="fw-bolder mb-0 fs-5">${{ formatNumber(deviation) }}</h1>
@@ -194,14 +194,14 @@
                     <th class="text-start text-uppercase text-muted">Email</th>
                     <th class="text-start text-uppercase text-muted">Phone</th>
                     <th class="text-start text-uppercase text-muted">Address</th>
-                    <th class="text-start"></th>
+                    <th class="text-start text-uppercase text-muted">Action</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr v-for="(data, contact_person_index) in contact_persons" :key="contact_person_index">
                     <td class="text-start">
                       <div class="row mx-auto">
-                      <span class="btn bg-primary btn-sm text-light col-4">{{ data.firstalphabet }}</span>
+                      <span class="rounded-circle p-5 bg-primary text-light text-center col-4">{{ data.firstalphabet }}</span>
                       <span class="col-8">{{ data.name }}</span>
                       </div>
                     </td>
@@ -416,10 +416,10 @@ export default {
           // Sales Plan Value
           this.sales_plan = response.data.data.sales_plan
           this.initial = this.customer_name.substring(0,1)
-          if(this.sales_plan.length > 0) {
-            this.PBTHMessage()
-            this.$router.push('/my-prospect');
-          }
+          // if(this.sales_plan.length > 0) {
+          //   this.PBTHMessage()
+          //   this.$router.push('/my-prospect');
+          // }
           // Market Share Value
           this.market_share = response.data.data.market_share
           // Deviation Value

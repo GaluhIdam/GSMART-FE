@@ -1247,8 +1247,16 @@
                     v-for="(p_sales, p_sales_index) in sales.data"
                     :key="p_sales_index"
                   >
-                    <td class="text-center">
+                    <!-- <td class="text-center">
                       {{ sales.from + p_sales_index }}
+                    </td> -->
+                    <td class="text-center">
+                      <span v-if="sales.from == 1">
+                        {{ sales.from + p_sales_index }}
+                      </span>
+                      <span v-else>
+                        {{ parseInt(p_sales_index) + 1 }}
+                      </span>
                     </td>
                     <!-- Customer -->
                     <td class="text-center">

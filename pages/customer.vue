@@ -8,26 +8,11 @@
       >
         <!--begin::Page title-->
         <div
-          class="
-            page-title
-            d-flex
-            flex-column
-            justify-content-center
-            flex-wrap
-            me-3
-          "
+          class="page-title d-flex flex-column justify-content-center flex-wrap me-3"
         >
           <!--begin::Title-->
           <p
-            class="
-              page-heading
-              d-flex
-              text-dark
-              fs-6
-              flex-column
-              justify-content-center
-              my-0
-            "
+            class="page-heading d-flex text-dark fs-6 flex-column justify-content-center my-0"
           >
             Customers
           </p>
@@ -59,13 +44,7 @@
             <div class="position-relative me-md-2">
               <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
               <span
-                class="
-                  svg-icon svg-icon-3 svg-icon-gray-500
-                  position-absolute
-                  top-50
-                  translate-middle
-                  ms-6
-                "
+                class="svg-icon svg-icon-3 svg-icon-gray-500 position-absolute top-50 translate-middle ms-6"
               >
                 <svg
                   width="24"
@@ -196,6 +175,30 @@
                       Region <i class="fa-solid fa-sort"></i>
                     </th>
 
+                    <th
+                      v-if="order == 'is_active' && by == 'asc'"
+                      @click="sort('is_active', 'desc')"
+                      class="text-center"
+                    >
+                      Status
+                      <i class="fa-solid fa-sort-up" style="color: black"></i>
+                    </th>
+                    <th
+                      v-else-if="order == 'is_active' && by == 'desc'"
+                      @click="sort('id', 'desc')"
+                      class="text-center"
+                    >
+                      Status
+                      <i class="fa-solid fa-sort-down" style="color: black"></i>
+                    </th>
+                    <th
+                      v-else
+                      @click="sort('is_active', 'asc')"
+                      class="text-center"
+                    >
+                      Status <i class="fa-solid fa-sort"></i>
+                    </th>
+
                     <th class="text-center">Action</th>
                   </tr>
                 </thead>
@@ -211,6 +214,7 @@
                     <td class="text-center">{{ customer.name }}</td>
                     <td class="text-center">{{ customer.country }}</td>
                     <td class="text-center">{{ customer.region }}</td>
+                    <td class="text-center">{{ customer.status }}</td>
                     <td class="d-flex justify-content-center">
                       <button
                         class="btn btn-sm btn-light mx-2"
@@ -241,12 +245,7 @@
         <div class="card-footer">
           <div class="row">
             <div
-              class="
-                col col-md-4
-                d-flex
-                justify-content-start
-                align-items-center
-              "
+              class="col col-md-4 d-flex justify-content-start align-items-center"
             >
               <nav aria-label="Page navigation example">
                 <ul class="pagination">
@@ -413,6 +412,23 @@
                     >
                   </div>
                 </div>
+                <div class="col-6">
+                  <label class="form-label fw-bold">Status</label>
+                  <select
+                    v-model="customer.is_active"
+                    class="form-select"
+                    :class="{ 'is-invalid': errors.is_active }"
+                  >
+                    <option :value="null" disabled>Select Status</option>
+                    <option :value="1">Active</option>
+                    <option :value="0">Inactive</option>
+                  </select>
+                  <span
+                    v-if="errors.is_active"
+                    class="error invalid-feedback"
+                    >{{ errors.is_active[0] }}</span
+                  >
+                </div>
               </div>
               <hr />
               <div id="kt_docs_repeater_basic">
@@ -442,13 +458,7 @@
                     >
                       <div class="form-group row mb-5">
                         <div
-                          class="
-                            col
-                            px-1
-                            d-flex
-                            justify-content-center
-                            align-items-end
-                          "
+                          class="col px-1 d-flex justify-content-center align-items-end"
                         >
                           <h3 class="mb-4">{{ index + 1 }}.</h3>
                         </div>
@@ -546,6 +556,7 @@ export default {
         id: null,
         name: null,
         code: null,
+        is_active: null,
       },
       item: {
         name: null,
@@ -574,6 +585,7 @@ export default {
         code: null,
         country_id: null,
         region_id: null,
+        is_active: null,
       },
     }
   },
@@ -705,6 +717,7 @@ export default {
           .post('api/customer-create', {
             name: this.customer.name,
             code: this.customer.code,
+            is_active: this.customer.is_active,
             country_id: this.country_value,
             region_id: this.region_value,
             area_ams: this.area_ams,
@@ -737,6 +750,7 @@ export default {
           .post('api/customer-create', {
             name: this.customer.name,
             code: this.customer.code,
+            is_active: this.customer.is_active,
             country_id: this.country_value.id,
             region_id: this.region_value.id,
             area_ams: this.area_ams,
@@ -773,6 +787,7 @@ export default {
           .put('/api/customer-update/' + this.customer.id, {
             name: this.customer.name,
             code: this.customer.code,
+            is_active: this.customer.is_active,
             country_id: this.country_value,
             region_id: this.region_value,
             area_ams: this.area_ams,
@@ -805,6 +820,7 @@ export default {
           .put('/api/customer-update/' + this.customer.id, {
             name: this.customer.name,
             code: this.customer.code,
+            is_active: this.customer.is_active,
             country_id: this.country_value.id,
             region_id: this.region_value.id,
             area_ams: this.area_ams,
@@ -843,6 +859,7 @@ export default {
         this.customer.id = result.data.data.id
         this.customer.name = result.data.data.name
         this.customer.code = result.data.data.code
+        this.customer.is_active = result.data.data.is_active
         this.country_value = result.data.data.country
         this.region_value = result.data.data.country.region
         this.area_ams = result.data.data.ams_customers
@@ -940,8 +957,10 @@ export default {
       }
       this.customer.name = null
       this.customer.code = null
+      this.customer.is_active = null
       this.errors.name = null
       this.errors.code = null
+      this.errors.is_active = null
       this.errors.country_id = null
       this.errors.region_id = null
       this.errors.area_ams = null

@@ -65,8 +65,10 @@
                   <div class="mb-3">
                     <label for="" class="form-label">Type</label>
                     <select v-model="type" class="form-select">
-                      <option value="1">TMB</option>
-                      <option value="2">PBTH</option>
+                      <option :value="null" disabled>Select Type</option>
+                      <option value="1">TMB Retail</option>
+                      <option value="2">TMB Project</option>
+                      <option value="3">PBTH</option>
                     </select>
                   </div>
                 </div>
@@ -1612,7 +1614,6 @@ export default {
           this.sales_user = response.data.data.user
           this.sales_all = response.data.data.all
           this.current_page = this.sales.current_page
-          console.log(this.sales)
           Swal.close()
         })
         .catch((error) => console.log(error))

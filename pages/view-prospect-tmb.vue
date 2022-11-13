@@ -349,38 +349,106 @@
                 <thead>
                   <tr class="fw-bold fs-6 text-gray-800">
                     <th class="text-center">No</th>
-                    <th class="text-center">ID</th>
-                    <th class="text-center">Registration</th>
-                    <th class="text-center">Maintenance</th>
-                    <th class="text-center">Location</th>
-                    <th class="text-center">Sales Plan</th>
-                    <th class="text-center">TAT</th>
-                    <th class="text-center">Start Date</th>
-                    <th class="text-center">End Date</th>
-                    <th class="text-center">Level</th>
-                    <th class="text-center">Status</th>
+                    <!-- ID -->
+                    <th v-if="order == 'customer.id' && by == 'asc'" @click="sort('customer.id', 'desc')" class="text-center" style="white-space: nowrap;">ID <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
+
+                    <th v-else-if="order == 'customer.id' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">ID <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+
+                    <th v-else @click="sort('customer.id', 'asc')" class="text-center" style="white-space: nowrap;">ID <i class="fa-solid fa-sort"></i></th>
+                    <!-- End Of The ID -->
+
+                    <!-- Registration -->
+                    <th v-if="order == 'registration' && by == 'asc'" @click="sort('registration', 'desc')" class="text-center" style="white-space: nowrap;">Registration <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
+
+                    <th v-else-if="order == 'registration' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">Registration <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+
+                    <th v-else @click="sort('registration', 'asc')" class="text-center" style="white-space: nowrap;">Registration <i class="fa-solid fa-sort"></i></th>
+                    <!-- End Of The Registration -->
+
+                    <!-- Maintenance -->
+                    <th v-if="order == 'maintenance' && by == 'asc'" @click="sort('maintenance', 'desc')" class="text-center" style="white-space: nowrap;">Maintenance <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
+
+                    <th v-else-if="order == 'maintenance' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">Maintenance <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+
+                    <th v-else @click="sort('maintenance', 'asc')" class="text-center" style="white-space: nowrap;">Maintenance <i class="fa-solid fa-sort"></i></th>
+                    <!-- End Of The Maintenance -->
+
+                    <!-- Location -->
+                    <th v-if="order == 'location' && by == 'asc'" @click="sort('location', 'desc')" class="text-center" style="white-space: nowrap;">Location <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
+
+                    <th v-else-if="order == 'location' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">Location <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+
+                    <th v-else @click="sort('location', 'asc')" class="text-center" style="white-space: nowrap;">Location <i class="fa-solid fa-sort"></i></th>
+                    <!-- End Of The Location -->
+
+                    <!-- Sales Plan -->
+                    <th v-if="order == 'salesPlan' && by == 'asc'" @click="sort('salesPlan', 'desc')" class="text-center" style="white-space: nowrap;">Sales Plan <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
+
+                    <th v-else-if="order == 'salesPlan' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">Sales Plan <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+
+                    <th v-else @click="sort('salesPlan', 'asc')" class="text-center" style="white-space: nowrap;">Sales Plan <i class="fa-solid fa-sort"></i></th>
+                    <!-- End Of The Sales Plan -->
+
+                    <!-- TAT -->
+                    <th v-if="order == 'tat' && by == 'asc'" @click="sort('tat', 'desc')" class="text-center" style="white-space: nowrap;">TAT <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
+
+                    <th v-else-if="order == 'tat' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">TAT <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+
+                    <th v-else @click="sort('tat', 'asc')" class="text-center" style="white-space: nowrap;">TAT <i class="fa-solid fa-sort"></i></th>
+                    <!-- End Of The TAT -->
+
+                    <!-- Start Date -->
+                    <th v-if="order == 'startDate' && by == 'asc'" @click="sort('startDate', 'desc')" class="text-center" style="white-space: nowrap;">Start Date <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
+
+                    <th v-else-if="order == 'startDate' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">Start Date <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+
+                    <th v-else @click="sort('startDate', 'asc')" class="text-center" style="white-space: nowrap;">Start Date <i class="fa-solid fa-sort"></i></th>
+                    <!-- End Of The Start Date -->
+
+                    <!-- End Date -->
+                    <th v-if="order == 'endDate' && by == 'asc'" @click="sort('endDate', 'desc')" class="text-center" style="white-space: nowrap;">End Date <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
+
+                    <th v-else-if="order == 'endDate' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">End Date <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+
+                    <th v-else @click="sort('endDate', 'asc')" class="text-center" style="white-space: nowrap;">End Date <i class="fa-solid fa-sort"></i></th>
+                    <!-- End Of The End Date -->
+
+                    <!-- Level -->
+                    <th v-if="order == 'level' && by == 'asc'" @click="sort('level', 'desc')" class="text-center" style="white-space: nowrap;">Level <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
+
+                    <th v-else-if="order == 'level' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">Level <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+
+                    <th v-else @click="sort('level', 'asc')" class="text-center" style="white-space: nowrap;">Level <i class="fa-solid fa-sort"></i></th>
+                    <!-- End Of The Level -->
+
+                    <!-- Status -->
+                    <th v-if="order == 'status' && by == 'asc'" @click="sort('status', 'desc')" class="text-center" style="white-space: nowrap;">Status <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
+
+                    <th v-else-if="order == 'status' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">Status <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+
+                    <th v-else @click="sort('status', 'asc')" class="text-center" style="white-space: nowrap;">Status <i class="fa-solid fa-sort"></i></th>
+                    <!-- End Of The Status -->
                     <th class="text-center">Action</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr v-for="(tmbSale, tmbSales_index) in tmbSales" :key="tmbSales_index">
+                  <tr v-for="(data, tmbSales_index) in tmbSales" :key="tmbSales_index">
                     <td class="text-center">{{ paginate_tmbSales.from + tmbSales_index }}</td>
-                    <td class="text-center">{{ tmbSale.customer_id}}</td>
-                    <td class="text-center">{{ tmbSale.ac_reg }}</td>
-                    <td class="text-center">{{ tmbSale.maintenance.name }}</td>
-                    <td class="text-center">{{ tmbSale.hangar.name }}</td>
-                    <td class="text-center">{{ tmbSale.value }}</td>
-                    <td class="text-center">{{ tmbSale.tat }}</td>
-                    <td class="text-center">{{ tmbSale.start_date }}</td>
-                    <td class="text-center">{{ tmbSale.end_date }}</td>
-                    <td class="text-center">{{ tmbSale.level }}</td>
-                    <td class="text-center badge text-light bg-primary" style="color: #FFA800" v-if="tmbSale.level == 1">Done</td>
-                    <td class="text-center badge" style="color: #FFA800; background-color: #FFF4DE" v-else>In Progress</td>
-                    <td class="text-center">
-                      <button class="btn btn-sm btn-light mx-2" data-bs-toggle="modal" data-bs-target="#modal" @click="edit(tmbSale, tmbSales)">
+                    <td class="text-center">{{ data.customer.id}}</td>
+                    <td class="text-center">{{ data.registration }}</td>
+                    <td class="text-center">{{ data.maintenance }}</td>
+                    <td class="text-center">{{ data.location }}</td>
+                    <td class="text-center">{{ data.salesPlan }}</td>
+                    <td class="text-center">{{ data.tat }}</td>
+                    <td class="text-center">{{ data.startDate }}</td>
+                    <td class="text-center">{{ data.endDate }}</td>
+                    <td class="text-center">{{ data.level }}</td>
+                    <td class="text-center badge" style="color: #FFA800; background-color: #FFF4DE">{{ data.status }}</td>
+                    <td class="text-center" style="white-space: nowrap;">
+                      <button class="btn btn-sm btn-light mx-2" data-bs-toggle="modal" data-bs-target="#modal" @click="edit(data, tmbSales)">
                         <i class="bi bi-pencil-square text-primary"></i>
                       </button>
-                      <button class="btn btn-sm btn-light" v-on:click="removeTmbSales(tmbSale.id)">
+                      <button class="btn btn-sm btn-light" v-on:click="removeTmbSales(data.id)">
                         <i class="bi bi-trash-fill text-primary"></i>
                       </button>
                     </td>
@@ -395,46 +463,44 @@
         <div class="card-footer">
             <div class="row">
               <div class="col d-flex justify-content-start align-items-center">
-                <nav aria-label="Page navigation example">
-                  <ul class="pagination">
-                    <li class="page-item align-self-center">Rows per page:</li>
-                    <li class="page-item">
-                      <select
-                        class="form-control form-control-sm"
-                        v-model="paginate"
-                        @change="listSalesTmb()"
-                      >
-                        <option value="10">10</option>
-                        <option value="25">25</option>
-                        <option value="50">50</option>
-                        <option value="100">100</option>
-                      </select>
-                    </li>
-                  </ul>
-                </nav>
-              </div>
-              <div class="col d-flex justify-content-end align-items-center">
-                <nav aria-label="Page navigation example">
-                  <ul class="pagination">
+              <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                  <li class="page-item align-self-center">Rows per page:</li>
                   <li class="page-item">
-                    <button type="button" class="page-link" :class="{
-                        disabled: !paginate_tmbSales.prev_page_url,
-                      }" @click="paginate_tmbSales.prev_page_url && listSalesTmb(paginate_tmbSales.prev_page_url)">
-                      Previous
-                    </button>
-                  </li>
-                  <li class="page-item" style="margin-left: 15px; margin-right: 15px">
-                    <input type="text" class="form-control form-control-sm text-center" v-model="current_page" @keypress="directPage" style="width: 60px"/>
-                  </li>
-                  <li class="page-item">
-                    <button type="button" class="page-link" :class="{
-                        disabled: !paginate_tmbSales.next_page_url,
-                      }" @click="paginate_tmbSales.next_page_url && listSalesTmb(paginate_tmbSales.next_page_url)">
-                      Next
-                    </button>
+                    <select
+                      class="form-control form-control-sm"
+                      v-model="paginate"
+                      @change="listProspect()"
+                    >
+                      <option value="10">10</option>
+                      <option value="25">25</option>
+                      <option value="50">50</option>
+                      <option value="100">100</option>
+                    </select>
                   </li>
                 </ul>
-                </nav>
+              </nav>
+              </div>
+              <div class="col col-md-8 d-flex justify-content-end align-items-center">
+              <nav>
+                <ul class="pagination">
+                  <!-- Start pagination -->
+                  <li v-for="(link, link_index) in paginate_tmbSales.links" :key="link_index" class="page-item" :class="{ disabled: !link.url, active: link.active }">
+                    <a href="javascript:void(0)" @click="listProspect(link.url)" class="page-link">
+                      <span v-if="link.label == '&laquo; Previous'">
+                          <i class="fa-solid fa-caret-left"></i>
+                      </span>
+                      <span v-else-if="link.label == 'Next &raquo;'">
+                          <i class="fa-solid fa-caret-right"></i>
+                      </span>
+                      <span v-else>
+                          {{ link.label }}
+                      </span>
+                    </a>
+                  </li>
+                  <!-- End pagination -->
+                </ul>
+              </nav>
               </div>
             </div>
           </div>
@@ -491,6 +557,8 @@ export default {
         phone: null,
         customer_id: null,
       },
+      order: 'id',
+      by: 'desc',
       paginate: '10',
       search: null,
       current_page: null,
@@ -517,6 +585,11 @@ export default {
     }, 500),
   },
   methods: {
+    sort(order, by) {
+      this.order = order;
+      this.by = by;
+      this.listSalesTmb();
+    },
     authMessage() {
       toastr.options = {
         closeButton: false,
@@ -618,18 +691,21 @@ export default {
         })
     },
     listSalesTmb(paginate) {
+      this.$axios
       this.loading()
-      paginate = paginate || `/api/sales-show-tmb/${this.$route.query.id}`
+        paginate = paginate || `/api/sales-show-tmb/${this.$route.query.id}`
       this.$axios
         .get(paginate, {
           params: {
             search: this.search,
+            filter: this.year,
             paginate: this.paginate,
+            order: this.order,
+            by: this.by,
           },
         })
         .then((response) => {
           this.tmbSales = response.data.sales.data
-          console.log(this.tmbSales)
           this.paginate_tmbSales = response.data.sales
           this.current_page = response.data.sales.current_page
           this.value = response.data

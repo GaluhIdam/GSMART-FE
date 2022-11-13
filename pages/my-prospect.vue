@@ -1095,8 +1095,8 @@
             </div>
           </div>
           <div class="card-footer">
-          <div class="row">
-            <div class="col d-flex justify-content-start align-items-center">
+            <div class="row">
+              <div class="col d-flex justify-content-start align-items-center">
               <nav aria-label="Page navigation example">
                 <ul class="pagination">
                   <li class="page-item align-self-center">Rows per page:</li>
@@ -1114,8 +1114,8 @@
                   </li>
                 </ul>
               </nav>
-            </div>
-            <div class="col col-md-8 d-flex justify-content-end align-items-center">
+              </div>
+              <div class="col col-md-8 d-flex justify-content-end align-items-center">
               <nav>
                 <ul class="pagination">
                   <!-- Start pagination -->
@@ -1135,9 +1135,9 @@
                   <!-- End pagination -->
                 </ul>
               </nav>
+              </div>
             </div>
           </div>
-        </div>
         </div>
       </div>
     </div>
@@ -1410,7 +1410,7 @@
                                           :options="customer_options"
                                           placeholder=""
                                           label="name"
-                                          @select="listAms"
+                                          @select="listAmsCustomer"
                                           :close-on-select="true"
                                           :clear-on-select="false"
                                         ></multiselect>
@@ -1424,17 +1424,17 @@
                                         <multiselect
                                           v-if="selected_customer == null"
                                           :disabled="!selected_customer"
-                                          v-model="selected_ams"
-                                          :options="areaAms_options"
+                                          v-model="selected_amsCustomer"
+                                          :options="amsCustomer_options"
                                           placeholder=""
-                                          label="initial"
+                                          label="label"
                                         ></multiselect>
                                         <multiselect
                                           v-else
-                                          v-model="selected_ams"
-                                          :options="areaAms_options"
+                                          v-model="selected_amsCustomer"
+                                          :options="amsCustomer_options"
                                           placeholder=""
-                                          label="initial"
+                                          label="label"
                                         ></multiselect>
                                         <!-- <span v-if="errors.ams_customer_id" class="error invalid-feedback">{{errors.ams_customer_id[0]}}
                                         </span> -->
@@ -1469,7 +1469,7 @@
                                           :options="customer_options"
                                           placeholder=""
                                           label="name"
-                                          @select="listAms"
+                                          @select="listAmsCustomer"
                                           :close-on-select="true"
                                           :clear-on-select="false"
                                         ></multiselect>
@@ -1483,17 +1483,17 @@
                                         <multiselect
                                           v-if="selected_customer == null"
                                           :disabled="!selected_customer"
-                                          v-model="selected_ams"
-                                          :options="areaAms_options"
+                                          v-model="selected_amsCustomer"
+                                          :options="amsCustomer_options"
                                           placeholder=""
-                                          label="initial"
+                                          label="label"
                                         ></multiselect>
                                         <multiselect
                                           v-else
-                                          v-model="selected_ams"
-                                          :options="areaAms_options"
+                                          v-model="selected_amsCustomer"
+                                          :options="amsCustomer_options"
                                           placeholder=""
-                                          label="initial"
+                                          label="label"
                                         ></multiselect>
                                         <!-- <span v-if="errors.ams_customer_id" class="error invalid-feedback">{{errors.ams_customer_id[0]}}
                                         </span> -->
@@ -2036,7 +2036,7 @@ export default {
       acType_value: null,
       currentYear:  new Date().getFullYear(),
       selected_customer: null,
-      selected_ams: null,
+      selected_amsCustomer: null,
       selected_strategic_initiative: null,
       selected_pm: null,
       product_value: null,
@@ -2044,7 +2044,7 @@ export default {
       strategic_initiative_value: null,
       project_manager_value: null,
       areaAms_value: null,
-      areaAms_options: [],
+      amsCustomer_options: [],
       acType_options: [],
       maintenance_options: [],
       product_options: [],
@@ -2054,9 +2054,7 @@ export default {
       project_manager_options: [],
       prospect: [],
       prospect2: [],
-      prospect3: {
-        link: [],
-      },
+      prospect3: [],
       step_number: 1,
       prospect_type: {
         data: [],
@@ -2324,11 +2322,11 @@ export default {
           this.maintenance_options = response.data.data.data
         })
     },
-    listAms({id}) {
+    listAmsCustomer({id}) {
       this.$axios
-        .get(`api/ams-show/${id}`)
+        .get(`api/ams-customer/${id}`)
         .then((response) => {
-          this.areaAms_options = response.data.data
+          this.amsCustomer_options = response.data.data
         })
     },
     listStrategicInitiative() {
@@ -2461,7 +2459,7 @@ export default {
         .post('/api/prospect-create', {
           prospect_type_id: this.prospect.prospect_type_id,
           year: this.prospect.year,
-          ams_customer_id: this.selected_ams.id,
+          ams_customer_id: this.selected_amsCustomer.id,
           transaction_type_id: this.prospect.transaction_type_id,
           tmb: this.tmb,
         })
@@ -2484,7 +2482,7 @@ export default {
         .post('/api/prospect-create', {
           prospect_type_id: this.prospect.prospect_type_id,
           year: this.prospect.year,
-          ams_customer_id: this.selected_ams.id,
+          ams_customer_id: this.selected_amsCustomer.id,
           transaction_type_id: this.prospect.transaction_type_id,
           strategic_initiative_id: this.selected_strategic_initiative.id,
           pm_id: this.selected_pm.id,
@@ -2508,7 +2506,7 @@ export default {
         .post('/api/prospect-create', {
           prospect_type_id: this.prospect.prospect_type_id,
           year: this.prospect.year,
-          ams_customer_id: this.selected_ams.id,
+          ams_customer_id: this.selected_amsCustomer.id,
           transaction_type_id: this.prospect.transaction_type_id,
           pbth: this.pbth,
         })
@@ -2530,7 +2528,7 @@ export default {
         .post('/api/prospect-create', {
           prospect_type_id: this.prospect.prospect_type_id,
           year: this.prospect.year,
-          ams_customer_id: this.selected_ams.id,
+          ams_customer_id: this.selected_amsCustomer.id,
           transaction_type_id: this.prospect.transaction_type_id,
           strategic_initiative_id: this.selected_strategic_initiative.id,
           pm_id: this.selected_pm.id,
@@ -2561,7 +2559,7 @@ export default {
     clearForm() {
       this.prospect = []
       this.selected_customer = null
-      this.selected_ams = null
+      this.selected_amsCustomer = null
       this.selected_strategic_initiative = null
       this.selected_pm = null
       this.acType_value = null

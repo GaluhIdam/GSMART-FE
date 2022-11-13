@@ -153,23 +153,6 @@
                 }}</span>
               </div>
               <div class="form-group mb-3">
-                <label class="form-label fw-bold">Customer</label>
-                <select v-model="contact_person.customer_id" class="form-select form-select-lg" :class="{ 'is-invalid': errors.customer_id }">
-                  <option 
-                    v-for="(customer_option, customer_index) in customer_options" :key="customer_index"
-                    :value="customer_option.id" 
-                    :class="{
-                      'is-invalid': errors.customer_id,
-                    }"
-                  >
-                    {{ customer_option.name }}
-                  </option>
-                </select>
-                <span v-if="errors.customer_id" class="error invalid-feedback">{{
-                  errors.customer_id[0]
-                }}</span>
-              </div>
-              <div class="form-group mb-3">
                 <label class="form-label fw-bold">Title</label>
                 <input type="text" class="form-control" v-model="contact_person.title" :class="{
                     'is-invalid': errors.title,
@@ -366,19 +349,19 @@
                     <!-- End Of The Registration -->
 
                     <!-- Maintenance -->
-                    <th v-if="order == 'maintenance' && by == 'asc'" @click="sort('maintenance', 'desc')" class="text-center" style="white-space: nowrap;">Maintenance <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
+                    <th v-if="order == 'maintenance.name' && by == 'asc'" @click="sort('maintenance.name', 'desc')" class="text-center" style="white-space: nowrap;">Maintenance <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
 
-                    <th v-else-if="order == 'maintenance' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">Maintenance <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+                    <th v-else-if="order == 'maintenance.name' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">Maintenance <i class="fa-solid fa-sort-down" style="color: black"></i></th>
 
-                    <th v-else @click="sort('maintenance', 'asc')" class="text-center" style="white-space: nowrap;">Maintenance <i class="fa-solid fa-sort"></i></th>
+                    <th v-else @click="sort('maintenance.name', 'asc')" class="text-center" style="white-space: nowrap;">Maintenance <i class="fa-solid fa-sort"></i></th>
                     <!-- End Of The Maintenance -->
 
                     <!-- Location -->
-                    <th v-if="order == 'location' && by == 'asc'" @click="sort('location', 'desc')" class="text-center" style="white-space: nowrap;">Location <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
+                    <th v-if="order == 'location.name' && by == 'asc'" @click="sort('location.name', 'desc')" class="text-center" style="white-space: nowrap;">Location <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
 
-                    <th v-else-if="order == 'location' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">Location <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+                    <th v-else-if="order == 'location.name' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">Location <i class="fa-solid fa-sort-down" style="color: black"></i></th>
 
-                    <th v-else @click="sort('location', 'asc')" class="text-center" style="white-space: nowrap;">Location <i class="fa-solid fa-sort"></i></th>
+                    <th v-else @click="sort('location.name', 'asc')" class="text-center" style="white-space: nowrap;">Location <i class="fa-solid fa-sort"></i></th>
                     <!-- End Of The Location -->
 
                     <!-- Sales Plan -->
@@ -398,19 +381,19 @@
                     <!-- End Of The TAT -->
 
                     <!-- Start Date -->
-                    <th v-if="order == 'startDate' && by == 'asc'" @click="sort('startDate', 'desc')" class="text-center" style="white-space: nowrap;">Start Date <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
+                    <th v-if="order == 'start_date' && by == 'asc'" @click="sort('start_date', 'desc')" class="text-center" style="white-space: nowrap;">Start Date <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
 
-                    <th v-else-if="order == 'startDate' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">Start Date <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+                    <th v-else-if="order == 'start_date' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">Start Date <i class="fa-solid fa-sort-down" style="color: black"></i></th>
 
-                    <th v-else @click="sort('startDate', 'asc')" class="text-center" style="white-space: nowrap;">Start Date <i class="fa-solid fa-sort"></i></th>
+                    <th v-else @click="sort('start_date', 'asc')" class="text-center" style="white-space: nowrap;">Start Date <i class="fa-solid fa-sort"></i></th>
                     <!-- End Of The Start Date -->
 
                     <!-- End Date -->
-                    <th v-if="order == 'endDate' && by == 'asc'" @click="sort('endDate', 'desc')" class="text-center" style="white-space: nowrap;">End Date <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
+                    <th v-if="order == 'end_date' && by == 'asc'" @click="sort('end_date', 'desc')" class="text-center" style="white-space: nowrap;">End Date <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
 
-                    <th v-else-if="order == 'endDate' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">End Date <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+                    <th v-else-if="order == 'end_date' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">End Date <i class="fa-solid fa-sort-down" style="color: black"></i></th>
 
-                    <th v-else @click="sort('endDate', 'asc')" class="text-center" style="white-space: nowrap;">End Date <i class="fa-solid fa-sort"></i></th>
+                    <th v-else @click="sort('end_date', 'asc')" class="text-center" style="white-space: nowrap;">End Date <i class="fa-solid fa-sort"></i></th>
                     <!-- End Of The End Date -->
 
                     <!-- Level -->
@@ -436,12 +419,12 @@
                     <td class="text-center">{{ paginate_tmbSales.from + tmbSales_index }}</td>
                     <td class="text-center">{{ data.customer.id}}</td>
                     <td class="text-center">{{ data.registration }}</td>
-                    <td class="text-center">{{ data.maintenance }}</td>
-                    <td class="text-center">{{ data.location }}</td>
-                    <td class="text-center">{{ data.salesPlan }}</td>
+                    <td class="text-center">{{ data.maintenance.name }}</td>
+                    <td class="text-center">{{ data.location.name }}</td>
+                    <td class="text-center" style="color: #50CD89">${{ data.sales_plan }}</td>
                     <td class="text-center">{{ data.tat }}</td>
-                    <td class="text-center">{{ data.startDate }}</td>
-                    <td class="text-center">{{ data.endDate }}</td>
+                    <td class="text-center">{{ data.start_date }}</td>
+                    <td class="text-center">{{ data.end_date }}</td>
                     <td class="text-center">{{ data.level }}</td>
                     <td class="text-center badge" style="color: #FFA800; background-color: #FFF4DE">{{ data.status }}</td>
                     <td class="text-center" style="white-space: nowrap;">
@@ -526,8 +509,11 @@ export default {
         tat: null,
         value: null,
         start_date: null,
-        maintenance_id: [],
-        hangar_id: [],
+        maintenance_id: null,
+        hangar_id: null,
+        maintenance: null,
+        location: null,
+        startDate: null,
       },
       contact_person: {
         name: null,
@@ -537,6 +523,8 @@ export default {
         customer_id: null,
         title: null
       },
+      customer_id: null,
+      customer_name: null,
       tmb: [],
       sales_plan: [],
       registration: null,
@@ -652,6 +640,8 @@ export default {
           this.tmb = response.data.data.prospect
           // Customer Name
           this.customer_name = response.data.data.customer.name
+          // Customer ID
+          this.customer_id = response.data.data.customer.id
           // Customer Image
           this.customer_image = response.data.data.customer.full_path
           // Registration Format
@@ -777,7 +767,7 @@ export default {
           phone : this.contact_person.phone,
           email : this.contact_person.email,
           address : this.contact_person.address,
-          customer_id : this.contact_person.customer_id,
+          customer_id : this.customer_id,
           title : this.contact_person.title,
         })
         .then((response) => {
@@ -798,12 +788,12 @@ export default {
       this.modal_create = false
       this.modal_update = true
       this.tmbSale.id = tmbSale.id
-      this.tmbSale.maintenance_id = tmbSale.maintenance_id
-      this.tmbSale.ac_reg = tmbSale.ac_reg
+      this.tmbSale.maintenance_id = tmbSale.maintenance.id
+      this.tmbSale.ac_reg = tmbSale.registration
       this.tmbSale.tat = tmbSale.tat
-      this.tmbSale.hangar_id = tmbSale.hangar_id
-      this.tmbSale.value = tmbSale.value
-      this.tmbSale.start_date = tmbSale.start_date
+      this.tmbSale.hangar_id = tmbSale.location.id
+      this.tmbSale.value = tmbSale.sales_plan
+      this.tmbSale.start_date = tmbSale.startDate
     },
     add() {
       this.clearForm()
@@ -831,7 +821,6 @@ export default {
       this.contact_person.email = null
       this.contact_person.address = null
       this.contact_person.phone = null
-      this.contact_person.customer_id = null
       this.contact_person.title = null
       this.errors.maintenance_id = null
       this.errors.ac_reg = null
@@ -843,7 +832,6 @@ export default {
       this.errors.email = null
       this.errors.address = null
       this.errors.phone = null
-      this.errors.customer_id = null
       this.errors.title = null
     },
     clearError(){

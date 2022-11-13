@@ -37,16 +37,15 @@
       </div>
       <!--end::Toolbar container-->
     </div>
-    <div class="container mt-20 mb-20">
+    <div class="container mt-5">
       <div class="card shadow-sm">
-        <div class="card-header">
+        <!-- <div class="card-header">
           <h3 class="card-title">Title</h3>
-          <div class="card-toolbar">
-            <button type="button" class="btn btn-sm btn-light">Action</button>
-          </div>
+        </div> -->
+        <div class="card-body">
+          <h1>Sorry, This page is under construction.</h1>
         </div>
-        <div class="card-body">Lorem Ipsum is simply dummy text...</div>
-        <div class="card-footer">Footer</div>
+        <!-- <div class="card-footer">Footer</div> -->
       </div>
     </div>
   </div>

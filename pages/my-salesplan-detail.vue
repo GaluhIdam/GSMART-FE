@@ -381,13 +381,19 @@
                 <div class="card mb-3" style="max-width: 540px">
                   <div class="row no-gutters">
                     <div class="col-md-2 mt-2 mb-20" v-if="sales_detail">
-                      <img
-                        :src="sales_detail.customer.full_path"
-                        class="rounded"
-                        alt="No Image"
-                        style="width: 70px"
-                      />
-                      <!-- <img src="https://dummyimage.com/70x70/000/fff" class="rounded" style="width: 70px;"> -->
+                      <div v-if="sales_detail.customer.full_path == null">
+                        <span class="fs-1 fw-bold">
+                          {{ initial }}
+                        </span>
+                      </div>
+                      <div v-else>
+                        <img
+                          :src="sales_detail.customer.full_path"
+                          class="rounded"
+                          alt="No Image"
+                          style="width: 70px"
+                        />
+                      </div>
                     </div>
                     <div class="col-md-10" style="margin-top: -20px">
                       <div class="card-body">
@@ -485,11 +491,14 @@
                   >
                 </div>
                 <p class="text-muted mt-5">Type</p>
-                <div v-if="sales_detail.type === 'TMB'">
-                  <span class="badge badge-danger">TMB</span>
+                <div v-if="sales_detail.type === 'TMB Retail'">
+                  <span class="badge badge-danger">{{ sales_detail.type }}</span>
+                </div>
+                <div v-if="sales_detail.type === 'TMB Project'">
+                  <span class="badge badge-primary">{{ sales_detail.type }}</span>
                 </div>
                 <div v-if="sales_detail.type === 'PBTH'">
-                  <span class="badge badge-warning">PBTH</span>
+                  <span class="badge badge-warning">{{ sales_detail.type }}</span>
                 </div>
               </div>
               <div class="col-lg-2" v-if="sales_detail">
@@ -562,7 +571,7 @@
               <div class="col-lg-3">
                 <p class="text-muted mt-5">Maintenance</p>
                 <p v-if="sales_detail">
-                  <b>{{ sales_detail.maintenance.description }}</b>
+                  <b>{{ sales_detail.maintenance.name }}</b>
                 </p>
               </div>
             </div>
@@ -3036,6 +3045,7 @@ export default {
         title: null,
         status: null,
       },
+      initial: null,
       search: null,
       so_number: null,
       type: null,
@@ -3167,10 +3177,12 @@ export default {
         .get(`api/sales-show/${this.$route.query.id}`)
         .then((response) => {
           this.sales_detail = response.data.data.salesDetail
+          this.customer_name = response.data.data.salesDetail.customer.name
           this.level4 = response.data.data.level4
           this.level3 = response.data.data.level3
           this.level2 = response.data.data.level2
           this.level1 = response.data.data.level1
+          this.initial = this.customer_name.substring(0,1) // get initial customer
           Swal.close()
         })
         .catch((error) => {

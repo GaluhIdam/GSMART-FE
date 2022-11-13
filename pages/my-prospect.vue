@@ -1986,16 +1986,34 @@
                           <button type="button" class="btn btn-primary mt-5" data-kt-stepper-action="submit">
 
                             <div v-if="prospect.transaction_type_id == 1 && prospect.prospect_type_id == 1">
-                              <span class="indicator-label" @click="createTMBOrganic()">Save</span>
-                            </div>
-                            <div v-else-if="prospect.transaction_type_id == 2 && prospect.prospect_type_id == 2">
-                              <span class="indicator-label" @click="createPBTHInorganic()">Save</span>
+                              <span class="indicator-label" @click="createTMBOrganic()">
+                                Save
+                              </span>
                             </div>
                             <div v-else-if="prospect.transaction_type_id == 1 && prospect.prospect_type_id == 2">
-                              <span class="indicator-label" @click="createTMBInorganic()">Save</span>
+                              <span class="indicator-label" @click="createTMBInorganic()">
+                                Save
+                              </span>
                             </div>
                             <div v-else-if="prospect.transaction_type_id == 2 && prospect.prospect_type_id == 1">
-                              <span class="indicator-label" @click="createPBTHOrganic()">Save</span>
+                              <span class="indicator-label" @click="createTMBOrganic()">
+                                Save
+                              </span>
+                            </div>
+                            <div v-else-if="prospect.transaction_type_id == 2 && prospect.prospect_type_id == 2">
+                              <span class="indicator-label" @click="createTMBInorganic()">
+                                Save
+                              </span>
+                            </div>
+                            <div v-else-if="prospect.transaction_type_id == 3 && prospect.prospect_type_id == 1">
+                              <span class="indicator-label" @click="createPBTHOrganic()">
+                                Save
+                              </span>
+                            </div>
+                            <div v-else-if="prospect.transaction_type_id == 3 && prospect.prospect_type_id == 2">
+                              <span class="indicator-label" @click="createPBTHInorganic()">
+                                Save
+                              </span>
                             </div>
                             <div v-else>
                               <span class="indicator-label" @click="failMessage()">Save</span>
@@ -2415,7 +2433,6 @@ export default {
           this.current_page = this.prospect3.current_page
           Swal.close()
         })
-        .catch((error) => console.log(error))
     },
     filterYear(year){
       this.year = year

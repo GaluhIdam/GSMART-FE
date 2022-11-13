@@ -154,13 +154,6 @@
                 }}</span>
               </div>
               <div class="form-group mb-3">
-                <label class="form-label fw-bold">Customer</label>
-                <multiselect v-model="contact_person.customer_id" :options="customer_options" :searchable="true" :class="{'is-invalid': errors.customer_id,}" label="name"></multiselect>
-                <span v-if="errors.customer_id" class="error invalid-feedback">{{
-                  errors.customer_id[0]
-                }}</span>
-              </div>
-              <div class="form-group mb-3">
                 <label class="form-label fw-bold">Title</label>
                 <input type="text" class="form-control" v-model="contact_person.title" :class="{
                     'is-invalid': errors.title,
@@ -310,6 +303,7 @@ export default {
         customer_id: null,
         title: null,
       },
+      customer_id: null,
       total_sales_plan: null,
       pbth_length: null,
       initial: null,
@@ -416,10 +410,10 @@ export default {
           // Sales Plan Value
           this.sales_plan = response.data.data.sales_plan
           this.initial = this.customer_name.substring(0,1)
-          if(this.sales_plan.length > 0) {
-            this.PBTHMessage()
-            this.$router.push('/my-prospect');
-          }
+          // if(this.sales_plan.length > 0) {
+          //   this.PBTHMessage()
+          //   this.$router.push('/my-prospect');
+          // }
           // Market Share Value
           this.market_share = response.data.data.market_share
           // Deviation Value
@@ -476,7 +470,7 @@ export default {
           phone : this.contact_person.phone,
           email : this.contact_person.email,
           address : this.contact_person.address,
-          customer_id : this.contact_person.customer_id.id,
+          customer_id : this.customer_id,
           title : this.contact_person.title,
         })
         .then((response) => {

@@ -1316,8 +1316,6 @@
                                     If you need more info, please check out FAQ
                                     Page
                                   </p>
-                                  <!--begin::Option-->
-
                                   <div class="mt-10" v-for="(prospectType, prospect_type_index) in prospect_type.data" :key="prospect_type_index">
                                     <input type="radio" class="btn-check" name="prospectType" v-model="prospect.prospect_type_id" :value="prospectType.id" :id="prospectType.name">
                                     <label class="btn btn-outline btn-outline-dashed btn-active-light-primary p-7 d-flex align-items-center mb-5"
@@ -1367,6 +1365,20 @@
                                     </label>
                                   </div>
                                 </div>
+                                <div class="row mt-10">
+                                  <div class="col-md-6">
+                                    <button type="button" data-bs-dismiss="modal" class="btn btn-light text-primary mt-5" @click="closeModal()">
+                                      Close
+                                    </button>
+                                  </div>
+                                  <div class="col-md-6 justify-content-end d-flex">
+                                    <div v-if="role == 'TPC' || role == 'Administrator'">
+                                      <button class="btn btn-primary mt-5 align-self-end" type="button" @click="nextButtonClick()" :disabled="prospect.prospect_type_id == null">
+                                      Next
+                                      </button>
+                                    </div>
+                                  </div>
+                                </div>
                               </div>
                               <div v-else>
                               </div>
@@ -1393,11 +1405,6 @@
                                           class="form-control form-control-sm"
                                           v-model="prospect.year"
                                         />
-                                        <!-- <span v-if="errors.year" class="error invalid-feedback">{{errors.year[0]}}
-                                          :class="{
-                                            'is-invalid': errors.year,
-                                          }"
-                                        </span> -->
                                       </div>
                                       <div class="mb-3">
                                         <label
@@ -1436,8 +1443,23 @@
                                           placeholder=""
                                           label="label"
                                         ></multiselect>
-                                        <!-- <span v-if="errors.ams_customer_id" class="error invalid-feedback">{{errors.ams_customer_id[0]}}
-                                        </span> -->
+                                      </div>
+                                      <div class="row mt-10">
+                                        <div class="col-md-6">
+                                          <div v-if="role == 'TPC' || role == 'Administrator'">
+                                            <button type="button" class="btn btn-light text-primary mt-5" @click="backButtonClick(), deleteOrganic()">
+                                              Back
+                                            </button>
+                                          </div>
+                                        </div>
+                                        <div class="col-md-6 justify-content-end d-flex">
+                                          <div v-if="role == 'TPC' || role == 'Administrator'">
+                                            <button class="btn btn-primary mt-5 align-self-end" type="button"
+                                            @click="nextButtonClick()" :disabled="prospect.year == null || selected_customer == null || selected_amsCustomer == null">
+                                            Next
+                                            </button>
+                                          </div>
+                                        </div>
                                       </div>
                                     </div>
                                     <div v-else-if="prospect.prospect_type_id == 2">
@@ -1452,11 +1474,6 @@
                                           class="form-control form-control-sm"
                                           v-model="prospect.year"
                                         />
-                                          <!-- :class="{
-                                            'is-invalid': errors.year,
-                                          }"
-                                        <span v-if="errors.year" class="error invalid-feedback">{{errors.year[0]}}
-                                        </span> -->
                                       </div>
                                       <div class="mb-3">
                                         <label
@@ -1495,8 +1512,6 @@
                                           placeholder=""
                                           label="label"
                                         ></multiselect>
-                                        <!-- <span v-if="errors.ams_customer_id" class="error invalid-feedback">{{errors.ams_customer_id[0]}}
-                                        </span> -->
                                       </div>
                                       <div class="mb-3">
                                         <label
@@ -1524,9 +1539,32 @@
                                           label="name"
                                         ></multiselect>
                                       </div>
+                                      <div class="row mt-10">
+                                        <div class="col-md-6">
+                                          <div v-if="role == 'TPC' || role == 'Administrator'">
+                                            <button type="button" class="btn btn-light text-primary mt-5" @click="backButtonClick(), deleteInOrganic()">
+                                              Back
+                                            </button>
+                                          </div>
+                                        </div>
+                                        <div class="col-md-6 justify-content-end d-flex">
+                                          <div v-if="role == 'TPC' || role == 'Administrator'">
+                                            <button class="btn btn-primary mt-5 align-self-end" type="button" @click="nextButtonClick()" :disabled="prospect.year == null || selected_customer == null || selected_amsCustomer == null || selected_strategic_initiative == null || selected_pm == null">
+                                            Next
+                                            </button>
+                                          </div>
+                                        </div>
+                                      </div>
                                     </div>
                                     <div v-else>
                                       <h3 class="mt-5">Select at least 1 prospect type</h3>
+                                        <div class="col-md-6">
+                                          <div v-if="role == 'TPC' || role == 'Administrator'">
+                                            <button type="button" class="btn btn-light text-primary mt-5" @click="backButtonClick()">
+                                              Back
+                                            </button>
+                                          </div>
+                                        </div>
                                     </div>
                                   </div>
                                 </div>
@@ -1559,19 +1597,7 @@
                                       :value="transactionType.id"
                                       :id="transactionType.name"
                                     />
-                                    <label
-                                      class="
-                                        btn
-                                        btn-outline
-                                        btn-outline-dashed
-                                        btn-active-light-primary
-                                        p-7
-                                        d-flex
-                                        align-items-center
-                                        mb-5
-                                      "
-                                      :for="transactionType.name"
-                                    >
+                                    <label class="btn btn-outline btn-outline-dashed btn-active-light-primary p-7 d-flex align-items-center mb-5" :for="transactionType.name">
                                       <span
                                         class="svg-icon svg-icon-3hx"
                                         v-if="transactionType_index % 2 == 0"
@@ -1650,6 +1676,23 @@
                                     <!--end::Option-->
                                   </div>
                                   <!--begin::Option-->
+                                </div>
+                                <div class="row mt-10">
+                                  <div class="col-md-6">
+                                    <div v-if="role == 'TPC' || role == 'Administrator'">
+                                      <button type="button" class="btn btn-light text-primary mt-5" 
+                                      @click="backButtonClick() , deleteTransactionType()">
+                                        Back
+                                      </button>
+                                    </div>
+                                  </div>
+                                  <div class="col-md-6 justify-content-end d-flex">
+                                    <div v-if="role == 'TPC' || role == 'Administrator'">
+                                      <button class="btn btn-primary mt-5 align-self-end" type="button" @click="nextButtonClick()" :disabled="prospect.transaction_type_id == null">
+                                      Next
+                                      </button>
+                                    </div>
+                                  </div>
                                 </div>
                               </div>
                               <div v-else>
@@ -1774,7 +1817,58 @@
                                     <!--end::Form group-->
                                   </div>
                                   <!--end::Form group-->
-
+                                  <div class="row mt-10">
+                                    <div class="col-md-6">
+                                      <button type="button" class="btn btn-light text-primary mt-5" 
+                                      @click="backButtonClick(), deleteTransactionDetail()">
+                                        Back
+                                      </button>
+                                    </div>
+                                    <div class="col-md-6 justify-content-end d-flex">
+                                      <div v-if="role == 'TPC' || role == 'Administrator'">
+                                        <div v-if="prospect.transaction_type_id == 1 && prospect.prospect_type_id == 1">
+                                          <button class="btn btn-primary rounded" type="button"
+                                            :disabled="product_value == null" @click="createTMBOrganic()">
+                                            Save
+                                          </button>
+                                        </div>
+                                        <div v-else-if="prospect.transaction_type_id == 1 && prospect.prospect_type_id == 2">
+                                          <button class="btn btn-primary rounded" type="button" :disabled="
+                                          product_value == null" @click="createTMBInorganic()">
+                                            Save
+                                          </button>
+                                        </div>
+                                        <div v-else-if="prospect.transaction_type_id == 2 && prospect.prospect_type_id == 1">
+                                          <button class="btn btn-primary rounded" type="button" :disabled="
+                                          product_value == null" @click="createTMBOrganic()">
+                                            Save
+                                          </button>
+                                        </div>
+                                        <div v-else-if="prospect.transaction_type_id == 2 && prospect.prospect_type_id == 2">
+                                          <button class="btn btn-primary rounded" type="button" :disabled="
+                                          product_value == null" @click="createTMBInorganic()">
+                                            Save
+                                          </button>
+                                        </div>
+                                        <div v-else-if="prospect.transaction_type_id == 3 && prospect.prospect_type_id == 1">
+                                          <button class="btn btn-primary rounded" type="button" :disabled="
+                                          product_value == null" @click="createPBTHOrganic()">
+                                            Save
+                                          </button>
+                                        </div>
+                                        <div v-else-if="prospect.transaction_type_id == 3 && prospect.prospect_type_id == 2">
+                                          <button class="btn btn-primary rounded" type="button" :disabled="
+                                          product_value == null" @click="createPBTHInorganic()">
+                                            Save
+                                          </button>
+                                        </div>
+                                        <div v-else>
+                                          <button class="btn btn-primary rounded" type="button" :disabled="
+                                          product_value == null" @click="failMessage()">Save</button>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
                                   <!--end::Repeater-->
                                 </div>
                                 <div v-else-if="prospect.transaction_type_id == 3">
@@ -1842,24 +1936,10 @@
                                           Market Share
                                         </p>
                                         <h2 class="fw-bold">${{ data_pbth.market_share }}</h2>
-                                        <p
-                                          class="
-                                            text-muted
-                                            mb-1
-                                            mt-8
-                                            fw-bold
-                                            fs-6
-                                          "
-                                        >
+                                        <p class="text-muted mb-1 mt-8 fw-bold fs-6">
                                           Target
                                         </p>
-                                        <div
-                                          class="
-                                            row
-                                            d-flex
-                                            justify-content-between
-                                          "
-                                        >
+                                        <div class="row d-flex justify-content-between">
                                           <div
                                             class="col-sm-6"
                                             v-for="(
@@ -1934,6 +2014,34 @@
                                       </div>
                                     </div>
                                   </div>
+                                  <div class="row mt-10">
+                                    <div class="col-md-6">
+                                      <button type="button" class="btn btn-light text-primary mt-5" 
+                                      @click="backButtonClick(), deleteTransactionDetail()">
+                                        Back
+                                      </button>
+                                    </div>
+                                    <div class="col-md-6 justify-content-end d-flex">
+                                      <div v-if="role == 'TPC' || role == 'Administrator'">
+                                        <div v-if="prospect.transaction_type_id == 3 && prospect.prospect_type_id == 1">
+                                          <button class="btn btn-primary rounded" type="button" :disabled="
+                                          product_value == null || acType_value == null" @click="createPBTHOrganic()">
+                                            Save
+                                          </button>
+                                        </div>
+                                        <div v-else-if="prospect.transaction_type_id == 3 && prospect.prospect_type_id == 2">
+                                          <button class="btn btn-primary rounded" type="button" :disabled="
+                                          product_value == null || acType_value == null" @click="createPBTHInorganic()">
+                                            Save
+                                          </button>
+                                        </div>
+                                        <div v-else>
+                                          <button class="btn btn-primary rounded" type="button" :disabled="
+                                          product_value == null || acType_value == null" @click="failMessage()">Save</button>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
                                 </div>
                                 <div v-else>
                                       <h3 class="mt-5">Select at least 1 Transaction type</h3>
@@ -1948,10 +2056,9 @@
                           <!--end::Form-->
                         </div>
                       </div>
-                      <div class="row d-flex justify-content-center me-20 ms-20">
+                      <div class="row d-flex justify-content-center me-20 ms-20 d-none">
                         <div class="col-md-6">
                           <button
-                            v-if="step_number == 1"
                             type="button"
                             data-bs-dismiss="modal"
                             class="btn btn-light text-primary mt-5"
@@ -1974,7 +2081,7 @@
                         <div class="col-md-6 d-flex justify-content-end">
                           <!--begin::Actions-->
                           <div v-if="role == 'TPC' || role == 'Administrator'">
-                            <button class="btn btn-primary mt-5 align-self-end" type="button" data-kt-stepper-action="next" @click="nextStep()" :disabled="prospect.prospect_type_id == null">
+                            <button class="btn btn-primary mt-5 align-self-end" type="button" data-kt-stepper-action="next" @click="nextStep()" id="next_step">
                             Next
                             </button>
                           </div>
@@ -1986,34 +2093,16 @@
                           <button type="button" class="btn btn-primary mt-5" data-kt-stepper-action="submit">
 
                             <div v-if="prospect.transaction_type_id == 1 && prospect.prospect_type_id == 1">
-                              <span class="indicator-label" @click="createTMBOrganic()">
-                                Save
-                              </span>
-                            </div>
-                            <div v-else-if="prospect.transaction_type_id == 1 && prospect.prospect_type_id == 2">
-                              <span class="indicator-label" @click="createTMBInorganic()">
-                                Save
-                              </span>
-                            </div>
-                            <div v-else-if="prospect.transaction_type_id == 2 && prospect.prospect_type_id == 1">
-                              <span class="indicator-label" @click="createTMBOrganic()">
-                                Save
-                              </span>
+                              <span class="indicator-label" @click="createTMBOrganic()">Save</span>
                             </div>
                             <div v-else-if="prospect.transaction_type_id == 2 && prospect.prospect_type_id == 2">
-                              <span class="indicator-label" @click="createTMBInorganic()">
-                                Save
-                              </span>
+                              <span class="indicator-label" @click="createPBTHInorganic()">Save</span>
                             </div>
-                            <div v-else-if="prospect.transaction_type_id == 3 && prospect.prospect_type_id == 1">
-                              <span class="indicator-label" @click="createPBTHOrganic()">
-                                Save
-                              </span>
+                            <div v-else-if="prospect.transaction_type_id == 1 && prospect.prospect_type_id == 2">
+                              <span class="indicator-label" @click="createTMBInorganic()">Save</span>
                             </div>
-                            <div v-else-if="prospect.transaction_type_id == 3 && prospect.prospect_type_id == 2">
-                              <span class="indicator-label" @click="createPBTHInorganic()">
-                                Save
-                              </span>
+                            <div v-else-if="prospect.transaction_type_id == 2 && prospect.prospect_type_id == 1">
+                              <span class="indicator-label" @click="createPBTHOrganic()">Save</span>
                             </div>
                             <div v-else>
                               <span class="indicator-label" @click="failMessage()">Save</span>
@@ -2096,7 +2185,14 @@ export default {
       paginate: '10',
       filter: null,
       current_page: null,
-      errors: null,
+      errors: {
+        year: null,
+        prospect_type_id: null,
+        transaction_type_id: null,
+        ams_customer_id: null,
+        strategic_initiative_id: null,
+        pm_id: null,
+      },
       year: null,
       market_share: null
     }
@@ -2127,6 +2223,27 @@ export default {
     }, 500),
   },
   methods: {
+    deleteOrganic(){
+      this.prospect.year = null;
+      this.selected_customer = null;
+      this.selected_amsCustomer = null;
+    },
+    deleteInOrganic(){
+      this.prospect.year = null;
+      this.selected_customer = null;
+      this.selected_amsCustomer = null;
+      this.selected_strategic_initiative = null;
+      this.selected_pm = null;
+    },
+    deleteTransactionType(){
+      this.prospect.transaction_type_id = null;
+    },
+    deleteTransactionDetail(){
+      this.product_value = null
+      this.acType_value = null
+      this.tmb = []
+      this.pbth = []
+    },
     sort(order, by) {
       this.order = order;
       this.by = by;
@@ -2341,6 +2458,7 @@ export default {
         })
     },
     listAmsCustomer({id}) {
+      this.selected_amsCustomer = null
       this.$axios
         .get(`api/ams-customer/${id}`)
         .then((response) => {
@@ -2579,8 +2697,8 @@ export default {
       this.selected_amsCustomer = null
       this.selected_strategic_initiative = null
       this.selected_pm = null
-      this.acType_value = null
       this.product_value = null
+      this.acType_value = null
       this.tmb = []
       this.pbth = []
       this.resetStepper()
@@ -2588,6 +2706,12 @@ export default {
     closeModal() {
       document.getElementById('close_modal').click()
       this.clearForm()
+    },
+    nextButtonClick(){
+      document.getElementById('next_step').click()
+    },
+    backButtonClick(){
+      document.getElementById('previous_step').click()
     },
     resetStepper(){
       document.getElementById('previous_step').click()

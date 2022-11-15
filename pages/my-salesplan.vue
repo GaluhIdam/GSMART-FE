@@ -417,7 +417,7 @@
                       <h2 id="textGold" v-if="sales_user">
                         ${{ formatPrice(sales_user.level1.total) }}
                       </h2>
-                      <p class="text-muted">Attractive Proposal</p>
+                      <p class="text-muted">Contract Signing</p>
                     </div>
                     <div class="d-grid gap-2">
                       <a

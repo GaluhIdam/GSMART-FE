@@ -116,7 +116,7 @@
                     data-kt-menu-attach="parent"
                     data-kt-menu-placement="bottom-end"
                   >
-                    <img src="~/assets/media/avatars/300-1.jpg" alt="user" />
+                    <img :src="photo" alt="user" />
                   </div>
                   <!--begin::User account menu-->
                   <div
@@ -143,7 +143,7 @@
                         <div class="symbol symbol-50px me-5">
                           <img
                             alt="Logo"
-                            src="~/assets/media/avatars/300-1.jpg"
+                            :src="photo"
                           />
                         </div>
                         <!--end::Avatar-->
@@ -230,6 +230,7 @@ export default {
     return {
       user: this.$auth.user.name,
       email: this.$auth.user.email,
+      photo: this.$auth.user.photo,
     }
   },
   methods: {

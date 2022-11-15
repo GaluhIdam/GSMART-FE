@@ -2631,7 +2631,6 @@
                               ref="files"
                               class="form-control"
                               multiple
-                              style="height: 200px"
                               :class="{
                                 'is-invalid': errors.files,
                               }"

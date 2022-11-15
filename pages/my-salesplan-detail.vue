@@ -59,7 +59,7 @@
             <!-- header -->
             <div class="row">
               <div class="col-lg-6">
-                <h3>Detail</h3>
+                <h3>Detail Sales Plan</h3>
               </div>
               <div class="col-lg-6">
                 <div class="text-right">
@@ -243,11 +243,6 @@
                                 v-for="maintenance_options in maintenance_option"
                                 :value="maintenance_options.id"
                               >
-                                <!-- <option
-                                v-for="maintenance_options in maintenance_option"
-                                :value="maintenance_options.id"
-                                :selected="maintenance_options.id = maintenance_id"
-                              > -->
                                 {{ maintenance_options.name }}
                               </option>
                             </select>
@@ -301,11 +296,6 @@
                                 v-for="hangar_options in hangar_option"
                                 :value="hangar_options.id"
                               >
-                                <!-- <option
-                                v-for="hangar_options in hangar_option"
-                                :value="hangar_options.id"
-                                :selected="hangar_options.id = hangar_id"
-                              > -->
                                 {{ hangar_options.name }}
                               </option>
                             </select>
@@ -377,27 +367,12 @@
 
             <!-- Card -->
             <div class="row mt-3">
-              <div class="col-lg-4 col-md-12 col-sm-12">
-                <div class="card mb-3" style="max-width: 540px">
+              <div class="col-lg">
+                <div class="card mb-3">
                   <div class="row no-gutters">
-                    <div class="col-md-2 mt-2 mb-20" v-if="sales_detail">
-                      <div v-if="sales_detail.customer.full_path == null">
-                        <span class="fs-1 fw-bold">
-                          {{ initial }}
-                        </span>
-                      </div>
-                      <div v-else>
-                        <img
-                          :src="sales_detail.customer.full_path"
-                          class="rounded"
-                          alt="No Image"
-                          style="width: 70px"
-                        />
-                      </div>
-                    </div>
-                    <div class="col-md-10" style="margin-top: -20px">
+                    <div class="col-md-12" style="margin-top: -20px; margin-left: -28px;">
                       <div class="card-body">
-                        <h5 class="card-title" v-if="sales_detail">
+                        <h5 class="card-title mb-5" v-if="sales_detail">
                           {{ sales_detail.registration }}
                         </h5>
                         <p class="card-text" v-if="sales_detail">
@@ -417,7 +392,7 @@
                   </div>
                 </div>
               </div>
-              <div class="col-lg-2 col-md-12 col-sm-12" id="cardTop">
+              <div class="col-lg" id="cardTop">
                 <div class="text-center d-grid gap-2">
                   <span class="me-2 mb-2" id="cardMarketShare">
                     <h3 class="mt-2" id="textMarketShare" v-if="sales_detail">
@@ -427,7 +402,7 @@
                   </span>
                 </div>
               </div>
-              <div class="col-lg-2 col-md-12 col-sm-12" id="cardTop">
+              <div class="col-lg" id="cardTop">
                 <div class="text-center d-grid gap-2">
                   <span class="me-2 mb-2" id="cardSalesPlan">
                     <h3 class="mt-2" id="textSalesPlan" v-if="sales_detail">
@@ -437,7 +412,7 @@
                   </span>
                 </div>
               </div>
-              <div class="col-lg-2 col-md-12 col-sm-12" id="cardTop">
+              <div class="col-lg-4 col-md-12 col-sm-12" id="cardTop">
                 <div class="text-center d-grid gap-2">
                   <span class="me-2 mb-2" id="cardDevisiasi">
                     <h3 class="mt-2" id="textDevisiasi" v-if="sales_detail">
@@ -3172,18 +3147,8 @@ export default {
         allowOutsideClick: false,
       })
     },
-    loading2() {
-      Swal.fire({
-        timer: 5000,
-        didOpen: () => {
-          Swal.showLoading()
-        },
-        background: 'transparent',
-        allowOutsideClick: false,
-      })
-    },
     listDetail() {
-      this.loading2()
+      this.loading()
       this.$axios
         .get(`api/sales-show/${this.$route.query.id}`)
         .then((response) => {

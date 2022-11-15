@@ -104,7 +104,15 @@
                 <span class="menu-title">Dashboard</span>
               </NuxtLink>
             </div>
-            <div class="menu-item">
+            <div class="menu-item" 
+              v-if="
+                role == 'TPR' ||
+                role == 'TPC' ||
+                role == 'AMS' ||
+                role == 'CBO' ||
+                role == 'Administrator'
+              "
+            >
               <NuxtLink
                 class="menu-link"
                 to="/my-prospect"
@@ -121,12 +129,19 @@
                     role == 'CBO' ||
                     role == 'Administrator'
                   "
-                  >Prospect</span
+                  >All Prospect</span
                 >
-                <span class="menu-title" v-if="role == 'AMS'">Prospect</span>
+                <span class="menu-title" v-if="role == 'AMS'">My Prospect</span>
               </NuxtLink>
             </div>
-            <div class="menu-item">
+            <div class="menu-item" 
+              v-if="
+              role == 'TPR' ||
+              role == 'TPC' ||
+              role == 'CBO' ||
+              role == 'AMS' ||
+              role == 'Administrator'
+            ">
               <NuxtLink
                 class="menu-link"
                 to="/my-salesplan"

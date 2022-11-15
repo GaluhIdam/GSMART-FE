@@ -1261,7 +1261,10 @@
                       {{ p_sales.customer }}
                     </td>
                     <!-- Product -->
-                    <td class="text-center">
+                    <td class="text-center" v-if="p_sales.type == 'PBTH'">
+                      {{ p_sales.product }} - {{ p_sales.month }}
+                    </td>
+                    <td class="text-center" v-else>
                       {{ p_sales.product }}
                     </td>
                     <!-- AC/ENG/APU/COMP -->

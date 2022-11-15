@@ -1514,24 +1514,26 @@
                                           sales_detail.status === 'Open' &&
                                           sales_detail.level == 2 &&
                                           sales_detail.upgrade == false &&
-                                          role == 'CBO') ||
-                                        role == 'Administrator'
+                                          role == 'CBO' && role == 'Administrator' )
                                       "
                                     >
                                       Approve
                                     </button>
                                     <span
                                       class="btn btn-sm"
+                                      style="cursor: default"
                                       id="textWaiting"
                                       v-if="
                                         level2[1].data != null &&
                                         level2[1].status == 0 &&
-                                        role != 'CBO'
+                                        role != 'CBO' &&
+                                        role != 'Administrator'
                                       "
                                       >Waiting for Approval
                                     </span>
                                     <span
                                       class="btn btn-sm"
+                                      style="cursor: default"
                                       id="textApproved"
                                       v-if="
                                         level2[1].status == 1 && role != 'CBO'
@@ -1548,8 +1550,7 @@
                                         (level2[1].data == null &&
                                           sales_detail.status === 'Open' &&
                                           sales_detail.level == 2 &&
-                                          role == 'AMS') ||
-                                        role == 'Administrator'
+                                          role == 'AMS' && role == 'Administrator')
                                       "
                                     >
                                       Request to CBO

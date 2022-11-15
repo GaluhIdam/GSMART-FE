@@ -181,7 +181,7 @@
                 </h2>
                 <p class="text-muted">Awareness</p>
               </div>
-              <div class="d-grid gap-2">
+              <div class="d-grid gap-2" style="margin-left: -15px">
                 <a
                   href="#"
                   class="
@@ -194,15 +194,15 @@
                   "
                 >
                   <div class="d-flex align-items-center gap-2">
-                    <span id="btnGreen" v-if="sales_user">{{
+                    <span id="btnGreen" style="margin-left: -10px" v-if="sales_user">{{
                       formatPrice(sales_user.level4.countOpen)
                     }}</span>
-                    <span id="textGreen" v-if="sales_user"
+                    <span id="textGreen" style="margin-left: -6px" v-if="sales_user"
                       >${{ formatPrice(sales_user.level4.open) }}</span
                     >
                   </div>
-                  <div class="d-flex align-items-center justify-content-end">
-                    <span class="text-muted ms-10" id="fontSm">Open</span>
+                  <div class="d-flex align-items-center justify-content-end" style="margin-left: -15px">
+                    <span class="text-muted ms-10" id="fontSm" style="margin-left: -15px">Open</span>
                   </div>
                 </a>
                 <a
@@ -217,15 +217,15 @@
                   "
                 >
                   <div class="d-flex align-items-center gap-2">
-                    <span id="btnRed" v-if="sales_user">{{
+                    <span id="btnRed" style="margin-left: -10px" v-if="sales_user">{{
                       formatPrice(sales_user.level4.countCancel)
                     }}</span>
-                    <span id="textRed" v-if="sales_user"
+                    <span id="textRed" style="margin-left: -6px" v-if="sales_user"
                       >${{ formatPrice(sales_user.level4.cancel) }}</span
                     >
                   </div>
                   <div class="d-flex align-items-center justify-content-end">
-                    <span class="text-muted ms-10" id="fontSm">Cancel</span>
+                    <span class="text-muted ms-10" id="fontSm" style="margin-left: -15px">Cancel</span>
                   </div>
                 </a>
               </div>
@@ -258,7 +258,7 @@
                 </h2>
                 <p class="text-muted">Opportunity</p>
               </div>
-              <div class="d-grid gap-2">
+              <div class="d-grid gap-2" style="margin-left: -15px">
                 <a
                   href="#"
                   class="
@@ -271,15 +271,15 @@
                   "
                 >
                   <div class="d-flex align-items-center gap-2">
-                    <span id="btnGreen" v-if="sales_user">{{
+                    <span id="btnGreen" style="margin-left: -10px" v-if="sales_user">{{
                       formatPrice(sales_user.level3.countOpen)
                     }}</span>
-                    <span id="textGreen" v-if="sales_user"
+                    <span id="textGreen" style="margin-left: -6px" v-if="sales_user"
                       >${{ formatPrice(sales_user.level3.open) }}</span
                     >
                   </div>
                   <div class="d-flex align-items-center justify-content-end">
-                    <span class="text-muted ms-10" id="fontSm">Open</span>
+                    <span class="text-muted ms-10" id="fontSm" style="margin-left: -15px">Open</span>
                   </div>
                 </a>
                 <a
@@ -294,15 +294,15 @@
                   "
                 >
                   <div class="d-flex align-items-center gap-2">
-                    <span id="btnRed" v-if="sales_user">{{
+                    <span id="btnRed" style="margin-left: -10px" v-if="sales_user">{{
                       formatPrice(sales_user.level3.countCancel)
                     }}</span>
-                    <span id="textRed" v-if="sales_user"
+                    <span id="textRed" style="margin-left: -6px" v-if="sales_user"
                       >${{ formatPrice(sales_user.level3.cancel) }}</span
                     >
                   </div>
                   <div class="d-flex align-items-center justify-content-end">
-                    <span class="text-muted ms-10" id="fontSm">Cancel</span>
+                    <span class="text-muted ms-10" id="fontSm" style="margin-left: -15px">Cancel</span>
                   </div>
                 </a>
               </div>
@@ -335,7 +335,7 @@
                 </h2>
                 <p class="text-muted">Attractive Proposal</p>
               </div>
-              <div class="d-grid gap-2">
+              <div class="d-grid gap-2" style="margin-left: -15px">
                 <a
                   href="#"
                   class="
@@ -348,15 +348,15 @@
                   "
                 >
                   <div class="d-flex align-items-center gap-2">
-                    <span id="btnGreen" v-if="sales_user">{{
+                    <span id="btnGreen" style="margin-left: -10px" v-if="sales_user">{{
                       formatPrice(sales_user.level2.countOpen)
                     }}</span>
-                    <span id="textGreen" v-if="sales_user"
+                    <span id="textGreen" style="margin-left: -6px" v-if="sales_user"
                       >${{ formatPrice(sales_user.level2.open) }}</span
                     >
                   </div>
                   <div class="d-flex align-items-center justify-content-end">
-                    <span class="text-muted ms-10" id="fontSm">Open</span>
+                    <span class="text-muted ms-10" id="fontSm" style="margin-left: -15px">Open</span>
                   </div>
                 </a>
                 <a
@@ -371,15 +371,15 @@
                   "
                 >
                   <div class="d-flex align-items-center gap-2">
-                    <span id="btnRed" v-if="sales_user">{{
+                    <span id="btnRed" style="margin-left: -10px" v-if="sales_user">{{
                       formatPrice(sales_user.level2.countCancel)
                     }}</span>
-                    <span id="textRed" v-if="sales_user"
+                    <span id="textRed" style="margin-left: -6px" v-if="sales_user"
                       >${{ formatPrice(sales_user.level2.cancel) }}</span
                     >
                   </div>
                   <div class="d-flex align-items-center justify-content-end">
-                    <span class="text-muted ms-10" id="fontSm">Cancel</span>
+                    <span class="text-muted ms-10" id="fontSm" style="margin-left: -15px">Cancel</span>
                   </div>
                 </a>
               </div>
@@ -419,7 +419,7 @@
                       </h2>
                       <p class="text-muted">Contract Signing</p>
                     </div>
-                    <div class="d-grid gap-2">
+                    <div class="d-grid gap-2" style="margin-left: -15px">
                       <a
                         href="#"
                         class="
@@ -432,17 +432,17 @@
                         "
                       >
                         <div class="d-flex align-items-center gap-2">
-                          <span id="btnGreen" v-if="sales_user">{{
+                          <span id="btnGreen" style="margin-left: -10px" v-if="sales_user">{{
                             formatPrice(sales_user.level1.countOpen)
                           }}</span>
-                          <span id="textGreen" v-if="sales_user"
+                          <span id="textGreen" style="margin-left: -6px" v-if="sales_user"
                             >${{ formatPrice(sales_user.level1.open) }}</span
                           >
                         </div>
                         <div
                           class="d-flex align-items-center justify-content-end"
                         >
-                          <span class="text-muted ms-10" id="fontSm">Open</span>
+                          <span class="text-muted ms-10" id="fontSm" style="margin-left: -15px">Open</span>
                         </div>
                       </a>
                       <a
@@ -457,17 +457,17 @@
                         "
                       >
                         <div class="d-flex align-items-center gap-2">
-                          <span id="btnRed" v-if="sales_user">{{
+                          <span id="btnRed" style="margin-left: -10px" v-if="sales_user">{{
                             formatPrice(sales_user.level1.countCancel)
                           }}</span>
-                          <span id="textRed" v-if="sales_user"
+                          <span id="textRed" style="margin-left: -6px" v-if="sales_user"
                             >${{ formatPrice(sales_user.level1.cancel) }}</span
                           >
                         </div>
                         <div
                           class="d-flex align-items-center justify-content-end"
                         >
-                          <span class="text-muted ms-10" id="fontSm"
+                          <span class="text-muted ms-10" id="fontSm" style="margin-left: -15px"
                             >Cancel</span
                           >
                         </div>
@@ -494,17 +494,17 @@
                         "
                       >
                         <div class="d-flex align-items-center gap-2">
-                          <span id="btnPurple" v-if="sales_user">{{
+                          <span id="btnPurple" style="margin-left: -10px" v-if="sales_user">{{
                             formatPrice(sales_user.level1.countClosed)
                           }}</span>
-                          <span id="textPurple" v-if="sales_user"
+                          <span id="textPurple" style="margin-left: -6px" v-if="sales_user"
                             >${{ formatPrice(sales_user.level1.closed) }}</span
                           >
                         </div>
                         <div
                           class="d-flex align-items-center justify-content-end"
                         >
-                          <span class="text-muted ms-10" id="fontSm"
+                          <span class="text-muted ms-10" id="fontSm" style="margin-left: -15px"
                             >Closed</span
                           >
                         </div>
@@ -521,19 +521,19 @@
                         "
                       >
                         <div class="d-flex align-items-center gap-2">
-                          <span id="btnGold" v-if="sales_user">{{
+                          <span id="btnGold" style="margin-left: -10px" v-if="sales_user">{{
                             formatPrice(sales_user.level1.countCloseIn)
                           }}</span>
-                          <span id="textGold" v-if="sales_user"
+                          <span id="textGold" style="margin-left: -6px" v-if="sales_user"
                             >${{ formatPrice(sales_user.level1.closeIn) }}</span
                           >
                         </div>
                         <div
                           class="d-flex align-items-center justify-content-end"
                         >
-                          <span class="text-muted ms-10" id="fontSm"
-                            >Close in</span
-                          >
+                          <span class="text-muted ms-10" style="margin-left: -15px" id="fontSm">
+                            Close in
+                          </span>
                         </div>
                       </a>
                     </div>

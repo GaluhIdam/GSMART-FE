@@ -3171,7 +3171,18 @@ export default {
         allowOutsideClick: false,
       })
     },
+    loading2() {
+      Swal.fire({
+        timer: 5000,
+        didOpen: () => {
+          Swal.showLoading()
+        },
+        background: 'transparent',
+        allowOutsideClick: false,
+      })
+    },
     listDetail() {
+      this.loading2()
       this.$axios
         .get(`api/sales-show/${this.$route.query.id}`)
         .then((response) => {

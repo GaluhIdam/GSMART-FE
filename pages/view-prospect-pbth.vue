@@ -221,10 +221,10 @@
         <div class="card-body">
           <div class="row">
             <div class="col-md-4">
-            <input type="text" class="form-control form-control-solid" name="convidenve_level" v-model="convidenve_level">
+            <input type="text" class="form-control form-control-solid" name="convidence_level" v-model="convidence_level">
               </div>
               <div class="col-md-4">
-              <button @click="calculateSalesPlan(convidenve_level)" class="btn btn-primary">Calculate</button>
+              <button @click="calculateSalesPlan(convidence_level)" class="btn btn-primary">Calculate</button>
               <button class="btn btn-primary" @click="createSalesPlan()">Save</button>
               </div>
             </div>
@@ -250,7 +250,7 @@
                   <tr v-for="(data, pbth_index) in pbth" :key="pbth_index">
                     <td class="text-center">{{ data.month}}</td>
                     <td class="text-center">{{ data.flight_hour }}</td>
-                    <td class="text-center">{{ data.rate }} %</td>
+                    <td class="text-center">{{ data.rate }}</td>
                     <td class="text-center">{{ data.planFH }}</td>
                     <td class="text-center" style="color: #50CD89" v-if="data.value">${{ formatNumber(data.value) }}</td>
                     <td class="text-center" style="color: #50CD89" v-else>0</td>
@@ -294,7 +294,7 @@ export default {
         title: null
       },
       modal_create: false,
-      convidenve_level: null,
+      convidence_level: null,
       errors: {
         name: null,
         email: null,
@@ -410,10 +410,10 @@ export default {
           // Sales Plan Value
           this.sales_plan = response.data.data.sales_plan
           this.initial = this.customer_name.substring(0,1)
-          // if(this.sales_plan.length > 0) {
-          //   this.PBTHMessage()
-          //   this.$router.push('/my-prospect');
-          // }
+          if(this.sales_plan.length > 0) {
+            this.PBTHMessage()
+            this.$router.push('/my-prospect');
+          }
           // Market Share Value
           this.market_share = response.data.data.market_share
           // Deviation Value
@@ -430,10 +430,11 @@ export default {
       })
     },
     calculateSalesPlan(){
+      let convidence_level = this.convidence_level / 100
       this.pbth_length = this.pbth.length
       this.pbth.forEach(element => {
         element.month = element.month + ' '
-        element.planFH = element.flight_hour * this.convidenve_level
+        element.planFH = element.flight_hour * convidence_level
         element.value = element.planFH * element.rate
       });
       this.total_sales_plan = 0

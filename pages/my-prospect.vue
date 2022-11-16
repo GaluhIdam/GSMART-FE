@@ -1101,11 +1101,7 @@
                 <ul class="pagination">
                   <li class="page-item align-self-center">Rows per page:</li>
                   <li class="page-item">
-                    <select
-                      class="form-control form-control-sm"
-                      v-model="paginate"
-                      @change="listProspect()"
-                    >
+                    <select class="form-control form-control-sm" v-model="paginate" @change="listProspect()">
                       <option value="10">10</option>
                       <option value="25">25</option>
                       <option value="50">50</option>
@@ -1134,7 +1130,7 @@
                   </li>
                   <!-- End pagination -->
                 </ul>
-              </nav>
+                </nav>
               </div>
             </div>
           </div>
@@ -1149,28 +1145,15 @@
             <!--begin::Modal body-->
             <div class="modal-body px-0 py-0">
               <!--begin::Stepper-->
-              <div
-                class="
-                  stepper stepper-pills stepper-column
-                  d-flex
-                  flex-column flex-lg-row
-                  h-100
-                "
-                id="kt_stepper_example_vertical"
-              >
+              <div class="stepper stepper-pills stepper-column d-flex flex-column flex-lg-row h-100" id="kt_stepper_example_vertical">
                 <div class="row h-100 w-100">
-                  <div
-                    class="col-md-3 d-flex align-items-start bg-dark text-white"
-                  >
+                  <div class="col-md-3 d-flex align-items-start bg-dark text-white">
                     <!--begin::Aside-->
                     <div class="px-10">
                       <!--begin::Nav-->
                       <div class="stepper-nav mt-10 py-10">
                         <!--begin::Step 1-->
-                        <div
-                          class="stepper-item me-5 current"
-                          data-kt-stepper-element="nav"
-                        >
+                        <div class="stepper-item me-5 current" data-kt-stepper-element="nav">
                           <!--begin::Wrapper-->
                           <div class="stepper-wrapper d-flex align-items-center">
                             <!--begin::Icon-->
@@ -1182,10 +1165,7 @@
 
                             <!--begin::Label-->
                             <div class="stepper-label">
-                              <h6
-                                class="stepper-title fs-6 current"
-                                data-kt-stepper-text="text"
-                              >
+                              <h6 class="stepper-title fs-6 current" data-kt-stepper-text="text">
                                 Prospect Type
                               </h6>
                               <div class="stepper-desc fs-9">
@@ -1203,10 +1183,7 @@
                         <!--end::Step 1-->
 
                         <!--begin::Step 2-->
-                        <div
-                          class="stepper-item me-5"
-                          data-kt-stepper-element="nav"
-                        >
+                        <div class="stepper-item me-5" data-kt-stepper-element="nav">
                           <!--begin::Wrapper-->
                           <div class="stepper-wrapper d-flex align-items-center">
                             <!--begin::Icon-->
@@ -1236,10 +1213,7 @@
                         <!--end::Step 2-->
 
                         <!--begin::Step 3-->
-                        <div
-                          class="stepper-item me-5"
-                          data-kt-stepper-element="nav"
-                        >
+                        <div class="stepper-item me-5" data-kt-stepper-element="nav">
                           <!--begin::Wrapper-->
                           <div class="stepper-wrapper d-flex align-items-center">
                             <!--begin::Icon-->
@@ -1269,10 +1243,7 @@
                         <!--end::Step 3-->
 
                         <!--begin::Step 4-->
-                        <div
-                          class="stepper-item me-5"
-                          data-kt-stepper-element="nav"
-                        >
+                        <div class="stepper-item me-5" data-kt-stepper-element="nav">
                           <!--begin::Wrapper-->
                           <div class="stepper-wrapper d-flex align-items-center">
                             <!--begin::Icon-->
@@ -1395,23 +1366,15 @@
                                   <div class="row">
                                     <div v-if="prospect.prospect_type_id == 1">
                                       <div class="mb-3">
-                                        <label
-                                          for="exampleFormControlInput1"
-                                          class="form-label"
-                                          >Year</label
-                                        >
-                                        <input
-                                          type="text"
-                                          class="form-control form-control-sm"
-                                          v-model="prospect.year"
-                                        />
+                                        <label for="exampleFormControlInput1" class="form-label">
+                                          Year
+                                        </label>
+                                        <input type="text" class="form-control form-control-sm" v-model="prospect_year">
                                       </div>
                                       <div class="mb-3">
-                                        <label
-                                          for="exampleFormControlInput1"
-                                          class="form-label"
-                                          >Customer</label
-                                        >
+                                        <label for="exampleFormControlInput1" class="form-label">
+                                          Customer
+                                        </label>
                                         <multiselect
                                           v-model="selected_customer"
                                           :options="customer_options"
@@ -1423,11 +1386,9 @@
                                         ></multiselect>
                                       </div>
                                       <div class="mb-3">
-                                        <label
-                                          for="exampleFormControlInput1"
-                                          class="form-label"
-                                          >Area & AMS</label
-                                        >
+                                        <label for="exampleFormControlInput1" class="form-label">
+                                          Area & AMS
+                                        </label>
                                         <multiselect
                                           v-if="selected_customer == null"
                                           :disabled="!selected_customer"
@@ -1454,33 +1415,36 @@
                                         </div>
                                         <div class="col-md-6 justify-content-end d-flex">
                                           <div v-if="role == 'TPC' || role == 'Administrator'">
-                                            <button class="btn btn-primary mt-5 align-self-end" type="button"
-                                            @click="nextButtonClick()" :disabled="prospect.year == null || selected_customer == null || selected_amsCustomer == null">
-                                            Next
-                                            </button>
+                                            <div v-if="prospect_year == null">
+                                              <button class="btn btn-primary mt-5 align-self-end disabled" type="button">
+                                                Next
+                                              </button>
+                                            </div>
+                                            <div v-else-if="prospect_year < 2000">
+                                              <button class="btn btn-primary mt-5 align-self-end disabled" type="button">
+                                                Next
+                                              </button>
+                                            </div>
+                                            <div v-else>
+                                              <button class="btn btn-primary mt-5 align-self-end" type="button" @click="nextButtonClick()" :disabled="prospect_year == null || selected_customer == null || selected_amsCustomer == null">
+                                                Next
+                                              </button>
+                                            </div>
                                           </div>
                                         </div>
                                       </div>
                                     </div>
                                     <div v-else-if="prospect.prospect_type_id == 2">
                                       <div class="mb-3">
-                                        <label
-                                          for="exampleFormControlInput1"
-                                          class="form-label"
-                                          >Year</label
-                                        >
-                                        <input
-                                          type="text"
-                                          class="form-control form-control-sm"
-                                          v-model="prospect.year"
-                                        />
+                                        <label for="exampleFormControlInput1" class="form-label">
+                                          Year
+                                        </label>
+                                        <input type="text" class="form-control form-control-sm" v-model="prospect_year">
                                       </div>
                                       <div class="mb-3">
-                                        <label
-                                          for="exampleFormControlInput1"
-                                          class="form-label"
-                                          >Customer</label
-                                        >
+                                        <label for="exampleFormControlInput1" class="form-label">
+                                          Customer
+                                        </label>
                                         <multiselect
                                           v-model="selected_customer"
                                           :options="customer_options"
@@ -1492,11 +1456,9 @@
                                         ></multiselect>
                                       </div>
                                       <div class="mb-3">
-                                        <label
-                                          for="exampleFormControlInput1"
-                                          class="form-label"
-                                          >Area & AMS</label
-                                        >
+                                        <label for="exampleFormControlInput1" class="form-label" >
+                                          Area & AMS
+                                        </label>
                                         <multiselect
                                           v-if="selected_customer == null"
                                           :disabled="!selected_customer"
@@ -1514,11 +1476,9 @@
                                         ></multiselect>
                                       </div>
                                       <div class="mb-3">
-                                        <label
-                                          for="exampleFormControlInput1"
-                                          class="form-label"
-                                          >Strategic Initiative</label
-                                        >
+                                        <label for="exampleFormControlInput1" class="form-label">
+                                          Strategic Initiative
+                                        </label>
                                         <multiselect
                                           v-model="selected_strategic_initiative"
                                           :options="strategic_initiative_options"
@@ -1527,11 +1487,9 @@
                                         ></multiselect>
                                       </div>
                                       <div class="mb-3">
-                                        <label
-                                          for="exampleFormControlInput1"
-                                          class="form-label"
-                                          >Project Manager</label
-                                        >
+                                        <label for="exampleFormControlInput1" class="form-label">
+                                          Project Manager
+                                        </label>
                                         <multiselect
                                           v-model="selected_pm"
                                           :options="project_manager_options"
@@ -1549,9 +1507,21 @@
                                         </div>
                                         <div class="col-md-6 justify-content-end d-flex">
                                           <div v-if="role == 'TPC' || role == 'Administrator'">
-                                            <button class="btn btn-primary mt-5 align-self-end" type="button" @click="nextButtonClick()" :disabled="prospect.year == null || selected_customer == null || selected_amsCustomer == null || selected_strategic_initiative == null || selected_pm == null">
-                                            Next
-                                            </button>
+                                            <div v-if="prospect_year == null">
+                                              <button class="btn btn-primary mt-5 align-self-end disabled" type="button">
+                                                Next
+                                              </button>
+                                            </div>
+                                            <div v-else-if="prospect_year < 2000">
+                                              <button class="btn btn-primary mt-5 align-self-end disabled" type="button">
+                                                Next
+                                              </button>
+                                            </div>
+                                            <div v-else>
+                                              <button class="btn btn-primary mt-5 align-self-end" type="button" @click="nextButtonClick()" :disabled="prospect_year == null || selected_customer == null || selected_amsCustomer == null || selected_strategic_initiative == null || selected_pm == null">
+                                                Next
+                                              </button>
+                                            </div>
                                           </div>
                                         </div>
                                       </div>
@@ -1574,7 +1544,8 @@
                               <!--end::Step 2-->
 
                               <!--begin::Step 3-->
-                              <div class="flex-column w-50 p-3" data-kt-stepper-element="content" v-if="role == 'TPC' || role == 'Administrator'">
+                              <div class="flex-column w-50 p-3" data-kt-stepper-element="content" 
+                              v-if="role == 'TPC' || role == 'Administrator'">
                                 <div class="w-100">
                                   <h3 class="mb-1">Select Transaction Type</h3>
                                   <p class="fs-7 mb-5 text-muted">
@@ -1582,55 +1553,23 @@
                                     Page
                                   </p>
                                   <!--begin::Option-->
-                                  <div
-                                    class="mt-10"
-                                    v-for="(
-                                      transactionType, transactionType_index
-                                    ) in transaction_type.data"
-                                    :key="transactionType_index"
-                                  >
-                                    <input
-                                      type="radio"
-                                      class="btn-check"
-                                      name="transaction_type"
-                                      v-model="prospect.transaction_type_id"
-                                      :value="transactionType.id"
-                                      :id="transactionType.name"
-                                    />
+                                  <div class="mt-10" v-for="(transactionType, transactionType_index) 
+                                  in transaction_type.data" :key="transactionType_index">
+                                    <input type="radio" class="btn-check" name="transaction_type" v-model="prospect.transaction_type_id" :value="transactionType.id" :id="transactionType.name">
                                     <label class="btn btn-outline btn-outline-dashed btn-active-light-primary p-7 d-flex align-items-center mb-5" :for="transactionType.name">
-                                      <span
-                                        class="svg-icon svg-icon-3hx"
-                                        v-if="transactionType_index % 2 == 0"
-                                        ><svg
-                                          width="100"
-                                          height="100"
-                                          viewBox="0 0 24 24"
-                                          fill="none"
-                                          xmlns="http://www.w3.org/2000/svg"
-                                        >
+                                      <span class="svg-icon svg-icon-3hx" v-if="transactionType_index % 2 == 0">
+                                        <svg width="100" height="100" viewBox="0 0 24 24" fill="none" 
+                                        xmlns="http://www.w3.org/2000/svg">
                                           <path
                                             d="M6.28548 15.0861C7.34369 13.1814 9.35142 12 11.5304 12H12.4696C14.6486 12 16.6563 13.1814 17.7145 15.0861L19.3493 18.0287C20.0899 19.3618 19.1259 21 17.601 21H6.39903C4.87406 21 3.91012 19.3618 4.65071 18.0287L6.28548 15.0861Z"
                                             fill="currentColor"
                                           />
-                                          <rect
-                                            opacity="0.3"
-                                            x="8"
-                                            y="3"
-                                            width="8"
-                                            height="8"
-                                            rx="4"
-                                            fill="currentColor"
-                                          />
+                                          <rect opacity="0.3" x="8" y="3" width="8" height="8" rx="4" fill="currentColor"/>
                                         </svg>
                                       </span>
-                                      <span v-else class="svg-icon svg-icon-3hx"
-                                        ><svg
-                                          width="100"
-                                          height="100"
-                                          viewBox="0 0 24 24"
-                                          fill="none"
-                                          xmlns="http://www.w3.org/2000/svg"
-                                        >
+                                      <span v-else class="svg-icon svg-icon-3hx">
+                                        <svg width="100" height="100" viewBox="0 0 24 24" fill="none" 
+                                        xmlns="http://www.w3.org/2000/svg">
                                           <path
                                             d="M3 2H10C10.6 2 11 2.4 11 3V10C11 10.6 10.6 11 10 11H3C2.4 11 2 10.6 2 10V3C2 2.4 2.4 2 3 2Z"
                                             fill="currentColor"
@@ -1654,21 +1593,11 @@
                                       </span>
                                       <!--end::Svg Icon-->
 
-                                      <span
-                                        class="
-                                          d-block
-                                          fw-semibold
-                                          text-start
-                                          align-items-center
-                                        "
-                                      >
-                                        <span
-                                          class="text-dark fw-bold d-block fs-6"
-                                          >{{ transactionType.name }}</span
-                                        >
-                                        <p
-                                          class="text-muted fw-semibold fs-7 mb-0"
-                                        >
+                                      <span class="d-block fw-semibold text-start align-items-center">
+                                        <span class="text-dark fw-bold d-block fs-6">
+                                          {{ transactionType.name }}
+                                        </span>
+                                        <p class="text-muted fw-semibold fs-7 mb-0">
                                           {{ transactionType.description }}
                                         </p>
                                       </span>
@@ -1689,7 +1618,7 @@
                                   <div class="col-md-6 justify-content-end d-flex">
                                     <div v-if="role == 'TPC' || role == 'Administrator'">
                                       <button class="btn btn-primary mt-5 align-self-end" type="button" @click="nextButtonClick()" :disabled="prospect.transaction_type_id == null">
-                                      Next
+                                        Next
                                       </button>
                                     </div>
                                   </div>
@@ -1718,86 +1647,147 @@
                                       </div>
                                     </div>
                                     <div class="col">
-                                      <button
-                                        @click="addProspectTMB(product_value)"
-                                        class="btn btn-primary rounded"
-                                        type="button"
-                                        :disabled="product_value == null"
-                                      >
-                                        Add Product
-                                      </button>
+                                      <div v-if="product_value == null">
+                                        <button @click="addProspectTMB(product_value)" class="btn btn-primary rounded" type="button" :disabled="product_value == null">
+                                          Add Product
+                                        </button>
+                                      </div>
+                                      <div v-else>
+                                        <div v-if="product_value.name == 'Engine & APU'">
+                                          <button @click="addProspectTMBEngine(product_value)" class="btn btn-primary rounded" type="button" :disabled="product_value == null">
+                                            Add Product
+                                          </button>
+                                        </div>
+                                        <div v-else-if="product_value.name == 'Component'">
+                                          <button @click="addProspectTMBComponent(product_value)" class="btn btn-primary rounded" type="button" :disabled="product_value == null">
+                                            Add Product
+                                          </button>
+                                        </div>
+                                        <div v-else>
+                                          <button @click="addProspectTMB(product_value)" class="btn btn-primary rounded" type="button" :disabled="product_value == null">
+                                            Add Product
+                                          </button>
+                                        </div>
+                                      </div>
                                     </div>
                                   </div>
                                   <!--begin::Repeater-->
                                   <!--begin::Form group-->
-                                  <div
-                                    class="mb-20 mt-20"
-                                    v-for="(data, data_index) in tmb"
-                                    :key="data_index"
-                                  >
-                                    <div
-                                      class="row mb-10 d-flex align-items-center"
-                                    >
+                                  <div class="mb-20 mt-20" v-for="(data, data_index) in tmb" :key="data_index">
+                                    <div class="row mb-10 d-flex align-items-center">
                                       <h1 class="fw-bold mb-0">
                                         {{ data_index + 1 }}. {{ data.name }}
                                       </h1>
                                     </div>
                                     <div class="form-group">
-                                      <div
-                                        class="form-group row mb-5"
-                                        v-for="(item, item_index) in tmb[
-                                          data_index
-                                        ].product"
-                                        :key="item_index"
-                                      >
+                                      <div class="form-group row mb-5" v-for="(item, item_index) 
+                                      in tmb[data_index].product" :key="item_index">
                                         <div class="col-md-3 text-center">
-                                          <label class="form-label"
-                                            >Aircraft Type</label
-                                          >
-                                          <multiselect
-                                          v-model="item.aircraft_type"
-                                          :options="acType_options"
-                                          placeholder=""
-                                          label="name"
-                                          ></multiselect>
+                                          <div v-if="item.product_name == 'Engine & APU'">
+                                            <label class="form-label">
+                                              Engine
+                                            </label>
+                                            <multiselect
+                                            v-model="item.engine"
+                                            :options="engine_options"
+                                            placeholder=""
+                                            label="name"
+                                            ></multiselect>
+                                            <span v-if="errors[`tmb.${data_index}.product.${item_index}.engine.id`] == null">
+                                            </span>
+                                            <span class="text-danger" v-else>
+                                              {{ returnError(errors[`tmb.${data_index}.product.${item_index}.engine.id`]) }}
+                                            </span>
+                                            <label class="form-label mt-5 d-block">
+                                              APU
+                                            </label>
+                                            <multiselect
+                                            v-model="item.apu"
+                                            :options="apu_options"
+                                            placeholder=""
+                                            label="name"
+                                            class="mb-5"
+                                            ></multiselect>
+                                            <span v-if="errors[`tmb.${data_index}.product.${item_index}.apu.id`] == null">
+                                            </span>
+                                            <span class="text-danger" v-else>
+                                              {{ returnError(errors[`tmb.${data_index}.product.${item_index}.apu.id`]) }}
+                                            </span>
+                                          </div>
+                                          <div v-else-if="item.product_name == 'Component'">
+                                            <label class="form-label">
+                                              Component
+                                            </label>
+                                            <multiselect
+                                            v-model="item.component"
+                                            :options="component_options"
+                                            placeholder=""
+                                            label="name"
+                                            ></multiselect>
+                                            <span v-if="errors[`tmb.${data_index}.product.${item_index}.component.id`] == null">
+                                          </span>
+                                          <span class="text-danger" v-else>
+                                            {{ returnError(errors[`tmb.${data_index}.product.${item_index}.component.id`]) }}
+                                          </span>
+                                          </div>
+                                          <div v-else>
+                                            <label class="form-label">
+                                              Aircraft Type
+                                            </label>
+                                            <multiselect
+                                            v-model="item.aircraft_type"
+                                            :options="acType_options"
+                                            placeholder=""
+                                            label="name"
+                                            ></multiselect>
+                                            <span v-if="errors[`tmb.${data_index}.product.${item_index}.aircraft_type.id`] == null">
+                                          </span>
+                                          <span class="text-danger" v-else>
+                                            {{ returnError(errors[`tmb.${data_index}.product.${item_index}.aircraft_type.id`]) }}
+                                          </span>
+                                          </div>
                                         </div>
                                         <div class="col-md-3 text-center">
-                                          <label class="form-label"
-                                            >Market Share</label
-                                          >
-                                          <input
-                                            type="text"
-                                            v-model="item.market_share"
-                                            class="form-control mb-2 mb-md-0"
-                                            />
+                                          <label class="form-label">
+                                            Market Share
+                                          </label>
+                                          <input type="text" v-model="item.market_share" class="form-control mb-2 mb-md-0" :class="{'is-invalid': errors[`tmb.${data_index}.product.${item_index}.market_share`]}">
+
+                                          <span v-if="errors[`tmb.${data_index}.product.${item_index}.market_share`] == null">
+                                          </span>
+                                          <span class="text-danger" v-else>
+                                            {{ returnError(errors[`tmb.${data_index}.product.${item_index}.market_share`]) }}
+                                          </span>
+
                                         </div>
                                         <div class="col-md-2 text-center">
                                           <label class="form-label">Remark</label>
-                                          <input
-                                            type="text"
-                                            v-model="item.remark"
-                                            class="form-control mb-2 mb-md-0"
-                                            />
+                                          <input type="text" v-model="item.remark" class="form-control mb-2 mb-md-0" :class="{'is-invalid': errors[`tmb.${data_index}.product.${item_index}.remark`]}">
+                                          <span v-if="errors[`tmb.${data_index}.product.${item_index}.remark`] == null">
+                                          </span>
+                                          <span class="text-danger" v-else>
+                                            {{ returnError(errors[`tmb.${data_index}.product.${item_index}.remark`]) }}
+                                          </span>
                                         </div>
                                         <div class="col-md-3 text-center">
-                                          <label class="form-label"
-                                            >Maintenance Event</label
-                                          >
+                                          <label class="form-label">
+                                            Maintenance Event
+                                          </label>
                                           <multiselect
                                           v-model="item.maintenance_id"
                                           :options="maintenance_options"
                                           placeholder=""
                                           label="name"
                                           ></multiselect>
+                                          <span v-if="errors[`tmb.${data_index}.product.${item_index}.maintenance_id.id`] == null">
+                                          </span>
+                                          <span class="text-danger" v-else>
+                                            {{ returnError(errors[`tmb.${data_index}.product.${item_index}.maintenance_id.id`]) }}
+                                          </span>
                                         </div>
                                         <div class="col-md-1">
-                                          <button
-                                            type="button"
-                                            @click="
-                                              removeTMB(data_index, item_index)
-                                            "
-                                            class="btn btn-danger mt-3 mt-md-8"
-                                          >
+                                          <button type="button" @click="removeTMB(data_index, item_index)" 
+                                          class="btn btn-danger mt-3 mt-md-8">
                                             Delete
                                           </button>
                                         </div>
@@ -1875,9 +1865,9 @@
                                   <div class="row mb-5">
                                     <div class="col">
                                       <div class="input-group mb-3">
-                                        <label class="form-label fw-bold"
-                                          >Select Product</label
-                                        >
+                                        <label class="form-label fw-bold">
+                                          Select Product
+                                        </label>
                                         <multiselect
                                           v-model="product_value"
                                           :options="product_options"
@@ -1888,9 +1878,9 @@
                                     </div>
                                     <div class="col">
                                       <div class="input-group mb-3">
-                                        <label class="form-label fw-bold"
-                                          >Select Aircraft Type</label
-                                        >
+                                        <label class="form-label fw-bold">
+                                          Select Aircraft Type
+                                        </label>
                                         <multiselect
                                           v-model="acType_value"
                                           :options="acType_options"
@@ -1948,53 +1938,25 @@
                                             :key="target_index"
                                           >
                                             <div class="row">
-                                              <div
-                                                class="
-                                                  col-md-2
-                                                  d-flex
-                                                  align-items-center
-                                                "
-                                              >
+                                              <div class="col-md-2 d-flex align-items-center">
                                                 <h3 class="fs-7">
                                                   {{ target_month.month }}
                                                 </h3>
                                               </div>
                                               <div class="col-md-5">
                                                 <div class="mb-3">
-                                                  <label
-                                                    class="
-                                                      form-label
-                                                      text-muted
-                                                      fs-7
-                                                    "
-                                                    >Target Rate</label
-                                                  >
-                                                  <input
-                                                    required
-                                                    @change="countMarketShare()"
-                                                    type="text"
-                                                    v-model="target_month.rate"
-                                                    class="form-control form-control-sm"
-                                                    />
+                                                  <label class="form-label text-muted fs-7">
+                                                    Target Rate
+                                                  </label>
+                                                  <input required @change="countMarketShare()" type="text" v-model="target_month.rate" class="form-control form-control-sm">
                                                 </div>
                                               </div>
                                               <div class="col-md-5">
                                                 <div class="mb-3">
-                                                  <label
-                                                    class="
-                                                      form-label
-                                                      text-muted
-                                                      fs-7
-                                                    "
-                                                    >Target FH</label
-                                                  >
-                                                  <input
-                                                    required
-                                                    @change="countMarketShare()"
-                                                    type="text"
-                                                    v-model="target_month.flight_hour"
-                                                    class="form-control form-control-sm"
-                                                    />
+                                                  <label class="form-label text-muted fs-7">
+                                                    Target FH
+                                                  </label>
+                                                  <input required @change="countMarketShare()" type="text" v-model="target_month.flight_hour" class="form-control form-control-sm">
                                                 </div>
                                               </div>
                                             </div>
@@ -2153,6 +2115,8 @@ export default {
       areaAms_value: null,
       amsCustomer_options: [],
       acType_options: [],
+      engine_options: [],
+      component_options: [],
       maintenance_options: [],
       product_options: [],
       aircraft_type_options: [],
@@ -2185,16 +2149,11 @@ export default {
       paginate: '10',
       filter: null,
       current_page: null,
-      errors: {
-        year: null,
-        prospect_type_id: null,
-        transaction_type_id: null,
-        ams_customer_id: null,
-        strategic_initiative_id: null,
-        pm_id: null,
-      },
+      errors: [],
       year: null,
-      market_share: null
+      market_share: null,
+      prospect_year: null,
+      apu_options: null,
     }
   },
   created() {
@@ -2209,6 +2168,9 @@ export default {
     this.listAcType()
     this.listMaintenance()
     this.checkRole()
+    this.listEngine()
+    this.listComponent()
+    this.listAPU()
   },
   mounted() {
     KTStepper.getInstance()
@@ -2223,13 +2185,21 @@ export default {
     }, 500),
   },
   methods: {
+    returnError(errorMessage){
+      let val = errorMessage.toString()
+      return val.slice(0, -1)
+    },
+    formatNumber(value) {
+      let val = (value/1).toFixed(2).replace(',', ',')
+      return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+    },
     deleteOrganic(){
-      this.prospect.year = null;
+      this.prospect_year = null;
       this.selected_customer = null;
       this.selected_amsCustomer = null;
     },
     deleteInOrganic(){
-      this.prospect.year = null;
+      this.prospect_year = null;
       this.selected_customer = null;
       this.selected_amsCustomer = null;
       this.selected_strategic_initiative = null;
@@ -2304,10 +2274,6 @@ export default {
         });
       });
     },
-    formatNumber(value) {
-      let val = (value/1).toFixed(2).replace(',', ',')
-      return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-    },
     nextStep() {
       this.step_number++
     },
@@ -2321,7 +2287,41 @@ export default {
         product: [
           {
             product_id: value.id,
+            product_name: value.name,
             aircraft_type: null,
+            market_share: null,
+            remark: null,
+            maintenance_id: null,
+          },
+        ],
+      })
+    },
+    addProspectTMBEngine(value) {
+      this.tmb.push({
+        id: value.id,
+        name: value.name,
+        product: [
+          {
+            product_id: value.id,
+            product_name: value.name,
+            engine: null,
+            apu: null,
+            market_share: null,
+            remark: null,
+            maintenance_id: null,
+          },
+        ],
+      })
+    },
+    addProspectTMBComponent(value) {
+      this.tmb.push({
+        id: value.id,
+        name: value.name,
+        product: [
+          {
+            product_id: value.id,
+            product_name: value.name,
+            component: null,
             market_share: null,
             remark: null,
             maintenance_id: null,
@@ -2431,6 +2431,42 @@ export default {
         })
         .then((response) => {
           this.customer_options = response.data.data.data
+        })
+    },
+    listAPU() {
+      this.$axios
+        .get('api/apu', {
+          params: {
+            order: 'created_at',
+            by: 'ASC',
+          },
+        })
+        .then((response) => {
+          this.apu_options = response.data.data.data
+        })
+    },
+    listEngine() {
+      this.$axios
+        .get('api/engine', {
+          params: {
+            order: 'created_at',
+            by: 'ASC',
+          },
+        })
+        .then((response) => {
+          this.engine_options = response.data.data.data
+        })
+    },
+    listComponent() {
+      this.$axios
+        .get('api/component', {
+          params: {
+            order: 'created_at',
+            by: 'ASC',
+          },
+        })
+        .then((response) => {
+          this.component_options = response.data.data.data
         })
     },
     listAcType() {
@@ -2593,7 +2629,7 @@ export default {
       this.$axios
         .post('/api/prospect-create', {
           prospect_type_id: this.prospect.prospect_type_id,
-          year: this.prospect.year,
+          year: this.prospect_year,
           ams_customer_id: this.selected_amsCustomer.id,
           transaction_type_id: this.prospect.transaction_type_id,
           tmb: this.tmb,
@@ -2606,8 +2642,10 @@ export default {
         .catch((error) => {
           if (error.response.status == 422) {
             this.errors = error.response.data.errors
-            alert(this.errors[`tmb.0.product.0.aircraft_type.id`])
-            toastr.error(this.errors)
+            toastr.error(error.response.data.message)
+          } else{
+            toastr.error(error.response.data.message)
+            this.$router.push('/login')
           }
         })
     },
@@ -2616,7 +2654,7 @@ export default {
       this.$axios
         .post('/api/prospect-create', {
           prospect_type_id: this.prospect.prospect_type_id,
-          year: this.prospect.year,
+          year: this.prospect_year,
           ams_customer_id: this.selected_amsCustomer.id,
           transaction_type_id: this.prospect.transaction_type_id,
           strategic_initiative_id: this.selected_strategic_initiative.id,
@@ -2632,6 +2670,9 @@ export default {
           if (error.response.status == 422) {
             this.errors = error.response.data.errors
             toastr.error(error.response.data.message)
+          } else{
+            toastr.error(error.response.data.message)
+            this.$router.push('/login')
           }
         })
     },
@@ -2640,7 +2681,7 @@ export default {
       this.$axios
         .post('/api/prospect-create', {
           prospect_type_id: this.prospect.prospect_type_id,
-          year: this.prospect.year,
+          year: this.prospect_year,
           ams_customer_id: this.selected_amsCustomer.id,
           transaction_type_id: this.prospect.transaction_type_id,
           pbth: this.pbth,
@@ -2654,6 +2695,9 @@ export default {
           if (error.response.status == 422) {
             this.errors = error.response.data.errors
             toastr.error(error.response.data.message)
+          } else{
+            toastr.error(error.response.data.message)
+            this.$router.push('/login')
           }
         })
     },
@@ -2662,7 +2706,7 @@ export default {
       this.$axios
         .post('/api/prospect-create', {
           prospect_type_id: this.prospect.prospect_type_id,
-          year: this.prospect.year,
+          year: this.prospect_year,
           ams_customer_id: this.selected_amsCustomer.id,
           transaction_type_id: this.prospect.transaction_type_id,
           strategic_initiative_id: this.selected_strategic_initiative.id,
@@ -2678,6 +2722,9 @@ export default {
           if (error.response.status == 422) {
             this.errors = error.response.data.errors
             toastr.error(error.response.data.message)
+          } else{
+            toastr.error(error.response.data.message)
+            this.$router.push('/login')
           }
         })
     },

@@ -1705,11 +1705,10 @@
                                       class="btn btn-success btn-sm"
                                       @click="closeSales()"
                                       v-if="
-                                        (sales_detail.upgrade == true &&
-                                          role == 'TPR') ||
-                                        role == 'Administrator'
+                                      sales_detail.status === 'Open' &&
+                                      sales_detail.level == 1 &&
+                                      sales_detail.upgrade == true && role != 'CBO' && role != 'TPC'
                                       "
-                                      v-permission="['upgrade_level']"
                                     >
                                       Closed Sales
                                     </button>
@@ -1921,6 +1920,7 @@
                           >Select Month</label
                         >
                         <select class="form-select" v-model="filter">
+                          <option :value="null" disabled>Select Month</option>
                           <option value="1">January</option>
                           <option value="2">February</option>
                           <option value="3">March</option>

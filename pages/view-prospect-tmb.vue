@@ -37,16 +37,6 @@
       <div class="card shadow-sm mt-5">
         <div class="row">
           <div class="col-md-5 p-16">
-            <span class="btn btn-light btn-sm p-5">
-              <div v-if="customer_image == null">
-                <span class="fs-1 fw-bold">
-                  {{ initial }}
-                </span>
-              </div>
-              <div v-else>
-                <img :src=customer_image class="img-fluid" width="25" height="25">
-              </div>
-            </span>
             <span class="badge text-muted text-bg-light d-block text-start mt-2">TMB</span>
             <h2 class="mt-1">Airframe</h2>
             <div class="text-muted fw-semibold fs-5">Project for {{ registration }}</div>
@@ -191,12 +181,7 @@
                 </thead>
                 <tbody>
                   <tr v-for="(data, contact_person_index) in contact_persons" :key="contact_person_index">
-                    <td class="text-start">
-                      <div class="row mx-auto">
-                      <span class="rounded-circle p-5 bg-primary text-light text-center col-4">{{ data.firstalphabet }}</span>
-                      <span class="col-8">{{ data.name }}</span>
-                      </div>
-                    </td>
+                    <td class="text-start">{{ data.name }}</td>
                     <td class="text-start">{{ data.email }}</td>
                     <td class="text-start">{{ data.phone }}</td>
                     <td class="text-start">{{ data.address }}</td>

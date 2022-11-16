@@ -55,17 +55,7 @@
     <div class="container mb-10">
       <div class="card shadow-sm mt-5">
         <div class="row">
-          <div class="col-md-3 p-16">
-            <div v-if="customer_image == null" class="text-center">
-              <span class="btn btn-light btn-sm p-20 fs-1 fw-bold">
-                {{ initial }}
-              </span>
-            </div>
-            <div v-else>
-              <img :src=customer_image class="img-fluid">
-            </div>
-          </div>
-          <div class="col-md-9">
+          <div class="col-md-12 p-16">
             <div class="row mt-15 mb-2">
               <h2 class="mb-0">
                 {{ customer.name }}
@@ -199,14 +189,7 @@
                 <div class="card shadow-sm border-bottom border-5 border-primary" style="min-height: 420px">
                   <div class="row d-flex justify-content-between mt-5 ms-5 me-5">
                     <div class="col-2 p-1">
-                      <span class="btn btn-light btn-sm p-5">
-                        <div v-if="customer_image == null">
-                          <span class="fw-bold fs-1">{{ initial }}</span>
-                        </div>
-                        <div v-else>
-                          <img :src=customer_image alt="logo" class="img-fluid">
-                        </div>
-                      </span>
+                      <span class="badge text-muted text-bg-light">{{ data.transaction_type.name }}</span>
                     </div>
                     <div class="col-3 p-1 d-flex justify-content-end">
                       <div v-if="data.transaction_type.name == 'PBTH'">
@@ -220,7 +203,6 @@
                   </div>
                   <div class="row mt-5 ms-5 me-5">
                     <div class="col p-1">
-                      <span class="badge text-muted text-bg-light">{{ data.transaction_type.name }}</span>
                       <h1 class="fw-bold">Airframe</h1>
                       <p class="text-muted fs-5 fw-bold" style="min-height: 50px">
                         Project for {{ data.registration }}
@@ -261,27 +243,7 @@
                     </div>
                   </div>
                   <div class=" row mt-10 ms-5 me-5 mb-5 d-flex-justify-content-between">
-                    <div class="col-md-6">
-
-                      <span v-if="contact_person == null" class="rounded-circle p-5 bg-primary text-light text-center d-none">
-                      </span>
-                      <span v-else class="rounded-circle p-5 bg-primary text-light text-center">
-                        {{ contact_person }}
-                      </span>
-                      <span v-if="contact_person1 == null" class="rounded-circle p-5 bg-primary text-light text-center mx-2 d-none">
-                      </span>
-                      <span v-else class="rounded-circle p-5 bg-primary text-light text-center d-none mx-2">
-                        {{ contact_person1 }}
-                      </span>
-                      <span v-if="contact_person2 == null" class="rounded-circle p-5 bg-primary text-light text-center d-none">
-                      </span>
-                      <span v-else class="rounded-circle p-5 bg-primary text-light text-center d-none">
-                        {{ contact_person2 }}
-                      </span>
-
-                    </div>
-                    
-                    <div v-if="data.transaction_type_id == 1 || data.transaction_type_id == 2" class="col-md-6 d-flex justify-content-end">
+                    <div v-if="data.transaction_type_id == 1 || data.transaction_type_id == 2" class="col-md-12 d-flex justify-content-end mt-10">
                       <div v-if="role == 'Administrator' || role == 'AMS'">
                         <nuxt-link :to="{ path: 'view-prospect-tmb', query: { id: data.id }}" class="btn btn-primary btn-sm">Pick Up</nuxt-link>
                       </div>
@@ -292,7 +254,7 @@
                       </div>
                     </div>
 
-                    <div v-else class="col-md-6 d-flex justify-content-end">
+                    <div v-else class="col-md-12 d-flex justify-content-end mt-10">
                       <div v-if="role == 'Administrator' || role == 'AMS'">
                         <div v-if="data.sales.length > 0">
                           <nuxt-link :to="{ path: 'view-prospect-pbth', query: { id: data.id }}" class="btn btn-primary disabled btn-sm">
@@ -349,9 +311,6 @@ export default {
   data() {
     return {
       role: this.$auth.user.role.name,
-      contact_person: null,
-      contact_person1: null,
-      contact_person2: null,
       prospect_customer: [],
       prospect_total: [],
       customer: {},
@@ -364,7 +323,6 @@ export default {
       }
     },
     created() {
-      this.listContactPersons()
       this.listProspectCustomer()
       this.Customer()
       this.checkRole()
@@ -400,15 +358,6 @@ export default {
     formatNumber(value) {
       let val = (value/1).toFixed(2).replace(',', ',')
       return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-    },
-    listContactPersons() {
-      this.$axios
-        .get('api/contact-person')
-        .then((response) => {
-          this.contact_person = response.data.data.data[0].firstalphabet
-          this.contact_person1 = response.data.data.data[1].firstalphabet
-          this.contact_person2 = response.data.data.data[2].firstalphabet
-        })
     },
     listProspectCustomer() {
       this.loading()

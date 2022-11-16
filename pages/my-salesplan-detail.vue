@@ -59,7 +59,7 @@
             <!-- header -->
             <div class="row">
               <div class="col-lg-6">
-                <h3>Detail</h3>
+                <h3>Detail Sales Plan</h3>
               </div>
               <div class="col-lg-6">
                 <div class="text-right">
@@ -243,11 +243,6 @@
                                 v-for="maintenance_options in maintenance_option"
                                 :value="maintenance_options.id"
                               >
-                                <!-- <option
-                                v-for="maintenance_options in maintenance_option"
-                                :value="maintenance_options.id"
-                                :selected="maintenance_options.id = maintenance_id"
-                              > -->
                                 {{ maintenance_options.name }}
                               </option>
                             </select>
@@ -301,11 +296,6 @@
                                 v-for="hangar_options in hangar_option"
                                 :value="hangar_options.id"
                               >
-                                <!-- <option
-                                v-for="hangar_options in hangar_option"
-                                :value="hangar_options.id"
-                                :selected="hangar_options.id = hangar_id"
-                              > -->
                                 {{ hangar_options.name }}
                               </option>
                             </select>
@@ -377,27 +367,12 @@
 
             <!-- Card -->
             <div class="row mt-3">
-              <div class="col-lg-4 col-md-12 col-sm-12">
-                <div class="card mb-3" style="max-width: 540px">
+              <div class="col-lg">
+                <div class="card mb-3">
                   <div class="row no-gutters">
-                    <div class="col-md-2 mt-2 mb-20" v-if="sales_detail">
-                      <div v-if="sales_detail.customer.full_path == null">
-                        <span class="fs-1 fw-bold">
-                          {{ initial }}
-                        </span>
-                      </div>
-                      <div v-else>
-                        <img
-                          :src="sales_detail.customer.full_path"
-                          class="rounded"
-                          alt="No Image"
-                          style="width: 70px"
-                        />
-                      </div>
-                    </div>
-                    <div class="col-md-10" style="margin-top: -20px">
+                    <div class="col-md-12" style="margin-top: -20px; margin-left: -28px;">
                       <div class="card-body">
-                        <h5 class="card-title" v-if="sales_detail">
+                        <h5 class="card-title mb-5" v-if="sales_detail">
                           {{ sales_detail.registration }}
                         </h5>
                         <p class="card-text" v-if="sales_detail">
@@ -417,7 +392,7 @@
                   </div>
                 </div>
               </div>
-              <div class="col-lg-2 col-md-12 col-sm-12" id="cardTop">
+              <div class="col-lg">
                 <div class="text-center d-grid gap-2">
                   <span class="me-2 mb-2" id="cardMarketShare">
                     <h3 class="mt-2" id="textMarketShare" v-if="sales_detail">
@@ -427,7 +402,7 @@
                   </span>
                 </div>
               </div>
-              <div class="col-lg-2 col-md-12 col-sm-12" id="cardTop">
+              <div class="col-lg">
                 <div class="text-center d-grid gap-2">
                   <span class="me-2 mb-2" id="cardSalesPlan">
                     <h3 class="mt-2" id="textSalesPlan" v-if="sales_detail">
@@ -437,7 +412,7 @@
                   </span>
                 </div>
               </div>
-              <div class="col-lg-2 col-md-12 col-sm-12" id="cardTop">
+              <div class="col-lg">
                 <div class="text-center d-grid gap-2">
                   <span class="me-2 mb-2" id="cardDevisiasi">
                     <h3 class="mt-2" id="textDevisiasi" v-if="sales_detail">
@@ -1510,11 +1485,9 @@
                                       class="btn btn-success btn-sm"
                                       @click="slotConfirm()"
                                       v-if="
-                                        (level2[1].data != null &&
-                                          sales_detail.status === 'Open' &&
-                                          sales_detail.level == 2 &&
-                                          sales_detail.upgrade == false &&
-                                          role == 'CBO' && role == 'Administrator' )
+                                        level2[1].data != null &&
+                                        level2[1].status != false &&
+                                        role == 'CBO' || role == 'Administrator'
                                       "
                                     >
                                       Approve
@@ -1526,8 +1499,7 @@
                                       v-if="
                                         level2[1].data != null &&
                                         level2[1].status == 0 &&
-                                        role != 'CBO' &&
-                                        role != 'Administrator'
+                                        role != 'CBO'
                                       "
                                       >Waiting for Approval
                                     </span>
@@ -1547,10 +1519,9 @@
                                       data-bs-toggle="modal"
                                       data-bs-target="#slotRequest"
                                       v-if="
-                                        (level2[1].data == null &&
-                                          sales_detail.status === 'Open' &&
-                                          sales_detail.level == 2 &&
-                                          role == 'AMS' && role == 'Administrator')
+                                        level2[1].data == null &&
+                                        level2[1].status == false &&
+                                        role == 'AMS'
                                       "
                                     >
                                       Request to CBO
@@ -1730,11 +1701,10 @@
                                       class="btn btn-success btn-sm"
                                       @click="closeSales()"
                                       v-if="
-                                        (sales_detail.upgrade == true &&
-                                          role == 'TPR') ||
-                                        role == 'Administrator'
+                                      sales_detail.status === 'Open' &&
+                                      sales_detail.level == 1 &&
+                                      sales_detail.upgrade == true && role != 'CBO' && role != 'TPC'
                                       "
-                                      v-permission="['upgrade_level']"
                                     >
                                       Closed Sales
                                     </button>
@@ -1946,6 +1916,7 @@
                           >Select Month</label
                         >
                         <select class="form-select" v-model="filter">
+                          <option :value="null" disabled>Select Month</option>
                           <option value="1">January</option>
                           <option value="2">February</option>
                           <option value="3">March</option>
@@ -3172,18 +3143,8 @@ export default {
         allowOutsideClick: false,
       })
     },
-    loading2() {
-      Swal.fire({
-        timer: 5000,
-        didOpen: () => {
-          Swal.showLoading()
-        },
-        background: 'transparent',
-        allowOutsideClick: false,
-      })
-    },
     listDetail() {
-      this.loading2()
+      this.loading()
       this.$axios
         .get(`api/sales-show/${this.$route.query.id}`)
         .then((response) => {
@@ -3944,10 +3905,6 @@ export default {
 
 #heightContact {
   height: 35px;
-}
-
-#cardTop {
-  width: 218px;
 }
 
 #cardMarketShare {

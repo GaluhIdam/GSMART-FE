@@ -194,15 +194,29 @@
                   "
                 >
                   <div class="d-flex align-items-center gap-2">
-                    <span id="btnGreen" style="margin-left: -10px" v-if="sales_user">{{
-                      formatPrice(sales_user.level4.countOpen)
-                    }}</span>
-                    <span id="textGreen" style="margin-left: -6px" v-if="sales_user"
+                    <span
+                      id="btnGreen"
+                      style="margin-left: -10px"
+                      v-if="sales_user"
+                      >{{ formatPrice(sales_user.level4.countOpen) }}</span
+                    >
+                    <span
+                      id="textGreen"
+                      style="margin-left: -6px"
+                      v-if="sales_user"
                       >${{ formatPrice(sales_user.level4.open) }}</span
                     >
                   </div>
-                  <div class="d-flex align-items-center justify-content-end" style="margin-left: -15px">
-                    <span class="text-muted ms-10" id="fontSm" style="margin-left: -15px">Open</span>
+                  <div
+                    class="d-flex align-items-center justify-content-end"
+                    style="margin-left: -15px"
+                  >
+                    <span
+                      class="text-muted ms-10"
+                      id="fontSm"
+                      style="margin-left: -15px"
+                      >Open</span
+                    >
                   </div>
                 </a>
                 <a
@@ -217,15 +231,26 @@
                   "
                 >
                   <div class="d-flex align-items-center gap-2">
-                    <span id="btnRed" style="margin-left: -10px" v-if="sales_user">{{
-                      formatPrice(sales_user.level4.countCancel)
-                    }}</span>
-                    <span id="textRed" style="margin-left: -6px" v-if="sales_user"
+                    <span
+                      id="btnRed"
+                      style="margin-left: -10px"
+                      v-if="sales_user"
+                      >{{ formatPrice(sales_user.level4.countCancel) }}</span
+                    >
+                    <span
+                      id="textRed"
+                      style="margin-left: -6px"
+                      v-if="sales_user"
                       >${{ formatPrice(sales_user.level4.cancel) }}</span
                     >
                   </div>
                   <div class="d-flex align-items-center justify-content-end">
-                    <span class="text-muted ms-10" id="fontSm" style="margin-left: -15px">Cancel</span>
+                    <span
+                      class="text-muted ms-10"
+                      id="fontSm"
+                      style="margin-left: -15px"
+                      >Cancel</span
+                    >
                   </div>
                 </a>
               </div>
@@ -271,15 +296,26 @@
                   "
                 >
                   <div class="d-flex align-items-center gap-2">
-                    <span id="btnGreen" style="margin-left: -10px" v-if="sales_user">{{
-                      formatPrice(sales_user.level3.countOpen)
-                    }}</span>
-                    <span id="textGreen" style="margin-left: -6px" v-if="sales_user"
+                    <span
+                      id="btnGreen"
+                      style="margin-left: -10px"
+                      v-if="sales_user"
+                      >{{ formatPrice(sales_user.level3.countOpen) }}</span
+                    >
+                    <span
+                      id="textGreen"
+                      style="margin-left: -6px"
+                      v-if="sales_user"
                       >${{ formatPrice(sales_user.level3.open) }}</span
                     >
                   </div>
                   <div class="d-flex align-items-center justify-content-end">
-                    <span class="text-muted ms-10" id="fontSm" style="margin-left: -15px">Open</span>
+                    <span
+                      class="text-muted ms-10"
+                      id="fontSm"
+                      style="margin-left: -15px"
+                      >Open</span
+                    >
                   </div>
                 </a>
                 <a
@@ -294,15 +330,26 @@
                   "
                 >
                   <div class="d-flex align-items-center gap-2">
-                    <span id="btnRed" style="margin-left: -10px" v-if="sales_user">{{
-                      formatPrice(sales_user.level3.countCancel)
-                    }}</span>
-                    <span id="textRed" style="margin-left: -6px" v-if="sales_user"
+                    <span
+                      id="btnRed"
+                      style="margin-left: -10px"
+                      v-if="sales_user"
+                      >{{ formatPrice(sales_user.level3.countCancel) }}</span
+                    >
+                    <span
+                      id="textRed"
+                      style="margin-left: -6px"
+                      v-if="sales_user"
                       >${{ formatPrice(sales_user.level3.cancel) }}</span
                     >
                   </div>
                   <div class="d-flex align-items-center justify-content-end">
-                    <span class="text-muted ms-10" id="fontSm" style="margin-left: -15px">Cancel</span>
+                    <span
+                      class="text-muted ms-10"
+                      id="fontSm"
+                      style="margin-left: -15px"
+                      >Cancel</span
+                    >
                   </div>
                 </a>
               </div>
@@ -348,15 +395,26 @@
                   "
                 >
                   <div class="d-flex align-items-center gap-2">
-                    <span id="btnGreen" style="margin-left: -10px" v-if="sales_user">{{
-                      formatPrice(sales_user.level2.countOpen)
-                    }}</span>
-                    <span id="textGreen" style="margin-left: -6px" v-if="sales_user"
+                    <span
+                      id="btnGreen"
+                      style="margin-left: -10px"
+                      v-if="sales_user"
+                      >{{ formatPrice(sales_user.level2.countOpen) }}</span
+                    >
+                    <span
+                      id="textGreen"
+                      style="margin-left: -6px"
+                      v-if="sales_user"
                       >${{ formatPrice(sales_user.level2.open) }}</span
                     >
                   </div>
                   <div class="d-flex align-items-center justify-content-end">
-                    <span class="text-muted ms-10" id="fontSm" style="margin-left: -15px">Open</span>
+                    <span
+                      class="text-muted ms-10"
+                      id="fontSm"
+                      style="margin-left: -15px"
+                      >Open</span
+                    >
                   </div>
                 </a>
                 <a
@@ -371,15 +429,26 @@
                   "
                 >
                   <div class="d-flex align-items-center gap-2">
-                    <span id="btnRed" style="margin-left: -10px" v-if="sales_user">{{
-                      formatPrice(sales_user.level2.countCancel)
-                    }}</span>
-                    <span id="textRed" style="margin-left: -6px" v-if="sales_user"
+                    <span
+                      id="btnRed"
+                      style="margin-left: -10px"
+                      v-if="sales_user"
+                      >{{ formatPrice(sales_user.level2.countCancel) }}</span
+                    >
+                    <span
+                      id="textRed"
+                      style="margin-left: -6px"
+                      v-if="sales_user"
                       >${{ formatPrice(sales_user.level2.cancel) }}</span
                     >
                   </div>
                   <div class="d-flex align-items-center justify-content-end">
-                    <span class="text-muted ms-10" id="fontSm" style="margin-left: -15px">Cancel</span>
+                    <span
+                      class="text-muted ms-10"
+                      id="fontSm"
+                      style="margin-left: -15px"
+                      >Cancel</span
+                    >
                   </div>
                 </a>
               </div>
@@ -432,17 +501,30 @@
                         "
                       >
                         <div class="d-flex align-items-center gap-2">
-                          <span id="btnGreen" style="margin-left: -10px" v-if="sales_user">{{
-                            formatPrice(sales_user.level1.countOpen)
-                          }}</span>
-                          <span id="textGreen" style="margin-left: -6px" v-if="sales_user"
+                          <span
+                            id="btnGreen"
+                            style="margin-left: -10px"
+                            v-if="sales_user"
+                            >{{
+                              formatPrice(sales_user.level1.countOpen)
+                            }}</span
+                          >
+                          <span
+                            id="textGreen"
+                            style="margin-left: -6px"
+                            v-if="sales_user"
                             >${{ formatPrice(sales_user.level1.open) }}</span
                           >
                         </div>
                         <div
                           class="d-flex align-items-center justify-content-end"
                         >
-                          <span class="text-muted ms-10" id="fontSm" style="margin-left: -15px">Open</span>
+                          <span
+                            class="text-muted ms-10"
+                            id="fontSm"
+                            style="margin-left: -15px"
+                            >Open</span
+                          >
                         </div>
                       </a>
                       <a
@@ -457,17 +539,28 @@
                         "
                       >
                         <div class="d-flex align-items-center gap-2">
-                          <span id="btnRed" style="margin-left: -10px" v-if="sales_user">{{
-                            formatPrice(sales_user.level1.countCancel)
-                          }}</span>
-                          <span id="textRed" style="margin-left: -6px" v-if="sales_user"
+                          <span
+                            id="btnRed"
+                            style="margin-left: -10px"
+                            v-if="sales_user"
+                            >{{
+                              formatPrice(sales_user.level1.countCancel)
+                            }}</span
+                          >
+                          <span
+                            id="textRed"
+                            style="margin-left: -6px"
+                            v-if="sales_user"
                             >${{ formatPrice(sales_user.level1.cancel) }}</span
                           >
                         </div>
                         <div
                           class="d-flex align-items-center justify-content-end"
                         >
-                          <span class="text-muted ms-10" id="fontSm" style="margin-left: -15px"
+                          <span
+                            class="text-muted ms-10"
+                            id="fontSm"
+                            style="margin-left: -15px"
                             >Cancel</span
                           >
                         </div>
@@ -494,17 +587,28 @@
                         "
                       >
                         <div class="d-flex align-items-center gap-2">
-                          <span id="btnPurple" style="margin-left: -10px" v-if="sales_user">{{
-                            formatPrice(sales_user.level1.countClosed)
-                          }}</span>
-                          <span id="textPurple" style="margin-left: -6px" v-if="sales_user"
+                          <span
+                            id="btnPurple"
+                            style="margin-left: -10px"
+                            v-if="sales_user"
+                            >{{
+                              formatPrice(sales_user.level1.countClosed)
+                            }}</span
+                          >
+                          <span
+                            id="textPurple"
+                            style="margin-left: -6px"
+                            v-if="sales_user"
                             >${{ formatPrice(sales_user.level1.closed) }}</span
                           >
                         </div>
                         <div
                           class="d-flex align-items-center justify-content-end"
                         >
-                          <span class="text-muted ms-10" id="fontSm" style="margin-left: -15px"
+                          <span
+                            class="text-muted ms-10"
+                            id="fontSm"
+                            style="margin-left: -15px"
                             >Closed</span
                           >
                         </div>
@@ -521,17 +625,29 @@
                         "
                       >
                         <div class="d-flex align-items-center gap-2">
-                          <span id="btnGold" style="margin-left: -10px" v-if="sales_user">{{
-                            formatPrice(sales_user.level1.countCloseIn)
-                          }}</span>
-                          <span id="textGold" style="margin-left: -6px" v-if="sales_user"
+                          <span
+                            id="btnGold"
+                            style="margin-left: -10px"
+                            v-if="sales_user"
+                            >{{
+                              formatPrice(sales_user.level1.countCloseIn)
+                            }}</span
+                          >
+                          <span
+                            id="textGold"
+                            style="margin-left: -6px"
+                            v-if="sales_user"
                             >${{ formatPrice(sales_user.level1.closeIn) }}</span
                           >
                         </div>
                         <div
                           class="d-flex align-items-center justify-content-end"
                         >
-                          <span class="text-muted ms-10" style="margin-left: -15px" id="fontSm">
+                          <span
+                            class="text-muted ms-10"
+                            style="margin-left: -15px"
+                            id="fontSm"
+                          >
                             Close in
                           </span>
                         </div>
@@ -635,6 +751,7 @@
                     <input type="hidden" v-model="is_rkap" value="0" />
                     <label class="form-label fw-bold">Customer</label>
                     <multiselect
+                      required
                       v-model="customer_value"
                       :options="customer_option"
                       open-direction="bottom"
@@ -646,25 +763,19 @@
                       placeholder=""
                       label="name"
                       :searchable="true"
-                      :class="{ 'is-invalid': errors.customer_id }"
                     ></multiselect>
-                    <span
-                      v-if="errors.customer_id"
-                      class="error invalid-feedback"
-                      >{{ errors.customer_id[0] }}</span
-                    >
                   </div>
                 </div>
                 <div class="col-lg-6">
                   <div class="form-group mb-3">
                     <label class="form-label fw-bold">Prospect</label>
                     <multiselect
+                      required
                       v-model="prospect_value_salesplan"
                       :options="prospect_option_salesplan"
                       open-direction="bottom"
                       :searchable="true"
                       placeholder=""
-                      @input="selectSalesPlan()"
                       label="registration"
                       :class="{ 'is-invalid': errors.prospect_id }"
                     ></multiselect>
@@ -682,25 +793,21 @@
                   <div class="form-group mb-3">
                     <label class="form-label fw-bold">Product</label>
                     <multiselect
+                      required
                       v-model="product_value"
                       :options="product_option"
                       open-direction="bottom"
                       :searchable="true"
                       placeholder=""
                       label="name"
-                      :class="{ 'is-invalid': errors.product_id }"
                     ></multiselect>
-                    <span
-                      v-if="errors.product_id"
-                      class="error invalid-feedback"
-                      >{{ errors.product_id[0] }}</span
-                    >
                   </div>
                 </div>
                 <div class="col-lg-6">
                   <div class="form-group mb-3">
                     <label class="form-label fw-bold">Maintenance</label>
                     <multiselect
+                      required
                       v-model="maintenance_value"
                       :options="maintenance_option"
                       open-direction="bottom"
@@ -723,38 +830,28 @@
                   <div class="form-group mb-3">
                     <label class="form-label fw-bold">Hangar</label>
                     <multiselect
+                      required
                       v-model="hangar_value"
                       :options="hangar_option"
                       open-direction="bottom"
                       placeholder=""
                       label="name"
                       :searchable="true"
-                      :class="{ 'is-invalid': errors.hangar_id }"
                     ></multiselect>
-                    <span
-                      v-if="errors.hangar_id"
-                      class="error invalid-feedback"
-                      >{{ errors.hangar_id[0] }}</span
-                    >
                   </div>
                 </div>
                 <div class="col-lg-6">
                   <div class="form-group mb-3">
                     <label class="form-label fw-bold">Aircraft Type</label>
                     <multiselect
+                      required
                       v-model="ac_type_value"
                       :options="ac_type_option"
                       open-direction="bottom"
                       :searchable="true"
                       placeholder=""
                       label="name"
-                      :class="{ 'is-invalid': errors.ac_type_id }"
                     ></multiselect>
-                    <span
-                      v-if="errors.ac_type_id"
-                      class="error invalid-feedback"
-                      >{{ errors.ac_type_id[0] }}</span
-                    >
                   </div>
                 </div>
               </div>
@@ -766,6 +863,7 @@
                       >Aircraft Registration</label
                     >
                     <input
+                      required
                       type="text"
                       v-model="ac_reg"
                       class="form-control"
@@ -780,6 +878,7 @@
                   <div class="form-group mb-3">
                     <label class="form-label fw-bold">Sales Plan</label>
                     <input
+                      required
                       type="number"
                       v-model="value"
                       class="form-control"
@@ -797,6 +896,7 @@
                   <div class="form-group mb-3">
                     <label class="form-label fw-bold">Start Date</label>
                     <input
+                      required
                       type="date"
                       v-model="start_date"
                       class="form-control"
@@ -813,6 +913,7 @@
                   <div class="form-group mb-3">
                     <label class="form-label fw-bold">TAT</label>
                     <input
+                      required
                       type="number"
                       v-model="tat"
                       class="form-control"
@@ -1278,22 +1379,32 @@
                     <!-- Other -->
                     <td class="text-center">
                       <div v-if="p_sales.other === 'RKAP'">
-                        <span class="badge badge-info">{{ p_sales.other }}</span>
+                        <span class="badge badge-info">{{
+                          p_sales.other
+                        }}</span>
                       </div>
                       <div v-if="p_sales.other === 'Additional'">
-                        <span class="badge badge-primary">{{ p_sales.other }}</span>
+                        <span class="badge badge-primary">{{
+                          p_sales.other
+                        }}</span>
                       </div>
                     </td>
                     <!-- Type -->
                     <td class="text-center">
                       <div v-if="p_sales.type === 'TMB Retail'">
-                        <span class="badge badge-danger">{{ p_sales.type }}</span>
+                        <span class="badge badge-danger">{{
+                          p_sales.type
+                        }}</span>
                       </div>
                       <div v-if="p_sales.type === 'TMB Project'">
-                        <span class="badge badge-primary">{{ p_sales.type }}</span>
+                        <span class="badge badge-primary">{{
+                          p_sales.type
+                        }}</span>
                       </div>
                       <div v-if="p_sales.type === 'PBTH'">
-                        <span class="badge badge-warning">{{ p_sales.type }}</span>
+                        <span class="badge badge-warning">{{
+                          p_sales.type
+                        }}</span>
                       </div>
                     </td>
                     <!-- Sales Level -->
@@ -1314,49 +1425,77 @@
                     <!-- Progress -->
                     <td class="text-center">
                       <div v-if="p_sales.progress === 10">
-                        <span class="badge badge-danger">{{ p_sales.progress }}%</span>
+                        <span class="badge badge-danger"
+                          >{{ p_sales.progress }}%</span
+                        >
                       </div>
                       <div v-if="p_sales.progress === 20">
-                        <span class="badge badge-danger">{{ p_sales.progress }}%</span>
+                        <span class="badge badge-danger"
+                          >{{ p_sales.progress }}%</span
+                        >
                       </div>
                       <div v-if="p_sales.progress === 30">
-                        <span class="badge badge-danger">{{ p_sales.progress }}%</span>
+                        <span class="badge badge-danger"
+                          >{{ p_sales.progress }}%</span
+                        >
                       </div>
                       <div v-if="p_sales.progress === 40">
-                        <span class="badge badge-warning">{{ p_sales.progress }}%</span>
+                        <span class="badge badge-warning"
+                          >{{ p_sales.progress }}%</span
+                        >
                       </div>
                       <div v-if="p_sales.progress === 50">
-                        <span class="badge badge-warning">{{ p_sales.progress }}%</span>
+                        <span class="badge badge-warning"
+                          >{{ p_sales.progress }}%</span
+                        >
                       </div>
                       <div v-if="p_sales.progress === 60">
-                        <span class="badge badge-warning">{{ p_sales.progress }}%</span>
+                        <span class="badge badge-warning"
+                          >{{ p_sales.progress }}%</span
+                        >
                       </div>
                       <div v-if="p_sales.progress === 70">
-                        <span class="badge badge-primary">{{ p_sales.progress }}%</span>
+                        <span class="badge badge-primary"
+                          >{{ p_sales.progress }}%</span
+                        >
                       </div>
                       <div v-if="p_sales.progress === 80">
-                        <span class="badge badge-primary">{{ p_sales.progress }}%</span>
+                        <span class="badge badge-primary"
+                          >{{ p_sales.progress }}%</span
+                        >
                       </div>
                       <div v-if="p_sales.progress === 90">
-                        <span class="badge badge-success">{{ p_sales.progress }}%</span>
+                        <span class="badge badge-success"
+                          >{{ p_sales.progress }}%</span
+                        >
                       </div>
                       <div v-if="p_sales.progress === 100">
-                        <span class="badge badge-success">{{ p_sales.progress }}%</span>
+                        <span class="badge badge-success"
+                          >{{ p_sales.progress }}%</span
+                        >
                       </div>
                     </td>
                     <!-- Status -->
                     <td class="text-center">
                       <div v-if="p_sales.status === 'Cancel'">
-                        <span class="badge badge-danger">{{ p_sales.status }}</span>
+                        <span class="badge badge-danger">{{
+                          p_sales.status
+                        }}</span>
                       </div>
                       <div v-if="p_sales.status === 'Open'">
-                        <span class="badge badge-success">{{ p_sales.status }}</span>
+                        <span class="badge badge-success">{{
+                          p_sales.status
+                        }}</span>
                       </div>
                       <div v-if="p_sales.status === 'Close in'">
-                        <span class="badge badge-warning">{{ p_sales.status }}</span>
+                        <span class="badge badge-warning">{{
+                          p_sales.status
+                        }}</span>
                       </div>
                       <div v-if="p_sales.status === 'Closed'">
-                        <span class="badge badge-primary">{{ p_sales.status }}</span>
+                        <span class="badge badge-primary">{{
+                          p_sales.status
+                        }}</span>
                       </div>
                     </td>
                     <td class="text-center">
@@ -1768,6 +1907,12 @@ export default {
       this.hangar_value = null
       this.aircraft_name_value = null
       this.value = null
+      this.errors.prospect_id = null
+      this.errors.maintenance_id = null
+      this.errors.ac_reg = null
+      this.errors.value = null
+      this.errors.start_date = null
+      this.errors.tat = null
     },
 
     clearProspect() {
@@ -1778,42 +1923,6 @@ export default {
       } else {
         this.prospect = []
         this.isDisabled = false
-      }
-    },
-    selectSalesPlan() {
-      var prod_id =
-        this.prospect_value_salesplan != null
-          ? this.prospect_value_salesplan.prospect_tmb[0].tmb.product_id
-          : null
-      var main_id =
-        this.prospect_value_salesplan != null
-          ? this.prospect_value_salesplan.prospect_tmb[0].tmb.maintenance_id
-          : null
-
-      this.aircraft_name_value =
-        this.prospect_value_salesplan != null
-          ? this.prospect_value_salesplan.prospect_tmb[0].tmb.ac_type.name
-          : null
-      this.aircraft_id_value =
-        this.prospect_value_salesplan != null
-          ? this.prospect_value_salesplan.prospect_tmb[0].tmb.ac_type.id
-          : null
-
-      for (let i = 0; i < this.product_option.length; i++) {
-        if (prod_id == this.product_option[i].id) {
-          this.product_name_value = this.product_option[i].name
-          this.product_id_value = this.product_option[i].id
-        } else if (prod_id == null) {
-          this.product_name_value = null
-          this.product_id_value = null
-        }
-      }
-      for (let k = 0; k < this.maintenance_option.length; k++) {
-        if (main_id == this.maintenance_option[k].id) {
-          this.maintenance_name_value = this.maintenance_option[k].name
-        } else if (main_id == null) {
-          this.maintenance_name_value = null
-        }
       }
     },
     saveSalesPlan() {

@@ -1,4 +1,4 @@
-<template>
+{{<template>
   <div>
     <div id="kt_app_toolbar" class="app-toolbar py-3 py-lg-6 bg-white">
       <!--begin::Toolbar container-->
@@ -1693,10 +1693,10 @@
                                             placeholder=""
                                             label="name"
                                             ></multiselect>
-                                            <span v-if="errors[`tmb.${data_index}.product.${item_index}.engine.id`] == null">
+                                            <span v-if="errors[`tmb.${data_index}.product.${item_index}.engine`] == null">
                                             </span>
                                             <span class="text-danger" v-else>
-                                              {{ returnError(errors[`tmb.${data_index}.product.${item_index}.engine.id`]) }}
+                                              {{ returnError(errors[`tmb.${data_index}.product.${item_index}.engine`]) }}
                                             </span>
                                             <label class="form-label mt-5 d-block">
                                               APU
@@ -1708,10 +1708,10 @@
                                             label="name"
                                             class="mb-5"
                                             ></multiselect>
-                                            <span v-if="errors[`tmb.${data_index}.product.${item_index}.apu.id`] == null">
+                                            <span v-if="errors[`tmb.${data_index}.product.${item_index}.apu`] == null">
                                             </span>
                                             <span class="text-danger" v-else>
-                                              {{ returnError(errors[`tmb.${data_index}.product.${item_index}.apu.id`]) }}
+                                              {{ returnError(errors[`tmb.${data_index}.product.${item_index}.apu`]) }}
                                             </span>
                                           </div>
                                           <div v-else-if="item.product_name == 'Component'">
@@ -1724,10 +1724,10 @@
                                             placeholder=""
                                             label="name"
                                             ></multiselect>
-                                            <span v-if="errors[`tmb.${data_index}.product.${item_index}.component.id`] == null">
+                                            <span v-if="errors[`tmb.${data_index}.product.${item_index}.component`] == null">
                                           </span>
                                           <span class="text-danger" v-else>
-                                            {{ returnError(errors[`tmb.${data_index}.product.${item_index}.component.id`]) }}
+                                            {{ returnError(errors[`tmb.${data_index}.product.${item_index}.component`]) }}
                                           </span>
                                           </div>
                                           <div v-else>
@@ -1740,10 +1740,10 @@
                                             placeholder=""
                                             label="name"
                                             ></multiselect>
-                                            <span v-if="errors[`tmb.${data_index}.product.${item_index}.aircraft_type.id`] == null">
+                                            <span v-if="errors[`tmb.${data_index}.product.${item_index}.aircraft_type`] == null">
                                           </span>
                                           <span class="text-danger" v-else>
-                                            {{ returnError(errors[`tmb.${data_index}.product.${item_index}.aircraft_type.id`]) }}
+                                            {{ returnError(errors[`tmb.${data_index}.product.${item_index}.aircraft_type`]) }}
                                           </span>
                                           </div>
                                         </div>
@@ -1779,10 +1779,10 @@
                                           placeholder=""
                                           label="name"
                                           ></multiselect>
-                                          <span v-if="errors[`tmb.${data_index}.product.${item_index}.maintenance_id.id`] == null">
+                                          <span v-if="errors[`tmb.${data_index}.product.${item_index}.maintenance_id`] == null">
                                           </span>
                                           <span class="text-danger" v-else>
-                                            {{ returnError(errors[`tmb.${data_index}.product.${item_index}.maintenance_id.id`]) }}
+                                            {{ returnError(errors[`tmb.${data_index}.product.${item_index}.maintenance_id`]) }}
                                           </span>
                                         </div>
                                         <div class="col-md-1">
@@ -1949,6 +1949,12 @@
                                                     Target Rate
                                                   </label>
                                                   <input required @change="countMarketShare()" type="text" v-model="target_month.rate" class="form-control form-control-sm">
+
+                                                  <span v-if="errors[`pbth.${index_pbth}.target.${target_index}.rate`] == null">
+                                                  </span>
+                                                  <span class="text-danger" v-else>
+                                                    {{ returnError(errors[`pbth.${index_pbth}.target.${target_index}.rate`]) }}
+                                                  </span>
                                                 </div>
                                               </div>
                                               <div class="col-md-5">
@@ -1957,6 +1963,11 @@
                                                     Target FH
                                                   </label>
                                                   <input required @change="countMarketShare()" type="text" v-model="target_month.flight_hour" class="form-control form-control-sm">
+                                                  <span v-if="errors[`pbth.${index_pbth}.target.${target_index}.flight_hour`] == null">
+                                                  </span>
+                                                  <span class="text-danger" v-else>
+                                                    {{ returnError(errors[`pbth.${index_pbth}.target.${target_index}.flight_hour`]) }}
+                                                  </span>
                                                 </div>
                                               </div>
                                             </div>
@@ -2417,9 +2428,11 @@ export default {
       if (this.tmb[data_index].product == '') {
         this.tmb.splice(data_index, 1)
       }
+      this.clearError()
     },
     removePBTH(index_pbth) {
       this.pbth.splice(index_pbth, 1)
+      this.clearError()
     },
     listCustomer() {
       this.$axios
@@ -2738,8 +2751,12 @@ export default {
         allowOutsideClick: false,
       })
     },
+    clearError(){
+      this.errors = []
+    },
     clearForm() {
-      this.prospect = []
+      this.prospect_year = null
+      this.errors = []
       this.selected_customer = null
       this.selected_amsCustomer = null
       this.selected_strategic_initiative = null
@@ -2751,13 +2768,14 @@ export default {
       this.resetStepper()
     },
     closeModal() {
-      document.getElementById('close_modal').click()
       this.clearForm()
+      document.getElementById('close_modal').click()
     },
     nextButtonClick(){
       document.getElementById('next_step').click()
     },
     backButtonClick(){
+      this.clearError()
       document.getElementById('previous_step').click()
     },
     resetStepper(){
@@ -2788,4 +2806,4 @@ export default {
 #chart {
   height: 8.5rem;
 }
-</style>
+</style>}}

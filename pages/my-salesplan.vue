@@ -7,9 +7,9 @@
             class="mt-3"
             v-if="role == 'TPR' || role == 'CBO' || role == 'Administrator'"
           >
-            All Sales Plan
+            Sales Plan
           </h3>
-          <h3 class="mt-3" v-if="role == 'AMS'">My Sales Plan</h3>
+          <h3 class="mt-3" v-if="role == 'AMS'">Sales Plan</h3>
         </div>
         <div class="col-lg-6 col-sm-12 d-flex justify-content-end">
           <button
@@ -680,7 +680,7 @@
       </div>
       <!-- End row 2 -->
 
-      <div class="row" v-if="role == 'AMS' || role == 'Administrator'">
+      <!-- <div class="row" v-if="role == 'AMS' || role == 'Administrator'">
         <div class="col-lg-6">
           <button
             class="btn btn-primary btn-sm my-3"
@@ -690,7 +690,7 @@
             <i class="fas fa-plus"></i> Additional Sales Plan
           </button>
         </div>
-      </div>
+      </div> -->
 
       <!-- Modal addSales  -->
       <div
@@ -953,7 +953,7 @@
         </div>
       </div>
 
-      <div class="row">
+      <!-- <div class="row">
         <div class="col-lg-6 col-sm-12">
           <h3 class="mt-3">Salesplan Table</h3>
         </div>
@@ -964,6 +964,22 @@
             data-bs-target="#salesplanTotal"
           >
             <i class="fa-solid fa-dollar-sign"></i> Salesplan Total
+          </button>
+        </div>
+      </div> -->
+
+      <div class="row">
+        <div class="col-lg-6 col-sm-12">
+          <h3 class="mt-5">Salesplan Table</h3>
+        </div>
+        <div class="col-lg-6 col-sm-12 d-flex justify-content-end">
+          <button
+            class="btn btn-primary btn-sm my-3"
+            data-bs-toggle="modal"
+            data-bs-target="#addSales"
+            v-if="role == 'AMS' || role == 'Administrator'"
+          >
+            <i class="fas fa-plus"></i> Additional Sales Plan
           </button>
         </div>
       </div>

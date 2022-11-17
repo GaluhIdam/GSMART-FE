@@ -800,7 +800,13 @@
                       :searchable="true"
                       placeholder=""
                       label="name"
+                      :class="{ 'is-invalid': errors.product_id }"
                     ></multiselect>
+                    <span
+                      v-if="errors.product_id"
+                      class="error invalid-feedback"
+                      >{{ errors.product_id[0] }}</span
+                    >
                   </div>
                 </div>
                 <div class="col-lg-6">
@@ -837,7 +843,13 @@
                       placeholder=""
                       label="name"
                       :searchable="true"
+                      :class="{ 'is-invalid': errors.hangar_id }"
                     ></multiselect>
+                    <span
+                      v-if="errors.hangar_id"
+                      class="error invalid-feedback"
+                      >{{ errors.hangar_id[0] }}</span
+                    >
                   </div>
                 </div>
                 <div class="col-lg-6">
@@ -851,7 +863,13 @@
                       :searchable="true"
                       placeholder=""
                       label="name"
+                      :class="{ 'is-invalid': errors.ac_type_id }"
                     ></multiselect>
+                    <span
+                      v-if="errors.ac_type_id"
+                      class="error invalid-feedback"
+                      >{{ errors.ac_type_id[0] }}</span
+                    >
                   </div>
                 </div>
               </div>
@@ -1165,7 +1183,10 @@
                     >
                       <p class="d-flex justify-content-center">
                         PRODUCT
-                        <i class="fa-solid fa-sort-up ms-2" style="color: black"></i>
+                        <i
+                          class="fa-solid fa-sort-up ms-2"
+                          style="color: black"
+                        ></i>
                       </p>
                     </th>
                     <th
@@ -2055,6 +2076,8 @@ export default {
             this.prospect_value_salesplan != null
               ? this.prospect_value_salesplan.id
               : null,
+          product_id: this.product_value != null ? this.product_value.id : null,
+          ac_type_id: this.ac_type_value != null ? this.ac_type_value.id : null,
           maintenance_id:
             this.maintenance_value != null ? this.maintenance_value.id : null,
           hangar_id: this.hangar_value != null ? this.hangar_value.id : null,

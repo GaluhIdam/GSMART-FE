@@ -1511,7 +1511,7 @@
                                       @click="slotConfirm()"
                                       v-if="
                                         level2[1].data != null &&
-                                        level2[1].status != false &&
+                                        level2[1].status != false ||
                                         role == 'CBO' || role == 'Administrator'
                                       "
                                     >
@@ -1522,8 +1522,8 @@
                                       style="cursor: default"
                                       id="textWaiting"
                                       v-if="
-                                        level2[1].data != null &&
-                                        level2[1].status == 0 &&
+                                        (level2[1].data != null &&
+                                        level2[1].status == 0) &&
                                         role != 'CBO'
                                       "
                                       >Waiting for Approval
@@ -1544,9 +1544,9 @@
                                       data-bs-toggle="modal"
                                       data-bs-target="#slotRequest"
                                       v-if="
-                                        level2[1].data == null &&
-                                        level2[1].status == false &&
-                                        role == 'AMS'
+                                        (level2[1].data == null &&
+                                        level2[1].status == false) &&
+                                        (role == 'AMS' || role == 'Administrator')
                                       "
                                     >
                                       Request to CBO
@@ -1726,9 +1726,15 @@
                                       class="btn btn-success btn-sm"
                                       @click="closeSales()"
                                       v-if="
-                                        (sales_detail.upgrade == true &&
-                                          role == 'TPR') ||
-                                        role == 'Administrator'
+                                        (
+                                        sales_detail.status === 'Open' &&
+                                        sales_detail.level == 1 &&
+                                        sales_detail.upgrade == true
+                                        ) &&
+                                        (
+                                        role == 'Administrator' || 
+                                        role == 'TPC'
+                                        )
                                       "
                                     >
                                       Closed Sales

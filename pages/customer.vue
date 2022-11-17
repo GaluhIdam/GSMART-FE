@@ -176,15 +176,15 @@
                     </th>
 
                     <th
-                      v-if="order == 'is_active' && by == 'asc'"
-                      @click="sort('is_active', 'desc')"
+                      v-if="order == 'status' && by == 'asc'"
+                      @click="sort('status', 'desc')"
                       class="text-center"
                     >
                       Status
                       <i class="fa-solid fa-sort-up" style="color: black"></i>
                     </th>
                     <th
-                      v-else-if="order == 'is_active' && by == 'desc'"
+                      v-else-if="order == 'status' && by == 'desc'"
                       @click="sort('id', 'desc')"
                       class="text-center"
                     >
@@ -193,7 +193,7 @@
                     </th>
                     <th
                       v-else
-                      @click="sort('is_active', 'asc')"
+                      @click="sort('status', 'asc')"
                       class="text-center"
                     >
                       Status <i class="fa-solid fa-sort"></i>

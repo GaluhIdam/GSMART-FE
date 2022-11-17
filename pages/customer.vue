@@ -501,7 +501,7 @@
                             >{{ fail[index].ams }}</span
                           >
                         </div>
-                        <div class="col-md-1">
+                        <div class="col">
                           <a
                             type="button"
                             @click="remove(index)"

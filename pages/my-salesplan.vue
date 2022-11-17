@@ -1149,7 +1149,7 @@
                     >
                       <p class="d-flex justify-content-center">
                         PRODUCT
-                        <i class="fa-solid fa-sort-up" style="color: black"></i>
+                        <i class="fa-solid fa-sort-up ms-2" style="color: black"></i>
                       </p>
                     </th>
                     <th

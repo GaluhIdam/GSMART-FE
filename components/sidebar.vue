@@ -129,9 +129,9 @@
                     role == 'CBO' ||
                     role == 'Administrator'
                   "
-                  >All Prospect</span
+                  >Prospect</span
                 >
-                <span class="menu-title" v-if="role == 'AMS'">My Prospect</span>
+                <span class="menu-title" v-if="role == 'AMS'">Prospect</span>
               </NuxtLink>
             </div>
             <div class="menu-item" 
@@ -161,10 +161,10 @@
                     role == 'CBO' ||
                     role == 'Administrator'
                   "
-                  >All Sales Plan</span
+                  >Sales Plan</span
                 >
                 <span class="menu-title" v-if="role == 'AMS'"
-                  >My Sales Plan</span
+                  >Sales Plan</span
                 >
               </NuxtLink>
             </div>

@@ -10,9 +10,9 @@
             <span
               class="menu-title"
               v-if="role == 'TPR' || role == 'CBO' || role == 'Administrator'"
-              >All Sales Plan</span
+              >Sales Plan</span
             >
-            <span class="menu-title" v-if="role == 'AMS'">My Sales Plan</span>
+            <span class="menu-title" v-if="role == 'AMS'">Sales Plan</span>
           </Nuxt-link>
         </div>
         <div class="col-lg-6">
@@ -33,10 +33,10 @@
                           role == 'CBO' ||
                           role == 'Administrator'
                         "
-                        >All Sales Plan</span
+                        >Sales Plan</span
                       >
                       <span class="menu-title" v-if="role == 'AMS'"
-                        >My Sales Plan</span
+                        >Sales Plan</span
                       >
                       &nbsp;
                     </Nuxt-link>
@@ -380,22 +380,7 @@
               <div class="col-lg-4 col-md-12 col-sm-12">
                 <div class="card mb-3" style="max-width: 540px">
                   <div class="row no-gutters">
-                    <div class="col-md-2 mt-2 mb-20" v-if="sales_detail">
-                      <div v-if="sales_detail.customer.full_path == null">
-                        <span class="fs-1 fw-bold">
-                          {{ initial }}
-                        </span>
-                      </div>
-                      <div v-else>
-                        <img
-                          :src="sales_detail.customer.full_path"
-                          class="rounded"
-                          alt="No Image"
-                          style="width: 70px"
-                        />
-                      </div>
-                    </div>
-                    <div class="col-md-10" style="margin-top: -20px">
+                    <div class="col-md" style="margin-top: -20px; margin-left: -30px">
                       <div class="card-body">
                         <h5 class="card-title" v-if="sales_detail">
                           {{ sales_detail.registration }}
@@ -417,7 +402,7 @@
                   </div>
                 </div>
               </div>
-              <div class="col-lg-2 col-md-12 col-sm-12" id="cardTop">
+              <div class="col-lg">
                 <div class="text-center d-grid gap-2">
                   <span class="me-2 mb-2" id="cardMarketShare">
                     <h3 class="mt-2" id="textMarketShare" v-if="sales_detail">
@@ -427,7 +412,7 @@
                   </span>
                 </div>
               </div>
-              <div class="col-lg-2 col-md-12 col-sm-12" id="cardTop">
+              <div class="col-lg">
                 <div class="text-center d-grid gap-2">
                   <span class="me-2 mb-2" id="cardSalesPlan">
                     <h3 class="mt-2" id="textSalesPlan" v-if="sales_detail">
@@ -437,7 +422,7 @@
                   </span>
                 </div>
               </div>
-              <div class="col-lg-2 col-md-12 col-sm-12" id="cardTop">
+              <div class="col-lg">
                 <div class="text-center d-grid gap-2">
                   <span class="me-2 mb-2" id="cardDevisiasi">
                     <h3 class="mt-2" id="textDevisiasi" v-if="sales_detail">
@@ -3194,7 +3179,6 @@ export default {
           this.level3 = response.data.data.level3
           this.level2 = response.data.data.level2
           this.level1 = response.data.data.level1
-          this.initial = this.customer_name.substring(0,1) // get initial customer
           Swal.close()
         })
         .catch((error) => {

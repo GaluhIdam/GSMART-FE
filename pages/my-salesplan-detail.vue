@@ -2622,11 +2622,13 @@
                                 'is-invalid': errors.files,
                               }"
                             />
-                            <span
-                              v-if="errors.files"
-                              class="error invalid-feedback"
-                              >{{ errors.files[0] }}</span
-                            >
+                            <div v-for="(file_error, key) in file_errors" :key="key">
+                              <ul class="list-group mt-3">
+                                <li class="list-group-item text-danger border-0" v-for="(errorItem, innerKey) in file_error" :key="innerKey">
+                                  {{ errorItem }}
+                                </li>
+                              </ul>
+                            </div>
                           </div>
                           <div class="row mt-10">
                             <div class="col d-flex justify-content-end">
@@ -3072,6 +3074,7 @@ export default {
       category: null,
       reason: null,
       file_histories: [],
+      file_errors: [],
       errors: {
         ams_id: null,
         name: null,
@@ -3672,7 +3675,7 @@ export default {
         })
         .catch((error) => {
           if (error.response.status == 422) {
-            this.errors = error.response.data.errors
+            this.file_errors = error.response.data.errors
             toastr.error(error.response.data.message)
           } else if (error.response.status == 403) {
             toastr.error(error.response.data.message)
@@ -3819,6 +3822,7 @@ export default {
       this.files = null
       this.$refs.files.value = null
       this.errors.files = null
+      this.file_errors = null
       this.errors.sales_detail = null
       this.errors.requirement_id = null
     },

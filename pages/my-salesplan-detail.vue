@@ -10,9 +10,9 @@
             <span
               class="menu-title"
               v-if="role == 'TPR' || role == 'CBO' || role == 'Administrator'"
-              >All Sales Plan</span
+              >Sales Plan</span
             >
-            <span class="menu-title" v-if="role == 'AMS'">My Sales Plan</span>
+            <span class="menu-title" v-if="role == 'AMS'">Sales Plan</span>
           </Nuxt-link>
         </div>
         <div class="col-lg-6">
@@ -33,10 +33,10 @@
                           role == 'CBO' ||
                           role == 'Administrator'
                         "
-                        >All Sales Plan</span
+                        >Sales Plan</span
                       >
                       <span class="menu-title" v-if="role == 'AMS'"
-                        >My Sales Plan</span
+                        >Sales Plan</span
                       >
                       &nbsp;
                     </Nuxt-link>

@@ -194,7 +194,7 @@
                       v-if="sales"
                       >{{ formatPrice(sales.level4.countOpen) }}</span
                     >
-                    <span id="textGreen" style="margin-left: -6px" v-if="sales"
+                    <span id="textGreen" v-if="sales"
                       >${{ formatPrice(sales.level4.open) }}</span
                     >
                   </div>
@@ -225,7 +225,7 @@
                     <span id="btnRed" style="margin-left: -10px" v-if="sales">{{
                       formatPrice(sales.level4.countCancel)
                     }}</span>
-                    <span id="textRed" style="margin-left: -6px" v-if="sales"
+                    <span id="textRed" v-if="sales"
                       >${{ formatPrice(sales.level4.cancel) }}</span
                     >
                   </div>
@@ -287,7 +287,7 @@
                       v-if="sales"
                       >{{ formatPrice(sales.level3.countOpen) }}</span
                     >
-                    <span id="textGreen" style="margin-left: -6px" v-if="sales"
+                    <span id="textGreen" v-if="sales"
                       >${{ formatPrice(sales.level3.open) }}</span
                     >
                   </div>
@@ -315,7 +315,7 @@
                     <span id="btnRed" style="margin-left: -10px" v-if="sales">{{
                       formatPrice(sales.level3.countCancel)
                     }}</span>
-                    <span id="textRed" style="margin-left: -6px" v-if="sales"
+                    <span id="textRed" v-if="sales"
                       >${{ formatPrice(sales.level3.cancel) }}</span
                     >
                   </div>
@@ -377,7 +377,7 @@
                       v-if="sales"
                       >{{ formatPrice(sales.level2.countOpen) }}</span
                     >
-                    <span id="textGreen" style="margin-left: -6px" v-if="sales"
+                    <span id="textGreen" v-if="sales"
                       >${{ formatPrice(sales.level2.open) }}</span
                     >
                   </div>
@@ -405,7 +405,7 @@
                     <span id="btnRed" style="margin-left: -10px" v-if="sales">{{
                       formatPrice(sales.level2.countCancel)
                     }}</span>
-                    <span id="textRed" style="margin-left: -6px" v-if="sales"
+                    <span id="textRed" v-if="sales"
                       >${{ formatPrice(sales.level2.cancel) }}</span
                     >
                   </div>
@@ -476,7 +476,7 @@
                           >
                           <span
                             id="textGreen"
-                            style="margin-left: -6px"
+                          
                             v-if="sales"
                             >${{ formatPrice(sales.level1.open) }}</span
                           >
@@ -512,7 +512,7 @@
                           >
                           <span
                             id="textRed"
-                            style="margin-left: -6px"
+                          
                             v-if="sales"
                             >${{ formatPrice(sales.level1.cancel) }}</span
                           >
@@ -558,7 +558,7 @@
                           >
                           <span
                             id="textPurple"
-                            style="margin-left: -6px"
+                          
                             v-if="sales"
                             >${{ formatPrice(sales.level1.closed) }}</span
                           >
@@ -594,7 +594,7 @@
                           >
                           <span
                             id="textGold"
-                            style="margin-left: -6px"
+                          
                             v-if="sales"
                             >${{ formatPrice(sales.level1.closeIn) }}</span
                           >
@@ -708,7 +708,8 @@
               <!--end::Close-->
             </div>
             <div class="modal-body">
-              <div class="row">
+              <!-- Old -->
+              <!-- <div class="row">
                 <div class="col-lg-6">
                   <div class="form-group mb-3">
                     <input type="hidden" v-model="is_rkap" value="0" />
@@ -749,9 +750,32 @@
                     >
                   </div>
                 </div>
-              </div>
-
+              </div> -->
+              
               <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group mb-3">
+                    <input type="hidden" v-model="is_rkap" value="0" />
+                    <!-- TODO Transaction type masih belum tau dari mana -->
+                    <!-- <input type="hidden" v-model="transaction_type_id" value="-" /> -->
+                    <label class="form-label fw-bold">Customer</label>
+                    <multiselect
+                      required
+                      v-model="customer_value"
+                      :options="customer_option"
+                      open-direction="bottom"
+                      placeholder=""
+                      label="name"
+                      :searchable="true"
+                      :class="{ 'is-invalid': errors.customer_id }"
+                    ></multiselect>
+                    <span
+                      v-if="errors.customer_id"
+                      class="error invalid-feedback"
+                      >{{ errors.customer_id[0] }}</span
+                    >
+                  </div>
+                </div>
                 <div class="col-lg-6">
                   <div class="form-group mb-3">
                     <label class="form-label fw-bold">Product</label>
@@ -772,6 +796,9 @@
                     >
                   </div>
                 </div>
+              </div>
+
+              <div class="row">
                 <div class="col-lg-6">
                   <div class="form-group mb-3">
                     <label class="form-label fw-bold">Maintenance</label>
@@ -792,9 +819,6 @@
                     >
                   </div>
                 </div>
-              </div>
-
-              <div class="row">
                 <div class="col-lg-6">
                   <div class="form-group mb-3">
                     <label class="form-label fw-bold">Hangar</label>
@@ -815,6 +839,9 @@
                     >
                   </div>
                 </div>
+              </div>
+
+              <div class="row">
                 <div class="col-lg-6">
                   <div class="form-group mb-3">
                     <label class="form-label fw-bold">Aircraft Type</label>
@@ -835,14 +862,9 @@
                     >
                   </div>
                 </div>
-              </div>
-
-              <div class="row">
                 <div class="col-lg-6">
                   <div class="form-group mb-3">
-                    <label class="form-label fw-bold"
-                      >Aircraft Registration</label
-                    >
+                    <label class="form-label fw-bold">Aircraft Registration</label>
                     <input
                       required
                       type="text"
@@ -855,6 +877,9 @@
                     }}</span>
                   </div>
                 </div>
+              </div>
+
+              <div class="row">
                 <div class="col-lg-6">
                   <div class="form-group mb-3">
                     <label class="form-label fw-bold">Sales Plan</label>
@@ -870,9 +895,6 @@
                     }}</span>
                   </div>
                 </div>
-              </div>
-
-              <div class="row">
                 <div class="col-lg-6">
                   <div class="form-group mb-3">
                     <label class="form-label fw-bold">Start Date</label>
@@ -890,6 +912,9 @@
                     >
                   </div>
                 </div>
+              </div>
+
+              <div class="row">
                 <div class="col-lg-6">
                   <div class="form-group mb-3">
                     <label class="form-label fw-bold">TAT</label>
@@ -903,6 +928,11 @@
                     <span v-if="errors.tat" class="error invalid-feedback">{{
                       errors.tat[0]
                     }}</span>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group mb-3">
+                    
                   </div>
                 </div>
               </div>
@@ -922,7 +952,7 @@
                 <div class="col d-flex justify-content-end">
                   <button
                     type="submit"
-                    @click="saveSalesPlan()"
+                    @click="addSales()"
                     class="btn btn-primary"
                   >
                     Save
@@ -1766,7 +1796,7 @@ export default {
         customer_id: null,
         product_id: null,
         maintenance_id: null,
-        hanggar_id: null,
+        hangar_id: null,
         ac_reg: null,
         value: null,
         tat: null,
@@ -1945,26 +1975,29 @@ export default {
     addSales() {
       this.loading()
       this.$axios
-        .post(`api/sales-add`, {
+        .post(`api/sales-create-tmb`, {
           is_rkap: this.is_rkap,
-          product_id: this.product_value,
+          transaction_type_id: this.transaction_type_id,
           customer_id: this.customer_value,
+          product_id: this.product_value,
           maintenance_id: this.maintenance_value,
           hangar_id: this.hangar_value,
           ac_type_id: this.ac_type_value,
           ac_reg: this.ac_reg,
           value: this.value,
-          tat: this.tat,
           start_date: this.start_date,
+          tat: this.tat,
         })
         .then((response) => {
           toastr.success(response.data.message)
           this.list()
+          this.listTable()
           Swal.close()
         })
         .catch((error) => {
           if (error.response.status == 422) {
             toastr.error(error.response.data.message)
+            this.errors = error.response.data.errors
           } else if (error.response.status == 403) {
             toastr.error(error.response.data.message)
           }
@@ -1989,7 +2022,7 @@ export default {
       this.customer_id = null
       this.product_id = null
       this.maintenance_id = null
-      this.hanggar_id = null
+      this.hangar_id = null
       this.ac_reg = null
       this.salesPlan = null
       this.tat = null
@@ -2007,62 +2040,68 @@ export default {
       this.hangar_value = null
       this.aircraft_name_value = null
       this.value = null
-      this.errors.prospect_id = null
+      // this.errors.prospect_id = null
+      this.errors.customer_id = null
+      this.errors.product_id = null
+      this.errors.hangar_id = null
       this.errors.maintenance_id = null
+      this.errors.ac_type_id = null
       this.errors.ac_reg = null
       this.errors.value = null
       this.errors.start_date = null
       this.errors.tat = null
+
+      this.listTable()
     },
 
-    clearProspect() {
-      if (this.customer_id == null) {
-        this.isDisabled = true
-        this.prospect = []
-        this.prospect_id = null
-      } else {
-        this.prospect = []
-        this.isDisabled = false
-      }
-    },
-    saveSalesPlan() {
-      this.$axios
-        .post('/api/sales-create-tmb', {
-          prospect_id:
-            this.prospect_value_salesplan != null
-              ? this.prospect_value_salesplan.id
-              : null,
-          product_id: this.product_value != null ? this.product_value.id : null,
-          ac_type_id: this.ac_type_value != null ? this.ac_type_value.id : null,
-          maintenance_id:
-            this.maintenance_value != null ? this.maintenance_value.id : null,
-          hangar_id: this.hangar_value != null ? this.hangar_value.id : null,
-          ac_reg: this.ac_reg,
-          value: this.value,
-          tat: this.tat,
-          start_date: this.start_date,
-        })
-        .then((response) => {
-          toastr.success(response.data.message)
-          this.list()
-          Swal.close()
-          this.closeAddSales()
-        })
-        .catch((error) => {
-          if (error.response.status == 422) {
-            toastr.error(error.response.data.message)
-            this.errors = error.response.data.errors
-          }
-        })
-    },
-    additionalSaleplan(value) {
-      this.$axios
-        .get('/api/prospect-get-tmb?customer=' + value)
-        .then((response) => {
-          this.prospect_option_salesplan = response.data.data
-        })
-        .catch((error) => console.log(error))
-    },
+    // clearProspect() {
+    //   if (this.customer_id == null) {
+    //     this.isDisabled = true
+    //     this.prospect = []
+    //     this.prospect_id = null
+    //   } else {
+    //     this.prospect = []
+    //     this.isDisabled = false
+    //   }
+    // },
+    // saveSalesPlan() {
+    //   this.$axios
+    //     .post('/api/sales-create-tmb', {
+    //       prospect_id:
+    //         this.prospect_value_salesplan != null
+    //           ? this.prospect_value_salesplan.id
+    //           : null,
+    //       product_id: this.product_value != null ? this.product_value.id : null,
+    //       ac_type_id: this.ac_type_value != null ? this.ac_type_value.id : null,
+    //       maintenance_id:
+    //         this.maintenance_value != null ? this.maintenance_value.id : null,
+    //       hangar_id: this.hangar_value != null ? this.hangar_value.id : null,
+    //       ac_reg: this.ac_reg,
+    //       value: this.value,
+    //       tat: this.tat,
+    //       start_date: this.start_date,
+    //     })
+    //     .then((response) => {
+    //       toastr.success(response.data.message)
+    //       this.list()
+    //       Swal.close()
+    //       this.closeAddSales()
+    //     })
+    //     .catch((error) => {
+    //       if (error.response.status == 422) {
+    //         toastr.error(error.response.data.message)
+    //         this.errors = error.response.data.errors
+    //       }
+    //     })
+    // },
+    // additionalSaleplan(value) {
+    //   this.$axios
+    //     .get('/api/prospect-get-tmb?customer=' + value)
+    //     .then((response) => {
+    //       this.prospect_option_salesplan = response.data.data
+    //     })
+    //     .catch((error) => console.log(error))
+    // },
   },
 }
 </script>

@@ -1343,12 +1343,13 @@
                     :key="p_sales_index"
                   >
                     <td class="text-center">
-                      <span v-if="sales_table.from == 1">
-                        {{ sales_table.from + p_sales_index }}
+                      {{ sales_paginate.from + p_sales_index }}.
+                      <!-- <span v-if="sales_paginate.from == 1">
+                        {{ sales_paginate.from + p_sales_index }}
                       </span>
                       <span v-else>
                         {{ parseInt(p_sales_index) + 1 }}
-                      </span>
+                      </span> -->
                     </td>
                     <!-- Customer -->
                     <td class="text-center">
@@ -1554,7 +1555,7 @@
                     >
                       <a
                         href="javascript:void(0)"
-                        @click="list(link.url)"
+                        @click="listTable(link.url)"
                         class="page-link"
                       >
                         <span v-if="link.label == '&laquo; Previous'">
@@ -1750,6 +1751,7 @@ export default {
       current_page: null,
 
       sales: null,
+      sales_paginate: [],
       isDisabled: true,
       errors: {
         customer: null,
@@ -1809,7 +1811,7 @@ export default {
     sort(order, by) {
       this.order = order
       this.by = by
-      this.list()
+      this.listTable()
     },
     formatPrice(value) {
       let val = (value / 1).toFixed(0).replace(',', ',')
@@ -1852,8 +1854,9 @@ export default {
         .then((response) => {
           this.sales_table.data = response.data.data.data
           this.sales_table.links = response.data.data.links
-          this.current_page = this.sales_table.current_page
-          console.log(this.sales_table)
+          this.sales_paginate = response.data.data
+          this.current_page = this.sales_paginate.current_page
+          console.log(this.sales_paginate)
           Swal.close()
         })
         .catch((error) => console.log(error))

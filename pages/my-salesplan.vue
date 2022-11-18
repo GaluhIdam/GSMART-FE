@@ -194,10 +194,7 @@
                       v-if="sales"
                       >{{ formatPrice(sales.level4.countOpen) }}</span
                     >
-                    <span
-                      id="textGreen"
-                      style="margin-left: -6px"
-                      v-if="sales"
+                    <span id="textGreen" style="margin-left: -6px" v-if="sales"
                       >${{ formatPrice(sales.level4.open) }}</span
                     >
                   </div>
@@ -225,16 +222,10 @@
                   "
                 >
                   <div class="d-flex align-items-center gap-2">
-                    <span
-                      id="btnRed"
-                      style="margin-left: -10px"
-                      v-if="sales"
-                      >{{ formatPrice(sales.level4.countCancel) }}</span
-                    >
-                    <span
-                      id="textRed"
-                      style="margin-left: -6px"
-                      v-if="sales"
+                    <span id="btnRed" style="margin-left: -10px" v-if="sales">{{
+                      formatPrice(sales.level4.countCancel)
+                    }}</span>
+                    <span id="textRed" style="margin-left: -6px" v-if="sales"
                       >${{ formatPrice(sales.level4.cancel) }}</span
                     >
                   </div>
@@ -296,10 +287,7 @@
                       v-if="sales"
                       >{{ formatPrice(sales.level3.countOpen) }}</span
                     >
-                    <span
-                      id="textGreen"
-                      style="margin-left: -6px"
-                      v-if="sales"
+                    <span id="textGreen" style="margin-left: -6px" v-if="sales"
                       >${{ formatPrice(sales.level3.open) }}</span
                     >
                   </div>
@@ -324,16 +312,10 @@
                   "
                 >
                   <div class="d-flex align-items-center gap-2">
-                    <span
-                      id="btnRed"
-                      style="margin-left: -10px"
-                      v-if="sales"
-                      >{{ formatPrice(sales.level3.countCancel) }}</span
-                    >
-                    <span
-                      id="textRed"
-                      style="margin-left: -6px"
-                      v-if="sales"
+                    <span id="btnRed" style="margin-left: -10px" v-if="sales">{{
+                      formatPrice(sales.level3.countCancel)
+                    }}</span>
+                    <span id="textRed" style="margin-left: -6px" v-if="sales"
                       >${{ formatPrice(sales.level3.cancel) }}</span
                     >
                   </div>
@@ -395,10 +377,7 @@
                       v-if="sales"
                       >{{ formatPrice(sales.level2.countOpen) }}</span
                     >
-                    <span
-                      id="textGreen"
-                      style="margin-left: -6px"
-                      v-if="sales"
+                    <span id="textGreen" style="margin-left: -6px" v-if="sales"
                       >${{ formatPrice(sales.level2.open) }}</span
                     >
                   </div>
@@ -423,16 +402,10 @@
                   "
                 >
                   <div class="d-flex align-items-center gap-2">
-                    <span
-                      id="btnRed"
-                      style="margin-left: -10px"
-                      v-if="sales"
-                      >{{ formatPrice(sales.level2.countCancel) }}</span
-                    >
-                    <span
-                      id="textRed"
-                      style="margin-left: -6px"
-                      v-if="sales"
+                    <span id="btnRed" style="margin-left: -10px" v-if="sales">{{
+                      formatPrice(sales.level2.countCancel)
+                    }}</span>
+                    <span id="textRed" style="margin-left: -6px" v-if="sales"
                       >${{ formatPrice(sales.level2.cancel) }}</span
                     >
                   </div>
@@ -499,9 +472,7 @@
                             id="btnGreen"
                             style="margin-left: -10px"
                             v-if="sales"
-                            >{{
-                              formatPrice(sales.level1.countOpen)
-                            }}</span
+                            >{{ formatPrice(sales.level1.countOpen) }}</span
                           >
                           <span
                             id="textGreen"
@@ -537,9 +508,7 @@
                             id="btnRed"
                             style="margin-left: -10px"
                             v-if="sales"
-                            >{{
-                              formatPrice(sales.level1.countCancel)
-                            }}</span
+                            >{{ formatPrice(sales.level1.countCancel) }}</span
                           >
                           <span
                             id="textRed"
@@ -585,9 +554,7 @@
                             id="btnPurple"
                             style="margin-left: -10px"
                             v-if="sales"
-                            >{{
-                              formatPrice(sales.level1.countClosed)
-                            }}</span
+                            >{{ formatPrice(sales.level1.countClosed) }}</span
                           >
                           <span
                             id="textPurple"
@@ -623,9 +590,7 @@
                             id="btnGold"
                             style="margin-left: -10px"
                             v-if="sales"
-                            >{{
-                              formatPrice(sales.level1.countCloseIn)
-                            }}</span
+                            >{{ formatPrice(sales.level1.countCloseIn) }}</span
                           >
                           <span
                             id="textGold"
@@ -972,7 +937,6 @@
       <!-- Table -->
       <div class="row mt-3">
         <div class="card">
-
           <div class="card-body">
             <!-- Search -->
             <div class="row d-flex align-items-center mb-5">
@@ -1540,7 +1504,7 @@
                     </td>
                   </tr>
                   <!-- Jika data kosong -->
-                  <tr v-if="sales.sales_table.length < 1">
+                  <tr v-if="sales_table.data.length < 1">
                     <td colspan="12">
                       <div class="text-muted text-center">Data not found</div>
                     </td>
@@ -1560,7 +1524,7 @@
                       <select
                         class="form-control form-control-sm"
                         v-model="paginate"
-                        @change="list()"
+                        @change="listTable()"
                       >
                         <option value="10">10</option>
                         <option value="25">25</option>
@@ -1583,7 +1547,7 @@
                   <ul class="pagination">
                     <!-- Start pagination -->
                     <li
-                      v-for="(link, link_index) in sales.links"
+                      v-for="(link, link_index) in sales_table.links"
                       :key="link_index"
                       class="page-item"
                       :class="{ disabled: !link.url, active: link.active }"
@@ -1610,7 +1574,6 @@
               </div>
             </div>
           </div>
-
         </div>
       </div>
       <!-- End Table -->
@@ -1628,7 +1591,7 @@
             <i class="fa-solid fa-dollar-sign"></i> Salesplan Total
           </button>
         </div>
-      </div> -->   
+      </div> -->
 
       <!-- Modal Salesplan total -->
       <!-- <div
@@ -1709,7 +1672,6 @@
           </div>
         </div>
       </div> -->
-
     </div>
   </div>
 </template>
@@ -1731,7 +1693,10 @@ export default {
       maintenance_id_value: null,
       user: this.$auth.user.name,
       role: this.$auth.user.role.name,
-      sales_table: null,
+      sales_table: {
+        data: [],
+        links: [],
+      },
       p_sales: {
         id: null,
         customer: null,
@@ -1885,8 +1850,9 @@ export default {
           },
         })
         .then((response) => {
-          this.sales_table = response.data.data
-          // this.current_page = this.sales_table.current_page
+          this.sales_table.data = response.data.data.data
+          this.sales_table.links = response.data.data.links
+          this.current_page = this.sales_table.current_page
           console.log(this.sales_table)
           Swal.close()
         })

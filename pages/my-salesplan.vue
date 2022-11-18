@@ -80,7 +80,7 @@
                       type="button"
                       class="btn btn-primary"
                       data-bs-dismiss="modal"
-                      @click="list()"
+                      @click="listTable()"
                     >
                       Filter
                     </button>
@@ -1978,7 +1978,7 @@ export default {
       this.start_date = null
       this.end_date = null
       this.type = null
-      this.list()
+      this.listTable()
     },
 
     closeAddSales() {

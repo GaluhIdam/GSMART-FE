@@ -1856,7 +1856,6 @@ export default {
           this.sales_table.links = response.data.data.links
           this.sales_paginate = response.data.data
           this.current_page = this.sales_paginate.current_page
-          console.log(this.sales_paginate)
           Swal.close()
         })
         .catch((error) => console.log(error))

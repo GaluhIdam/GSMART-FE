@@ -175,7 +175,7 @@
                 </h2>
                 <p class="text-muted">Awareness</p>
               </div>
-              <div class="d-grid gap-2" style="margin-left: -15px; width: 258px">
+              <div class="d-grid gap-2" id="cardStyle">
                 <a
                   href="#"
                   class="
@@ -186,6 +186,7 @@
                     me-2
                     mb-2
                   "
+                  id="btnDefault"
                 >
                   <div class="d-flex align-items-center gap-2">
                     <span
@@ -220,6 +221,7 @@
                     me-2
                     mb-2
                   "
+                  id="btnDefault"
                 >
                   <div class="d-flex align-items-center gap-2">
                     <span id="btnRed" style="margin-left: -10px" v-if="sales">{{
@@ -268,7 +270,7 @@
                 </h2>
                 <p class="text-muted">Opportunity</p>
               </div>
-              <div class="d-grid gap-2" style="margin-left: -15px; width: 258px">
+              <div class="d-grid gap-2" id="cardStyle">
                 <a
                   href="#"
                   class="
@@ -279,6 +281,7 @@
                     me-2
                     mb-2
                   "
+                  id="btnDefault"
                 >
                   <div class="d-flex align-items-center gap-2">
                     <span
@@ -310,6 +313,7 @@
                     me-2
                     mb-2
                   "
+                  id="btnDefault"
                 >
                   <div class="d-flex align-items-center gap-2">
                     <span id="btnRed" style="margin-left: -10px" v-if="sales">{{
@@ -358,7 +362,7 @@
                 </h2>
                 <p class="text-muted">Attractive Proposal</p>
               </div>
-              <div class="d-grid gap-2" style="margin-left: -15px; width: 258px">
+              <div class="d-grid gap-2" id="cardStyle">
                 <a
                   href="#"
                   class="
@@ -369,6 +373,7 @@
                     me-2
                     mb-2
                   "
+                  id="btnDefault"
                 >
                   <div class="d-flex align-items-center gap-2">
                     <span
@@ -400,6 +405,7 @@
                     me-2
                     mb-2
                   "
+                  id="btnDefault"
                 >
                   <div class="d-flex align-items-center gap-2">
                     <span id="btnRed" style="margin-left: -10px" v-if="sales">{{
@@ -447,7 +453,7 @@
                 class="carousel slide"
                 data-bs-ride="true"
               >
-                <div class="carousel-inner" style="margin-left: -15px; width: 258px">
+                <div class="carousel-inner" id="cardStyle">
                   <div class="carousel-item active">
                     <div class="text-center">
                       <h2 id="textGold" v-if="sales">
@@ -466,6 +472,7 @@
                           me-2
                           mb-2
                         "
+                        id="btnDefault"
                       >
                         <div class="d-flex align-items-center gap-2">
                           <span
@@ -502,6 +509,7 @@
                           me-2
                           mb-2
                         "
+                        id="btnDefault"
                       >
                         <div class="d-flex align-items-center gap-2">
                           <span
@@ -548,6 +556,7 @@
                           me-2
                           mb-2
                         "
+                        id="btnDefault"
                       >
                         <div class="d-flex align-items-center gap-2">
                           <span
@@ -584,6 +593,7 @@
                           me-2
                           mb-2
                         "
+                        id="btnDefault"
                       >
                         <div class="d-flex align-items-center gap-2">
                           <span
@@ -641,7 +651,7 @@
 
       <div class="row">
         <div class="col-lg-6 col-sm-12">
-          <h3 class="mt-5">Salesplan Table</h3>
+          <h3 class="mt-5">Sales Plan Table</h3>
         </div>
         <div class="col-lg-6 col-sm-12 d-flex justify-content-end">
           <button
@@ -2107,6 +2117,23 @@ export default {
 </script>
 
 <style>
+@media (min-width:320px)  {
+  #cardStyle{
+    width: auto;
+  }
+}
+
+@media (min-width:1281px)  {
+  #cardStyle{
+    margin-left: -15px; 
+    width: 258px;
+  }
+}
+
+#btnDefault {
+  cursor: default;
+}
+
 .mt-20 {
   margin-top: 20px;
 }

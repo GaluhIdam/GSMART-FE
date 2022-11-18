@@ -175,7 +175,7 @@
                 </h2>
                 <p class="text-muted">Awareness</p>
               </div>
-              <div class="d-grid gap-2" style="margin-left: -15px">
+              <div class="d-grid gap-2" style="margin-left: -15px; width: 258px">
                 <a
                   href="#"
                   class="
@@ -268,7 +268,7 @@
                 </h2>
                 <p class="text-muted">Opportunity</p>
               </div>
-              <div class="d-grid gap-2" style="margin-left: -15px">
+              <div class="d-grid gap-2" style="margin-left: -15px; width: 258px">
                 <a
                   href="#"
                   class="
@@ -358,7 +358,7 @@
                 </h2>
                 <p class="text-muted">Attractive Proposal</p>
               </div>
-              <div class="d-grid gap-2" style="margin-left: -15px">
+              <div class="d-grid gap-2" style="margin-left: -15px; width: 258px">
                 <a
                   href="#"
                   class="
@@ -447,7 +447,7 @@
                 class="carousel slide"
                 data-bs-ride="true"
               >
-                <div class="carousel-inner">
+                <div class="carousel-inner" style="margin-left: -15px; width: 258px">
                   <div class="carousel-item active">
                     <div class="text-center">
                       <h2 id="textGold" v-if="sales">
@@ -455,7 +455,7 @@
                       </h2>
                       <p class="text-muted">Contract Signing</p>
                     </div>
-                    <div class="d-grid gap-2" style="margin-left: -15px">
+                    <div class="d-grid gap-2">
                       <a
                         href="#"
                         class="

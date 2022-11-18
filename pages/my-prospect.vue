@@ -69,7 +69,7 @@
                   <div class="border-dashed p-4" v-if="prospect2.totalMarketShare">
                     <h1 class="fw-bold mb-0">$ {{ formatNumber(prospect2.totalMarketShare) }}</h1>
                     <p class="mb-0 fw-bold text-gray-500">Total Market Share</p>
-                    
+
                   </div>
                   <div class="border-dashed p-4" v-else>
                     <h1 class="fw-bold mb-0">$ 0</h1>
@@ -379,7 +379,7 @@
                           <!-- Conditional Market Share -->
                           <td>
                             <div v-if="data.marketShare" class="text-center" style="color: #50CD89">
-                              ${{ formatNumber(data.marketShare) }} 
+                              ${{ formatNumber(data.marketShare) }}
                             </div>
                             <div v-else class="text-center" style="color: #50CD89">
                               $0
@@ -397,7 +397,7 @@
                             </div>
                           </td>
                           <!-- End Of Conditional Sales Value -->
-                          
+
                           <td class="text-center">
                             <nuxt-link :to="{ path: 'view-prospect', query: { id: data.customer.id }}" class="btn btn-sm btn-light">
                               View
@@ -548,7 +548,7 @@
                           <!-- Conditional Market Share -->
                           <td>
                             <div v-if="data.marketShare" class="text-center" style="color: #50CD89">
-                              ${{ formatNumber(data.marketShare) }} 
+                              ${{ formatNumber(data.marketShare) }}
                             </div>
                             <div v-else class="text-center" style="color: #50CD89">
                               $0
@@ -566,7 +566,7 @@
                             </div>
                           </td>
                           <!-- End Of Conditional Sales Value -->
-                          
+
                           <td class="text-center">
                             <nuxt-link :to="{ path: 'view-prospect', query: { id: data.customer.id }}" class="btn btn-sm btn-light">
                               View
@@ -717,7 +717,7 @@
                           <!-- Conditional Market Share -->
                           <td>
                             <div v-if="data.marketShare" class="text-center" style="color: #50CD89">
-                              ${{ formatNumber(data.marketShare) }} 
+                              ${{ formatNumber(data.marketShare) }}
                             </div>
                             <div v-else class="text-center" style="color: #50CD89">
                               $0
@@ -735,7 +735,7 @@
                             </div>
                           </td>
                           <!-- End Of Conditional Sales Value -->
-                          
+
                           <td class="text-center">
                             <nuxt-link :to="{ path: 'view-prospect', query: { id: data.customer.id }}" class="btn btn-sm btn-light">
                               View
@@ -886,7 +886,7 @@
                           <!-- Conditional Market Share -->
                           <td>
                             <div v-if="data.marketShare" class="text-center" style="color: #50CD89">
-                              ${{ formatNumber(data.marketShare) }} 
+                              ${{ formatNumber(data.marketShare) }}
                             </div>
                             <div v-else class="text-center" style="color: #50CD89">
                               $0
@@ -904,7 +904,7 @@
                             </div>
                           </td>
                           <!-- End Of Conditional Sales Value -->
-                          
+
                           <td class="text-center">
                             <nuxt-link :to="{ path: 'view-prospect', query: { id: data.customer.id }}" class="btn btn-sm btn-light">
                               View
@@ -1055,7 +1055,7 @@
                           <!-- Conditional Market Share -->
                           <td>
                             <div v-if="data.marketShare" class="text-center" style="color: #50CD89">
-                              ${{ formatNumber(data.marketShare) }} 
+                              ${{ formatNumber(data.marketShare) }}
                             </div>
                             <div v-else class="text-center" style="color: #50CD89">
                               $0
@@ -1073,7 +1073,7 @@
                             </div>
                           </td>
                           <!-- End Of Conditional Sales Value -->
-                          
+
                           <td class="text-center">
                             <nuxt-link :to="{ path: 'view-prospect', query: { id: data.customer.id }}" class="btn btn-sm btn-light">
                               View
@@ -1544,7 +1544,7 @@
                               <!--end::Step 2-->
 
                               <!--begin::Step 3-->
-                              <div class="flex-column w-50 p-3" data-kt-stepper-element="content" 
+                              <div class="flex-column w-50 p-3" data-kt-stepper-element="content"
                               v-if="role == 'TPC' || role == 'Administrator'">
                                 <div class="w-100">
                                   <h3 class="mb-1">Select Transaction Type</h3>
@@ -1553,12 +1553,12 @@
                                     Page
                                   </p>
                                   <!--begin::Option-->
-                                  <div class="mt-10" v-for="(transactionType, transactionType_index) 
+                                  <div class="mt-10" v-for="(transactionType, transactionType_index)
                                   in transaction_type.data" :key="transactionType_index">
                                     <input type="radio" class="btn-check" name="transaction_type" v-model="prospect.transaction_type_id" :value="transactionType.id" :id="transactionType.name">
                                     <label class="btn btn-outline btn-outline-dashed btn-active-light-primary p-7 d-flex align-items-center mb-5" :for="transactionType.name">
                                       <span class="svg-icon svg-icon-3hx" v-if="transactionType_index % 2 == 0">
-                                        <svg width="100" height="100" viewBox="0 0 24 24" fill="none" 
+                                        <svg width="100" height="100" viewBox="0 0 24 24" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
                                           <path
                                             d="M6.28548 15.0861C7.34369 13.1814 9.35142 12 11.5304 12H12.4696C14.6486 12 16.6563 13.1814 17.7145 15.0861L19.3493 18.0287C20.0899 19.3618 19.1259 21 17.601 21H6.39903C4.87406 21 3.91012 19.3618 4.65071 18.0287L6.28548 15.0861Z"
@@ -1568,7 +1568,7 @@
                                         </svg>
                                       </span>
                                       <span v-else class="svg-icon svg-icon-3hx">
-                                        <svg width="100" height="100" viewBox="0 0 24 24" fill="none" 
+                                        <svg width="100" height="100" viewBox="0 0 24 24" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
                                           <path
                                             d="M3 2H10C10.6 2 11 2.4 11 3V10C11 10.6 10.6 11 10 11H3C2.4 11 2 10.6 2 10V3C2 2.4 2.4 2 3 2Z"
@@ -1609,7 +1609,7 @@
                                 <div class="row mt-10">
                                   <div class="col-md-6">
                                     <div v-if="role == 'TPC' || role == 'Administrator'">
-                                      <button type="button" class="btn btn-light text-primary mt-5" 
+                                      <button type="button" class="btn btn-light text-primary mt-5"
                                       @click="backButtonClick() , deleteTransactionType()">
                                         Back
                                       </button>
@@ -1680,7 +1680,7 @@
                                       </h1>
                                     </div>
                                     <div class="form-group">
-                                      <div class="form-group row mb-5" v-for="(item, item_index) 
+                                      <div class="form-group row mb-5" v-for="(item, item_index)
                                       in tmb[data_index].product" :key="item_index">
                                         <div class="col-md-3 text-center">
                                           <div v-if="item.product_name == 'Engine & APU'">
@@ -1786,7 +1786,7 @@
                                           </span>
                                         </div>
                                         <div class="col-md-1">
-                                          <button type="button" @click="removeTMB(data_index, item_index)" 
+                                          <button type="button" @click="removeTMB(data_index, item_index)"
                                           class="btn btn-danger mt-3 mt-md-8">
                                             Delete
                                           </button>
@@ -1809,7 +1809,7 @@
                                   <!--end::Form group-->
                                   <div class="row mt-10">
                                     <div class="col-md-6">
-                                      <button type="button" class="btn btn-light text-primary mt-5" 
+                                      <button type="button" class="btn btn-light text-primary mt-5"
                                       @click="backButtonClick(), deleteTransactionDetail()">
                                         Back
                                       </button>
@@ -1989,7 +1989,7 @@
                                   </div>
                                   <div class="row mt-10">
                                     <div class="col-md-6">
-                                      <button type="button" class="btn btn-light text-primary mt-5" 
+                                      <button type="button" class="btn btn-light text-primary mt-5"
                                       @click="backButtonClick(), deleteTransactionDetail()">
                                         Back
                                       </button>
@@ -2114,7 +2114,7 @@ export default {
     return {
       role: this.$auth.user.role.name,
       acType_value: null,
-      currentYear:  new Date().getFullYear(),
+      currentYear: new Date().getFullYear(),
       selected_customer: null,
       selected_amsCustomer: null,
       selected_strategic_initiative: null,
@@ -2196,39 +2196,39 @@ export default {
     }, 500),
   },
   methods: {
-    returnError(errorMessage){
+    returnError(errorMessage) {
       let val = errorMessage.toString()
       return val.slice(0, -1)
     },
     formatNumber(value) {
-      let val = (value/1).toFixed(2).replace(',', ',')
-      return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+      let val = (value / 1).toFixed(2).replace(',', ',')
+      return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
     },
-    deleteOrganic(){
-      this.prospect_year = null;
-      this.selected_customer = null;
-      this.selected_amsCustomer = null;
+    deleteOrganic() {
+      this.prospect_year = null
+      this.selected_customer = null
+      this.selected_amsCustomer = null
     },
-    deleteInOrganic(){
-      this.prospect_year = null;
-      this.selected_customer = null;
-      this.selected_amsCustomer = null;
-      this.selected_strategic_initiative = null;
-      this.selected_pm = null;
+    deleteInOrganic() {
+      this.prospect_year = null
+      this.selected_customer = null
+      this.selected_amsCustomer = null
+      this.selected_strategic_initiative = null
+      this.selected_pm = null
     },
-    deleteTransactionType(){
-      this.prospect.transaction_type_id = null;
+    deleteTransactionType() {
+      this.prospect.transaction_type_id = null
     },
-    deleteTransactionDetail(){
+    deleteTransactionDetail() {
       this.product_value = null
       this.acType_value = null
       this.tmb = []
       this.pbth = []
     },
     sort(order, by) {
-      this.order = order;
-      this.by = by;
-      this.listProspect();
+      this.order = order
+      this.by = by
+      this.listProspect()
     },
     failMessage() {
       toastr.options = {
@@ -2270,20 +2270,24 @@ export default {
       }
       toastr.error('Sorry, You Are Not Allowed to Access Prospect Page!')
     },
-    checkRole(){
-      if(this.role == 'TPC' || this.role == 'AMS' || this.role == 'Administrator'){
+    checkRole() {
+      if (
+        this.role == 'TPC' ||
+        this.role == 'AMS' ||
+        this.role == 'Administrator'
+      ) {
       } else {
-        this.$router.push('/');
+        this.$router.push('/')
         this.authMessage()
       }
     },
     countMarketShare() {
-      this.pbth.forEach(element => {
+      this.pbth.forEach((element) => {
         element.market_share = 0
-        element.target.forEach(target => {
+        element.target.forEach((target) => {
           element.market_share += target.rate * target.flight_hour
-        });
-      });
+        })
+      })
     },
     nextStep() {
       this.step_number++
@@ -2355,9 +2359,9 @@ export default {
         product_name: product_value.name,
         aircraft_type_id: acType_value.id,
         aircraft_type_name: acType_value.name,
-        market_share : 0,
+        market_share: 0,
         target: [
-         {
+          {
             month: 'January',
             rate: null,
             flight_hour: null,
@@ -2417,7 +2421,7 @@ export default {
             rate: null,
             flight_hour: null,
           },
-      ],
+        ],
       })
     },
     removeProspectTMB(data_index) {
@@ -2506,13 +2510,11 @@ export default {
           this.maintenance_options = response.data.data.data
         })
     },
-    listAmsCustomer({id}) {
+    listAmsCustomer({ id }) {
       this.selected_amsCustomer = null
-      this.$axios
-        .get(`api/ams-customer/${id}`)
-        .then((response) => {
-          this.amsCustomer_options = response.data.data
-        })
+      this.$axios.get(`api/ams-customer/${id}`).then((response) => {
+        this.amsCustomer_options = response.data.data
+      })
     },
     listStrategicInitiative() {
       this.$axios
@@ -2576,7 +2578,7 @@ export default {
     },
     listProspect(paginate) {
       this.loading()
-        paginate = paginate || `/api/prospect`
+      paginate = paginate || `/api/prospect`
       this.$axios
         .get(paginate, {
           params: {
@@ -2601,11 +2603,11 @@ export default {
           Swal.close()
         })
     },
-    filterYear(year){
+    filterYear(year) {
       this.year = year
       this.listProspect()
     },
-    filterYearDefault(year){
+    filterYearDefault(year) {
       this.year = null
       this.listProspect()
     },
@@ -2656,7 +2658,7 @@ export default {
           if (error.response.status == 422) {
             this.errors = error.response.data.errors
             toastr.error(error.response.data.message)
-          } else{
+          } else {
             toastr.error(error.response.data.message)
             this.$router.push('/login')
           }
@@ -2683,7 +2685,7 @@ export default {
           if (error.response.status == 422) {
             this.errors = error.response.data.errors
             toastr.error(error.response.data.message)
-          } else{
+          } else {
             toastr.error(error.response.data.message)
             this.$router.push('/login')
           }
@@ -2708,7 +2710,7 @@ export default {
           if (error.response.status == 422) {
             this.errors = error.response.data.errors
             toastr.error(error.response.data.message)
-          } else{
+          } else {
             toastr.error(error.response.data.message)
             this.$router.push('/login')
           }
@@ -2735,7 +2737,7 @@ export default {
           if (error.response.status == 422) {
             this.errors = error.response.data.errors
             toastr.error(error.response.data.message)
-          } else{
+          } else {
             toastr.error(error.response.data.message)
             this.$router.push('/login')
           }
@@ -2751,7 +2753,7 @@ export default {
         allowOutsideClick: false,
       })
     },
-    clearError(){
+    clearError() {
       this.errors = []
     },
     clearForm() {
@@ -2771,14 +2773,14 @@ export default {
       this.clearForm()
       document.getElementById('close_modal').click()
     },
-    nextButtonClick(){
+    nextButtonClick() {
       document.getElementById('next_step').click()
     },
-    backButtonClick(){
+    backButtonClick() {
       this.clearError()
       document.getElementById('previous_step').click()
     },
-    resetStepper(){
+    resetStepper() {
       document.getElementById('previous_step').click()
       document.getElementById('previous_step').click()
       document.getElementById('previous_step').click()

@@ -99,6 +99,7 @@ export default {
   },
   data() {
     return {
+      progress: null,
       login: {
         username: '',
         password: '',
@@ -107,16 +108,21 @@ export default {
     }
   },
 
+  created() {},
+
   methods: {
     async loginUser() {
-      this.loading()
+      this.progress = false
+      if (this.progress == false) {
+        this.loading()
+      }
       await this.$auth
         .loginWith('local', {
           data: this.login,
         })
         .then((result) => {
-          this.loading()
           this.$router.push('/')
+          this.progress = true
           this.successMessage()
         })
         .catch((error) => {
@@ -129,7 +135,6 @@ export default {
     },
     loading() {
       Swal.fire({
-        timer: 100,
         didOpen: () => {
           Swal.showLoading()
         },

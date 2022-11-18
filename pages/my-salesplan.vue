@@ -3,13 +3,7 @@
     <div class="container-fluid mt-10 mb-20">
       <div class="row mb-5">
         <div class="col-lg-6 col-sm-12">
-          <h3
-            class="mt-3"
-            v-if="role == 'TPR' || role == 'CBO' || role == 'Administrator'"
-          >
-            Sales Plan
-          </h3>
-          <h3 class="mt-3" v-if="role == 'AMS'">Sales Plan</h3>
+          <h3 class="mt-3">Dashboard Sales Plan</h3>
         </div>
         <div class="col-lg-6 col-sm-12 d-flex justify-content-end">
           <button
@@ -105,8 +99,8 @@
             <div class="card card-flush" id="bgGreen">
               <div class="card-body">
                 <p class="text-muted" id="fontSm">Total Target</p>
-                <h4 id="textGreen" v-if="sales_user">
-                  ${{ formatPrice(sales_user.totalTarget) }}
+                <h4 id="textGreen" v-if="sales">
+                  ${{ formatPrice(sales.totalTarget) }}
                 </h4>
               </div>
             </div>
@@ -115,8 +109,8 @@
             <div class="card card-flush" id="bgBlue">
               <div class="card-body">
                 <p class="text-muted" id="fontSm">Total Open</p>
-                <h4 id="textBlue" v-if="sales_user">
-                  ${{ formatPrice(sales_user.totalOpen) }}
+                <h4 id="textBlue" v-if="sales">
+                  ${{ formatPrice(sales.totalOpen) }}
                 </h4>
               </div>
             </div>
@@ -125,8 +119,8 @@
             <div class="card card-flush" id="bgRed">
               <div class="card-body">
                 <p class="text-muted" id="fontSm">Total Closed</p>
-                <h4 id="textRed" v-if="sales_user">
-                  ${{ formatPrice(sales_user.totalClosed) }}
+                <h4 id="textRed" v-if="sales">
+                  ${{ formatPrice(sales.totalClosed) }}
                 </h4>
               </div>
             </div>
@@ -135,8 +129,8 @@
             <div class="card card-flush" id="bgPurple">
               <div class="card-body">
                 <p class="text-muted" id="fontSm">Total Open Closed</p>
-                <h4 id="textPurple" v-if="sales_user">
-                  ${{ formatPrice(sales_user.totalOpenClosed) }}
+                <h4 id="textPurple" v-if="sales">
+                  ${{ formatPrice(sales.totalOpenClosed) }}
                 </h4>
               </div>
             </div>
@@ -145,8 +139,8 @@
             <div class="card card-flush" id="bgGold">
               <div class="card-body">
                 <p class="text-muted" id="fontSm">Total Cancel</p>
-                <h4 id="textGold" v-if="sales_user">
-                  ${{ formatPrice(sales_user.totalCancel) }}
+                <h4 id="textGold" v-if="sales">
+                  ${{ formatPrice(sales.totalCancel) }}
                 </h4>
               </div>
             </div>
@@ -176,8 +170,8 @@
             </div>
             <div class="card-body mt-10">
               <div class="text-center">
-                <h2 id="textGreen" v-if="sales_user">
-                  ${{ formatPrice(sales_user.level4.total) }}
+                <h2 id="textGreen" v-if="sales">
+                  ${{ formatPrice(sales.level4.total) }}
                 </h2>
                 <p class="text-muted">Awareness</p>
               </div>
@@ -197,14 +191,14 @@
                     <span
                       id="btnGreen"
                       style="margin-left: -10px"
-                      v-if="sales_user"
-                      >{{ formatPrice(sales_user.level4.countOpen) }}</span
+                      v-if="sales"
+                      >{{ formatPrice(sales.level4.countOpen) }}</span
                     >
                     <span
                       id="textGreen"
                       style="margin-left: -6px"
-                      v-if="sales_user"
-                      >${{ formatPrice(sales_user.level4.open) }}</span
+                      v-if="sales"
+                      >${{ formatPrice(sales.level4.open) }}</span
                     >
                   </div>
                   <div
@@ -234,14 +228,14 @@
                     <span
                       id="btnRed"
                       style="margin-left: -10px"
-                      v-if="sales_user"
-                      >{{ formatPrice(sales_user.level4.countCancel) }}</span
+                      v-if="sales"
+                      >{{ formatPrice(sales.level4.countCancel) }}</span
                     >
                     <span
                       id="textRed"
                       style="margin-left: -6px"
-                      v-if="sales_user"
-                      >${{ formatPrice(sales_user.level4.cancel) }}</span
+                      v-if="sales"
+                      >${{ formatPrice(sales.level4.cancel) }}</span
                     >
                   </div>
                   <div class="d-flex align-items-center justify-content-end">
@@ -278,8 +272,8 @@
             </div>
             <div class="card-body mt-10">
               <div class="text-center">
-                <h2 id="textBlue" v-if="sales_user">
-                  ${{ formatPrice(sales_user.level3.total) }}
+                <h2 id="textBlue" v-if="sales">
+                  ${{ formatPrice(sales.level3.total) }}
                 </h2>
                 <p class="text-muted">Opportunity</p>
               </div>
@@ -299,14 +293,14 @@
                     <span
                       id="btnGreen"
                       style="margin-left: -10px"
-                      v-if="sales_user"
-                      >{{ formatPrice(sales_user.level3.countOpen) }}</span
+                      v-if="sales"
+                      >{{ formatPrice(sales.level3.countOpen) }}</span
                     >
                     <span
                       id="textGreen"
                       style="margin-left: -6px"
-                      v-if="sales_user"
-                      >${{ formatPrice(sales_user.level3.open) }}</span
+                      v-if="sales"
+                      >${{ formatPrice(sales.level3.open) }}</span
                     >
                   </div>
                   <div class="d-flex align-items-center justify-content-end">
@@ -333,14 +327,14 @@
                     <span
                       id="btnRed"
                       style="margin-left: -10px"
-                      v-if="sales_user"
-                      >{{ formatPrice(sales_user.level3.countCancel) }}</span
+                      v-if="sales"
+                      >{{ formatPrice(sales.level3.countCancel) }}</span
                     >
                     <span
                       id="textRed"
                       style="margin-left: -6px"
-                      v-if="sales_user"
-                      >${{ formatPrice(sales_user.level3.cancel) }}</span
+                      v-if="sales"
+                      >${{ formatPrice(sales.level3.cancel) }}</span
                     >
                   </div>
                   <div class="d-flex align-items-center justify-content-end">
@@ -377,8 +371,8 @@
             </div>
             <div class="card-body mt-10">
               <div class="text-center">
-                <h2 id="textPurple" v-if="sales_user">
-                  ${{ formatPrice(sales_user.level2.total) }}
+                <h2 id="textPurple" v-if="sales">
+                  ${{ formatPrice(sales.level2.total) }}
                 </h2>
                 <p class="text-muted">Attractive Proposal</p>
               </div>
@@ -398,14 +392,14 @@
                     <span
                       id="btnGreen"
                       style="margin-left: -10px"
-                      v-if="sales_user"
-                      >{{ formatPrice(sales_user.level2.countOpen) }}</span
+                      v-if="sales"
+                      >{{ formatPrice(sales.level2.countOpen) }}</span
                     >
                     <span
                       id="textGreen"
                       style="margin-left: -6px"
-                      v-if="sales_user"
-                      >${{ formatPrice(sales_user.level2.open) }}</span
+                      v-if="sales"
+                      >${{ formatPrice(sales.level2.open) }}</span
                     >
                   </div>
                   <div class="d-flex align-items-center justify-content-end">
@@ -432,14 +426,14 @@
                     <span
                       id="btnRed"
                       style="margin-left: -10px"
-                      v-if="sales_user"
-                      >{{ formatPrice(sales_user.level2.countCancel) }}</span
+                      v-if="sales"
+                      >{{ formatPrice(sales.level2.countCancel) }}</span
                     >
                     <span
                       id="textRed"
                       style="margin-left: -6px"
-                      v-if="sales_user"
-                      >${{ formatPrice(sales_user.level2.cancel) }}</span
+                      v-if="sales"
+                      >${{ formatPrice(sales.level2.cancel) }}</span
                     >
                   </div>
                   <div class="d-flex align-items-center justify-content-end">
@@ -483,8 +477,8 @@
                 <div class="carousel-inner">
                   <div class="carousel-item active">
                     <div class="text-center">
-                      <h2 id="textGold" v-if="sales_user">
-                        ${{ formatPrice(sales_user.level1.total) }}
+                      <h2 id="textGold" v-if="sales">
+                        ${{ formatPrice(sales.level1.total) }}
                       </h2>
                       <p class="text-muted">Contract Signing</p>
                     </div>
@@ -504,16 +498,16 @@
                           <span
                             id="btnGreen"
                             style="margin-left: -10px"
-                            v-if="sales_user"
+                            v-if="sales"
                             >{{
-                              formatPrice(sales_user.level1.countOpen)
+                              formatPrice(sales.level1.countOpen)
                             }}</span
                           >
                           <span
                             id="textGreen"
                             style="margin-left: -6px"
-                            v-if="sales_user"
-                            >${{ formatPrice(sales_user.level1.open) }}</span
+                            v-if="sales"
+                            >${{ formatPrice(sales.level1.open) }}</span
                           >
                         </div>
                         <div
@@ -542,16 +536,16 @@
                           <span
                             id="btnRed"
                             style="margin-left: -10px"
-                            v-if="sales_user"
+                            v-if="sales"
                             >{{
-                              formatPrice(sales_user.level1.countCancel)
+                              formatPrice(sales.level1.countCancel)
                             }}</span
                           >
                           <span
                             id="textRed"
                             style="margin-left: -6px"
-                            v-if="sales_user"
-                            >${{ formatPrice(sales_user.level1.cancel) }}</span
+                            v-if="sales"
+                            >${{ formatPrice(sales.level1.cancel) }}</span
                           >
                         </div>
                         <div
@@ -569,8 +563,8 @@
                   </div>
                   <div class="carousel-item">
                     <div class="text-center">
-                      <h2 id="textGold" v-if="sales_user">
-                        ${{ formatPrice(sales_user.level1.total) }}
+                      <h2 id="textGold" v-if="sales">
+                        ${{ formatPrice(sales.level1.total) }}
                       </h2>
                       <p class="text-muted">Contract Signing</p>
                     </div>
@@ -590,16 +584,16 @@
                           <span
                             id="btnPurple"
                             style="margin-left: -10px"
-                            v-if="sales_user"
+                            v-if="sales"
                             >{{
-                              formatPrice(sales_user.level1.countClosed)
+                              formatPrice(sales.level1.countClosed)
                             }}</span
                           >
                           <span
                             id="textPurple"
                             style="margin-left: -6px"
-                            v-if="sales_user"
-                            >${{ formatPrice(sales_user.level1.closed) }}</span
+                            v-if="sales"
+                            >${{ formatPrice(sales.level1.closed) }}</span
                           >
                         </div>
                         <div
@@ -628,16 +622,16 @@
                           <span
                             id="btnGold"
                             style="margin-left: -10px"
-                            v-if="sales_user"
+                            v-if="sales"
                             >{{
-                              formatPrice(sales_user.level1.countCloseIn)
+                              formatPrice(sales.level1.countCloseIn)
                             }}</span
                           >
                           <span
                             id="textGold"
                             style="margin-left: -6px"
-                            v-if="sales_user"
-                            >${{ formatPrice(sales_user.level1.closeIn) }}</span
+                            v-if="sales"
+                            >${{ formatPrice(sales.level1.closeIn) }}</span
                           >
                         </div>
                         <div
@@ -680,17 +674,21 @@
       </div>
       <!-- End row 2 -->
 
-      <!-- <div class="row" v-if="role == 'AMS' || role == 'Administrator'">
-        <div class="col-lg-6">
+      <div class="row">
+        <div class="col-lg-6 col-sm-12">
+          <h3 class="mt-5">Salesplan Table</h3>
+        </div>
+        <div class="col-lg-6 col-sm-12 d-flex justify-content-end">
           <button
             class="btn btn-primary btn-sm my-3"
             data-bs-toggle="modal"
             data-bs-target="#addSales"
+            v-if="role == 'AMS' || role == 'Administrator'"
           >
             <i class="fas fa-plus"></i> Additional Sales Plan
           </button>
         </div>
-      </div> -->
+      </div>
 
       <!-- Modal addSales  -->
       <div
@@ -971,120 +969,10 @@
         </div>
       </div>
 
-      <!-- <div class="row">
-        <div class="col-lg-6 col-sm-12">
-          <h3 class="mt-3">Salesplan Table</h3>
-        </div>
-        <div class="col-lg-6 col-sm-12 d-flex justify-content-end">
-          <button
-            class="btn btn-primary btn-sm"
-            data-bs-toggle="modal"
-            data-bs-target="#salesplanTotal"
-          >
-            <i class="fa-solid fa-dollar-sign"></i> Salesplan Total
-          </button>
-        </div>
-      </div> -->
-
-      <div class="row">
-        <div class="col-lg-6 col-sm-12">
-          <h3 class="mt-5">Salesplan Table</h3>
-        </div>
-        <div class="col-lg-6 col-sm-12 d-flex justify-content-end">
-          <button
-            class="btn btn-primary btn-sm my-3"
-            data-bs-toggle="modal"
-            data-bs-target="#addSales"
-            v-if="role == 'AMS' || role == 'Administrator'"
-          >
-            <i class="fas fa-plus"></i> Additional Sales Plan
-          </button>
-        </div>
-      </div>
-
-      <!-- Modal Salesplan total -->
-      <div
-        class="modal fade"
-        id="salesplanTotal"
-        tabindex="-1"
-        aria-labelledby="salesplanTotalLabel"
-        aria-hidden="true"
-      >
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <div class="col-lg-6">
-                <h1 class="modal-title" id="salesplanTotalLabel">
-                  Salesplan Total
-                </h1>
-              </div>
-            </div>
-            <div class="modal-body mt-10 mb-10">
-              <div class="row">
-                <div class="col-lg-6">
-                  <div class="card" id="bgBlue">
-                    <div class="card-body">
-                      <p class="text-muted">Total Open</p>
-                      <h2 id="textBlue" v-if="sales_all">
-                        ${{ formatPrice(sales_all.totalOpen) }}
-                      </h2>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-lg-6">
-                  <div class="card" id="bgRed">
-                    <div class="card-body">
-                      <p class="text-muted">Total Closed</p>
-                      <h2 id="textRed" v-if="sales_all">
-                        ${{ formatPrice(sales_all.totalClosed) }}
-                      </h2>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="row mt-4">
-                <div class="col-lg-6">
-                  <div class="card" id="bgPurple">
-                    <div class="card-body">
-                      <p class="text-muted">Total Open Closed</p>
-                      <h2 id="textPurple" v-if="sales_all">
-                        ${{ formatPrice(sales_all.totalOpenClosed) }}
-                      </h2>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-lg-6">
-                  <div class="card" id="bgGold">
-                    <div class="card-body">
-                      <p class="text-muted">Total Cancel</p>
-                      <h2 id="textGold" v-if="sales_all">
-                        ${{ formatPrice(sales_all.totalCancel) }}
-                      </h2>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="modal-footer">
-              <div class="col-md-12 text-center">
-                <div class="d-grid gap-2">
-                  <button
-                    type="button"
-                    class="btn btn-primary"
-                    data-bs-dismiss="modal"
-                  >
-                    Close
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
       <!-- Table -->
       <div class="row mt-3">
         <div class="card">
+
           <div class="card-body">
             <!-- Search -->
             <div class="row d-flex align-items-center mb-5">
@@ -1487,15 +1375,12 @@
                 </thead>
                 <tbody>
                   <tr
-                    v-for="(p_sales, p_sales_index) in sales.data"
+                    v-for="(p_sales, p_sales_index) in sales_table.data"
                     :key="p_sales_index"
                   >
-                    <!-- <td class="text-center">
-                      {{ sales.from + p_sales_index }}
-                    </td> -->
                     <td class="text-center">
-                      <span v-if="sales.from == 1">
-                        {{ sales.from + p_sales_index }}
+                      <span v-if="sales_table.from == 1">
+                        {{ sales_table.from + p_sales_index }}
                       </span>
                       <span v-else>
                         {{ parseInt(p_sales_index) + 1 }}
@@ -1655,7 +1540,7 @@
                     </td>
                   </tr>
                   <!-- Jika data kosong -->
-                  <tr v-if="sales.data.length < 1">
+                  <tr v-if="sales.sales_table.length < 1">
                     <td colspan="12">
                       <div class="text-muted text-center">Data not found</div>
                     </td>
@@ -1664,6 +1549,7 @@
               </table>
             </div>
           </div>
+
           <div class="card-footer">
             <div class="row">
               <div class="col d-flex justify-content-start align-items-center">
@@ -1724,9 +1610,106 @@
               </div>
             </div>
           </div>
+
         </div>
       </div>
       <!-- End Table -->
+
+      <!-- <div class="row">
+        <div class="col-lg-6 col-sm-12">
+          <h3 class="mt-3">Salesplan Table</h3>
+        </div>
+        <div class="col-lg-6 col-sm-12 d-flex justify-content-end">
+          <button
+            class="btn btn-primary btn-sm"
+            data-bs-toggle="modal"
+            data-bs-target="#salesplanTotal"
+          >
+            <i class="fa-solid fa-dollar-sign"></i> Salesplan Total
+          </button>
+        </div>
+      </div> -->   
+
+      <!-- Modal Salesplan total -->
+      <!-- <div
+        class="modal fade"
+        id="salesplanTotal"
+        tabindex="-1"
+        aria-labelledby="salesplanTotalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <div class="col-lg-6">
+                <h1 class="modal-title" id="salesplanTotalLabel">
+                  Salesplan Total
+                </h1>
+              </div>
+            </div>
+            <div class="modal-body mt-10 mb-10">
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="card" id="bgBlue">
+                    <div class="card-body">
+                      <p class="text-muted">Total Open</p>
+                      <h2 id="textBlue" v-if="sales_all">
+                        ${{ formatPrice(sales_all.totalOpen) }}
+                      </h2>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="card" id="bgRed">
+                    <div class="card-body">
+                      <p class="text-muted">Total Closed</p>
+                      <h2 id="textRed" v-if="sales_all">
+                        ${{ formatPrice(sales_all.totalClosed) }}
+                      </h2>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row mt-4">
+                <div class="col-lg-6">
+                  <div class="card" id="bgPurple">
+                    <div class="card-body">
+                      <p class="text-muted">Total Open Closed</p>
+                      <h2 id="textPurple" v-if="sales_all">
+                        ${{ formatPrice(sales_all.totalOpenClosed) }}
+                      </h2>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="card" id="bgGold">
+                    <div class="card-body">
+                      <p class="text-muted">Total Cancel</p>
+                      <h2 id="textGold" v-if="sales_all">
+                        ${{ formatPrice(sales_all.totalCancel) }}
+                      </h2>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <div class="col-md-12 text-center">
+                <div class="d-grid gap-2">
+                  <button
+                    type="button"
+                    class="btn btn-primary"
+                    data-bs-dismiss="modal"
+                  >
+                    Close
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div> -->
+
     </div>
   </div>
 </template>
@@ -1748,10 +1731,7 @@ export default {
       maintenance_id_value: null,
       user: this.$auth.user.name,
       role: this.$auth.user.role.name,
-      sales: {
-        data: [],
-        link: [],
-      },
+      sales_table: null,
       p_sales: {
         id: null,
         customer: null,
@@ -1804,8 +1784,7 @@ export default {
       paginate: '10',
       current_page: null,
 
-      sales_user: null,
-      sales_all: null,
+      sales: null,
       isDisabled: true,
       errors: {
         customer: null,
@@ -1841,6 +1820,7 @@ export default {
   },
   created() {
     this.list()
+    this.listTable()
     this.listCustomer()
     this.listProduct()
     this.listMaintenance()
@@ -1880,9 +1860,18 @@ export default {
         allowOutsideClick: false,
       })
     },
-    list(paginate) {
+    list() {
       this.loading()
-      paginate = paginate || `/api/sales`
+      this.$axios
+        .get('/api/sales-dashboard')
+        .then((response) => {
+          this.sales = response.data.data
+        })
+        .catch((error) => console.log(error))
+    },
+    listTable(paginate) {
+      this.loading()
+      paginate = paginate || `/api/sales-table`
       this.$axios
         .get(paginate, {
           params: {
@@ -1896,10 +1885,9 @@ export default {
           },
         })
         .then((response) => {
-          this.sales = response.data.data.user.salesPlan
-          this.sales_user = response.data.data.user
-          this.sales_all = response.data.data.all
-          this.current_page = this.sales.current_page
+          this.sales_table = response.data.data
+          // this.current_page = this.sales_table.current_page
+          console.log(this.sales_table)
           Swal.close()
         })
         .catch((error) => console.log(error))

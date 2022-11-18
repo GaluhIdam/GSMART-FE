@@ -1778,7 +1778,7 @@ export default {
   },
   watch: {
     search: debounce(function () {
-      this.list()
+      this.listTable()
     }, 500),
     customer_id: debounce(function () {
       this.clearProspect()
@@ -1798,15 +1798,15 @@ export default {
     directPage: debounce(function () {
       if (this.current_page < 1) {
         this.current_page = 1
-      } else if (this.current_page > this.sales.last_page) {
-        this.current_page = this.sales.last_page
+      } else if (this.current_page > this.sales_paginate.last_page) {
+        this.current_page = this.sales_paginate.last_page
       }
-      let url = new URL(this.sales.first_page_url)
+      let url = new URL(this.sales_paginate.first_page_url)
       let search_params = url.searchParams
       search_params.set('page', this.current_page)
       url.search = search_params.toString()
       let new_url = url.toString()
-      this.list(new_url)
+      this.listTable(new_url)
     }, 500),
     sort(order, by) {
       this.order = order

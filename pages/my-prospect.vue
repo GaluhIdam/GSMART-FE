@@ -339,12 +339,7 @@
                           :key="prospect_index"
                         >
                           <td class="text-center">
-                            <span v-if="prospect3.from == 1">
                               {{ prospect3.from + prospect_index }}
-                            </span>
-                            <span v-else>
-                              {{ parseInt(prospect_index) + 1 }}
-                            </span>
                           </td>
                           <td class="text-center">{{ data.year }}</td>
                           <td class="text-center">{{ data.transaction }}</td>
@@ -508,12 +503,7 @@
                       <tbody>
                         <tr v-for="(data, prospect_index) in prospect" :key="prospect_index">
                           <td class="text-center">
-                            <span v-if="prospect3.from == 1">
                               {{ prospect3.from + prospect_index }}
-                            </span>
-                            <span v-else>
-                              {{ parseInt(prospect_index) + 1 }}
-                            </span>
                           </td>
                           <td class="text-center">{{ data.year }}</td>
                           <td class="text-center">{{ data.transaction }}</td>
@@ -677,12 +667,7 @@
                       <tbody>
                         <tr v-for="(data, prospect_index) in prospect" :key="prospect_index">
                           <td class="text-center">
-                            <span v-if="prospect3.from == 1">
                               {{ prospect3.from + prospect_index }}
-                            </span>
-                            <span v-else>
-                              {{ parseInt(prospect_index) + 1 }}
-                            </span>
                           </td>
                           <td class="text-center">{{ data.year }}</td>
                           <td class="text-center">{{ data.transaction }}</td>
@@ -846,12 +831,7 @@
                       <tbody>
                         <tr v-for="(data, prospect_index) in prospect" :key="prospect_index">
                           <td class="text-center">
-                            <span v-if="prospect3.from == 1">
                               {{ prospect3.from + prospect_index }}
-                            </span>
-                            <span v-else>
-                              {{ parseInt(prospect_index) + 1 }}
-                            </span>
                           </td>
                           <td class="text-center">{{ data.year }}</td>
                           <td class="text-center">{{ data.transaction }}</td>
@@ -1015,12 +995,7 @@
                       <tbody>
                         <tr v-for="(data, prospect_index) in prospect" :key="prospect_index">
                           <td class="text-center">
-                            <span v-if="prospect3.from == 1">
                               {{ prospect3.from + prospect_index }}
-                            </span>
-                            <span v-else>
-                              {{ parseInt(prospect_index) + 1 }}
-                            </span>
                           </td>
                           <td class="text-center">{{ data.year }}</td>
                           <td class="text-center">{{ data.transaction }}</td>

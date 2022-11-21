@@ -2085,9 +2085,7 @@
                     <div
                       class="text-center mt-20"
                       v-if="
-                        (sales_detail.status === 'Open' && role == 'AMS') ||
-                        role == 'Administrator' ||
-                        role == 'TPR'
+                        sales_detail.status === 'Open'
                       "
                     >
                       <button
@@ -2301,22 +2299,23 @@
                               <div class="row mb-5">
                                 <div class="col">
                                   <div class="input-group mb-3">
-                                    <!-- <select v-model="category" class="form-select">
-                                      <option :value="category">Category 1</option>
-                                      <option :value="category">Category 2</option>
-                                      <option :value="category">Category 3</option>
-                                    </select> -->
-                                    <input
-                                      type="text"
-                                      v-model="category"
-                                      class="form-control"
-                                      :class="{ 'is-invalid': errors.category }"
-                                    />
+                                    <select v-model="category_id" class="form-select">
+                                      <option :value="null" disabled>Select Category</option>
+                                      <option 
+                                        v-for="category_options in category_option" 
+                                        :value="category_options.id" 
+                                        :class="{
+                                          'is-invalid': errors.category_id,
+                                        }"
+                                      >
+                                        {{ category_options.name }}
+                                      </option>
+                                    </select>
                                     <span
-                                      v-if="errors.category"
+                                      v-if="errors.category_id"
                                       class="error invalid-feedback"
                                     >
-                                      {{ errors.category[0] }}
+                                      {{ errors.category_id[0] }}
                                     </span>
                                   </div>
                                 </div>
@@ -3042,6 +3041,7 @@ export default {
       paginate: '10',
       files: [],
       ams: null,
+      category_option: null,
       value: [],
       hangar_id: null,
       upgrade: null,
@@ -3093,6 +3093,7 @@ export default {
         category: null,
         reason: null,
         user_id: null,
+        category_id: null,
       },
     }
   },
@@ -3119,6 +3120,7 @@ export default {
     this.listLine()
     this.listMaintenance()
     this.listUser()
+    this.listCategory()
   },
   methods: {
     directPage: debounce(function () {
@@ -3287,6 +3289,17 @@ export default {
         .then((response) => {
           this.user_option = response.data.data.data
           Swal.close()
+        })
+        .catch((error) => console.log(error))
+    },
+    listCategory() {
+      this.loading()
+      this.$axios
+        .get(`api/cancel-category`)
+        .then((response) => {
+          this.category_option = response.data.data
+          Swal.close()
+          console.log(this.category_option)
         })
         .catch((error) => console.log(error))
     },
@@ -3469,7 +3482,7 @@ export default {
             this.$axios
               .put(`api/sales-reject/${this.$route.query.id}`, {
                 sales_id: this.$route.query.id,
-                category: this.category,
+                category_id: this.category_id,
                 reason: this.reason,
               })
               .then((response) => {
@@ -3482,6 +3495,7 @@ export default {
         })
         .catch((error) => {
           if (error.response.status == 422) {
+            this.errors = error.response.data.errors
             toastr.error(error.response.data.message)
           } else if (error.response.status == 403) {
             toastr.error(error.response.data.message)

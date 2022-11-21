@@ -116,7 +116,7 @@
                     data-kt-menu-attach="parent"
                     data-kt-menu-placement="bottom-end"
                   >
-                    <img :src="photo" alt="user" />
+                    <img :src="photo" @error="setAltImg" alt="user" />
                   </div>
                   <!--begin::User account menu-->
                   <div
@@ -144,6 +144,7 @@
                           <img
                             alt="Logo"
                             :src="photo"
+                            @error="setAltImg"
                           />
                         </div>
                         <!--end::Avatar-->
@@ -234,6 +235,9 @@ export default {
     }
   },
   methods: {
+    setAltImg(event) { 
+      event.target.src = "_nuxt/assets/media/avatars/300-1.jpg" 
+    }, 
     async logout() {
       await this.$auth.logout()
       this.loading()

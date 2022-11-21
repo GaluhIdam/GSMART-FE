@@ -1344,7 +1344,7 @@
                                         <label for="exampleFormControlInput1" class="form-label">
                                           Year
                                         </label>
-                                        <input type="text" class="form-control form-control-sm" v-model="prospect_year">
+                                        <input type="number" class="form-control form-control-sm" v-model="prospect_year">
                                       </div>
                                       <div class="mb-3">
                                         <label for="exampleFormControlInput1" class="form-label">
@@ -1414,7 +1414,7 @@
                                         <label for="exampleFormControlInput1" class="form-label">
                                           Year
                                         </label>
-                                        <input type="text" class="form-control form-control-sm" v-model="prospect_year">
+                                        <input type="number" class="form-control form-control-sm" v-model="prospect_year">
                                       </div>
                                       <div class="mb-3">
                                         <label for="exampleFormControlInput1" class="form-label">

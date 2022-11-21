@@ -418,8 +418,10 @@ export default {
       this.pbth_length = this.pbth.length
       this.pbth.forEach(element => {
         element.month = element.month + ' '
-        element.planFH = element.flight_hour * convidence_level
-        element.value = element.planFH * element.rate
+        element.planFH = element.flight_hour * this.convidence_level
+        element.planFH = element.planFH / 100
+        let TargetFHXConvidenceLevel = element.flight_hour * convidence_level
+        element.value = TargetFHXConvidenceLevel * element.rate
       });
       this.total_sales_plan = 0
       for(let i = 0; i < this.pbth_length; i++){

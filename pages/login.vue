@@ -108,22 +108,24 @@ export default {
     }
   },
 
+  created() {},
+
   methods: {
     async loginUser() {
       this.progress = false
-      this.loading()
+      if (this.progress == false) {
+        this.loading()
+      }
       await this.$auth
         .loginWith('local', {
           data: this.login,
         })
-        .then(() => {
+        .then((result) => {
           this.$router.push('/')
           this.progress = true
           this.successMessage()
         })
         .catch((error) => {
-          this.$router.push('/')
-          this.progress = true
           console.log(error.response)
           if (error.response.status == 401) {
             this.errors = 'Please insert your account!'
@@ -132,15 +134,13 @@ export default {
         })
     },
     loading() {
-      if (this.progress == false) {
-        Swal.fire({
-          didOpen: () => {
-            Swal.showLoading()
-          },
-          background: 'transparent',
-          allowOutsideClick: false,
-        })
-      }
+      Swal.fire({
+        didOpen: () => {
+          Swal.showLoading()
+        },
+        background: 'transparent',
+        allowOutsideClick: false,
+      })
     },
     successMessage() {
       toastr.options = {

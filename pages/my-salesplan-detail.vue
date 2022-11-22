@@ -119,21 +119,15 @@
                       <form action="">
                         <div class="mb-3">
                           <label class="form-label">To</label>
-                          <select
-                            v-model="ams_id"
-                            class="form-select"
-                            :class="{ 'is-invalid': errors.ams_id }"
-                          >
+                          <select v-model="ams_id" class="form-select" :class="{ 'is-invalid': errors.ams_id }">
                             <option :value="null" disabled>Select AMS</option>
                             <option v-for="amss in ams" :value="amss.id">
                               {{ amss.initial }} - {{ amss.user.name }}
                             </option>
                           </select>
-                          <span
-                            v-if="errors.ams_id"
-                            class="error invalid-feedback"
-                            >{{ errors.ams_id[0] }}</span
-                          >
+                          <span v-if="errors.ams_id" class="error invalid-feedback">{{
+                            errors.ams_id[0]
+                          }}</span>
                         </div>
                         <div class="mb-3">
                           <label class="form-label">Description</label> <br />
@@ -386,10 +380,7 @@
               <div class="col-lg-4 col-md-12 col-sm-12">
                 <div class="card mb-3" style="max-width: 540px">
                   <div class="row no-gutters">
-                    <div
-                      class="col-md"
-                      style="margin-top: -20px; margin-left: -30px"
-                    >
+                    <div class="col-md" style="margin-top: -20px; margin-left: -30px">
                       <div class="card-body">
                         <h5 class="card-title" v-if="sales_detail">
                           {{ sales_detail.registration }}
@@ -480,23 +471,19 @@
                   <span class="badge badge-info"><b>RKAP</b></span>
                 </div>
                 <div v-else="sales_detail.other === 'Additional'">
-                  <span class="badge badge-primary"><b>Additional</b></span>
+                  <span class="badge badge-primary"
+                    ><b>Additional</b></span
+                  >
                 </div>
                 <p class="text-muted mt-5">Type</p>
                 <div v-if="sales_detail.type === 'TMB Retail'">
-                  <span class="badge badge-danger">{{
-                    sales_detail.type
-                  }}</span>
+                  <span class="badge badge-danger">{{ sales_detail.type }}</span>
                 </div>
                 <div v-if="sales_detail.type === 'TMB Project'">
-                  <span class="badge badge-primary">{{
-                    sales_detail.type
-                  }}</span>
+                  <span class="badge badge-primary">{{ sales_detail.type }}</span>
                 </div>
                 <div v-if="sales_detail.type === 'PBTH'">
-                  <span class="badge badge-warning">{{
-                    sales_detail.type
-                  }}</span>
+                  <span class="badge badge-warning">{{ sales_detail.type }}</span>
                 </div>
               </div>
               <div class="col-lg-2" v-if="sales_detail">
@@ -656,466 +643,121 @@
                     class="stepper stepper-pills mt-5"
                     id="kt_stepper_example_basic"
                   >
-                  <div v-if="sales_detail">
                     <!--begin::Nav-->
-                    <div v-if="sales_detail.level == 4">
-                      <div class="stepper-nav flex-center flex-wrap mb-10">
-                        <!--begin::Step 1-->
-                          <div
-                            class="stepper-item mx-8 my-4 current"
-                            data-kt-stepper-element="nav"
-                          >
-                            <!--begin::Wrapper-->
-                            <div class="stepper-wrapper d-flex align-items-center">
-                              <!--begin::Icon-->
-                              <div class="stepper-icon w-40px h-40px">
-                                <i class="stepper-check fas fa-check"></i>
-                                <span class="stepper-number">4</span>
-                              </div>
-                              <!--end::Icon-->
-
-                              <!--begin::Label-->
-                              <div class="stepper-label">
-                                <div class="stepper-desc">Awareness</div>
-                              </div>
-                              <!--end::Label-->
-                            </div>
-                            <!--end::Wrapper-->
-
-                            <!--begin::Line-->
-                            <div class="stepper-line h-40px"></div>
-                            <!--end::Line-->
+                    <div class="stepper-nav flex-center flex-wrap mb-10">
+                      <!--begin::Step 1-->
+                      <div
+                        class="stepper-item mx-8 my-4 current"
+                        data-kt-stepper-element="nav"
+                      >
+                        <!--begin::Wrapper-->
+                        <div class="stepper-wrapper d-flex align-items-center">
+                          <!--begin::Icon-->
+                          <div class="stepper-icon w-40px h-40px">
+                            <i class="stepper-check fas fa-check"></i>
+                            <span class="stepper-number">4</span>
                           </div>
-                        <!--end::Step 1-->
-                        <!--begin::Step 2-->
-                        <div
-                          class="stepper-item mx-8 my-4"
-                          data-kt-stepper-element="nav"
-                        >
-                          <!--begin::Wrapper-->
-                          <div class="stepper-wrapper d-flex align-items-center">
-                            <!--begin::Icon-->
-                            <div class="stepper-icon w-40px h-40px">
-                              <i class="stepper-check fas fa-check"></i>
-                              <span class="stepper-number">3</span>
-                            </div>
-                            <!--begin::Icon-->
+                          <!--end::Icon-->
 
-                            <!--begin::Label-->
-                            <div class="stepper-label">
-                              <div class="stepper-desc">Opportunity</div>
-                            </div>
-                            <!--end::Label-->
+                          <!--begin::Label-->
+                          <div class="stepper-label">
+                            <div class="stepper-desc">Awareness</div>
                           </div>
-                          <!--end::Wrapper-->
-
-                          <!--begin::Line-->
-                          <div class="stepper-line h-40px"></div>
-                          <!--end::Line-->
+                          <!--end::Label-->
                         </div>
-                        <!--end::Step 2-->
+                        <!--end::Wrapper-->
 
-                        <!--begin::Step 3-->
-                        <div
-                          class="stepper-item mx-8 my-4"
-                          data-kt-stepper-element="nav"
-                        >
-                          <!--begin::Wrapper-->
-                          <div class="stepper-wrapper d-flex align-items-center">
-                            <!--begin::Icon-->
-                            <div class="stepper-icon w-40px h-40px">
-                              <i class="stepper-check fas fa-check"></i>
-                              <span class="stepper-number">2</span>
-                            </div>
-                            <!--begin::Icon-->
-
-                            <!--begin::Label-->
-                            <div class="stepper-label">
-                              <div class="stepper-desc">Attractive Proposal</div>
-                            </div>
-                            <!--end::Label-->
-                          </div>
-                          <!--end::Wrapper-->
-
-                          <!--begin::Line-->
-                          <div class="stepper-line h-40px"></div>
-                          <!--end::Line-->
-                        </div>
-                        <!--end::Step 3-->
-
-                        <!--begin::Step 4-->
-                        <div
-                          class="stepper-item mx-8 my-4"
-                          data-kt-stepper-element="nav"
-                        >
-                          <!--begin::Wrapper-->
-                          <div class="stepper-wrapper d-flex align-items-center">
-                            <!--begin::Icon-->
-                            <div class="stepper-icon w-40px h-40px">
-                              <i class="stepper-check fas fa-check"></i>
-                              <span class="stepper-number">1</span>
-                            </div>
-                            <!--begin::Icon-->
-
-                            <!--begin::Label-->
-                            <div class="stepper-label">
-                              <div class="stepper-desc">Contract Signing</div>
-                            </div>
-                            <!--end::Label-->
-                          </div>
-                          <!--end::Wrapper-->
-
-                          <!--begin::Line-->
-                          <div class="stepper-line h-40px"></div>
-                          <!--end::Line-->
-                        </div>
-                        <!--end::Step 4-->
+                        <!--begin::Line-->
+                        <div class="stepper-line h-40px"></div>
+                        <!--end::Line-->
                       </div>
-                    </div>
-                    <div v-else-if="sales_detail.level == 3">
-                      <div class="stepper-nav flex-center flex-wrap mb-10">
-                        <!--begin::Step 1-->
-                          <div
-                            class="stepper-item mx-8 my-4 completed"
-                            data-kt-stepper-element="nav"
-                          >
-                            <!--begin::Wrapper-->
-                            <div class="stepper-wrapper d-flex align-items-center">
-                              <!--begin::Icon-->
-                              <div class="stepper-icon w-40px h-40px">
-                                <i class="stepper-check fas fa-check"></i>
-                                <span class="stepper-number">4</span>
-                              </div>
-                              <!--end::Icon-->
+                      <!--end::Step 1-->
 
-                              <!--begin::Label-->
-                              <div class="stepper-label">
-                                <div class="stepper-desc">Awareness</div>
-                              </div>
-                              <!--end::Label-->
-                            </div>
-                            <!--end::Wrapper-->
-
-                            <!--begin::Line-->
-                            <div class="stepper-line h-40px"></div>
-                            <!--end::Line-->
+                      <!--begin::Step 2-->
+                      <div
+                        class="stepper-item mx-8 my-4"
+                        data-kt-stepper-element="nav"
+                      >
+                        <!--begin::Wrapper-->
+                        <div class="stepper-wrapper d-flex align-items-center">
+                          <!--begin::Icon-->
+                          <div class="stepper-icon w-40px h-40px">
+                            <i class="stepper-check fas fa-check"></i>
+                            <span class="stepper-number">3</span>
                           </div>
-                        <!--end::Step 1-->
-                        <!--begin::Step 2-->
-                        <div
-                          class="stepper-item mx-8 my-4 current"
-                          data-kt-stepper-element="nav"
-                        >
-                          <!--begin::Wrapper-->
-                          <div class="stepper-wrapper d-flex align-items-center">
-                            <!--begin::Icon-->
-                            <div class="stepper-icon w-40px h-40px">
-                              <i class="stepper-check fas fa-check"></i>
-                              <span class="stepper-number">3</span>
-                            </div>
-                            <!--begin::Icon-->
+                          <!--begin::Icon-->
 
-                            <!--begin::Label-->
-                            <div class="stepper-label">
-                              <div class="stepper-desc">Opportunity</div>
-                            </div>
-                            <!--end::Label-->
+                          <!--begin::Label-->
+                          <div class="stepper-label">
+                            <div class="stepper-desc">Opportunity</div>
                           </div>
-                          <!--end::Wrapper-->
-
-                          <!--begin::Line-->
-                          <div class="stepper-line h-40px"></div>
-                          <!--end::Line-->
+                          <!--end::Label-->
                         </div>
-                        <!--end::Step 2-->
+                        <!--end::Wrapper-->
 
-                        <!--begin::Step 3-->
-                        <div
-                          class="stepper-item mx-8 my-4"
-                          data-kt-stepper-element="nav"
-                        >
-                          <!--begin::Wrapper-->
-                          <div class="stepper-wrapper d-flex align-items-center">
-                            <!--begin::Icon-->
-                            <div class="stepper-icon w-40px h-40px">
-                              <i class="stepper-check fas fa-check"></i>
-                              <span class="stepper-number">2</span>
-                            </div>
-                            <!--begin::Icon-->
-
-                            <!--begin::Label-->
-                            <div class="stepper-label">
-                              <div class="stepper-desc">Attractive Proposal</div>
-                            </div>
-                            <!--end::Label-->
-                          </div>
-                          <!--end::Wrapper-->
-
-                          <!--begin::Line-->
-                          <div class="stepper-line h-40px"></div>
-                          <!--end::Line-->
-                        </div>
-                        <!--end::Step 3-->
-
-                        <!--begin::Step 4-->
-                        <div
-                          class="stepper-item mx-8 my-4"
-                          data-kt-stepper-element="nav"
-                        >
-                          <!--begin::Wrapper-->
-                          <div class="stepper-wrapper d-flex align-items-center">
-                            <!--begin::Icon-->
-                            <div class="stepper-icon w-40px h-40px">
-                              <i class="stepper-check fas fa-check"></i>
-                              <span class="stepper-number">1</span>
-                            </div>
-                            <!--begin::Icon-->
-
-                            <!--begin::Label-->
-                            <div class="stepper-label">
-                              <div class="stepper-desc">Contract Signing</div>
-                            </div>
-                            <!--end::Label-->
-                          </div>
-                          <!--end::Wrapper-->
-
-                          <!--begin::Line-->
-                          <div class="stepper-line h-40px"></div>
-                          <!--end::Line-->
-                        </div>
-                        <!--end::Step 4-->
+                        <!--begin::Line-->
+                        <div class="stepper-line h-40px"></div>
+                        <!--end::Line-->
                       </div>
-                    </div>
-                    <div v-else-if="sales_detail.level == 2">
-                      <div class="stepper-nav flex-center flex-wrap mb-10">
-                        <!--begin::Step 1-->
-                          <div
-                            class="stepper-item mx-8 my-4 completed"
-                            data-kt-stepper-element="nav"
-                          >
-                            <!--begin::Wrapper-->
-                            <div class="stepper-wrapper d-flex align-items-center">
-                              <!--begin::Icon-->
-                              <div class="stepper-icon w-40px h-40px">
-                                <i class="stepper-check fas fa-check"></i>
-                                <span class="stepper-number">4</span>
-                              </div>
-                              <!--end::Icon-->
+                      <!--end::Step 2-->
 
-                              <!--begin::Label-->
-                              <div class="stepper-label">
-                                <div class="stepper-desc">Awareness</div>
-                              </div>
-                              <!--end::Label-->
-                            </div>
-                            <!--end::Wrapper-->
-
-                            <!--begin::Line-->
-                            <div class="stepper-line h-40px"></div>
-                            <!--end::Line-->
+                      <!--begin::Step 3-->
+                      <div
+                        class="stepper-item mx-8 my-4"
+                        data-kt-stepper-element="nav"
+                      >
+                        <!--begin::Wrapper-->
+                        <div class="stepper-wrapper d-flex align-items-center">
+                          <!--begin::Icon-->
+                          <div class="stepper-icon w-40px h-40px">
+                            <i class="stepper-check fas fa-check"></i>
+                            <span class="stepper-number">2</span>
                           </div>
-                        <!--end::Step 1-->
-                        <!--begin::Step 2-->
-                        <div
-                          class="stepper-item mx-8 my-4 completed"
-                          data-kt-stepper-element="nav"
-                        >
-                          <!--begin::Wrapper-->
-                          <div class="stepper-wrapper d-flex align-items-center">
-                            <!--begin::Icon-->
-                            <div class="stepper-icon w-40px h-40px">
-                              <i class="stepper-check fas fa-check"></i>
-                              <span class="stepper-number">3</span>
-                            </div>
-                            <!--begin::Icon-->
+                          <!--begin::Icon-->
 
-                            <!--begin::Label-->
-                            <div class="stepper-label">
-                              <div class="stepper-desc">Opportunity</div>
-                            </div>
-                            <!--end::Label-->
+                          <!--begin::Label-->
+                          <div class="stepper-label">
+                            <div class="stepper-desc">Attractive Proposal</div>
                           </div>
-                          <!--end::Wrapper-->
-
-                          <!--begin::Line-->
-                          <div class="stepper-line h-40px"></div>
-                          <!--end::Line-->
+                          <!--end::Label-->
                         </div>
-                        <!--end::Step 2-->
+                        <!--end::Wrapper-->
 
-                        <!--begin::Step 3-->
-                        <div
-                          class="stepper-item mx-8 my-4 current"
-                          data-kt-stepper-element="nav"
-                        >
-                          <!--begin::Wrapper-->
-                          <div class="stepper-wrapper d-flex align-items-center">
-                            <!--begin::Icon-->
-                            <div class="stepper-icon w-40px h-40px">
-                              <i class="stepper-check fas fa-check"></i>
-                              <span class="stepper-number">2</span>
-                            </div>
-                            <!--begin::Icon-->
-
-                            <!--begin::Label-->
-                            <div class="stepper-label">
-                              <div class="stepper-desc">Attractive Proposal</div>
-                            </div>
-                            <!--end::Label-->
-                          </div>
-                          <!--end::Wrapper-->
-
-                          <!--begin::Line-->
-                          <div class="stepper-line h-40px"></div>
-                          <!--end::Line-->
-                        </div>
-                        <!--end::Step 3-->
-
-                        <!--begin::Step 4-->
-                        <div
-                          class="stepper-item mx-8 my-4"
-                          data-kt-stepper-element="nav"
-                        >
-                          <!--begin::Wrapper-->
-                          <div class="stepper-wrapper d-flex align-items-center">
-                            <!--begin::Icon-->
-                            <div class="stepper-icon w-40px h-40px">
-                              <i class="stepper-check fas fa-check"></i>
-                              <span class="stepper-number">1</span>
-                            </div>
-                            <!--begin::Icon-->
-
-                            <!--begin::Label-->
-                            <div class="stepper-label">
-                              <div class="stepper-desc">Contract Signing</div>
-                            </div>
-                            <!--end::Label-->
-                          </div>
-                          <!--end::Wrapper-->
-
-                          <!--begin::Line-->
-                          <div class="stepper-line h-40px"></div>
-                          <!--end::Line-->
-                        </div>
-                        <!--end::Step 4-->
+                        <!--begin::Line-->
+                        <div class="stepper-line h-40px"></div>
+                        <!--end::Line-->
                       </div>
-                    </div>
-                    <div v-else-if="sales_detail.level == 1 && sales_detail.status != 'Closed'">
-                      <div class="stepper-nav flex-center flex-wrap mb-10">
-                        <!--begin::Step 1-->
-                          <div
-                            class="stepper-item mx-8 my-4 completed"
-                            data-kt-stepper-element="nav"
-                          >
-                            <!--begin::Wrapper-->
-                            <div class="stepper-wrapper d-flex align-items-center">
-                              <!--begin::Icon-->
-                              <div class="stepper-icon w-40px h-40px">
-                                <i class="stepper-check fas fa-check"></i>
-                                <span class="stepper-number">4</span>
-                              </div>
-                              <!--end::Icon-->
+                      <!--end::Step 3-->
 
-                              <!--begin::Label-->
-                              <div class="stepper-label">
-                                <div class="stepper-desc">Awareness</div>
-                              </div>
-                              <!--end::Label-->
-                            </div>
-                            <!--end::Wrapper-->
-
-                            <!--begin::Line-->
-                            <div class="stepper-line h-40px"></div>
-                            <!--end::Line-->
+                      <!--begin::Step 4-->
+                      <div
+                        class="stepper-item mx-8 my-4"
+                        data-kt-stepper-element="nav"
+                      >
+                        <!--begin::Wrapper-->
+                        <div class="stepper-wrapper d-flex align-items-center">
+                          <!--begin::Icon-->
+                          <div class="stepper-icon w-40px h-40px">
+                            <i class="stepper-check fas fa-check"></i>
+                            <span class="stepper-number">1</span>
                           </div>
-                        <!--end::Step 1-->
-                        <!--begin::Step 2-->
-                        <div
-                          class="stepper-item mx-8 my-4 completed"
-                          data-kt-stepper-element="nav"
-                        >
-                          <!--begin::Wrapper-->
-                          <div class="stepper-wrapper d-flex align-items-center">
-                            <!--begin::Icon-->
-                            <div class="stepper-icon w-40px h-40px">
-                              <i class="stepper-check fas fa-check"></i>
-                              <span class="stepper-number">3</span>
-                            </div>
-                            <!--begin::Icon-->
+                          <!--begin::Icon-->
 
-                            <!--begin::Label-->
-                            <div class="stepper-label">
-                              <div class="stepper-desc">Opportunity</div>
-                            </div>
-                            <!--end::Label-->
+                          <!--begin::Label-->
+                          <div class="stepper-label">
+                            <div class="stepper-desc">Contract Signing</div>
                           </div>
-                          <!--end::Wrapper-->
-
-                          <!--begin::Line-->
-                          <div class="stepper-line h-40px"></div>
-                          <!--end::Line-->
+                          <!--end::Label-->
                         </div>
-                        <!--end::Step 2-->
+                        <!--end::Wrapper-->
 
-                        <!--begin::Step 3-->
-                        <div
-                          class="stepper-item mx-8 my-4 completed"
-                          data-kt-stepper-element="nav"
-                        >
-                          <!--begin::Wrapper-->
-                          <div class="stepper-wrapper d-flex align-items-center">
-                            <!--begin::Icon-->
-                            <div class="stepper-icon w-40px h-40px">
-                              <i class="stepper-check fas fa-check"></i>
-                              <span class="stepper-number">2</span>
-                            </div>
-                            <!--begin::Icon-->
-
-                            <!--begin::Label-->
-                            <div class="stepper-label">
-                              <div class="stepper-desc">Attractive Proposal</div>
-                            </div>
-                            <!--end::Label-->
-                          </div>
-                          <!--end::Wrapper-->
-
-                          <!--begin::Line-->
-                          <div class="stepper-line h-40px"></div>
-                          <!--end::Line-->
-                        </div>
-                        <!--end::Step 3-->
-
-                        <!--begin::Step 4-->
-                        <div
-                          class="stepper-item mx-8 my-4 current"
-                          data-kt-stepper-element="nav"
-                        >
-                          <!--begin::Wrapper-->
-                          <div class="stepper-wrapper d-flex align-items-center">
-                            <!--begin::Icon-->
-                            <div class="stepper-icon w-40px h-40px">
-                              <i class="stepper-check fas fa-check"></i>
-                              <span class="stepper-number">1</span>
-                            </div>
-                            <!--begin::Icon-->
-
-                            <!--begin::Label-->
-                            <div class="stepper-label">
-                              <div class="stepper-desc">Contract Signing</div>
-                            </div>
-                            <!--end::Label-->
-                          </div>
-                          <!--end::Wrapper-->
-
-                          <!--begin::Line-->
-                          <div class="stepper-line h-40px"></div>
-                          <!--end::Line-->
-                        </div>
-                        <!--end::Step 4-->
+                        <!--begin::Line-->
+                        <div class="stepper-line h-40px"></div>
+                        <!--end::Line-->
                       </div>
+                      <!--end::Step 4-->
                     </div>
                     <!--end::Nav-->
-                  </div>
 
                     <!--begin::Form-->
                     <div
@@ -1126,1120 +768,1140 @@
                       <!--begin::Group-->
                       <div class="mb-5" v-if="sales_detail">
                         <!--begin::Step 4-->
-                        <div v-if="sales_detail.level == 4">
-                          <div
-                            class="flex-column current"
-                            data-kt-stepper-element="content"
-                          >
-                            <form>
-                              <div class="row">
-                                <!-- Fill in Contact Person of Customer -->
-                                <div class="col-lg-6">
-                                  <h3>Fill in Contact Person of Customer</h3>
-                                  <p class="text-muted">
-                                    <small
-                                      >by <a href="#">{{ user }}</a></small
-                                    >
-                                  </p>
-                                </div>
-                                <div class="col-lg-6 mb-20">
-                                  <div
-                                    class="position-relative"
-                                    v-if="sales_detail"
+                        <div
+                          class="flex-column current"
+                          data-kt-stepper-element="content"
+                          v-if="
+                            sales_detail.level === 4 ||
+                            sales_detail.level === 3 ||
+                            sales_detail.level === 2 ||
+                            sales_detail.level === 1
+                          "
+                        >
+                          <form>
+                            <div class="row">
+                              <!-- Fill in Contact Person of Customer -->
+                              <div class="col-lg-6">
+                                <h3>Fill in Contact Person of Customer</h3>
+                                <p class="text-muted">
+                                  <small
+                                    >by <a href="#">{{ user }}</a></small
                                   >
-                                    <div
-                                      class="position-absolute top-0 end-0"
-                                      v-if="
-                                        sales_detail.level == 4 &&
-                                        sales_detail.status === 'Open'
-                                      "
-                                    >
-                                      <button
-                                        type="button"
-                                        class="btn btn-primary btn-sm"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#addContact"
-                                        @click="addContact()"
-                                        v-if="
-                                          role == 'AMS' ||
-                                          role == 'Administrator'
-                                        "
-                                      >
-                                        Add Contact Person
-                                      </button>
-                                    </div>
-                                  </div>
-                                </div>
-                                <div class="rounded box-d" id="myBorder">
-                                  <div class="mt-3 table-responsive">
-                                    <table class="table" v-if="contact">
-                                      <tr
-                                        v-for="contact in level4[0].data"
-                                        :key="contact.id"
-                                        id="heightContact"
-                                      >
-                                        <td>
-                                          <strong>{{ contact.name }}</strong>
-                                        </td>
-                                        <td>
-                                          <strong>{{ contact.phone }}</strong>
-                                        </td>
-                                        <td>
-                                          <strong>{{ contact.email }}</strong>
-                                        </td>
-                                      </tr>
-                                    </table>
-                                  </div>
-                                </div>
-
-                                <!-- Upload Attachment RFQ or Email Request -->
-                                <div class="col-lg-6 mt-3">
-                                  <h3>
-                                    Upload Attachment RFQ or Email Request
-                                  </h3>
-                                  <p class="text-danger">
-                                    <small>* File size max 5MB</small>
-                                  </p>
-                                </div>
-                                <div class="col-lg-6 mt-3 mb-20">
-                                  <div
-                                    class="position-relative"
-                                    v-if="sales_detail"
-                                  >
-                                    <div
-                                      class="position-absolute top-0 end-0"
-                                      v-if="
-                                        sales_detail.level == 4 &&
-                                        sales_detail.status === 'Open'
-                                      "
-                                    >
-                                      <button
-                                        type="button"
-                                        class="btn btn-primary btn-sm"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#addFile"
-                                        @click="addFile1()"
-                                        v-if="
-                                          role == 'AMS' ||
-                                          role == 'Administrator'
-                                        "
-                                        v-permission="['upload_files']"
-                                      >
-                                        Upload Document
-                                      </button>
-                                    </div>
-                                  </div>
-                                </div>
-                                <div class="rounded box-d" id="myBorder">
-                                  <div class="mt-3 table-responsive">
-                                    <table class="table" v-if="files">
-                                      <tr
-                                        v-for="files in level4[1].data"
-                                        :key="files.id"
-                                      >
-                                        <td>
-                                          <a
-                                            :href="files.full_path"
-                                            class="
-                                              btn
-                                              btn-outline-primary
-                                              btn-outline
-                                              btn-sm
-                                              mb-2
-                                            "
-                                            target="_blank"
-                                          >
-                                            <strong>{{
-                                              files.file_name
-                                            }}</strong>
-                                          </a>
-                                        </td>
-                                        <td
-                                          class="d-flex justify-content-end"
-                                          v-if="
-                                            sales_detail.level == 4 &&
-                                            sales_detail.status === 'Open'
-                                          "
-                                        >
-                                          <button
-                                            type="button"
-                                            class="btn btn-danger btn-sm"
-                                            @click="removeFile(files.id)"
-                                            v-permission="['delete_files']"
-                                            v-if="
-                                              role == 'AMS' ||
-                                              role == 'Administrator'
-                                            "
-                                          >
-                                            <span class="fas fa-trash"></span>
-                                          </button>
-                                        </td>
-                                      </tr>
-                                    </table>
-                                  </div>
-                                </div>
-
-                                <!-- Upload Attachment Workscope -->
-                                <div class="col-lg-6 mt-3">
-                                  <h3>Upload Attachment Workscope</h3>
-                                  <p class="text-danger">
-                                    <small>* File size max 5MB</small>
-                                  </p>
-                                </div>
-                                <div class="col-lg-6 mt-3 mb-20">
-                                  <div
-                                    class="position-relative"
-                                    v-if="sales_detail"
-                                  >
-                                    <div
-                                      class="position-absolute top-0 end-0"
-                                      v-if="
-                                        sales_detail.level == 4 &&
-                                        sales_detail.status === 'Open'
-                                      "
-                                    >
-                                      <button
-                                        type="button"
-                                        class="btn btn-primary btn-sm"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#addFile"
-                                        @click="addFile2()"
-                                        v-if="
-                                          role == 'AMS' ||
-                                          role == 'Administrator'
-                                        "
-                                        v-permission="['upload_files']"
-                                      >
-                                        Upload Document
-                                      </button>
-                                    </div>
-                                  </div>
-                                </div>
-                                <div class="rounded box-d" id="myBorder">
-                                  <div class="mt-3">
-                                    <table class="table" v-if="files">
-                                      <tr
-                                        v-for="files in level4[2].data"
-                                        :key="files.id"
-                                      >
-                                        <td>
-                                          <a
-                                            :href="files.full_path"
-                                            class="
-                                              btn
-                                              btn-outline-primary
-                                              btn-outline
-                                              btn-sm
-                                              mb-2
-                                            "
-                                            target="_blank"
-                                          >
-                                            <strong>{{
-                                              files.file_name
-                                            }}</strong>
-                                          </a>
-                                        </td>
-                                        <td
-                                          class="d-flex justify-content-end"
-                                          v-if="
-                                            sales_detail.level == 4 &&
-                                            sales_detail.status === 'Open'
-                                          "
-                                        >
-                                          <button
-                                            type="button"
-                                            class="btn btn-danger btn-sm"
-                                            @click="removeFile(files.id)"
-                                            v-permission="['delete_files']"
-                                            v-if="
-                                              role == 'AMS' ||
-                                              role == 'Administrator'
-                                            "
-                                          >
-                                            <span class="fas fa-trash"></span>
-                                          </button>
-                                        </td>
-                                      </tr>
-                                    </table>
-                                  </div>
-                                </div>
-
+                                </p>
+                              </div>
+                              <div class="col-lg-6 mb-20">
                                 <div
-                                  class="text-center mt-5"
-                                  v-if="
-                                    role == 'TPR' || role == 'Administrator'
-                                  "
+                                  class="position-relative"
+                                  v-if="sales_detail"
                                 >
-                                  <form>
-                                    <input
-                                      type="hidden"
-                                      v-model="upgrade"
-                                      value="1"
-                                    />
+                                  <div
+                                    class="position-absolute top-0 end-0"
+                                    v-if="
+                                      sales_detail.level == 4 &&
+                                      sales_detail.status === 'Open'
+                                    "
+                                  >
                                     <button
                                       type="button"
-                                      class="btn btn-info btn-sm"
-                                      @click="upgradeLevel()"
-                                      v-if="
-                                        sales_detail.status === 'Open' &&
-                                        sales_detail.level == 4 &&
-                                        sales_detail.upgrade == true
-                                      "
-                                      v-permission="['upgrade_level']"
-                                    >
-                                      Upgrade Level
-                                    </button>
-                                  </form>
-                                </div>
-                                <div
-                                  class="text-center mt-5"
-                                  v-if="role == 'AMS'"
-                                >
-                                  <form>
-                                    <button
-                                      type="button"
-                                      class="btn btn-info btn-sm"
+                                      class="btn btn-primary btn-sm"
                                       data-bs-toggle="modal"
-                                      data-bs-target="#notifyUpgrade"
+                                      data-bs-target="#addContact"
+                                      @click="addContact()"
                                       v-if="
-                                        sales_detail.status === 'Open' &&
-                                        sales_detail.level == 4 &&
-                                        sales_detail.upgrade == true
+                                        role == 'AMS' || role == 'Administrator'
                                       "
                                     >
-                                      Request to Upgrade
+                                      Add Contact Person
                                     </button>
-                                  </form>
+                                  </div>
                                 </div>
                               </div>
-                            </form>
-                          </div>
+                              <div class="rounded box-d" id="myBorder">
+                                <div class="mt-3 table-responsive">
+                                  <table class="table" v-if="contact">
+                                    <tr
+                                      v-for="contact in level4[0].data"
+                                      :key="contact.id"
+                                      id="heightContact"
+                                    >
+                                      <td>
+                                        <strong>{{ contact.name }}</strong>
+                                      </td>
+                                      <td>
+                                        <strong>{{ contact.phone }}</strong>
+                                      </td>
+                                      <td>
+                                        <strong>{{ contact.email }}</strong>
+                                      </td>
+                                    </tr>
+                                  </table>
+                                </div>
+                              </div>
+
+                              <!-- Upload Attachment RFQ or Email Request -->
+                              <div class="col-lg-6 mt-3">
+                                <h3>Upload Attachment RFQ or Email Request</h3>
+                                <p class="text-danger">
+                                  <small>* File size max 5MB</small>
+                                </p>
+                              </div>
+                              <div class="col-lg-6 mt-3 mb-20">
+                                <div
+                                  class="position-relative"
+                                  v-if="sales_detail"
+                                >
+                                  <div
+                                    class="position-absolute top-0 end-0"
+                                    v-if="
+                                      sales_detail.level == 4 &&
+                                      sales_detail.status === 'Open'
+                                    "
+                                  >
+                                    <button
+                                      type="button"
+                                      class="btn btn-primary btn-sm"
+                                      data-bs-toggle="modal"
+                                      data-bs-target="#addFile"
+                                      @click="addFile1()"
+                                      v-if="
+                                        role == 'AMS' || role == 'Administrator'
+                                      "
+                                      v-permission="['upload_files']"
+                                    >
+                                      Upload Document
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="rounded box-d" id="myBorder">
+                                <div class="mt-3 table-responsive">
+                                  <table class="table" v-if="files">
+                                    <tr
+                                      v-for="files in level4[1].data"
+                                      :key="files.id"
+                                    >
+                                      <td>
+                                        <a
+                                          :href="files.full_path"
+                                          class="
+                                            btn
+                                            btn-outline-primary
+                                            btn-outline
+                                            btn-sm
+                                            mb-2
+                                          "
+                                          target="_blank"
+                                        >
+                                          <strong>{{ files.file_name }}</strong>
+                                        </a>
+                                      </td>
+                                      <td
+                                        class="d-flex justify-content-end"
+                                        v-if="
+                                          sales_detail.level == 4 &&
+                                          sales_detail.status === 'Open'
+                                        "
+                                      >
+                                        <button
+                                          type="button"
+                                          class="btn btn-danger btn-sm"
+                                          @click="removeFile(files.id)"
+                                          v-permission="['delete_files']"
+                                          v-if="
+                                            role == 'AMS' ||
+                                            role == 'Administrator'
+                                          "
+                                        >
+                                          <span class="fas fa-trash"></span>
+                                        </button>
+                                      </td>
+                                    </tr>
+                                  </table>
+                                </div>
+                              </div>
+
+                              <!-- Upload Attachment Workscope -->
+                              <div class="col-lg-6 mt-3">
+                                <h3>Upload Attachment Workscope</h3>
+                                <p class="text-danger">
+                                  <small>* File size max 5MB</small>
+                                </p>
+                              </div>
+                              <div class="col-lg-6 mt-3 mb-20">
+                                <div
+                                  class="position-relative"
+                                  v-if="sales_detail"
+                                >
+                                  <div
+                                    class="position-absolute top-0 end-0"
+                                    v-if="
+                                      sales_detail.level == 4 &&
+                                      sales_detail.status === 'Open'
+                                    "
+                                  >
+                                    <button
+                                      type="button"
+                                      class="btn btn-primary btn-sm"
+                                      data-bs-toggle="modal"
+                                      data-bs-target="#addFile"
+                                      @click="addFile2()"
+                                      v-if="
+                                        role == 'AMS' || role == 'Administrator'
+                                      "
+                                      v-permission="['upload_files']"
+                                    >
+                                      Upload Document
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="rounded box-d" id="myBorder">
+                                <div class="mt-3">
+                                  <table class="table" v-if="files">
+                                    <tr
+                                      v-for="files in level4[2].data"
+                                      :key="files.id"
+                                    >
+                                      <td>
+                                        <a
+                                          :href="files.full_path"
+                                          class="
+                                            btn
+                                            btn-outline-primary
+                                            btn-outline
+                                            btn-sm
+                                            mb-2
+                                          "
+                                          target="_blank"
+                                        >
+                                          <strong>{{ files.file_name }}</strong>
+                                        </a>
+                                      </td>
+                                      <td
+                                        class="d-flex justify-content-end"
+                                        v-if="
+                                          sales_detail.level == 4 &&
+                                          sales_detail.status === 'Open'
+                                        "
+                                      >
+                                        <button
+                                          type="button"
+                                          class="btn btn-danger btn-sm"
+                                          @click="removeFile(files.id)"
+                                          v-permission="['delete_files']"
+                                          v-if="
+                                            role == 'AMS' ||
+                                            role == 'Administrator'
+                                          "
+                                        >
+                                          <span class="fas fa-trash"></span>
+                                        </button>
+                                      </td>
+                                    </tr>
+                                  </table>
+                                </div>
+                              </div>
+
+                              <div
+                                class="text-center mt-5"
+                                v-if="role == 'TPR' || role == 'Administrator'"
+                              >
+                                <form>
+                                  <input
+                                    type="hidden"
+                                    v-model="upgrade"
+                                    value="1"
+                                  />
+                                  <button
+                                    type="button"
+                                    class="btn btn-info btn-sm"
+                                    @click="upgradeLevel()"
+                                    v-if="
+                                      sales_detail.status === 'Open' &&
+                                      sales_detail.level == 4 &&
+                                      sales_detail.upgrade == true
+                                    "
+                                    v-permission="['upgrade_level']"
+                                  >
+                                    Upgrade Level
+                                  </button>
+                                </form>
+                              </div>
+                              <div
+                                class="text-center mt-5"
+                                v-if="role == 'AMS'"
+                              >
+                                <form>
+                                  <button
+                                    type="button"
+                                    class="btn btn-info btn-sm"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#notifyUpgrade"
+                                    v-if="
+                                      sales_detail.status === 'Open' &&
+                                      sales_detail.level == 4 &&
+                                      sales_detail.upgrade == true
+                                    "
+                                  >
+                                    Request to Upgrade
+                                  </button>
+                                </form>
+                              </div>
+                            </div>
+                          </form>
                         </div>
                         <!--begin::Step 4-->
 
                         <!--begin::Step 3-->
-                        <div v-else-if="sales_detail.level == 3">
-                          <div
-                            class="flex-column current"
-                            data-kt-stepper-element="content"
-                          >
-                            <form>
-                              <div class="row">
-                                <!-- Attachment of Financial Assesment Form (optional) -->
-                                <div class="col-lg-6 mt-3">
-                                  <h3>
-                                    Attachment of Financial Assesment Form
-                                    (optional)
-                                  </h3>
-                                  <p class="text-danger">
-                                    <small>* File size max 5MB</small>
-                                  </p>
-                                </div>
-                                <div class="col-lg-6 mt-3 mb-20">
-                                  <div
-                                    class="position-relative"
-                                    v-if="sales_detail"
-                                  >
-                                    <div
-                                      class="position-absolute top-0 end-0"
-                                      v-if="
-                                        sales_detail.level == 3 &&
-                                        sales_detail.status === 'Open'
-                                      "
-                                    >
-                                      <button
-                                        type="button"
-                                        class="btn btn-primary btn-sm"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#addFile"
-                                        @click="addFile3()"
-                                        v-if="
-                                          role == 'AMS' ||
-                                          role == 'Administrator'
-                                        "
-                                        v-permission="['upload_files']"
-                                      >
-                                        Upload Document
-                                      </button>
-                                    </div>
-                                  </div>
-                                </div>
-                                <div class="rounded box-d" id="myBorder">
-                                  <div class="mt-3">
-                                    <table class="table" v-if="files">
-                                      <tr
-                                        v-for="files in level3[0].data"
-                                        :key="files.id"
-                                      >
-                                        <td>
-                                          <a
-                                            :href="files.full_path"
-                                            class="
-                                              btn
-                                              btn-outline-primary
-                                              btn-outline
-                                              btn-sm
-                                              mb-2
-                                            "
-                                            target="_blank"
-                                          >
-                                            <strong>{{
-                                              files.file_name
-                                            }}</strong>
-                                          </a>
-                                        </td>
-                                        <td
-                                          class="d-flex justify-content-end"
-                                          v-if="
-                                            sales_detail.level == 3 &&
-                                            sales_detail.status === 'Open'
-                                          "
-                                        >
-                                          <button
-                                            type="button"
-                                            class="btn btn-danger btn-sm"
-                                            @click="removeFile(files.id)"
-                                            v-permission="['delete_files']"
-                                            v-if="
-                                              role == 'AMS' ||
-                                              role == 'Administrator'
-                                            "
-                                          >
-                                            <span class="fas fa-trash"></span>
-                                          </button>
-                                        </td>
-                                      </tr>
-                                    </table>
-                                  </div>
-                                </div>
-
-                                <!-- Attachment of Maintenance Proposal for Customer -->
-                                <div class="col-lg-6 mt-3">
-                                  <h3>
-                                    Attachment of Maintenance Proposal for
-                                    Customer
-                                  </h3>
-                                  <p class="text-danger">
-                                    <small>* File size max 5MB</small>
-                                  </p>
-                                </div>
-                                <div class="col-lg-6 mt-3 mb-20">
-                                  <div
-                                    class="position-relative"
-                                    v-if="sales_detail"
-                                  >
-                                    <div
-                                      class="position-absolute top-0 end-0"
-                                      v-if="
-                                        sales_detail.level == 3 &&
-                                        sales_detail.status === 'Open'
-                                      "
-                                    >
-                                      <button
-                                        type="button"
-                                        class="btn btn-success btn-sm"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#notifyCOGS"
-                                        v-if="
-                                          role == 'TPR' ||
-                                          role == 'Administrator'
-                                        "
-                                      >
-                                        Notify COGS
-                                      </button>
-                                      <button
-                                        type="button"
-                                        class="btn btn-primary btn-sm"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#addFile"
-                                        @click="addFile4()"
-                                        v-if="
-                                          role == 'CBO' ||
-                                          role == 'Administrator'
-                                        "
-                                        v-permission="['upload_files']"
-                                      >
-                                        Upload Document
-                                      </button>
-                                    </div>
-                                  </div>
-                                </div>
-                                <div class="rounded box-d" id="myBorder">
-                                  <div class="mt-3">
-                                    <table class="table" v-if="files">
-                                      <tr
-                                        v-for="files in level3[1].data"
-                                        :key="files.id"
-                                      >
-                                        <td>
-                                          <a
-                                            :href="files.full_path"
-                                            class="
-                                              btn
-                                              btn-outline-primary
-                                              btn-outline
-                                              btn-sm
-                                              mb-2
-                                            "
-                                            target="_blank"
-                                          >
-                                            <strong>{{
-                                              files.file_name
-                                            }}</strong>
-                                          </a>
-                                        </td>
-                                        <td
-                                          class="d-flex justify-content-end"
-                                          v-if="
-                                            sales_detail.level == 3 &&
-                                            sales_detail.status === 'Open'
-                                          "
-                                        >
-                                          <button
-                                            type="button"
-                                            class="btn btn-danger btn-sm"
-                                            @click="removeFile(files.id)"
-                                            v-permission="['delete_files']"
-                                            v-if="
-                                              role == 'CBO' ||
-                                              role == 'Administrator'
-                                            "
-                                          >
-                                            <span class="fas fa-trash"></span>
-                                          </button>
-                                        </td>
-                                      </tr>
-                                    </table>
-                                  </div>
-                                </div>
-
-                                <!-- Attachment of Profitability Analysis Form Signed -->
-                                <div class="col-lg-6 mt-3">
-                                  <h3>
-                                    Attachment of Profitability Analysis Form
-                                    Signed
-                                  </h3>
-                                  <p class="text-danger">
-                                    <small>* File size max 5MB</small>
-                                  </p>
-                                </div>
-                                <div class="col-lg-6 mt-3 mb-20">
-                                  <div
-                                    class="position-relative"
-                                    v-if="sales_detail"
-                                  >
-                                    <div
-                                      class="position-absolute top-0 end-0"
-                                      v-if="
-                                        sales_detail.level == 3 &&
-                                        sales_detail.status === 'Open'
-                                      "
-                                    >
-                                      <button
-                                        type="button"
-                                        class="btn btn-primary btn-sm"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#addFile"
-                                        @click="addFile5()"
-                                        v-if="
-                                          role == 'AMS' ||
-                                          role == 'Administrator'
-                                        "
-                                        v-permission="['upload_files']"
-                                      >
-                                        Upload Document
-                                      </button>
-                                    </div>
-                                  </div>
-                                </div>
-                                <div class="rounded box-d" id="myBorder">
-                                  <div class="mt-3">
-                                    <table class="table" v-if="files">
-                                      <tr
-                                        v-for="files in level3[2].data"
-                                        :key="files.id"
-                                      >
-                                        <td>
-                                          <a
-                                            :href="files.full_path"
-                                            class="
-                                              btn
-                                              btn-outline-primary
-                                              btn-outline
-                                              btn-sm
-                                              mb-2
-                                            "
-                                            target="_blank"
-                                          >
-                                            <strong>{{
-                                              files.file_name
-                                            }}</strong>
-                                          </a>
-                                        </td>
-                                        <td
-                                          class="d-flex justify-content-end"
-                                          v-if="
-                                            sales_detail.level == 3 &&
-                                            sales_detail.status === 'Open'
-                                          "
-                                        >
-                                          <button
-                                            type="button"
-                                            class="btn btn-danger btn-sm"
-                                            @click="removeFile(files.id)"
-                                            v-permission="['delete_files']"
-                                            v-if="
-                                              role == 'AMS' ||
-                                              role == 'Administrator'
-                                            "
-                                          >
-                                            <span class="fas fa-trash"></span>
-                                          </button>
-                                        </td>
-                                      </tr>
-                                    </table>
-                                  </div>
-                                </div>
-
+                        <div
+                          class="flex-column"
+                          data-kt-stepper-element="content"
+                          v-if="
+                            sales_detail.level === 3 ||
+                            sales_detail.level === 2 ||
+                            sales_detail.level === 1
+                          "
+                        >
+                          <form>
+                            <div class="row">
+                              <!-- Attachment of Financial Assesment Form (optional) -->
+                              <div class="col-lg-6 mt-3">
+                                <h3>
+                                  Attachment of Financial Assesment Form
+                                  (optional)
+                                </h3>
+                                <p class="text-danger">
+                                  <small>* File size max 5MB</small>
+                                </p>
+                              </div>
+                              <div class="col-lg-6 mt-3 mb-20">
                                 <div
-                                  class="text-center mt-5"
-                                  v-if="
-                                    role == 'TPR' || role == 'Administrator'
-                                  "
+                                  class="position-relative"
+                                  v-if="sales_detail"
                                 >
-                                  <form>
-                                    <input
-                                      type="hidden"
-                                      v-model="upgrade"
-                                      value="1"
-                                    />
+                                  <div
+                                    class="position-absolute top-0 end-0"
+                                    v-if="
+                                      sales_detail.level == 3 &&
+                                      sales_detail.status === 'Open'
+                                    "
+                                  >
                                     <button
                                       type="button"
-                                      class="btn btn-info btn-sm"
-                                      @click="upgradeLevel()"
-                                      v-if="
-                                        sales_detail.status === 'Open' &&
-                                        sales_detail.level == 3 &&
-                                        sales_detail.upgrade == true
-                                      "
-                                      v-permission="['upgrade_level']"
-                                    >
-                                      Upgrade Level
-                                    </button>
-                                  </form>
-                                </div>
-                                <div
-                                  class="text-center mt-5"
-                                  v-if="role == 'AMS'"
-                                >
-                                  <form>
-                                    <button
-                                      type="button"
-                                      class="btn btn-info btn-sm"
+                                      class="btn btn-primary btn-sm"
                                       data-bs-toggle="modal"
-                                      data-bs-target="#notifyUpgrade"
+                                      data-bs-target="#addFile"
+                                      @click="addFile3()"
                                       v-if="
-                                        sales_detail.status === 'Open' &&
-                                        sales_detail.level == 3 &&
-                                        sales_detail.upgrade == true
+                                        role == 'AMS' || role == 'Administrator'
                                       "
+                                      v-permission="['upload_files']"
                                     >
-                                      Request to Upgrade
+                                      Upload Document
                                     </button>
-                                  </form>
+                                  </div>
                                 </div>
                               </div>
-                            </form>
-                          </div>
+                              <div class="rounded box-d" id="myBorder">
+                                <div class="mt-3">
+                                  <table class="table" v-if="files">
+                                    <tr
+                                      v-for="files in level3[0].data"
+                                      :key="files.id"
+                                    >
+                                      <td>
+                                        <a
+                                          :href="files.full_path"
+                                          class="
+                                            btn
+                                            btn-outline-primary
+                                            btn-outline
+                                            btn-sm
+                                            mb-2
+                                          "
+                                          target="_blank"
+                                        >
+                                          <strong>{{ files.file_name }}</strong>
+                                        </a>
+                                      </td>
+                                      <td
+                                        class="d-flex justify-content-end"
+                                        v-if="
+                                          sales_detail.level == 3 &&
+                                          sales_detail.status === 'Open'
+                                        "
+                                      >
+                                        <button
+                                          type="button"
+                                          class="btn btn-danger btn-sm"
+                                          @click="removeFile(files.id)"
+                                          v-permission="['delete_files']"
+                                          v-if="
+                                            role == 'AMS' ||
+                                            role == 'Administrator'
+                                          "
+                                        >
+                                          <span class="fas fa-trash"></span>
+                                        </button>
+                                      </td>
+                                    </tr>
+                                  </table>
+                                </div>
+                              </div>
+
+                              <!-- Attachment of Maintenance Proposal for Customer -->
+                              <div class="col-lg-6 mt-3">
+                                <h3>
+                                  Attachment of Maintenance Proposal for
+                                  Customer
+                                </h3>
+                                <p class="text-danger">
+                                  <small>* File size max 5MB</small>
+                                </p>
+                              </div>
+                              <div class="col-lg-6 mt-3 mb-20">
+                                <div
+                                  class="position-relative"
+                                  v-if="sales_detail"
+                                >
+                                  <div
+                                    class="position-absolute top-0 end-0"
+                                    v-if="
+                                      sales_detail.level == 3 &&
+                                      sales_detail.status === 'Open'
+                                    "
+                                  >
+                                    <button
+                                      type="button"
+                                      class="btn btn-success btn-sm"
+                                      data-bs-toggle="modal"
+                                      data-bs-target="#notifyCOGS"
+                                      v-if="
+                                        role == 'TPR' || role == 'Administrator'
+                                      "
+                                    >
+                                      Notify COGS
+                                    </button>
+                                    <button
+                                      type="button"
+                                      class="btn btn-primary btn-sm"
+                                      data-bs-toggle="modal"
+                                      data-bs-target="#addFile"
+                                      @click="addFile4()"
+                                      v-if="
+                                        role == 'CBO' || role == 'Administrator'
+                                      "
+                                      v-permission="['upload_files']"
+                                    >
+                                      Upload Document
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="rounded box-d" id="myBorder">
+                                <div class="mt-3">
+                                  <table class="table" v-if="files">
+                                    <tr
+                                      v-for="files in level3[1].data"
+                                      :key="files.id"
+                                    >
+                                      <td>
+                                        <a
+                                          :href="files.full_path"
+                                          class="
+                                            btn
+                                            btn-outline-primary
+                                            btn-outline
+                                            btn-sm
+                                            mb-2
+                                          "
+                                          target="_blank"
+                                        >
+                                          <strong>{{ files.file_name }}</strong>
+                                        </a>
+                                      </td>
+                                      <td
+                                        class="d-flex justify-content-end"
+                                        v-if="
+                                          sales_detail.level == 3 &&
+                                          sales_detail.status === 'Open'
+                                        "
+                                      >
+                                        <button
+                                          type="button"
+                                          class="btn btn-danger btn-sm"
+                                          @click="removeFile(files.id)"
+                                          v-permission="['delete_files']"
+                                          v-if="
+                                            role == 'CBO' ||
+                                            role == 'Administrator'
+                                          "
+                                        >
+                                          <span class="fas fa-trash"></span>
+                                        </button>
+                                      </td>
+                                    </tr>
+                                  </table>
+                                </div>
+                              </div>
+
+                              <!-- Attachment of Profitability Analysis Form Signed -->
+                              <div class="col-lg-6 mt-3">
+                                <h3>
+                                  Attachment of Profitability Analysis Form
+                                  Signed
+                                </h3>
+                                <p class="text-danger">
+                                  <small>* File size max 5MB</small>
+                                </p>
+                              </div>
+                              <div class="col-lg-6 mt-3 mb-20">
+                                <div
+                                  class="position-relative"
+                                  v-if="sales_detail"
+                                >
+                                  <div
+                                    class="position-absolute top-0 end-0"
+                                    v-if="
+                                      sales_detail.level == 3 &&
+                                      sales_detail.status === 'Open'
+                                    "
+                                  >
+                                    <button
+                                      type="button"
+                                      class="btn btn-primary btn-sm"
+                                      data-bs-toggle="modal"
+                                      data-bs-target="#addFile"
+                                      @click="addFile5()"
+                                      v-if="
+                                        role == 'AMS' || role == 'Administrator'
+                                      "
+                                      v-permission="['upload_files']"
+                                    >
+                                      Upload Document
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="rounded box-d" id="myBorder">
+                                <div class="mt-3">
+                                  <table class="table" v-if="files">
+                                    <tr
+                                      v-for="files in level3[2].data"
+                                      :key="files.id"
+                                    >
+                                      <td>
+                                        <a
+                                          :href="files.full_path"
+                                          class="
+                                            btn
+                                            btn-outline-primary
+                                            btn-outline
+                                            btn-sm
+                                            mb-2
+                                          "
+                                          target="_blank"
+                                        >
+                                          <strong>{{ files.file_name }}</strong>
+                                        </a>
+                                      </td>
+                                      <td
+                                        class="d-flex justify-content-end"
+                                        v-if="
+                                          sales_detail.level == 3 &&
+                                          sales_detail.status === 'Open'
+                                        "
+                                      >
+                                        <button
+                                          type="button"
+                                          class="btn btn-danger btn-sm"
+                                          @click="removeFile(files.id)"
+                                          v-permission="['delete_files']"
+                                          v-if="
+                                            role == 'AMS' ||
+                                            role == 'Administrator'
+                                          "
+                                        >
+                                          <span class="fas fa-trash"></span>
+                                        </button>
+                                      </td>
+                                    </tr>
+                                  </table>
+                                </div>
+                              </div>
+
+                              <div
+                                class="text-center mt-5"
+                                v-if="role == 'TPR' || role == 'Administrator'"
+                              >
+                                <form>
+                                  <input
+                                    type="hidden"
+                                    v-model="upgrade"
+                                    value="1"
+                                  />
+                                  <button
+                                    type="button"
+                                    class="btn btn-info btn-sm"
+                                    @click="upgradeLevel()"
+                                    v-if="
+                                      sales_detail.status === 'Open' &&
+                                      sales_detail.level == 3 &&
+                                      sales_detail.upgrade == true
+                                    "
+                                    v-permission="['upgrade_level']"
+                                  >
+                                    Upgrade Level
+                                  </button>
+                                </form>
+                              </div>
+                              <div
+                                class="text-center mt-5"
+                                v-if="role == 'AMS'"
+                              >
+                                <form>
+                                  <button
+                                    type="button"
+                                    class="btn btn-info btn-sm"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#notifyUpgrade"
+                                    v-if="
+                                      sales_detail.status === 'Open' &&
+                                      sales_detail.level == 3 &&
+                                      sales_detail.upgrade == true
+                                    "
+                                  >
+                                    Request to Upgrade
+                                  </button>
+                                </form>
+                              </div>
+                            </div>
+                          </form>
                         </div>
                         <!--begin::Step 3-->
 
                         <!--begin::Step 2-->
-                        <div v-else-if="sales_detail.level == 2">
-                          <div
-                            class="flex-column current"
-                            data-kt-stepper-element="content"
-                          >
-                            <form>
-                              <div class="row">
-                                <!-- Attachment of Customer Approval (SOW Signed / Proposal Approved) -->
-                                <div class="col-lg-6 mt-3">
-                                  <h3>
-                                    Attachment of Customer Approval (SOW Signed
-                                    / Proposal Approved)
-                                  </h3>
-                                  <p class="text-danger">
-                                    <small>* File size max 5MB</small>
-                                  </p>
-                                </div>
-                                <div class="col-lg-6 mt-3 mb-20">
-                                  <div
-                                    class="position-relative"
-                                    v-if="sales_detail"
-                                  >
-                                    <div
-                                      class="position-absolute top-0 end-0"
-                                      v-if="
-                                        sales_detail.level == 2 &&
-                                        sales_detail.status === 'Open'
-                                      "
-                                    >
-                                      <button
-                                        type="button"
-                                        class="btn btn-primary btn-sm"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#addFile"
-                                        @click="addFile6()"
-                                        v-if="
-                                          role == 'AMS' ||
-                                          role == 'Administrator'
-                                        "
-                                        v-permission="['upload_files']"
-                                      >
-                                        Upload Document
-                                      </button>
-                                    </div>
-                                  </div>
-                                </div>
-                                <div class="rounded box-d" id="myBorder">
-                                  <div class="mt-3">
-                                    <table class="table" v-if="files">
-                                      <tr
-                                        v-for="files in level2[0].data"
-                                        :key="files.id"
-                                      >
-                                        <td>
-                                          <a
-                                            :href="files.full_path"
-                                            class="
-                                              btn
-                                              btn-outline-primary
-                                              btn-outline
-                                              btn-sm
-                                              mb-2
-                                            "
-                                            target="_blank"
-                                          >
-                                            <strong>{{
-                                              files.file_name
-                                            }}</strong>
-                                          </a>
-                                        </td>
-                                        <td
-                                          class="d-flex justify-content-end"
-                                          v-if="
-                                            sales_detail.level == 2 &&
-                                            sales_detail.status === 'Open'
-                                          "
-                                        >
-                                          <button
-                                            type="button"
-                                            class="btn btn-danger btn-sm"
-                                            @click="removeFile(files.id)"
-                                            v-permission="['delete_files']"
-                                            v-if="
-                                              role == 'AMS' ||
-                                              role == 'Administrator'
-                                            "
-                                          >
-                                            <span class="fas fa-trash"></span>
-                                          </button>
-                                        </td>
-                                      </tr>
-                                    </table>
-                                  </div>
-                                </div>
-
-                                <!-- Slot Request -->
-                                <div class="col-lg-6 mt-5">
-                                  <h3>Slot Request</h3>
-                                  <p class="text-muted">
-                                    <small
-                                      >by <a href="#">{{ user }}</a></small
-                                    >
-                                  </p>
-                                </div>
-                                <div class="col-lg-6 mt-5 mb-20">
-                                  <div class="position-relative">
-                                    <div
-                                      class="position-absolute top-0 end-0"
-                                      v-if="sales_detail"
-                                    >
-                                      <button
-                                        type="button"
-                                        class="btn btn-success btn-sm"
-                                        @click="slotConfirm()"
-                                        v-if="
-                                          (level2[1].data != null &&
-                                            level2[1].status != false) ||
-                                          role == 'CBO' ||
-                                          role == 'Administrator'
-                                        "
-                                      >
-                                        Approve
-                                      </button>
-                                      <span
-                                        class="btn btn-sm"
-                                        style="cursor: default"
-                                        id="textWaiting"
-                                        v-if="
-                                          level2[1].data != null &&
-                                          level2[1].status == 0 &&
-                                          role != 'CBO'
-                                        "
-                                        >Waiting for Approval
-                                      </span>
-                                      <span
-                                        class="btn btn-sm"
-                                        style="cursor: default"
-                                        id="textApproved"
-                                        v-if="
-                                          level2[1].status == 1 && role != 'CBO'
-                                        "
-                                      >
-                                        Approved by CBO
-                                      </span>
-                                      <button
-                                        type="button"
-                                        class="btn btn-info btn-sm"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#slotRequest"
-                                        v-if="
-                                          level2[1].data == null &&
-                                          level2[1].status == false &&
-                                          (role == 'AMS' ||
-                                            role == 'Administrator')
-                                        "
-                                      >
-                                        Request to CBO
-                                      </button>
-                                    </div>
-                                  </div>
-                                </div>
-                                <div class="row" v-if="sales_detail">
-                                  <div class="col-lg-4">
-                                    <div class="mb-3">
-                                      <label>Hangar</label>
-                                      <input
-                                        type="text"
-                                        class="form-control form-control-solid"
-                                        v-model="sales_detail.location.id"
-                                        readonly
-                                      />
-                                    </div>
-                                    <div class="mb-3">
-                                      <label>Line Hangar Request</label>
-                                      <div class="row">
-                                        <div
-                                          class="col-12"
-                                          v-if="level2[1].data != null"
-                                        >
-                                          <input
-                                            type="text"
-                                            v-model="level2[1].data.line.name"
-                                            class="
-                                              form-control form-control-solid
-                                            "
-                                            readonly
-                                          />
-                                        </div>
-                                        <div class="col-12" v-else>
-                                          <input
-                                            type="text"
-                                            class="
-                                              form-control form-control-solid
-                                            "
-                                            readonly
-                                          />
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                  <div class="col-lg-4">
-                                    <div class="mb-3">
-                                      <label>Registration</label>
-                                      <input
-                                        type="text"
-                                        class="form-control form-control-solid"
-                                        v-model="sales_detail.registration"
-                                        readonly
-                                      />
-                                    </div>
-                                    <div class="mb-3">
-                                      <label>TAT</label>
-                                      <input
-                                        type="number"
-                                        class="form-control form-control-solid"
-                                        v-model="sales_detail.tat"
-                                        readonly
-                                      />
-                                    </div>
-                                  </div>
-                                  <div class="col-lg-4" v-if="sales_detail">
-                                    <div class="mb-3">
-                                      <label>Start Date</label>
-                                      <input
-                                        type="text"
-                                        class="form-control form-control-solid"
-                                        v-model="sales_detail.startDate"
-                                        readonly
-                                      />
-                                    </div>
-                                    <div class="mb-3">
-                                      <label>End Date</label>
-                                      <input
-                                        type="text"
-                                        class="form-control form-control-solid"
-                                        v-model="sales_detail.endDate"
-                                        readonly
-                                      />
-                                    </div>
-                                  </div>
-                                </div>
-
+                        <div
+                          class="flex-column"
+                          data-kt-stepper-element="content"
+                          v-if="
+                            sales_detail.level === 2 || sales_detail.level === 1
+                          "
+                        >
+                          <form>
+                            <div class="row">
+                              <!-- Attachment of Customer Approval (SOW Signed / Proposal Approved) -->
+                              <div class="col-lg-6 mt-3">
+                                <h3>
+                                  Attachment of Customer Approval (SOW Signed /
+                                  Proposal Approved)
+                                </h3>
+                                <p class="text-danger">
+                                  <small>* File size max 5MB</small>
+                                </p>
+                              </div>
+                              <div class="col-lg-6 mt-3 mb-20">
                                 <div
-                                  class="text-center mt-5"
-                                  v-if="
-                                    role == 'TPR' || role == 'Administrator'
-                                  "
+                                  class="position-relative"
+                                  v-if="sales_detail"
                                 >
-                                  <form>
-                                    <input
-                                      type="hidden"
-                                      v-model="upgrade"
-                                      value="1"
-                                    />
+                                  <div
+                                    class="position-absolute top-0 end-0"
+                                    v-if="
+                                      sales_detail.level == 2 &&
+                                      sales_detail.status === 'Open'
+                                    "
+                                  >
                                     <button
                                       type="button"
-                                      class="btn btn-info btn-sm"
-                                      @click="upgradeLevel()"
+                                      class="btn btn-primary btn-sm"
+                                      data-bs-toggle="modal"
+                                      data-bs-target="#addFile"
+                                      @click="addFile6()"
                                       v-if="
-                                        sales_detail.status === 'Open' &&
-                                        sales_detail.level == 2 &&
-                                        sales_detail.upgrade == true
+                                        role == 'AMS' || role == 'Administrator'
                                       "
-                                      v-permission="['upgrade_level']"
+                                      v-permission="['upload_files']"
                                     >
-                                      Upgrade Level
+                                      Upload Document
                                     </button>
-                                  </form>
+                                  </div>
                                 </div>
-                                <div
-                                  class="text-center mt-5"
-                                  v-if="role == 'AMS'"
-                                >
-                                  <form>
+                              </div>
+                              <div class="rounded box-d" id="myBorder">
+                                <div class="mt-3">
+                                  <table class="table" v-if="files">
+                                    <tr
+                                      v-for="files in level2[0].data"
+                                      :key="files.id"
+                                    >
+                                      <td>
+                                        <a
+                                          :href="files.full_path"
+                                          class="
+                                            btn
+                                            btn-outline-primary
+                                            btn-outline
+                                            btn-sm
+                                            mb-2
+                                          "
+                                          target="_blank"
+                                        >
+                                          <strong>{{ files.file_name }}</strong>
+                                        </a>
+                                      </td>
+                                      <td
+                                        class="d-flex justify-content-end"
+                                        v-if="
+                                          sales_detail.level == 2 &&
+                                          sales_detail.status === 'Open'
+                                        "
+                                      >
+                                        <button
+                                          type="button"
+                                          class="btn btn-danger btn-sm"
+                                          @click="removeFile(files.id)"
+                                          v-permission="['delete_files']"
+                                          v-if="
+                                            role == 'AMS' ||
+                                            role == 'Administrator'
+                                          "
+                                        >
+                                          <span class="fas fa-trash"></span>
+                                        </button>
+                                      </td>
+                                    </tr>
+                                  </table>
+                                </div>
+                              </div>
+
+                              <!-- Slot Request -->
+                              <div class="col-lg-6 mt-5">
+                                <h3>Slot Request</h3>
+                                <p class="text-muted">
+                                  <small
+                                    >by <a href="#">{{ user }}</a></small
+                                  >
+                                </p>
+                              </div>
+                              <div class="col-lg-6 mt-5 mb-20">
+                                <div class="position-relative">
+                                  <div
+                                    class="position-absolute top-0 end-0"
+                                    v-if="sales_detail"
+                                  >
+                                    <button
+                                      type="button"
+                                      class="btn btn-success btn-sm"
+                                      @click="slotConfirm()"
+                                      v-if="
+                                        level2[1].data != null &&
+                                        level2[1].status != false ||
+                                        role == 'CBO' || role == 'Administrator'
+                                      "
+                                    >
+                                      Approve
+                                    </button>
+                                    <span
+                                      class="btn btn-sm"
+                                      style="cursor: default"
+                                      id="textWaiting"
+                                      v-if="
+                                        (level2[1].data != null &&
+                                        level2[1].status == 0) &&
+                                        role != 'CBO'
+                                      "
+                                      >Waiting for Approval
+                                    </span>
+                                    <span
+                                      class="btn btn-sm"
+                                      style="cursor: default"
+                                      id="textApproved"
+                                      v-if="
+                                        level2[1].status == 1 && role != 'CBO'
+                                      "
+                                    >
+                                      Approved by CBO
+                                    </span>
                                     <button
                                       type="button"
                                       class="btn btn-info btn-sm"
                                       data-bs-toggle="modal"
-                                      data-bs-target="#notifyUpgrade"
+                                      data-bs-target="#slotRequest"
                                       v-if="
-                                        sales_detail.status === 'Open' &&
-                                        sales_detail.level == 2 &&
-                                        sales_detail.upgrade == true
+                                        (level2[1].data == null &&
+                                        level2[1].status == false) &&
+                                        (role == 'AMS' || role == 'Administrator')
                                       "
                                     >
-                                      Request to Upgrade
+                                      Request to CBO
                                     </button>
-                                  </form>
+                                  </div>
                                 </div>
                               </div>
-                            </form>
-                          </div>
+                              <div class="row" v-if="sales_detail">
+                                <div class="col-lg-4">
+                                  <div class="mb-3">
+                                    <label>Hangar</label>
+                                    <input
+                                      type="text"
+                                      class="form-control form-control-solid"
+                                      v-model="sales_detail.location.id"
+                                      readonly
+                                    />
+                                  </div>
+                                  <div class="mb-3">
+                                    <label>Line Hangar Request</label>
+                                    <div class="row">
+                                      <div
+                                        class="col-12"
+                                        v-if="level2[1].data != null"
+                                      >
+                                        <input
+                                          type="text"
+                                          v-model="level2[1].data.line.name"
+                                          class="
+                                            form-control form-control-solid
+                                          "
+                                          readonly
+                                        />
+                                      </div>
+                                      <div class="col-12" v-else>
+                                        <input
+                                          type="text"
+                                          class="
+                                            form-control form-control-solid
+                                          "
+                                          readonly
+                                        />
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="col-lg-4">
+                                  <div class="mb-3">
+                                    <label>Registration</label>
+                                    <input
+                                      type="text"
+                                      class="form-control form-control-solid"
+                                      v-model="sales_detail.registration"
+                                      readonly
+                                    />
+                                  </div>
+                                  <div class="mb-3">
+                                    <label>TAT</label>
+                                    <input
+                                      type="number"
+                                      class="form-control form-control-solid"
+                                      v-model="sales_detail.tat"
+                                      readonly
+                                    />
+                                  </div>
+                                </div>
+                                <div class="col-lg-4" v-if="sales_detail">
+                                  <div class="mb-3">
+                                    <label>Start Date</label>
+                                    <input
+                                      type="text"
+                                      class="form-control form-control-solid"
+                                      v-model="sales_detail.startDate"
+                                      readonly
+                                    />
+                                  </div>
+                                  <div class="mb-3">
+                                    <label>End Date</label>
+                                    <input
+                                      type="text"
+                                      class="form-control form-control-solid"
+                                      v-model="sales_detail.endDate"
+                                      readonly
+                                    />
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div
+                                class="text-center mt-5"
+                                v-if="role == 'TPR' || role == 'Administrator'"
+                              >
+                                <form>
+                                  <input
+                                    type="hidden"
+                                    v-model="upgrade"
+                                    value="1"
+                                  />
+                                  <button
+                                    type="button"
+                                    class="btn btn-info btn-sm"
+                                    @click="upgradeLevel()"
+                                    v-if="
+                                      sales_detail.status === 'Open' &&
+                                      sales_detail.level == 2 &&
+                                      sales_detail.upgrade == true
+                                    "
+                                    v-permission="['upgrade_level']"
+                                  >
+                                    Upgrade Level
+                                  </button>
+                                </form>
+                              </div>
+                              <div
+                                class="text-center mt-5"
+                                v-if="role == 'AMS'"
+                              >
+                                <form>
+                                  <button
+                                    type="button"
+                                    class="btn btn-info btn-sm"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#notifyUpgrade"
+                                    v-if="
+                                      sales_detail.status === 'Open' &&
+                                      sales_detail.level == 2 &&
+                                      sales_detail.upgrade == true
+                                    "
+                                  >
+                                    Request to Upgrade
+                                  </button>
+                                </form>
+                              </div>
+                            </div>
+                          </form>
                         </div>
                         <!--begin::Step 2-->
 
                         <!--begin::Step 1-->
-                        <div v-else-if="sales_detail.level == 1">
-                          <div
-                            class="flex-column current"
-                            data-kt-stepper-element="content"
-                          >
-                              <div class="row">
-                                <!-- Attachment of WO/PO number customer document -->
-                                <div class="col-lg-6 mt-3">
-                                  <h3>
-                                    Attachment of WO/PO number customer document
-                                  </h3>
-                                  <p class="text-muted">
-                                    <small
-                                      >by <a href="#">{{ user }}</a></small
-                                    >
-                                  </p>
-                                </div>
-                                <div class="col-lg-6 mt-3 mb-20">
-                                  <div
-                                    class="position-relative"
-                                    v-if="sales_detail"
+                        <div
+                          class="flex-column"
+                          data-kt-stepper-element="content"
+                          v-if="sales_detail.level === 1"
+                        >
+                          <form action="">
+                            <div class="row">
+                              <!-- Attachment of WO/PO number customer document -->
+                              <div class="col-lg-6 mt-3">
+                                <h3>
+                                  Attachment of WO/PO number customer document
+                                </h3>
+                                <p class="text-muted">
+                                  <small
+                                    >by <a href="#">{{ user }}</a></small
                                   >
-                                    <div
-                                      class="position-absolute top-0 end-0"
-                                      v-if="
-                                        sales_detail.level == 1 &&
-                                        sales_detail.status === 'Open'
-                                      "
-                                    >
-                                      <input
-                                        type="hidden"
-                                        v-model="status"
-                                        value="2"
-                                      />
-                                      <button
-                                        type="button"
-                                        class="btn btn-success btn-sm"
-                                        @click="closeSales()"
-                                        v-if="
-                                          sales_detail.status === 'Open' &&
-                                          sales_detail.level == 1 &&
-                                          sales_detail.upgrade == true &&
-                                          (role == 'Administrator' ||
-                                            role == 'TPC')
-                                        "
-                                      >
-                                        Closed Sales
-                                      </button>
-                                      <button
-                                        type="button"
-                                        class="btn btn-primary btn-sm"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#addFile"
-                                        @click="addFile7()"
-                                        v-if="
-                                          role == 'AMS' ||
-                                          role == 'Administrator'
-                                        "
-                                        v-permission="['upload_files']"
-                                      >
-                                        Upload Document
-                                      </button>
-                                    </div>
-                                  </div>
-                                </div>
-                                <div class="rounded box-d" id="myBorder">
-                                  <div class="mt-3">
-                                    <table class="table" v-if="files">
-                                      <tr
-                                        v-for="files in level1[0].data"
-                                        :key="files.id"
-                                      >
-                                        <td>
-                                          <a
-                                            :href="files.full_path"
-                                            class="
-                                              btn
-                                              btn-outline-primary
-                                              btn-outline
-                                              btn-sm
-                                              mb-2
-                                            "
-                                            target="_blank"
-                                          >
-                                            <strong>{{
-                                              files.file_name
-                                            }}</strong>
-                                          </a>
-                                        </td>
-                                        <td
-                                          class="d-flex justify-content-end"
-                                          v-if="
-                                            sales_detail.level == 1 &&
-                                            sales_detail.status === 'Open'
-                                          "
-                                        >
-                                          <button
-                                            type="button"
-                                            class="btn btn-danger btn-sm"
-                                            @click="removeFile(files.id)"
-                                            v-permission="['delete_files']"
-                                            v-if="
-                                              role == 'AMS' ||
-                                              role == 'Administrator'
-                                            "
-                                          >
-                                            <span class="fas fa-trash"></span>
-                                          </button>
-                                        </td>
-                                      </tr>
-                                    </table>
-                                  </div>
-                                </div>
-
-                                <!-- Input SO Number -->
-                                <div class="col-lg-6 mt-5">
-                                  <h3>Input SO Number</h3>
-                                </div>
-                                  <div class="row">
-                                    <div
-                                      class="input-group mb-3"
-                                      v-if="
-                                        (level1[1].data == null &&
-                                          sales_detail.status === 'Open' &&
-                                          role == 'CBO') ||
-                                        role == 'Administrator'
-                                      "
-                                    >
-                                      <input
-                                        type="text"
-                                        class="form-control"
-                                        v-model="level1[1].data"
-                                        :class="{
-                                          'is-invalid': errors.so_number,
-                                        }"
-                                      />
-                                      <button
-                                        class="btn btn-sm"
-                                        type="button"
-                                        id="textSync"
-                                        @click="updateSO()"
-                                        v-permission="['input_so_number']"
-                                      >
-                                        Submit
-                                      </button>
-                                      <span
-                                        v-if="errors.so_number"
-                                        class="error invalid-feedback"
-                                        >{{ errors.so_number[0] }}</span
-                                      >
-                                    </div>
-                                    <div class="input-group mb-3" v-else>
-                                      <input
-                                        type="text"
-                                        class="form-control"
-                                        v-model="level1[1].data"
-                                        readonly
-                                      />
-                                    </div>
-                                  </div>
+                                </p>
+                              </div>
+                              <div class="col-lg-6 mt-3 mb-20">
                                 <div
-                                  class="text-center mt-10"
+                                  class="position-relative"
                                   v-if="sales_detail"
                                 >
-                                  <div v-if="sales_detail.status === 'Closed'">
+                                  <div
+                                    class="position-absolute top-0 end-0"
+                                    v-if="
+                                      sales_detail.level == 1 &&
+                                      sales_detail.status === 'Open'
+                                    "
+                                  >
                                     <input
                                       type="hidden"
                                       v-model="status"
-                                      value="3"
+                                      value="2"
                                     />
                                     <button
                                       type="button"
-                                      class="btn btn-primary btn-sm"
-                                      @click="requestClosed()"
-                                      v-permission="['close_sales']"
+                                      class="btn btn-success btn-sm"
+                                      @click="closeSales()"
                                       v-if="
-                                        role == 'Administrator' || role == 'TPR'
+                                        (
+                                        sales_detail.status === 'Open' &&
+                                        sales_detail.level == 1 &&
+                                        sales_detail.upgrade == true
+                                        ) &&
+                                        (
+                                        role == 'Administrator' || 
+                                        role == 'TPC'
+                                        )
                                       "
                                     >
-                                      Request to Closed
+                                      Closed Sales
+                                    </button>
+                                    <button
+                                      type="button"
+                                      class="btn btn-primary btn-sm"
+                                      data-bs-toggle="modal"
+                                      data-bs-target="#addFile"
+                                      @click="addFile7()"
+                                      v-if="
+                                        role == 'AMS' || role == 'Administrator'
+                                      "
+                                      v-permission="['upload_files']"
+                                    >
+                                      Upload Document
                                     </button>
                                   </div>
                                 </div>
                               </div>
-                          </div>
+                              <div class="rounded box-d" id="myBorder">
+                                <div class="mt-3">
+                                  <table class="table" v-if="files">
+                                    <tr
+                                      v-for="files in level1[0].data"
+                                      :key="files.id"
+                                    >
+                                      <td>
+                                        <a
+                                          :href="files.full_path"
+                                          class="
+                                            btn
+                                            btn-outline-primary
+                                            btn-outline
+                                            btn-sm
+                                            mb-2
+                                          "
+                                          target="_blank"
+                                        >
+                                          <strong>{{ files.file_name }}</strong>
+                                        </a>
+                                      </td>
+                                      <td
+                                        class="d-flex justify-content-end"
+                                        v-if="
+                                          sales_detail.level == 1 &&
+                                          sales_detail.status === 'Open'
+                                        "
+                                      >
+                                        <button
+                                          type="button"
+                                          class="btn btn-danger btn-sm"
+                                          @click="removeFile(files.id)"
+                                          v-permission="['delete_files']"
+                                          v-if="
+                                            role == 'AMS' ||
+                                            role == 'Administrator'
+                                          "
+                                        >
+                                          <span class="fas fa-trash"></span>
+                                        </button>
+                                      </td>
+                                    </tr>
+                                  </table>
+                                </div>
+                              </div>
+
+                              <!-- Input SO Number -->
+                              <div class="col-lg-6 mt-5">
+                                <h3>Input SO Number</h3>
+                              </div>
+                              <form>
+                                <div class="row">
+                                  <div
+                                    class="input-group mb-3"
+                                    v-if="
+                                      (level1[1].data == null &&
+                                        sales_detail.status === 'Open' &&
+                                        role == 'CBO') ||
+                                      role == 'Administrator'
+                                    "
+                                  >
+                                    <input
+                                      type="text"
+                                      class="form-control"
+                                      v-model="so_number"
+                                      :class="{
+                                        'is-invalid': errors.so_number,
+                                      }"
+                                    />
+                                    <button
+                                      class="btn btn-sm"
+                                      type="button"
+                                      id="textSync"
+                                      @click="updateSO()"
+                                      v-permission="['input_so_number']"
+                                    >
+                                      Sync
+                                    </button>
+                                    <span
+                                      v-if="errors.so_number"
+                                      class="error invalid-feedback"
+                                      >{{ errors.so_number[0] }}</span
+                                    >
+                                  </div>
+                                  <div class="input-group mb-3" v-else>
+                                    <input
+                                      type="text"
+                                      class="form-control"
+                                      v-model="level1[1].data"
+                                      readonly
+                                    />
+                                  </div>
+                                </div>
+                              </form>
+
+                              <div
+                                class="text-center mt-10"
+                                v-if="sales_detail"
+                              >
+                                <form v-if="sales_detail.status === 'Closed'">
+                                  <input
+                                    type="hidden"
+                                    v-model="status"
+                                    value="3"
+                                  />
+                                  <button
+                                    type="button"
+                                    class="btn btn-primary btn-sm"
+                                    @click="requestClosed()"
+                                    v-permission="['close_sales']"
+                                    v-if="
+                                      role == 'Administrator' || role == 'TPR'
+                                    "
+                                  >
+                                    Request to Closed
+                                  </button>
+                                </form>
+                              </div>
+                            </div>
+                          </form>
                         </div>
                         <!--begin::Step 1-->
                       </div>
                       <!--end::Group-->
+
+                      <!--begin::Actions-->
+                      <div class="d-flex flex-stack">
+                        <!--begin::Wrapper-->
+                        <div class="me-2">
+                          <button
+                            type="button"
+                            class="btn btn-light btn-active-light-primary"
+                            data-kt-stepper-action="previous"
+                          >
+                            Back
+                          </button>
+                        </div>
+                        <!--end::Wrapper-->
+
+                        <!--begin::Wrapper-->
+                        <div>
+                          <!-- <button type="button" class="btn btn-primary" data-kt-stepper-action="submit" disabled>
+                                    <span class="indicator-label">
+                                        Done
+                                    </span>
+                                    <span class="indicator-progress">
+                                        Please wait... <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                                    </span>
+                                </button> -->
+
+                          <button
+                            type="button"
+                            class="btn btn-primary"
+                            data-kt-stepper-action="next"
+                          >
+                            Continue
+                          </button>
+                        </div>
+                        <!--end::Wrapper-->
+                      </div>
+                      <!--end::Actions-->
                     </div>
                     <!--end::Form-->
                   </div>
@@ -2959,16 +2621,9 @@
                                 'is-invalid': errors.files,
                               }"
                             />
-                            <div
-                              v-for="(file_error, key) in file_errors"
-                              :key="key"
-                            >
+                            <div v-for="(file_error, key) in file_errors" :key="key">
                               <ul class="list-group mt-3">
-                                <li
-                                  class="list-group-item text-danger border-0"
-                                  v-for="(errorItem, innerKey) in file_error"
-                                  :key="innerKey"
-                                >
+                                <li class="list-group-item text-danger border-0" v-for="(errorItem, innerKey) in file_error" :key="innerKey">
                                   {{ errorItem }}
                                 </li>
                               </ul>
@@ -3197,11 +2852,7 @@
                         <form>
                           <div class="mb-3">
                             <label>To <span class="text-danger">*</span></label>
-                            <select
-                              v-model="user_id"
-                              class="form-select"
-                              :class="{ 'is-invalid': errors.user_id }"
-                            >
+                            <select v-model="user_id" class="form-select" :class="{ 'is-invalid': errors.user_id }">
                               <option :value="null" disabled>
                                 Select User
                               </option>
@@ -3214,11 +2865,9 @@
                                 {{ user_options.email }}
                               </option>
                             </select>
-                            <span
-                              v-if="errors.user_id"
-                              class="error invalid-feedback"
-                              >{{ errors.user_id[0] }}</span
-                            >
+                            <span v-if="errors.user_id" class="error invalid-feedback">{{
+                              errors.user_id[0]
+                            }}</span>
                             <small class="text-muted"
                               >Send notification to selected employee</small
                             >
@@ -3451,7 +3100,7 @@ export default {
   mounted() {
     KTStepper.getInstance()
     KTFormRepeaterBasic.init()
-    // this.step()
+    this.step()
   },
   watch: {
     search: debounce(function () {
@@ -3697,14 +3346,14 @@ export default {
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, Input SO Number!',
+        confirmButtonText: 'Yes, Update SO Number!',
       })
         .then((result) => {
           if (result.isConfirmed) {
             this.$axios
               .put(`/api/sales-so-number/${this.$route.query.id}`, {
                 sales_id: this.$route.query.id,
-                so_number: this.level1[1].data,
+                // so_number: this.sales_detail.so_number,
               })
               .then((response) => {
                 if (response.data.success != true) {
@@ -3719,6 +3368,9 @@ export default {
           }
         })
         .catch((error) => {
+          if (error.response.status == 404) {
+            toastr.error(response.data.message)
+          }
           if (error.response.status == 422) {
             this.errors = error.response.data.errors
             toastr.error(error.response.data.message)

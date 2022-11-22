@@ -236,7 +236,7 @@ export default {
   },
   methods: {
     setAltImg(event) { 
-      event.target.src = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" 
+      event.target.src = "_nuxt/assets/media/avatars/300-1.jpg" 
     }, 
     async logout() {
       await this.$auth.logout()

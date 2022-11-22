@@ -3703,12 +3703,12 @@ export default {
                 this.listDetail()
                 Swal.close()
               })
-          }
-        })
-        .catch((error) => {
-          if (error.response.status == 422) {
-            this.errors = error.response.data.errors
-            toastr.error(error.response.data.message)
+              .catch((error) => {
+                if (error.response.status == 422) {
+                  this.errors = error.response.data.errors
+                  toastr.error(error.response.data.message)
+                }
+              })
           }
         })
     },

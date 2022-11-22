@@ -71,7 +71,6 @@
                       class="btn btn-outline btn-outline-info btn-sm"
                       data-bs-toggle="modal"
                       data-bs-target="#switchAMS"
-                      v-if="sales_detail.status === 'Open' && role == 'AMS'"
                     >
                       Switch AMS
                     </button>
@@ -3694,12 +3693,10 @@ export default {
                 so_number: this.level1[1].data,
               })
               .then((response) => {
-                if (response.data.success != true) {
-                  toastr.error(response.data.message)
-                } else {
-                  this.so_number = response.data.data.so_number.so
-                  toastr.success(response.data.message)
-                }
+                toastr.success(response.data.message)
+                this.$router.push({
+                  name: 'my-salesplan',
+                })
                 this.listDetail()
                 Swal.close()
               })

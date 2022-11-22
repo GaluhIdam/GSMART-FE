@@ -3695,12 +3695,12 @@ export default {
                 this.$router.push({
                   name: 'my-salesplan',
                 })
-                this.listDetail()
-                Swal.close()
               })
               .catch((error) => {
                 if (error.response.status == 422) {
-                  this.errors = error.response.data.errors
+                  // Ini yang bikin error
+                  // Minusnya ngga ada notif required kalo inputan SO Number kosong
+                  // this.errors = error.response.data.errors
                   toastr.error(error.response.data.message)
                 }
               })

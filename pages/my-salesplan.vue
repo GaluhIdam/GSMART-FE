@@ -65,6 +65,24 @@
                       <option value="3">PBTH</option>
                     </select>
                   </div>
+                  <div class="mb-3">
+                    <label for="" class="form-label">Type</label>
+                    <select v-model="type" class="form-select">
+                      <option :value="null" disabled>Select Type</option>
+                      <option value="1">TMB Retail</option>
+                      <option value="2">TMB Project</option>
+                      <option value="3">PBTH</option>
+                    </select>
+                  </div>
+                  <div class="mb-3">
+                    <label for="" class="form-label">Type</label>
+                    <select v-model="type" class="form-select">
+                      <option :value="null" disabled>Select Type</option>
+                      <option value="1">TMB Retail</option>
+                      <option value="2">TMB Project</option>
+                      <option value="3">PBTH</option>
+                    </select>
+                  </div>
                 </div>
                 <div class="modal-footer">
                   <div class="col-md-12 text-center">
@@ -481,10 +499,7 @@
                             v-if="sales"
                             >{{ formatPrice(sales.level1.countOpen) }}</span
                           >
-                          <span
-                            id="textGreen"
-                          
-                            v-if="sales"
+                          <span id="textGreen" v-if="sales"
                             >${{ formatPrice(sales.level1.open) }}</span
                           >
                         </div>
@@ -518,10 +533,7 @@
                             v-if="sales"
                             >{{ formatPrice(sales.level1.countCancel) }}</span
                           >
-                          <span
-                            id="textRed"
-                          
-                            v-if="sales"
+                          <span id="textRed" v-if="sales"
                             >${{ formatPrice(sales.level1.cancel) }}</span
                           >
                         </div>
@@ -565,10 +577,7 @@
                             v-if="sales"
                             >{{ formatPrice(sales.level1.countClosed) }}</span
                           >
-                          <span
-                            id="textPurple"
-                          
-                            v-if="sales"
+                          <span id="textPurple" v-if="sales"
                             >${{ formatPrice(sales.level1.closed) }}</span
                           >
                         </div>
@@ -602,10 +611,7 @@
                             v-if="sales"
                             >{{ formatPrice(sales.level1.countCloseIn) }}</span
                           >
-                          <span
-                            id="textGold"
-                          
-                            v-if="sales"
+                          <span id="textGold" v-if="sales"
                             >${{ formatPrice(sales.level1.closeIn) }}</span
                           >
                         </div>
@@ -661,6 +667,14 @@
             v-if="role == 'AMS' || role == 'Administrator'"
           >
             <i class="fas fa-plus"></i> Additional Sales Plan
+          </button>
+          <button
+            type="button"
+            class="btn ms-2 btn-outline btn-outline-primary btn-sm my-3 mb-2"
+            data-bs-toggle="modal"
+            data-bs-target="#filterdate"
+          >
+            Filter & Date <i class="fa-solid fa-chevron-down"></i>
           </button>
         </div>
       </div>
@@ -761,7 +775,7 @@
                   </div>
                 </div>
               </div> -->
-              
+
               <div class="row">
                 <div class="col-lg-6">
                   <div class="form-group mb-3">
@@ -874,7 +888,9 @@
                 </div>
                 <div class="col-lg-6">
                   <div class="form-group mb-3">
-                    <label class="form-label fw-bold">Aircraft Registration</label>
+                    <label class="form-label fw-bold"
+                      >Aircraft Registration</label
+                    >
                     <input
                       required
                       type="text"
@@ -941,9 +957,7 @@
                   </div>
                 </div>
                 <div class="col-lg-6">
-                  <div class="form-group mb-3">
-                    
-                  </div>
+                  <div class="form-group mb-3"></div>
                 </div>
               </div>
 
@@ -2117,15 +2131,15 @@ export default {
 </script>
 
 <style>
-@media (min-width:320px)  {
-  #cardStyle{
+@media (min-width: 320px) {
+  #cardStyle {
     width: auto;
   }
 }
 
-@media (min-width:1281px)  {
-  #cardStyle{
-    margin-left: -15px; 
+@media (min-width: 1281px) {
+  #cardStyle {
+    margin-left: -15px;
     width: 258px;
   }
 }

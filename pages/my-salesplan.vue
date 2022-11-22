@@ -6,90 +6,16 @@
           <h3 class="mt-3">Dashboard Sales Plan</h3>
         </div>
         <div class="col-lg-6 col-sm-12 d-flex justify-content-end">
-          <button
+          <!-- <button
             type="button"
             class="btn btn-outline btn-outline-primary me-2 mb-2"
             data-bs-toggle="modal"
             data-bs-target="#filterdate"
           >
             Filter & Date <i class="fa-solid fa-chevron-down"></i>
-          </button>
+          </button> -->
         </div>
 
-        <!-- Modal filterdate  -->
-        <div
-          class="modal fade"
-          id="filterdate"
-          tabindex="-1"
-          aria-labelledby="filterdateLabel"
-          aria-hidden="true"
-        >
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header text-center">
-                <h1 class="modal-title w-100" id="filterdateLabel">
-                  Filter & Date
-                </h1>
-                <button
-                  type="button"
-                  class="btn-close"
-                  data-bs-dismiss="modal"
-                  aria-label="Close"
-                  @click="closeModal()"
-                ></button>
-              </div>
-              <form>
-                <div class="modal-body">
-                  <div class="mb-3">
-                    <label for="" class="form-label">Form Date</label>
-                    <input
-                      type="date"
-                      class="form-control"
-                      v-model="start_date"
-                    />
-                  </div>
-                  <div class="mb-3">
-                    <label for="" class="form-label">To Date</label>
-                    <input
-                      type="date"
-                      class="form-control"
-                      v-model="end_date"
-                    />
-                  </div>
-                  <div class="mb-3">
-                    <label for="" class="form-label">Type</label>
-                    <select v-model="type" class="form-select">
-                      <option :value="null" disabled>Select Type</option>
-                      <option value="1">TMB Retail</option>
-                      <option value="2">TMB Project</option>
-                      <option value="3">PBTH</option>
-                    </select>
-                  </div>
-                </div>
-                <div class="modal-footer">
-                  <div class="col-md-12 text-center">
-                    <button
-                      type="button"
-                      class="btn btn-light mx-3"
-                      data-bs-dismiss="modal"
-                      @click="closeModal()"
-                    >
-                      Reset
-                    </button>
-                    <button
-                      type="button"
-                      class="btn btn-primary"
-                      data-bs-dismiss="modal"
-                      @click="listTable()"
-                    >
-                      Filter
-                    </button>
-                  </div>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
       </div>
 
       <!-- Row Total -->
@@ -448,200 +374,162 @@
               <h1 class="mt-5" id="textGold">1</h1>
             </div>
             <div class="card-body mt-10">
-              <div
-                id="card1carousel"
-                class="carousel slide"
-                data-bs-ride="true"
-              >
-                <div class="carousel-inner" id="cardStyle">
-                  <div class="carousel-item active">
-                    <div class="text-center">
-                      <h2 id="textGold" v-if="sales">
-                        ${{ formatPrice(sales.level1.total) }}
-                      </h2>
-                      <p class="text-muted">Contract Signing</p>
-                    </div>
-                    <div class="d-grid gap-2">
-                      <a
-                        href="#"
-                        class="
-                          btn btn-outline btn-outline-dashed btn-outline-success
-                          d-flex
-                          justify-content-start
-                          btn-active-light-success
-                          me-2
-                          mb-2
-                        "
-                        id="btnDefault"
-                      >
-                        <div class="d-flex align-items-center gap-2">
-                          <span
-                            id="btnGreen"
-                            style="margin-left: -10px"
-                            v-if="sales"
-                            >{{ formatPrice(sales.level1.countOpen) }}</span
-                          >
-                          <span
-                            id="textGreen"
-                          
-                            v-if="sales"
-                            >${{ formatPrice(sales.level1.open) }}</span
-                          >
-                        </div>
-                        <div
-                          class="d-flex align-items-center justify-content-end"
-                        >
-                          <span
-                            class="text-muted ms-10"
-                            id="fontSm"
-                            style="margin-left: -15px"
-                            >Open</span
-                          >
-                        </div>
-                      </a>
-                      <a
-                        href="#"
-                        class="
-                          btn btn-outline btn-outline-dashed btn-outline-danger
-                          d-flex
-                          justify-content-start
-                          btn-active-light-danger
-                          me-2
-                          mb-2
-                        "
-                        id="btnDefault"
-                      >
-                        <div class="d-flex align-items-center gap-2">
-                          <span
-                            id="btnRed"
-                            style="margin-left: -10px"
-                            v-if="sales"
-                            >{{ formatPrice(sales.level1.countCancel) }}</span
-                          >
-                          <span
-                            id="textRed"
-                          
-                            v-if="sales"
-                            >${{ formatPrice(sales.level1.cancel) }}</span
-                          >
-                        </div>
-                        <div
-                          class="d-flex align-items-center justify-content-end"
-                        >
-                          <span
-                            class="text-muted ms-10"
-                            id="fontSm"
-                            style="margin-left: -15px"
-                            >Cancel</span
-                          >
-                        </div>
-                      </a>
-                    </div>
-                  </div>
-                  <div class="carousel-item">
-                    <div class="text-center">
-                      <h2 id="textGold" v-if="sales">
-                        ${{ formatPrice(sales.level1.total) }}
-                      </h2>
-                      <p class="text-muted">Contract Signing</p>
-                    </div>
-                    <div class="text-center d-grid gap-2">
-                      <a
-                        href="#"
-                        class="
-                          btn btn-outline btn-outline-dashed btn-outline-info
-                          d-flex
-                          justify-content-start
-                          btn-active-light-info
-                          me-2
-                          mb-2
-                        "
-                        id="btnDefault"
-                      >
-                        <div class="d-flex align-items-center gap-2">
-                          <span
-                            id="btnPurple"
-                            style="margin-left: -10px"
-                            v-if="sales"
-                            >{{ formatPrice(sales.level1.countClosed) }}</span
-                          >
-                          <span
-                            id="textPurple"
-                          
-                            v-if="sales"
-                            >${{ formatPrice(sales.level1.closed) }}</span
-                          >
-                        </div>
-                        <div
-                          class="d-flex align-items-center justify-content-end"
-                        >
-                          <span
-                            class="text-muted ms-10"
-                            id="fontSm"
-                            style="margin-left: -15px"
-                            >Closed</span
-                          >
-                        </div>
-                      </a>
-                      <a
-                        href="#"
-                        class="
-                          btn btn-outline btn-outline-dashed btn-outline-warning
-                          d-flex
-                          justify-content-start
-                          btn-active-light-warning
-                          me-2
-                          mb-2
-                        "
-                        id="btnDefault"
-                      >
-                        <div class="d-flex align-items-center gap-2">
-                          <span
-                            id="btnGold"
-                            style="margin-left: -10px"
-                            v-if="sales"
-                            >{{ formatPrice(sales.level1.countCloseIn) }}</span
-                          >
-                          <span
-                            id="textGold"
-                          
-                            v-if="sales"
-                            >${{ formatPrice(sales.level1.closeIn) }}</span
-                          >
-                        </div>
-                        <div
-                          class="d-flex align-items-center justify-content-end"
-                        >
-                          <span
-                            class="text-muted ms-10"
-                            style="margin-left: -15px"
-                            id="fontSm"
-                          >
-                            Close in
-                          </span>
-                        </div>
-                      </a>
-                    </div>
-                  </div>
-                </div>
+              <div class="text-center">
+                <h2 id="textGold" v-if="sales">
+                  ${{ formatPrice(sales.level1.total) }}
+                </h2>
+                <p class="text-muted">Contract Signing</p>
               </div>
-            </div>
-            <div class="card-footer border-0">
-              <div class="carousel-indicators">
-                <button
-                  type="button"
-                  data-bs-target="#card1carousel"
-                  data-bs-slide-to="0"
-                  class="active"
-                  aria-current="true"
-                  aria-label="Slide 1"
-                ></button>
-                <button
-                  type="button"
-                  data-bs-target="#card1carousel"
-                  data-bs-slide-to="1"
-                  aria-label="Slide 2"
-                ></button>
+              <div class="d-grid gap-2" id="cardStyle">
+                <a
+                  href="#"
+                  class="
+                    btn btn-outline btn-outline-dashed btn-outline-success
+                    d-flex
+                    justify-content-start
+                    btn-active-light-success
+                    me-2
+                    mb-2
+                  "
+                  id="btnDefault"
+                >
+                  <div class="d-flex align-items-center gap-2">
+                    <span
+                      id="btnGreen"
+                      style="margin-left: -10px"
+                      v-if="sales"
+                      >{{ formatPrice(sales.level1.countOpen) }}</span
+                    >
+                    <span
+                      id="textGreen"
+                    
+                      v-if="sales"
+                      >${{ formatPrice(sales.level1.open) }}</span
+                    >
+                  </div>
+                  <div
+                    class="d-flex align-items-center justify-content-end"
+                  >
+                    <span
+                      class="text-muted ms-10"
+                      id="fontSm"
+                      style="margin-left: -15px"
+                      >Open</span
+                    >
+                  </div>
+                </a>
+                <a
+                  href="#"
+                  class="
+                    btn btn-outline btn-outline-dashed btn-outline-danger
+                    d-flex
+                    justify-content-start
+                    btn-active-light-danger
+                    me-2
+                    mb-2
+                  "
+                  id="btnDefault"
+                >
+                  <div class="d-flex align-items-center gap-2">
+                    <span
+                      id="btnRed"
+                      style="margin-left: -10px"
+                      v-if="sales"
+                      >{{ formatPrice(sales.level1.countCancel) }}</span
+                    >
+                    <span
+                      id="textRed"
+                    
+                      v-if="sales"
+                      >${{ formatPrice(sales.level1.cancel) }}</span
+                    >
+                  </div>
+                  <div
+                    class="d-flex align-items-center justify-content-end"
+                  >
+                    <span
+                      class="text-muted ms-10"
+                      id="fontSm"
+                      style="margin-left: -15px"
+                      >Cancel</span
+                    >
+                  </div>
+                </a>
+                <a
+                  href="#"
+                  class="
+                    btn btn-outline btn-outline-dashed btn-outline-info
+                    d-flex
+                    justify-content-start
+                    btn-active-light-info
+                    me-2
+                    mb-2
+                  "
+                  id="btnDefault"
+                >
+                  <div class="d-flex align-items-center gap-2">
+                    <span
+                      id="btnPurple"
+                      style="margin-left: -10px"
+                      v-if="sales"
+                      >{{ formatPrice(sales.level1.countClosed) }}</span
+                    >
+                    <span
+                      id="textPurple"
+                    
+                      v-if="sales"
+                      >${{ formatPrice(sales.level1.closed) }}</span
+                    >
+                  </div>
+                  <div
+                    class="d-flex align-items-center justify-content-end"
+                  >
+                    <span
+                      class="text-muted ms-10"
+                      id="fontSm"
+                      style="margin-left: -15px"
+                      >Closed</span
+                    >
+                  </div>
+                </a>
+                <a
+                  href="#"
+                  class="
+                    btn btn-outline btn-outline-dashed btn-outline-warning
+                    d-flex
+                    justify-content-start
+                    btn-active-light-warning
+                    me-2
+                    mb-2
+                  "
+                  id="btnDefault"
+                >
+                  <div class="d-flex align-items-center gap-2">
+                    <span
+                      id="btnGold"
+                      style="margin-left: -10px"
+                      v-if="sales"
+                      >{{ formatPrice(sales.level1.countCloseIn) }}</span
+                    >
+                    <span
+                      id="textGold"
+                    
+                      v-if="sales"
+                      >${{ formatPrice(sales.level1.closeIn) }}</span
+                    >
+                  </div>
+                  <div
+                    class="d-flex align-items-center justify-content-end"
+                  >
+                    <span
+                      class="text-muted ms-10"
+                      style="margin-left: -15px"
+                      id="fontSm"
+                    >
+                      Close in
+                    </span>
+                  </div>
+                </a>
               </div>
             </div>
           </div>
@@ -655,6 +543,14 @@
         </div>
         <div class="col-lg-6 col-sm-12 d-flex justify-content-end">
           <button
+            type="button"
+            class="btn btn-info btn-sm my-3 me-2"
+            data-bs-toggle="modal"
+            data-bs-target="#filterdate"
+          >
+            Filter Data <i class="fa-solid fa-chevron-down"></i>
+          </button>
+          <button
             class="btn btn-primary btn-sm my-3"
             data-bs-toggle="modal"
             data-bs-target="#addSales"
@@ -662,6 +558,209 @@
           >
             <i class="fas fa-plus"></i> Additional Sales Plan
           </button>
+        </div>
+      </div>
+
+      <!-- Modal filterdate  -->
+      <div
+        class="modal fade"
+        id="filterdate"
+        tabindex="-1"
+        aria-labelledby="filterdateLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header text-center">
+              <h1 class="modal-title w-100" id="filterdateLabel">
+                Filter Data
+              </h1>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+                @click="closeModal()"
+              ></button>
+            </div>
+            <form>
+              <div class="modal-body">
+                <div class="row">
+                  <div class="col-lg-6">
+                    <div class="mb-3">
+                      <label for="" class="form-label">Form Date</label>
+                      <input
+                        type="date"
+                        class="form-control"
+                        v-model="start_date"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="mb-3">
+                      <label for="" class="form-label">To Date</label>
+                      <input
+                        type="date"
+                        class="form-control"
+                        v-model="end_date"
+                      />
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- Cust, Prod, AC -->
+                <div class="row">
+                  <div class="col-lg-4">
+                    <div class="mb-3">
+                      <label for="" class="form-label">Customer</label>
+                      <select v-model="customer" class="form-select">
+                        <option :value="null" disabled>Select Customer</option>
+                        <option 
+                          v-for="customer_options in customer_option" 
+                          :value="customer_options.id" 
+                        >
+                          {{ customer_options.name }}
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-lg-4">
+                    <div class="mb-3">
+                      <label for="" class="form-label">Product</label>
+                      <select v-model="product" class="form-select">
+                        <option :value="null" disabled>Select Product</option>
+                        <option 
+                          v-for="product_options in product_option" 
+                          :value="product_options.id" 
+                        >
+                          {{ product_options.name }}
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-lg-4">
+                    <div class="mb-3">
+                      <label for="" class="form-label">AC/ENG/APU/COMP</label>
+                      <select v-model="registration" class="form-select">
+                        <option :value="null" disabled>Select AC/ENG/APU/COMP</option>
+                        <!-- <option 
+                          v-for="product_options in product_option" 
+                          :value="product_options.id" 
+                        >
+                          {{ product_options.name }}
+                        </option> -->
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Reg, Sales Type, Type -->
+                <div class="row">
+                  <div class="col-lg-4">
+                    <div class="mb-3">
+                      <label for="" class="form-label">Registration</label>
+                      <select v-model="acReg" class="form-select">
+                        <option :value="null" disabled>Select Registration</option>
+                        <!-- <option 
+                          v-for="product_options in product_option" 
+                          :value="product_options.id" 
+                        >
+                          {{ product_options.name }}
+                        </option> -->
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-lg-4">
+                    <div class="mb-3">
+                      <label for="" class="form-label">Sales Type</label>
+                      <select v-model="other" class="form-select">
+                        <option :value="null" disabled>Select Sales Type</option>
+                        <option value="1">RKAP</option>
+                        <option value="2">Additional</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-lg-4">
+                    <div class="mb-3">
+                      <label for="" class="form-label">Type</label>
+                      <select v-model="type" class="form-select">
+                        <option :value="null" disabled>Select Type</option>
+                        <option value="1">TMB Retail</option>
+                        <option value="2">TMB Project</option>
+                        <option value="3">PBTH</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-lg-4">
+                    <div class="mb-3">
+                      <label for="" class="form-label">Level</label>
+                      <select v-model="level" class="form-select">
+                        <option :value="null" disabled>Select Level</option>
+                        <option value="1">Level 1</option>
+                        <option value="2">Level 2</option>
+                        <option value="3">Level 3</option>
+                        <option value="4">Level 4</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-lg-4">
+                    <div class="mb-3">
+                      <label for="" class="form-label">Progress</label>
+                      <select v-model="progress" class="form-select">
+                        <option :value="null" disabled>Select Progress</option>
+                        <option value="10">10 %</option>
+                        <option value="20">20 %</option>
+                        <option value="30">30 %</option>
+                        <option value="40">40 %</option>
+                        <option value="50">50 %</option>
+                        <option value="60">60 %</option>
+                        <option value="70">70 %</option>
+                        <option value="80">80 %</option>
+                        <option value="90">90 %</option>
+                        <option value="100">100 %</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-lg-4">
+                    <div class="mb-3">
+                      <label for="" class="form-label">Status</label>
+                      <select v-model="status" class="form-select">
+                        <option :value="null" disabled>Select Status</option>
+                        <option value="Open">Open</option>
+                        <option value="Cancel">Cancel</option>
+                        <option value="Close in">Close In</option>
+                        <option value="Closed">Closed</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+              <div class="modal-footer">
+                <div class="col-md-12 text-center">
+                  <button
+                    type="button"
+                    class="btn btn-light mx-3"
+                    data-bs-dismiss="modal"
+                    @click="closeModal()"
+                  >
+                    Reset
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-primary"
+                    data-bs-dismiss="modal"
+                    @click="listTable()"
+                  >
+                    Filter
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
 
@@ -718,50 +817,6 @@
               <!--end::Close-->
             </div>
             <div class="modal-body">
-              <!-- Old -->
-              <!-- <div class="row">
-                <div class="col-lg-6">
-                  <div class="form-group mb-3">
-                    <input type="hidden" v-model="is_rkap" value="0" />
-                    <label class="form-label fw-bold">Customer</label>
-                    <multiselect
-                      required
-                      v-model="customer_value"
-                      :options="customer_option"
-                      open-direction="bottom"
-                      @input="
-                        additionalSaleplan(
-                          customer_value != null ? customer_value.id : null
-                        )
-                      "
-                      placeholder=""
-                      label="name"
-                      :searchable="true"
-                    ></multiselect>
-                  </div>
-                </div>
-                <div class="col-lg-6">
-                  <div class="form-group mb-3">
-                    <label class="form-label fw-bold">Prospect</label>
-                    <multiselect
-                      required
-                      v-model="prospect_value_salesplan"
-                      :options="prospect_option_salesplan"
-                      open-direction="bottom"
-                      :searchable="true"
-                      placeholder=""
-                      label="registration"
-                      :class="{ 'is-invalid': errors.prospect_id }"
-                    ></multiselect>
-                    <span
-                      v-if="errors.prospect_id"
-                      class="error invalid-feedback"
-                      >{{ errors.prospect_id[0] }}</span
-                    >
-                  </div>
-                </div>
-              </div> -->
-              
               <div class="row">
                 <div class="col-lg-6">
                   <div class="form-group mb-3">
@@ -769,16 +824,18 @@
                     <!-- TODO Transaction type masih belum tau dari mana -->
                     <!-- <input type="hidden" v-model="transaction_type_id" value="-" /> -->
                     <label class="form-label fw-bold">Customer</label>
-                    <multiselect
-                      required
-                      v-model="customer_value"
-                      :options="customer_option"
-                      open-direction="bottom"
-                      placeholder=""
-                      label="name"
-                      :searchable="true"
-                      :class="{ 'is-invalid': errors.customer_id }"
-                    ></multiselect>
+                      <select v-model="customer_id" class="form-select" :class="{ 'is-invalid': errors.customer_id }">
+                        <option :value="null" disabled>Select Customer</option>
+                        <option 
+                          v-for="customer_options in customer_option" 
+                          :value="customer_options.id" 
+                          :class="{
+                            'is-invalid': errors.customer_id,
+                          }"
+                        >
+                          {{ customer_options.name }}
+                        </option>
+                      </select>
                     <span
                       v-if="errors.customer_id"
                       class="error invalid-feedback"
@@ -789,16 +846,18 @@
                 <div class="col-lg-6">
                   <div class="form-group mb-3">
                     <label class="form-label fw-bold">Product</label>
-                    <multiselect
-                      required
-                      v-model="product_value"
-                      :options="product_option"
-                      open-direction="bottom"
-                      :searchable="true"
-                      placeholder=""
-                      label="name"
-                      :class="{ 'is-invalid': errors.product_id }"
-                    ></multiselect>
+                    <select v-model="product_id" class="form-select" :class="{ 'is-invalid': errors.product_id }">
+                        <option :value="null" disabled>Select Product</option>
+                        <option 
+                          v-for="product_options in product_option" 
+                          :value="product_options.id" 
+                          :class="{
+                            'is-invalid': errors.product_id,
+                          }"
+                        >
+                          {{ product_options.name }}
+                        </option>
+                      </select>
                     <span
                       v-if="errors.product_id"
                       class="error invalid-feedback"
@@ -812,16 +871,18 @@
                 <div class="col-lg-6">
                   <div class="form-group mb-3">
                     <label class="form-label fw-bold">Maintenance</label>
-                    <multiselect
-                      required
-                      v-model="maintenance_value"
-                      :options="maintenance_option"
-                      open-direction="bottom"
-                      :searchable="true"
-                      placeholder=""
-                      label="name"
-                      :class="{ 'is-invalid': errors.maintenance_id }"
-                    ></multiselect>
+                    <select v-model="maintenance_id" class="form-select" :class="{ 'is-invalid': errors.maintenance_id }">
+                      <option :value="null" disabled>Select maintenance</option>
+                      <option 
+                        v-for="maintenance_options in maintenance_option" 
+                        :value="maintenance_options.id" 
+                        :class="{
+                          'is-invalid': errors.maintenance_id,
+                        }"
+                      >
+                        {{ maintenance_options.name }}
+                      </option>
+                    </select>
                     <span
                       v-if="errors.maintenance_id"
                       class="error invalid-feedback"
@@ -832,16 +893,18 @@
                 <div class="col-lg-6">
                   <div class="form-group mb-3">
                     <label class="form-label fw-bold">Hangar</label>
-                    <multiselect
-                      required
-                      v-model="hangar_value"
-                      :options="hangar_option"
-                      open-direction="bottom"
-                      placeholder=""
-                      label="name"
-                      :searchable="true"
-                      :class="{ 'is-invalid': errors.hangar_id }"
-                    ></multiselect>
+                    <select v-model="hangar_id" class="form-select" :class="{ 'is-invalid': errors.hangar_id }">
+                      <option :value="null" disabled>Select Hangar</option>
+                      <option 
+                        v-for="hangar_options in hangar_option" 
+                        :value="hangar_options.id" 
+                        :class="{
+                          'is-invalid': errors.hangar_id,
+                        }"
+                      >
+                        {{ hangar_options.name }}
+                      </option>
+                    </select>
                     <span
                       v-if="errors.hangar_id"
                       class="error invalid-feedback"
@@ -855,16 +918,18 @@
                 <div class="col-lg-6">
                   <div class="form-group mb-3">
                     <label class="form-label fw-bold">Aircraft Type</label>
-                    <multiselect
-                      required
-                      v-model="ac_type_value"
-                      :options="ac_type_option"
-                      open-direction="bottom"
-                      :searchable="true"
-                      placeholder=""
-                      label="name"
-                      :class="{ 'is-invalid': errors.ac_type_id }"
-                    ></multiselect>
+                      <select v-model="ac_type_id" class="form-select" :class="{ 'is-invalid': errors.ac_type_id }">
+                        <option :value="null" disabled>Select Aircraft Type</option>
+                        <option 
+                          v-for="ac_type_options in ac_type_option" 
+                          :value="ac_type_options.id" 
+                          :class="{
+                            'is-invalid': errors.ac_type_id,
+                          }"
+                        >
+                          {{ ac_type_options.name }}
+                        </option>
+                      </select>
                     <span
                       v-if="errors.ac_type_id"
                       class="error invalid-feedback"
@@ -1189,9 +1254,10 @@
                       v-if="order == 'other' && by == 'asc'"
                       @click="sort('other', 'desc')"
                       class="text-center"
+                      style="width: 100%;"
                     >
                       <p class="d-flex justify-content-center">
-                        Other
+                        Sales Type
                         <i
                           class="fa-solid fa-sort-up ms-2"
                           style="color: black"
@@ -1202,9 +1268,10 @@
                       v-else-if="order == 'other' && by == 'desc'"
                       @click="sort('id', 'desc')"
                       class="text-center"
+                      style="width: 100%;"
                     >
                       <p class="d-flex justify-content-center">
-                        Other
+                        Sales Type
                         <i
                           class="fa-solid fa-sort-down ms-2"
                           style="color: black"
@@ -1215,9 +1282,10 @@
                       v-else
                       @click="sort('other', 'asc')"
                       class="text-center"
+                      style="width: 100%;"
                     >
                       <p class="d-flex justify-content-center">
-                        Other
+                        Sales Type
                         <i class="fa-solid fa-sort ms-2"></i>
                       </p>
                     </th>
@@ -1618,101 +1686,6 @@
         </div>
       </div>
       <!-- End Table -->
-
-      <!-- <div class="row">
-        <div class="col-lg-6 col-sm-12">
-          <h3 class="mt-3">Salesplan Table</h3>
-        </div>
-        <div class="col-lg-6 col-sm-12 d-flex justify-content-end">
-          <button
-            class="btn btn-primary btn-sm"
-            data-bs-toggle="modal"
-            data-bs-target="#salesplanTotal"
-          >
-            <i class="fa-solid fa-dollar-sign"></i> Salesplan Total
-          </button>
-        </div>
-      </div> -->
-
-      <!-- Modal Salesplan total -->
-      <!-- <div
-        class="modal fade"
-        id="salesplanTotal"
-        tabindex="-1"
-        aria-labelledby="salesplanTotalLabel"
-        aria-hidden="true"
-      >
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <div class="col-lg-6">
-                <h1 class="modal-title" id="salesplanTotalLabel">
-                  Salesplan Total
-                </h1>
-              </div>
-            </div>
-            <div class="modal-body mt-10 mb-10">
-              <div class="row">
-                <div class="col-lg-6">
-                  <div class="card" id="bgBlue">
-                    <div class="card-body">
-                      <p class="text-muted">Total Open</p>
-                      <h2 id="textBlue" v-if="sales_all">
-                        ${{ formatPrice(sales_all.totalOpen) }}
-                      </h2>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-lg-6">
-                  <div class="card" id="bgRed">
-                    <div class="card-body">
-                      <p class="text-muted">Total Closed</p>
-                      <h2 id="textRed" v-if="sales_all">
-                        ${{ formatPrice(sales_all.totalClosed) }}
-                      </h2>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="row mt-4">
-                <div class="col-lg-6">
-                  <div class="card" id="bgPurple">
-                    <div class="card-body">
-                      <p class="text-muted">Total Open Closed</p>
-                      <h2 id="textPurple" v-if="sales_all">
-                        ${{ formatPrice(sales_all.totalOpenClosed) }}
-                      </h2>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-lg-6">
-                  <div class="card" id="bgGold">
-                    <div class="card-body">
-                      <p class="text-muted">Total Cancel</p>
-                      <h2 id="textGold" v-if="sales_all">
-                        ${{ formatPrice(sales_all.totalCancel) }}
-                      </h2>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="modal-footer">
-              <div class="col-md-12 text-center">
-                <div class="d-grid gap-2">
-                  <button
-                    type="button"
-                    class="btn btn-primary"
-                    data-bs-dismiss="modal"
-                  >
-                    Close
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div> -->
     </div>
   </div>
 </template>
@@ -1763,7 +1736,15 @@ export default {
       is_rkap: null,
       value: null,
       tat: null,
+      customer: null,
+      product: null,
+      acReg: null,
+      other: null,
+      registration: null,
       type: null,
+      level: null,
+      progress: null,
+      status: null,
       start_date: null,
       end_date: null,
 
@@ -1820,10 +1801,6 @@ export default {
     search: debounce(function () {
       this.listTable()
     }, 500),
-    customer_id: debounce(function () {
-      this.clearProspect()
-      this.listProspect()
-    }, 100),
   },
   created() {
     this.list()
@@ -1888,7 +1865,15 @@ export default {
             paginate: this.paginate,
             start_date: this.start_date,
             end_date: this.end_date,
+            customer: this.customer,
+            product: this.product,
+            acReg: this.acReg,
+            registration: this.registration,
+            other: this.other,
             type: this.type,
+            progress: this.progress,
+            status: this.status,
+            level: this.level,
           },
         })
         .then((response) => {
@@ -1922,12 +1907,7 @@ export default {
           },
         })
         .then((response) => {
-          for (let i = 0; i < response.data.data.data.length; i++) {
-            this.product_option.push({
-              id: response.data.data.data[i].id,
-              name: response.data.data.data[i].name,
-            })
-          }
+          this.product_option = response.data.data.data
         })
         .catch((error) => console.log(error))
     },
@@ -1937,7 +1917,6 @@ export default {
           params: {
             order: 'created_at',
             by: 'ASC',
-            paginate: 10000,
           },
         })
         .then((response) => {
@@ -1959,27 +1938,18 @@ export default {
     },
     listACType() {
       this.$axios
-        .get('/api/aircraft-type')
+        .get('/api/aircraft-type', {
+          params: {
+            order: 'created_at',
+            by: 'ASC',
+          },
+        })
         .then((response) => {
           this.ac_type_option = response.data.data.data
         })
         .catch((error) => {
           console.log(error)
         })
-    },
-    listProspect() {
-      if (this.customer_value) {
-        this.$axios
-          .get('api/prospect-get-tmb', {
-            params: {
-              search: this.customer_value.id,
-              paginate: 1000,
-            },
-          })
-          .then((response) => {
-            this.prospect_option = response.data.data
-          })
-      }
     },
 
     addSales() {
@@ -1988,11 +1958,11 @@ export default {
         .post(`api/sales-create-tmb`, {
           is_rkap: this.is_rkap,
           transaction_type_id: this.transaction_type_id,
-          customer_id: this.customer_value,
-          product_id: this.product_value,
-          maintenance_id: this.maintenance_value,
-          hangar_id: this.hangar_value,
-          ac_type_id: this.ac_type_value,
+          customer_id: this.customer_id,
+          product_id: this.product_id,
+          maintenance_id: this.maintenance_id,
+          hangar_id: this.hangar_id,
+          ac_type_id: this.ac_type_id,
           ac_reg: this.ac_reg,
           value: this.value,
           start_date: this.start_date,
@@ -2021,6 +1991,13 @@ export default {
       this.start_date = null
       this.end_date = null
       this.type = null
+      this.customer = null
+      this.product = null
+      this.acReg = null
+      this.registration = null
+      this.other = null
+      this.progress = null
+      this.status = null
       this.listTable()
     },
 
@@ -2063,55 +2040,6 @@ export default {
 
       this.listTable()
     },
-
-    // clearProspect() {
-    //   if (this.customer_id == null) {
-    //     this.isDisabled = true
-    //     this.prospect = []
-    //     this.prospect_id = null
-    //   } else {
-    //     this.prospect = []
-    //     this.isDisabled = false
-    //   }
-    // },
-    // saveSalesPlan() {
-    //   this.$axios
-    //     .post('/api/sales-create-tmb', {
-    //       prospect_id:
-    //         this.prospect_value_salesplan != null
-    //           ? this.prospect_value_salesplan.id
-    //           : null,
-    //       product_id: this.product_value != null ? this.product_value.id : null,
-    //       ac_type_id: this.ac_type_value != null ? this.ac_type_value.id : null,
-    //       maintenance_id:
-    //         this.maintenance_value != null ? this.maintenance_value.id : null,
-    //       hangar_id: this.hangar_value != null ? this.hangar_value.id : null,
-    //       ac_reg: this.ac_reg,
-    //       value: this.value,
-    //       tat: this.tat,
-    //       start_date: this.start_date,
-    //     })
-    //     .then((response) => {
-    //       toastr.success(response.data.message)
-    //       this.list()
-    //       Swal.close()
-    //       this.closeAddSales()
-    //     })
-    //     .catch((error) => {
-    //       if (error.response.status == 422) {
-    //         toastr.error(error.response.data.message)
-    //         this.errors = error.response.data.errors
-    //       }
-    //     })
-    // },
-    // additionalSaleplan(value) {
-    //   this.$axios
-    //     .get('/api/prospect-get-tmb?customer=' + value)
-    //     .then((response) => {
-    //       this.prospect_option_salesplan = response.data.data
-    //     })
-    //     .catch((error) => console.log(error))
-    // },
   },
 }
 </script>

@@ -414,7 +414,7 @@
                 <div class="text-center d-grid gap-2">
                   <span class="me-2 mb-2" id="cardMarketShare">
                     <h3 class="mt-2" id="textMarketShare" v-if="sales_detail">
-                      ${{ formatPrice(sales_detail.marketShare) }}
+                      USD {{ formatPrice(sales_detail.marketShare) }}
                     </h3>
                     <p><small class="text-muted">Market Share</small></p>
                   </span>
@@ -424,7 +424,7 @@
                 <div class="text-center d-grid gap-2">
                   <span class="me-2 mb-2" id="cardSalesPlan">
                     <h3 class="mt-2" id="textSalesPlan" v-if="sales_detail">
-                      ${{ formatPrice(sales_detail.totalSales) }}
+                      USD {{ formatPrice(sales_detail.totalSales) }}
                     </h3>
                     <p><small class="text-muted">Total Sales Plan</small></p>
                   </span>
@@ -434,7 +434,7 @@
                 <div class="text-center d-grid gap-2">
                   <span class="me-2 mb-2" id="cardDevisiasi">
                     <h3 class="mt-2" id="textDevisiasi" v-if="sales_detail">
-                      ${{ formatPrice(sales_detail.deviasi) }}
+                      USD {{ formatPrice(sales_detail.deviasi) }}
                     </h3>
                     <p><small class="text-muted">Devisiasi</small></p>
                   </span>
@@ -2265,10 +2265,8 @@
                           align-items-center
                         "
                       >
-                        <label for="" class="form-label me-3"
-                          >Select Month</label
-                        >
                         <select class="form-select" v-model="filter">
+                          <option :value="null" disabled>Select Month</option>
                           <option value="1">January</option>
                           <option value="2">February</option>
                           <option value="3">March</option>

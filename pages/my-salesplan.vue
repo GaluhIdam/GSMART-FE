@@ -5,17 +5,6 @@
         <div class="col-lg-6 col-sm-12">
           <h3 class="mt-3">Dashboard Sales Plan</h3>
         </div>
-        <div class="col-lg-6 col-sm-12 d-flex justify-content-end">
-          <!-- <button
-            type="button"
-            class="btn btn-outline btn-outline-primary me-2 mb-2"
-            data-bs-toggle="modal"
-            data-bs-target="#filterdate"
-          >
-            Filter & Date <i class="fa-solid fa-chevron-down"></i>
-          </button> -->
-        </div>
-
       </div>
 
       <!-- Row Total -->
@@ -26,7 +15,7 @@
               <div class="card-body">
                 <p class="text-muted" id="fontSm">Total Target</p>
                 <h4 id="textGreen" v-if="sales">
-                  ${{ formatPrice(sales.totalTarget) }}
+                  USD {{ formatPrice(sales.totalTarget) }}
                 </h4>
               </div>
             </div>
@@ -36,7 +25,7 @@
               <div class="card-body">
                 <p class="text-muted" id="fontSm">Total Open</p>
                 <h4 id="textBlue" v-if="sales">
-                  ${{ formatPrice(sales.totalOpen) }}
+                  USD {{ formatPrice(sales.totalOpen) }}
                 </h4>
               </div>
             </div>
@@ -46,7 +35,7 @@
               <div class="card-body">
                 <p class="text-muted" id="fontSm">Total Closed</p>
                 <h4 id="textRed" v-if="sales">
-                  ${{ formatPrice(sales.totalClosed) }}
+                  USD {{ formatPrice(sales.totalClosed) }}
                 </h4>
               </div>
             </div>
@@ -54,9 +43,10 @@
           <div class="col-lg my-2 mx-1">
             <div class="card card-flush" id="bgPurple">
               <div class="card-body">
-                <p class="text-muted" id="fontSm">Total Open Closed</p>
+                <p class="text-muted" id="fontSm">Total Close In</p>
                 <h4 id="textPurple" v-if="sales">
-                  ${{ formatPrice(sales.totalOpenClosed) }}
+                  <!-- TODO Total close in -->
+                  <!-- USD {{ formatPrice(sales.totalOpenClosed) }} -->
                 </h4>
               </div>
             </div>
@@ -66,7 +56,7 @@
               <div class="card-body">
                 <p class="text-muted" id="fontSm">Total Cancel</p>
                 <h4 id="textGold" v-if="sales">
-                  ${{ formatPrice(sales.totalCancel) }}
+                  USD {{ formatPrice(sales.totalCancel) }}
                 </h4>
               </div>
             </div>
@@ -97,7 +87,7 @@
             <div class="card-body mt-10">
               <div class="text-center">
                 <h2 id="textGreen" v-if="sales">
-                  ${{ formatPrice(sales.level4.total) }}
+                  USD {{ formatPrice(sales.level4.total) }}
                 </h2>
                 <p class="text-muted">Awareness</p>
               </div>
@@ -122,7 +112,7 @@
                       >{{ formatPrice(sales.level4.countOpen) }}</span
                     >
                     <span id="textGreen" v-if="sales"
-                      >${{ formatPrice(sales.level4.open) }}</span
+                      >USD {{ formatPrice(sales.level4.open) }}</span
                     >
                   </div>
                   <div
@@ -154,7 +144,7 @@
                       formatPrice(sales.level4.countCancel)
                     }}</span>
                     <span id="textRed" v-if="sales"
-                      >${{ formatPrice(sales.level4.cancel) }}</span
+                      >USD {{ formatPrice(sales.level4.cancel) }}</span
                     >
                   </div>
                   <div class="d-flex align-items-center justify-content-end">
@@ -168,7 +158,7 @@
                 </a>
               </div>
             </div>
-            <div class="card-footer border-0"></div>
+            <div class="card-footer border-0" id="cardFooter"></div>
           </div>
         </div>
 
@@ -192,7 +182,7 @@
             <div class="card-body mt-10">
               <div class="text-center">
                 <h2 id="textBlue" v-if="sales">
-                  ${{ formatPrice(sales.level3.total) }}
+                  USD {{ formatPrice(sales.level3.total) }}
                 </h2>
                 <p class="text-muted">Opportunity</p>
               </div>
@@ -217,7 +207,7 @@
                       >{{ formatPrice(sales.level3.countOpen) }}</span
                     >
                     <span id="textGreen" v-if="sales"
-                      >${{ formatPrice(sales.level3.open) }}</span
+                      >USD {{ formatPrice(sales.level3.open) }}</span
                     >
                   </div>
                   <div class="d-flex align-items-center justify-content-end">
@@ -246,7 +236,7 @@
                       formatPrice(sales.level3.countCancel)
                     }}</span>
                     <span id="textRed" v-if="sales"
-                      >${{ formatPrice(sales.level3.cancel) }}</span
+                      >USD {{ formatPrice(sales.level3.cancel) }}</span
                     >
                   </div>
                   <div class="d-flex align-items-center justify-content-end">
@@ -260,7 +250,7 @@
                 </a>
               </div>
             </div>
-            <div class="card-footer border-0"></div>
+            <div class="card-footer border-0" id="cardFooter"></div>
           </div>
         </div>
 
@@ -284,7 +274,7 @@
             <div class="card-body mt-10">
               <div class="text-center">
                 <h2 id="textPurple" v-if="sales">
-                  ${{ formatPrice(sales.level2.total) }}
+                  USD {{ formatPrice(sales.level2.total) }}
                 </h2>
                 <p class="text-muted">Attractive Proposal</p>
               </div>
@@ -309,7 +299,7 @@
                       >{{ formatPrice(sales.level2.countOpen) }}</span
                     >
                     <span id="textGreen" v-if="sales"
-                      >${{ formatPrice(sales.level2.open) }}</span
+                      >USD {{ formatPrice(sales.level2.open) }}</span
                     >
                   </div>
                   <div class="d-flex align-items-center justify-content-end">
@@ -338,7 +328,7 @@
                       formatPrice(sales.level2.countCancel)
                     }}</span>
                     <span id="textRed" v-if="sales"
-                      >${{ formatPrice(sales.level2.cancel) }}</span
+                      >USD {{ formatPrice(sales.level2.cancel) }}</span
                     >
                   </div>
                   <div class="d-flex align-items-center justify-content-end">
@@ -352,7 +342,7 @@
                 </a>
               </div>
             </div>
-            <div class="card-footer border-0"></div>
+            <div class="card-footer border-0" id="cardFooter"></div>
           </div>
         </div>
 
@@ -376,7 +366,7 @@
             <div class="card-body mt-10">
               <div class="text-center">
                 <h2 id="textGold" v-if="sales">
-                  ${{ formatPrice(sales.level1.total) }}
+                  USD {{ formatPrice(sales.level1.total) }}
                 </h2>
                 <p class="text-muted">Contract Signing</p>
               </div>
@@ -404,7 +394,7 @@
                       id="textGreen"
                     
                       v-if="sales"
-                      >${{ formatPrice(sales.level1.open) }}</span
+                      >USD {{ formatPrice(sales.level1.open) }}</span
                     >
                   </div>
                   <div
@@ -441,7 +431,7 @@
                       id="textRed"
                     
                       v-if="sales"
-                      >${{ formatPrice(sales.level1.cancel) }}</span
+                      >USD {{ formatPrice(sales.level1.cancel) }}</span
                     >
                   </div>
                   <div
@@ -478,7 +468,7 @@
                       id="textPurple"
                     
                       v-if="sales"
-                      >${{ formatPrice(sales.level1.closed) }}</span
+                      >USD {{ formatPrice(sales.level1.closed) }}</span
                     >
                   </div>
                   <div
@@ -515,7 +505,7 @@
                       id="textGold"
                     
                       v-if="sales"
-                      >${{ formatPrice(sales.level1.closeIn) }}</span
+                      >USD {{ formatPrice(sales.level1.closeIn) }}</span
                     >
                   </div>
                   <div
@@ -561,7 +551,7 @@
         </div>
       </div>
 
-      <!-- Modal filterdate  -->
+      <!-- Modal filter data  -->
       <div
         class="modal fade"
         id="filterdate"
@@ -821,8 +811,6 @@
                 <div class="col-lg-6">
                   <div class="form-group mb-3">
                     <input type="hidden" v-model="is_rkap" value="0" />
-                    <!-- TODO Transaction type masih belum tau dari mana -->
-                    <!-- <input type="hidden" v-model="transaction_type_id" value="-" /> -->
                     <label class="form-label fw-bold">Customer</label>
                       <select v-model="customer_id" class="form-select" :class="{ 'is-invalid': errors.customer_id }">
                         <option :value="null" disabled>Select Customer</option>
@@ -1007,7 +995,16 @@
                 </div>
                 <div class="col-lg-6">
                   <div class="form-group mb-3">
-                    
+                    <label class="form-label fw-bold">Type</label>
+                    <select v-model="transaction_type_id" class="form-select" :class="{ 'is-invalid': errors.transaction_type_id }">
+                      <option :value="null" disabled>Select Type</option>
+                      <option value="1">TMB Retail</option>
+                      <option value="2">TMB Project</option>
+                      <option value="3">PTH</option>
+                    </select>
+                    <span v-if="errors.transaction_type_id" class="error invalid-feedback">{{
+                      errors.transaction_type_id[0]
+                    }}</span>
                   </div>
                 </div>
               </div>
@@ -1039,7 +1036,7 @@
         </div>
       </div>
 
-      <!-- Table -->
+      <!-- Row Table -->
       <div class="row mt-3">
         <div class="card">
           <div class="card-body">
@@ -1741,6 +1738,7 @@ export default {
       acReg: null,
       other: null,
       registration: null,
+      transaction_type_id: null,
       type: null,
       level: null,
       progress: null,
@@ -1787,6 +1785,7 @@ export default {
         customer_id: null,
         product_id: null,
         maintenance_id: null,
+        transaction_type_id: null,
         hangar_id: null,
         ac_reg: null,
         value: null,
@@ -2011,6 +2010,7 @@ export default {
       this.maintenance_id = null
       this.hangar_id = null
       this.ac_reg = null
+      this.transaction_type_id = null
       this.salesPlan = null
       this.tat = null
       this.start_date = null
@@ -2034,6 +2034,7 @@ export default {
       this.errors.maintenance_id = null
       this.errors.ac_type_id = null
       this.errors.ac_reg = null
+      this.errors.transaction_type_id = null
       this.errors.value = null
       this.errors.start_date = null
       this.errors.tat = null
@@ -2055,6 +2056,10 @@ export default {
   #cardStyle{
     margin-left: -15px; 
     width: 258px;
+  }
+
+  #cardFooter{
+    height: 134px
   }
 }
 

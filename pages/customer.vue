@@ -176,6 +176,30 @@
                     </th>
 
                     <th
+                      v-if="order == 'is_ga' && by == 'asc'"
+                      @click="sort('is_ga', 'desc')"
+                      class="text-center"
+                    >
+                      Group Type
+                      <i class="fa-solid fa-sort-up" style="color: black"></i>
+                    </th>
+                    <th
+                      v-else-if="order == 'is_ga' && by == 'desc'"
+                      @click="sort('id', 'desc')"
+                      class="text-center"
+                    >
+                      Group Type
+                      <i class="fa-solid fa-sort-down" style="color: black"></i>
+                    </th>
+                    <th
+                      v-else
+                      @click="sort('is_ga', 'asc')"
+                      class="text-center"
+                    >
+                      Group Type <i class="fa-solid fa-sort"></i>
+                    </th>
+
+                    <th
                       v-if="order == 'status' && by == 'asc'"
                       @click="sort('status', 'desc')"
                       class="text-center"
@@ -219,6 +243,7 @@
                     <td class="text-center">{{ customer.name }}</td>
                     <td class="text-center">{{ customer.country }}</td>
                     <td class="text-center">{{ customer.region }}</td>
+                    <td class="text-center">{{ customer.is_ga }}</td>
                     <td class="text-center">{{ customer.status }}</td>
                     <td class="d-flex justify-content-center">
                       <button
@@ -418,6 +443,23 @@
                   </div>
                 </div>
                 <div class="col-6">
+                  <label class="form-label fw-bold">Group Type</label>
+                  <select
+                    v-model="customer.is_ga"
+                    class="form-select"
+                    :class="{ 'is-invalid': errors.is_ga }"
+                  >
+                    <option :value="null" disabled>Select Group Type</option>
+                    <option :value="1">GA</option>
+                    <option :value="0">NGA</option>
+                  </select>
+                  <span
+                    v-if="errors.is_ga"
+                    class="error invalid-feedback"
+                    >{{ errors.is_ga[0] }}</span
+                  >
+                </div>
+                <div class="col-6">
                   <label class="form-label fw-bold">Status</label>
                   <select
                     v-model="customer.is_active"
@@ -561,6 +603,7 @@ export default {
         id: null,
         name: null,
         code: null,
+        is_ga: null,
         is_active: null,
       },
       item: {
@@ -591,6 +634,7 @@ export default {
         country_id: null,
         region_id: null,
         is_active: null,
+        is_ga: null,
       },
     }
   },

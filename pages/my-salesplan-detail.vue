@@ -5,14 +5,9 @@
       <!-- Breadcrumb -->
       <div class="row mb-5">
         <div class="col-lg-6">
-          <Nuxt-link class="menu-link" to="/my-salesplan" active-class="active">
+          <Nuxt-link class="menu-link" to="/my-salesplan-table" active-class="active">
             <i class="fa-solid fa-angle-left"></i>
-            <span
-              class="menu-title"
-              v-if="role == 'TPR' || role == 'CBO' || role == 'Administrator'"
-              >Sales Plan</span
-            >
-            <span class="menu-title" v-if="role == 'AMS'">Sales Plan</span>
+            <span class="menu-title">Sales Plan</span>
           </Nuxt-link>
         </div>
         <div class="col-lg-6">
@@ -23,21 +18,10 @@
                   <li class="breadcrumb-item">
                     <Nuxt-link
                       class="menu-link"
-                      to="/my-salesplan"
+                      to="/my-salesplan-table"
                       active-class="active"
                     >
-                      <span
-                        class="menu-title"
-                        v-if="
-                          role == 'TPR' ||
-                          role == 'CBO' ||
-                          role == 'Administrator'
-                        "
-                        >Sales Plan</span
-                      >
-                      <span class="menu-title" v-if="role == 'AMS'"
-                        >Sales Plan</span
-                      >
+                      <span class="menu-title">Sales Plan</span>
                       &nbsp;
                     </Nuxt-link>
                   </li>

@@ -2075,7 +2075,7 @@
                                         v-if="
                                           sales_detail.status === 'Open' &&
                                           sales_detail.level == 1 &&
-                                          sales_detail.upgrade == true &&
+                                          level1[0].status == 1 &&
                                           (role == 'Administrator' ||
                                             role == 'TPC')
                                         "
@@ -2194,7 +2194,8 @@
                                       />
                                     </div>
                                   </div>
-                                <div
+                                <!-- Tombol untuk close in -->
+                                <!-- <div
                                   class="text-center mt-10"
                                   v-if="sales_detail"
                                 >
@@ -2216,7 +2217,7 @@
                                       Request to Closed
                                     </button>
                                   </div>
-                                </div>
+                                </div> -->
                               </div>
                           </div>
                         </div>
@@ -3653,9 +3654,9 @@ export default {
               })
               .then((response) => {
                 toastr.success(response.data.message)
-                this.$router.push({
-                  name: 'my-salesplan',
-                })
+                // this.$router.push({
+                //   name: 'my-salesplan',
+                // })
               })
               .catch((error) => {
                 if (error.response.status == 422) {

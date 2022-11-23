@@ -189,16 +189,16 @@
                             <label for="" class="form-label">Progress</label>
                             <select v-model="progress" class="form-select">
                                 <option :value="null" disabled>Select Progress</option>
-                                <option value="10">10 %</option>
-                                <option value="20">20 %</option>
-                                <option value="30">30 %</option>
-                                <option value="40">40 %</option>
-                                <option value="50">50 %</option>
-                                <option value="60">60 %</option>
-                                <option value="70">70 %</option>
-                                <option value="80">80 %</option>
-                                <option value="90">90 %</option>
-                                <option value="100">100 %</option>
+                                <option value="1">10 %</option>
+                                <option value="2">20 %</option>
+                                <option value="3">30 %</option>
+                                <option value="4">40 %</option>
+                                <option value="5">50 %</option>
+                                <option value="6">60 %</option>
+                                <option value="7">70 %</option>
+                                <option value="8">80 %</option>
+                                <option value="9">90 %</option>
+                                <option value="10">100 %</option>
                             </select>
                             </div>
                         </div>
@@ -208,9 +208,9 @@
                             <select v-model="status" class="form-select">
                                 <option :value="null" disabled>Select Status</option>
                                 <option value="1">Open</option>
-                                <option value="2">Cancel</option>
+                                <option value="2">Closed</option>
                                 <option value="3">Close In</option>
-                                <option value="4">Closed</option>
+                                <option value="4">Cancel</option>
                             </select>
                             </div>
                         </div>
@@ -488,7 +488,7 @@
                             <option :value="null" disabled>Select Type</option>
                             <option value="1">TMB Retail</option>
                             <option value="2">TMB Project</option>
-                            <option value="3">PTH</option>
+                            <option value="3">PBTH</option>
                             </select>
                             <span v-if="errors.transaction_type_id" class="error invalid-feedback">{{
                             errors.transaction_type_id[0]

@@ -128,6 +128,26 @@
                     </th>
 
                     <th
+                      v-if="order == 'group' && by == 'asc'"
+                      @click="sort('group', 'desc')"
+                      class="text-center"
+                    >
+                      Group Type
+                      <i class="fa-solid fa-sort-up" style="color: black"></i>
+                    </th>
+                    <th
+                      v-else-if="order == 'group' && by == 'desc'"
+                      @click="sort('id', 'desc')"
+                      class="text-center"
+                    >
+                      Group Type
+                      <i class="fa-solid fa-sort-down" style="color: black"></i>
+                    </th>
+                    <th v-else @click="sort('group', 'asc')" class="text-center">
+                      Group Type <i class="fa-solid fa-sort"></i>
+                    </th>
+
+                    <th
                       v-if="order == 'country' && by == 'asc'"
                       @click="sort('country', 'desc')"
                       class="text-center"
@@ -176,30 +196,6 @@
                     </th>
 
                     <th
-                      v-if="order == 'is_ga' && by == 'asc'"
-                      @click="sort('is_ga', 'desc')"
-                      class="text-center"
-                    >
-                      Group Type
-                      <i class="fa-solid fa-sort-up" style="color: black"></i>
-                    </th>
-                    <th
-                      v-else-if="order == 'is_ga' && by == 'desc'"
-                      @click="sort('id', 'desc')"
-                      class="text-center"
-                    >
-                      Group Type
-                      <i class="fa-solid fa-sort-down" style="color: black"></i>
-                    </th>
-                    <th
-                      v-else
-                      @click="sort('is_ga', 'asc')"
-                      class="text-center"
-                    >
-                      Group Type <i class="fa-solid fa-sort"></i>
-                    </th>
-
-                    <th
                       v-if="order == 'status' && by == 'asc'"
                       @click="sort('status', 'desc')"
                       class="text-center"
@@ -241,9 +237,9 @@
                     </td>
                     <td class="text-center">{{ customer.code }}</td>
                     <td class="text-center">{{ customer.name }}</td>
+                    <td class="text-center">{{ customer.group }}</td>
                     <td class="text-center">{{ customer.country }}</td>
                     <td class="text-center">{{ customer.region }}</td>
-                    <td class="text-center">{{ customer.is_ga }}</td>
                     <td class="text-center">{{ customer.status }}</td>
                     <td class="d-flex justify-content-center">
                       <button
@@ -443,23 +439,6 @@
                   </div>
                 </div>
                 <div class="col-6">
-                  <label class="form-label fw-bold">Group Type</label>
-                  <select
-                    v-model="customer.is_ga"
-                    class="form-select"
-                    :class="{ 'is-invalid': errors.is_ga }"
-                  >
-                    <option :value="null" disabled>Select Group Type</option>
-                    <option :value="1">GA</option>
-                    <option :value="0">NGA</option>
-                  </select>
-                  <span
-                    v-if="errors.is_ga"
-                    class="error invalid-feedback"
-                    >{{ errors.is_ga[0] }}</span
-                  >
-                </div>
-                <div class="col-6">
                   <label class="form-label fw-bold">Status</label>
                   <select
                     v-model="customer.is_active"
@@ -474,6 +453,23 @@
                     v-if="errors.is_active"
                     class="error invalid-feedback"
                     >{{ errors.is_active[0] }}</span
+                  >
+                </div>
+                <div class="col-6">
+                  <label class="form-label fw-bold">Group Type</label>
+                  <select
+                    v-model="customer.group_type"
+                    class="form-select"
+                    :class="{ 'is-invalid': errors.group_type }"
+                  >
+                    <option value="null" disabled>Select Group Type</option>
+                    <option :value="0">GA</option>
+                    <option :value="1">NGA</option>
+                  </select>
+                  <span
+                    v-if="errors.group_type"
+                    class="error invalid-feedback"
+                    >{{ errors.group_type[0] }}</span
                   >
                 </div>
               </div>
@@ -603,7 +599,7 @@ export default {
         id: null,
         name: null,
         code: null,
-        is_ga: null,
+        group_type: null,
         is_active: null,
       },
       item: {
@@ -628,14 +624,7 @@ export default {
 
       search_country: null,
       isDisabled: true,
-      errors: {
-        name: null,
-        code: null,
-        country_id: null,
-        region_id: null,
-        is_active: null,
-        is_ga: null,
-      },
+      errors:[],
     }
   },
   created() {
@@ -766,6 +755,7 @@ export default {
           .post('api/customer-create', {
             name: this.customer.name,
             code: this.customer.code,
+            group_type: this.customer.group_type,
             is_active: this.customer.is_active,
             country_id: this.country_value,
             region_id: this.region_value,
@@ -799,6 +789,7 @@ export default {
           .post('api/customer-create', {
             name: this.customer.name,
             code: this.customer.code,
+            group_type: this.customer.group_type,
             is_active: this.customer.is_active,
             country_id: this.country_value.id,
             region_id: this.region_value.id,
@@ -836,6 +827,7 @@ export default {
           .put('/api/customer-update/' + this.customer.id, {
             name: this.customer.name,
             code: this.customer.code,
+            group_type: this.customer.group_type,
             is_active: this.customer.is_active,
             country_id: this.country_value,
             region_id: this.region_value,
@@ -869,6 +861,7 @@ export default {
           .put('/api/customer-update/' + this.customer.id, {
             name: this.customer.name,
             code: this.customer.code,
+            group_type: this.customer.group_type,
             is_active: this.customer.is_active,
             country_id: this.country_value.id,
             region_id: this.region_value.id,
@@ -900,6 +893,7 @@ export default {
       }
     },
     edit(item) {
+      this.clearForm()
       this.$axios.get('/api/customer-show/' + item.id).then((result) => {
         this.listRegion()
         this.listAMS()
@@ -908,6 +902,7 @@ export default {
         this.customer.id = result.data.data.id
         this.customer.name = result.data.data.name
         this.customer.code = result.data.data.code
+        this.customer.group_type = result.data.data.group_type
         this.customer.is_active = result.data.data.is_active
         this.country_value = result.data.data.country
         this.region_value = result.data.data.country.region
@@ -954,6 +949,7 @@ export default {
       }
     },
     add() {
+      this.clearForm()
       this.modal_create = true
       this.area_ams.push({
         area: null,
@@ -1006,13 +1002,9 @@ export default {
       }
       this.customer.name = null
       this.customer.code = null
+      this.customer.group_type = null
       this.customer.is_active = null
-      this.errors.name = null
-      this.errors.code = null
-      this.errors.is_active = null
-      this.errors.country_id = null
-      this.errors.region_id = null
-      this.errors.area_ams = null
+      this.errors = []
     },
   },
 }

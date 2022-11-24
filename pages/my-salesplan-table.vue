@@ -47,7 +47,7 @@
                 aria-labelledby="filterdateLabel"
                 aria-hidden="true"
             >
-                <div class="modal-dialog modal-lg">
+                <div class="modal-dialog modal-xl">
                 <div class="modal-content">
                     <div class="modal-header text-center">
                     <h1 class="modal-title w-100" id="filterdateLabel">
@@ -58,7 +58,6 @@
                         class="btn-close"
                         data-bs-dismiss="modal"
                         aria-label="Close"
-                        @click="closeModal()"
                     ></button>
                     </div>
                     <form>
@@ -85,35 +84,19 @@
                             </div>
                         </div>
                         </div>
-                        
+
                         <!-- Cust, Prod -->
                         <div class="row">
                           <div class="col-lg-6">
                               <div class="mb-3">
                               <label for="" class="form-label">Customer</label>
-                              <select v-model="customer" class="form-select">
-                                  <option :value="null" disabled>Select Customer</option>
-                                  <option 
-                                  v-for="customer_options in customer_option" 
-                                  :value="customer_options.id" 
-                                  >
-                                  {{ customer_options.name }}
-                                  </option>
-                              </select>
+                              <multiselect v-model="customer" :options="customer_option" placeholder="Select Customer" label="name"></multiselect>
                               </div>
                           </div>
                           <div class="col-lg-6">
                               <div class="mb-3">
                                 <label for="" class="form-label">Product</label>
-                                <select v-model="product" class="form-select">
-                                    <option :value="null" disabled>Select Product</option>
-                                    <option 
-                                    v-for="product_options in product_option" 
-                                    :value="product_options.id" 
-                                    >
-                                    {{ product_options.name }}
-                                    </option>
-                                </select>
+                                <multiselect v-model="product" :options="product_option" placeholder="Select Product" label="name"></multiselect>
                               </div>
                           </div>
                         </div>
@@ -123,57 +106,25 @@
                           <div class="col-lg-3">
                             <div class="mb-3">
                                 <label for="" class="form-label">Aircraft Type</label>
-                                <select v-model="ac_type_id" class="form-select">
-                                    <option :value="null" disabled>Select AC Type</option>
-                                    <option 
-                                    v-for="ac_type_options in ac_type_option" 
-                                    :value="ac_type_options.id" 
-                                    >
-                                    {{ ac_type_options.name }}
-                                    </option>
-                                </select>
+                                <multiselect v-model="ac_type_id" :options="ac_type_option" placeholder="Select AC Type" label="name"></multiselect>
                               </div>
                           </div>
                           <div class="col-lg-3">
                             <div class="mb-3">
                                 <label for="" class="form-label">Engine</label>
-                                <select v-model="engine_id" class="form-select">
-                                    <option :value="null" disabled>Select Engine</option>
-                                    <option 
-                                    v-for="engine_options in engine_option" 
-                                    :value="engine_options.id" 
-                                    >
-                                    {{ engine_options.name }}
-                                    </option>
-                                </select>
+                                <multiselect v-model="engine_id" :options="engine_option" placeholder="Select Engine" label="name"></multiselect>
                               </div>
                           </div>
                           <div class="col-lg-3">
                             <div class="mb-3">
                                 <label for="" class="form-label">APU</label>
-                                <select v-model="apu_id" class="form-select">
-                                    <option :value="null" disabled>Select APU</option>
-                                    <option 
-                                    v-for="apu_options in apu_option" 
-                                    :value="apu_options.id" 
-                                    >
-                                    {{ apu_options.name }}
-                                    </option>
-                                </select>
+                                <multiselect v-model="apu_id" :options="apu_option" placeholder="Select APU" label="name"></multiselect>
                               </div>
                           </div>
                           <div class="col-lg-3">
                             <div class="mb-3">
                                 <label for="" class="form-label">Component</label>
-                                <select v-model="component_id" class="form-select">
-                                    <option :value="null" disabled>Select Component</option>
-                                    <option 
-                                    v-for="component_options in component_option" 
-                                    :value="component_options.id" 
-                                    >
-                                    {{ component_options.name }}
-                                    </option>
-                                </select>
+                                <multiselect v-model="component_id" :options="component_option" placeholder="Select Component" label="name"></multiselect>
                               </div>
                           </div>
                         </div>
@@ -183,36 +134,19 @@
                           <div class="col-lg-4">
                               <div class="mb-3">
                               <label for="" class="form-label">Registration</label>
-                              <select v-model="acReg" class="form-select">
-                                  <option :value="null" disabled>Select Registration</option>
-                                  <option 
-                                    v-for="registration_options in registration_option" 
-                                    :value="registration_options" 
-                                    >
-                                    {{ registration_options }}
-                                    </option>
-                              </select>
+                              <multiselect v-model="acReg" :options="registration_option" placeholder="Select Registration"></multiselect>
                               </div>
                           </div>
                           <div class="col-lg-4">
                               <div class="mb-3">
                               <label for="" class="form-label">Sales Type</label>
-                              <select v-model="other" class="form-select">
-                                  <option :value="null" disabled>Select Sales Type</option>
-                                  <option value="1">RKAP</option>
-                                  <option value="2">Additional</option>
-                              </select>
+                              <multiselect v-model="other" :options="sales_type_option" placeholder="Select Sales Type" label="name"></multiselect>
                               </div>
                           </div>
                           <div class="col-lg-4">
                               <div class="mb-3">
                               <label for="" class="form-label">Type</label>
-                              <select v-model="type" class="form-select">
-                                  <option :value="null" disabled>Select Type</option>
-                                  <option value="1">TMB Retail</option>
-                                  <option value="2">TMB Project</option>
-                                  <option value="3">PBTH</option>
-                              </select>
+                              <multiselect v-model="type" :options="type_multiselect_option" placeholder="Select Type" label="name"></multiselect>
                               </div>
                           </div>
                         </div>
@@ -222,43 +156,19 @@
                         <div class="col-lg-4">
                             <div class="mb-3">
                             <label for="" class="form-label">Level</label>
-                            <select v-model="level" class="form-select">
-                                <option :value="null" disabled>Select Level</option>
-                                <option value="1">Level 1</option>
-                                <option value="2">Level 2</option>
-                                <option value="3">Level 3</option>
-                                <option value="4">Level 4</option>
-                            </select>
+                            <multiselect v-model="level" :options="level_multiselect_option" placeholder="Select Level" label="name"></multiselect>
                             </div>
                         </div>
                         <div class="col-lg-4">
                             <div class="mb-3">
                             <label for="" class="form-label">Progress</label>
-                            <select v-model="progress" class="form-select">
-                                <option :value="null" disabled>Select Progress</option>
-                                <option value="1">10 %</option>
-                                <option value="2">20 %</option>
-                                <option value="3">30 %</option>
-                                <option value="4">40 %</option>
-                                <option value="5">50 %</option>
-                                <option value="6">60 %</option>
-                                <option value="7">70 %</option>
-                                <option value="8">80 %</option>
-                                <option value="9">90 %</option>
-                                <option value="10">100 %</option>
-                            </select>
+                            <multiselect v-model="progress" :options="progress_multiselect_option" placeholder="Select Progress" label="name"></multiselect>
                             </div>
                         </div>
                         <div class="col-lg-4">
                             <div class="mb-3">
                             <label for="" class="form-label">Status</label>
-                            <select v-model="status" class="form-select">
-                                <option :value="null" disabled>Select Status</option>
-                                <option value="1">Open</option>
-                                <option value="2">Closed</option>
-                                <option value="3">Close In</option>
-                                <option value="4">Cancel</option>
-                            </select>
+                            <multiselect v-model="status" :options="status_multiselect_option" placeholder="Select Status" label="name"></multiselect>
                             </div>
                         </div>
                         </div>
@@ -349,9 +259,9 @@
                             <label class="form-label fw-bold">Customer</label>
                             <select v-model="customer_id" class="form-select" :class="{ 'is-invalid': errors.customer_id }">
                                 <option :value="null" disabled>Select Customer</option>
-                                <option 
-                                v-for="customer_options in customer_option" 
-                                :value="customer_options.id" 
+                                <option
+                                v-for="customer_options in customer_option"
+                                :value="customer_options.id"
                                 :class="{
                                     'is-invalid': errors.customer_id,
                                 }"
@@ -371,9 +281,9 @@
                             <label class="form-label fw-bold">Product</label>
                             <select v-model="product_id" class="form-select" :class="{ 'is-invalid': errors.product_id }">
                                 <option :value="null" disabled>Select Product</option>
-                                <option 
-                                v-for="product_options in product_option" 
-                                :value="product_options.id" 
+                                <option
+                                v-for="product_options in product_option"
+                                :value="product_options.id"
                                 :class="{
                                     'is-invalid': errors.product_id,
                                 }"
@@ -396,9 +306,9 @@
                             <label class="form-label fw-bold">Maintenance</label>
                             <select v-model="maintenance_id" class="form-select" :class="{ 'is-invalid': errors.maintenance_id }">
                             <option :value="null" disabled>Select maintenance</option>
-                            <option 
-                                v-for="maintenance_options in maintenance_option" 
-                                :value="maintenance_options.id" 
+                            <option
+                                v-for="maintenance_options in maintenance_option"
+                                :value="maintenance_options.id"
                                 :class="{
                                 'is-invalid': errors.maintenance_id,
                                 }"
@@ -418,9 +328,9 @@
                             <label class="form-label fw-bold">Hangar</label>
                             <select v-model="hangar_id" class="form-select" :class="{ 'is-invalid': errors.hangar_id }">
                             <option :value="null" disabled>Select Hangar</option>
-                            <option 
-                                v-for="hangar_options in hangar_option" 
-                                :value="hangar_options.id" 
+                            <option
+                                v-for="hangar_options in hangar_option"
+                                :value="hangar_options.id"
                                 :class="{
                                 'is-invalid': errors.hangar_id,
                                 }"
@@ -443,9 +353,9 @@
                             <label class="form-label fw-bold">Aircraft Type</label>
                             <select v-model="ac_type_id" class="form-select" :class="{ 'is-invalid': errors.ac_type_id }">
                                 <option :value="null" disabled>Select Aircraft Type</option>
-                                <option 
-                                v-for="ac_type_options in ac_type_option" 
-                                :value="ac_type_options.id" 
+                                <option
+                                v-for="ac_type_options in ac_type_option"
+                                :value="ac_type_options.id"
                                 :class="{
                                     'is-invalid': errors.ac_type_id,
                                 }"
@@ -1261,28 +1171,66 @@ export default {
       engine_option: [],
       registration_option: [],
 
+      sales_type_option: [
+        {name: 'RKAP', value: 1},
+        {name: 'Additional', value: 2},
+      ],
+
+      type_multiselect_option: [
+        {name: 'TMB Retail', value: 1},
+        {name: 'TMB Project', value: 2},
+        {name: 'PBTH', value: 3},
+      ],
+
+      level_multiselect_option: [
+        {name: 'Level 1', value: 1},
+        {name: 'Level 2', value: 2},
+        {name: 'Level 3', value: 3},
+        {name: 'Level 4', value: 4},
+      ],
+
+      progress_multiselect_option: [
+        {name: '10%', value: 1},
+        {name: '20%', value: 2},
+        {name: '30%', value: 3},
+        {name: '40%', value: 4},
+        {name: '50%', value: 5},
+        {name: '60%', value: 6},
+        {name: '70%', value: 7},
+        {name: '80%', value: 8},
+        {name: '90%', value: 9},
+        {name: '100%', value: 10},
+      ],
+
+      status_multiselect_option: [
+        {name: 'Open', value: 1},
+        {name: 'Closed', value: 2},
+        {name: 'Close In', value: 3},
+        {name: 'Cancel', value: 4},
+      ],
+
       ac_reg: null,
       is_rkap: null,
       value: null,
       tat: null,
-      customer: null,
-      product: null,
-      acReg: null,
-      other: null,
+      customer: this.$cookies.get('customer'),
+      product: this.$cookies.get('product'),
+      acReg: this.$cookies.get('acReg'),
+      other: this.$cookies.get('other'),
       registration: null,
       transaction_type_id: null,
-      type: null,
-      level: null,
-      progress: null,
-      status: null,
-      start_date: null,
-      end_date: null,
+      type: this.$cookies.get('type'),
+      level: this.$cookies.get('level'),
+      progress: this.$cookies.get('progress'),
+      status: this.$cookies.get('status'),
+      start_date: this.$cookies.get('start_date'),
+      end_date: this.$cookies.get('end_date'),
 
-      ac_type_id: null,
+      ac_type_id: this.$cookies.get('ac_type_id'),
       ac_type_value: null,
-      engine_id: null,
-      component_id: null,
-      apu_id: null,
+      engine_id: this.$cookies.get('engine_id'),
+      component_id: this.$cookies.get('component_id'),
+      apu_id: this.$cookies.get('apu_id'),
 
       customer_id: null,
       customer_value: null,
@@ -1376,6 +1324,7 @@ export default {
     },
     listTable(paginate) {
       this.loading()
+      this.runCookie()
       paginate = paginate || `/api/sales-table`
       this.$axios
         .get(paginate, {
@@ -1386,18 +1335,18 @@ export default {
             paginate: this.paginate,
             start_date: this.start_date,
             end_date: this.end_date,
-            customer: this.customer,
-            product: this.product,
+            customer: this.customer == null ? null : this.customer.id,
+            product: this.product == null ? null : this.product.id,
             acReg: this.acReg,
-            ac_type_id: this.ac_type_id,
-            component_id: this.component_id,
-            apu_id: this.apu_id,
-            engine_id: this.engine_id,
-            other: this.other,
-            type: this.type,
-            progress: this.progress,
-            status: this.status,
-            level: this.level,
+            ac_type_id: this.ac_type_id == null ? null : this.ac_type_id.id,
+            component_id: this.component_id == null ? null : this.component_id.id,
+            apu_id: this.apu_id == null ? null : this.apu_id.id,
+            engine_id: this.engine_id == null ? null : this.engine_id.id,
+            other: this.other == null ? null : this.other.value,
+            type: this.type == null ? null : this.type.value,
+            progress: this.progress == null ? null : this.progress.value,
+            status: this.status == null ? null : this.status.value,
+            level: this.level == null ? null : this.level.value,
           },
         })
         .then((response) => {
@@ -1408,6 +1357,231 @@ export default {
           Swal.close()
         })
         .catch((error) => console.log(error))
+    },
+    runCookie() {
+      //start date
+      if(this.start_date) {
+          this.$cookies.set('start_date', this.start_date, {
+            path: '/',
+            maxAge: 60 * 60 * 24 * 7
+          })
+        } else {
+          this.$cookies.set('start_date', this.start_date, {
+            path: '/',
+            maxAge: 60 * 60 * 24 * 7
+          })
+        }
+      if(this.$cookies.get('start_date')) {
+          this.start_date = this.$cookies.get('start_date')
+        }
+
+      //end date
+      if(this.end_date) {
+          this.$cookies.set('end_date', this.end_date, {
+            path: '/',
+            maxAge: 60 * 60 * 24 * 7
+          })
+        } else {
+          this.$cookies.set('end_date', this.end_date, {
+            path: '/',
+            maxAge: 60 * 60 * 24 * 7
+           })
+        }
+      if(this.$cookies.get('end_date')) {
+          this.end_date = this.$cookies.get('end_date')
+        }
+
+      //customer
+      if(this.customer) {
+         this.$cookies.set('customer', this.customer, {
+            path: '/',
+            maxAge: 60 * 60 * 24 * 7
+          })
+        } else {
+          this.$cookies.set('customer', this.customer, {
+            path: '/',
+            maxAge: 60 * 60 * 24 * 7
+          })
+        }
+      if(this.$cookies.get('customer')) {
+          this.customer = this.$cookies.get('customer')
+        }
+
+      //product
+      if(this.product) {
+         this.$cookies.set('product', this.product, {
+            path: '/',
+            maxAge: 60 * 60 * 24 * 7
+          })
+        } else {
+          this.$cookies.set('product', this.product, {
+            path: '/',
+            maxAge: 60 * 60 * 24 * 7
+           })
+        }
+      if(this.$cookies.get('product')) {
+          this.product = this.$cookies.get('product')
+        }
+
+      //acReg
+      if(this.acReg) {
+         this.$cookies.set('acReg', this.acReg, {
+            path: '/',
+            maxAge: 60 * 60 * 24 * 7
+          })
+        } else {
+          this.$cookies.set('acReg', this.acReg, {
+             path: '/',
+             maxAge: 60 * 60 * 24 * 7
+           })
+        }
+      if(this.$cookies.get('acReg')) {
+          this.acReg = this.$cookies.get('acReg')
+        }
+
+      //ac_type_id
+      if(this.ac_type_id) {
+         this.$cookies.set('ac_type_id', this.ac_type_id, {
+            path: '/',
+            maxAge: 60 * 60 * 24 * 7
+          })
+        } else {
+          this.$cookies.set('ac_type_id', this.ac_type_id, {
+             path: '/',
+             maxAge: 60 * 60 * 24 * 7
+           })
+        }
+      if(this.$cookies.get('ac_type_id')) {
+          this.ac_type_id = this.$cookies.get('ac_type_id')
+        }
+
+      //component_id
+      if(this.component_id) {
+         this.$cookies.set('component_id', this.component_id, {
+            path: '/',
+            maxAge: 60 * 60 * 24 * 7
+          })
+        } else {
+          this.$cookies.set('component_id', this.component_id, {
+            path: '/',
+            maxAge: 60 * 60 * 24 * 7
+           })
+        }
+      if(this.$cookies.get('component_id')) {
+          this.component_id = this.$cookies.get('component_id')
+        }
+
+      //apu_id
+      if(this.apu_id) {
+         this.$cookies.set('apu_id', this.apu_id, {
+            path: '/',
+            maxAge: 60 * 60 * 24 * 7
+          })
+        } else {
+          this.$cookies.set('apu_id', this.apu_id, {
+             path: '/',
+             maxAge: 60 * 60 * 24 * 7
+           })
+        }
+      if(this.$cookies.get('apu_id')) {
+          this.apu_id = this.$cookies.get('apu_id')
+        }
+
+      //engine_id
+      if(this.engine_id) {
+         this.$cookies.set('engine_id', this.engine_id, {
+            path: '/',
+            maxAge: 60 * 60 * 24 * 7
+          })
+        } else {
+          this.$cookies.set('engine_id', this.engine_id, {
+             path: '/',
+             maxAge: 60 * 60 * 24 * 7
+           })
+        }
+      if(this.$cookies.get('engine_id')) {
+          this.engine_id = this.$cookies.get('engine_id')
+        }
+
+      //other
+      if(this.other) {
+         this.$cookies.set('other', this.other, {
+            path: '/',
+            maxAge: 60 * 60 * 24 * 7
+          })
+        } else {
+          this.$cookies.set('other', this.other, {
+             path: '/',
+             maxAge: 60 * 60 * 24 * 7
+           })
+        }
+      if(this.$cookies.get('other')) {
+          this.other = this.$cookies.get('other')
+        }
+
+      //type
+      if(this.type) {
+          this.$cookies.set('type', this.type, {
+            path: '/',
+            maxAge: 60 * 60 * 24 * 7
+          })
+        } else {
+          this.$cookies.set('type', this.type, {
+             path: '/',
+             maxAge: 60 * 60 * 24 * 7
+           })
+        }
+      if(this.$cookies.get('type')) {
+          this.type = this.$cookies.get('type')
+        }
+
+      //progress
+      if(this.progress) {
+         this.$cookies.set('progress', this.progress, {
+            path: '/',
+            maxAge: 60 * 60 * 24 * 7
+          })
+        } else {
+          this.$cookies.set('progress', this.progress, {
+             path: '/',
+             maxAge: 60 * 60 * 24 * 7
+           })
+        }
+      if(this.$cookies.get('progress')) {
+          this.progress = this.$cookies.get('progress')
+        }
+
+      //status
+      if(this.status) {
+         this.$cookies.set('status', this.status, {
+            path: '/',
+            maxAge: 60 * 60 * 24 * 7
+          })
+        } else {
+          this.$cookies.set('status', this.status, {
+             path: '/',
+             maxAge: 60 * 60 * 24 * 7
+           })
+        }
+      if(this.$cookies.get('status')) {
+          this.status = this.$cookies.get('status')
+        }
+
+      //level
+      if(this.level) {
+         this.$cookies.set('level', this.level, {
+            path: '/',
+            maxAge: 60 * 60 * 24 * 7
+          })
+        } else {
+          this.$cookies.set('level', this.level, {
+             path: '/',
+             maxAge: 60 * 60 * 24 * 7
+           })
+        }
+      if(this.$cookies.get('level')) {
+          this.level = this.$cookies.get('level')
+        }
     },
     listCustomer() {
       this.$axios
@@ -1567,6 +1741,7 @@ export default {
       this.clearForm()
     },
     clearForm() {
+      this.$cookies.removeAll()
       this.start_date = null
       this.end_date = null
       this.type = null
@@ -1637,7 +1812,7 @@ export default {
 
 @media (min-width:1281px)  {
   #cardStyle{
-    margin-left: -15px; 
+    margin-left: -15px;
     width: 258px;
   }
 

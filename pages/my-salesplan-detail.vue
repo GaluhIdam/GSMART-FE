@@ -1347,6 +1347,164 @@
                                   </div>
                                 </div>
 
+                                <!-- Slot Request -->
+                                <div class="col-lg-6 mt-5">
+                                  <h3>Slot Request</h3>
+                                  <p class="text-muted">
+                                    <small
+                                      >by <a href="#">{{ user }}</a></small
+                                    >
+                                  </p>
+                                </div>
+                                <div class="col-lg-6 mt-5 mb-20">
+                                  <div class="position-relative">
+                                    <div
+                                      class="position-absolute top-0 end-0"
+                                      v-if="sales_detail"
+                                    >
+                                    <!-- TODO Settingan button -->
+                                      <!-- <button
+                                        type="button"
+                                        class="btn btn-danger btn-sm"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#slotRequest"
+                                        v-if="
+                                          (level4[3].data != null &&
+                                            level4[3].status != false) ||
+                                          role == 'CBO' ||
+                                          role == 'Administrator'
+                                        "
+                                      >
+                                        Reject
+                                      </button>
+                                      <button
+                                        type="button"
+                                        class="btn btn-success btn-sm"
+                                        @click="slotConfirm()"
+                                        v-if="
+                                          (level4[3].data != null &&
+                                            level4[3].status != false) ||
+                                          role == 'CBO' ||
+                                          role == 'Administrator'
+                                        "
+                                      >
+                                        Approve
+                                      </button>
+                                      <span
+                                        class="btn btn-sm"
+                                        style="cursor: default"
+                                        id="textWaiting"
+                                        v-if="
+                                          level4[3].data != null &&
+                                          level4[3].status == 0 &&
+                                          role != 'CBO'
+                                        "
+                                        >Waiting for Approval
+                                      </span>
+                                      <span
+                                        class="btn btn-sm"
+                                        style="cursor: default"
+                                        id="textApproved"
+                                        v-if="
+                                          level4[3].status == 1 && role != 'CBO'
+                                        "
+                                      >
+                                        Approved by CBO
+                                      </span>
+                                      <button
+                                        type="button"
+                                        class="btn btn-info btn-sm"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#slotRequest"
+                                        v-if="
+                                          level4[3].data == null &&
+                                          level4[3].status == false &&
+                                          (role == 'AMS' ||
+                                            role == 'Administrator')
+                                        "
+                                      >
+                                        Request to CBO
+                                      </button> -->
+
+                                      <!-- Button tanpa config -->
+                                      <!-- TODO kasih sweetalert confim untuk reject hangar dan line -->
+                                      <!-- Kriim email ke AMS yang punya sales ini -->
+                                      <!-- Hangar dan line nya dihapus -->
+                                      <!-- button muncul ketika AMS sudah request hangar dan line -->
+                                      <!-- Button muncul hanya untuk role CBO dan Admin -->
+                                      <button
+                                        type="button"
+                                        class="btn btn-danger btn-sm"
+                                      >
+                                        Reject
+                                      </button>
+                                      <!-- TODO Approve hangar dan line -->
+                                      <!-- button muncul ketika AMS sudah request hangar dan line -->
+                                      <!-- Button muncul hanya untuk role CBO dan Admin -->
+                                      <button
+                                        type="button"
+                                        class="btn btn-success btn-sm"
+                                        @click="slotConfirm()"
+                                      >
+                                        Approve
+                                      </button>
+                                      <!-- TODO request line hangar ke CBO -->
+                                      <!-- Button muncul hanya untuk role AMS -->
+                                      <button
+                                        type="button"
+                                        class="btn btn-info btn-sm"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#slotRequest"
+                                      >
+                                        Request to CBO
+                                      </button>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="row" v-if="sales_detail">
+                                  <div class="col-lg-6">
+                                    <div class="mb-3">
+                                      <label>Hangar</label>
+                                      <input
+                                        type="text"
+                                        class="form-control form-control-solid"
+                                        v-model="sales_detail.location.id"
+                                        readonly
+                                      />
+                                    </div>
+                                  </div>
+                                  <div class="col-lg-6">
+                                    <div class="mb-3">
+                                      <label>Line Hangar Request</label>
+                                      <div class="row">
+                                        <div
+                                          class="col-12"
+                                          v-if="level2[1].data != null"
+                                        >
+                                          <input
+                                            type="text"
+                                            v-model="level2[1].data.line.name"
+                                            class="
+                                              form-control form-control-solid
+                                            "
+                                            readonly
+                                          />
+                                        </div>
+                                        <div class="col-12" v-else>
+                                          <input
+                                            type="text"
+                                            class="
+                                              form-control form-control-solid
+                                            "
+                                            readonly
+                                          />
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+
+
                                 <div
                                   class="text-center mt-5"
                                   v-if="
@@ -1830,153 +1988,6 @@
                                         </td>
                                       </tr>
                                     </table>
-                                  </div>
-                                </div>
-
-                                <!-- Slot Request -->
-                                <div class="col-lg-6 mt-5">
-                                  <h3>Slot Request</h3>
-                                  <p class="text-muted">
-                                    <small
-                                      >by <a href="#">{{ user }}</a></small
-                                    >
-                                  </p>
-                                </div>
-                                <div class="col-lg-6 mt-5 mb-20">
-                                  <div class="position-relative">
-                                    <div
-                                      class="position-absolute top-0 end-0"
-                                      v-if="sales_detail"
-                                    >
-                                      <button
-                                        type="button"
-                                        class="btn btn-success btn-sm"
-                                        @click="slotConfirm()"
-                                        v-if="
-                                          (level2[1].data != null &&
-                                            level2[1].status != false) ||
-                                          role == 'CBO' ||
-                                          role == 'Administrator'
-                                        "
-                                      >
-                                        Approve
-                                      </button>
-                                      <span
-                                        class="btn btn-sm"
-                                        style="cursor: default"
-                                        id="textWaiting"
-                                        v-if="
-                                          level2[1].data != null &&
-                                          level2[1].status == 0 &&
-                                          role != 'CBO'
-                                        "
-                                        >Waiting for Approval
-                                      </span>
-                                      <span
-                                        class="btn btn-sm"
-                                        style="cursor: default"
-                                        id="textApproved"
-                                        v-if="
-                                          level2[1].status == 1 && role != 'CBO'
-                                        "
-                                      >
-                                        Approved by CBO
-                                      </span>
-                                      <button
-                                        type="button"
-                                        class="btn btn-info btn-sm"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#slotRequest"
-                                        v-if="
-                                          level2[1].data == null &&
-                                          level2[1].status == false &&
-                                          (role == 'AMS' ||
-                                            role == 'Administrator')
-                                        "
-                                      >
-                                        Request to CBO
-                                      </button>
-                                    </div>
-                                  </div>
-                                </div>
-                                <div class="row" v-if="sales_detail">
-                                  <div class="col-lg-4">
-                                    <div class="mb-3">
-                                      <label>Hangar</label>
-                                      <input
-                                        type="text"
-                                        class="form-control form-control-solid"
-                                        v-model="sales_detail.location.id"
-                                        readonly
-                                      />
-                                    </div>
-                                    <div class="mb-3">
-                                      <label>Line Hangar Request</label>
-                                      <div class="row">
-                                        <div
-                                          class="col-12"
-                                          v-if="level2[1].data != null"
-                                        >
-                                          <input
-                                            type="text"
-                                            v-model="level2[1].data.line.name"
-                                            class="
-                                              form-control form-control-solid
-                                            "
-                                            readonly
-                                          />
-                                        </div>
-                                        <div class="col-12" v-else>
-                                          <input
-                                            type="text"
-                                            class="
-                                              form-control form-control-solid
-                                            "
-                                            readonly
-                                          />
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                  <div class="col-lg-4">
-                                    <div class="mb-3">
-                                      <label>Registration</label>
-                                      <input
-                                        type="text"
-                                        class="form-control form-control-solid"
-                                        v-model="sales_detail.registration"
-                                        readonly
-                                      />
-                                    </div>
-                                    <div class="mb-3">
-                                      <label>TAT</label>
-                                      <input
-                                        type="number"
-                                        class="form-control form-control-solid"
-                                        v-model="sales_detail.tat"
-                                        readonly
-                                      />
-                                    </div>
-                                  </div>
-                                  <div class="col-lg-4" v-if="sales_detail">
-                                    <div class="mb-3">
-                                      <label>Start Date</label>
-                                      <input
-                                        type="text"
-                                        class="form-control form-control-solid"
-                                        v-model="sales_detail.startDate"
-                                        readonly
-                                      />
-                                    </div>
-                                    <div class="mb-3">
-                                      <label>End Date</label>
-                                      <input
-                                        type="text"
-                                        class="form-control form-control-solid"
-                                        v-model="sales_detail.endDate"
-                                        readonly
-                                      />
-                                    </div>
                                   </div>
                                 </div>
 
@@ -3005,7 +3016,7 @@
                         <form v-if="sales_detail">
                           <div class="mb-3">
                             <label>To <span class="text-danger">*</span></label>
-                            <select v-model="user_id" class="form-select">
+                            <select v-model="user_id" class="form-select" :class="{ 'is-invalid': errors.user_id }">
                               <option :value="null" disabled>
                                 Select User
                               </option>
@@ -3018,33 +3029,45 @@
                                 {{ user_options.email }}
                               </option>
                             </select>
-                            <small class="text-muted"
-                              >Send notification to selected employee</small
+                            <span
+                              v-if="errors.user_id"
+                              class="error invalid-feedback"
+                              >{{ errors.user_id[0] }}</span
                             >
                           </div>
                           <div class="mb-3">
                             <label
                               >Hangar <span class="text-danger">*</span></label
                             >
-                            <input
-                              type="text"
-                              class="form-control form-control-solid"
-                              v-model="sales_detail.location.id"
-                              readonly
-                            />
+                            <select v-model="hangar_id" class="form-select" :class="{ 'is-invalid': errors.hangar_id }">
+                              <option :value="null" disabled>
+                                Select Hangar
+                              </option>
+                              <option
+                                v-for="hangar_options in hangar_option"
+                                :value="hangar_options.id"
+                              >
+                                {{ hangar_options.name }}
+                              </option>
+                            </select>
+                            <span
+                              v-if="errors.hangar_id"
+                              class="error invalid-feedback"
+                              >{{ errors.hangar_id[0] }}</span
+                            >
                           </div>
                           <div class="form-group mb-3">
                             <label for=""
                               >Line <span class="text-danger">*</span></label
                             >
-                            <select v-model="line_id" class="form-select">
+                            <select v-model="line_id" class="form-select" :class="{ 'is-invalid': errors.line_id }">
                               <option :value="null" disabled>
                                 Select Line
                               </option>
                               <option
                                 v-for="lines in line"
                                 v-if="
-                                  lines.hangar_id === sales_detail.location.id
+                                  lines.hangar_id === hangar_id
                                 "
                                 :value="lines.id"
                               >
@@ -3052,9 +3075,9 @@
                               </option>
                             </select>
                             <span
-                              v-if="errors.lines"
+                              v-if="errors.line_id"
                               class="error invalid-feedback"
-                              >{{ errors.lines[0] }}</span
+                              >{{ errors.line_id[0] }}</span
                             >
                           </div>
                           <div class="row mt-10">
@@ -3379,6 +3402,8 @@ export default {
         email: null,
         address: null,
         title: null,
+        hangar_id: null,
+        line_id: null,
         status: null,
         files: null,
         so_number: null,
@@ -3873,6 +3898,7 @@ export default {
       this.$axios
         .post(`api/sales-slot-request`, {
           sales_id: this.$route.query.id,
+          hangar_id: this.hangar_id,
           line_id: this.line_id,
           user_id: this.user_id,
           target_url: this.$route.fullPath,
@@ -3885,6 +3911,7 @@ export default {
         })
         .catch((error) => {
           if (error.response.status == 422) {
+            this.errors = error.response.data.errors
             toastr.error(error.response.data.message)
           } else if (error.response.status == 403) {
             toastr.error(error.response.data.message)
@@ -4017,30 +4044,37 @@ export default {
           }
         })
     },
+    // Upload Attachment RFQ or Email Request
     addFile1() {
       this.sequence = 2
       this.modal_upload = 1
     },
+    // Upload Attachment Workscope
     addFile2() {
       this.sequence = 3
       this.modal_upload = 2
     },
+    // Attachment of Financial Assesment Form (optional)
     addFile3() {
-      this.sequence = 4
+      this.sequence = 5
       this.modal_upload = 3
     },
+    // Attachment of Maintenance Proposal for Customer
     addFile4() {
-      this.sequence = 5
+      this.sequence = 6
       this.modal_upload = 4
     },
+    // Attachment of Profitability Analysis Form Signed
     addFile5() {
-      this.sequence = 6
+      this.sequence = 7
       this.modal_upload = 5
     },
+    // Attachment of Customer Approval (SOW Signed / Proposal Approved)
     addFile6() {
-      this.sequence = 7
+      this.sequence = 8
       this.modal_upload = 6
     },
+    // Attachment of WO/PO number Customer Document
     addFile7() {
       this.sequence = 9
       this.modal_upload = 7
@@ -4188,6 +4222,10 @@ export default {
     clearFormRequestSlot() {
       this.user_id = null
       this.line_id = null
+      this.hangar_id = null
+      this.errors.user_id = null
+      this.errors.line_id = null
+      this.errors.hangar_id = null
     },
     closeRequestSlot() {
       document.getElementById('close_modal_slot').click()

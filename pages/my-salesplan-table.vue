@@ -1525,7 +1525,6 @@ export default {
         .get('/api/sales-acreg')
         .then((response) => {
           this.registration_option = response.data.data
-          console.log(this.registration_option)
         })
         .catch((error) => {
           console.log(error)
@@ -1612,7 +1611,6 @@ export default {
       this.hangar_value = null
       this.aircraft_name_value = null
       this.value = null
-      // this.errors.prospect_id = null
       this.errors.customer_id = null
       this.errors.product_id = null
       this.errors.hangar_id = null

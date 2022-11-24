@@ -86,91 +86,138 @@
                         </div>
                         </div>
                         
-                        <!-- Cust, Prod, AC -->
+                        <!-- Cust, Prod -->
                         <div class="row">
-                        <div class="col-lg-4">
-                            <div class="mb-3">
-                            <label for="" class="form-label">Customer</label>
-                            <select v-model="customer" class="form-select">
-                                <option :value="null" disabled>Select Customer</option>
-                                <option 
-                                v-for="customer_options in customer_option" 
-                                :value="customer_options.id" 
-                                >
-                                {{ customer_options.name }}
-                                </option>
-                            </select>
-                            </div>
+                          <div class="col-lg-6">
+                              <div class="mb-3">
+                              <label for="" class="form-label">Customer</label>
+                              <select v-model="customer" class="form-select">
+                                  <option :value="null" disabled>Select Customer</option>
+                                  <option 
+                                  v-for="customer_options in customer_option" 
+                                  :value="customer_options.id" 
+                                  >
+                                  {{ customer_options.name }}
+                                  </option>
+                              </select>
+                              </div>
+                          </div>
+                          <div class="col-lg-6">
+                              <div class="mb-3">
+                                <label for="" class="form-label">Product</label>
+                                <select v-model="product" class="form-select">
+                                    <option :value="null" disabled>Select Product</option>
+                                    <option 
+                                    v-for="product_options in product_option" 
+                                    :value="product_options.id" 
+                                    >
+                                    {{ product_options.name }}
+                                    </option>
+                                </select>
+                              </div>
+                          </div>
                         </div>
-                        <div class="col-lg-4">
+
+                        <!-- AC, Eng, Apu, Comp -->
+                        <div class="row">
+                          <div class="col-lg-3">
                             <div class="mb-3">
-                            <label for="" class="form-label">Product</label>
-                            <select v-model="product" class="form-select">
-                                <option :value="null" disabled>Select Product</option>
-                                <option 
-                                v-for="product_options in product_option" 
-                                :value="product_options.id" 
-                                >
-                                {{ product_options.name }}
-                                </option>
-                            </select>
-                            </div>
-                        </div>
-                        <div class="col-lg-4">
+                                <label for="" class="form-label">Aircraft Type</label>
+                                <select v-model="ac_type_id" class="form-select">
+                                    <option :value="null" disabled>Select AC Type</option>
+                                    <option 
+                                    v-for="ac_type_options in ac_type_option" 
+                                    :value="ac_type_options.id" 
+                                    >
+                                    {{ ac_type_options.name }}
+                                    </option>
+                                </select>
+                              </div>
+                          </div>
+                          <div class="col-lg-3">
                             <div class="mb-3">
-                            <label for="" class="form-label">AC/ENG/APU/COMP</label>
-                            <select v-model="registration" class="form-select">
-                                <option :value="null" disabled>Select AC/ENG/APU/COMP</option>
-                                <!-- <option 
-                                v-for="product_options in product_option" 
-                                :value="product_options.id" 
-                                >
-                                {{ product_options.name }}
-                                </option> -->
-                            </select>
-                            </div>
-                        </div>
+                                <label for="" class="form-label">Engine</label>
+                                <select v-model="engine_id" class="form-select">
+                                    <option :value="null" disabled>Select Engine</option>
+                                    <option 
+                                    v-for="engine_options in engine_option" 
+                                    :value="engine_options.id" 
+                                    >
+                                    {{ engine_options.name }}
+                                    </option>
+                                </select>
+                              </div>
+                          </div>
+                          <div class="col-lg-3">
+                            <div class="mb-3">
+                                <label for="" class="form-label">APU</label>
+                                <select v-model="apu_id" class="form-select">
+                                    <option :value="null" disabled>Select APU</option>
+                                    <option 
+                                    v-for="apu_options in apu_option" 
+                                    :value="apu_options.id" 
+                                    >
+                                    {{ apu_options.name }}
+                                    </option>
+                                </select>
+                              </div>
+                          </div>
+                          <div class="col-lg-3">
+                            <div class="mb-3">
+                                <label for="" class="form-label">Component</label>
+                                <select v-model="component_id" class="form-select">
+                                    <option :value="null" disabled>Select Component</option>
+                                    <option 
+                                    v-for="component_options in component_option" 
+                                    :value="component_options.id" 
+                                    >
+                                    {{ component_options.name }}
+                                    </option>
+                                </select>
+                              </div>
+                          </div>
                         </div>
 
                         <!-- Reg, Sales Type, Type -->
                         <div class="row">
-                        <div class="col-lg-4">
-                            <div class="mb-3">
-                            <label for="" class="form-label">Registration</label>
-                            <select v-model="acReg" class="form-select">
-                                <option :value="null" disabled>Select Registration</option>
-                                <!-- <option 
-                                v-for="product_options in product_option" 
-                                :value="product_options.id" 
-                                >
-                                {{ product_options.name }}
-                                </option> -->
-                            </select>
-                            </div>
-                        </div>
-                        <div class="col-lg-4">
-                            <div class="mb-3">
-                            <label for="" class="form-label">Sales Type</label>
-                            <select v-model="other" class="form-select">
-                                <option :value="null" disabled>Select Sales Type</option>
-                                <option value="1">RKAP</option>
-                                <option value="2">Additional</option>
-                            </select>
-                            </div>
-                        </div>
-                        <div class="col-lg-4">
-                            <div class="mb-3">
-                            <label for="" class="form-label">Type</label>
-                            <select v-model="type" class="form-select">
-                                <option :value="null" disabled>Select Type</option>
-                                <option value="1">TMB Retail</option>
-                                <option value="2">TMB Project</option>
-                                <option value="3">PBTH</option>
-                            </select>
-                            </div>
-                        </div>
+                          <div class="col-lg-4">
+                              <div class="mb-3">
+                              <label for="" class="form-label">Registration</label>
+                              <select v-model="acReg" class="form-select">
+                                  <option :value="null" disabled>Select Registration</option>
+                                  <option 
+                                    v-for="registration_options in registration_option" 
+                                    :value="registration_options" 
+                                    >
+                                    {{ registration_options }}
+                                    </option>
+                              </select>
+                              </div>
+                          </div>
+                          <div class="col-lg-4">
+                              <div class="mb-3">
+                              <label for="" class="form-label">Sales Type</label>
+                              <select v-model="other" class="form-select">
+                                  <option :value="null" disabled>Select Sales Type</option>
+                                  <option value="1">RKAP</option>
+                                  <option value="2">Additional</option>
+                              </select>
+                              </div>
+                          </div>
+                          <div class="col-lg-4">
+                              <div class="mb-3">
+                              <label for="" class="form-label">Type</label>
+                              <select v-model="type" class="form-select">
+                                  <option :value="null" disabled>Select Type</option>
+                                  <option value="1">TMB Retail</option>
+                                  <option value="2">TMB Project</option>
+                                  <option value="3">PBTH</option>
+                              </select>
+                              </div>
+                          </div>
                         </div>
 
+                        <!-- Level, Progress, Status -->
                         <div class="row">
                         <div class="col-lg-4">
                             <div class="mb-3">
@@ -1209,7 +1256,10 @@ export default {
       customer_option: [],
       hangar_option: [],
       ac_type_option: [],
-      prospect_option: [],
+      component_option: [],
+      apu_option: [],
+      engine_option: [],
+      registration_option: [],
 
       ac_reg: null,
       is_rkap: null,
@@ -1230,9 +1280,9 @@ export default {
 
       ac_type_id: null,
       ac_type_value: null,
-
-      prospect_id: null,
-      prospect_value: null,
+      engine_id: null,
+      component_id: null,
+      apu_id: null,
 
       customer_id: null,
       customer_value: null,
@@ -1290,6 +1340,10 @@ export default {
     this.listMaintenance()
     this.listHangar()
     this.listACType()
+    this.listComponent()
+    this.listApu()
+    this.listEngine()
+    this.listRegistration()
   },
   methods: {
     directPage: debounce(function () {
@@ -1335,7 +1389,10 @@ export default {
             customer: this.customer,
             product: this.product,
             acReg: this.acReg,
-            registration: this.registration,
+            ac_type_id: this.ac_type_id,
+            component_id: this.component_id,
+            apu_id: this.apu_id,
+            engine_id: this.engine_id,
             other: this.other,
             type: this.type,
             progress: this.progress,
@@ -1418,6 +1475,62 @@ export default {
           console.log(error)
         })
     },
+    listComponent() {
+      this.$axios
+        .get('/api/component', {
+          params: {
+            order: 'created_at',
+            by: 'ASC',
+          },
+        })
+        .then((response) => {
+          this.component_option = response.data.data.data
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    },
+    listApu() {
+      this.$axios
+        .get('/api/apu', {
+          params: {
+            order: 'created_at',
+            by: 'ASC',
+          },
+        })
+        .then((response) => {
+          this.apu_option = response.data.data.data
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    },
+    listEngine() {
+      this.$axios
+        .get('/api/engine', {
+          params: {
+            order: 'created_at',
+            by: 'ASC',
+          },
+        })
+        .then((response) => {
+          this.engine_option = response.data.data.data
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    },
+    listRegistration() {
+      this.$axios
+        .get('/api/sales-acreg')
+        .then((response) => {
+          this.registration_option = response.data.data
+          console.log(this.registration_option)
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    },
 
     addSales() {
       this.loading()
@@ -1461,7 +1574,10 @@ export default {
       this.customer = null
       this.product = null
       this.acReg = null
-      this.registration = null
+      this.ac_type_id = null
+      this.component_id = null
+      this.apu_id = null
+      this.engine_id = null
       this.level = null
       this.other = null
       this.progress = null

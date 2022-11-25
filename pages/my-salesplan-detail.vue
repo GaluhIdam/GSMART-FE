@@ -131,7 +131,7 @@
                             Project: <b>{{ sales_detail.endDate }}</b> TAT:
                             <b>{{ sales_detail.tat }} Days</b> Progress:
                             <b>{{ sales_detail.progress }}%</b> Product:
-                            <b>{{ sales_detail.product.name }}</b> 
+                            <b>{{ sales_detail.product.name }}</b>
                             Location:
                             <b v-if="sales_detail.location == '-' || null">-</b>
                             <b v-else>{{ sales_detail.location.name }}</b>
@@ -624,7 +624,27 @@
                     aria-controls="reschedule-tab-pane"
                     aria-selected="false"
                   >
-                    Reschedule/Cancel
+                    Reschedule
+                  </button>
+                </li>
+                <li
+                  class="nav-item"
+                  role="presentation"
+                  v-if="
+                    role == 'AMS' || role == 'Administrator' || role == 'TPR'
+                  "
+                >
+                  <button
+                    class="nav-link"
+                    id="cancel-tab"
+                    data-bs-toggle="tab"
+                    data-bs-target="#cancel-tab-pane"
+                    type="button"
+                    role="tab"
+                    aria-controls="cancel-tab-pane"
+                    aria-selected="false"
+                  >
+                    Cancel
                   </button>
                 </li>
               </ul>
@@ -1437,6 +1457,7 @@
                                       <!-- button muncul ketika AMS sudah request hangar dan line -->
                                       <!-- Button muncul hanya untuk role CBO dan Admin -->
                                       <button
+                                        v-if="role == 'Administrator'"
                                         type="button"
                                         class="btn btn-danger btn-sm"
                                       >
@@ -1446,6 +1467,7 @@
                                       <!-- button muncul ketika AMS sudah request hangar dan line -->
                                       <!-- Button muncul hanya untuk role CBO dan Admin -->
                                       <button
+                                        v-if="role == 'Administrator'"
                                         type="button"
                                         class="btn btn-success btn-sm"
                                         @click="slotConfirm()"
@@ -2435,7 +2457,7 @@
                   </div>
                 </div>
 
-                <!-- Tab Reschedule/Cancel -->
+                <!-- Tab Reschedule -->
                 <div
                   class="tab-pane fade"
                   id="reschedule-tab-pane"
@@ -2448,38 +2470,6 @@
                   "
                 >
                   <div class="mt-5" v-if="sales_detail">
-                    <ul
-                      class="
-                        nav nav-tabs nav-line-tabs nav-line-tabs-2x
-                        mb-5
-                        fs-6
-                      "
-                    >
-                      <li class="nav-item">
-                        <a
-                          class="nav-link active"
-                          data-bs-toggle="tab"
-                          href="#kt_tab_pane_1"
-                          >Reschedule</a
-                        >
-                      </li>
-                      <li class="nav-item">
-                        <a
-                          class="nav-link"
-                          data-bs-toggle="tab"
-                          href="#kt_tab_pane_2"
-                          >Cancel</a
-                        >
-                      </li>
-                    </ul>
-
-                    <div class="tab-content" id="myTabContent">
-                      <!-- Reschedule Form -->
-                      <div
-                        class="tab-pane fade show active"
-                        id="kt_tab_pane_1"
-                        role="tabpanel"
-                      >
                         <form
                           @submit.prevent="salesReschedule"
                           v-if="sales_detail"
@@ -2585,74 +2575,73 @@
                             </button>
                           </div>
                         </form>
-                      </div>
-                      <!-- Cancel Form -->
-                      <div
-                        class="tab-pane fade show active"
-                        id="kt_tab_pane_2"
-                        role="tabpanel"
-                      >
-                        <form @submit.prevent="salesCancel">
-                          <div class="mb-3">
-                            <label class="form-label">Category</label>
-                            <div class="row mb-5">
-                              <div class="col">
-                                <div class="input-group mb-3">
-                                  <select v-model="category_id" class="form-select" :class="{ 'is-invalid': errors.category_id }">
-                                    <option :value="null" disabled>Select Category</option>
-                                    <option 
-                                      v-for="category_options in category_option" 
-                                      :value="category_options.id" 
-                                      :class="{
-                                        'is-invalid': errors.category_id,
-                                      }"
-                                    >
-                                      {{ category_options.name }}
-                                    </option>
-                                  </select>
-                                  <span
-                                    v-if="errors.category_id"
-                                    class="error invalid-feedback"
-                                  >
-                                    {{ errors.category_id[0] }}
-                                  </span>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="mb-3">
-                            <label class="form-label">Reason of Cancel</label>
-                            <textarea
-                              class="form-control"
-                              cols="30"
-                              rows="10"
-                              v-model="reason"
-                              :class="{ 'is-invalid': errors.reason }"
-                            ></textarea>
-                            <span
-                              v-if="errors.reason"
-                              class="error invalid-feedback"
-                            >
-                              {{ errors.reason[0] }}
-                            </span>
-                          </div>
-                          <div
-                            class="text-center mt-5"
-                            v-if="sales_detail.status === 'Open'"
-                          >
-                            <button
-                              type="submit"
-                              class="btn btn-primary"
-                              v-permission="['reject_sales']"
-                            >
-                              Confirm
-                            </button>
-                          </div>
-                        </form>
-                      </div>
-                    </div>
                   </div>
                 </div>
+
+                 <!-- Cancel Form -->
+                 <div
+                 class="tab-pane fade"
+                 id="cancel-tab-pane"
+                 role="tabpanel"
+               >
+                 <form @submit.prevent="salesCancel">
+                   <div class="mb-3 mt-5">
+                     <label class="form-label">Category</label>
+                     <div class="row mb-5">
+                       <div class="col">
+                         <div class="input-group mb-3">
+                           <select v-model="category_id" class="form-select" :class="{ 'is-invalid': errors.category_id }">
+                             <option :value="null" disabled>Select Category</option>
+                             <option
+                               v-for="category_options in category_option"
+                               :value="category_options.id"
+                               :class="{
+                                 'is-invalid': errors.category_id,
+                               }"
+                             >
+                               {{ category_options.name }}
+                             </option>
+                           </select>
+                           <span
+                             v-if="errors.category_id"
+                             class="error invalid-feedback"
+                           >
+                             {{ errors.category_id[0] }}
+                           </span>
+                         </div>
+                       </div>
+                     </div>
+                   </div>
+                   <div class="mb-3">
+                     <label class="form-label">Reason of Cancel</label>
+                     <textarea
+                       class="form-control"
+                       cols="30"
+                       rows="10"
+                       v-model="reason"
+                       :class="{ 'is-invalid': errors.reason }"
+                     ></textarea>
+                     <span
+                       v-if="errors.reason"
+                       class="error invalid-feedback"
+                     >
+                       {{ errors.reason[0] }}
+                     </span>
+                   </div>
+                   <div
+                     class="text-center mt-5"
+                     v-if="sales_detail_status == 'Open'"
+                   >
+                     <button
+                       type="submit"
+                       class="btn btn-primary"
+                       v-permission="['reject_sales']"
+                     >
+                       Confirm
+                     </button>
+                   </div>
+                 </form>
+               </div>
 
                 <!-- Modal Contact -->
                 <div
@@ -3421,6 +3410,7 @@ export default {
         user_id: null,
         category_id: null,
       },
+      sales_detail_status: null,
     }
   },
   mounted() {
@@ -3505,6 +3495,7 @@ export default {
         .get(`api/sales-show/${this.$route.query.id}`)
         .then((response) => {
           this.sales_detail = response.data.data.salesDetail
+          this.sales_detail_status = this.sales_detail.status
           this.customer_name = response.data.data.salesDetail.customer.name
           this.level4 = response.data.data.level4
           this.level3 = response.data.data.level3

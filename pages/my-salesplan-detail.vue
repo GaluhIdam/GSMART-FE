@@ -2464,10 +2464,6 @@
                   role="tabpanel"
                   aria-labelledby="reschedule-tab"
                   tabindex="0"
-                  v-if="
-                    role == 'Administrator' ||
-                    role == 'TPR'
-                  "
                 >
                   <div class="mt-5" v-if="sales_detail">
                         <form

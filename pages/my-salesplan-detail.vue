@@ -2491,7 +2491,7 @@
                             />
                           </div>
                           <div class="mb-3">
-                            <label class="form-label">CBO Date</label>
+                            <label class="form-label">Start Date</label>
                             <input
                               type="date"
                               class="form-control"
@@ -2507,7 +2507,7 @@
                             >
                           </div>
                           <div class="mb-3">
-                            <label class="form-label">End Date</label>
+                            <label class="form-label">Reschedule</label>
                             <input
                               type="date"
                               class="form-control"
@@ -2535,9 +2535,10 @@
                           <div class="mb-3">
                             <label class="form-label">Current Date</label>
                             <input
-                              type="date"
+                              type="text"
+                              disabled
                               class="form-control"
-                              v-model="current_date"
+                              v-model="current_date_reschedule"
                               :class="{
                                 'is-invalid': errors.current_date,
                               }"
@@ -3407,6 +3408,7 @@ export default {
         category_id: null,
       },
       sales_detail_status: null,
+      current_date_reschedule: null,
     }
   },
   mounted() {
@@ -3491,6 +3493,7 @@ export default {
         .get(`api/sales-show/${this.$route.query.id}`)
         .then((response) => {
           this.sales_detail = response.data.data.salesDetail
+          this.current_date_reschedule = this.sales_detail.startDate
           this.sales_detail_status = this.sales_detail.status
           this.customer_name = response.data.data.salesDetail.customer.name
           this.level4 = response.data.data.level4
@@ -3757,7 +3760,7 @@ export default {
               .put(`api/sales-reschedule/${this.$route.query.id}`, {
                 sales_id: this.$route.query.id,
                 hangar_id: this.sales_detail.location.id,
-                current_date: this.current_date,
+                current_date: this.current_date_reschedule,
                 start_date: this.sales_detail.start_date,
                 tat: this.sales_detail.tat,
               })

@@ -252,229 +252,228 @@
                       <!--end::Close-->
                       </div>
                       <div class="modal-body">
-                        <div class="row">
-                          <div class="col-lg-6">
-                            <div class="form-group mb-3">
-                                <input type="hidden" v-model="is_rkap" value="0" />
-                                <label class="form-label fw-bold">Customer</label>
-                                <select v-model="customer_id" class="form-select" :class="{ 'is-invalid': errors.customer_id }">
-                                    <option :value="null" disabled>Select Customer</option>
-                                    <option
-                                    v-for="customer_options in customer_option"
-                                    :value="customer_options.id"
-                                    :class="{
-                                        'is-invalid': errors.customer_id,
-                                    }"
-                                    >
-                                    {{ customer_options.name }}
-                                    </option>
-                                </select>
-                                <span
-                                v-if="errors.customer_id"
-                                class="error invalid-feedback"
-                                >{{ errors.customer_id[0] }}</span
-                                >
-                            </div>
-                          </div>
-                          <div class="col-lg-6">
-                            <div class="form-group mb-3">
-                                <label class="form-label fw-bold">Product</label>
-                                <select v-model="product_id" class="form-select" :class="{ 'is-invalid': errors.product_id }">
-                                    <option :value="null" disabled>Select Product</option>
-                                    <option
-                                    v-for="product_options in product_option"
-                                    :value="product_options.id"
-                                    :class="{
-                                        'is-invalid': errors.product_id,
-                                    }"
-                                    >
-                                    {{ product_options.name }}
-                                    </option>
-                                </select>
-                                <span
-                                v-if="errors.product_id"
-                                class="error invalid-feedback"
-                                >{{ errors.product_id[0] }}</span
-                                >
-                            </div>
-                          </div>
-                        </div>
-
-                        <div class="row">
-                          <div class="col-lg-6">
-                            <div class="form-group mb-3">
-                                <label class="form-label fw-bold">Maintenance</label>
-                                <select v-model="maintenance_id" class="form-select" :class="{ 'is-invalid': errors.maintenance_id }">
-                                  <option :value="null" disabled>Select maintenance</option>
-                                  <option
-                                      v-for="maintenance_options in maintenance_option"
-                                      :value="maintenance_options.id"
+                          <div class="row">
+                            <div class="col-lg-6">
+                              <div class="form-group mb-3">
+                                  <label class="form-label fw-bold">Customer</label>
+                                  <select v-model="customer_id" class="form-select" :class="{ 'is-invalid': errors.customer_id }">
+                                      <option :value="null" disabled>Select Customer</option>
+                                      <option
+                                      v-for="customer_options in customer_option"
+                                      :value="customer_options.id"
                                       :class="{
-                                      'is-invalid': errors.maintenance_id,
+                                          'is-invalid': errors.customer_id,
                                       }"
+                                      >
+                                      {{ customer_options.name }}
+                                      </option>
+                                  </select>
+                                  <span
+                                  v-if="errors.customer_id"
+                                  class="error invalid-feedback"
+                                  >{{ errors.customer_id[0] }}</span
                                   >
-                                      {{ maintenance_options.name }}
-                                  </option>
-                                </select>
-                                <span
-                                v-if="errors.maintenance_id"
-                                class="error invalid-feedback"
-                                >{{ errors.maintenance_id[0] }}</span
-                                >
+                              </div>
                             </div>
-                          </div>
-                          <div class="col-lg-6">
-                            <div class="form-group mb-3">
-                                <label class="form-label fw-bold">Hangar</label>
-                                <select v-model="hangar_id" class="form-select" :class="{ 'is-invalid': errors.hangar_id }">
-                                  <option :value="null" disabled>Select Hangar</option>
-                                  <option
-                                      v-for="hangar_options in hangar_option"
-                                      :value="hangar_options.id"
+                            <div class="col-lg-6">
+                              <div class="form-group mb-3">
+                                  <label class="form-label fw-bold">Product</label>
+                                  <select v-model="product_id" class="form-select" :class="{ 'is-invalid': errors.product_id }">
+                                      <option :value="null" disabled>Select Product</option>
+                                      <option
+                                      v-for="product_options in product_option"
+                                      :value="product_options.id"
                                       :class="{
-                                      'is-invalid': errors.hangar_id,
+                                          'is-invalid': errors.product_id,
                                       }"
+                                      >
+                                      {{ product_options.name }}
+                                      </option>
+                                  </select>
+                                  <span
+                                  v-if="errors.product_id"
+                                  class="error invalid-feedback"
+                                  >{{ errors.product_id[0] }}</span
                                   >
-                                      {{ hangar_options.name }}
-                                  </option>
-                                </select>
-                                <span
-                                v-if="errors.hangar_id"
-                                class="error invalid-feedback"
-                                >{{ errors.hangar_id[0] }}</span
-                                >
+                              </div>
                             </div>
                           </div>
-                        </div>
 
-                        <div class="row">
-                          <div class="col-lg-6">
-                            <div class="form-group mb-3">
-                                <label class="form-label fw-bold">Aircraft Type</label>
-                                <select v-model="ac_type_id" class="form-select" :class="{ 'is-invalid': errors.ac_type_id }">
-                                    <option :value="null" disabled>Select Aircraft Type</option>
+                          <div class="row">
+                            <div class="col-lg-6">
+                              <div class="form-group mb-3">
+                                  <label class="form-label fw-bold">Maintenance</label>
+                                  <select v-model="maintenance_id" class="form-select" :class="{ 'is-invalid': errors.maintenance_id }">
+                                    <option :value="null" disabled>Select maintenance</option>
                                     <option
-                                    v-for="ac_type_options in ac_type_option"
-                                    :value="ac_type_options.id"
-                                    :class="{
-                                        'is-invalid': errors.ac_type_id,
-                                    }"
+                                        v-for="maintenance_options in maintenance_option"
+                                        :value="maintenance_options.id"
+                                        :class="{
+                                        'is-invalid': errors.maintenance_id,
+                                        }"
                                     >
-                                    {{ ac_type_options.name }}
+                                        {{ maintenance_options.name }}
                                     </option>
-                                </select>
-                                <span
-                                v-if="errors.ac_type_id"
-                                class="error invalid-feedback"
-                                >{{ errors.ac_type_id[0] }}</span
-                                >
+                                  </select>
+                                  <span
+                                  v-if="errors.maintenance_id"
+                                  class="error invalid-feedback"
+                                  >{{ errors.maintenance_id[0] }}</span
+                                  >
+                              </div>
+                            </div>
+                            <div class="col-lg-6">
+                              <div class="form-group mb-3">
+                                  <label class="form-label fw-bold">Hangar</label>
+                                  <select v-model="hangar_id" class="form-select" :class="{ 'is-invalid': errors.hangar_id }">
+                                    <option :value="null" disabled>Select Hangar</option>
+                                    <option
+                                        v-for="hangar_options in hangar_option"
+                                        :value="hangar_options.id"
+                                        :class="{
+                                        'is-invalid': errors.hangar_id,
+                                        }"
+                                    >
+                                        {{ hangar_options.name }}
+                                    </option>
+                                  </select>
+                                  <span
+                                  v-if="errors.hangar_id"
+                                  class="error invalid-feedback"
+                                  >{{ errors.hangar_id[0] }}</span
+                                  >
+                              </div>
                             </div>
                           </div>
-                          <div class="col-lg-6">
-                            <div class="form-group mb-3">
-                                <label class="form-label fw-bold">Aircraft Registration</label>
-                                <input
-                                  required
-                                  type="text"
-                                  v-model="ac_reg"
-                                  class="form-control"
-                                  :class="{ 'is-invalid': errors.ac_reg }"
-                                />
-                                <span v-if="errors.ac_reg" class="error invalid-feedback">{{
-                                errors.ac_reg[0]
-                                }}</span>
-                            </div>
-                          </div>
-                        </div>
 
-                        <div class="row">
-                          <div class="col-lg-6">
-                            <div class="form-group mb-3">
-                                <label class="form-label fw-bold">Sales Plan</label>
-                                <input
+                          <div class="row">
+                            <div class="col-lg-6">
+                              <div class="form-group mb-3">
+                                  <label class="form-label fw-bold">Aircraft Type</label>
+                                  <select v-model="ac_type_id" class="form-select" :class="{ 'is-invalid': errors.ac_type_id }">
+                                      <option :value="null" disabled>Select Aircraft Type</option>
+                                      <option
+                                      v-for="ac_type_options in ac_type_option"
+                                      :value="ac_type_options.id"
+                                      :class="{
+                                          'is-invalid': errors.ac_type_id,
+                                      }"
+                                      >
+                                      {{ ac_type_options.name }}
+                                      </option>
+                                  </select>
+                                  <span
+                                  v-if="errors.ac_type_id"
+                                  class="error invalid-feedback"
+                                  >{{ errors.ac_type_id[0] }}</span
+                                  >
+                              </div>
+                            </div>
+                            <div class="col-lg-6">
+                              <div class="form-group mb-3">
+                                  <label class="form-label fw-bold">Aircraft Registration</label>
+                                  <input
+                                    required
+                                    type="text"
+                                    v-model="ac_reg"
+                                    class="form-control"
+                                    :class="{ 'is-invalid': errors.ac_reg }"
+                                  />
+                                  <span v-if="errors.ac_reg" class="error invalid-feedback">{{
+                                  errors.ac_reg[0]
+                                  }}</span>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <div class="col-lg-6">
+                              <div class="form-group mb-3">
+                                  <label class="form-label fw-bold">Sales Plan</label>
+                                  <input
+                                    required
+                                    type="number"
+                                    v-model="value"
+                                    class="form-control"
+                                    :class="{ 'is-invalid': errors.value }"
+                                  />
+                                  <span v-if="errors.value" class="error invalid-feedback">{{
+                                  errors.value[0]
+                                  }}</span>
+                              </div>
+                            </div>
+                            <div class="col-lg-6">
+                              <div class="form-group mb-3">
+                                  <label class="form-label fw-bold">Start Date</label>
+                                  <input
+                                    required
+                                    type="date"
+                                    v-model="start_date"
+                                    class="form-control"
+                                    :class="{ 'is-invalid': errors.start_date }"
+                                  />
+                                  <span
+                                  v-if="errors.start_date"
+                                  class="error invalid-feedback"
+                                  >{{ errors.start_date[0] }}</span
+                                  >
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <div class="col-lg-6">
+                              <div class="form-group mb-3">
+                                  <label class="form-label fw-bold">TAT</label>
+                                  <input
                                   required
                                   type="number"
-                                  v-model="value"
+                                  v-model="tat"
                                   class="form-control"
-                                  :class="{ 'is-invalid': errors.value }"
-                                />
-                                <span v-if="errors.value" class="error invalid-feedback">{{
-                                errors.value[0]
-                                }}</span>
+                                  :class="{ 'is-invalid': errors.tat }"
+                                  />
+                                  <span v-if="errors.tat" class="error invalid-feedback">{{
+                                  errors.tat[0]
+                                  }}</span>
+                              </div>
+                            </div>
+                            <div class="col-lg-6">
+                              <div class="form-group mb-3">
+                                  <label class="form-label fw-bold">Type</label>
+                                  <select v-model="transaction_type_id" class="form-select" :class="{ 'is-invalid': errors.transaction_type_id }">
+                                  <option :value="null" disabled>Select Type</option>
+                                  <option value="1">TMB Retail</option>
+                                  <option value="2">TMB Project</option>
+                                  </select>
+                                  <span v-if="errors.transaction_type_id" class="error invalid-feedback">{{
+                                  errors.transaction_type_id[0]
+                                  }}</span>
+                              </div>
                             </div>
                           </div>
-                          <div class="col-lg-6">
-                            <div class="form-group mb-3">
-                                <label class="form-label fw-bold">Start Date</label>
-                                <input
-                                  required
-                                  type="date"
-                                  v-model="start_date"
-                                  class="form-control"
-                                  :class="{ 'is-invalid': errors.start_date }"
-                                />
-                                <span
-                                v-if="errors.start_date"
-                                class="error invalid-feedback"
-                                >{{ errors.start_date[0] }}</span
+
+                          <div class="row mt-10">
+                              <div class="col">
+                                <button
+                                    type="button"
+                                    class="btn btn-light"
+                                    data-bs-dismiss="modal"
+                                    @click="closeAddSales()"
+                                    id="close_modal"
                                 >
-                            </div>
+                                    Back
+                                </button>
+                              </div>
+                              <div class="col d-flex justify-content-end">
+                                <button
+                                    type="button"
+                                    @click="addSales()"
+                                    class="btn btn-primary"
+                                >
+                                    Save
+                                </button>
+                              </div>
                           </div>
-                        </div>
-
-                        <div class="row">
-                          <div class="col-lg-6">
-                            <div class="form-group mb-3">
-                                <label class="form-label fw-bold">TAT</label>
-                                <input
-                                required
-                                type="number"
-                                v-model="tat"
-                                class="form-control"
-                                :class="{ 'is-invalid': errors.tat }"
-                                />
-                                <span v-if="errors.tat" class="error invalid-feedback">{{
-                                errors.tat[0]
-                                }}</span>
-                            </div>
-                          </div>
-                          <div class="col-lg-6">
-                            <div class="form-group mb-3">
-                                <label class="form-label fw-bold">Type</label>
-                                <select v-model="transaction_type_id" class="form-select" :class="{ 'is-invalid': errors.transaction_type_id }">
-                                <option :value="null" disabled>Select Type</option>
-                                <option value="1">TMB Retail</option>
-                                <option value="2">TMB Project</option>
-                                </select>
-                                <span v-if="errors.transaction_type_id" class="error invalid-feedback">{{
-                                errors.transaction_type_id[0]
-                                }}</span>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div class="row mt-10">
-                            <div class="col">
-                              <button
-                                  type="button"
-                                  class="btn btn-light"
-                                  data-bs-dismiss="modal"
-                                  @click="closeAddSales()"
-                                  id="close_modal"
-                              >
-                                  Back
-                              </button>
-                            </div>
-                            <div class="col d-flex justify-content-end">
-                              <button
-                                  type="submit"
-                                  @click="addSales()"
-                                  class="btn btn-primary"
-                              >
-                                  Save
-                              </button>
-                            </div>
-                        </div>
                       </div>
                   </div>
                 </div>
@@ -1231,6 +1230,7 @@ export default {
       end_date: this.$cookies.get('end_date'),
 
       ac_type_id: this.$cookies.get('ac_type_id'),
+      ac_type_id: null,
       ac_type_value: null,
       engine_id: this.$cookies.get('engine_id'),
       component_id: this.$cookies.get('component_id'),
@@ -1736,7 +1736,7 @@ export default {
       this.loading()
       this.$axios
         .post(`api/sales-create-tmb`, {
-          is_rkap: this.is_rkap,
+          is_rkap: 0,
           transaction_type_id: this.transaction_type_id,
           customer_id: this.customer_id,
           product_id: this.product_id,
@@ -1750,7 +1750,6 @@ export default {
         })
         .then((response) => {
           toastr.success(response.data.message)
-          this.list()
           this.listTable()
           Swal.close()
         })
@@ -1797,6 +1796,7 @@ export default {
       this.hangar_id = null
       this.ac_reg = null
       this.transaction_type_id = null
+      this.ac_type_id = null
       this.salesPlan = null
       this.tat = null
       this.start_date = null

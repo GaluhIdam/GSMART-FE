@@ -133,7 +133,7 @@
                             <b>{{ sales_detail.progress }}%</b> Product:
                             <b>{{ sales_detail.product.name }}</b> 
                             Location:
-                            <b v-if="sales_detail.location == '-'">-</b>
+                            <b v-if="sales_detail.location == '-' || null">-</b>
                             <b v-else>{{ sales_detail.location.name }}</b>
                             Maintenance:
                             <b>{{ sales_detail.maintenance.name }}</b>
@@ -545,7 +545,7 @@
               <div class="col-lg-2">
                 <p class="text-muted mt-5">Location</p>
                 <p>
-                  <b v-if="sales_detail.location == '-'">-</b>
+                  <b v-if="sales_detail.location == '-' || null">-</b>
                   <b v-else>{{ sales_detail.location.name }}</b>
                 </p>
                 <p class="text-muted mt-5">Product</p>

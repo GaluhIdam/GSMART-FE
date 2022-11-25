@@ -65,7 +65,7 @@
                       v-if="
                         sales_detail.type === 'TMB' &&
                         sales_detail.status === 'Open' &&
-                        role == 'TPR'
+                        role == 'TPR' || role == 'Administrator'
                       "
                     >
                       <i class="fa-solid fa-pen"></i> Edit Sales Plan
@@ -131,8 +131,11 @@
                             Project: <b>{{ sales_detail.endDate }}</b> TAT:
                             <b>{{ sales_detail.tat }} Days</b> Progress:
                             <b>{{ sales_detail.progress }}%</b> Product:
-                            <b>{{ sales_detail.product.name }}</b> Location:
-                            <b>{{ sales_detail.location.name }}</b> Maintenance:
+                            <b>{{ sales_detail.product.name }}</b> 
+                            Location:
+                            <b v-if="sales_detail.location == '-' || null">-</b>
+                            <b v-else>{{ sales_detail.location.name }}</b>
+                            Maintenance:
                             <b>{{ sales_detail.maintenance.name }}</b>
                           </div>
                         </div>
@@ -428,8 +431,8 @@
             <!-- End Card -->
 
             <!-- Detail -->
-            <div class="row">
-              <div class="col-lg-1 col-s" v-if="sales_detail">
+            <div class="row" v-if="sales_detail">
+              <div class="col-lg-1 col-s">
                 <p class="text-muted mt-5">Level</p>
                 <div v-if="sales_detail.level === 1">
                   <span class="badge badge-success"><b>Level 1</b></span>
@@ -457,7 +460,7 @@
                   <span class="badge badge-primary"><b>Closed</b></span>
                 </div>
               </div>
-              <div class="col-lg-1" v-if="sales_detail">
+              <div class="col-lg-1">
                 <p class="text-muted mt-5">Other</p>
                 <div v-if="sales_detail.other === 'RKAP'">
                   <span class="badge badge-info"><b>RKAP</b></span>
@@ -482,7 +485,7 @@
                   }}</span>
                 </div>
               </div>
-              <div class="col-lg-2" v-if="sales_detail">
+              <div class="col-lg-2">
                 <p class="text-muted mt-5">Progress</p>
                 <div v-if="sales_detail.progress === 10">
                   <span class="badge badge-danger">10 %</span>
@@ -515,43 +518,44 @@
                   <span class="badge badge-success">100 %</span>
                 </div>
                 <p class="text-muted mt-5">Month Sales</p>
-                <p v-if="sales_detail">
+                <p>
                   <b>{{ sales_detail.monthSales }}</b>
                 </p>
               </div>
               <div class="col-lg-1">
                 <p class="text-muted mt-5">TAT</p>
-                <p v-if="sales_detail">
+                <p>
                   <b>{{ sales_detail.tat }} Days</b>
                 </p>
                 <p class="text-muted mt-5">Years</p>
-                <p v-if="sales_detail">
+                <p>
                   <b>{{ sales_detail.year }}</b>
                 </p>
               </div>
               <div class="col-lg-2">
                 <p class="text-muted mt-5">Start Date Project</p>
-                <p v-if="sales_detail">
+                <p>
                   <b>{{ sales_detail.startDate }}</b>
                 </p>
                 <p class="text-muted mt-5">End Date Project</p>
-                <p v-if="sales_detail">
+                <p>
                   <b>{{ sales_detail.endDate }}</b>
                 </p>
               </div>
               <div class="col-lg-2">
                 <p class="text-muted mt-5">Location</p>
-                <p v-if="sales_detail">
-                  <b>{{ sales_detail.location.name }}</b>
+                <p>
+                  <b v-if="sales_detail.location == '-' || null">-</b>
+                  <b v-else>{{ sales_detail.location.name }}</b>
                 </p>
                 <p class="text-muted mt-5">Product</p>
-                <p v-if="sales_detail">
+                <p>
                   <b>{{ sales_detail.product.name }}</b>
                 </p>
               </div>
               <div class="col-lg-3">
                 <p class="text-muted mt-5">Maintenance</p>
-                <p v-if="sales_detail">
+                <p>
                   <b>{{ sales_detail.maintenance.name }}</b>
                 </p>
               </div>

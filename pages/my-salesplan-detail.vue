@@ -136,7 +136,7 @@
                             <b v-if="sales_detail.location == '-' || null">-</b>
                             <b v-else>{{ sales_detail.location.name }}</b>
                             Maintenance:
-                            <b>{{ sales_detail.maintenance.name }}</b>
+                            <b>{{ sales_detail.maintenance }}</b>
                           </div>
                         </div>
                       </form>
@@ -235,11 +235,6 @@
                                 v-for="maintenance_options in maintenance_option"
                                 :value="maintenance_options.id"
                               >
-                                <!-- <option
-                                v-for="maintenance_options in maintenance_option"
-                                :value="maintenance_options.id"
-                                :selected="maintenance_options.id = maintenance_id"
-                              > -->
                                 {{ maintenance_options.name }}
                               </option>
                             </select>
@@ -556,7 +551,7 @@
               <div class="col-lg-3">
                 <p class="text-muted mt-5">Maintenance</p>
                 <p>
-                  <b>{{ sales_detail.maintenance.name }}</b>
+                  <b>{{ sales_detail.maintenance }}</b>
                 </p>
               </div>
             </div>
@@ -1384,99 +1379,32 @@
                                   <div class="position-relative">
                                     <div
                                       class="position-absolute top-0 end-0"
-                                      v-if="sales_detail"
                                     >
-                                    <!-- TODO Settingan button -->
-                                      <!-- <button
-                                        type="button"
-                                        class="btn btn-danger btn-sm"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#slotRequest"
-                                        v-if="
-                                          (level4[3].data != null &&
-                                            level4[3].status != false) ||
-                                          role == 'CBO' ||
-                                          role == 'Administrator'
-                                        "
-                                      >
-                                        Reject
-                                      </button>
                                       <button
+                                        v-if="
+                                        level4[3].data != null &&
+                                        role == 'Administrator'"
                                         type="button"
-                                        class="btn btn-success btn-sm"
-                                        @click="slotConfirm()"
-                                        v-if="
-                                          (level4[3].data != null &&
-                                            level4[3].status != false) ||
-                                          role == 'CBO' ||
-                                          role == 'Administrator'
-                                        "
-                                      >
-                                        Approve
-                                      </button>
-                                      <span
-                                        class="btn btn-sm"
-                                        style="cursor: default"
-                                        id="textWaiting"
-                                        v-if="
-                                          level4[3].data != null &&
-                                          level4[3].status == 0 &&
-                                          role != 'CBO'
-                                        "
-                                        >Waiting for Approval
-                                      </span>
-                                      <span
-                                        class="btn btn-sm"
-                                        style="cursor: default"
-                                        id="textApproved"
-                                        v-if="
-                                          level4[3].status == 1 && role != 'CBO'
-                                        "
-                                      >
-                                        Approved by CBO
-                                      </span>
-                                      <button
-                                        type="button"
-                                        class="btn btn-info btn-sm"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#slotRequest"
-                                        v-if="
-                                          level4[3].data == null &&
-                                          level4[3].status == false &&
-                                          (role == 'AMS' ||
-                                            role == 'Administrator')
-                                        "
-                                      >
-                                        Request to CBO
-                                      </button> -->
-
-                                      <!-- Button tanpa config -->
-                                      <!-- TODO kasih sweetalert confim untuk reject hangar dan line -->
-                                      <!-- Kriim email ke AMS yang punya sales ini -->
-                                      <!-- Hangar dan line nya dihapus -->
-                                      <!-- button muncul ketika AMS sudah request hangar dan line -->
-                                      <!-- Button muncul hanya untuk role CBO dan Admin -->
-                                      <button
-                                        v-if="role == 'Administrator'"
-                                        type="button"
+                                        @click="slotReject()"
                                         class="btn btn-danger btn-sm"
                                       >
                                         Reject
                                       </button>
-                                      <!-- TODO Approve hangar dan line -->
-                                      <!-- button muncul ketika AMS sudah request hangar dan line -->
-                                      <!-- Button muncul hanya untuk role CBO dan Admin -->
                                       <button
-                                        v-if="role == 'Administrator'"
+                                        v-if="
+                                        level4[3].data != null &&
+                                        role == 'Administrator'
+                                        "
                                         type="button"
                                         class="btn btn-success btn-sm"
-                                        @click="slotConfirm()"
+                                        @click="slotApprove()"
                                       >
                                         Approve
                                       </button>
-                                      <!-- TODO request line hangar ke CBO -->
-                                      <!-- Button muncul hanya untuk role AMS -->
                                       <button
+                                        v-if="
+                                        level4[3].status == 0 &&
+                                        role == 'Administrator' || role == 'AMS'"
                                         type="button"
                                         class="btn btn-info btn-sm"
                                         data-bs-toggle="modal"
@@ -1487,14 +1415,14 @@
                                     </div>
                                   </div>
                                 </div>
-                                <div class="row" v-if="sales_detail">
+                                <div class="row">
                                   <div class="col-lg-6">
                                     <div class="mb-3">
                                       <label>Hangar</label>
                                       <input
                                         type="text"
                                         class="form-control form-control-solid"
-                                        v-model="sales_detail.location.id"
+                                        v-model="level4[3].data.hangar"
                                         readonly
                                       />
                                     </div>
@@ -1503,33 +1431,18 @@
                                     <div class="mb-3">
                                       <label>Line Hangar Request</label>
                                       <div class="row">
-                                        <div
-                                          class="col-12"
-                                          v-if="level2[1].data != null"
-                                        >
-                                          <input
-                                            type="text"
-                                            v-model="level2[1].data.line.name"
-                                            class="
-                                              form-control form-control-solid
-                                            "
-                                            readonly
-                                          />
-                                        </div>
-                                        <div class="col-12" v-else>
-                                          <input
-                                            type="text"
-                                            class="
-                                              form-control form-control-solid
-                                            "
-                                            readonly
-                                          />
-                                        </div>
+                                        <input
+                                          type="text"
+                                          class="
+                                            form-control form-control-solid
+                                          "
+                                          v-model="level4[3].data.line"
+                                          readonly
+                                        />
                                       </div>
                                     </div>
                                   </div>
                                 </div>
-
 
                                 <div
                                   class="text-center mt-5"
@@ -2105,20 +2018,6 @@
                                         v-model="status"
                                         value="2"
                                       />
-                                      <button
-                                        type="button"
-                                        class="btn btn-success btn-sm"
-                                        @click="closeSales()"
-                                        v-if="
-                                          sales_detail.status === 'Open' &&
-                                          sales_detail.level == 1 &&
-                                          level1[0].status == 1 &&
-                                          (role == 'Administrator' ||
-                                            role == 'TPC')
-                                        "
-                                      >
-                                        Closed Sales
-                                      </button>
                                       <button
                                         type="button"
                                         class="btn btn-primary btn-sm"
@@ -3497,13 +3396,14 @@ export default {
           this.level3 = response.data.data.level3
           this.level2 = response.data.data.level2
           this.level1 = response.data.data.level1
+          console.log(this.sales_detail)
           Swal.close()
         })
         .catch((error) => {
           if (error.response.status == 404) {
             toastr.error(error.response.data.message)
             this.$router.push({
-              name: 'my-salesplan',
+              name: 'my-salesplan-table',
             })
           }
         })
@@ -3612,7 +3512,6 @@ export default {
         .then((response) => {
           this.category_option = response.data.data
           Swal.close()
-          console.log(this.category_option)
         })
         .catch((error) => console.log(error))
     },
@@ -3685,7 +3584,32 @@ export default {
           }
         })
     },
-    slotConfirm() {
+    slotRequest() {
+      this.loading()
+      this.$axios
+        .post(`api/sales-request-hangar`, {
+          sales_id: this.$route.query.id,
+          hangar_id: this.hangar_id,
+          line_id: this.line_id,
+          user_id: this.user_id,
+          target_url: this.$route.fullPath,
+        })
+        .then((response) => {
+          toastr.success(response.data.message)
+          this.listDetail()
+          this.closeRequestSlot()
+          Swal.close()
+        })
+        .catch((error) => {
+          if (error.response.status == 422) {
+            this.errors = error.response.data.errors
+            toastr.error(error.response.data.message)
+          } else if (error.response.status == 403) {
+            toastr.error(error.response.data.message)
+          }
+        })
+    },
+    slotApprove() {
       Swal.fire({
         title: 'Are you sure?',
         text: "You won't be able to revert this!",
@@ -3698,8 +3622,10 @@ export default {
         .then((result) => {
           if (result.isConfirmed) {
             this.$axios
-              .put(`api/sales-slot-confirm/${this.$route.query.id}`, {
-                sales_id: this.$route.query.id,
+              .put(`api/sales-approve-hangar/${this.$route.query.id}`, {
+                is_approved: 1,
+                target_url: this.$route.fullPath,
+                // sales_id: this.$route.query.id,
               })
               .then((response) => {
                 toastr.success(response.data.message)
@@ -3710,7 +3636,39 @@ export default {
         })
         .catch((error) => {
           if (error.response.status == 422) {
-            this.errors = error.response.data.errors
+            toastr.error(error.response.data.message)
+          } else if (error.response.status == 403) {
+            toastr.error(error.response.data.message)
+          }
+        })
+    },
+    slotReject() {
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, Reject it!',
+      })
+        .then((result) => {
+          if (result.isConfirmed) {
+            this.$axios
+              .put(`api/sales-approve-hangar/${this.$route.query.id}`, {
+                is_approved: 0,
+                target_url: this.$route.fullPath,
+                // sales_id: this.$route.query.id,
+              })
+              .then((response) => {
+                toastr.success(response.data.message)
+                this.listDetail()
+                Swal.close()
+              })
+          }
+        })
+        .catch((error) => {
+          if (error.response.status == 422) {
             toastr.error(error.response.data.message)
           } else if (error.response.status == 403) {
             toastr.error(error.response.data.message)
@@ -3879,31 +3837,6 @@ export default {
           if (error.response.status == 422) {
             toastr.error(error.response.data.message)
             this.errors = error.response.data.errors
-          } else if (error.response.status == 403) {
-            toastr.error(error.response.data.message)
-          }
-        })
-    },
-    slotRequest() {
-      this.loading()
-      this.$axios
-        .post(`api/sales-slot-request`, {
-          sales_id: this.$route.query.id,
-          hangar_id: this.hangar_id,
-          line_id: this.line_id,
-          user_id: this.user_id,
-          target_url: this.$route.fullPath,
-        })
-        .then((response) => {
-          toastr.success(response.data.message)
-          this.listDetail()
-          this.closeRequestSlot()
-          Swal.close()
-        })
-        .catch((error) => {
-          if (error.response.status == 422) {
-            this.errors = error.response.data.errors
-            toastr.error(error.response.data.message)
           } else if (error.response.status == 403) {
             toastr.error(error.response.data.message)
           }

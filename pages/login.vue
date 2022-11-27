@@ -99,7 +99,6 @@ export default {
   },
   data() {
     return {
-      progress: null,
       login: {
         username: '',
         password: '',
@@ -112,21 +111,15 @@ export default {
 
   methods: {
     async loginUser() {
-      this.progress = false
-      if (this.progress == false) {
-        this.loading()
-      }
       await this.$auth
         .loginWith('local', {
           data: this.login,
-        })
+        }, this.loading())
         .then((result) => {
           this.$router.push('/')
-          this.progress = true
           this.successMessage()
         })
         .catch((error) => {
-          console.log(error.response)
           if (error.response.status == 401) {
             this.errors = 'Please insert your account!'
             this.failMessage()
@@ -135,6 +128,7 @@ export default {
     },
     loading() {
       Swal.fire({
+        timer: 3000,
         didOpen: () => {
           Swal.showLoading()
         },

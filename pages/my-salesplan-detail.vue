@@ -65,7 +65,7 @@
                       v-if="
                         sales_detail.type === 'TMB' &&
                         sales_detail.status === 'Open' &&
-                        role == 'TPR'
+                        role == 'TPR' || role == 'Administrator'
                       "
                     >
                       <i class="fa-solid fa-pen"></i> Edit Sales Plan
@@ -131,9 +131,12 @@
                             Project: <b>{{ sales_detail.endDate }}</b> TAT:
                             <b>{{ sales_detail.tat }} Days</b> Progress:
                             <b>{{ sales_detail.progress }}%</b> Product:
-                            <b>{{ sales_detail.product.name }}</b> Location:
-                            <b>{{ sales_detail.location.name }}</b> Maintenance:
-                            <b>{{ sales_detail.maintenance.name }}</b>
+                            <b>{{ sales_detail.product.name }}</b>
+                            Location:
+                            <b v-if="sales_detail.location == '-' || null">-</b>
+                            <b v-else>{{ sales_detail.location.name }}</b>
+                            Maintenance:
+                            <b>{{ sales_detail.maintenance }}</b>
                           </div>
                         </div>
                       </form>
@@ -232,11 +235,6 @@
                                 v-for="maintenance_options in maintenance_option"
                                 :value="maintenance_options.id"
                               >
-                                <!-- <option
-                                v-for="maintenance_options in maintenance_option"
-                                :value="maintenance_options.id"
-                                :selected="maintenance_options.id = maintenance_id"
-                              > -->
                                 {{ maintenance_options.name }}
                               </option>
                             </select>
@@ -428,8 +426,8 @@
             <!-- End Card -->
 
             <!-- Detail -->
-            <div class="row">
-              <div class="col-lg-1 col-s" v-if="sales_detail">
+            <div class="row" v-if="sales_detail">
+              <div class="col-lg-1 col-s">
                 <p class="text-muted mt-5">Level</p>
                 <div v-if="sales_detail.level === 1">
                   <span class="badge badge-success"><b>Level 1</b></span>
@@ -457,7 +455,7 @@
                   <span class="badge badge-primary"><b>Closed</b></span>
                 </div>
               </div>
-              <div class="col-lg-1" v-if="sales_detail">
+              <div class="col-lg-1">
                 <p class="text-muted mt-5">Other</p>
                 <div v-if="sales_detail.other === 'RKAP'">
                   <span class="badge badge-info"><b>RKAP</b></span>
@@ -482,7 +480,7 @@
                   }}</span>
                 </div>
               </div>
-              <div class="col-lg-2" v-if="sales_detail">
+              <div class="col-lg-2">
                 <p class="text-muted mt-5">Progress</p>
                 <div v-if="sales_detail.progress === 10">
                   <span class="badge badge-danger">10 %</span>
@@ -515,44 +513,45 @@
                   <span class="badge badge-success">100 %</span>
                 </div>
                 <p class="text-muted mt-5">Month Sales</p>
-                <p v-if="sales_detail">
+                <p>
                   <b>{{ sales_detail.monthSales }}</b>
                 </p>
               </div>
               <div class="col-lg-1">
                 <p class="text-muted mt-5">TAT</p>
-                <p v-if="sales_detail">
+                <p>
                   <b>{{ sales_detail.tat }} Days</b>
                 </p>
                 <p class="text-muted mt-5">Years</p>
-                <p v-if="sales_detail">
+                <p>
                   <b>{{ sales_detail.year }}</b>
                 </p>
               </div>
               <div class="col-lg-2">
                 <p class="text-muted mt-5">Start Date Project</p>
-                <p v-if="sales_detail">
+                <p>
                   <b>{{ sales_detail.startDate }}</b>
                 </p>
                 <p class="text-muted mt-5">End Date Project</p>
-                <p v-if="sales_detail">
+                <p>
                   <b>{{ sales_detail.endDate }}</b>
                 </p>
               </div>
               <div class="col-lg-2">
                 <p class="text-muted mt-5">Location</p>
-                <p v-if="sales_detail">
-                  <b>{{ sales_detail.location.name }}</b>
+                <p>
+                  <b v-if="sales_detail.location == '-' || null">-</b>
+                  <b v-else>{{ sales_detail.location.name }}</b>
                 </p>
                 <p class="text-muted mt-5">Product</p>
-                <p v-if="sales_detail">
+                <p>
                   <b>{{ sales_detail.product.name }}</b>
                 </p>
               </div>
               <div class="col-lg-3">
                 <p class="text-muted mt-5">Maintenance</p>
-                <p v-if="sales_detail">
-                  <b>{{ sales_detail.maintenance.name }}</b>
+                <p>
+                  <b>{{ sales_detail.maintenance }}</b>
                 </p>
               </div>
             </div>
@@ -620,7 +619,27 @@
                     aria-controls="reschedule-tab-pane"
                     aria-selected="false"
                   >
-                    Reschedule/Cancel
+                    Reschedule
+                  </button>
+                </li>
+                <li
+                  class="nav-item"
+                  role="presentation"
+                  v-if="
+                    role == 'AMS' || role == 'Administrator' || role == 'TPR'
+                  "
+                >
+                  <button
+                    class="nav-link"
+                    id="cancel-tab"
+                    data-bs-toggle="tab"
+                    data-bs-target="#cancel-tab-pane"
+                    type="button"
+                    role="tab"
+                    aria-controls="cancel-tab-pane"
+                    aria-selected="false"
+                  >
+                    Cancel
                   </button>
                 </li>
               </ul>
@@ -1347,6 +1366,102 @@
                                   </div>
                                 </div>
 
+                                <!-- Slot Request -->
+                                <div class="col-lg-6 mt-5">
+                                  <h3>Slot Request</h3>
+                                  <p class="text-muted">
+                                    <small
+                                      >by <a href="#">{{ user }}</a></small
+                                    >
+                                  </p>
+                                </div>
+                                <div class="col-lg-6 mt-5 mb-20">
+                                  <div class="position-relative">
+                                    <div
+                                      class="position-absolute top-0 end-0"
+                                    >
+                                      <button
+                                        v-if="
+                                        level4[3].data != null &&
+                                        role == 'Administrator'"
+                                        type="button"
+                                        @click="slotReject()"
+                                        class="btn btn-danger btn-sm"
+                                      >
+                                        Reject
+                                      </button>
+                                      <button
+                                        v-if="
+                                        level4[3].data != null &&
+                                        role == 'Administrator'
+                                        "
+                                        type="button"
+                                        class="btn btn-success btn-sm"
+                                        @click="slotApprove()"
+                                      >
+                                        Approve
+                                      </button>
+                                      <button
+                                        v-if="
+                                        level4[3].status == 0 &&
+                                        role == 'Administrator' || role == 'AMS'"
+                                        type="button"
+                                        class="btn btn-info btn-sm"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#slotRequest"
+                                      >
+                                        Request to CBO
+                                      </button>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="row">
+                                  <div class="col-lg-6">
+                                    <div class="mb-3">
+                                      <label>Hangar</label>
+                                      <div v-if="level4[3].data != null">
+                                        <input
+                                          type="text"
+                                          class="form-control form-control-solid"
+                                          v-model="level4[3].data.hangar"
+                                          readonly
+                                        />
+                                      </div>
+                                      <div v-else>
+                                        <input
+                                          type="text"
+                                          class="form-control form-control-solid"
+                                          value = "-"
+                                          readonly
+                                        />
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="col-lg-6">
+                                    <div class="mb-3">
+                                      <label>Line Hangar Request</label>
+                                      <div class="row">
+                                        <div v-if="level4[3].data != null">
+                                          <input
+                                            type="text"
+                                            class=" form-control form-control-solid"
+                                            v-model="level4[3].data.line"
+                                            readonly
+                                          />
+                                        </div>
+                                        <div v-else>
+                                          <input
+                                            type="text"
+                                            value = "-"
+                                            class=" form-control form-control-solid"
+                                            readonly
+                                          />
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+
                                 <div
                                   class="text-center mt-5"
                                   v-if="
@@ -1833,153 +1948,6 @@
                                   </div>
                                 </div>
 
-                                <!-- Slot Request -->
-                                <div class="col-lg-6 mt-5">
-                                  <h3>Slot Request</h3>
-                                  <p class="text-muted">
-                                    <small
-                                      >by <a href="#">{{ user }}</a></small
-                                    >
-                                  </p>
-                                </div>
-                                <div class="col-lg-6 mt-5 mb-20">
-                                  <div class="position-relative">
-                                    <div
-                                      class="position-absolute top-0 end-0"
-                                      v-if="sales_detail"
-                                    >
-                                      <button
-                                        type="button"
-                                        class="btn btn-success btn-sm"
-                                        @click="slotConfirm()"
-                                        v-if="
-                                          (level2[1].data != null &&
-                                            level2[1].status != false) ||
-                                          role == 'CBO' ||
-                                          role == 'Administrator'
-                                        "
-                                      >
-                                        Approve
-                                      </button>
-                                      <span
-                                        class="btn btn-sm"
-                                        style="cursor: default"
-                                        id="textWaiting"
-                                        v-if="
-                                          level2[1].data != null &&
-                                          level2[1].status == 0 &&
-                                          role != 'CBO'
-                                        "
-                                        >Waiting for Approval
-                                      </span>
-                                      <span
-                                        class="btn btn-sm"
-                                        style="cursor: default"
-                                        id="textApproved"
-                                        v-if="
-                                          level2[1].status == 1 && role != 'CBO'
-                                        "
-                                      >
-                                        Approved by CBO
-                                      </span>
-                                      <button
-                                        type="button"
-                                        class="btn btn-info btn-sm"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#slotRequest"
-                                        v-if="
-                                          level2[1].data == null &&
-                                          level2[1].status == false &&
-                                          (role == 'AMS' ||
-                                            role == 'Administrator')
-                                        "
-                                      >
-                                        Request to CBO
-                                      </button>
-                                    </div>
-                                  </div>
-                                </div>
-                                <div class="row" v-if="sales_detail">
-                                  <div class="col-lg-4">
-                                    <div class="mb-3">
-                                      <label>Hangar</label>
-                                      <input
-                                        type="text"
-                                        class="form-control form-control-solid"
-                                        v-model="sales_detail.location.id"
-                                        readonly
-                                      />
-                                    </div>
-                                    <div class="mb-3">
-                                      <label>Line Hangar Request</label>
-                                      <div class="row">
-                                        <div
-                                          class="col-12"
-                                          v-if="level2[1].data != null"
-                                        >
-                                          <input
-                                            type="text"
-                                            v-model="level2[1].data.line.name"
-                                            class="
-                                              form-control form-control-solid
-                                            "
-                                            readonly
-                                          />
-                                        </div>
-                                        <div class="col-12" v-else>
-                                          <input
-                                            type="text"
-                                            class="
-                                              form-control form-control-solid
-                                            "
-                                            readonly
-                                          />
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                  <div class="col-lg-4">
-                                    <div class="mb-3">
-                                      <label>Registration</label>
-                                      <input
-                                        type="text"
-                                        class="form-control form-control-solid"
-                                        v-model="sales_detail.registration"
-                                        readonly
-                                      />
-                                    </div>
-                                    <div class="mb-3">
-                                      <label>TAT</label>
-                                      <input
-                                        type="number"
-                                        class="form-control form-control-solid"
-                                        v-model="sales_detail.tat"
-                                        readonly
-                                      />
-                                    </div>
-                                  </div>
-                                  <div class="col-lg-4" v-if="sales_detail">
-                                    <div class="mb-3">
-                                      <label>Start Date</label>
-                                      <input
-                                        type="text"
-                                        class="form-control form-control-solid"
-                                        v-model="sales_detail.startDate"
-                                        readonly
-                                      />
-                                    </div>
-                                    <div class="mb-3">
-                                      <label>End Date</label>
-                                      <input
-                                        type="text"
-                                        class="form-control form-control-solid"
-                                        v-model="sales_detail.endDate"
-                                        readonly
-                                      />
-                                    </div>
-                                  </div>
-                                </div>
-
                                 <div
                                   class="text-center mt-5"
                                   v-if="
@@ -2068,20 +2036,6 @@
                                         v-model="status"
                                         value="2"
                                       />
-                                      <button
-                                        type="button"
-                                        class="btn btn-success btn-sm"
-                                        @click="closeSales()"
-                                        v-if="
-                                          sales_detail.status === 'Open' &&
-                                          sales_detail.level == 1 &&
-                                          level1[0].status == 1 &&
-                                          (role == 'Administrator' ||
-                                            role == 'TPC')
-                                        "
-                                      >
-                                        Closed Sales
-                                      </button>
                                       <button
                                         type="button"
                                         class="btn btn-primary btn-sm"
@@ -2420,51 +2374,15 @@
                   </div>
                 </div>
 
-                <!-- Tab Reschedule/Cancel -->
+                <!-- Tab Reschedule -->
                 <div
                   class="tab-pane fade"
                   id="reschedule-tab-pane"
                   role="tabpanel"
                   aria-labelledby="reschedule-tab"
                   tabindex="0"
-                  v-if="
-                    role == 'Administrator' ||
-                    role == 'TPR'
-                  "
                 >
                   <div class="mt-5" v-if="sales_detail">
-                    <ul
-                      class="
-                        nav nav-tabs nav-line-tabs nav-line-tabs-2x
-                        mb-5
-                        fs-6
-                      "
-                    >
-                      <li class="nav-item">
-                        <a
-                          class="nav-link active"
-                          data-bs-toggle="tab"
-                          href="#kt_tab_pane_1"
-                          >Reschedule</a
-                        >
-                      </li>
-                      <li class="nav-item">
-                        <a
-                          class="nav-link"
-                          data-bs-toggle="tab"
-                          href="#kt_tab_pane_2"
-                          >Cancel</a
-                        >
-                      </li>
-                    </ul>
-
-                    <div class="tab-content" id="myTabContent">
-                      <!-- Reschedule Form -->
-                      <div
-                        class="tab-pane fade show active"
-                        id="kt_tab_pane_1"
-                        role="tabpanel"
-                      >
                         <form
                           @submit.prevent="salesReschedule"
                           v-if="sales_detail"
@@ -2490,7 +2408,7 @@
                             />
                           </div>
                           <div class="mb-3">
-                            <label class="form-label">CBO Date</label>
+                            <label class="form-label">Start Date</label>
                             <input
                               type="date"
                               class="form-control"
@@ -2506,7 +2424,7 @@
                             >
                           </div>
                           <div class="mb-3">
-                            <label class="form-label">End Date</label>
+                            <label class="form-label">Reschedule</label>
                             <input
                               type="date"
                               class="form-control"
@@ -2534,9 +2452,10 @@
                           <div class="mb-3">
                             <label class="form-label">Current Date</label>
                             <input
-                              type="date"
+                              type="text"
+                              disabled
                               class="form-control"
-                              v-model="current_date"
+                              v-model="current_date_reschedule"
                               :class="{
                                 'is-invalid': errors.current_date,
                               }"
@@ -2570,74 +2489,73 @@
                             </button>
                           </div>
                         </form>
-                      </div>
-                      <!-- Cancel Form -->
-                      <div
-                        class="tab-pane fade show active"
-                        id="kt_tab_pane_2"
-                        role="tabpanel"
-                      >
-                        <form @submit.prevent="salesCancel">
-                          <div class="mb-3">
-                            <label class="form-label">Category</label>
-                            <div class="row mb-5">
-                              <div class="col">
-                                <div class="input-group mb-3">
-                                  <select v-model="category_id" class="form-select" :class="{ 'is-invalid': errors.category_id }">
-                                    <option :value="null" disabled>Select Category</option>
-                                    <option 
-                                      v-for="category_options in category_option" 
-                                      :value="category_options.id" 
-                                      :class="{
-                                        'is-invalid': errors.category_id,
-                                      }"
-                                    >
-                                      {{ category_options.name }}
-                                    </option>
-                                  </select>
-                                  <span
-                                    v-if="errors.category_id"
-                                    class="error invalid-feedback"
-                                  >
-                                    {{ errors.category_id[0] }}
-                                  </span>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="mb-3">
-                            <label class="form-label">Reason of Cancel</label>
-                            <textarea
-                              class="form-control"
-                              cols="30"
-                              rows="10"
-                              v-model="reason"
-                              :class="{ 'is-invalid': errors.reason }"
-                            ></textarea>
-                            <span
-                              v-if="errors.reason"
-                              class="error invalid-feedback"
-                            >
-                              {{ errors.reason[0] }}
-                            </span>
-                          </div>
-                          <div
-                            class="text-center mt-5"
-                            v-if="sales_detail.status === 'Open'"
-                          >
-                            <button
-                              type="submit"
-                              class="btn btn-primary"
-                              v-permission="['reject_sales']"
-                            >
-                              Confirm
-                            </button>
-                          </div>
-                        </form>
-                      </div>
-                    </div>
                   </div>
                 </div>
+
+                 <!-- Cancel Form -->
+                 <div
+                 class="tab-pane fade"
+                 id="cancel-tab-pane"
+                 role="tabpanel"
+               >
+                 <form @submit.prevent="salesCancel">
+                   <div class="mb-3 mt-5">
+                     <label class="form-label">Category</label>
+                     <div class="row mb-5">
+                       <div class="col">
+                         <div class="input-group mb-3">
+                           <select v-model="category_id" class="form-select" :class="{ 'is-invalid': errors.category_id }">
+                             <option :value="null" disabled>Select Category</option>
+                             <option
+                               v-for="category_options in category_option"
+                               :value="category_options.id"
+                               :class="{
+                                 'is-invalid': errors.category_id,
+                               }"
+                             >
+                               {{ category_options.name }}
+                             </option>
+                           </select>
+                           <span
+                             v-if="errors.category_id"
+                             class="error invalid-feedback"
+                           >
+                             {{ errors.category_id[0] }}
+                           </span>
+                         </div>
+                       </div>
+                     </div>
+                   </div>
+                   <div class="mb-3">
+                     <label class="form-label">Reason of Cancel</label>
+                     <textarea
+                       class="form-control"
+                       cols="30"
+                       rows="10"
+                       v-model="reason"
+                       :class="{ 'is-invalid': errors.reason }"
+                     ></textarea>
+                     <span
+                       v-if="errors.reason"
+                       class="error invalid-feedback"
+                     >
+                       {{ errors.reason[0] }}
+                     </span>
+                   </div>
+                   <div
+                     class="text-center mt-5"
+                     v-if="sales_detail_status == 'Open'"
+                   >
+                     <button
+                       type="submit"
+                       class="btn btn-primary"
+                       v-permission="['reject_sales']"
+                     >
+                       Confirm
+                     </button>
+                   </div>
+                 </form>
+               </div>
 
                 <!-- Modal Contact -->
                 <div
@@ -3005,7 +2923,7 @@
                         <form v-if="sales_detail">
                           <div class="mb-3">
                             <label>To <span class="text-danger">*</span></label>
-                            <select v-model="user_id" class="form-select">
+                            <select v-model="user_id" class="form-select" :class="{ 'is-invalid': errors.user_id }">
                               <option :value="null" disabled>
                                 Select User
                               </option>
@@ -3018,33 +2936,45 @@
                                 {{ user_options.email }}
                               </option>
                             </select>
-                            <small class="text-muted"
-                              >Send notification to selected employee</small
+                            <span
+                              v-if="errors.user_id"
+                              class="error invalid-feedback"
+                              >{{ errors.user_id[0] }}</span
                             >
                           </div>
                           <div class="mb-3">
                             <label
                               >Hangar <span class="text-danger">*</span></label
                             >
-                            <input
-                              type="text"
-                              class="form-control form-control-solid"
-                              v-model="sales_detail.location.id"
-                              readonly
-                            />
+                            <select v-model="hangar_id" class="form-select" :class="{ 'is-invalid': errors.hangar_id }">
+                              <option :value="null" disabled>
+                                Select Hangar
+                              </option>
+                              <option
+                                v-for="hangar_options in hangar_option"
+                                :value="hangar_options.id"
+                              >
+                                {{ hangar_options.name }}
+                              </option>
+                            </select>
+                            <span
+                              v-if="errors.hangar_id"
+                              class="error invalid-feedback"
+                              >{{ errors.hangar_id[0] }}</span
+                            >
                           </div>
                           <div class="form-group mb-3">
                             <label for=""
                               >Line <span class="text-danger">*</span></label
                             >
-                            <select v-model="line_id" class="form-select">
+                            <select v-model="line_id" class="form-select" :class="{ 'is-invalid': errors.line_id }">
                               <option :value="null" disabled>
                                 Select Line
                               </option>
                               <option
                                 v-for="lines in line"
                                 v-if="
-                                  lines.hangar_id === sales_detail.location.id
+                                  lines.hangar_id === hangar_id
                                 "
                                 :value="lines.id"
                               >
@@ -3052,9 +2982,9 @@
                               </option>
                             </select>
                             <span
-                              v-if="errors.lines"
+                              v-if="errors.line_id"
                               class="error invalid-feedback"
-                              >{{ errors.lines[0] }}</span
+                              >{{ errors.line_id[0] }}</span
                             >
                           </div>
                           <div class="row mt-10">
@@ -3379,6 +3309,8 @@ export default {
         email: null,
         address: null,
         title: null,
+        hangar_id: null,
+        line_id: null,
         status: null,
         files: null,
         so_number: null,
@@ -3392,6 +3324,8 @@ export default {
         user_id: null,
         category_id: null,
       },
+      sales_detail_status: null,
+      current_date_reschedule: null,
     }
   },
   mounted() {
@@ -3476,18 +3410,21 @@ export default {
         .get(`api/sales-show/${this.$route.query.id}`)
         .then((response) => {
           this.sales_detail = response.data.data.salesDetail
+          this.current_date_reschedule = this.sales_detail.startDate
+          this.sales_detail_status = this.sales_detail.status
           this.customer_name = response.data.data.salesDetail.customer.name
           this.level4 = response.data.data.level4
           this.level3 = response.data.data.level3
           this.level2 = response.data.data.level2
           this.level1 = response.data.data.level1
+          console.log(this.sales_detail)
           Swal.close()
         })
         .catch((error) => {
           if (error.response.status == 404) {
             toastr.error(error.response.data.message)
             this.$router.push({
-              name: 'my-salesplan',
+              name: 'my-salesplan-table',
             })
           }
         })
@@ -3596,7 +3533,6 @@ export default {
         .then((response) => {
           this.category_option = response.data.data
           Swal.close()
-          console.log(this.category_option)
         })
         .catch((error) => console.log(error))
     },
@@ -3669,7 +3605,32 @@ export default {
           }
         })
     },
-    slotConfirm() {
+    slotRequest() {
+      this.loading()
+      this.$axios
+        .post(`api/sales-request-hangar`, {
+          sales_id: this.$route.query.id,
+          hangar_id: this.hangar_id,
+          line_id: this.line_id,
+          user_id: this.user_id,
+          target_url: this.$route.fullPath,
+        })
+        .then((response) => {
+          toastr.success(response.data.message)
+          this.listDetail()
+          this.closeRequestSlot()
+          Swal.close()
+        })
+        .catch((error) => {
+          if (error.response.status == 422) {
+            this.errors = error.response.data.errors
+            toastr.error(error.response.data.message)
+          } else if (error.response.status == 403) {
+            toastr.error(error.response.data.message)
+          }
+        })
+    },
+    slotApprove() {
       Swal.fire({
         title: 'Are you sure?',
         text: "You won't be able to revert this!",
@@ -3682,8 +3643,10 @@ export default {
         .then((result) => {
           if (result.isConfirmed) {
             this.$axios
-              .put(`api/sales-slot-confirm/${this.$route.query.id}`, {
-                sales_id: this.$route.query.id,
+              .put(`api/sales-approve-hangar/${this.$route.query.id}`, {
+                is_approved: 1,
+                target_url: this.$route.fullPath,
+                // sales_id: this.$route.query.id,
               })
               .then((response) => {
                 toastr.success(response.data.message)
@@ -3694,7 +3657,39 @@ export default {
         })
         .catch((error) => {
           if (error.response.status == 422) {
-            this.errors = error.response.data.errors
+            toastr.error(error.response.data.message)
+          } else if (error.response.status == 403) {
+            toastr.error(error.response.data.message)
+          }
+        })
+    },
+    slotReject() {
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, Reject it!',
+      })
+        .then((result) => {
+          if (result.isConfirmed) {
+            this.$axios
+              .put(`api/sales-approve-hangar/${this.$route.query.id}`, {
+                is_approved: 0,
+                target_url: this.$route.fullPath,
+                // sales_id: this.$route.query.id,
+              })
+              .then((response) => {
+                toastr.success(response.data.message)
+                this.listDetail()
+                Swal.close()
+              })
+          }
+        })
+        .catch((error) => {
+          if (error.response.status == 422) {
             toastr.error(error.response.data.message)
           } else if (error.response.status == 403) {
             toastr.error(error.response.data.message)
@@ -3741,7 +3736,7 @@ export default {
               .put(`api/sales-reschedule/${this.$route.query.id}`, {
                 sales_id: this.$route.query.id,
                 hangar_id: this.sales_detail.location.id,
-                current_date: this.current_date,
+                current_date: this.current_date_reschedule,
                 start_date: this.sales_detail.start_date,
                 tat: this.sales_detail.tat,
               })
@@ -3863,29 +3858,6 @@ export default {
           if (error.response.status == 422) {
             toastr.error(error.response.data.message)
             this.errors = error.response.data.errors
-          } else if (error.response.status == 403) {
-            toastr.error(error.response.data.message)
-          }
-        })
-    },
-    slotRequest() {
-      this.loading()
-      this.$axios
-        .post(`api/sales-slot-request`, {
-          sales_id: this.$route.query.id,
-          line_id: this.line_id,
-          user_id: this.user_id,
-          target_url: this.$route.fullPath,
-        })
-        .then((response) => {
-          toastr.success(response.data.message)
-          this.listDetail()
-          this.closeRequestSlot()
-          Swal.close()
-        })
-        .catch((error) => {
-          if (error.response.status == 422) {
-            toastr.error(error.response.data.message)
           } else if (error.response.status == 403) {
             toastr.error(error.response.data.message)
           }
@@ -4017,30 +3989,37 @@ export default {
           }
         })
     },
+    // Upload Attachment RFQ or Email Request
     addFile1() {
       this.sequence = 2
       this.modal_upload = 1
     },
+    // Upload Attachment Workscope
     addFile2() {
       this.sequence = 3
       this.modal_upload = 2
     },
+    // Attachment of Financial Assesment Form (optional)
     addFile3() {
-      this.sequence = 4
+      this.sequence = 5
       this.modal_upload = 3
     },
+    // Attachment of Maintenance Proposal for Customer
     addFile4() {
-      this.sequence = 5
+      this.sequence = 6
       this.modal_upload = 4
     },
+    // Attachment of Profitability Analysis Form Signed
     addFile5() {
-      this.sequence = 6
+      this.sequence = 7
       this.modal_upload = 5
     },
+    // Attachment of Customer Approval (SOW Signed / Proposal Approved)
     addFile6() {
-      this.sequence = 7
+      this.sequence = 8
       this.modal_upload = 6
     },
+    // Attachment of WO/PO number Customer Document
     addFile7() {
       this.sequence = 9
       this.modal_upload = 7
@@ -4188,6 +4167,10 @@ export default {
     clearFormRequestSlot() {
       this.user_id = null
       this.line_id = null
+      this.hangar_id = null
+      this.errors.user_id = null
+      this.errors.line_id = null
+      this.errors.hangar_id = null
     },
     closeRequestSlot() {
       document.getElementById('close_modal_slot').click()

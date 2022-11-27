@@ -45,8 +45,7 @@
               <div class="card-body">
                 <p class="text-muted" id="fontSm">Total Close In</p>
                 <h4 id="textPurple" v-if="sales">
-                  <!-- TODO Total close in -->
-                  <!-- USD {{ formatPrice(sales.totalOpenClosed) }} -->
+                  USD {{ formatPrice(sales.totalCloseIn) }}
                 </h4>
               </div>
             </div>

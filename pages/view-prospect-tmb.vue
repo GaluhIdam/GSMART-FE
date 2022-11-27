@@ -37,7 +37,7 @@
       <div class="card shadow-sm mt-5">
         <div class="row">
           <div class="col-md-5 p-16">
-            <span class="badge text-muted text-bg-light d-block text-start mt-2">TMB</span>
+            <span class="badge text-muted text-bg-light d-block text-start mt-2">{{ transaction_type }}</span>
             <h2 class="mt-1">Airframe</h2>
             <div class="text-muted fw-semibold fs-5">Project for {{ registration }}</div>
             <div class="text-muted fs-6">Remark for this project..</div>
@@ -225,8 +225,8 @@
               </div>
               </form>
               <div class="col">
-                <button type="button" class="btn btn-sm btn-primary mx-3" data-bs-toggle="modal" data-bs-target="#modal" @click="add()">
-                  Add Registration
+                <button type="button" class="btn btn-sm btn-primary mx-3" data-bs-toggle="modal" data-bs-target="#modal" @click="add()" :disabled="tmbSales.length > 0">
+                  Add Sales Plan
                 </button>
               </div>
             </div>
@@ -272,21 +272,6 @@
                 </div>
                 <div class="col-md-6">
                     <div class="mb-3">
-                      <label for="Hangar" class="form-label">Hangar</label>
-                      <select v-model="tmbSale.hangar_id" class="form-select form-select-lg" :class="{ 'is-invalid': errors.hangar_id }">
-                      <option 
-                        v-for="(hangar_options, hangar_index) in hangar_option" :key="hangar_index"
-                        :value="hangar_options.id" 
-                        :class="{
-                          'is-invalid': errors.hangar_id,
-                        }"
-                      >
-                        {{ hangar_options.name }}
-                      </option>
-                    </select>
-                      <span v-if="errors.hangar_id" class="error invalid-feedback">{{errors.hangar_id[0]}}</span>
-                    </div>
-                    <div class="mb-3">
                       <label for="Sales Plan" class="form-label">Sales Plan</label>
                       <input type="text" v-model="tmbSale.value" class="form-control" :class="{'is-invalid': errors.value}">
                       <span v-if="errors.value" class="error invalid-feedback">{{errors.value[0]}}</span>
@@ -299,7 +284,7 @@
                 </div>
                 <div class="col-md-12 justify-content-between d-flex">
                   <div class="btn btn-secondary mt-3" data-bs-dismiss="modal">Back</div>
-                    <button type="submit" v-if="modal_create" class="btn btn-primary mt-3">Submit</button>
+                    <button type="submit" v-if="modal_create" class="btn btn-primary mt-3" :disabled="tmbSales.length > 0">Submit</button>
                     <button type="submit" v-else class="btn btn-primary mt-3">Update</button>
                 </div>
               </div>
@@ -396,39 +381,61 @@
 
                     <th v-else @click="sort('status', 'asc')" class="text-center" style="white-space: nowrap;">Status <i class="fa-solid fa-sort"></i></th>
                     <!-- End Of The Status -->
+                    <div v-if="tmbSales.length > 0">
+                    </div>
+                    <div v-else>
                     <th class="text-center">Action</th>
+                    </div>
                   </tr>
                 </thead>
                 <tbody>
                   <tr v-for="(data, tmbSales_index) in tmbSales" :key="tmbSales_index">
                     <td class="text-center">{{ paginate_tmbSales.from + tmbSales_index }}</td>
                     <td class="text-center">{{ data.customer.id}}</td>
-                    <td class="text-center">{{ data.registration }}</td>
+                    <td class="text-center">
+                      <div v-if="data.registration">
+                        {{ data.registration }}
+                      </div>
+                      <div v-else>
+                        -
+                      </div>
+                    </td>
                     <td class="text-center">{{ data.maintenance.name }}</td>
-                    <td class="text-center">{{ data.location.name }}</td>
+                    <td class="text-center">
+                      <div v-if="data.location">
+                        {{ data.location }}
+                      </div>
+                      <div v-else>
+                        -
+                      </div>
+                    </td>
                     <td class="text-center" style="color: #50CD89">${{ data.sales_plan }}</td>
                     <td class="text-center">{{ data.tat }}</td>
                     <td class="text-center">{{ data.start_date }}</td>
                     <td class="text-center">{{ data.end_date }}</td>
                     <td class="text-center">{{ data.level }}</td>
                     <td class="text-center badge" style="color: #FFA800; background-color: #FFF4DE">{{ data.status }}</td>
-                    <td class="text-center" style="white-space: nowrap;">
-                      <button class="btn btn-sm btn-light mx-2" data-bs-toggle="modal" data-bs-target="#modal" @click="edit(data, tmbSales)">
-                        <i class="bi bi-pencil-square text-primary"></i>
-                      </button>
-                      <button class="btn btn-sm btn-light" v-on:click="removeTmbSales(data.id)">
-                        <i class="bi bi-trash-fill text-primary"></i>
-                      </button>
-                    </td>
-                    <td class="d-flex justify-content-center">
-                    </td>
+                    <div v-if="tmbSales.length > 0">
+                    </div>
+                    <div v-else>
+                      <td class="text-center" style="white-space: nowrap;">
+                        <button class="btn btn-sm btn-light mx-2 disabled" data-bs-toggle="modal" data-bs-target="#modal" @click="edit(data, tmbSales)">
+                          <i class="bi bi-pencil-square text-primary"></i>
+                        </button>
+                        <button class="btn btn-sm btn-light disabled" v-on:click="removeTmbSales(data.id)">
+                          <i class="bi bi-trash-fill text-primary"></i>
+                        </button>
+                      </td>
+                      <td class="d-flex justify-content-center">
+                      </td>
+                    </div>
                   </tr>
                 </tbody>
               </table>
             </div>
           </div>
         </div>
-        <div class="card-footer">
+        <!-- <div class="card-footer">
             <div class="row">
               <div class="col d-flex justify-content-start align-items-center">
               <nav aria-label="Page navigation example">
@@ -451,10 +458,10 @@
               </div>
               <div class="col col-md-8 d-flex justify-content-end align-items-center">
               <nav>
-                <ul class="pagination">
+                <ul class="pagination"> -->
                   <!-- Start pagination -->
-                  <li v-for="(link, link_index) in paginate_tmbSales.links" :key="link_index" class="page-item" :class="{ disabled: !link.url, active: link.active }">
-                    <a href="javascript:void(0)" @click="listProspect(link.url)" class="page-link">
+                  <!-- <li v-for="(link, link_index) in paginate_tmbSales.links" :key="link_index" class="page-item" :class="{ disabled: !link.url, active: link.active }">
+                    <a href="javascript:void(0)" @click="listSalesTmb(link.url)" class="page-link">
                       <span v-if="link.label == '&laquo; Previous'">
                           <i class="fa-solid fa-caret-left"></i>
                       </span>
@@ -465,13 +472,13 @@
                           {{ link.label }}
                       </span>
                     </a>
-                  </li>
+                  </li> -->
                   <!-- End pagination -->
-                </ul>
+                <!-- </ul>
               </nav>
               </div>
             </div>
-          </div>
+        </div> -->
       </div>
     </div>
     </div>
@@ -487,7 +494,6 @@ export default {
       role: this.$auth.user.role.name,
       customer: [],
       maintenance_option: [],
-      hangar_option: [],
       contact_persons: [],
       tmbSale: {
         ac_reg: null,
@@ -495,7 +501,6 @@ export default {
         value: null,
         start_date: null,
         maintenance_id: null,
-        hangar_id: null,
         maintenance: null,
         location: null,
         startDate: null,
@@ -521,7 +526,6 @@ export default {
         maintenance_id: null,
         ac_reg: null,
         tat: null,
-        hangar_id: null,
         value: null,
         start_date: null,
         name: null,
@@ -541,6 +545,8 @@ export default {
       paginate_tmbSales: [],
       value: [],
       customer_options: [],
+      transaction_type: null,
+      customer_id: null,
       }
     },
   created() {
@@ -548,9 +554,9 @@ export default {
     this.listTMB()
     this.listSalesTmb()
     this.listMaintenance()
-    this.listHangar()
     this.listCustomer()
     this.checkRole()
+    this.listProspect()
     },
     watch: {
     search: debounce(function () {
@@ -558,6 +564,26 @@ export default {
     }, 500),
   },
   methods: {
+    TMBMessage() {
+      toastr.options = {
+        closeButton: false,
+        debug: false,
+        newestOnTop: false,
+        progressBar: false,
+        positionClass: 'toastr-top-right',
+        preventDuplicates: false,
+        onclick: null,
+        showDuration: '300',
+        hideDuration: '1000',
+        timeOut: '5000',
+        extendedTimeOut: '1000',
+        showEasing: 'swing',
+        hideEasing: 'linear',
+        showMethod: 'fadeIn',
+        hideMethod: 'fadeOut',
+      }
+      toastr.error('Sorry, Prospect Has Been Picked Up!')
+    },
     sort(order, by) {
       this.order = order;
       this.by = by;
@@ -617,6 +643,14 @@ export default {
           this.contact_persons = response.data.data.data
         })
     },
+    listProspect() {
+      this.$axios
+        .get(`api/prospect-show/${this.$route.query.id}`)
+        .then((response) => {
+          this.customer_id      = response.data.data.prospect.customer.id
+          this.transaction_type = response.data.data.prospect.transaction_type.name
+        })
+    },
     listTMB() {
       this.$axios
         .get(`api/prospect-tmb/${this.$route.query.id}`)
@@ -653,18 +687,6 @@ export default {
           this.maintenance_option = response.data.data.data
         })
     },
-    listHangar() {
-      this.$axios
-        .get('api/hangar', {
-          params: {
-            order: 'created_at',
-            by: 'ASC',
-          },
-        })
-        .then((response) => {
-          this.hangar_option = response.data.data
-        })
-    },
     listSalesTmb(paginate) {
       this.$axios
       this.loading()
@@ -681,6 +703,10 @@ export default {
         })
         .then((response) => {
           this.tmbSales = response.data.sales.data
+          if(this.tmbSales.length > 0) {
+            this.TMBMessage()
+            this.$router.push('/my-prospect');
+          }
           this.paginate_tmbSales = response.data.sales
           this.current_page = response.data.sales.current_page
           this.value = response.data
@@ -704,11 +730,13 @@ export default {
           maintenance_id: this.tmbSale.maintenance_id,
           ac_reg: this.tmbSale.ac_reg,
           tat: this.tmbSale.tat,
-          hangar_id: this.tmbSale.hangar_id,
           value: this.tmbSale.value,
           start_date: this.tmbSale.start_date,
+          customer_id: this.customer_id,
+          is_rkap: 1
         })
         .then((response) => {
+          this.$router.push('/my-prospect');
           toastr.success(response.data.message)
           this.closeModal()
           this.listSalesTmb()
@@ -728,7 +756,6 @@ export default {
           maintenance_id: this.tmbSale.maintenance_id,
           ac_reg: this.tmbSale.ac_reg,
           tat: this.tmbSale.tat,
-          hangar_id: this.tmbSale.hangar_id,
           value: this.tmbSale.value,
           start_date: this.tmbSale.start_date,
         })
@@ -776,7 +803,6 @@ export default {
       this.tmbSale.maintenance_id = tmbSale.maintenance.id
       this.tmbSale.ac_reg = tmbSale.registration
       this.tmbSale.tat = tmbSale.tat
-      this.tmbSale.hangar_id = tmbSale.location.id
       this.tmbSale.value = tmbSale.sales_plan
       this.tmbSale.start_date = tmbSale.startDate
     },
@@ -801,7 +827,6 @@ export default {
       this.tmbSale.value = null
       this.tmbSale.start_date = null
       this.tmbSale.maintenance_id = null
-      this.tmbSale.hangar_id = null
       this.contact_person.name = null
       this.contact_person.email = null
       this.contact_person.address = null
@@ -810,7 +835,6 @@ export default {
       this.errors.maintenance_id = null
       this.errors.ac_reg = null
       this.errors.tat = null
-      this.errors.hangar_id = null
       this.errors.value = null
       this.errors.start_date = null
       this.errors.name = null
@@ -823,7 +847,6 @@ export default {
       this.errors.maintenance_id = null
       this.errors.ac_reg = null
       this.errors.tat = null
-      this.errors.hangar_id = null
       this.errors.value = null
       this.errors.start_date = null
     },

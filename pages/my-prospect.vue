@@ -67,32 +67,32 @@
                 </p>
                 <div class="col">
                   <div class="border-dashed p-4" v-if="prospect2.totalMarketShare">
-                    <h1 class="fw-bold mb-0">$ {{ formatNumber(prospect2.totalMarketShare) }}</h1>
+                    <h1 class="fw-bold mb-0">USD {{ formatNumber(prospect2.totalMarketShare) }}</h1>
                     <p class="mb-0 fw-bold text-gray-500">Total Market Share</p>
 
                   </div>
                   <div class="border-dashed p-4" v-else>
-                    <h1 class="fw-bold mb-0">$ 0</h1>
+                    <h1 class="fw-bold mb-0">USD 0</h1>
                     <p class="mb-0 fw-bold text-gray-500">Total Market Share</p>
                   </div>
                 </div>
                 <div class="col">
                   <div class="border-dashed p-4" v-if="prospect2.totalSalesPlan">
-                    <h1 class="fw-bold mb-0">$ {{ formatNumber(prospect2.totalSalesPlan) }}</h1>
+                    <h1 class="fw-bold mb-0">USD {{ formatNumber(prospect2.totalSalesPlan) }}</h1>
                     <p class="mb-0 fw-bold text-gray-500">Total Salesplan</p>
                   </div>
                   <div class="border-dashed p-4" v-else>
-                    <h1 class="fw-bold mb-0">$ 0</h1>
+                    <h1 class="fw-bold mb-0">USD 0</h1>
                     <p class="mb-0 fw-bold text-gray-500">Total Salesplan</p>
                   </div>
                 </div>
                 <div class="col">
                   <div class="border-dashed p-4" v-if="prospect2.deviation">
-                    <h1 class="fw-bold mb-0">$ {{ formatNumber(prospect2.deviation) }}</h1>
+                    <h1 class="fw-bold mb-0">USD {{ formatNumber(prospect2.deviation) }}</h1>
                     <p class="mb-0 fw-bold text-gray-500">Deviation</p>
                   </div>
                   <div class="border-dashed p-4" v-else>
-                    <h1 class="fw-bold mb-0">$ 0</h1>
+                    <h1 class="fw-bold mb-0">USD 0</h1>
                     <p class="mb-0 fw-bold text-gray-500">Deviation</p>
                   </div>
                 </div>
@@ -259,35 +259,35 @@
                           <!-- End Of The Year -->
 
                           <!-- Transaction -->
-                          <th v-if="order == 'transaction' && by == 'asc'" @click="sort('transaction', 'desc')" class="text-center" style="white-space: nowrap;">Transaction <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
+                          <th v-if="order == 'transaction_type.name' && by == 'asc'" @click="sort('transaction_type.name', 'desc')" class="text-center" style="white-space: nowrap;">Transaction <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
 
-                          <th v-else-if="order == 'transaction' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">Transaction <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+                          <th v-else-if="order == 'transaction_type.name' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">Transaction <i class="fa-solid fa-sort-down" style="color: black"></i></th>
 
-                          <th v-else @click="sort('transaction', 'asc')" class="text-center" style="white-space: nowrap;">Transaction <i class="fa-solid fa-sort"></i></th>
+                          <th v-else @click="sort('transaction_type.name', 'asc')" class="text-center" style="white-space: nowrap;">Transaction <i class="fa-solid fa-sort"></i></th>
                           <!-- End Of The Transaction -->
 
                           <!-- Type -->
-                          <th v-if="order == 'type' && by == 'asc'" @click="sort('type', 'desc')" class="text-center" style="white-space: nowrap;">Type <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
+                          <th v-if="order == 'prospect_type.name' && by == 'asc'" @click="sort('prospect_type.name', 'desc')" class="text-center" style="white-space: nowrap;">Type <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
 
-                          <th v-else-if="order == 'type' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">Type <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+                          <th v-else-if="order == 'prospect_type.name' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">Type <i class="fa-solid fa-sort-down" style="color: black"></i></th>
 
-                          <th v-else @click="sort('type', 'asc')" class="text-center" style="white-space: nowrap;">Type <i class="fa-solid fa-sort"></i></th>
+                          <th v-else @click="sort('prospect_type.name', 'asc')" class="text-center" style="white-space: nowrap;">Type <i class="fa-solid fa-sort"></i></th>
                           <!-- End Of The Type -->
 
                           <!-- Strategic Initiative -->
-                          <th v-if="order == 'strategicInitiative' && by == 'asc'" @click="sort('strategicInitiative', 'desc')" class="text-center" style="white-space: nowrap;">Strategic Initiative <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
+                          <th v-if="order == 'strategic_initiative.name' && by == 'asc'" @click="sort('strategic_initiative.name', 'desc')" class="text-center" style="white-space: nowrap;">Strategic Initiative <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
 
-                          <th v-else-if="order == 'strategicInitiative' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">Strategic Initiative <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+                          <th v-else-if="order == 'strategic_initiative.name' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">Strategic Initiative <i class="fa-solid fa-sort-down" style="color: black"></i></th>
 
-                          <th v-else @click="sort('strategicInitiative', 'asc')" class="text-center" style="white-space: nowrap;">Strategic Initiative <i class="fa-solid fa-sort"></i></th>
+                          <th v-else @click="sort('strategic_initiative.name', 'asc')" class="text-center" style="white-space: nowrap;">Strategic Initiative <i class="fa-solid fa-sort"></i></th>
                           <!-- End Of The Strategic Initiative -->
 
                           <!-- PM -->
-                          <th v-if="order == 'projectManager' && by == 'asc'" @click="sort('projectManager', 'desc')" class="text-center" style="white-space: nowrap;">PM <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
+                          <th v-if="order == 'pm.name' && by == 'asc'" @click="sort('pm.name', 'desc')" class="text-center" style="white-space: nowrap;">PM <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
 
-                          <th v-else-if="order == 'projectManager' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">PM <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+                          <th v-else-if="order == 'pm.name' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">PM <i class="fa-solid fa-sort-down" style="color: black"></i></th>
 
-                          <th v-else @click="sort('projectManager', 'asc')" class="text-center" style="white-space: nowrap;">PM <i class="fa-solid fa-sort"></i></th>
+                          <th v-else @click="sort('pm.name', 'asc')" class="text-center" style="white-space: nowrap;">PM <i class="fa-solid fa-sort"></i></th>
                           <!-- End Of The PM -->
 
                           <!-- Customer Code -->
@@ -307,48 +307,45 @@
                           <!-- End Of The Customer -->
 
                           <!-- AMS -->
-                          <th v-if="order == 'ams' && by == 'asc'" @click="sort('ams', 'desc')" class="text-center" style="white-space: nowrap;">AMS <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
+                          <th v-if="order == 'ams.initial' && by == 'asc'" @click="sort('ams.initial', 'desc')" class="text-center" style="white-space: nowrap;">AMS <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
 
-                          <th v-else-if="order == 'ams' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">AMS <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+                          <th v-else-if="order == 'ams.initial' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">AMS <i class="fa-solid fa-sort-down" style="color: black"></i></th>
 
-                          <th v-else @click="sort('ams', 'asc')" class="text-center" style="white-space: nowrap;">AMS <i class="fa-solid fa-sort"></i></th>
+                          <th v-else @click="sort('ams.initial', 'asc')" class="text-center" style="white-space: nowrap;">AMS <i class="fa-solid fa-sort"></i></th>
                           <!-- End Of The AMS -->
 
                           <!-- Market Share -->
-                          <th v-if="order == 'marketShare' && by == 'asc'" @click="sort('marketShare', 'desc')" class="text-center" style="white-space: nowrap;">Market Share <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
+                          <th v-if="order == 'marketshare' && by == 'asc'" @click="sort('marketshare', 'desc')" class="text-center" style="white-space: nowrap;">Market Share <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
 
-                          <th v-else-if="order == 'marketShare' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">Market Share <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+                          <th v-else-if="order == 'marketshare' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">Market Share <i class="fa-solid fa-sort-down" style="color: black"></i></th>
 
-                          <th v-else @click="sort('marketShare', 'asc')" class="text-center" style="white-space: nowrap;">Market Share <i class="fa-solid fa-sort"></i></th>
+                          <th v-else @click="sort('marketshare', 'asc')" class="text-center" style="white-space: nowrap;">Market Share <i class="fa-solid fa-sort"></i></th>
                           <!-- End Of The Market Share -->
 
                           <!-- Sales Plan -->
-                          <th v-if="order == 'salesPlan' && by == 'asc'" @click="sort('salesPlan', 'desc')" class="text-center" style="white-space: nowrap;">Sales Plan <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
+                          <th v-if="order == 'sales.value' && by == 'asc'" @click="sort('sales.value', 'desc')" class="text-center" style="white-space: nowrap;">Sales Plan <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
 
-                          <th v-else-if="order == 'salesPlan' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">Sales Plan <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+                          <th v-else-if="order == 'sales.value' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">Sales Plan <i class="fa-solid fa-sort-down" style="color: black"></i></th>
 
-                          <th v-else @click="sort('salesPlan', 'asc')" class="text-center" style="white-space: nowrap;">Sales Plan <i class="fa-solid fa-sort"></i></th>
+                          <th v-else @click="sort('sales.value', 'asc')" class="text-center" style="white-space: nowrap;">Sales Plan <i class="fa-solid fa-sort"></i></th>
                           <!-- End Of The Sales Plan -->
 
                           <th class="text-center">Action</th>
                         </tr>
                       </thead>
                       <tbody>
-                        <tr
-                          v-for="(data, prospect_index) in prospect"
-                          :key="prospect_index"
-                        >
+                        <tr v-for="(data, prospect_index) in prospect" :key="prospect_index">
                           <td class="text-center">
                               {{ prospect3.from + prospect_index }}
                           </td>
                           <td class="text-center">{{ data.year }}</td>
-                          <td class="text-center">{{ data.transaction }}</td>
-                          <td class="text-center">{{ data.type }}</td>
+                          <td class="text-center">{{ data.transaction_type.name }}</td>
+                          <td class="text-center">{{ data.prospect_type.name }}</td>
 
                           <!-- Conditional Strategic Initiative -->
                           <td>
-                            <div v-if="data.strategicInitiative" class="text-center">
-                              {{ data.strategicInitiative }}
+                            <div v-if="data.strategic_initiative" class="text-center">
+                              {{ data.strategic_initiative.name }}
                             </div>
                             <div v-else class="text-center">
                               -
@@ -358,8 +355,8 @@
 
                           <!-- Conditional PM -->
                           <td>
-                            <div v-if="data.projectManager" class="text-center">
-                              {{ data.projectManager }}
+                            <div v-if="data.pm" class="text-center">
+                              {{ data.pm.name }}
                             </div>
                             <div v-else class="text-center">
                               -
@@ -372,31 +369,45 @@
                           <td class="text-center">{{ data.ams }}</td>
 
                           <!-- Conditional Market Share -->
-                          <td>
-                            <div v-if="data.marketShare" class="text-center" style="color: #50CD89">
-                              ${{ formatNumber(data.marketShare) }}
+                          <td style="white-space: nowrap;">
+                            <div v-if="data.market_share" class="text-center" style="color: #50CD89">
+                              USD {{ formatNumber(data.market_share) }}
                             </div>
                             <div v-else class="text-center" style="color: #50CD89">
-                              $0
+                              USD 0
                             </div>
                           </td>
                           <!-- End Of Conditional Market Share -->
 
                           <!-- Conditional Sales Value -->
-                          <td>
-                            <div v-if="data.salesPlan" class="text-center" style="color: #50CD89">
-                              ${{ formatNumber(data.salesPlan) }}
+                          <td style="white-space: nowrap;">
+                            <div v-if="data.sales_plan" class="text-center" style="color: #50CD89">
+                              USD {{ formatNumber(data.sales_plan ) }}
                             </div>
                             <div v-else class="text-center" style="color: #50CD89">
-                              $0
+                              USD 0
                             </div>
                           </td>
                           <!-- End Of Conditional Sales Value -->
 
                           <td class="text-center">
-                            <nuxt-link :to="{ path: 'view-prospect', query: { id: data.customer.id }}" class="btn btn-sm btn-light">
-                              View
-                            </nuxt-link>
+                            <div v-if="data.sales_plan" class="text-center" style="color: #50CD89">
+                              <nuxt-link :to="{ path: 'view-prospect-tmb', query: { id: data.id }}" class="btn btn-sm btn-light disabled">
+                                Done
+                              </nuxt-link>
+                            </div>
+                            <div v-else class="text-center" style="color: #50CD89">
+                              <div v-if="data.transaction_type_id == 1 || data.transaction_type_id == 2">
+                                <nuxt-link :to="{ path: 'view-prospect-tmb', query: { id: data.id }}" class="btn btn-sm btn-light" style="white-space: nowrap;">
+                                  Pick Up
+                                </nuxt-link>
+                              </div>
+                              <div v-else>
+                                <nuxt-link :to="{ path: 'view-prospect-pbth', query: { id: data.id }}" class="btn btn-sm btn-light" style="white-space: nowrap;">
+                                  Pick Up
+                                </nuxt-link>
+                              </div>
+                            </div>
                           </td>
                         </tr>
                         <tr v-if="prospect.length < 1">
@@ -426,35 +437,35 @@
                           <!-- End Of The Year -->
 
                           <!-- Transaction -->
-                          <th v-if="order == 'transaction' && by == 'asc'" @click="sort('transaction', 'desc')" class="text-center" style="white-space: nowrap;">Transaction <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
+                          <th v-if="order == 'transaction_type.name' && by == 'asc'" @click="sort('transaction_type.name', 'desc')" class="text-center" style="white-space: nowrap;">Transaction <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
 
-                          <th v-else-if="order == 'transaction' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">Transaction <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+                          <th v-else-if="order == 'transaction_type.name' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">Transaction <i class="fa-solid fa-sort-down" style="color: black"></i></th>
 
-                          <th v-else @click="sort('transaction', 'asc')" class="text-center" style="white-space: nowrap;">Transaction <i class="fa-solid fa-sort"></i></th>
+                          <th v-else @click="sort('transaction_type.name', 'asc')" class="text-center" style="white-space: nowrap;">Transaction <i class="fa-solid fa-sort"></i></th>
                           <!-- End Of The Transaction -->
 
                           <!-- Type -->
-                          <th v-if="order == 'type' && by == 'asc'" @click="sort('type', 'desc')" class="text-center" style="white-space: nowrap;">Type <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
+                          <th v-if="order == 'prospect_type.name' && by == 'asc'" @click="sort('prospect_type.name', 'desc')" class="text-center" style="white-space: nowrap;">Type <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
 
-                          <th v-else-if="order == 'type' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">Type <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+                          <th v-else-if="order == 'prospect_type.name' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">Type <i class="fa-solid fa-sort-down" style="color: black"></i></th>
 
-                          <th v-else @click="sort('type', 'asc')" class="text-center" style="white-space: nowrap;">Type <i class="fa-solid fa-sort"></i></th>
+                          <th v-else @click="sort('prospect_type.name', 'asc')" class="text-center" style="white-space: nowrap;">Type <i class="fa-solid fa-sort"></i></th>
                           <!-- End Of The Type -->
 
                           <!-- Strategic Initiative -->
-                          <th v-if="order == 'strategicInitiative' && by == 'asc'" @click="sort('strategicInitiative', 'desc')" class="text-center" style="white-space: nowrap;">Strategic Initiative <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
+                          <th v-if="order == 'strategic_initiative.name' && by == 'asc'" @click="sort('strategic_initiative.name', 'desc')" class="text-center" style="white-space: nowrap;">Strategic Initiative <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
 
-                          <th v-else-if="order == 'strategicInitiative' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">Strategic Initiative <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+                          <th v-else-if="order == 'strategic_initiative.name' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">Strategic Initiative <i class="fa-solid fa-sort-down" style="color: black"></i></th>
 
-                          <th v-else @click="sort('strategicInitiative', 'asc')" class="text-center" style="white-space: nowrap;">Strategic Initiative <i class="fa-solid fa-sort"></i></th>
+                          <th v-else @click="sort('strategic_initiative.name', 'asc')" class="text-center" style="white-space: nowrap;">Strategic Initiative <i class="fa-solid fa-sort"></i></th>
                           <!-- End Of The Strategic Initiative -->
 
                           <!-- PM -->
-                          <th v-if="order == 'projectManager' && by == 'asc'" @click="sort('projectManager', 'desc')" class="text-center" style="white-space: nowrap;">PM <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
+                          <th v-if="order == 'pm.name' && by == 'asc'" @click="sort('pm.name', 'desc')" class="text-center" style="white-space: nowrap;">PM <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
 
-                          <th v-else-if="order == 'projectManager' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">PM <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+                          <th v-else-if="order == 'pm.name' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">PM <i class="fa-solid fa-sort-down" style="color: black"></i></th>
 
-                          <th v-else @click="sort('projectManager', 'asc')" class="text-center" style="white-space: nowrap;">PM <i class="fa-solid fa-sort"></i></th>
+                          <th v-else @click="sort('pm.name', 'asc')" class="text-center" style="white-space: nowrap;">PM <i class="fa-solid fa-sort"></i></th>
                           <!-- End Of The PM -->
 
                           <!-- Customer Code -->
@@ -474,27 +485,27 @@
                           <!-- End Of The Customer -->
 
                           <!-- AMS -->
-                          <th v-if="order == 'ams' && by == 'asc'" @click="sort('ams', 'desc')" class="text-center" style="white-space: nowrap;">AMS <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
+                          <th v-if="order == 'ams.initial' && by == 'asc'" @click="sort('ams.initial', 'desc')" class="text-center" style="white-space: nowrap;">AMS <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
 
-                          <th v-else-if="order == 'ams' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">AMS <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+                          <th v-else-if="order == 'ams.initial' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">AMS <i class="fa-solid fa-sort-down" style="color: black"></i></th>
 
-                          <th v-else @click="sort('ams', 'asc')" class="text-center" style="white-space: nowrap;">AMS <i class="fa-solid fa-sort"></i></th>
+                          <th v-else @click="sort('ams.initial', 'asc')" class="text-center" style="white-space: nowrap;">AMS <i class="fa-solid fa-sort"></i></th>
                           <!-- End Of The AMS -->
 
                           <!-- Market Share -->
-                          <th v-if="order == 'marketShare' && by == 'asc'" @click="sort('marketShare', 'desc')" class="text-center" style="white-space: nowrap;">Market Share <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
+                          <th v-if="order == 'marketshare' && by == 'asc'" @click="sort('marketshare', 'desc')" class="text-center" style="white-space: nowrap;">Market Share <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
 
-                          <th v-else-if="order == 'marketShare' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">Market Share <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+                          <th v-else-if="order == 'marketshare' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">Market Share <i class="fa-solid fa-sort-down" style="color: black"></i></th>
 
-                          <th v-else @click="sort('marketShare', 'asc')" class="text-center" style="white-space: nowrap;">Market Share <i class="fa-solid fa-sort"></i></th>
+                          <th v-else @click="sort('marketshare', 'asc')" class="text-center" style="white-space: nowrap;">Market Share <i class="fa-solid fa-sort"></i></th>
                           <!-- End Of The Market Share -->
 
                           <!-- Sales Plan -->
-                          <th v-if="order == 'salesPlan' && by == 'asc'" @click="sort('salesPlan', 'desc')" class="text-center" style="white-space: nowrap;">Sales Plan <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
+                          <th v-if="order == 'sales.value' && by == 'asc'" @click="sort('sales.value', 'desc')" class="text-center" style="white-space: nowrap;">Sales Plan <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
 
-                          <th v-else-if="order == 'salesPlan' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">Sales Plan <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+                          <th v-else-if="order == 'sales.value' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">Sales Plan <i class="fa-solid fa-sort-down" style="color: black"></i></th>
 
-                          <th v-else @click="sort('salesPlan', 'asc')" class="text-center" style="white-space: nowrap;">Sales Plan <i class="fa-solid fa-sort"></i></th>
+                          <th v-else @click="sort('sales.value', 'asc')" class="text-center" style="white-space: nowrap;">Sales Plan <i class="fa-solid fa-sort"></i></th>
                           <!-- End Of The Sales Plan -->
 
                           <th class="text-center">Action</th>
@@ -506,13 +517,13 @@
                               {{ prospect3.from + prospect_index }}
                           </td>
                           <td class="text-center">{{ data.year }}</td>
-                          <td class="text-center">{{ data.transaction }}</td>
-                          <td class="text-center">{{ data.type }}</td>
+                          <td class="text-center">{{ data.transaction_type.name }}</td>
+                          <td class="text-center">{{ data.prospect_type.name }}</td>
 
                           <!-- Conditional Strategic Initiative -->
                           <td>
-                            <div v-if="data.strategicInitiative" class="text-center">
-                              {{ data.strategicInitiative }}
+                            <div v-if="data.strategic_initiative" class="text-center">
+                              {{ data.strategic_initiative.name }}
                             </div>
                             <div v-else class="text-center">
                               -
@@ -522,8 +533,8 @@
 
                           <!-- Conditional PM -->
                           <td>
-                            <div v-if="data.projectManager" class="text-center">
-                              {{ data.projectManager }}
+                            <div v-if="data.pm" class="text-center">
+                              {{ data.pm.name }}
                             </div>
                             <div v-else class="text-center">
                               -
@@ -536,37 +547,44 @@
                           <td class="text-center">{{ data.ams }}</td>
 
                           <!-- Conditional Market Share -->
-                          <td>
-                            <div v-if="data.marketShare" class="text-center" style="color: #50CD89">
-                              ${{ formatNumber(data.marketShare) }}
+                          <td style="white-space: nowrap;">
+                            <div v-if="data.market_share" class="text-center" style="color: #50CD89">
+                              USD {{ formatNumber(data.market_share) }}
                             </div>
                             <div v-else class="text-center" style="color: #50CD89">
-                              $0
+                              USD 0
                             </div>
                           </td>
                           <!-- End Of Conditional Market Share -->
 
                           <!-- Conditional Sales Value -->
-                          <td>
-                            <div v-if="data.salesPlan" class="text-center" style="color: #50CD89">
-                              ${{ formatNumber(data.salesPlan ) }}
+                          <td style="white-space: nowrap;">
+                            <div v-if="data.sales_plan" class="text-center" style="color: #50CD89">
+                              USD {{ formatNumber(data.sales_plan ) }}
                             </div>
                             <div v-else class="text-center" style="color: #50CD89">
-                              $0
+                              USD 0
                             </div>
                           </td>
                           <!-- End Of Conditional Sales Value -->
 
                           <td class="text-center">
-                            <nuxt-link :to="{ path: 'view-prospect', query: { id: data.customer.id }}" class="btn btn-sm btn-light">
-                              View
-                            </nuxt-link>
-                          </td>
-                        </tr>
-                        <tr v-if="prospect.length < 1">
-                          <td colspan="12">
-                            <div class="text-muted text-center">
-                              Data not found
+                            <div v-if="data.sales_plan" class="text-center" style="color: #50CD89">
+                              <nuxt-link :to="{ path: 'view-prospect-tmb', query: { id: data.id }}" class="btn btn-sm btn-light disabled">
+                                Done
+                              </nuxt-link>
+                            </div>
+                            <div v-else class="text-center" style="color: #50CD89">
+                              <div v-if="data.transaction_type_id == 1 || data.transaction_type_id == 2">
+                                <nuxt-link :to="{ path: 'view-prospect-tmb', query: { id: data.id }}" class="btn btn-sm btn-light" style="white-space: nowrap;">
+                                  Pick Up
+                                </nuxt-link>
+                              </div>
+                              <div v-else>
+                                <nuxt-link :to="{ path: 'view-prospect-pbth', query: { id: data.id }}" class="btn btn-sm btn-light" style="white-space: nowrap;">
+                                  Pick Up
+                                </nuxt-link>
+                              </div>
                             </div>
                           </td>
                         </tr>
@@ -590,35 +608,35 @@
                           <!-- End Of The Year -->
 
                           <!-- Transaction -->
-                          <th v-if="order == 'transaction' && by == 'asc'" @click="sort('transaction', 'desc')" class="text-center" style="white-space: nowrap;">Transaction <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
+                          <th v-if="order == 'transaction_type.name' && by == 'asc'" @click="sort('transaction_type.name', 'desc')" class="text-center" style="white-space: nowrap;">Transaction <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
 
-                          <th v-else-if="order == 'transaction' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">Transaction <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+                          <th v-else-if="order == 'transaction_type.name' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">Transaction <i class="fa-solid fa-sort-down" style="color: black"></i></th>
 
-                          <th v-else @click="sort('transaction', 'asc')" class="text-center" style="white-space: nowrap;">Transaction <i class="fa-solid fa-sort"></i></th>
+                          <th v-else @click="sort('transaction_type.name', 'asc')" class="text-center" style="white-space: nowrap;">Transaction <i class="fa-solid fa-sort"></i></th>
                           <!-- End Of The Transaction -->
 
                           <!-- Type -->
-                          <th v-if="order == 'type' && by == 'asc'" @click="sort('type', 'desc')" class="text-center" style="white-space: nowrap;">Type <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
+                          <th v-if="order == 'prospect_type.name' && by == 'asc'" @click="sort('prospect_type.name', 'desc')" class="text-center" style="white-space: nowrap;">Type <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
 
-                          <th v-else-if="order == 'type' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">Type <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+                          <th v-else-if="order == 'prospect_type.name' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">Type <i class="fa-solid fa-sort-down" style="color: black"></i></th>
 
-                          <th v-else @click="sort('type', 'asc')" class="text-center" style="white-space: nowrap;">Type <i class="fa-solid fa-sort"></i></th>
+                          <th v-else @click="sort('prospect_type.name', 'asc')" class="text-center" style="white-space: nowrap;">Type <i class="fa-solid fa-sort"></i></th>
                           <!-- End Of The Type -->
 
                           <!-- Strategic Initiative -->
-                          <th v-if="order == 'strategicInitiative' && by == 'asc'" @click="sort('strategicInitiative', 'desc')" class="text-center" style="white-space: nowrap;">Strategic Initiative <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
+                          <th v-if="order == 'strategic_initiative.name' && by == 'asc'" @click="sort('strategic_initiative.name', 'desc')" class="text-center" style="white-space: nowrap;">Strategic Initiative <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
 
-                          <th v-else-if="order == 'strategicInitiative' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">Strategic Initiative <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+                          <th v-else-if="order == 'strategic_initiative.name' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">Strategic Initiative <i class="fa-solid fa-sort-down" style="color: black"></i></th>
 
-                          <th v-else @click="sort('strategicInitiative', 'asc')" class="text-center" style="white-space: nowrap;">Strategic Initiative <i class="fa-solid fa-sort"></i></th>
+                          <th v-else @click="sort('strategic_initiative.name', 'asc')" class="text-center" style="white-space: nowrap;">Strategic Initiative <i class="fa-solid fa-sort"></i></th>
                           <!-- End Of The Strategic Initiative -->
 
                           <!-- PM -->
-                          <th v-if="order == 'projectManager' && by == 'asc'" @click="sort('projectManager', 'desc')" class="text-center" style="white-space: nowrap;">PM <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
+                          <th v-if="order == 'pm.name' && by == 'asc'" @click="sort('pm.name', 'desc')" class="text-center" style="white-space: nowrap;">PM <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
 
-                          <th v-else-if="order == 'projectManager' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">PM <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+                          <th v-else-if="order == 'pm.name' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">PM <i class="fa-solid fa-sort-down" style="color: black"></i></th>
 
-                          <th v-else @click="sort('projectManager', 'asc')" class="text-center" style="white-space: nowrap;">PM <i class="fa-solid fa-sort"></i></th>
+                          <th v-else @click="sort('pm.name', 'asc')" class="text-center" style="white-space: nowrap;">PM <i class="fa-solid fa-sort"></i></th>
                           <!-- End Of The PM -->
 
                           <!-- Customer Code -->
@@ -638,27 +656,27 @@
                           <!-- End Of The Customer -->
 
                           <!-- AMS -->
-                          <th v-if="order == 'ams' && by == 'asc'" @click="sort('ams', 'desc')" class="text-center" style="white-space: nowrap;">AMS <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
+                          <th v-if="order == 'ams.initial' && by == 'asc'" @click="sort('ams.initial', 'desc')" class="text-center" style="white-space: nowrap;">AMS <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
 
-                          <th v-else-if="order == 'ams' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">AMS <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+                          <th v-else-if="order == 'ams.initial' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">AMS <i class="fa-solid fa-sort-down" style="color: black"></i></th>
 
-                          <th v-else @click="sort('ams', 'asc')" class="text-center" style="white-space: nowrap;">AMS <i class="fa-solid fa-sort"></i></th>
+                          <th v-else @click="sort('ams.initial', 'asc')" class="text-center" style="white-space: nowrap;">AMS <i class="fa-solid fa-sort"></i></th>
                           <!-- End Of The AMS -->
 
                           <!-- Market Share -->
-                          <th v-if="order == 'marketShare' && by == 'asc'" @click="sort('marketShare', 'desc')" class="text-center" style="white-space: nowrap;">Market Share <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
+                          <th v-if="order == 'marketshare' && by == 'asc'" @click="sort('marketshare', 'desc')" class="text-center" style="white-space: nowrap;">Market Share <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
 
-                          <th v-else-if="order == 'marketShare' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">Market Share <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+                          <th v-else-if="order == 'marketshare' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">Market Share <i class="fa-solid fa-sort-down" style="color: black"></i></th>
 
-                          <th v-else @click="sort('marketShare', 'asc')" class="text-center" style="white-space: nowrap;">Market Share <i class="fa-solid fa-sort"></i></th>
+                          <th v-else @click="sort('marketshare', 'asc')" class="text-center" style="white-space: nowrap;">Market Share <i class="fa-solid fa-sort"></i></th>
                           <!-- End Of The Market Share -->
 
                           <!-- Sales Plan -->
-                          <th v-if="order == 'salesPlan' && by == 'asc'" @click="sort('salesPlan', 'desc')" class="text-center" style="white-space: nowrap;">Sales Plan <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
+                          <th v-if="order == 'sales.value' && by == 'asc'" @click="sort('sales.value', 'desc')" class="text-center" style="white-space: nowrap;">Sales Plan <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
 
-                          <th v-else-if="order == 'salesPlan' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">Sales Plan <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+                          <th v-else-if="order == 'sales.value' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">Sales Plan <i class="fa-solid fa-sort-down" style="color: black"></i></th>
 
-                          <th v-else @click="sort('salesPlan', 'asc')" class="text-center" style="white-space: nowrap;">Sales Plan <i class="fa-solid fa-sort"></i></th>
+                          <th v-else @click="sort('sales.value', 'asc')" class="text-center" style="white-space: nowrap;">Sales Plan <i class="fa-solid fa-sort"></i></th>
                           <!-- End Of The Sales Plan -->
 
                           <th class="text-center">Action</th>
@@ -670,13 +688,13 @@
                               {{ prospect3.from + prospect_index }}
                           </td>
                           <td class="text-center">{{ data.year }}</td>
-                          <td class="text-center">{{ data.transaction }}</td>
-                          <td class="text-center">{{ data.type }}</td>
+                          <td class="text-center">{{ data.transaction_type.name }}</td>
+                          <td class="text-center">{{ data.prospect_type.name }}</td>
 
                           <!-- Conditional Strategic Initiative -->
                           <td>
-                            <div v-if="data.strategicInitiative" class="text-center">
-                              {{ data.strategicInitiative }}
+                            <div v-if="data.strategic_initiative" class="text-center">
+                              {{ data.strategic_initiative.name }}
                             </div>
                             <div v-else class="text-center">
                               -
@@ -686,8 +704,8 @@
 
                           <!-- Conditional PM -->
                           <td>
-                            <div v-if="data.projectManager" class="text-center">
-                              {{ data.projectManager }}
+                            <div v-if="data.pm" class="text-center">
+                              {{ data.pm.name }}
                             </div>
                             <div v-else class="text-center">
                               -
@@ -700,31 +718,45 @@
                           <td class="text-center">{{ data.ams }}</td>
 
                           <!-- Conditional Market Share -->
-                          <td>
-                            <div v-if="data.marketShare" class="text-center" style="color: #50CD89">
-                              ${{ formatNumber(data.marketShare) }}
+                          <td style="white-space: nowrap;">
+                            <div v-if="data.market_share" class="text-center" style="color: #50CD89">
+                              USD {{ formatNumber(data.market_share) }}
                             </div>
                             <div v-else class="text-center" style="color: #50CD89">
-                              $0
+                              USD 0
                             </div>
                           </td>
                           <!-- End Of Conditional Market Share -->
 
                           <!-- Conditional Sales Value -->
-                          <td>
-                            <div v-if="data.salesPlan" class="text-center" style="color: #50CD89">
-                              ${{ formatNumber(data.salesPlan ) }}
+                          <td style="white-space: nowrap;">
+                            <div v-if="data.sales_plan" class="text-center" style="color: #50CD89">
+                              USD {{ formatNumber(data.sales_plan ) }}
                             </div>
                             <div v-else class="text-center" style="color: #50CD89">
-                              $0
+                              USD 0
                             </div>
                           </td>
                           <!-- End Of Conditional Sales Value -->
 
                           <td class="text-center">
-                            <nuxt-link :to="{ path: 'view-prospect', query: { id: data.customer.id }}" class="btn btn-sm btn-light">
-                              View
-                            </nuxt-link>
+                            <div v-if="data.sales_plan" class="text-center" style="color: #50CD89">
+                              <nuxt-link :to="{ path: 'view-prospect-tmb', query: { id: data.id }}" class="btn btn-sm btn-light disabled">
+                                Done
+                              </nuxt-link>
+                            </div>
+                            <div v-else class="text-center" style="color: #50CD89">
+                              <div v-if="data.transaction_type_id == 1 || data.transaction_type_id == 2">
+                                <nuxt-link :to="{ path: 'view-prospect-tmb', query: { id: data.id }}" class="btn btn-sm btn-light" style="white-space: nowrap;">
+                                  Pick Up
+                                </nuxt-link>
+                              </div>
+                              <div v-else>
+                                <nuxt-link :to="{ path: 'view-prospect-pbth', query: { id: data.id }}" class="btn btn-sm btn-light" style="white-space: nowrap;">
+                                  Pick Up
+                                </nuxt-link>
+                              </div>
+                            </div>
                           </td>
                         </tr>
                         <tr v-if="prospect.length < 1">
@@ -754,35 +786,35 @@
                           <!-- End Of The Year -->
 
                           <!-- Transaction -->
-                          <th v-if="order == 'transaction' && by == 'asc'" @click="sort('transaction', 'desc')" class="text-center" style="white-space: nowrap;">Transaction <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
+                          <th v-if="order == 'transaction_type.name' && by == 'asc'" @click="sort('transaction_type.name', 'desc')" class="text-center" style="white-space: nowrap;">Transaction <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
 
-                          <th v-else-if="order == 'transaction' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">Transaction <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+                          <th v-else-if="order == 'transaction_type.name' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">Transaction <i class="fa-solid fa-sort-down" style="color: black"></i></th>
 
-                          <th v-else @click="sort('transaction', 'asc')" class="text-center" style="white-space: nowrap;">Transaction <i class="fa-solid fa-sort"></i></th>
+                          <th v-else @click="sort('transaction_type.name', 'asc')" class="text-center" style="white-space: nowrap;">Transaction <i class="fa-solid fa-sort"></i></th>
                           <!-- End Of The Transaction -->
 
                           <!-- Type -->
-                          <th v-if="order == 'type' && by == 'asc'" @click="sort('type', 'desc')" class="text-center" style="white-space: nowrap;">Type <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
+                          <th v-if="order == 'prospect_type.name' && by == 'asc'" @click="sort('prospect_type.name', 'desc')" class="text-center" style="white-space: nowrap;">Type <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
 
-                          <th v-else-if="order == 'type' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">Type <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+                          <th v-else-if="order == 'prospect_type.name' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">Type <i class="fa-solid fa-sort-down" style="color: black"></i></th>
 
-                          <th v-else @click="sort('type', 'asc')" class="text-center" style="white-space: nowrap;">Type <i class="fa-solid fa-sort"></i></th>
+                          <th v-else @click="sort('prospect_type.name', 'asc')" class="text-center" style="white-space: nowrap;">Type <i class="fa-solid fa-sort"></i></th>
                           <!-- End Of The Type -->
 
                           <!-- Strategic Initiative -->
-                          <th v-if="order == 'strategicInitiative' && by == 'asc'" @click="sort('strategicInitiative', 'desc')" class="text-center" style="white-space: nowrap;">Strategic Initiative <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
+                          <th v-if="order == 'strategic_initiative.name' && by == 'asc'" @click="sort('strategic_initiative.name', 'desc')" class="text-center" style="white-space: nowrap;">Strategic Initiative <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
 
-                          <th v-else-if="order == 'strategicInitiative' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">Strategic Initiative <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+                          <th v-else-if="order == 'strategic_initiative.name' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">Strategic Initiative <i class="fa-solid fa-sort-down" style="color: black"></i></th>
 
-                          <th v-else @click="sort('strategicInitiative', 'asc')" class="text-center" style="white-space: nowrap;">Strategic Initiative <i class="fa-solid fa-sort"></i></th>
+                          <th v-else @click="sort('strategic_initiative.name', 'asc')" class="text-center" style="white-space: nowrap;">Strategic Initiative <i class="fa-solid fa-sort"></i></th>
                           <!-- End Of The Strategic Initiative -->
 
                           <!-- PM -->
-                          <th v-if="order == 'projectManager' && by == 'asc'" @click="sort('projectManager', 'desc')" class="text-center" style="white-space: nowrap;">PM <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
+                          <th v-if="order == 'pm.name' && by == 'asc'" @click="sort('pm.name', 'desc')" class="text-center" style="white-space: nowrap;">PM <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
 
-                          <th v-else-if="order == 'projectManager' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">PM <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+                          <th v-else-if="order == 'pm.name' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">PM <i class="fa-solid fa-sort-down" style="color: black"></i></th>
 
-                          <th v-else @click="sort('projectManager', 'asc')" class="text-center" style="white-space: nowrap;">PM <i class="fa-solid fa-sort"></i></th>
+                          <th v-else @click="sort('pm.name', 'asc')" class="text-center" style="white-space: nowrap;">PM <i class="fa-solid fa-sort"></i></th>
                           <!-- End Of The PM -->
 
                           <!-- Customer Code -->
@@ -802,27 +834,27 @@
                           <!-- End Of The Customer -->
 
                           <!-- AMS -->
-                          <th v-if="order == 'ams' && by == 'asc'" @click="sort('ams', 'desc')" class="text-center" style="white-space: nowrap;">AMS <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
+                          <th v-if="order == 'ams.initial' && by == 'asc'" @click="sort('ams.initial', 'desc')" class="text-center" style="white-space: nowrap;">AMS <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
 
-                          <th v-else-if="order == 'ams' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">AMS <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+                          <th v-else-if="order == 'ams.initial' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">AMS <i class="fa-solid fa-sort-down" style="color: black"></i></th>
 
-                          <th v-else @click="sort('ams', 'asc')" class="text-center" style="white-space: nowrap;">AMS <i class="fa-solid fa-sort"></i></th>
+                          <th v-else @click="sort('ams.initial', 'asc')" class="text-center" style="white-space: nowrap;">AMS <i class="fa-solid fa-sort"></i></th>
                           <!-- End Of The AMS -->
 
                           <!-- Market Share -->
-                          <th v-if="order == 'marketShare' && by == 'asc'" @click="sort('marketShare', 'desc')" class="text-center" style="white-space: nowrap;">Market Share <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
+                          <th v-if="order == 'marketshare' && by == 'asc'" @click="sort('marketshare', 'desc')" class="text-center" style="white-space: nowrap;">Market Share <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
 
-                          <th v-else-if="order == 'marketShare' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">Market Share <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+                          <th v-else-if="order == 'marketshare' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">Market Share <i class="fa-solid fa-sort-down" style="color: black"></i></th>
 
-                          <th v-else @click="sort('marketShare', 'asc')" class="text-center" style="white-space: nowrap;">Market Share <i class="fa-solid fa-sort"></i></th>
+                          <th v-else @click="sort('marketshare', 'asc')" class="text-center" style="white-space: nowrap;">Market Share <i class="fa-solid fa-sort"></i></th>
                           <!-- End Of The Market Share -->
 
                           <!-- Sales Plan -->
-                          <th v-if="order == 'salesPlan' && by == 'asc'" @click="sort('salesPlan', 'desc')" class="text-center" style="white-space: nowrap;">Sales Plan <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
+                          <th v-if="order == 'sales.value' && by == 'asc'" @click="sort('sales.value', 'desc')" class="text-center" style="white-space: nowrap;">Sales Plan <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
 
-                          <th v-else-if="order == 'salesPlan' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">Sales Plan <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+                          <th v-else-if="order == 'sales.value' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">Sales Plan <i class="fa-solid fa-sort-down" style="color: black"></i></th>
 
-                          <th v-else @click="sort('salesPlan', 'asc')" class="text-center" style="white-space: nowrap;">Sales Plan <i class="fa-solid fa-sort"></i></th>
+                          <th v-else @click="sort('sales.value', 'asc')" class="text-center" style="white-space: nowrap;">Sales Plan <i class="fa-solid fa-sort"></i></th>
                           <!-- End Of The Sales Plan -->
 
                           <th class="text-center">Action</th>
@@ -834,13 +866,13 @@
                               {{ prospect3.from + prospect_index }}
                           </td>
                           <td class="text-center">{{ data.year }}</td>
-                          <td class="text-center">{{ data.transaction }}</td>
-                          <td class="text-center">{{ data.type }}</td>
+                          <td class="text-center">{{ data.transaction_type.name }}</td>
+                          <td class="text-center">{{ data.prospect_type.name }}</td>
 
                           <!-- Conditional Strategic Initiative -->
                           <td>
-                            <div v-if="data.strategicInitiative" class="text-center">
-                              {{ data.strategicInitiative }}
+                            <div v-if="data.strategic_initiative" class="text-center">
+                              {{ data.strategic_initiative.name }}
                             </div>
                             <div v-else class="text-center">
                               -
@@ -850,8 +882,8 @@
 
                           <!-- Conditional PM -->
                           <td>
-                            <div v-if="data.projectManager" class="text-center">
-                              {{ data.projectManager }}
+                            <div v-if="data.pm" class="text-center">
+                              {{ data.pm.name }}
                             </div>
                             <div v-else class="text-center">
                               -
@@ -864,31 +896,45 @@
                           <td class="text-center">{{ data.ams }}</td>
 
                           <!-- Conditional Market Share -->
-                          <td>
-                            <div v-if="data.marketShare" class="text-center" style="color: #50CD89">
-                              ${{ formatNumber(data.marketShare) }}
+                          <td style="white-space: nowrap;">
+                            <div v-if="data.market_share" class="text-center" style="color: #50CD89">
+                              USD {{ formatNumber(data.market_share) }}
                             </div>
                             <div v-else class="text-center" style="color: #50CD89">
-                              $0
+                              USD 0
                             </div>
                           </td>
                           <!-- End Of Conditional Market Share -->
 
                           <!-- Conditional Sales Value -->
-                          <td>
-                            <div v-if="data.salesPlan" class="text-center" style="color: #50CD89">
-                              ${{ formatNumber(data.salesPlan ) }}
+                          <td style="white-space: nowrap;">
+                            <div v-if="data.sales_plan" class="text-center" style="color: #50CD89">
+                              USD {{ formatNumber(data.sales_plan ) }}
                             </div>
                             <div v-else class="text-center" style="color: #50CD89">
-                              $0
+                              USD 0
                             </div>
                           </td>
                           <!-- End Of Conditional Sales Value -->
 
                           <td class="text-center">
-                            <nuxt-link :to="{ path: 'view-prospect', query: { id: data.customer.id }}" class="btn btn-sm btn-light">
-                              View
-                            </nuxt-link>
+                            <div v-if="data.sales_plan" class="text-center" style="color: #50CD89">
+                              <nuxt-link :to="{ path: 'view-prospect-tmb', query: { id: data.id }}" class="btn btn-sm btn-light disabled">
+                                Done
+                              </nuxt-link>
+                            </div>
+                            <div v-else class="text-center" style="color: #50CD89">
+                              <div v-if="data.transaction_type_id == 1 || data.transaction_type_id == 2">
+                                <nuxt-link :to="{ path: 'view-prospect-tmb', query: { id: data.id }}" class="btn btn-sm btn-light" style="white-space: nowrap;">
+                                  Pick Up
+                                </nuxt-link>
+                              </div>
+                              <div v-else>
+                                <nuxt-link :to="{ path: 'view-prospect-pbth', query: { id: data.id }}" class="btn btn-sm btn-light" style="white-space: nowrap;">
+                                  Pick Up
+                                </nuxt-link>
+                              </div>
+                            </div>
                           </td>
                         </tr>
                         <tr v-if="prospect.length < 1">
@@ -918,35 +964,35 @@
                           <!-- End Of The Year -->
 
                           <!-- Transaction -->
-                          <th v-if="order == 'transaction' && by == 'asc'" @click="sort('transaction', 'desc')" class="text-center" style="white-space: nowrap;">Transaction <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
+                          <th v-if="order == 'transaction_type.name' && by == 'asc'" @click="sort('transaction_type.name', 'desc')" class="text-center" style="white-space: nowrap;">Transaction <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
 
-                          <th v-else-if="order == 'transaction' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">Transaction <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+                          <th v-else-if="order == 'transaction_type.name' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">Transaction <i class="fa-solid fa-sort-down" style="color: black"></i></th>
 
-                          <th v-else @click="sort('transaction', 'asc')" class="text-center" style="white-space: nowrap;">Transaction <i class="fa-solid fa-sort"></i></th>
+                          <th v-else @click="sort('transaction_type.name', 'asc')" class="text-center" style="white-space: nowrap;">Transaction <i class="fa-solid fa-sort"></i></th>
                           <!-- End Of The Transaction -->
 
                           <!-- Type -->
-                          <th v-if="order == 'type' && by == 'asc'" @click="sort('type', 'desc')" class="text-center" style="white-space: nowrap;">Type <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
+                          <th v-if="order == 'prospect_type.name' && by == 'asc'" @click="sort('prospect_type.name', 'desc')" class="text-center" style="white-space: nowrap;">Type <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
 
-                          <th v-else-if="order == 'type' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">Type <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+                          <th v-else-if="order == 'prospect_type.name' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">Type <i class="fa-solid fa-sort-down" style="color: black"></i></th>
 
-                          <th v-else @click="sort('type', 'asc')" class="text-center" style="white-space: nowrap;">Type <i class="fa-solid fa-sort"></i></th>
+                          <th v-else @click="sort('prospect_type.name', 'asc')" class="text-center" style="white-space: nowrap;">Type <i class="fa-solid fa-sort"></i></th>
                           <!-- End Of The Type -->
 
                           <!-- Strategic Initiative -->
-                          <th v-if="order == 'strategicInitiative' && by == 'asc'" @click="sort('strategicInitiative', 'desc')" class="text-center" style="white-space: nowrap;">Strategic Initiative <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
+                          <th v-if="order == 'strategic_initiative.name' && by == 'asc'" @click="sort('strategic_initiative.name', 'desc')" class="text-center" style="white-space: nowrap;">Strategic Initiative <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
 
-                          <th v-else-if="order == 'strategicInitiative' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">Strategic Initiative <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+                          <th v-else-if="order == 'strategic_initiative.name' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">Strategic Initiative <i class="fa-solid fa-sort-down" style="color: black"></i></th>
 
-                          <th v-else @click="sort('strategicInitiative', 'asc')" class="text-center" style="white-space: nowrap;">Strategic Initiative <i class="fa-solid fa-sort"></i></th>
+                          <th v-else @click="sort('strategic_initiative.name', 'asc')" class="text-center" style="white-space: nowrap;">Strategic Initiative <i class="fa-solid fa-sort"></i></th>
                           <!-- End Of The Strategic Initiative -->
 
                           <!-- PM -->
-                          <th v-if="order == 'projectManager' && by == 'asc'" @click="sort('projectManager', 'desc')" class="text-center" style="white-space: nowrap;">PM <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
+                          <th v-if="order == 'pm.name' && by == 'asc'" @click="sort('pm.name', 'desc')" class="text-center" style="white-space: nowrap;">PM <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
 
-                          <th v-else-if="order == 'projectManager' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">PM <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+                          <th v-else-if="order == 'pm.name' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">PM <i class="fa-solid fa-sort-down" style="color: black"></i></th>
 
-                          <th v-else @click="sort('projectManager', 'asc')" class="text-center" style="white-space: nowrap;">PM <i class="fa-solid fa-sort"></i></th>
+                          <th v-else @click="sort('pm.name', 'asc')" class="text-center" style="white-space: nowrap;">PM <i class="fa-solid fa-sort"></i></th>
                           <!-- End Of The PM -->
 
                           <!-- Customer Code -->
@@ -966,27 +1012,27 @@
                           <!-- End Of The Customer -->
 
                           <!-- AMS -->
-                          <th v-if="order == 'ams' && by == 'asc'" @click="sort('ams', 'desc')" class="text-center" style="white-space: nowrap;">AMS <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
+                          <th v-if="order == 'ams.initial' && by == 'asc'" @click="sort('ams.initial', 'desc')" class="text-center" style="white-space: nowrap;">AMS <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
 
-                          <th v-else-if="order == 'ams' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">AMS <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+                          <th v-else-if="order == 'ams.initial' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">AMS <i class="fa-solid fa-sort-down" style="color: black"></i></th>
 
-                          <th v-else @click="sort('ams', 'asc')" class="text-center" style="white-space: nowrap;">AMS <i class="fa-solid fa-sort"></i></th>
+                          <th v-else @click="sort('ams.initial', 'asc')" class="text-center" style="white-space: nowrap;">AMS <i class="fa-solid fa-sort"></i></th>
                           <!-- End Of The AMS -->
 
                           <!-- Market Share -->
-                          <th v-if="order == 'marketShare' && by == 'asc'" @click="sort('marketShare', 'desc')" class="text-center" style="white-space: nowrap;">Market Share <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
+                          <th v-if="order == 'marketshare' && by == 'asc'" @click="sort('marketshare', 'desc')" class="text-center" style="white-space: nowrap;">Market Share <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
 
-                          <th v-else-if="order == 'marketShare' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">Market Share <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+                          <th v-else-if="order == 'marketshare' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">Market Share <i class="fa-solid fa-sort-down" style="color: black"></i></th>
 
-                          <th v-else @click="sort('marketShare', 'asc')" class="text-center" style="white-space: nowrap;">Market Share <i class="fa-solid fa-sort"></i></th>
+                          <th v-else @click="sort('marketshare', 'asc')" class="text-center" style="white-space: nowrap;">Market Share <i class="fa-solid fa-sort"></i></th>
                           <!-- End Of The Market Share -->
 
                           <!-- Sales Plan -->
-                          <th v-if="order == 'salesPlan' && by == 'asc'" @click="sort('salesPlan', 'desc')" class="text-center" style="white-space: nowrap;">Sales Plan <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
+                          <th v-if="order == 'sales.value' && by == 'asc'" @click="sort('sales.value', 'desc')" class="text-center" style="white-space: nowrap;">Sales Plan <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
 
-                          <th v-else-if="order == 'salesPlan' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">Sales Plan <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+                          <th v-else-if="order == 'sales.value' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">Sales Plan <i class="fa-solid fa-sort-down" style="color: black"></i></th>
 
-                          <th v-else @click="sort('salesPlan', 'asc')" class="text-center" style="white-space: nowrap;">Sales Plan <i class="fa-solid fa-sort"></i></th>
+                          <th v-else @click="sort('sales.value', 'asc')" class="text-center" style="white-space: nowrap;">Sales Plan <i class="fa-solid fa-sort"></i></th>
                           <!-- End Of The Sales Plan -->
 
                           <th class="text-center">Action</th>
@@ -998,13 +1044,13 @@
                               {{ prospect3.from + prospect_index }}
                           </td>
                           <td class="text-center">{{ data.year }}</td>
-                          <td class="text-center">{{ data.transaction }}</td>
-                          <td class="text-center">{{ data.type }}</td>
+                          <td class="text-center">{{ data.transaction_type.name }}</td>
+                          <td class="text-center">{{ data.prospect_type.name }}</td>
 
                           <!-- Conditional Strategic Initiative -->
                           <td>
-                            <div v-if="data.strategicInitiative" class="text-center">
-                              {{ data.strategicInitiative }}
+                            <div v-if="data.strategic_initiative" class="text-center">
+                              {{ data.strategic_initiative.name }}
                             </div>
                             <div v-else class="text-center">
                               -
@@ -1014,8 +1060,8 @@
 
                           <!-- Conditional PM -->
                           <td>
-                            <div v-if="data.projectManager" class="text-center">
-                              {{ data.projectManager }}
+                            <div v-if="data.pm" class="text-center">
+                              {{ data.pm.name }}
                             </div>
                             <div v-else class="text-center">
                               -
@@ -1028,31 +1074,45 @@
                           <td class="text-center">{{ data.ams }}</td>
 
                           <!-- Conditional Market Share -->
-                          <td>
-                            <div v-if="data.marketShare" class="text-center" style="color: #50CD89">
-                              ${{ formatNumber(data.marketShare) }}
+                          <td style="white-space: nowrap;">
+                            <div v-if="data.market_share" class="text-center" style="color: #50CD89">
+                              USD {{ formatNumber(data.market_share) }}
                             </div>
                             <div v-else class="text-center" style="color: #50CD89">
-                              $0
+                              USD 0
                             </div>
                           </td>
                           <!-- End Of Conditional Market Share -->
 
                           <!-- Conditional Sales Value -->
-                          <td>
-                            <div v-if="data.salesPlan" class="text-center" style="color: #50CD89">
-                              ${{ formatNumber(data.salesPlan ) }}
+                          <td style="white-space: nowrap;">
+                            <div v-if="data.sales_plan" class="text-center" style="color: #50CD89">
+                              USD {{ formatNumber(data.sales_plan ) }}
                             </div>
                             <div v-else class="text-center" style="color: #50CD89">
-                              $0
+                              USD 0
                             </div>
                           </td>
                           <!-- End Of Conditional Sales Value -->
 
                           <td class="text-center">
-                            <nuxt-link :to="{ path: 'view-prospect', query: { id: data.customer.id }}" class="btn btn-sm btn-light">
-                              View
-                            </nuxt-link>
+                            <div v-if="data.sales_plan" class="text-center" style="color: #50CD89">
+                              <nuxt-link :to="{ path: 'view-prospect-tmb', query: { id: data.id }}" class="btn btn-sm btn-light disabled">
+                                Done
+                              </nuxt-link>
+                            </div>
+                            <div v-else class="text-center" style="color: #50CD89">
+                              <div v-if="data.transaction_type_id == 1 || data.transaction_type_id == 2">
+                                <nuxt-link :to="{ path: 'view-prospect-tmb', query: { id: data.id }}" class="btn btn-sm btn-light" style="white-space: nowrap;">
+                                  Pick Up
+                                </nuxt-link>
+                              </div>
+                              <div v-else>
+                                <nuxt-link :to="{ path: 'view-prospect-pbth', query: { id: data.id }}" class="btn btn-sm btn-light" style="white-space: nowrap;">
+                                  Pick Up
+                                </nuxt-link>
+                              </div>
+                            </div>
                           </td>
                         </tr>
                         <tr v-if="prospect.length < 1">
@@ -1263,7 +1323,7 @@
                                     Page
                                   </p>
                                   <div class="mt-10" v-for="(prospectType, prospect_type_index) in prospect_type.data" :key="prospect_type_index">
-                                    <input type="radio" class="btn-check" name="prospectType" v-model="prospect.prospect_type_id" :value="prospectType.id" :id="prospectType.name">
+                                    <input type="radio" class="btn-check" name="prospectType" v-model="prospect_prospect_type_id" :value="prospectType.id" :id="prospectType.name">
                                     <label class="btn btn-outline btn-outline-dashed btn-active-light-primary p-7 d-flex align-items-center mb-5"
                                       :for="prospectType.name">
                                       <span class="svg-icon svg-icon-3hx" v-if="prospect_type_index % 2 == 0" >
@@ -1319,7 +1379,7 @@
                                   </div>
                                   <div class="col-md-6 justify-content-end d-flex">
                                     <div v-if="role == 'TPC' || role == 'Administrator'">
-                                      <button class="btn btn-primary mt-5 align-self-end" type="button" @click="nextButtonClick()" :disabled="prospect.prospect_type_id == null">
+                                      <button class="btn btn-primary mt-5 align-self-end" type="button" @click="nextButtonClick()" :disabled="prospect_prospect_type_id == null">
                                       Next
                                       </button>
                                     </div>
@@ -1339,7 +1399,7 @@
                                     Page
                                   </p>
                                   <div class="row">
-                                    <div v-if="prospect.prospect_type_id == 1">
+                                    <div v-if="prospect_prospect_type_id == 1">
                                       <div class="mb-3">
                                         <label for="exampleFormControlInput1" class="form-label">
                                           Year
@@ -1395,7 +1455,7 @@
                                                 Next
                                               </button>
                                             </div>
-                                            <div v-else-if="prospect_year < 2000">
+                                            <div v-else-if="prospect_year < 2000 || prospect_year > 9999">
                                               <button class="btn btn-primary mt-5 align-self-end disabled" type="button">
                                                 Next
                                               </button>
@@ -1409,7 +1469,7 @@
                                         </div>
                                       </div>
                                     </div>
-                                    <div v-else-if="prospect.prospect_type_id == 2">
+                                    <div v-else-if="prospect_prospect_type_id == 2">
                                       <div class="mb-3">
                                         <label for="exampleFormControlInput1" class="form-label">
                                           Year
@@ -1487,7 +1547,7 @@
                                                 Next
                                               </button>
                                             </div>
-                                            <div v-else-if="prospect_year < 2000">
+                                            <div v-else-if="prospect_year < 2000 || prospect_year > 9999">
                                               <button class="btn btn-primary mt-5 align-self-end disabled" type="button">
                                                 Next
                                               </button>
@@ -1530,7 +1590,7 @@
                                   <!--begin::Option-->
                                   <div class="mt-10" v-for="(transactionType, transactionType_index)
                                   in transaction_type.data" :key="transactionType_index">
-                                    <input type="radio" class="btn-check" name="transaction_type" v-model="prospect.transaction_type_id" :value="transactionType.id" :id="transactionType.name">
+                                    <input type="radio" class="btn-check" name="transaction_type" v-model="prospect_transaction_type_id" :value="transactionType.id" :id="transactionType.name">
                                     <label class="btn btn-outline btn-outline-dashed btn-active-light-primary p-7 d-flex align-items-center mb-5" :for="transactionType.name">
                                       <span class="svg-icon svg-icon-3hx" v-if="transactionType_index % 2 == 0">
                                         <svg width="100" height="100" viewBox="0 0 24 24" fill="none"
@@ -1592,7 +1652,7 @@
                                   </div>
                                   <div class="col-md-6 justify-content-end d-flex">
                                     <div v-if="role == 'TPC' || role == 'Administrator'">
-                                      <button class="btn btn-primary mt-5 align-self-end" type="button" @click="nextButtonClick()" :disabled="prospect.transaction_type_id == null">
+                                      <button class="btn btn-primary mt-5 align-self-end" type="button" @click="nextButtonClick()" :disabled="prospect_transaction_type_id == null">
                                         Next
                                       </button>
                                     </div>
@@ -1609,7 +1669,7 @@
                                 <p class="fs-7 mb-5 text-muted">
                                   If you need more info, please check out FAQ Page
                                 </p>
-                                <div v-if="prospect.transaction_type_id == 1 || prospect.transaction_type_id == 2">
+                                <div v-if="prospect_transaction_type_id == 1 || prospect_transaction_type_id == 2">
                                   <div class="row mb-5">
                                     <div class="col-sm-4">
                                       <div class="input-group mb-3">
@@ -1673,21 +1733,6 @@
                                             <span class="text-danger" v-else>
                                               {{ returnError(errors[`tmb.${data_index}.product.${item_index}.engine`]) }}
                                             </span>
-                                            <label class="form-label mt-5 d-block">
-                                              APU
-                                            </label>
-                                            <multiselect
-                                            v-model="item.apu"
-                                            :options="apu_options"
-                                            placeholder=""
-                                            label="name"
-                                            class="mb-5"
-                                            ></multiselect>
-                                            <span v-if="errors[`tmb.${data_index}.product.${item_index}.apu`] == null">
-                                            </span>
-                                            <span class="text-danger" v-else>
-                                              {{ returnError(errors[`tmb.${data_index}.product.${item_index}.apu`]) }}
-                                            </span>
                                           </div>
                                           <div v-else-if="item.product_name == 'Component'">
                                             <label class="form-label">
@@ -1726,7 +1771,7 @@
                                           <label class="form-label">
                                             Market Share
                                           </label>
-                                          <input type="text" v-model="item.market_share" class="form-control mb-2 mb-md-0" :class="{'is-invalid': errors[`tmb.${data_index}.product.${item_index}.market_share`]}">
+                                          <input type="number" v-model="item.market_share" class="form-control mb-2 mb-md-0" :class="{'is-invalid': errors[`tmb.${data_index}.product.${item_index}.market_share`]}">
 
                                           <span v-if="errors[`tmb.${data_index}.product.${item_index}.market_share`] == null">
                                           </span>
@@ -1770,14 +1815,9 @@
                                     </div>
                                     <!--begin::Form group-->
                                     <div class="form-group mt-5">
-                                      <button
-                                        data-repeater-create
-                                        class="btn btn-primary btn-sm"
-                                        type="button"
-                                        @click="addTMB(data_index, data)"
-                                      >
-                                        <i class="la la-plus"></i>Add
-                                      </button>
+                                        <button data-repeater-create id="addTMBButton" class="btn btn-primary btn-sm" type="button" @click="addTMB(data_index, data)">
+                                          <i class="la la-plus"></i>Add
+                                        </button>
                                     </div>
                                     <!--end::Form group-->
                                   </div>
@@ -1791,37 +1831,37 @@
                                     </div>
                                     <div class="col-md-6 justify-content-end d-flex">
                                       <div v-if="role == 'TPC' || role == 'Administrator'">
-                                        <div v-if="prospect.transaction_type_id == 1 && prospect.prospect_type_id == 1">
+                                        <div v-if="prospect_transaction_type_id == 1 && prospect_prospect_type_id == 1">
                                           <button class="btn btn-primary rounded" type="button"
                                             :disabled="product_value == null" @click="createTMBOrganic()">
                                             Save
                                           </button>
                                         </div>
-                                        <div v-else-if="prospect.transaction_type_id == 1 && prospect.prospect_type_id == 2">
+                                        <div v-else-if="prospect_transaction_type_id == 1 && prospect_prospect_type_id == 2">
                                           <button class="btn btn-primary rounded" type="button" :disabled="
                                           product_value == null" @click="createTMBInorganic()">
                                             Save
                                           </button>
                                         </div>
-                                        <div v-else-if="prospect.transaction_type_id == 2 && prospect.prospect_type_id == 1">
+                                        <div v-else-if="prospect_transaction_type_id == 2 && prospect_prospect_type_id == 1">
                                           <button class="btn btn-primary rounded" type="button" :disabled="
                                           product_value == null" @click="createTMBOrganic()">
                                             Save
                                           </button>
                                         </div>
-                                        <div v-else-if="prospect.transaction_type_id == 2 && prospect.prospect_type_id == 2">
+                                        <div v-else-if="prospect_transaction_type_id == 2 && prospect_prospect_type_id == 2">
                                           <button class="btn btn-primary rounded" type="button" :disabled="
                                           product_value == null" @click="createTMBInorganic()">
                                             Save
                                           </button>
                                         </div>
-                                        <div v-else-if="prospect.transaction_type_id == 3 && prospect.prospect_type_id == 1">
+                                        <div v-else-if="prospect_transaction_type_id == 3 && prospect_prospect_type_id == 1">
                                           <button class="btn btn-primary rounded" type="button" :disabled="
                                           product_value == null" @click="createPBTHOrganic()">
                                             Save
                                           </button>
                                         </div>
-                                        <div v-else-if="prospect.transaction_type_id == 3 && prospect.prospect_type_id == 2">
+                                        <div v-else-if="prospect_transaction_type_id == 3 && prospect_prospect_type_id == 2">
                                           <button class="btn btn-primary rounded" type="button" :disabled="
                                           product_value == null" @click="createPBTHInorganic()">
                                             Save
@@ -1836,7 +1876,7 @@
                                   </div>
                                   <!--end::Repeater-->
                                 </div>
-                                <div v-else-if="prospect.transaction_type_id == 3">
+                                <div v-else-if="prospect_transaction_type_id == 3">
                                   <div class="row mb-5">
                                     <div class="col">
                                       <div class="input-group mb-3">
@@ -1865,20 +1905,8 @@
                                       </div>
                                     </div>
                                     <div class="col d-flex align-items-end">
-                                      <button
-                                        class="mb-3 btn btn-primary rounded"
-                                        type="button"
-                                        :disabled="
-                                          product_value == null ||
-                                          acType_value == null
-                                        "
-                                        @click="
-                                          addPBTH(
-                                            product_value,
-                                            acType_value
-                                          )
-                                        "
-                                      >
+                                      <button class="mb-3 btn btn-primary rounded" type="button" 
+                                      :disabled=" product_value == null || acType_value == null" @click="addPBTH(product_value,acType_value)">
                                         Add Data
                                       </button>
                                     </div>
@@ -1923,7 +1951,7 @@
                                                   <label class="form-label text-muted fs-7">
                                                     Target Rate
                                                   </label>
-                                                  <input required @change="countMarketShare()" type="text" v-model="target_month.rate" class="form-control form-control-sm">
+                                                  <input required @change="countMarketShare()" type="number" v-model="target_month.rate" class="form-control form-control-sm">
 
                                                   <span v-if="errors[`pbth.${index_pbth}.target.${target_index}.rate`] == null">
                                                   </span>
@@ -1937,7 +1965,7 @@
                                                   <label class="form-label text-muted fs-7">
                                                     Target FH
                                                   </label>
-                                                  <input required @change="countMarketShare()" type="text" v-model="target_month.flight_hour" class="form-control form-control-sm">
+                                                  <input required @change="countMarketShare()" type="number" v-model="target_month.flight_hour" class="form-control form-control-sm">
                                                   <span v-if="errors[`pbth.${index_pbth}.target.${target_index}.flight_hour`] == null">
                                                   </span>
                                                   <span class="text-danger" v-else>
@@ -1971,13 +1999,13 @@
                                     </div>
                                     <div class="col-md-6 justify-content-end d-flex">
                                       <div v-if="role == 'TPC' || role == 'Administrator'">
-                                        <div v-if="prospect.transaction_type_id == 3 && prospect.prospect_type_id == 1">
+                                        <div v-if="prospect_transaction_type_id == 3 && prospect_prospect_type_id == 1">
                                           <button class="btn btn-primary rounded" type="button" :disabled="
                                           product_value == null || acType_value == null" @click="createPBTHOrganic()">
                                             Save
                                           </button>
                                         </div>
-                                        <div v-else-if="prospect.transaction_type_id == 3 && prospect.prospect_type_id == 2">
+                                        <div v-else-if="prospect_transaction_type_id == 3 && prospect_prospect_type_id == 2">
                                           <button class="btn btn-primary rounded" type="button" :disabled="
                                           product_value == null || acType_value == null" @click="createPBTHInorganic()">
                                             Save
@@ -2040,16 +2068,16 @@
                           <!--begin::Wrapper-->
                           <button type="button" class="btn btn-primary mt-5" data-kt-stepper-action="submit">
 
-                            <div v-if="prospect.transaction_type_id == 1 && prospect.prospect_type_id == 1">
+                            <div v-if="prospect_transaction_type_id == 1 && prospect_prospect_type_id == 1">
                               <span class="indicator-label" @click="createTMBOrganic()">Save</span>
                             </div>
-                            <div v-else-if="prospect.transaction_type_id == 2 && prospect.prospect_type_id == 2">
+                            <div v-else-if="prospect_transaction_type_id == 2 && prospect_prospect_type_id == 2">
                               <span class="indicator-label" @click="createPBTHInorganic()">Save</span>
                             </div>
-                            <div v-else-if="prospect.transaction_type_id == 1 && prospect.prospect_type_id == 2">
+                            <div v-else-if="prospect_transaction_type_id == 1 && prospect_prospect_type_id == 2">
                               <span class="indicator-label" @click="createTMBInorganic()">Save</span>
                             </div>
-                            <div v-else-if="prospect.transaction_type_id == 2 && prospect.prospect_type_id == 1">
+                            <div v-else-if="prospect_transaction_type_id == 2 && prospect_prospect_type_id == 1">
                               <span class="indicator-label" @click="createPBTHOrganic()">Save</span>
                             </div>
                             <div v-else>
@@ -2088,6 +2116,8 @@ export default {
   data() {
     return {
       role: this.$auth.user.role.name,
+      prospect_transaction_type_id: null,
+      prospect_prospect_type_id: null,
       acType_value: null,
       currentYear: new Date().getFullYear(),
       selected_customer: null,
@@ -2192,7 +2222,7 @@ export default {
       this.selected_pm = null
     },
     deleteTransactionType() {
-      this.prospect.transaction_type_id = null
+      this.prospect_transaction_type_id = null
     },
     deleteTransactionDetail() {
       this.product_value = null
@@ -2295,7 +2325,6 @@ export default {
             product_id: value.id,
             product_name: value.name,
             engine: null,
-            apu: null,
             market_share: null,
             remark: null,
             maintenance_id: null,
@@ -2407,6 +2436,7 @@ export default {
       if (this.tmb[data_index].product == '') {
         this.tmb.splice(data_index, 1)
       }
+
       this.clearError()
     },
     removePBTH(index_pbth) {
@@ -2567,6 +2597,7 @@ export default {
         .then((response) => {
           // Data Prospect
           this.prospect = response.data.data.prospect.data
+          console.log(this.prospect)
           // Data Total Market share, Total salesplan & Deviation
           this.prospect2 = response.data.data
           // Pagination
@@ -2618,10 +2649,10 @@ export default {
       this.loading()
       this.$axios
         .post('/api/prospect-create', {
-          prospect_type_id: this.prospect.prospect_type_id,
+          prospect_type_id: this.prospect_prospect_type_id,
           year: this.prospect_year,
           ams_customer_id: this.selected_amsCustomer.id,
-          transaction_type_id: this.prospect.transaction_type_id,
+          transaction_type_id: this.prospect_transaction_type_id,
           tmb: this.tmb,
         })
         .then((response) => {
@@ -2635,7 +2666,6 @@ export default {
             toastr.error(error.response.data.message)
           } else {
             toastr.error(error.response.data.message)
-            this.$router.push('/login')
           }
         })
     },
@@ -2643,10 +2673,10 @@ export default {
       this.loading()
       this.$axios
         .post('/api/prospect-create', {
-          prospect_type_id: this.prospect.prospect_type_id,
+          prospect_type_id: this.prospect_prospect_type_id,
           year: this.prospect_year,
           ams_customer_id: this.selected_amsCustomer.id,
-          transaction_type_id: this.prospect.transaction_type_id,
+          transaction_type_id: this.prospect_transaction_type_id,
           strategic_initiative_id: this.selected_strategic_initiative.id,
           pm_id: this.selected_pm.id,
           tmb: this.tmb,
@@ -2670,10 +2700,10 @@ export default {
       this.loading()
       this.$axios
         .post('/api/prospect-create', {
-          prospect_type_id: this.prospect.prospect_type_id,
+          prospect_type_id: this.prospect_prospect_type_id,
           year: this.prospect_year,
           ams_customer_id: this.selected_amsCustomer.id,
-          transaction_type_id: this.prospect.transaction_type_id,
+          transaction_type_id: this.prospect_transaction_type_id,
           pbth: this.pbth,
         })
         .then((response) => {
@@ -2695,10 +2725,10 @@ export default {
       this.loading()
       this.$axios
         .post('/api/prospect-create', {
-          prospect_type_id: this.prospect.prospect_type_id,
+          prospect_type_id: this.prospect_prospect_type_id,
           year: this.prospect_year,
           ams_customer_id: this.selected_amsCustomer.id,
-          transaction_type_id: this.prospect.transaction_type_id,
+          transaction_type_id: this.prospect_transaction_type_id,
           strategic_initiative_id: this.selected_strategic_initiative.id,
           pm_id: this.selected_pm.id,
           pbth: this.pbth,
@@ -2746,6 +2776,7 @@ export default {
     },
     closeModal() {
       this.clearForm()
+      this.prospect_prospect_type_id = null
       document.getElementById('close_modal').click()
     },
     nextButtonClick() {

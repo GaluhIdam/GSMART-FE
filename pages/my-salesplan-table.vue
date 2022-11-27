@@ -256,18 +256,7 @@
                             <div class="col-lg-6">
                               <div class="form-group mb-3">
                                   <label class="form-label fw-bold">Customer</label>
-                                  <select v-model="customer_id" class="form-select" :class="{ 'is-invalid': errors.customer_id }">
-                                      <option :value="null" disabled>Select Customer</option>
-                                      <option
-                                      v-for="customer_options in customer_option"
-                                      :value="customer_options.id"
-                                      :class="{
-                                          'is-invalid': errors.customer_id,
-                                      }"
-                                      >
-                                      {{ customer_options.name }}
-                                      </option>
-                                  </select>
+                                  <multiselect v-model="customer_id" :options="customer_option" placeholder="Select Customer" label="name"></multiselect>
                                   <span
                                   v-if="errors.customer_id"
                                   class="error invalid-feedback"
@@ -278,18 +267,7 @@
                             <div class="col-lg-6">
                               <div class="form-group mb-3">
                                   <label class="form-label fw-bold">Product</label>
-                                  <select v-model="product_id" class="form-select" :class="{ 'is-invalid': errors.product_id }">
-                                      <option :value="null" disabled>Select Product</option>
-                                      <option
-                                      v-for="product_options in product_option"
-                                      :value="product_options.id"
-                                      :class="{
-                                          'is-invalid': errors.product_id,
-                                      }"
-                                      >
-                                      {{ product_options.name }}
-                                      </option>
-                                  </select>
+                                  <multiselect v-model="product_id" :options="product_option" placeholder="Select Product" label="name"></multiselect>
                                   <span
                                   v-if="errors.product_id"
                                   class="error invalid-feedback"
@@ -303,18 +281,7 @@
                             <div class="col-lg-6">
                               <div class="form-group mb-3">
                                   <label class="form-label fw-bold">Maintenance</label>
-                                  <select v-model="maintenance_id" class="form-select" :class="{ 'is-invalid': errors.maintenance_id }">
-                                    <option :value="null" disabled>Select maintenance</option>
-                                    <option
-                                        v-for="maintenance_options in maintenance_option"
-                                        :value="maintenance_options.id"
-                                        :class="{
-                                        'is-invalid': errors.maintenance_id,
-                                        }"
-                                    >
-                                        {{ maintenance_options.name }}
-                                    </option>
-                                  </select>
+                                  <multiselect v-model="maintenance_id" :options="maintenance_option" placeholder="Select Maintenance" label="name"></multiselect>
                                   <span
                                   v-if="errors.maintenance_id"
                                   class="error invalid-feedback"
@@ -325,18 +292,7 @@
                             <div class="col-lg-6">
                               <div class="form-group mb-3">
                                   <label class="form-label fw-bold">Hangar</label>
-                                  <select v-model="hangar_id" class="form-select" :class="{ 'is-invalid': errors.hangar_id }">
-                                    <option :value="null" disabled>Select Hangar</option>
-                                    <option
-                                        v-for="hangar_options in hangar_option"
-                                        :value="hangar_options.id"
-                                        :class="{
-                                        'is-invalid': errors.hangar_id,
-                                        }"
-                                    >
-                                        {{ hangar_options.name }}
-                                    </option>
-                                  </select>
+                                  <multiselect v-model="hangar_id" :options="hangar_option" placeholder="Select Hangar" label="name"></multiselect>
                                   <span
                                   v-if="errors.hangar_id"
                                   class="error invalid-feedback"
@@ -350,18 +306,7 @@
                             <div class="col-lg-6">
                               <div class="form-group mb-3">
                                   <label class="form-label fw-bold">Aircraft Type</label>
-                                  <select v-model="ac_type_id" class="form-select" :class="{ 'is-invalid': errors.ac_type_id }">
-                                      <option :value="null" disabled>Select Aircraft Type</option>
-                                      <option
-                                      v-for="ac_type_options in ac_type_option"
-                                      :value="ac_type_options.id"
-                                      :class="{
-                                          'is-invalid': errors.ac_type_id,
-                                      }"
-                                      >
-                                      {{ ac_type_options.name }}
-                                      </option>
-                                  </select>
+                                  <multiselect v-model="ac_type_id" :options="ac_type_option" placeholder="Select Aircraft Type" label="name"></multiselect>
                                   <span
                                   v-if="errors.ac_type_id"
                                   class="error invalid-feedback"
@@ -440,11 +385,7 @@
                             <div class="col-lg-6">
                               <div class="form-group mb-3">
                                   <label class="form-label fw-bold">Type</label>
-                                  <select v-model="transaction_type_id" class="form-select" :class="{ 'is-invalid': errors.transaction_type_id }">
-                                  <option :value="null" disabled>Select Type</option>
-                                  <option value="1">TMB Retail</option>
-                                  <option value="2">TMB Project</option>
-                                  </select>
+                                  <multiselect v-model="transaction_type_id" :options="transaction_type_option" placeholder="Select Type" label="name"></multiselect>
                                   <span v-if="errors.transaction_type_id" class="error invalid-feedback">{{
                                   errors.transaction_type_id[0]
                                   }}</span>
@@ -1174,6 +1115,11 @@ export default {
       engine_option: [],
       registration_option: [],
 
+      transaction_type_option: [
+        {name: 'TMB Retail', value: 1},
+        {name: 'TMB Project', value: 2},
+      ],
+
       sales_type_option: [
         {name: 'RKAP', value: 1},
         {name: 'Additional', value: 2},
@@ -1737,12 +1683,12 @@ export default {
       this.$axios
         .post(`api/sales-create-tmb`, {
           is_rkap: 0,
-          transaction_type_id: this.transaction_type_id,
-          customer_id: this.customer_id,
-          product_id: this.product_id,
-          maintenance_id: this.maintenance_id,
-          hangar_id: this.hangar_id,
-          ac_type_id: this.ac_type_id,
+          transaction_type_id: this.transaction_type_id != null ? this.transaction_type_id.id : null,
+          customer_id: this.customer_id != null ? this.customer_id.id : null,
+          product_id: this.product_id != null ? this.product_id.id : null,
+          maintenance_id: this.maintenance_id != null ? this.maintenance_id.id : null,
+          hangar_id: this.hangar_id != null ? this.hangar_id.id : null,
+          ac_type_id: this.ac_type_id != null ? this.ac_type_id.id : null,
           ac_reg: this.ac_reg,
           value: this.value,
           start_date: this.start_date,

@@ -45,17 +45,17 @@
             <div class="row mt-3">
               <div class="col-6">
                 <div class="border-dashed rounded p-4">
-                  <h1 class="fw-bolder mb-0 fs-5">${{ formatNumber(market_share) }}</h1>
+                  <h1 class="fw-bolder mb-0 fs-5">USD {{ formatNumber(market_share) }}</h1>
                   <p class="mb-0 fw-bold text-gray-500">Market Share</p>
                 </div>
               </div>
               <div class="col-6">
                 <div class="border-dashed rounded p-4" v-if="sales_plan">
-                  <h1 class="fw-bolder mb-0 fs-5">${{ formatNumber(sales_plan) }}</h1>
+                  <h1 class="fw-bolder mb-0 fs-5">USD {{ formatNumber(sales_plan) }}</h1>
                   <p class="mb-0 fw-bold text-gray-500">Sales Plan</p>
                 </div>
                 <div class="border-dashed rounded p-4" v-else>
-                  <h1 class="fw-bolder mb-0 fs-5">$0</h1>
+                  <h1 class="fw-bolder mb-0 fs-5">USD 0.00</h1>
                   <p class="mb-0 fw-bold text-gray-500">Sales Plan</p>
                 </div>
               </div>
@@ -63,11 +63,11 @@
             <div class="row mt-5">
               <div class="col-6">
                 <div class="border-dashed rounded p-4" v-if="deviation">
-                  <h1 class="fw-bolder mb-0 fs-5">${{ formatNumber(deviation) }}</h1>
+                  <h1 class="fw-bolder mb-0 fs-5">USD {{ formatNumber(deviation) }}</h1>
                   <p class="mb-0 fw-bold text-gray-500">Deviation</p>
                 </div>
                 <div class="border-dashed rounded p-4" v-else>
-                  <h1 class="fw-bolder mb-0 fs-5">$0</h1>
+                  <h1 class="fw-bolder mb-0 fs-5">USD 0</h1>
                   <p class="mb-0 fw-bold text-gray-500">Deviation</p>
                 </div>
               </div>
@@ -234,17 +234,17 @@
                 <tbody>
                   <tr v-for="(data, pbth_index) in pbth" :key="pbth_index">
                     <td class="text-center">{{ data.month}}</td>
-                    <td class="text-center">{{ data.flight_hour }}</td>
-                    <td class="text-center">{{ data.rate }}</td>
-                    <td class="text-center">{{ data.planFH }}</td>
-                    <td class="text-center" style="color: #50CD89" v-if="data.value">${{ formatNumber(data.value) }}</td>
-                    <td class="text-center" style="color: #50CD89" v-else>0</td>
+                    <td class="text-center">{{ data.flight_hour }} FH</td>
+                    <td class="text-center" style="color: #50CD89">USD  {{ formatNumber(data.rate) }}</td>
+                    <td class="text-center">{{ data.planFH }} %</td>
+                    <td class="text-center" style="color: #50CD89" v-if="data.value">USD {{ formatNumber(data.value) }}</td>
+                    <td class="text-center" style="color: #50CD89" v-else>USD 0</td>
                   </tr>
                   <tr><td class="text-center"></td>
                   <td class="text-center"></td>
                   <td class="text-center"></td>
                   <td class="text-center fs-3 fw-bold">Total Sales Plan</td>
-                  <td class="text-center fs-3 fw-bold" style="color: #50CD89">${{ formatNumber(total_sales_plan) }}</td></tr>
+                  <td class="text-center fs-3 fw-bold" style="color: #50CD89">USD {{ formatNumber(total_sales_plan) }}</td></tr>
                 </tbody>
               </table>
             </div>
@@ -433,11 +433,12 @@ export default {
       this.$axios
       .post('/api/sales-create-pbth', {
         prospect_id : this.$route.query.id,
-        pbth : this.pbth
+        month: this.pbth[0].month,
+        value: this.pbth[0].value,
       })
       .then((response) => {
         toastr.success(response.data.message)
-        this.$router.push('/view-prospect' + '?id=' + this.customer_id)
+        this.$router.push('/my-prospect')
       })
       .catch((error) => {
           if (error.response.status == 422) {

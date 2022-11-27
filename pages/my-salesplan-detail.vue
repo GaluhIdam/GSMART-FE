@@ -1419,26 +1419,44 @@
                                   <div class="col-lg-6">
                                     <div class="mb-3">
                                       <label>Hangar</label>
-                                      <input
-                                        type="text"
-                                        class="form-control form-control-solid"
-                                        v-model="level4[3].data.hangar"
-                                        readonly
-                                      />
+                                      <div v-if="level4[3].data != null">
+                                        <input
+                                          type="text"
+                                          class="form-control form-control-solid"
+                                          v-model="level4[3].data.hangar"
+                                          readonly
+                                        />
+                                      </div>
+                                      <div v-else>
+                                        <input
+                                          type="text"
+                                          class="form-control form-control-solid"
+                                          value = "-"
+                                          readonly
+                                        />
+                                      </div>
                                     </div>
                                   </div>
                                   <div class="col-lg-6">
                                     <div class="mb-3">
                                       <label>Line Hangar Request</label>
                                       <div class="row">
-                                        <input
-                                          type="text"
-                                          class="
-                                            form-control form-control-solid
-                                          "
-                                          v-model="level4[3].data.line"
-                                          readonly
-                                        />
+                                        <div v-if="level4[3].data != null">
+                                          <input
+                                            type="text"
+                                            class=" form-control form-control-solid"
+                                            v-model="level4[3].data.line"
+                                            readonly
+                                          />
+                                        </div>
+                                        <div v-else>
+                                          <input
+                                            type="text"
+                                            value = "-"
+                                            class=" form-control form-control-solid"
+                                            readonly
+                                          />
+                                        </div>
                                       </div>
                                     </div>
                                   </div>

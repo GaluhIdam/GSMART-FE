@@ -1683,7 +1683,7 @@ export default {
       this.$axios
         .post(`api/sales-create-tmb`, {
           is_rkap: 0,
-          transaction_type_id: this.transaction_type_id != null ? this.transaction_type_id.id : null,
+          transaction_type_id: this.transaction_type_id.value,
           customer_id: this.customer_id != null ? this.customer_id.id : null,
           product_id: this.product_id != null ? this.product_id.id : null,
           maintenance_id: this.maintenance_id != null ? this.maintenance_id.id : null,

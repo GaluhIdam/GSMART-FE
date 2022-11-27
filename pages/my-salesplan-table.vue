@@ -1696,6 +1696,7 @@ export default {
         })
         .then((response) => {
           toastr.success(response.data.message)
+          this.closeAddSales()
           this.listTable()
           Swal.close()
         })

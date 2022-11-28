@@ -302,6 +302,21 @@
                             </div>
                           </div>
 
+                          <!-- Input ketika pilih N/A -->
+                          <div class="row" v-if="maintenance_id">
+                            <div class="col-lg-6" v-if="maintenance_id.id == 1">
+                              <div class="mb-3">
+                                <label class="form-label fw-bold">Remarks</label>
+                                <input type="text" v-model="remarks" class="form-control">
+                                <span
+                                  v-if="errors.remarks"
+                                  class="error invalid-feedback"
+                                  >{{ errors.remarks[0] }}</span
+                                  >
+                              </div>
+                            </div>
+                          </div>
+
                           <div class="row">
                             <div class="col-lg-6">
                               <div class="form-group mb-3">
@@ -1211,6 +1226,7 @@ export default {
         type: null,
         level: null,
         progress: null,
+        remarks: null,
         status: null,
         customer_id: null,
         product_id: null,
@@ -1592,6 +1608,7 @@ export default {
         })
         .then((response) => {
           this.maintenance_option = response.data.data.data
+          console.log(this.maintenance_option)
         })
         .catch((error) => console.log(error))
     },
@@ -1690,6 +1707,7 @@ export default {
           hangar_id: this.hangar_id != null ? this.hangar_id.id : null,
           ac_type_id: this.ac_type_id != null ? this.ac_type_id.id : null,
           ac_reg: this.ac_reg,
+          remarks: this.remarks,
           value: this.value,
           start_date: this.start_date,
           tat: this.tat,
@@ -1757,6 +1775,7 @@ export default {
       this.maintenance_name_value = null
       this.prospect_value_salesplan = null
       this.ac_reg = null
+      this.remarks = null
       this.hangar_value = null
       this.aircraft_name_value = null
       this.value = null
@@ -1766,6 +1785,7 @@ export default {
       this.errors.maintenance_id = null
       this.errors.ac_type_id = null
       this.errors.ac_reg = null
+      this.errors.remarks = null
       this.errors.transaction_type_id = null
       this.errors.value = null
       this.errors.start_date = null

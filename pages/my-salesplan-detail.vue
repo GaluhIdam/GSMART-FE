@@ -433,10 +433,10 @@
                   <span class="badge badge-success"><b>Level 1</b></span>
                 </div>
                 <div v-if="sales_detail.level === 2">
-                  <span class="badge badge-primary"><b>Level 2</b></span>
+                  <span class="badge badge-warning"><b>Level 2</b></span>
                 </div>
                 <div v-if="sales_detail.level === 3">
-                  <span class="badge badge-warning"><b>Level 3</b></span>
+                  <span class="badge badge-primary"><b>Level 3</b></span>
                 </div>
                 <div v-if="sales_detail.level === 4">
                   <span class="badge badge-danger"><b>Level 4</b></span>
@@ -446,38 +446,38 @@
                   <span class="badge badge-danger"><b>Cancel</b></span>
                 </div>
                 <div v-if="sales_detail.status === 'Open'">
-                  <span class="badge badge-success"><b>Open</b></span>
+                  <span class="badge badge-gmf"><b>Open</b></span>
                 </div>
                 <div v-if="sales_detail.status === 'Close in'">
-                  <span class="badge badge-warning"><b>Close in</b></span>
+                  <span class="badge badge-success"><b>Close in</b></span>
                 </div>
                 <div v-if="sales_detail.status === 'Closed'">
-                  <span class="badge badge-primary"><b>Closed</b></span>
+                  <span class="badge badge-green"><b>Closed Sales</b></span>
                 </div>
               </div>
               <div class="col-lg-1">
-                <p class="text-muted mt-5">Other</p>
+                <p class="text-muted mt-5">Sales Type</p>
                 <div v-if="sales_detail.other === 'RKAP'">
-                  <span class="badge badge-info"><b>RKAP</b></span>
+                  <b>RKAP</b>
                 </div>
                 <div v-else="sales_detail.other === 'Additional'">
-                  <span class="badge badge-primary"><b>Additional</b></span>
+                  <b>Additional</b>
                 </div>
                 <p class="text-muted mt-5">Type</p>
                 <div v-if="sales_detail.type === 'TMB Retail'">
-                  <span class="badge badge-danger">{{
-                    sales_detail.type
-                  }}</span>
+                  <b>{{
+                  sales_detail.type
+                  }}</b>
                 </div>
                 <div v-if="sales_detail.type === 'TMB Project'">
-                  <span class="badge badge-primary">{{
-                    sales_detail.type
-                  }}</span>
+                  <b>{{
+                  sales_detail.type
+                  }}</b>
                 </div>
                 <div v-if="sales_detail.type === 'PBTH'">
-                  <span class="badge badge-warning">{{
-                    sales_detail.type
-                  }}</span>
+                  <b>{{
+                  sales_detail.type
+                  }}</b>
                 </div>
               </div>
               <div class="col-lg-2">
@@ -492,22 +492,22 @@
                   <span class="badge badge-danger">30 %</span>
                 </div>
                 <div v-if="sales_detail.progress === 40">
-                  <span class="badge badge-warning">40 %</span>
+                  <span class="badge badge-primary">40 %</span>
                 </div>
                 <div v-if="sales_detail.progress === 50">
-                  <span class="badge badge-warning">50 %</span>
+                  <span class="badge badge-primary">50 %</span>
                 </div>
                 <div v-if="sales_detail.progress === 60">
-                  <span class="badge badge-warning">60 %</span>
+                  <span class="badge badge-primary">60 %</span>
                 </div>
                 <div v-if="sales_detail.progress === 70">
-                  <span class="badge badge-primary">70 %</span>
+                  <span class="badge badge-warning">70 %</span>
                 </div>
                 <div v-if="sales_detail.progress === 80">
-                  <span class="badge badge-primary">80 %</span>
+                  <span class="badge badge-warning">80 %</span>
                 </div>
                 <div v-if="sales_detail.progress === 90">
-                  <span class="badge badge-success">90 %</span>
+                  <span class="badge badge-warning">90 %</span>
                 </div>
                 <div v-if="sales_detail.progress === 100">
                   <span class="badge badge-success">100 %</span>
@@ -2148,30 +2148,6 @@
                                       />
                                     </div>
                                   </div>
-                                <!-- Tombol untuk close in -->
-                                <!-- <div
-                                  class="text-center mt-10"
-                                  v-if="sales_detail"
-                                >
-                                  <div v-if="sales_detail.status === 'Closed'">
-                                    <input
-                                      type="hidden"
-                                      v-model="status"
-                                      value="3"
-                                    />
-                                    <button
-                                      type="button"
-                                      class="btn btn-primary btn-sm"
-                                      @click="requestClosed()"
-                                      v-permission="['close_sales']"
-                                      v-if="
-                                        role == 'Administrator' || role == 'TPR'
-                                      "
-                                    >
-                                      Request to Closed
-                                    </button>
-                                  </div>
-                                </div> -->
                               </div>
                           </div>
                         </div>
@@ -4399,6 +4375,15 @@ export default {
 .mb-20 {
   margin-bottom: 20px;
 }
+
+.badge-gmf {
+  background-color: #003399;
+}
+
+.badge-green {
+  background-color: #ADE792;
+}
+
 #readOnly {
   background-color: #f0f0f5;
 }

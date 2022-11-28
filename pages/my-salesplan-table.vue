@@ -860,34 +860,34 @@
                             </td>
                             <!-- Other -->
                             <td class="text-center">
-                            <div v-if="p_sales.other === 'RKAP'">
-                                <span class="badge badge-info">{{
-                                p_sales.other
-                                }}</span>
-                            </div>
-                            <div v-if="p_sales.other === 'Additional'">
-                                <span class="badge badge-primary">{{
-                                p_sales.other
-                                }}</span>
-                            </div>
+                              <div v-if="p_sales.other === 'RKAP'">
+                                  <b>{{
+                                  p_sales.other
+                                  }}</b>
+                              </div>
+                              <div v-if="p_sales.other === 'Additional'">
+                                  <b>{{
+                                  p_sales.other
+                                  }}</b>
+                              </div>
                             </td>
                             <!-- Type -->
                             <td class="text-center">
-                            <div v-if="p_sales.type === 'TMB Retail'">
-                                <span class="badge badge-danger">{{
-                                p_sales.type
-                                }}</span>
-                            </div>
-                            <div v-if="p_sales.type === 'TMB Project'">
-                                <span class="badge badge-primary">{{
-                                p_sales.type
-                                }}</span>
-                            </div>
-                            <div v-if="p_sales.type === 'PBTH'">
-                                <span class="badge badge-warning">{{
-                                p_sales.type
-                                }}</span>
-                            </div>
+                              <div v-if="p_sales.type === 'TMB Retail'">
+                                  <b style="white-space: nowrap;">{{
+                                  p_sales.type
+                                  }}</b>
+                              </div>
+                              <div v-if="p_sales.type === 'TMB Project'">
+                                  <b style="white-space: nowrap;">{{
+                                  p_sales.type
+                                  }}</b>
+                              </div>
+                              <div v-if="p_sales.type === 'PBTH'">
+                                  <b>{{
+                                  p_sales.type
+                                  }}</b>
+                              </div>
                             </td>
                             <!-- Sales Level -->
                             <td class="text-center">
@@ -895,10 +895,10 @@
                                 <span class="badge badge-success">Level 1</span>
                             </div>
                             <div v-if="p_sales.level === 2">
-                                <span class="badge badge-primary">Level 2</span>
+                                <span class="badge badge-warning">Level 2</span>
                             </div>
                             <div v-if="p_sales.level === 3">
-                                <span class="badge badge-warning">Level 3</span>
+                                <span class="badge badge-primary">Level 3</span>
                             </div>
                             <div v-if="p_sales.level === 4">
                                 <span class="badge badge-danger">Level 4</span>
@@ -922,32 +922,32 @@
                                 >
                             </div>
                             <div v-if="p_sales.progress === 40">
-                                <span class="badge badge-warning"
+                                <span class="badge badge-primary"
                                 >{{ p_sales.progress }}%</span
                                 >
                             </div>
                             <div v-if="p_sales.progress === 50">
-                                <span class="badge badge-warning"
+                                <span class="badge badge-primary"
                                 >{{ p_sales.progress }}%</span
                                 >
                             </div>
                             <div v-if="p_sales.progress === 60">
-                                <span class="badge badge-warning"
+                                <span class="badge badge-primary"
                                 >{{ p_sales.progress }}%</span
                                 >
                             </div>
                             <div v-if="p_sales.progress === 70">
-                                <span class="badge badge-primary"
+                                <span class="badge badge-warning"
                                 >{{ p_sales.progress }}%</span
                                 >
                             </div>
                             <div v-if="p_sales.progress === 80">
-                                <span class="badge badge-primary"
+                                <span class="badge badge-warning"
                                 >{{ p_sales.progress }}%</span
                                 >
                             </div>
                             <div v-if="p_sales.progress === 90">
-                                <span class="badge badge-success"
+                                <span class="badge badge-warning"
                                 >{{ p_sales.progress }}%</span
                                 >
                             </div>
@@ -965,19 +965,19 @@
                                 }}</span>
                             </div>
                             <div v-if="p_sales.status === 'Open'">
-                                <span class="badge badge-success">{{
+                                <span class="badge badge-gmf">{{
                                 p_sales.status
                                 }}</span>
                             </div>
                             <div v-if="p_sales.status === 'Close in'">
-                                <span class="badge badge-warning">{{
+                                <span class="badge badge-success">{{
                                 p_sales.status
                                 }}</span>
                             </div>
                             <div v-if="p_sales.status === 'Closed'">
-                                <span class="badge badge-primary">{{
-                                p_sales.status
-                                }}</span>
+                                <span class="badge badge-green">
+                                Closed Sales
+                                </span>
                             </div>
                             </td>
                             <td class="text-center">
@@ -1807,28 +1807,12 @@ export default {
   margin-bottom: 20px;
 }
 
-.carousel-indicators [data-bs-target] {
-  box-sizing: content-box;
-  flex: 0 1 auto;
-  width: 10px;
-  height: 10px;
-  padding: 0;
-  margin-right: 3px;
-  margin-left: 3px;
-  text-indent: -999px;
-  cursor: pointer;
-  background-color: #000;
-  background-clip: padding-box;
-  border: 0;
-  border-top: 10px solid transparent;
-  border-bottom: 10px solid transparent;
-  opacity: 0.5;
-  transition: opacity 0.6s ease;
-  border-radius: 100%;
+.badge-gmf {
+  background-color: #003399;
 }
 
-.carousel-indicators .active {
-  background-color: #188af8;
+.badge-green {
+  background-color: #ADE792;
 }
 
 #cardTopDashed {

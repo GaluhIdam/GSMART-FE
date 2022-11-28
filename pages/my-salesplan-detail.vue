@@ -2387,8 +2387,29 @@
                           @submit.prevent="salesReschedule"
                           v-if="sales_detail"
                         >
+                        <div class="mb-3">
+                          <label>To <span class="text-danger">*</span></label>
+                          <select v-model="user_id" class="form-select" :class="{ 'is-invalid': errors.user_id }">
+                            <option :value="null" disabled>
+                              Select User
+                            </option>
+                            <option
+                              v-for="user_options in user_option"
+                              v-if="user_options.role_id === 4"
+                              :value="user_options.id"
+                            >
+                              {{ user_options.name }} -
+                              {{ user_options.email }}
+                            </option>
+                          </select>
+                          <span
+                            v-if="errors.user_id"
+                            class="error invalid-feedback"
+                            >{{ errors.user_id[0] }}</span
+                          >
+                        </div>
                           <div class="mb-3">
-                            <label class="form-label">Hanggar</label>
+                            <label class="form-label">Hangar</label>
                             <input
                               type="text"
                               class="form-control"
@@ -2481,8 +2502,22 @@
                             v-if="sales_detail.status === 'Open'"
                           >
                             <button
+                              type="button"
+                              @click="salesRescheduleReject()"
+                              class="btn btn-danger btn-sm"
+                              >
+                              Reject
+                              </button>
+                              <button
+                                 type="button"
+                                 class="btn btn-success btn-sm"
+                                 @click="salesRescheduleApprove()"
+                              >
+                                Approve
+                              </button>
+                              <button
                               type="submit"
-                              class="btn btn-primary"
+                              class="btn btn-primary btn-sm"
                               v-permission="['reschedule_sales']"
                             >
                               Confirm
@@ -2546,9 +2581,23 @@
                      class="text-center mt-5"
                      v-if="sales_detail_status == 'Open'"
                    >
+                   <button
+                   type="button"
+                   @click="salesCancelReject()"
+                   class="btn btn-danger btn-sm"
+                   >
+                   Reject
+                   </button>
+                   <button
+                      type="button"
+                      class="btn btn-success btn-sm"
+                      @click="salesCancelApprove()"
+                   >
+                     Approve
+                   </button>
                      <button
                        type="submit"
-                       class="btn btn-primary"
+                       class="btn btn-primary btn-sm"
                        v-permission="['reject_sales']"
                      >
                        Confirm
@@ -3735,14 +3784,148 @@ export default {
             this.$axios
               .put(`api/sales-reschedule/${this.$route.query.id}`, {
                 sales_id: this.$route.query.id,
-                hangar_id: this.sales_detail.location.id,
-                current_date: this.current_date_reschedule,
+                user_id: this.user_id,
+                hangar_id: this.level4[3].data.hangar,
+                line_id: this.level4[3].data.line,
+                target_url: this.$route.fullPath,
                 start_date: this.sales_detail.start_date,
                 tat: this.sales_detail.tat,
               })
               .then((response) => {
                 toastr.success(response.data.message)
                 this.listDetail()
+              })
+          }
+        })
+        .catch((error) => {
+          if (error.response.status == 422) {
+            toastr.error(error.response.data.message)
+          } else if (error.response.status == 403) {
+            toastr.error(error.response.data.message)
+          }
+        })
+    },
+    salesCancelApprove() {
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, Approve it!',
+      })
+        .then((result) => {
+          if (result.isConfirmed) {
+            this.$axios
+              .put(`api/sales-approve-cancel/${this.$route.query.id}`, {
+                is_approved: 1,
+                target_url: this.$route.fullPath,
+                // sales_id: this.$route.query.id,
+              })
+              .then((response) => {
+                toastr.success(response.data.message)
+                this.listDetail()
+                Swal.close()
+              })
+          }
+        })
+        .catch((error) => {
+          if (error.response.status == 422) {
+            toastr.error(error.response.data.message)
+          } else if (error.response.status == 403) {
+            toastr.error(error.response.data.message)
+          }
+        })
+    },
+    salesCancelReject() {
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, Reject it!',
+      })
+        .then((result) => {
+          if (result.isConfirmed) {
+            this.$axios
+              .put(`api/sales-request-cancel`, {
+                is_approved: 0,
+                target_url: this.$route.fullPath,
+                // sales_id: this.$route.query.id,
+              })
+              .then((response) => {
+                toastr.success(response.data.message)
+                this.listDetail()
+                Swal.close()
+              })
+          }
+        })
+        .catch((error) => {
+          if (error.response.status == 422) {
+            toastr.error(error.response.data.message)
+          } else if (error.response.status == 403) {
+            toastr.error(error.response.data.message)
+          }
+        })
+    },
+    salesRescheduleApprove() {
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, Approve it!',
+      })
+        .then((result) => {
+          if (result.isConfirmed) {
+            this.$axios
+              .put(`api/sales-approve-reschedule/${this.$route.query.id}`, {
+                is_approved: 1,
+                target_url: this.$route.fullPath,
+                // sales_id: this.$route.query.id,
+              })
+              .then((response) => {
+                toastr.success(response.data.message)
+                this.listDetail()
+                Swal.close()
+              })
+          }
+        })
+        .catch((error) => {
+          if (error.response.status == 422) {
+            toastr.error(error.response.data.message)
+          } else if (error.response.status == 403) {
+            toastr.error(error.response.data.message)
+          }
+        })
+    },
+    salesRescheduleReject() {
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, Reject it!',
+      })
+        .then((result) => {
+          if (result.isConfirmed) {
+            this.$axios
+              .put(`api/sales-request-reschedule`, {
+                is_approved: 0,
+                target_url: this.$route.fullPath,
+                // sales_id: this.$route.query.id,
+              })
+              .then((response) => {
+                toastr.success(response.data.message)
+                this.listDetail()
+                Swal.close()
               })
           }
         })

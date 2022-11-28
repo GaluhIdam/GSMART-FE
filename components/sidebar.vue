@@ -101,15 +101,13 @@
                     src="~/assets/media/icons/duotune/abstract/abs027.svg"
                   />
                 </span>
-                <span class="menu-title">Dashboard</span>
+                <span class="menu-title">Dashboards</span>
               </NuxtLink>
             </div>
             <div class="menu-item" 
               v-if="
-                role == 'TPR' ||
                 role == 'TPC' ||
                 role == 'AMS' ||
-                role == 'CBO' ||
                 role == 'Administrator'
               "
             >
@@ -124,9 +122,7 @@
                 <span
                   class="menu-title"
                   v-if="
-                    role == 'TPR' ||
                     role == 'TPC' ||
-                    role == 'CBO' ||
                     role == 'Administrator'
                   "
                   >Prospect</span

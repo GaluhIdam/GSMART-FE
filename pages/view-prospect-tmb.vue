@@ -739,7 +739,6 @@ export default {
           this.$router.push('/my-prospect');
           toastr.success(response.data.message)
           this.closeModal()
-          this.listSalesTmb()
         })
         .catch((error) => {
           if (error.response.status) {

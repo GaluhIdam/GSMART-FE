@@ -45,7 +45,7 @@
               <div class="col-6">
                 <div class="border-dashed rounded p-4">
                   <h1 class="fw-bolder mb-0 fs-5">${{ formatNumber(market_share) }}</h1>
-                  <p class="mb-0 fw-bold text-gray-500">Market Share</p>
+                  <p class="mb-0 fw-bold text-gray-500">Sales RKAP</p>
                 </div>
               </div>
               <div class="col-6">
@@ -547,6 +547,7 @@ export default {
       customer_options: [],
       transaction_type: null,
       customer_id: null,
+      maintenance_value: null,
       }
     },
   created() {
@@ -649,6 +650,7 @@ export default {
         .then((response) => {
           this.customer_id      = response.data.data.prospect.customer.id
           this.transaction_type = response.data.data.prospect.transaction_type.name
+          this.prospect = response.data.data.prospect.transaction_type.name
         })
     },
     listTMB() {
@@ -671,8 +673,9 @@ export default {
           this.market_share = response.data.data.market_share
           // Deviation Value
           this.deviation = response.data.data.deviation
-          // Initial
-          this.initial = this.customer_name.substring(0,1)
+          this.maintenance_value = response.data.data.prospect[0].maintenance_id
+          this.tmbSale.value = this.market_share
+          this.tmbSale.maintenance_id = this.maintenance_value
         })
     },
     listMaintenance() {
@@ -806,7 +809,6 @@ export default {
       this.tmbSale.start_date = tmbSale.startDate
     },
     add() {
-      this.clearForm()
       this.modal_create = true
       this.modal_update = false
     },

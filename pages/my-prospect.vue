@@ -68,12 +68,12 @@
                 <div class="col">
                   <div class="border-dashed p-4" v-if="prospect2.totalMarketShare">
                     <h1 class="fw-bold mb-0">USD {{ formatNumber(prospect2.totalMarketShare) }}</h1>
-                    <p class="mb-0 fw-bold text-gray-500">Total Market Share</p>
+                    <p class="mb-0 fw-bold text-gray-500">Total Sales RKAP</p>
 
                   </div>
                   <div class="border-dashed p-4" v-else>
                     <h1 class="fw-bold mb-0">USD 0</h1>
-                    <p class="mb-0 fw-bold text-gray-500">Total Market Share</p>
+                    <p class="mb-0 fw-bold text-gray-500">Total Sales RKAP</p>
                   </div>
                 </div>
                 <div class="col">
@@ -315,11 +315,11 @@
                           <!-- End Of The AMS -->
 
                           <!-- Market Share -->
-                          <th v-if="order == 'marketshare' && by == 'asc'" @click="sort('marketshare', 'desc')" class="text-center" style="white-space: nowrap;">Market Share <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
+                          <th v-if="order == 'marketshare' && by == 'asc'" @click="sort('marketshare', 'desc')" class="text-center" style="white-space: nowrap;">Sales RKAP <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
 
-                          <th v-else-if="order == 'marketshare' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">Market Share <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+                          <th v-else-if="order == 'marketshare' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">Sales RKAP <i class="fa-solid fa-sort-down" style="color: black"></i></th>
 
-                          <th v-else @click="sort('marketshare', 'asc')" class="text-center" style="white-space: nowrap;">Market Share <i class="fa-solid fa-sort"></i></th>
+                          <th v-else @click="sort('marketshare', 'asc')" class="text-center" style="white-space: nowrap;">Sales RKAP <i class="fa-solid fa-sort"></i></th>
                           <!-- End Of The Market Share -->
 
                           <!-- Sales Plan -->
@@ -493,11 +493,11 @@
                           <!-- End Of The AMS -->
 
                           <!-- Market Share -->
-                          <th v-if="order == 'marketshare' && by == 'asc'" @click="sort('marketshare', 'desc')" class="text-center" style="white-space: nowrap;">Market Share <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
+                          <th v-if="order == 'marketshare' && by == 'asc'" @click="sort('marketshare', 'desc')" class="text-center" style="white-space: nowrap;">Sales RKAP <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
 
-                          <th v-else-if="order == 'marketshare' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">Market Share <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+                          <th v-else-if="order == 'marketshare' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">Sales RKAP <i class="fa-solid fa-sort-down" style="color: black"></i></th>
 
-                          <th v-else @click="sort('marketshare', 'asc')" class="text-center" style="white-space: nowrap;">Market Share <i class="fa-solid fa-sort"></i></th>
+                          <th v-else @click="sort('marketshare', 'asc')" class="text-center" style="white-space: nowrap;">Sales RKAP <i class="fa-solid fa-sort"></i></th>
                           <!-- End Of The Market Share -->
 
                           <!-- Sales Plan -->
@@ -664,11 +664,11 @@
                           <!-- End Of The AMS -->
 
                           <!-- Market Share -->
-                          <th v-if="order == 'marketshare' && by == 'asc'" @click="sort('marketshare', 'desc')" class="text-center" style="white-space: nowrap;">Market Share <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
+                          <th v-if="order == 'marketshare' && by == 'asc'" @click="sort('marketshare', 'desc')" class="text-center" style="white-space: nowrap;">Sales RKAP <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
 
-                          <th v-else-if="order == 'marketshare' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">Market Share <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+                          <th v-else-if="order == 'marketshare' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">Sales RKAP <i class="fa-solid fa-sort-down" style="color: black"></i></th>
 
-                          <th v-else @click="sort('marketshare', 'asc')" class="text-center" style="white-space: nowrap;">Market Share <i class="fa-solid fa-sort"></i></th>
+                          <th v-else @click="sort('marketshare', 'asc')" class="text-center" style="white-space: nowrap;">Sales RKAP <i class="fa-solid fa-sort"></i></th>
                           <!-- End Of The Market Share -->
 
                           <!-- Sales Plan -->
@@ -842,11 +842,11 @@
                           <!-- End Of The AMS -->
 
                           <!-- Market Share -->
-                          <th v-if="order == 'marketshare' && by == 'asc'" @click="sort('marketshare', 'desc')" class="text-center" style="white-space: nowrap;">Market Share <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
+                          <th v-if="order == 'marketshare' && by == 'asc'" @click="sort('marketshare', 'desc')" class="text-center" style="white-space: nowrap;">Sales RKAP <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
 
-                          <th v-else-if="order == 'marketshare' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">Market Share <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+                          <th v-else-if="order == 'marketshare' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">Sales RKAP <i class="fa-solid fa-sort-down" style="color: black"></i></th>
 
-                          <th v-else @click="sort('marketshare', 'asc')" class="text-center" style="white-space: nowrap;">Market Share <i class="fa-solid fa-sort"></i></th>
+                          <th v-else @click="sort('marketshare', 'asc')" class="text-center" style="white-space: nowrap;">Sales RKAP <i class="fa-solid fa-sort"></i></th>
                           <!-- End Of The Market Share -->
 
                           <!-- Sales Plan -->
@@ -1020,11 +1020,11 @@
                           <!-- End Of The AMS -->
 
                           <!-- Market Share -->
-                          <th v-if="order == 'marketshare' && by == 'asc'" @click="sort('marketshare', 'desc')" class="text-center" style="white-space: nowrap;">Market Share <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
+                          <th v-if="order == 'marketshare' && by == 'asc'" @click="sort('marketshare', 'desc')" class="text-center" style="white-space: nowrap;">Sales RKAP <i class="fa-solid fa-sort-up" style="color: black; white-space: nowrap;"></i></th>
 
-                          <th v-else-if="order == 'marketshare' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">Market Share <i class="fa-solid fa-sort-down" style="color: black"></i></th>
+                          <th v-else-if="order == 'marketshare' && by == 'desc'" @click="sort('id', 'desc')" class="text-center" style="white-space: nowrap;">Sales RKAP <i class="fa-solid fa-sort-down" style="color: black"></i></th>
 
-                          <th v-else @click="sort('marketshare', 'asc')" class="text-center" style="white-space: nowrap;">Market Share <i class="fa-solid fa-sort"></i></th>
+                          <th v-else @click="sort('marketshare', 'asc')" class="text-center" style="white-space: nowrap;">Sales RKAP <i class="fa-solid fa-sort"></i></th>
                           <!-- End Of The Market Share -->
 
                           <!-- Sales Plan -->
@@ -1769,7 +1769,7 @@
                                         </div>
                                         <div class="col-md-3 text-center">
                                           <label class="form-label">
-                                            Market Share
+                                            Sales RKAP
                                           </label>
                                           <input type="number" v-model="item.market_share" class="form-control mb-2 mb-md-0" :class="{'is-invalid': errors[`tmb.${data_index}.product.${item_index}.market_share`]}">
 
@@ -1926,7 +1926,7 @@
                                       </h2>
                                       <div class="ms-7">
                                         <p class="text-muted mb-1 fw-bold">
-                                          Market Share
+                                          Sales RKAP
                                         </p>
                                         <h2 class="fw-bold">${{ data_pbth.market_share }}</h2>
                                         <p class="text-muted mb-1 mt-8 fw-bold fs-6">

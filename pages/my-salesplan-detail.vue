@@ -108,7 +108,7 @@
                             :class="{ 'is-invalid': errors.ams_id }"
                           >
                             <option :value="null" disabled>Select AMS</option>
-                            <option v-for="amss in ams" :value="amss.id">
+                            <option v-for="(amss, ams_index) in ams" :value="amss.id" :key="ams_index">
                               {{ amss.initial }} - {{ amss.user.name }}
                             </option>
                           </select>
@@ -232,8 +232,9 @@
                               class="form-select"
                             >
                               <option
-                                v-for="maintenance_options in maintenance_option"
+                                v-for="(maintenance_options, maintenance_index) in maintenance_option"
                                 :value="maintenance_options.id"
+                                :key="maintenance_index"
                               >
                                 {{ maintenance_options.name }}
                               </option>
@@ -285,14 +286,10 @@
                             <label class="form-label fw-bold">Location</label>
                             <select v-model="hangar_id" class="form-select">
                               <option
-                                v-for="hangar_options in hangar_option"
+                                v-for="(hangar_options, hangar_index) in hangar_option"
                                 :value="hangar_options.id"
+                                :key="hangar_index"
                               >
-                                <!-- <option
-                                v-for="hangar_options in hangar_option"
-                                :value="hangar_options.id"
-                                :selected="hangar_options.id = hangar_id"
-                              > -->
                                 {{ hangar_options.name }}
                               </option>
                             </select>
@@ -351,6 +348,57 @@
                             type="submit"
                             class="btn btn-primary"
                             v-permission="['update_sales']"
+                          >
+                            Save
+                          </button>
+                        </div>
+                      </div>
+                    </form>
+                    <form class="mt-5" @submit.prevent="pbthUpdate" v-if="sales_detail && transactionType == 'PBTH'">
+                    <h3 class="fs-2 fw-fold">Edit Rate & Flight Hour</h3>
+                      <div class="row">
+                        <div class="col-lg-6">
+                          <div class="form-group mb-3">
+                            <label class="form-label fw-bold">
+                              Rate
+                            </label>
+                            <input type="number" class="form-control" v-model="data_pbth_rate">
+                            <span
+                              v-if="errors.maintenance_id"
+                              class="error invalid-feedback"
+                            >
+                              {{ errors.maintenance_id[0] }}
+                            </span>
+                          </div>
+                        </div>
+                        <div class="col-lg-6">
+                          <div class="form-group mb-3">
+                            <label class="form-label fw-bold">
+                              Flight Hour
+                            </label>
+                            <input type="number" class="form-control" v-model="data_pbth_flighthour">
+                            <span
+                              v-if="errors.hangar_id"
+                              class="error invalid-feedback"
+                            >
+                              {{ errors.hangar_id[0] }}
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row mt-10">
+                        <div class="col d-flex justify-content-end">
+                          <button
+                            type="button"
+                            class="btn btn-light mx-2"
+                            data-bs-dismiss="modal"
+                            id="close_modal_edit_sales"
+                          >
+                            Close
+                          </button>
+                          <button
+                            type="submit"
+                            class="btn btn-primary"
                           >
                             Save
                           </button>
@@ -460,7 +508,7 @@
                 <div v-if="sales_detail.other === 'RKAP'">
                   <b>RKAP</b>
                 </div>
-                <div v-else="sales_detail.other === 'Additional'">
+                <div v-else-if="sales_detail.other === 'Additional'">
                   <b>Additional</b>
                 </div>
                 <p class="text-muted mt-5">Type</p>
@@ -1523,93 +1571,6 @@
                           >
                             <form>
                               <div class="row">
-                                <!-- Attachment of Financial Assesment Form (optional) -->
-                                <div class="col-lg-6 mt-3">
-                                  <h3>
-                                    Attachment of Financial Assesment Form
-                                    (optional)
-                                  </h3>
-                                  <p class="text-danger">
-                                    <small>* File size max 5MB</small>
-                                  </p>
-                                </div>
-                                <div class="col-lg-6 mt-3 mb-20">
-                                  <div
-                                    class="position-relative"
-                                    v-if="sales_detail"
-                                  >
-                                    <div
-                                      class="position-absolute top-0 end-0"
-                                      v-if="
-                                        sales_detail.level == 3 &&
-                                        sales_detail.status === 'Open'
-                                      "
-                                    >
-                                      <button
-                                        type="button"
-                                        class="btn btn-primary btn-sm"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#addFile"
-                                        @click="addFile3()"
-                                        v-if="
-                                          role == 'AMS' ||
-                                          role == 'Administrator'
-                                        "
-                                        v-permission="['upload_files']"
-                                      >
-                                        Upload Document
-                                      </button>
-                                    </div>
-                                  </div>
-                                </div>
-                                <div class="rounded box-d" id="myBorder">
-                                  <div class="mt-3">
-                                    <table class="table" v-if="files">
-                                      <tr
-                                        v-for="files in level3[0].data"
-                                        :key="files.id"
-                                      >
-                                        <td>
-                                          <a
-                                            :href="files.full_path"
-                                            class="
-                                              btn
-                                              btn-outline-primary
-                                              btn-outline
-                                              btn-sm
-                                              mb-2
-                                            "
-                                            target="_blank"
-                                          >
-                                            <strong>{{
-                                              files.file_name
-                                            }}</strong>
-                                          </a>
-                                        </td>
-                                        <td
-                                          class="d-flex justify-content-end"
-                                          v-if="
-                                            sales_detail.level == 3 &&
-                                            sales_detail.status === 'Open'
-                                          "
-                                        >
-                                          <button
-                                            type="button"
-                                            class="btn btn-danger btn-sm"
-                                            @click="removeFile(files.id)"
-                                            v-permission="['delete_files']"
-                                            v-if="
-                                              role == 'AMS' ||
-                                              role == 'Administrator'
-                                            "
-                                          >
-                                            <span class="fas fa-trash"></span>
-                                          </button>
-                                        </td>
-                                      </tr>
-                                    </table>
-                                  </div>
-                                </div>
 
                                 <!-- Attachment of Maintenance Proposal for Customer -->
                                 <div class="col-lg-6 mt-3">
@@ -1755,6 +1716,94 @@
                                     <table class="table" v-if="files">
                                       <tr
                                         v-for="files in level3[2].data"
+                                        :key="files.id"
+                                      >
+                                        <td>
+                                          <a
+                                            :href="files.full_path"
+                                            class="
+                                              btn
+                                              btn-outline-primary
+                                              btn-outline
+                                              btn-sm
+                                              mb-2
+                                            "
+                                            target="_blank"
+                                          >
+                                            <strong>{{
+                                              files.file_name
+                                            }}</strong>
+                                          </a>
+                                        </td>
+                                        <td
+                                          class="d-flex justify-content-end"
+                                          v-if="
+                                            sales_detail.level == 3 &&
+                                            sales_detail.status === 'Open'
+                                          "
+                                        >
+                                          <button
+                                            type="button"
+                                            class="btn btn-danger btn-sm"
+                                            @click="removeFile(files.id)"
+                                            v-permission="['delete_files']"
+                                            v-if="
+                                              role == 'AMS' ||
+                                              role == 'Administrator'
+                                            "
+                                          >
+                                            <span class="fas fa-trash"></span>
+                                          </button>
+                                        </td>
+                                      </tr>
+                                    </table>
+                                  </div>
+                                </div>
+
+                                <!-- Attachment of Financial Assesment Form (optional) -->
+                                <div class="col-lg-6 mt-3">
+                                  <h3>
+                                    Attachment of Financial Assesment Form
+                                    (optional)
+                                  </h3>
+                                  <p class="text-danger">
+                                    <small>* File size max 5MB</small>
+                                  </p>
+                                </div>
+                                <div class="col-lg-6 mt-3 mb-20">
+                                  <div
+                                    class="position-relative"
+                                    v-if="sales_detail"
+                                  >
+                                    <div
+                                      class="position-absolute top-0 end-0"
+                                      v-if="
+                                        sales_detail.level == 3 &&
+                                        sales_detail.status === 'Open'
+                                      "
+                                    >
+                                      <button
+                                        type="button"
+                                        class="btn btn-primary btn-sm"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#addFile"
+                                        @click="addFile3()"
+                                        v-if="
+                                          role == 'AMS' ||
+                                          role == 'Administrator'
+                                        "
+                                        v-permission="['upload_files']"
+                                      >
+                                        Upload Document
+                                      </button>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="rounded box-d" id="myBorder">
+                                  <div class="mt-3">
+                                    <table class="table" v-if="files">
+                                      <tr
+                                        v-for="files in level3[0].data"
                                         :key="files.id"
                                       >
                                         <td>
@@ -2208,7 +2257,7 @@
                       </div>
                     </div>
 
-                    <div v-for="file_history in file_histories">
+                    <div v-for="(file_history, file_index) in file_histories" :key="file_index">
                       <div class="row">
                         <div class="col-lg-6 col-sm-12" v-if="file_history">
                           <h3 class="mt-3">
@@ -2295,6 +2344,7 @@
                           <tr
                             v-for="(contact, contact_index) in level4[0].data"
                             @dblclick="getItem(contact_index)"
+                            :key="contact_index"
                           >
                             <td class="text-center">
                               {{ contact_index + 1 }}
@@ -2370,9 +2420,10 @@
                               Select User
                             </option>
                             <option
-                              v-for="user_options in user_option"
+                              v-for="(user_options, user_index) in user_option"
                               v-if="user_options.role_id === 4"
                               :value="user_options.id"
+                              :key="user_index"
                             >
                               {{ user_options.name }} -
                               {{ user_options.email }}
@@ -2518,11 +2569,12 @@
                            <select v-model="category_id" class="form-select" :class="{ 'is-invalid': errors.category_id }">
                              <option :value="null" disabled>Select Category</option>
                              <option
-                               v-for="category_options in category_option"
+                               v-for="(category_options, category_index) in category_option"
                                :value="category_options.id"
                                :class="{
                                  'is-invalid': errors.category_id,
                                }"
+                               :key="category_index"
                              >
                                {{ category_options.name }}
                              </option>
@@ -2953,9 +3005,10 @@
                                 Select User
                               </option>
                               <option
-                                v-for="user_options in user_option"
+                                v-for="(user_options, user_index) in user_option"
                                 v-if="user_options.role_id === 4"
                                 :value="user_options.id"
+                                :key="user_index"
                               >
                                 {{ user_options.name }} -
                                 {{ user_options.email }}
@@ -2976,8 +3029,9 @@
                                 Select Hangar
                               </option>
                               <option
-                                v-for="hangar_options in hangar_option"
+                                v-for="(hangar_options, hangar_index) in hangar_option"
                                 :value="hangar_options.id"
+                                :key="hangar_index"
                               >
                                 {{ hangar_options.name }}
                               </option>
@@ -2997,11 +3051,10 @@
                                 Select Line
                               </option>
                               <option
-                                v-for="lines in line"
-                                v-if="
-                                  lines.hangar_id === hangar_id
-                                "
+                                v-for="(lines, line_index) in line"
+                                v-if="lines.hangar_id === hangar_id"
                                 :value="lines.id"
+                                :key="line_index"
                               >
                                 {{ lines.name }}
                               </option>
@@ -3106,9 +3159,10 @@
                                 Select User
                               </option>
                               <option
-                                v-for="user_options in user_option"
+                                v-for="(user_options, user_index) in user_option"
                                 v-if="user_options.role_id === 3"
                                 :value="user_options.id"
+                                :key="user_index"
                               >
                                 {{ user_options.name }} -
                                 {{ user_options.email }}
@@ -3213,9 +3267,10 @@
                                 Select User
                               </option>
                               <option
-                                v-for="user_options in user_option"
+                                v-for="(user_options, user_index) in user_option"
                                 v-if="user_options.role_id === 4"
                                 :value="user_options.id"
+                                :key="user_index"
                               >
                                 {{ user_options.name }} -
                                 {{ user_options.email }}
@@ -3351,6 +3406,10 @@ export default {
       },
       sales_detail_status: null,
       current_date_reschedule: null,
+      transactionType: null,
+      data_pbth_rate: null,
+      data_pbth_flighthour: null,
+      prospect_id: null,
     }
   },
   mounted() {
@@ -3435,6 +3494,8 @@ export default {
         .get(`api/sales-show/${this.$route.query.id}`)
         .then((response) => {
           this.sales_detail = response.data.data.salesDetail
+          this.transactionType = response.data.data.salesDetail.type
+          this.prospect_id = response.data.data.salesDetail.prospect_id
           this.current_date_reschedule = this.sales_detail.startDate
           this.sales_detail_status = this.sales_detail.status
           this.customer_name = response.data.data.salesDetail.customer.name
@@ -3442,7 +3503,7 @@ export default {
           this.level3 = response.data.data.level3
           this.level2 = response.data.data.level2
           this.level1 = response.data.data.level1
-          console.log(this.sales_detail)
+          this.listPBTH()
           Swal.close()
         })
         .catch((error) => {
@@ -3452,6 +3513,14 @@ export default {
               name: 'my-salesplan-table',
             })
           }
+        })
+    },
+    listPBTH() {
+      this.$axios
+        .get(`api/prospect-pbth/` + this.prospect_id)
+        .then((response) => {
+          this.data_pbth_flighthour = response.data.data.prospect[0].flight_hour
+          this.data_pbth_rate = response.data.data.prospect[0].rate
         })
     },
     listContact(paginate) {
@@ -3738,6 +3807,24 @@ export default {
           this.listDetail()
           this.clearFormEditSales()
           this.closeModalEditSales()
+        })
+        .catch((error) => {
+          if (error.response.status == 422) {
+            toastr.error(error.response.data.message)
+          }
+        })
+    },
+    pbthUpdate() {
+      this.loading()
+      this.$axios
+      .put(`/api/sales-update-pbth/` + this.prospect_id, {
+          rate: this.data_pbth_rate,
+          flight_hour: this.data_pbth_flighthour,
+        })
+        .then((response) => {
+          toastr.success(response.data.message)
+          this.closeModalEditSales()
+          this.listPBTH()
         })
         .catch((error) => {
           if (error.response.status == 422) {

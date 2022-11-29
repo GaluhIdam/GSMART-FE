@@ -499,6 +499,7 @@
                             v-if="order == 'customer' && by == 'asc'"
                             @click="sort('customer', 'desc')"
                             class="text-center"
+                            style="white-space: nowrap;"
                             >
                             <p class="d-flex justify-content-center">
                                 CUSTOMER
@@ -512,6 +513,7 @@
                             v-else-if="order == 'customer' && by == 'desc'"
                             @click="sort('id', 'desc')"
                             class="text-center"
+                            style="white-space: nowrap;"
                             >
                             <p class="d-flex justify-content-center">
                                 CUSTOMER
@@ -525,6 +527,7 @@
                             v-else
                             @click="sort('customer', 'asc')"
                             class="text-center"
+                            style="white-space: nowrap;"
                             >
                             <p class="d-flex justify-content-center">
                                 CUSTOMER
@@ -538,6 +541,7 @@
                             v-if="order == 'product' && by == 'asc'"
                             @click="sort('product', 'desc')"
                             class="text-center"
+                            style="white-space: nowrap;"
                             >
                             <p class="d-flex justify-content-center">
                                 PRODUCT
@@ -551,6 +555,7 @@
                             v-else-if="order == 'product' && by == 'desc'"
                             @click="sort('id', 'desc')"
                             class="text-center"
+                            style="white-space: nowrap;"
                             >
                             <p class="d-flex justify-content-center">
                                 PRODUCT
@@ -564,6 +569,7 @@
                             v-else
                             @click="sort('product', 'asc')"
                             class="text-center"
+                            style="white-space: nowrap;"
                             >
                             <p class="d-flex justify-content-center">
                                 PRODUCT
@@ -577,6 +583,7 @@
                             v-if="order == 'registration' && by == 'asc'"
                             @click="sort('registration', 'desc')"
                             class="text-center"
+                            style="white-space: nowrap;"
                             >
                             <p class="d-flex justify-content-center">
                                 AC/ENG/APU/COMP
@@ -590,6 +597,7 @@
                             v-else-if="order == 'registration' && by == 'desc'"
                             @click="sort('id', 'desc')"
                             class="text-center"
+                            style="white-space: nowrap;"
                             >
                             <p class="d-flex justify-content-center">
                                 AC/ENG/APU/COMP
@@ -603,6 +611,7 @@
                             v-else
                             @click="sort('registration', 'asc')"
                             class="text-center"
+                            style="white-space: nowrap;"
                             >
                             <p class="d-flex justify-content-center">
                                 AC/ENG/APU/COMP
@@ -616,6 +625,7 @@
                             v-if="order == 'acReg' && by == 'asc'"
                             @click="sort('acReg', 'desc')"
                             class="text-center"
+                            style="white-space: nowrap;"
                             >
                             <p class="d-flex justify-content-center">
                                 REGISTRATION
@@ -629,6 +639,7 @@
                             v-else-if="order == 'acReg' && by == 'desc'"
                             @click="sort('id', 'desc')"
                             class="text-center"
+                            style="white-space: nowrap;"
                             >
                             <p class="d-flex justify-content-center">
                                 REGISTRATION
@@ -642,6 +653,7 @@
                             v-else
                             @click="sort('acReg', 'asc')"
                             class="text-center"
+                            style="white-space: nowrap;"
                             >
                             <p class="d-flex justify-content-center">
                                 REGISTRATION
@@ -655,7 +667,7 @@
                             v-if="order == 'other' && by == 'asc'"
                             @click="sort('other', 'desc')"
                             class="text-center"
-                            style="width: 100%;"
+                            style="white-space: nowrap;"
                             >
                             <p class="d-flex justify-content-center">
                                 Sales Type
@@ -669,7 +681,7 @@
                             v-else-if="order == 'other' && by == 'desc'"
                             @click="sort('id', 'desc')"
                             class="text-center"
-                            style="width: 100%;"
+                            style="white-space: nowrap;"
                             >
                             <p class="d-flex justify-content-center">
                                 Sales Type
@@ -683,7 +695,7 @@
                             v-else
                             @click="sort('other', 'asc')"
                             class="text-center"
-                            style="width: 100%;"
+                            style="white-space: nowrap;"
                             >
                             <p class="d-flex justify-content-center">
                                 Sales Type
@@ -697,6 +709,7 @@
                             v-if="order == 'type' && by == 'asc'"
                             @click="sort('type', 'desc')"
                             class="text-center"
+                            style="white-space: nowrap;"
                             >
                             <p class="d-flex justify-content-center">
                                 Type
@@ -710,6 +723,7 @@
                             v-else-if="order == 'type' && by == 'desc'"
                             @click="sort('id', 'desc')"
                             class="text-center"
+                            style="white-space: nowrap;"
                             >
                             <p class="d-flex justify-content-center">
                                 Type
@@ -719,7 +733,8 @@
                                 ></i>
                             </p>
                             </th>
-                            <th v-else @click="sort('type', 'asc')" class="text-center">
+                            <th v-else @click="sort('type', 'asc')" class="text-center" 
+                            style="white-space: nowrap;">
                             <p class="d-flex justify-content-center">
                                 Type
                                 <i class="fa-solid fa-sort ms-2"></i>
@@ -732,6 +747,7 @@
                             v-if="order == 'level' && by == 'asc'"
                             @click="sort('level', 'desc')"
                             class="text-center"
+                            style="white-space: nowrap;"
                             >
                             <p class="d-flex justify-content-center">
                                 Level
@@ -745,6 +761,7 @@
                             v-else-if="order == 'level' && by == 'desc'"
                             @click="sort('id', 'desc')"
                             class="text-center"
+                            style="white-space: nowrap;"
                             >
                             <p class="d-flex justify-content-center">
                                 Level
@@ -758,6 +775,7 @@
                             v-else
                             @click="sort('level', 'asc')"
                             class="text-center"
+                            style="white-space: nowrap;"
                             >
                             <p class="d-flex justify-content-center">
                                 Level
@@ -771,6 +789,7 @@
                             v-if="order == 'progress' && by == 'asc'"
                             @click="sort('progress', 'desc')"
                             class="text-center"
+                            style="white-space: nowrap;"
                             >
                             <p class="d-flex justify-content-center">
                                 Progress
@@ -784,6 +803,7 @@
                             v-else-if="order == 'progress' && by == 'desc'"
                             @click="sort('id', 'desc')"
                             class="text-center"
+                            style="white-space: nowrap;"
                             >
                             <p class="d-flex justify-content-center">
                                 Progress
@@ -797,6 +817,7 @@
                             v-else
                             @click="sort('progress', 'asc')"
                             class="text-center"
+                            style="white-space: nowrap;"
                             >
                             <p class="d-flex justify-content-center">
                                 Progress
@@ -810,6 +831,7 @@
                             v-if="order == 'status' && by == 'asc'"
                             @click="sort('status', 'desc')"
                             class="text-center"
+                            style="white-space: nowrap;"
                             >
                             <p class="d-flex justify-content-center">
                                 STATUS
@@ -823,6 +845,7 @@
                             v-else-if="order == 'status' && by == 'desc'"
                             @click="sort('id', 'desc')"
                             class="text-center"
+                            style="white-space: nowrap;"
                             >
                             <p class="d-flex justify-content-center">
                                 STATUS
@@ -836,6 +859,7 @@
                             v-else
                             @click="sort('status', 'asc')"
                             class="text-center"
+                            style="white-space: nowrap;"
                             >
                             <p class="d-flex justify-content-center">
                                 STATUS
@@ -843,7 +867,7 @@
                             </p>
                             </th>
                             <!-- End progress sorting -->
-                            <th class="text-center"><p>ACTION</p></th>
+                            <th class="text-center" style="white-space: nowrap;"><p>ACTION</p></th>
                         </tr>
                         </thead>
                         <tbody>

@@ -753,7 +753,7 @@ export default {
     update() {
       this.loading()
       this.$axios
-        .put('/api/sales-update/' + this.tmbSale.id, {
+        .put('/api/sales-update-tmb/' + this.tmbSale.id, {
           prospect_id: this.$route.query.id,
           maintenance_id: this.tmbSale.maintenance_id,
           ac_reg: this.tmbSale.ac_reg,

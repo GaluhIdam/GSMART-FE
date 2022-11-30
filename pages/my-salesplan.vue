@@ -92,7 +92,7 @@
               </div>
               <div class="d-grid gap-2" id="cardStyle">
                 <a
-                  href="#"
+                  @click="level4Open()"
                   class="
                     btn btn-outline btn-outline-dashed btn-outline-success
                     d-flex
@@ -127,7 +127,7 @@
                   </div>
                 </a>
                 <a
-                  href="#"
+                  @click="level4Cancel()"
                   class="
                     btn btn-outline btn-outline-dashed btn-outline-danger
                     d-flex
@@ -187,7 +187,7 @@
               </div>
               <div class="d-grid gap-2" id="cardStyle">
                 <a
-                  href="#"
+                  @click="level3Open()"
                   class="
                     btn btn-outline btn-outline-dashed btn-outline-success
                     d-flex
@@ -219,7 +219,7 @@
                   </div>
                 </a>
                 <a
-                  href="#"
+                  @click="level3Cancel()"
                   class="
                     btn btn-outline btn-outline-dashed btn-outline-danger
                     d-flex
@@ -279,7 +279,7 @@
               </div>
               <div class="d-grid gap-2" id="cardStyle">
                 <a
-                  href="#"
+                  @click="level2Open()"
                   class="
                     btn btn-outline btn-outline-dashed btn-outline-success
                     d-flex
@@ -311,7 +311,7 @@
                   </div>
                 </a>
                 <a
-                  href="#"
+                  @click="level2Open()"
                   class="
                     btn btn-outline btn-outline-dashed btn-outline-danger
                     d-flex
@@ -371,7 +371,7 @@
               </div>
               <div class="d-grid gap-2" id="cardStyle">
                 <a
-                  href="#"
+                  @click="level1Open()"
                   class="
                     btn btn-outline btn-outline-dashed btn-outline-success
                     d-flex
@@ -408,7 +408,7 @@
                   </div>
                 </a>
                 <a
-                  href="#"
+                  @click="level1Open()"
                   class="
                     btn btn-outline btn-outline-dashed btn-outline-danger
                     d-flex
@@ -445,7 +445,7 @@
                   </div>
                 </a>
                 <a
-                  href="#"
+                  @click="level1Closed()"
                   class="
                     btn btn-outline btn-outline-dashed btn-outline-info
                     d-flex
@@ -482,7 +482,7 @@
                   </div>
                 </a>
                 <a
-                  href="#"
+                  @click="level1ClosedIn()"
                   class="
                     btn btn-outline btn-outline-dashed btn-outline-warning
                     d-flex
@@ -802,6 +802,97 @@ export default {
         })
         .catch((error) => {
           console.log(error)
+        })
+    },
+
+    level4Open() {
+      this.$axios
+        .get('api/sales-table?order=id&by=desc&paginate=10&status=1&level=4')
+        .then((response) => {
+          this.$router.push({
+            name: 'my-salesplan-table',
+          })
+        })
+    },
+    level4Cancel() {
+      this.$axios
+        .get('api/sales-table?order=id&by=desc&paginate=10&status=4&level=4')
+        .then((response) => {
+          this.$router.push({
+            name: 'my-salesplan-table',
+          })
+        })
+    },
+    level3Open() {
+      this.$axios
+        .get('api/sales-table?order=id&by=desc&paginate=10&status=1&level=3')
+        .then((response) => {
+          this.$router.push({
+            name: 'my-salesplan-table',
+          })
+        })
+    },
+    level3Cancel() {
+      this.$axios
+        .get('api/sales-table?order=id&by=desc&paginate=10&status=4&level=3')
+        .then((response) => {
+          this.$router.push({
+            name: 'my-salesplan-table',
+          })
+        })
+    },
+    level2Open() {
+      this.$axios
+        .get('api/sales-table?order=id&by=desc&paginate=10&status=1&level=2')
+        .then((response) => {
+          this.$router.push({
+            name: 'my-salesplan-table',
+          })
+        })
+    },
+    level2Cancel() {
+      this.$axios
+        .get('api/sales-table?order=id&by=desc&paginate=10&status=4&level=2')
+        .then((response) => {
+          this.$router.push({
+            name: 'my-salesplan-table',
+          })
+        })
+    },
+    level1Open() {
+      this.$axios
+        .get('api/sales-table?order=id&by=desc&paginate=10&status=1&level=1')
+        .then((response) => {
+          this.$router.push({
+            name: 'my-salesplan-table',
+          })
+        })
+    },
+    level1Cancel() {
+      this.$axios
+        .get('api/sales-table?order=id&by=desc&paginate=10&status=4&level=1')
+        .then((response) => {
+          this.$router.push({
+            name: 'my-salesplan-table',
+          })
+        })
+    },
+    level1Closed() {
+      this.$axios
+        .get('api/sales-table?order=id&by=desc&paginate=10&status=2&level=1')
+        .then((response) => {
+          this.$router.push({
+            name: 'my-salesplan-table',
+          })
+        })
+    },
+    level1ClosedIn() {
+      this.$axios
+        .get('api/sales-table?order=id&by=desc&paginate=10&status=3&level=1')
+        .then((response) => {
+          this.$router.push({
+            name: 'my-salesplan-table',
+          })
         })
     },
 

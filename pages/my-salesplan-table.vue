@@ -1632,7 +1632,6 @@ export default {
         })
         .then((response) => {
           this.maintenance_option = response.data.data.data
-          console.log(this.maintenance_option)
         })
         .catch((error) => console.log(error))
     },

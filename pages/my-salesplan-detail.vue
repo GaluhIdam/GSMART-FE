@@ -604,10 +604,10 @@
               </div>
             </div>
             <!-- End Detail -->
-
+            <hr>
             <!-- Tab -->
             <div class="row mt-5">
-              <ul class="nav nav-tabs" id="myTab" role="tablist">
+              <ul class="nav nav-pills" id="pills-tab" role="tablist">
                 <li class="nav-item" role="presentation">
                   <button
                     class="nav-link active"
@@ -692,7 +692,7 @@
                 </li>
               </ul>
 
-              <div class="tab-content" id="myTabContent">
+              <div class="tab-content" id="pills-tabContent">
                 <!-- Tab Upgrade Level -->
                 <div
                   class="tab-pane fade show active"
@@ -1452,7 +1452,7 @@
                                       <button
                                         v-if="
                                         level4[3].status == 0 &&
-                                        role == 'Administrator' || role == 'AMS'"
+                                        role == 'AMS'"
                                         type="button"
                                         class="btn btn-info btn-sm"
                                         data-bs-toggle="modal"

@@ -2446,16 +2446,58 @@
                             >{{ errors.user_id[0] }}</span
                           >
                         </div>
-                          <div class="mb-3">
-                            <label class="form-label">Hangar</label>
-                            <input
-                              type="text"
-                              class="form-control"
-                              readonly
-                              v-model="sales_detail.location.id"
-                              id="readOnly"
-                            />
+                        <!-- Hangar & Line -->
+                        <div class="row">
+                          <div class="col-lg-6">
+                            <div class="mb-3">
+                              <label
+                                >Hangar <span class="text-danger">*</span></label
+                              >
+                              <select v-model="hangar_id" class="form-select" :class="{ 'is-invalid': errors.hangar_id }">
+                                <option :value="null" disabled>
+                                  Select Hangar
+                                </option>
+                                <option
+                                  v-for="(hangar_options, hangar_index) in hangar_option"
+                                  :value="hangar_options.id"
+                                  :key="hangar_index"
+                                >
+                                  {{ hangar_options.name }}
+                                </option>
+                              </select>
+                              <span
+                                v-if="errors.hangar_id"
+                                class="error invalid-feedback"
+                                >{{ errors.hangar_id[0] }}</span
+                              >
+                            </div>
                           </div>
+                          <div class="col-lg-6">
+                            <div class="mb-3">
+                              <label for=""
+                                >Line <span class="text-danger">*</span></label
+                              >
+                              <select v-model="line_id" class="form-select" :class="{ 'is-invalid': errors.line_id }">
+                                <option :value="null" disabled>
+                                  Select Line
+                                </option>
+                                <option
+                                  v-for="(lines, line_index) in line"
+                                  v-if="lines.hangar_id === hangar_id"
+                                  :value="lines.id"
+                                  :key="line_index"
+                                >
+                                  {{ lines.name }}
+                                </option>
+                              </select>
+                              <span
+                                v-if="errors.line_id"
+                                class="error invalid-feedback"
+                                >{{ errors.line_id[0] }}</span
+                              >
+                            </div>
+                          </div>
+                        </div>
                           <div class="mb-3">
                             <label class="form-label">Registration</label>
                             <input
@@ -2515,7 +2557,7 @@
                             <button
                               type="button"
                               @click="salesRescheduleReject()"
-                              class="btn btn-danger btn-sm"
+                              class="btn btn-danger btn-sm me-2"
                               v-if="
                                 role == 'CBO' || role == 'Administrator'
                               "
@@ -2534,8 +2576,11 @@
                               </button>
                               <button
                                 type="submit"
-                                class="btn btn-primary btn-sm"
+                                class="btn btn-info btn-sm"
                                 v-permission="['reschedule_sales']"
+                                v-if="
+                                  role == 'AMS'
+                                "
                               >
                               Request to CBO
                             </button>
@@ -3838,8 +3883,8 @@ export default {
               .put(`api/sales-reschedule/${this.$route.query.id}`, {
                 sales_id: this.$route.query.id,
                 user_id: this.user_id,
-                hangar_id: this.level4[3].data.hangar,
-                line_id: this.level4[3].data.line,
+                hangar_id: this.hangar_id,
+                line_id: this.line_id,
                 target_url: this.$route.fullPath,
                 start_date: this.sales_detail.start_date,
                 tat: this.sales_detail.tat,

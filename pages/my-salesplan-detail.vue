@@ -177,46 +177,46 @@
                   <div class="modal-header">
                     <h3 class="modal-title">Edit Sales Plan</h3>
 
-                    <!--begin::Close-->
-                    <div
-                      class="btn btn-icon btn-sm btn-active-light-primary ms-2"
-                      data-bs-dismiss="modal"
-                      aria-label="Close"
+                  <!--begin::Close-->
+                  <div
+                    class="btn btn-icon btn-sm btn-active-light-primary ms-2"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  >
+                    <span
+                      class="svg-icon svg-icon-1"
+                      @click="closeModalContact()"
                     >
-                      <span
-                        class="svg-icon svg-icon-1"
-                        @click="closeModalContact()"
+                      <svg
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
                       >
-                        <svg
-                          width="24"
-                          height="24"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <rect
-                            opacity="0.5"
-                            x="6"
-                            y="17.3137"
-                            width="16"
-                            height="2"
-                            rx="1"
-                            transform="rotate(-45 6 17.3137)"
-                            fill="currentColor"
-                          ></rect>
-                          <rect
-                            x="7.41422"
-                            y="6"
-                            width="16"
-                            height="2"
-                            rx="1"
-                            transform="rotate(45 7.41422 6)"
-                            fill="currentColor"
-                          ></rect>
-                        </svg>
-                      </span>
-                    </div>
-                    <!--end::Close-->
+                        <rect
+                          opacity="0.5"
+                          x="6"
+                          y="17.3137"
+                          width="16"
+                          height="2"
+                          rx="1"
+                          transform="rotate(-45 6 17.3137)"
+                          fill="currentColor"
+                        ></rect>
+                        <rect
+                          x="7.41422"
+                          y="6"
+                          width="16"
+                          height="2"
+                          rx="1"
+                          transform="rotate(45 7.41422 6)"
+                          fill="currentColor"
+                        ></rect>
+                      </svg>
+                    </span>
+                  </div>
+                  <!--end::Close-->
                   </div>
                   <div class="modal-body">
                     <form @submit.prevent="salesUpdate" v-if="sales_detail">
@@ -231,6 +231,7 @@
                               v-model="maintenance_id"
                               class="form-select"
                             >
+                              <option :value="null" disabled>Select Maintenance</option>
                               <option
                                 v-for="(maintenance_options, maintenance_index) in maintenance_option"
                                 :value="maintenance_options.id"
@@ -285,6 +286,7 @@
                           <div class="form-group mb-3">
                             <label class="form-label fw-bold">Location</label>
                             <select v-model="hangar_id" class="form-select">
+                              <option :value="null" disabled>Select Location</option>
                               <option
                                 v-for="(hangar_options, hangar_index) in hangar_option"
                                 :value="hangar_options.id"
@@ -3754,6 +3756,7 @@ export default {
               })
               .then((response) => {
                 toastr.success(response.data.message)
+                this.listDetail()
                 // this.$router.push({
                 //   name: 'my-salesplan',
                 // })
@@ -3863,14 +3866,14 @@ export default {
     salesUpdate() {
       this.loading()
       this.$axios
-        .put(`/api/sales-update/${this.$route.query.id}`, {
+        .put(`/api/sales-update-tmb/${this.$route.query.id}`, {
           sales_id: this.$route.query.id,
           maintenance_id: this.maintenance_id,
           hangar_id: this.hangar_id,
-          acReg: this.sales_detail.acReg,
+          ac_reg: this.sales_detail.acReg,
           tat: this.sales_detail.tat,
-          totalSales: this.sales_detail.totalSales,
-          startDate: this.sales_detail.startDate,
+          value: this.sales_detail.totalSales,
+          start_date: this.sales_detail.startDate,
         })
         .then((response) => {
           toastr.success(response.data.message)

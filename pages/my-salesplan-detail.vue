@@ -2409,10 +2409,21 @@
                   tabindex="0"
                 >
                   <div class="mt-5" v-if="sales_detail">
-                        <form
-                          @submit.prevent="salesReschedule"
-                          v-if="sales_detail"
-                        >
+                      <form
+                        @submit.prevent="salesReschedule"
+                        v-if="sales_detail"
+                      >
+                        <input
+                          type="hidden"
+                          disabled
+                          class="form-control"
+                          v-model="current_date_reschedule"
+                        />
+                        <input
+                          type="hidden"
+                          class="form-control"
+                          v-model="sales_detail.monthSales"
+                        />
                         <div class="mb-3">
                           <label>To <span class="text-danger">*</span></label>
                           <select v-model="user_id" class="form-select" :class="{ 'is-invalid': errors.user_id }">
@@ -2434,7 +2445,7 @@
                             class="error invalid-feedback"
                             >{{ errors.user_id[0] }}</span
                           >
-                        </div>
+                        </div>
                           <div class="mb-3">
                             <label class="form-label">Hangar</label>
                             <input
@@ -2497,33 +2508,6 @@
                               id="readOnly"
                             />
                           </div>
-                          <div class="mb-3">
-                            <label class="form-label">Current Date</label>
-                            <input
-                              type="text"
-                              disabled
-                              class="form-control"
-                              v-model="current_date_reschedule"
-                              :class="{
-                                'is-invalid': errors.current_date,
-                              }"
-                            />
-                            <span
-                              v-if="errors.current_date"
-                              class="error invalid-feedback"
-                              >{{ errors.current_date[0] }}</span
-                            >
-                          </div>
-                          <div class="mb-3">
-                            <label class="form-label">Sales Month</label>
-                            <input
-                              type="text"
-                              class="form-control"
-                              v-model="sales_detail.monthSales"
-                              readonly
-                              id="readOnly"
-                            />
-                          </div>
                           <div
                             class="text-center mt-5"
                             v-if="sales_detail.status === 'Open'"
@@ -2532,107 +2516,113 @@
                               type="button"
                               @click="salesRescheduleReject()"
                               class="btn btn-danger btn-sm"
+                              v-if="
+                                role == 'CBO' || role == 'Administrator'
+                              "
                               >
                               Reject
                               </button>
                               <button
-                                 type="button"
-                                 class="btn btn-success btn-sm"
-                                 @click="salesRescheduleApprove()"
+                                type="button"
+                                class="btn btn-success btn-sm"
+                                @click="salesRescheduleApprove()"
+                                v-if="
+                                  role == 'CBO' || role == 'Administrator'
+                                "
                               >
                                 Approve
                               </button>
                               <button
-                              type="submit"
-                              class="btn btn-primary btn-sm"
-                              v-permission="['reschedule_sales']"
-                            >
-                              Confirm
+                                type="submit"
+                                class="btn btn-primary btn-sm"
+                                v-permission="['reschedule_sales']"
+                              >
+                              Request to CBO
                             </button>
                           </div>
-                        </form>
+                      </form>
                   </div>
                 </div>
 
-                 <!-- Cancel Form -->
-                 <div
-                 class="tab-pane fade"
-                 id="cancel-tab-pane"
-                 role="tabpanel"
-               >
-                 <form @submit.prevent="salesCancel">
-                   <div class="mb-3 mt-5">
-                     <label class="form-label">Category</label>
-                     <div class="row mb-5">
-                       <div class="col">
-                         <div class="input-group mb-3">
-                           <select v-model="category_id" class="form-select" :class="{ 'is-invalid': errors.category_id }">
-                             <option :value="null" disabled>Select Category</option>
-                             <option
-                               v-for="(category_options, category_index) in category_option"
-                               :value="category_options.id"
-                               :class="{
-                                 'is-invalid': errors.category_id,
-                               }"
-                               :key="category_index"
-                             >
-                               {{ category_options.name }}
-                             </option>
-                           </select>
-                           <span
-                             v-if="errors.category_id"
-                             class="error invalid-feedback"
-                           >
-                             {{ errors.category_id[0] }}
-                           </span>
-                         </div>
-                       </div>
-                     </div>
-                   </div>
-                   <div class="mb-3">
-                     <label class="form-label">Reason of Cancel</label>
-                     <textarea
-                       class="form-control"
-                       cols="30"
-                       rows="10"
-                       v-model="reason"
-                       :class="{ 'is-invalid': errors.reason }"
-                     ></textarea>
-                     <span
-                       v-if="errors.reason"
-                       class="error invalid-feedback"
-                     >
-                       {{ errors.reason[0] }}
-                     </span>
-                   </div>
-                   <div
-                     class="text-center mt-5"
-                     v-if="sales_detail_status == 'Open'"
-                   >
-                   <button
-                   type="button"
-                   @click="salesCancelReject()"
-                   class="btn btn-danger btn-sm"
-                   >
-                   Reject
-                   </button>
-                   <button
+                <!-- Cancel Form -->
+                <div
+                  class="tab-pane fade"
+                  id="cancel-tab-pane"
+                  role="tabpanel"
+                >
+                  <form @submit.prevent="salesCancel">
+                    <div class="mb-3 mt-5">
+                      <label class="form-label">Category</label>
+                      <div class="row mb-5">
+                        <div class="col">
+                          <div class="input-group mb-3">
+                            <select v-model="category_id" class="form-select" :class="{ 'is-invalid': errors.category_id }">
+                              <option :value="null" disabled>Select Category</option>
+                              <option
+                                v-for="(category_options, category_index) in category_option"
+                                :value="category_options.id"
+                                :class="{
+                                  'is-invalid': errors.category_id,
+                                }"
+                                :key="category_index"
+                              >
+                                {{ category_options.name }}
+                              </option>
+                            </select>
+                            <span
+                              v-if="errors.category_id"
+                              class="error invalid-feedback"
+                            >
+                              {{ errors.category_id[0] }}
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="mb-3">
+                      <label class="form-label">Reason of Cancel</label>
+                      <textarea
+                        class="form-control"
+                        cols="30"
+                        rows="10"
+                        v-model="reason"
+                        :class="{ 'is-invalid': errors.reason }"
+                      ></textarea>
+                      <span
+                        v-if="errors.reason"
+                        class="error invalid-feedback"
+                      >
+                        {{ errors.reason[0] }}
+                      </span>
+                    </div>
+                    <div
+                      class="text-center mt-5"
+                      v-if="sales_detail_status == 'Open'"
+                    >
+                    <button
+                    type="button"
+                    @click="salesCancelReject()"
+                    class="btn btn-danger btn-sm"
+                    >
+                    Reject
+                    </button>
+                    <button
                       type="button"
                       class="btn btn-success btn-sm"
                       @click="salesCancelApprove()"
-                   >
-                     Approve
-                   </button>
-                     <button
-                       type="submit"
-                       class="btn btn-primary btn-sm"
-                       v-permission="['reject_sales']"
-                     >
-                       Confirm
-                     </button>
-                   </div>
-                 </form>
-               </div>
+                    >
+                      Approve
+                    </button>
+                      <button
+                        type="submit"
+                        class="btn btn-primary btn-sm"
+                        v-permission="['reject_sales']"
+                      >
+                        Confirm
+                      </button>
+                    </div>
+                  </form>
+                </div>
 
                 <!-- Modal Contact -->
                 <div

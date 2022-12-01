@@ -2446,6 +2446,7 @@
                             >{{ errors.user_id[0] }}</span
                           >
                         </div>
+                        
                         <!-- Hangar & Line -->
                         <div class="row">
                           <div class="col-lg-6">
@@ -2498,93 +2499,102 @@
                             </div>
                           </div>
                         </div>
-                          <div class="mb-3">
-                            <label class="form-label">Registration</label>
-                            <input
-                              type="text"
-                              class="form-control"
-                              v-model="sales_detail.registration"
-                              readonly
-                              id="readOnly"
-                            />
+
+                        <!-- Registration & TAT -->
+                        <div class="row">
+                          <div class="col-lg-6">
+                            <div class="mb-3">
+                              <label class="form-label">Registration</label>
+                              <input
+                                type="text"
+                                class="form-control"
+                                v-model="sales_detail.acReg"
+                              />
+                            </div>
                           </div>
-                          <div class="mb-3">
-                            <label class="form-label">Start Date</label>
-                            <input
-                              type="date"
-                              class="form-control"
-                              v-model="sales_detail.start_date"
-                              :class="{
-                                'is-invalid': errors.start_date,
-                              }"
-                            />
-                            <span
-                              v-if="errors.start_date"
-                              class="error invalid-feedback"
-                              >{{ errors.start_date[0] }}</span
-                            >
+                          <div class="col-lg-6">
+                            <div class="mb-3">
+                              <label class="form-label">TAT</label>
+                              <input
+                                type="number"
+                                class="form-control"
+                                v-model="sales_detail.tat"
+                              />
+                            </div>
                           </div>
-                          <div class="mb-3">
-                            <label class="form-label">Reschedule</label>
-                            <input
-                              type="date"
-                              class="form-control"
-                              v-model="end_date"
-                              :class="{
-                                'is-invalid': errors.end_date,
-                              }"
-                            />
-                            <span
-                              v-if="errors.end_date"
-                              class="error invalid-feedback"
-                              >{{ errors.end_date[0] }}</span
-                            >
-                          </div>
-                          <div class="mb-3">
-                            <label class="form-label">TAT</label>
-                            <input
-                              type="number"
-                              class="form-control"
-                              v-model="sales_detail.tat"
-                              readonly
-                              id="readOnly"
-                            />
-                          </div>
-                          <div
-                            class="text-center mt-5"
-                            v-if="sales_detail.status === 'Open'"
+                        </div>
+                          
+                        <!-- Start Date -->
+                        <div class="mb-3">
+                          <label class="form-label">Start Date</label>
+                          <input
+                            type="date"
+                            class="form-control"
+                            v-model="sales_detail.start_date"
+                            :class="{
+                              'is-invalid': errors.start_date,
+                            }"
+                          />
+                          <span
+                            v-if="errors.start_date"
+                            class="error invalid-feedback"
+                            >{{ errors.start_date[0] }}</span
                           >
+                        </div>
+
+                        <!-- Reschedule -->
+                        <div class="mb-3">
+                          <label class="form-label">Reschedule</label>
+                          <input
+                            type="date"
+                            class="form-control"
+                            v-model="end_date"
+                            :class="{
+                              'is-invalid': errors.end_date,
+                            }"
+                          />
+                          <span
+                            v-if="errors.end_date"
+                            class="error invalid-feedback"
+                            >{{ errors.end_date[0] }}</span
+                          >
+                        </div>
+
+                        <div
+                          class="text-center mt-5"
+                          v-if="sales_detail.status === 'Open'"
+                        >
+                          <button
+                            type="button"
+                            @click="salesRescheduleReject()"
+                            class="btn btn-danger btn-sm me-2"
+                            v-if="
+                              role == 'CBO' || role == 'Administrator'
+                            "
+                            >
+                            Reject
+                            </button>
                             <button
                               type="button"
-                              @click="salesRescheduleReject()"
-                              class="btn btn-danger btn-sm me-2"
+                              class="btn btn-success btn-sm"
+                              @click="salesRescheduleApprove()"
                               v-if="
                                 role == 'CBO' || role == 'Administrator'
                               "
-                              >
-                              Reject
-                              </button>
-                              <button
-                                type="button"
-                                class="btn btn-success btn-sm"
-                                @click="salesRescheduleApprove()"
-                                v-if="
-                                  role == 'CBO' || role == 'Administrator'
-                                "
-                              >
-                                Approve
-                              </button>
-                              <button
-                                type="submit"
-                                class="btn btn-info btn-sm"
-                                v-permission="['reschedule_sales']"
-                                v-if="
-                                  role == 'AMS'
-                                "
-                              >
-                              Request to CBO
+                            >
+                              Approve
                             </button>
-                          </div>
+                            <button
+                              type="submit"
+                              class="btn btn-info btn-sm"
+                              v-permission="['reschedule_sales']"
+                              v-if="
+                                role == 'AMS'
+                              "
+                            >
+                            Request to CBO
+                          </button>
+                        </div>
                       </form>
                   </div>
                 </div>

@@ -134,7 +134,7 @@
                             <b>{{ sales_detail.product.name }}</b>
                             Location:
                             <b v-if="sales_detail.location == '-' || null">-</b>
-                            <b v-else>{{ sales_detail.location.name }}</b>
+                            <b v-else>{{ sales_detail.location }}</b>
                             Maintenance:
                             <b>{{ sales_detail.maintenance }}</b>
                           </div>
@@ -589,7 +589,7 @@
                 <p class="text-muted mt-5">Location</p>
                 <p>
                   <b v-if="sales_detail.location == '-' || null">-</b>
-                  <b v-else>{{ sales_detail.location.name }}</b>
+                  <b v-else>{{ sales_detail.location }}</b>
                 </p>
                 <p class="text-muted mt-5">Product</p>
                 <p>
@@ -1452,7 +1452,7 @@
                                       <button
                                         v-if="
                                         level4[3].status == 0 &&
-                                        role == 'AMS'"
+                                        role == 'AMS' || role == 'Administrator'"
                                         type="button"
                                         class="btn btn-info btn-sm"
                                         data-bs-toggle="modal"
@@ -2409,10 +2409,7 @@
                   tabindex="0"
                 >
                   <div class="mt-5" v-if="sales_detail">
-                      <form
-                        @submit.prevent="salesReschedule"
-                        v-if="sales_detail"
-                      >
+                      <form>
                         <input
                           type="hidden"
                           disabled
@@ -2424,8 +2421,15 @@
                           class="form-control"
                           v-model="sales_detail.monthSales"
                         />
+                        <input
+                          type="hidden"
+                          class="form-control"
+                          v-model="sales_detail.acReg"
+                          readonly
+                          id="readOnly"
+                        />
                         <div class="mb-3">
-                          <label>To <span class="text-danger">*</span></label>
+                          <label>To </label>
                           <select v-model="user_id" class="form-select" :class="{ 'is-invalid': errors.user_id }">
                             <option :value="null" disabled>
                               Select User
@@ -2452,7 +2456,7 @@
                           <div class="col-lg-6">
                             <div class="mb-3">
                               <label
-                                >Hangar <span class="text-danger">*</span></label
+                                >Hangar</label
                               >
                               <select v-model="hangar_id" class="form-select" :class="{ 'is-invalid': errors.hangar_id }">
                                 <option :value="null" disabled>
@@ -2476,7 +2480,7 @@
                           <div class="col-lg-6">
                             <div class="mb-3">
                               <label for=""
-                                >Line <span class="text-danger">*</span></label
+                                >Line</label
                               >
                               <select v-model="line_id" class="form-select" :class="{ 'is-invalid': errors.line_id }">
                                 <option :value="null" disabled>
@@ -2500,15 +2504,17 @@
                           </div>
                         </div>
 
-                        <!-- Registration & TAT -->
+                        <!-- Start Date & TAT -->
                         <div class="row">
                           <div class="col-lg-6">
                             <div class="mb-3">
-                              <label class="form-label">Registration</label>
+                              <label class="form-label">Start Date</label>
                               <input
                                 type="text"
                                 class="form-control"
-                                v-model="sales_detail.acReg"
+                                v-model="sales_detail.startDate"
+                                readonly
+                                id="readOnly"
                               />
                             </div>
                           </div>
@@ -2518,40 +2524,32 @@
                               <input
                                 type="number"
                                 class="form-control"
-                                v-model="sales_detail.tat"
+                                v-model="tat"
                               />
                             </div>
                           </div>
                         </div>
                           
-                        <!-- Start Date -->
-                        <div class="mb-3">
-                          <label class="form-label">Start Date</label>
-                          <input
-                            type="text"
-                            class="form-control"
-                            v-model="sales_detail.startDate"
-                            readonly
-                            id="readOnly"
-                          />
-                        </div>
-
                         <!-- Reschedule -->
-                        <div class="mb-3">
-                          <label class="form-label">Reschedule</label>
-                          <input
-                            type="date"
-                            class="form-control"
-                            v-model="end_date"
-                            :class="{
-                              'is-invalid': errors.end_date,
-                            }"
-                          />
-                          <span
-                            v-if="errors.end_date"
-                            class="error invalid-feedback"
-                            >{{ errors.end_date[0] }}</span
-                          >
+                        <div class="row">
+                          <div class="col-lg-6">
+                            <div class="mb-3">
+                              <label class="form-label">Reschedule</label>
+                              <input
+                                type="date"
+                                class="form-control"
+                                v-model="reschedule"
+                                :class="{
+                                  'is-invalid': errors.reschedule,
+                                }"
+                              />
+                              <span
+                                v-if="errors.reschedule"
+                                class="error invalid-feedback"
+                                >{{ errors.reschedule[0] }}</span
+                              >
+                            </div>
+                          </div>
                         </div>
 
                         <div
@@ -2561,7 +2559,7 @@
                           <button
                             type="button"
                             @click="salesRescheduleReject()"
-                            class="btn btn-danger btn-sm me-2"
+                            class="btn btn-danger btn-sm"
                             v-if="
                               role == 'CBO' || role == 'Administrator'
                             "
@@ -2570,7 +2568,7 @@
                             </button>
                             <button
                               type="button"
-                              class="btn btn-success btn-sm"
+                              class="btn btn-success btn-sm mx-2"
                               @click="salesRescheduleApprove()"
                               v-if="
                                 role == 'CBO' || role == 'Administrator'
@@ -2579,11 +2577,12 @@
                               Approve
                             </button>
                             <button
-                              type="submit"
+                              type="button"
                               class="btn btn-info btn-sm"
+                              @click="salesReschedule()"
                               v-permission="['reschedule_sales']"
                               v-if="
-                                role == 'AMS'
+                                role == 'AMS' || role == 'Administrator'
                               "
                             >
                             Request to CBO
@@ -2599,8 +2598,30 @@
                   id="cancel-tab-pane"
                   role="tabpanel"
                 >
-                  <form @submit.prevent="salesCancel">
+                  <form>
                     <div class="mb-3 mt-5">
+                      <label>To </label>
+                      <select v-model="user_id" class="form-select" :class="{ 'is-invalid': errors.user_id }">
+                        <option :value="null" disabled>
+                          Select User
+                        </option>
+                        <option
+                          v-for="(user_options, user_index) in user_option"
+                          v-if="user_options.role_id === 4"
+                          :value="user_options.id"
+                          :key="user_index"
+                        >
+                          {{ user_options.name }} -
+                          {{ user_options.email }}
+                        </option>
+                      </select>
+                      <span
+                        v-if="errors.user_id"
+                        class="error invalid-feedback"
+                        >{{ errors.user_id[0] }}</span
+                      >
+                    </div>
+                    <div class="mb-3">
                       <label class="form-label">Category</label>
                       <div class="row mb-5">
                         <div class="col">
@@ -2649,25 +2670,35 @@
                       v-if="sales_detail_status == 'Open'"
                     >
                     <button
-                    type="button"
-                    @click="salesCancelReject()"
-                    class="btn btn-danger btn-sm"
+                      type="button"
+                      @click="salesCancelReject()"
+                      class="btn btn-danger btn-sm"
+                      v-if="
+                        role == 'CBO' || role == 'Administrator'
+                      "
                     >
                     Reject
                     </button>
                     <button
                       type="button"
-                      class="btn btn-success btn-sm"
+                      class="btn btn-success btn-sm mx-2"
                       @click="salesCancelApprove()"
+                      v-if="
+                        role == 'CBO' || role == 'Administrator'
+                      "
                     >
                       Approve
                     </button>
                       <button
-                        type="submit"
-                        class="btn btn-primary btn-sm"
+                        type="button"
+                        class="btn btn-info btn-sm"
+                        @click="salesCancel()"
                         v-permission="['reject_sales']"
+                        v-if="
+                          role == 'AMS' || role == 'Administrator'
+                        "
                       >
-                        Confirm
+                        Request to CBO
                       </button>
                     </div>
                   </form>
@@ -3884,14 +3915,15 @@ export default {
         .then((result) => {
           if (result.isConfirmed) {
             this.$axios
-              .put(`api/sales-reschedule/${this.$route.query.id}`, {
+              .post(`api/sales-request-reschedule`, {
                 sales_id: this.$route.query.id,
                 user_id: this.user_id,
                 hangar_id: this.hangar_id,
                 line_id: this.line_id,
                 target_url: this.$route.fullPath,
-                startDate: this.sales_detail.startDate,
-                tat: this.sales_detail.tat,
+                current_date: this.sales_detail.startDate,
+                tat: this.tat,
+                start_date: this.reschedule,
               })
               .then((response) => {
                 toastr.success(response.data.message)
@@ -3901,72 +3933,7 @@ export default {
         })
         .catch((error) => {
           if (error.response.status == 422) {
-            toastr.error(error.response.data.message)
-          } else if (error.response.status == 403) {
-            toastr.error(error.response.data.message)
-          }
-        })
-    },
-    salesCancelApprove() {
-      Swal.fire({
-        title: 'Are you sure?',
-        text: "You won't be able to revert this!",
-        icon: 'question',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, Approve it!',
-      })
-        .then((result) => {
-          if (result.isConfirmed) {
-            this.$axios
-              .put(`api/sales-approve-cancel/${this.$route.query.id}`, {
-                is_approved: 1,
-                target_url: this.$route.fullPath,
-                // sales_id: this.$route.query.id,
-              })
-              .then((response) => {
-                toastr.success(response.data.message)
-                this.listDetail()
-                Swal.close()
-              })
-          }
-        })
-        .catch((error) => {
-          if (error.response.status == 422) {
-            toastr.error(error.response.data.message)
-          } else if (error.response.status == 403) {
-            toastr.error(error.response.data.message)
-          }
-        })
-    },
-    salesCancelReject() {
-      Swal.fire({
-        title: 'Are you sure?',
-        text: "You won't be able to revert this!",
-        icon: 'question',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, Reject it!',
-      })
-        .then((result) => {
-          if (result.isConfirmed) {
-            this.$axios
-              .put(`api/sales-request-cancel`, {
-                is_approved: 0,
-                target_url: this.$route.fullPath,
-                // sales_id: this.$route.query.id,
-              })
-              .then((response) => {
-                toastr.success(response.data.message)
-                this.listDetail()
-                Swal.close()
-              })
-          }
-        })
-        .catch((error) => {
-          if (error.response.status == 422) {
+            this.errors = error.response.data.errors
             toastr.error(error.response.data.message)
           } else if (error.response.status == 403) {
             toastr.error(error.response.data.message)
@@ -4052,9 +4019,11 @@ export default {
         .then((result) => {
           if (result.isConfirmed) {
             this.$axios
-              .put(`api/sales-reject/${this.$route.query.id}`, {
+              .post(`api/sales-request-cancel`, {
                 sales_id: this.$route.query.id,
+                user_id: this.user_id,
                 category_id: this.category_id,
+                target_url: this.$route.fullPath,
                 reason: this.reason,
               })
               .then((response) => {
@@ -4068,6 +4037,72 @@ export default {
         .catch((error) => {
           if (error.response.status == 422) {
             this.errors = error.response.data.errors
+            toastr.error(error.response.data.message)
+          } else if (error.response.status == 403) {
+            toastr.error(error.response.data.message)
+          }
+        })
+    },
+    salesCancelApprove() {
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, Approve it!',
+      })
+        .then((result) => {
+          if (result.isConfirmed) {
+            this.$axios
+              .put(`api/sales-approve-cancel/${this.$route.query.id}`, {
+                is_approved: 1,
+                target_url: this.$route.fullPath,
+                // sales_id: this.$route.query.id,
+              })
+              .then((response) => {
+                toastr.success(response.data.message)
+                this.listDetail()
+                Swal.close()
+              })
+          }
+        })
+        .catch((error) => {
+          if (error.response.status == 422) {
+            toastr.error(error.response.data.message)
+          } else if (error.response.status == 403) {
+            toastr.error(error.response.data.message)
+          }
+        })
+    },
+    salesCancelReject() {
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, Reject it!',
+      })
+        .then((result) => {
+          if (result.isConfirmed) {
+            this.$axios
+              .put(`api/sales-request-cancel`, {
+                is_approved: 0,
+                target_url: this.$route.fullPath,
+                // sales_id: this.$route.query.id,
+              })
+              .then((response) => {
+                toastr.success(response.data.message)
+                this.listDetail()
+                Swal.close()
+              })
+          }
+        })
+        .catch((error) => {
+          if (error.response.status == 422) {
             toastr.error(error.response.data.message)
           } else if (error.response.status == 403) {
             toastr.error(error.response.data.message)

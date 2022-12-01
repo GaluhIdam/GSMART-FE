@@ -127,7 +127,7 @@
                             <b>{{ sales_detail.type }}</b> Month Sales:
                             <b>{{ sales_detail.monthSales }}</b> Years:
                             <b>{{ sales_detail.year }}</b> Start Date Project:
-                            <b>{{ sales_detail.start_date }}</b> End Date
+                            <b>{{ sales_detail.startDate }}</b> End Date
                             Project: <b>{{ sales_detail.endDate }}</b> TAT:
                             <b>{{ sales_detail.tat }} Days</b> Progress:
                             <b>{{ sales_detail.progress }}%</b> Product:
@@ -321,15 +321,15 @@
                             <input
                               type="date"
                               class="form-control"
-                              v-model="sales_detail.start_date"
+                              v-model="sales_detail.startDate"
                               :class="{
-                                'is-invalid': errors.start_date,
+                                'is-invalid': errors.startDate,
                               }"
                             />
                             <span
-                              v-if="errors.start_date"
+                              v-if="errors.startDate"
                               class="error invalid-feedback"
-                              >{{ errors.start_date[0] }}</span
+                              >{{ errors.startDate[0] }}</span
                             >
                           </div>
                         </div>
@@ -2528,18 +2528,12 @@
                         <div class="mb-3">
                           <label class="form-label">Start Date</label>
                           <input
-                            type="date"
+                            type="text"
                             class="form-control"
-                            v-model="sales_detail.start_date"
-                            :class="{
-                              'is-invalid': errors.start_date,
-                            }"
+                            v-model="sales_detail.startDate"
+                            readonly
+                            id="readOnly"
                           />
-                          <span
-                            v-if="errors.start_date"
-                            class="error invalid-feedback"
-                            >{{ errors.start_date[0] }}</span
-                          >
                         </div>
 
                         <!-- Reschedule -->
@@ -3845,7 +3839,7 @@ export default {
           acReg: this.sales_detail.acReg,
           tat: this.sales_detail.tat,
           totalSales: this.sales_detail.totalSales,
-          start_date: this.sales_detail.start_date,
+          startDate: this.sales_detail.startDate,
         })
         .then((response) => {
           toastr.success(response.data.message)
@@ -3896,7 +3890,7 @@ export default {
                 hangar_id: this.hangar_id,
                 line_id: this.line_id,
                 target_url: this.$route.fullPath,
-                start_date: this.sales_detail.start_date,
+                startDate: this.sales_detail.startDate,
                 tat: this.sales_detail.tat,
               })
               .then((response) => {
@@ -4441,14 +4435,14 @@ export default {
       this.sales_detail.acreg = null
       this.sales_detail.tat = null
       this.sales_detail.value = null
-      this.sales_detail.start_date = null
+      this.sales_detail.startDate = null
 
       this.errors.maintenance_id = null
       this.errors.hangar_id = null
       this.errors.acreg = null
       this.errors.tat = null
       this.errors.value = null
-      this.errors.start_date = null
+      this.errors.startDate = null
     },
     closeModalEditSales() {
       document.getElementById('close_modal_edit_sales').click()

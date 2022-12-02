@@ -247,6 +247,8 @@
                               {{ errors.maintenance_id[0] }}
                             </span>
                           </div>
+                        </div>
+                        <div class="col-lg-6">
                           <div class="form-group mb-3">
                             <label class="form-label fw-bold"
                               >Registration</label
@@ -265,28 +267,16 @@
                               >{{ errors.acReg[0] }}</span
                             >
                           </div>
-                          <div class="form-group mb-3">
-                            <label class="form-label fw-bold">TAT</label>
-                            <input
-                              type="number"
-                              class="form-control"
-                              v-model="sales_detail.tat"
-                              :class="{
-                                'is-invalid': errors.tat,
-                              }"
-                            />
-                            <span
-                              v-if="errors.tat"
-                              class="error invalid-feedback"
-                              >{{ errors.tat[0] }}</span
-                            >
-                          </div>
                         </div>
+                      </div>
+                      <div class="row my-3">
                         <div class="col-lg-6">
-                          <div class="form-group mb-3">
+                          <div class="mb-3">
                             <label class="form-label fw-bold">Location</label>
-                            <select v-model="hangar_id" class="form-select">
-                              <option :value="null" disabled>Select Location</option>
+                            <select v-model="hangar_id" class="form-select" :class="{ 'is-invalid': errors.hangar_id }">
+                              <option :value="null" disabled>
+                                Select Hangar
+                              </option>
                               <option
                                 v-for="(hangar_options, hangar_index) in hangar_option"
                                 :value="hangar_options.id"
@@ -298,10 +288,36 @@
                             <span
                               v-if="errors.hangar_id"
                               class="error invalid-feedback"
+                              >{{ errors.hangar_id[0] }}</span
                             >
-                              {{ errors.hangar_id[0] }}
-                            </span>
                           </div>
+                        </div>
+                        <div class="col-lg-6">
+                          <div class="mb-3">
+                            <label class="form-label fw-bold">Line</label>
+                            <select v-model="line_id" class="form-select" :class="{ 'is-invalid': errors.line_id }">
+                              <option :value="null" disabled>
+                                Select Line
+                              </option>
+                              <option
+                                v-for="(lines, line_index) in line"
+                                v-if="lines.hangar_id === hangar_id"
+                                :value="lines.id"
+                                :key="line_index"
+                              >
+                                {{ lines.name }}
+                              </option>
+                            </select>
+                            <span
+                              v-if="errors.line_id"
+                              class="error invalid-feedback"
+                              >{{ errors.line_id[0] }}</span
+                            >
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-lg-4">
                           <div class="form-group mb-3">
                             <label class="form-label fw-bold">Sales Plan</label>
                             <input
@@ -318,6 +334,8 @@
                               >{{ errors.totalSales[0] }}</span
                             >
                           </div>
+                        </div>
+                        <div class="col-lg-4">
                           <div class="form-group mb-3">
                             <label class="form-label fw-bold">Start Date</label>
                             <input
@@ -332,6 +350,24 @@
                               v-if="errors.startDate"
                               class="error invalid-feedback"
                               >{{ errors.startDate[0] }}</span
+                            >
+                          </div>
+                        </div>
+                        <div class="col-lg-4">
+                          <div class="form-group mb-3">
+                            <label class="form-label fw-bold">TAT</label>
+                            <input
+                              type="number"
+                              class="form-control"
+                              v-model="sales_detail.tat"
+                              :class="{
+                                'is-invalid': errors.tat,
+                              }"
+                            />
+                            <span
+                              v-if="errors.tat"
+                              class="error invalid-feedback"
+                              >{{ errors.tat[0] }}</span
                             >
                           </div>
                         </div>
@@ -2457,9 +2493,7 @@
                         <div class="row">
                           <div class="col-lg-6">
                             <div class="mb-3">
-                              <label
-                                >Hangar</label
-                              >
+                              <label>Hangar</label>
                               <select v-model="hangar_id" class="form-select" :class="{ 'is-invalid': errors.hangar_id }">
                                 <option :value="null" disabled>
                                   Select Hangar
@@ -2481,9 +2515,7 @@
                           </div>
                           <div class="col-lg-6">
                             <div class="mb-3">
-                              <label for=""
-                                >Line</label
-                              >
+                              <label>Line</label>
                               <select v-model="line_id" class="form-select" :class="{ 'is-invalid': errors.line_id }">
                                 <option :value="null" disabled>
                                   Select Line
@@ -3870,6 +3902,7 @@ export default {
           sales_id: this.$route.query.id,
           maintenance_id: this.maintenance_id,
           hangar_id: this.hangar_id,
+          line_id: this.line_id,
           ac_reg: this.sales_detail.acReg,
           tat: this.sales_detail.tat,
           value: this.sales_detail.totalSales,

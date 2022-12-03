@@ -58,6 +58,7 @@
                         class="btn-close"
                         data-bs-dismiss="modal"
                         aria-label="Close"
+                        @click="closeModal()"
                     ></button>
                     </div>
                     <form>
@@ -1192,8 +1193,8 @@ export default {
 
       status_multiselect_option: [
         {name: 'Open', value: 1},
-        {name: 'Closed', value: 2},
         {name: 'Close In', value: 3},
+        {name: 'Closed', value: 2},
         {name: 'Cancel', value: 4},
       ],
 

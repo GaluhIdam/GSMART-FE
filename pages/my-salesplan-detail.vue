@@ -52,10 +52,14 @@
                     v-if="sales_detail"
                   >
                     <button
-                      class="btn btn-outline btn-outline-info btn-sm"
+                      class="btn btn-info btn-sm me-2"
                       data-bs-toggle="modal"
                       data-bs-target="#switchAMS"
+                      v-if="
+                        sales_detail.status === 'Open' && role == 'Administrator' ||  role == 'TPR'
+                      "
                     >
+                    <i class="fa-solid fa-repeat"></i> 
                       Switch AMS
                     </button>
                     <button
@@ -63,9 +67,8 @@
                       data-bs-toggle="modal"
                       data-bs-target="#editSales"
                       v-if="
-                        sales_detail.type === 'TMB' &&
-                        sales_detail.status === 'Open' &&
-                        role == 'TPR' || role == 'Administrator'
+                        sales_detail.type === 'TMB Project' || sales_detail.type === 'TMB Retail' &&
+                        sales_detail.status === 'Open' && role == 'Administrator' ||  role == 'TPR'
                       "
                     >
                       <i class="fa-solid fa-pen"></i> Edit Sales Plan
@@ -122,7 +125,7 @@
                           <label class="form-label">Description</label> <br />
                           <div id="bodyAMS" v-if="sales_detail">
                             Level: <b>{{ sales_detail.level }}</b> Status:
-                            <b>{{ sales_detail.status }}</b> Other:
+                            <b>{{ sales_detail.status }}</b> Sales Type:
                             <b>{{ sales_detail.other }}</b> Type:
                             <b>{{ sales_detail.type }}</b> Month Sales:
                             <b>{{ sales_detail.monthSales }}</b> Years:
@@ -230,8 +233,10 @@
                             <select
                               v-model="maintenance_id"
                               class="form-select"
+                              :class="{ 'is-invalid': errors.maintenance_id }"
                             >
                               <option :value="null" disabled>Select Maintenance</option>
+                              <!-- <option :value="sales_detail.maintenance" >{{ sales_detail.maintenance }}</option> -->
                               <option
                                 v-for="(maintenance_options, maintenance_index) in maintenance_option"
                                 :value="maintenance_options.id"
@@ -258,13 +263,13 @@
                               class="form-control"
                               v-model="sales_detail.acReg"
                               :class="{
-                                'is-invalid': errors.acReg,
+                                'is-invalid': errors.ac_reg,
                               }"
                             />
                             <span
-                              v-if="errors.acReg"
+                              v-if="errors.ac_reg"
                               class="error invalid-feedback"
-                              >{{ errors.acReg[0] }}</span
+                              >{{ errors.ac_reg[0] }}</span
                             >
                           </div>
                         </div>
@@ -325,13 +330,13 @@
                               class="form-control"
                               v-model="sales_detail.totalSales"
                               :class="{
-                                'is-invalid': errors.totalSales,
+                                'is-invalid': errors.value,
                               }"
                             />
                             <span
-                              v-if="errors.totalSales"
+                              v-if="errors.value"
                               class="error invalid-feedback"
-                              >{{ errors.totalSales[0] }}</span
+                              >{{ errors.value[0] }}</span
                             >
                           </div>
                         </div>
@@ -343,13 +348,13 @@
                               class="form-control"
                               v-model="sales_detail.startDate"
                               :class="{
-                                'is-invalid': errors.startDate,
+                                'is-invalid': errors.start_date,
                               }"
                             />
                             <span
-                              v-if="errors.startDate"
+                              v-if="errors.start_date"
                               class="error invalid-feedback"
-                              >{{ errors.startDate[0] }}</span
+                              >{{ errors.start_date[0] }}</span
                             >
                           </div>
                         </div>
@@ -379,6 +384,7 @@
                             class="btn btn-light mx-2"
                             data-bs-dismiss="modal"
                             id="close_modal_edit_sales"
+                            @click="closeModalEditSales()"
                           >
                             Close
                           </button>
@@ -484,7 +490,7 @@
                     <h3 class="mt-2" id="textMarketShare" v-if="sales_detail">
                       USD {{ formatPrice(sales_detail.marketShare) }}
                     </h3>
-                    <p><small class="text-muted">Market Share</small></p>
+                    <p><small class="text-muted">Sales RKAP</small></p>
                   </span>
                 </div>
               </div>
@@ -504,7 +510,7 @@
                     <h3 class="mt-2" id="textDevisiasi" v-if="sales_detail">
                       USD {{ formatPrice(sales_detail.deviasi) }}
                     </h3>
-                    <p><small class="text-muted">Devisiasi</small></p>
+                    <p><small class="text-muted">Deviation</small></p>
                   </span>
                 </div>
               </div>
@@ -1452,6 +1458,14 @@
                                   </div>
                                 </div>
 
+                                <div class="row mt-5" v-if="role == 'AMS'">
+                                  <div class="alert alert-info" role="alert" v-if="(level4[3].status == 0)">
+                                    Waiting for Approval Hangar Slot
+                                  </div>
+                                  <div class="alert alert-success" role="alert" v-if="(level4[3].status == 1)">
+                                    Approved
+                                  </div>
+                                </div>
                                 <!-- Slot Request -->
                                 <div class="col-lg-6 mt-5">
                                   <h3>Slot Request</h3>
@@ -1465,11 +1479,13 @@
                                   <div class="position-relative">
                                     <div
                                       class="position-absolute top-0 end-0"
+                                      v-if="sales_detail.status == 'Open'"
                                     >
                                       <button
                                         v-if="
                                         level4[3].data != null &&
-                                        role == 'Administrator'"
+                                        level4[3].status == 0 &&
+                                        role == 'Administrator' || role == 'CBO'" 
                                         type="button"
                                         @click="slotReject()"
                                         class="btn btn-danger btn-sm"
@@ -1479,7 +1495,8 @@
                                       <button
                                         v-if="
                                         level4[3].data != null &&
-                                        role == 'Administrator'
+                                        level4[3].status == 0 &&
+                                        role == 'Administrator' || role == 'CBO'
                                         "
                                         type="button"
                                         class="btn btn-success btn-sm"
@@ -1489,7 +1506,9 @@
                                       </button>
                                       <button
                                         v-if="
+                                        level4[3].data == null &&
                                         level4[3].status == 0 &&
+                                        sales_detail.level == 4 &&
                                         role == 'AMS' || role == 'Administrator'"
                                         type="button"
                                         class="btn btn-info btn-sm"
@@ -2197,10 +2216,8 @@
                                     <div
                                       class="input-group mb-3"
                                       v-if="
-                                        (level1[1].data == null &&
-                                          sales_detail.status === 'Open' &&
-                                          role == 'CBO') ||
-                                        role == 'Administrator'
+                                        level1[1].data == '' &&
+                                        sales_detail.status === 'Open'
                                       "
                                     >
                                       <input
@@ -2215,6 +2232,7 @@
                                         class="btn btn-sm"
                                         type="button"
                                         id="textSync"
+                                        v-if="role == 'Administrator' || role == 'CBO'"
                                         @click="updateSO()"
                                         v-permission="['input_so_number']"
                                       >
@@ -3486,6 +3504,9 @@ export default {
       reason: null,
       file_histories: [],
       file_errors: [],
+      flight_hour: null,
+      tat: null,
+      reschedule: null,
       errors: {
         ams_id: null,
         name: null,
@@ -3499,7 +3520,7 @@ export default {
         files: null,
         so_number: null,
         maintenance_id: null,
-        acreg: null,
+        ac_reg: null,
         tat: null,
         location: null,
         value: null,
@@ -3507,6 +3528,7 @@ export default {
         reason: null,
         user_id: null,
         category_id: null,
+        start_date: null,
       },
       sales_detail_status: null,
       current_date_reschedule: null,
@@ -3822,7 +3844,7 @@ export default {
         })
         .catch((error) => {
           if (error.response.status == 422) {
-            this.errors = error.response.data.errors
+            // this.errors = error.response.data.errors
             toastr.error(error.response.data.message)
           } else if (error.response.status == 403) {
             toastr.error(error.response.data.message)
@@ -3916,6 +3938,7 @@ export default {
         })
         .catch((error) => {
           if (error.response.status == 422) {
+            this.errors = error.response.data.errors
             toastr.error(error.response.data.message)
           }
         })
@@ -4503,17 +4526,19 @@ export default {
     clearFormEditSales() {
       this.maintenance_id = null
       this.hangar_id = null
-      this.sales_detail.acreg = null
-      this.sales_detail.tat = null
-      this.sales_detail.value = null
-      this.sales_detail.startDate = null
+      this.line_id = null
+      // this.sales_detail.acReg = null
+      // this.sales_detail.tat = null
+      // this.sales_detail.totalSales = null
+      // this.sales_detail.startDate = null
 
       this.errors.maintenance_id = null
+      this.errors.ac_reg = null
       this.errors.hangar_id = null
-      this.errors.acreg = null
-      this.errors.tat = null
+      this.errors.line_id = null
       this.errors.value = null
-      this.errors.startDate = null
+      this.errors.start_date = null
+      this.errors.tat = null
     },
     closeModalEditSales() {
       document.getElementById('close_modal_edit_sales').click()

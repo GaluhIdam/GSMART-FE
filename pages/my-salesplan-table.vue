@@ -493,7 +493,7 @@
                     <div class="table-responsive">
                     <table class="table table-row-bordered table-row-gray-200 gy-4">
                         <thead>
-                        <tr class="fw-bold fs-6 text-gray-800">
+                        <tr class="fw-bold fs-6 text-gray-800 table-secondary">
                             <th class="text-center"><p>No</p></th>
                             <!-- Start customer sorting -->
                             <th

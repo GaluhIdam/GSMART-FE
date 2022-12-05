@@ -8,53 +8,45 @@
       </div>
 
       <!-- Row Total -->
-      <div class="rounded box-d" id="cardTopDashed">
-        <div class="row">
-          <div class="col-lg my-2 mx-1">
-            <div class="card card-flush" id="bgGreen">
-              <div class="card-body">
+      <div class="card shadow-sm mb-5">
+        <div class="card-body">
+          <div class="row" v-if="sales">
+            <div class="col-lg my-1">
+              <div class="border-dashed p-4">
                 <p class="text-muted" id="fontSm">Total Target</p>
-                <h4 id="textGreen" v-if="sales">
+                <h4>
                   USD {{ formatPrice(sales.totalTarget) }}
                 </h4>
               </div>
             </div>
-          </div>
-          <div class="col-lg my-2 mx-1">
-            <div class="card card-flush" id="bgBlue">
-              <div class="card-body">
+            <div class="col-lg my-1">
+              <div class="border-dashed p-4">
                 <p class="text-muted" id="fontSm">Total Open</p>
-                <h4 id="textBlue" v-if="sales">
+                <h4>
                   USD {{ formatPrice(sales.totalOpen) }}
                 </h4>
               </div>
             </div>
-          </div>
-          <div class="col-lg my-2 mx-1">
-            <div class="card card-flush" id="bgRed">
-              <div class="card-body">
+            <div class="col-lg my-1">
+              <div class="border-dashed p-4">
                 <p class="text-muted" id="fontSm">Total Closed</p>
-                <h4 id="textRed" v-if="sales">
+                <h4>
                   USD {{ formatPrice(sales.totalClosed) }}
                 </h4>
               </div>
             </div>
-          </div>
-          <div class="col-lg my-2 mx-1">
-            <div class="card card-flush" id="bgPurple">
-              <div class="card-body">
+            <div class="col-lg my-1">
+              <div class="border-dashed p-4">
                 <p class="text-muted" id="fontSm">Total Close In</p>
-                <h4 id="textPurple" v-if="sales">
+                <h4>
                   USD {{ formatPrice(sales.totalCloseIn) }}
                 </h4>
               </div>
             </div>
-          </div>
-          <div class="col-lg my-2 mx-1">
-            <div class="card card-flush" id="bgGold">
-              <div class="card-body">
+            <div class="col-lg my-1">
+              <div class="border-dashed p-4">
                 <p class="text-muted" id="fontSm">Total Cancel</p>
-                <h4 id="textGold" v-if="sales">
+                <h4>
                   USD {{ formatPrice(sales.totalCancel) }}
                 </h4>
               </div>
@@ -1043,10 +1035,6 @@ export default {
 
 .carousel-indicators .active {
   background-color: #188af8;
-}
-
-#cardTopDashed {
-  border: dashed #fff;
 }
 
 #btnGreen {

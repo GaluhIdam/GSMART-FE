@@ -2134,7 +2134,7 @@
                                       class="position-absolute top-0 end-0"
                                       v-if="
                                         sales_detail.level == 1 &&
-                                        sales_detail.status === 'Open'
+                                        sales_detail.status === 'Open' || sales_detail.status === 'Closed'
                                       "
                                     >
                                       <input
@@ -2187,7 +2187,7 @@
                                           class="d-flex justify-content-end"
                                           v-if="
                                             sales_detail.level == 1 &&
-                                            sales_detail.status === 'Open'
+                                            sales_detail.status === 'Closed'
                                           "
                                         >
                                           <button
@@ -2215,14 +2215,21 @@
                                   <div class="row">
                                     <div
                                       class="input-group mb-3"
-                                      v-if="
-                                        level1[1].data == '' &&
-                                        sales_detail.status === 'Open'
-                                      "
                                     >
                                       <input
                                         type="text"
                                         class="form-control"
+                                        id="readOnly"
+                                        v-if="
+                                          level1[0].data == ''
+                                        "
+                                        v-model="level1[1].data"
+                                        readonly
+                                      />
+                                      <input
+                                        type="text"
+                                        class="form-control"
+                                        v-else
                                         v-model="level1[1].data"
                                         :class="{
                                           'is-invalid': errors.so_number,
@@ -2232,7 +2239,11 @@
                                         class="btn btn-sm"
                                         type="button"
                                         id="textSync"
-                                        v-if="role == 'Administrator' || role == 'CBO'"
+                                        v-if="
+                                          sales_detail.status === 'Closed' &&
+                                          level1[0].data != '' &&
+                                          role == 'Administrator' || role == 'CBO'
+                                        "
                                         @click="updateSO()"
                                         v-permission="['input_so_number']"
                                       >
@@ -2243,14 +2254,6 @@
                                         class="error invalid-feedback"
                                         >{{ errors.so_number[0] }}</span
                                       >
-                                    </div>
-                                    <div class="input-group mb-3" v-else>
-                                      <input
-                                        type="text"
-                                        class="form-control"
-                                        v-model="level1[1].data"
-                                        readonly
-                                      />
                                     </div>
                                   </div>
                               </div>

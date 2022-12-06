@@ -5,6 +5,12 @@
         <div class="col-lg-6 col-sm-12">
           <h3 class="mt-3">Dashboard Sales Plan</h3>
         </div>
+        <div class="col-lg-6 col-sm-12 d-flex justify-content-end">
+          <NuxtLink class="btn btn-sm btn-primary" to="/my-salesplan-table" exact-active-class="active">
+            <i class="fa-solid fa-table-list"></i>
+            <span>Sales Plan Table</span>
+          </NuxtLink>
+        </div>
       </div>
 
       <!-- Row Total -->
@@ -93,7 +99,6 @@
                     me-2
                     mb-2
                   "
-                  id="btnDefault"
                 >
                   <div class="d-flex align-items-center gap-2">
                     <span
@@ -128,7 +133,6 @@
                     me-2
                     mb-2
                   "
-                  id="btnDefault"
                 >
                   <div class="d-flex align-items-center gap-2">
                     <span id="btnRed" style="margin-left: -10px" v-if="sales">{{
@@ -188,7 +192,6 @@
                     me-2
                     mb-2
                   "
-                  id="btnDefault"
                 >
                   <div class="d-flex align-items-center gap-2">
                     <span
@@ -220,7 +223,6 @@
                     me-2
                     mb-2
                   "
-                  id="btnDefault"
                 >
                   <div class="d-flex align-items-center gap-2">
                     <span id="btnRed" style="margin-left: -10px" v-if="sales">{{
@@ -280,7 +282,6 @@
                     me-2
                     mb-2
                   "
-                  id="btnDefault"
                 >
                   <div class="d-flex align-items-center gap-2">
                     <span
@@ -312,7 +313,6 @@
                     me-2
                     mb-2
                   "
-                  id="btnDefault"
                 >
                   <div class="d-flex align-items-center gap-2">
                     <span id="btnRed" style="margin-left: -10px" v-if="sales">{{
@@ -372,7 +372,6 @@
                     me-2
                     mb-2
                   "
-                  id="btnDefault"
                 >
                   <div class="d-flex align-items-center gap-2">
                     <span
@@ -409,7 +408,6 @@
                     me-2
                     mb-2
                   "
-                  id="btnDefault"
                 >
                   <div class="d-flex align-items-center gap-2">
                     <span
@@ -446,7 +444,6 @@
                     me-2
                     mb-2
                   "
-                  id="btnDefault"
                 >
                   <div class="d-flex align-items-center gap-2">
                     <span
@@ -483,7 +480,6 @@
                     me-2
                     mb-2
                   "
-                  id="btnDefault"
                 >
                   <div class="d-flex align-items-center gap-2">
                     <span
@@ -516,19 +512,7 @@
           </div>
         </div>
       </div>
-      <!-- End row 2 -->
-
-      <div class="row">
-        <div class="col-lg-6 col-sm-12">
-        </div>
-        <div class="col-lg-6 col-sm-12 d-flex justify-content-end">
-          <NuxtLink class="btn btn-sm btn-primary" to="/my-salesplan-table" exact-active-class="active">
-            <span>Sales Plan Table</span>
-          </NuxtLink>
-        </div>
-    </div>
-
-      
+      <!-- End row 2 -->      
     </div>
   </div>
 </template>
@@ -999,10 +983,6 @@ export default {
   #cardFooter{
     height: 134px
   }
-}
-
-#btnDefault {
-  cursor: default;
 }
 
 .mt-20 {

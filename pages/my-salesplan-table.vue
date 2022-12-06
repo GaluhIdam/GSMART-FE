@@ -47,7 +47,7 @@
                 aria-labelledby="filterdateLabel"
                 aria-hidden="true"
             >
-                <div class="modal-dialog modal-xl">
+                <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header text-center">
                     <h1 class="modal-title w-100" id="filterdateLabel">
@@ -64,17 +64,19 @@
                     <form>
                     <div class="modal-body">
                         <div class="row">
-                        <div class="col-lg-6">
-                            <div class="mb-3">
-                            <label for="" class="form-label">Form Date</label>
-                            <input
-                                type="date"
-                                class="form-control"
-                                v-model="start_date"
-                            />
-                            </div>
+                          <div class="col-lg-12">
+                              <div class="mb-3">
+                              <label for="" class="form-label">Form Date</label>
+                              <input
+                                  type="date"
+                                  class="form-control"
+                                  v-model="start_date"
+                              />
+                              </div>
+                          </div>
                         </div>
-                        <div class="col-lg-6">
+                        <div class="row">
+                          <div class="col-lg-12">
                             <div class="mb-3">
                             <label for="" class="form-label">To Date</label>
                             <input
@@ -83,97 +85,8 @@
                                 v-model="end_date"
                             />
                             </div>
-                        </div>
-                        </div>
-
-                        <!-- Cust, Prod -->
-                        <div class="row my-3">
-                          <div class="col-lg-6">
-                              <div class="mb-3">
-                              <label for="" class="form-label">Customer</label>
-                              <multiselect v-model="customer" :options="customer_option" placeholder="Select Customer" label="name"></multiselect>
-                              </div>
-                          </div>
-                          <div class="col-lg-6">
-                              <div class="mb-3">
-                                <label for="" class="form-label">Product</label>
-                                <multiselect v-model="product" :options="product_option" placeholder="Select Product" label="name"></multiselect>
-                              </div>
                           </div>
                         </div>
-
-                        <!-- AC, Eng, Apu, Comp -->
-                        <div class="row my-3">
-                          <div class="col-lg-3">
-                            <div class="mb-3">
-                                <label for="" class="form-label">Aircraft Type</label>
-                                <multiselect v-model="ac_type_id" :options="ac_type_option" placeholder="Select AC Type" label="name"></multiselect>
-                              </div>
-                          </div>
-                          <div class="col-lg-3">
-                            <div class="mb-3">
-                                <label for="" class="form-label">Engine</label>
-                                <multiselect v-model="engine_id" :options="engine_option" placeholder="Select Engine" label="name"></multiselect>
-                              </div>
-                          </div>
-                          <div class="col-lg-3">
-                            <div class="mb-3">
-                                <label for="" class="form-label">APU</label>
-                                <multiselect v-model="apu_id" :options="apu_option" placeholder="Select APU" label="name"></multiselect>
-                              </div>
-                          </div>
-                          <div class="col-lg-3">
-                            <div class="mb-3">
-                                <label for="" class="form-label">Component</label>
-                                <multiselect v-model="component_id" :options="component_option" placeholder="Select Component" label="name"></multiselect>
-                              </div>
-                          </div>
-                        </div>
-
-                        <!-- Reg, Sales Type, Type -->
-                        <div class="row my-3">
-                          <div class="col-lg-4">
-                              <div class="mb-3">
-                              <label for="" class="form-label">Aircraft Registration</label>
-                              <multiselect v-model="acReg" :options="registration_option" placeholder="Select Registration"></multiselect>
-                              </div>
-                          </div>
-                          <div class="col-lg-4">
-                              <div class="mb-3">
-                              <label for="" class="form-label">Sales Type</label>
-                              <multiselect v-model="other" :options="sales_type_option" placeholder="Select Sales Type" label="name"></multiselect>
-                              </div>
-                          </div>
-                          <div class="col-lg-4">
-                              <div class="mb-3">
-                              <label for="" class="form-label">Type</label>
-                              <multiselect v-model="type" :options="type_multiselect_option" placeholder="Select Type" label="name"></multiselect>
-                              </div>
-                          </div>
-                        </div>
-
-                        <!-- Level, Progress, Status -->
-                        <div class="row">
-                        <div class="col-lg-4">
-                            <div class="mb-3">
-                            <label for="" class="form-label">Sales Level</label>
-                            <multiselect v-model="level" :options="level_multiselect_option" placeholder="Select Level" label="name"></multiselect>
-                            </div>
-                        </div>
-                        <div class="col-lg-4">
-                            <div class="mb-3">
-                            <label for="" class="form-label">Sales Progress</label>
-                            <multiselect v-model="progress" :options="progress_multiselect_option" placeholder="Select Progress" label="name"></multiselect>
-                            </div>
-                        </div>
-                        <div class="col-lg-4">
-                            <div class="mb-3">
-                            <label for="" class="form-label">Sales Status</label>
-                            <multiselect v-model="status" :options="status_multiselect_option" placeholder="Select Status" label="name"></multiselect>
-                            </div>
-                        </div>
-                        </div>
-
                     </div>
                     <div class="modal-footer">
                         <div class="col-md-12 text-center">
@@ -871,6 +784,127 @@
                             <th class="text-center" style="white-space: nowrap;"><p>ACTION</p></th>
                         </tr>
                         </thead>
+                          <tr class="text-center">
+                            <td></td>
+                            <td>
+                              <select v-model="customer" class="form-select">
+                                <option v-for="customer_options in customer_option" :value="customer_options.id">
+                                  {{ customer_options.name }} 
+                                </option>
+                              </select>
+                            </td>
+                            <td>
+                              <select v-model="product" class="form-select">
+                                <option v-for="product_options in product_option" :value="product_options.id">
+                                  {{ product_options.name }} 
+                                </option>
+                              </select>
+                            </td>
+                            <td>
+                              <div class="row">
+                                <div class="col-lg">
+                                  <select v-model="ac_type_id" class="form-select">
+                                    <option :value="null" disabled>AC</option>
+                                    <option v-for="ac_type_options in ac_type_option" :value="ac_type_options.id">
+                                      {{ ac_type_options.name }} 
+                                    </option>
+                                  </select>
+                                </div>
+                                <div class="col-lg">
+                                  <select v-model="engine_id" class="form-select">
+                                    <option :value="null" disabled>ENG</option>
+                                    <option v-for="engine_options in engine_option" :value="engine_options.id">
+                                      {{ engine_options.name }} 
+                                    </option>
+                                  </select>
+                                </div>
+                                <div class="col-lg">
+                                  <select v-model="apu_id" class="form-select">
+                                    <option :value="null" disabled>APU</option>
+                                    <option v-for="apu_options in apu_option" :value="apu_options.id">
+                                      {{ apu_options.name }} 
+                                    </option>
+                                  </select>
+                                </div>
+                                <div class="col-lg">
+                                  <select v-model="component_id" class="form-select">
+                                    <option :value="null" disabled>COMP</option>
+                                    <option v-for="component_options in component_option" :value="component_options.id">
+                                      {{ component_options.name }} 
+                                    </option>
+                                  </select>
+                                </div>
+                              </div>
+                            </td>
+                            <td>
+                              <select v-model="acReg" class="form-select">
+                                <option v-for="registration_options in registration_option" :value="registration_options">
+                                  {{ registration_options }} 
+                                </option>
+                              </select>
+                            </td>
+                            <td>
+                              <select v-model="other" class="form-select">
+                                <option :value="1">RKAP</option>
+                                <option :value="2">Additional</option>
+                              </select>
+                            </td>
+                            <td>
+                              <select v-model="type" class="form-select">
+                                <option :value="1">TMB Retail</option>
+                                <option :value="2">TMB Project</option>
+                                <option :value="3">PBTH</option>
+                              </select>
+                            </td>
+                            <td>
+                              <select v-model="level" class="form-select">
+                                <option :value="1">Level 1</option>
+                                <option :value="2">Level 2</option>
+                                <option :value="3">Level 3</option>
+                                <option :value="4">Level 4</option>
+                              </select>
+                            </td>
+                            <td>
+                              <select v-model="progress" class="form-select">
+                                <option :value="1">10 %</option>
+                                <option :value="2">20 %</option>
+                                <option :value="3">30 %</option>
+                                <option :value="4">40 %</option>
+                                <option :value="5">50 %</option>
+                                <option :value="6">60 %</option>
+                                <option :value="7">70 %</option>
+                                <option :value="8">80 %</option>
+                                <option :value="9">90 %</option>
+                                <option :value="10">100 %</option>
+                              </select>
+                            </td>
+                            <td>
+                              <select v-model="status" class="form-select">
+                                <option :value="1">Open</option>
+                                <option :value="3">Close In</option>
+                                <option :value="2">Closed</option>
+                                <option :value="4">Cancel</option>
+                              </select>
+                            </td>
+                            <td>
+                              <button
+                                  type="button"
+                                  class="btn btn-light mx-3"
+                                  @click="closeModal()"
+                                  data-bs-toggle="tooltip" data-bs-placement="top" title="Reset Filter"
+                              >
+                                  <i class="fa-solid fa-rotate-left"></i>
+                              </button>
+                              <button
+                                  type="button"
+                                  class="btn btn-primary"
+                                  @click="listTable()"
+                                  data-bs-toggle="tooltip" data-bs-placement="top" title="Filter Data"
+                              >
+                                  <i class="fa-solid fa-magnifying-glass"></i>
+                              </button>
+                            </td>
+                          </tr>
                         <tbody>
                         <tr
                             v-for="(p_sales, p_sales_index) in sales_table.data"
@@ -1320,24 +1354,24 @@ export default {
       this.$axios
         .get(paginate, {
           params: {
-            search: this.search == null ? null : this.search,
+            search: this.search,
             order: this.order,
             by: this.by,
             paginate: this.paginate,
             start_date: this.start_date,
             end_date: this.end_date,
-            customer: this.customer == null ? null : this.customer.id,
-            product: this.product == null ? null : this.product.id,
+            customer: this.customer,
+            product: this.product,
             acReg: this.acReg,
-            ac_type_id: this.ac_type_id == null ? null : this.ac_type_id.id,
-            component_id: this.component_id == null ? null : this.component_id.id,
-            apu_id: this.apu_id == null ? null : this.apu_id.id,
-            engine_id: this.engine_id == null ? null : this.engine_id.id,
-            other: this.other == null ? null : this.other.value,
-            type: this.type == null ? null : this.type.value,
-            progress: this.progress == null ? null : this.progress.value,
-            status: this.status == null ? null : this.status.value,
-            level: this.level == null ? null : this.level.value,
+            ac_type_id: this.ac_type_id,
+            component_id: this.component_id,
+            apu_id: this.apu_id,
+            engine_id: this.engine_id,
+            other: this.other,
+            type: this.type,
+            progress: this.progress,
+            status: this.status,
+            level: this.level,
           },
         })
         .then((response) => {

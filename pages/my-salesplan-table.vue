@@ -889,20 +889,20 @@
                             <td>
                               <button
                                   type="button"
-                                  class="btn btn-light mx-3"
+                                  class="btn btn-success ms-2"
                                   @click="closeModal()"
                                   data-bs-toggle="tooltip" data-bs-placement="top" title="Reset Filter"
                               >
-                                  <i class="fa-solid fa-rotate-left"></i>
+                                  Reset
                               </button>
-                              <button
+                              <!-- <button
                                   type="button"
                                   class="btn btn-primary"
                                   @click="listTable()"
                                   data-bs-toggle="tooltip" data-bs-placement="top" title="Filter Data"
                               >
                                   <i class="fa-solid fa-magnifying-glass"></i>
-                              </button>
+                              </button> -->
                             </td>
                           </tr>
                         <tbody>
@@ -1305,6 +1305,42 @@ export default {
     search: debounce(function () {
       this.listTable()
     }, 800),
+    customer: debounce(function () {
+      this.listTable()
+    }, 500),
+    product: debounce(function () {
+      this.listTable()
+    }, 500),
+    acReg: debounce(function () {
+      this.listTable()
+    }, 500),
+    ac_type_id: debounce(function () {
+      this.listTable()
+    }, 500),
+    component_id: debounce(function () {
+      this.listTable()
+    }, 500),
+    apu_id: debounce(function () {
+      this.listTable()
+    }, 500),
+    engine_id: debounce(function () {
+      this.listTable()
+    }, 500),
+    other: debounce(function () {
+      this.listTable()
+    }, 500),
+    type: debounce(function () {
+      this.listTable()
+    }, 500),
+    progress: debounce(function () {
+      this.listTable()
+    }, 500),
+    status: debounce(function () {
+      this.listTable()
+    }, 500),
+    level: debounce(function () {
+      this.listTable()
+    }, 500),
   },
   created() {
     this.listTable()

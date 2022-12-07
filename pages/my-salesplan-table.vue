@@ -26,7 +26,7 @@
                     data-bs-toggle="modal"
                     data-bs-target="#filterdate"
                 >
-                    Filter Data <i class="fa-solid fa-chevron-down"></i>
+                    Filter Date <i class="fa-solid fa-chevron-down"></i>
                 </button>
                 <button
                     class="btn btn-primary btn-sm my-3"
@@ -48,68 +48,68 @@
                 aria-hidden="true"
             >
                 <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header text-center">
-                    <h1 class="modal-title w-100" id="filterdateLabel">
-                        Filter Data
-                    </h1>
-                    <button
-                        type="button"
-                        class="btn-close"
-                        data-bs-dismiss="modal"
-                        aria-label="Close"
-                        @click="closeModal()"
-                    ></button>
-                    </div>
-                    <form>
-                    <div class="modal-body">
-                        <div class="row">
-                          <div class="col-lg-12">
-                              <div class="mb-3">
-                              <label for="" class="form-label">Form Date</label>
-                              <input
-                                  type="date"
-                                  class="form-control"
-                                  v-model="start_date"
-                              />
-                              </div>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-lg-12">
-                            <div class="mb-3">
-                            <label for="" class="form-label">To Date</label>
-                            <input
-                                type="date"
-                                class="form-control"
-                                v-model="end_date"
-                            />
-                            </div>
-                          </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <div class="col-md-12 text-center">
+                  <div class="modal-content modal-filter">
+                      <div class="modal-header text-center">
+                        <h1 class="modal-title w-100" id="filterdateLabel">
+                            Filter Date
+                        </h1>
                         <button
                             type="button"
-                            class="btn btn-light mx-3"
+                            class="btn-close"
                             data-bs-dismiss="modal"
+                            aria-label="Close"
                             @click="closeModal()"
-                        >
-                            Reset
-                        </button>
-                        <button
-                            type="button"
-                            class="btn btn-primary"
-                            data-bs-dismiss="modal"
-                            @click="listTable()"
-                        >
-                            Filter
-                        </button>
+                        ></button>
+                      </div>
+                      <form>
+                        <div class="modal-body">
+                            <div class="row">
+                              <div class="col-lg-12">
+                                  <div class="mb-3">
+                                    <label class="form-label fw-bold">From</label>
+                                    <input
+                                        type="date"
+                                        class="form-control"
+                                        v-model="start_date"
+                                    />
+                                  </div>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col-lg-12">
+                                <div class="mb-3">
+                                <label class="form-label fw-bold">Until</label>
+                                <input
+                                    type="date"
+                                    class="form-control"
+                                    v-model="end_date"
+                                />
+                                </div>
+                              </div>
+                            </div>
                         </div>
-                    </div>
-                    </form>
-                </div>
+                        <div class="modal-footer">
+                            <div class="col-md-12 text-center">
+                              <button
+                                  type="button"
+                                  class="btn btn-light mx-3"
+                                  data-bs-dismiss="modal"
+                                  @click="closeModal()"
+                              >
+                                  Reset
+                              </button>
+                              <button
+                                  type="button"
+                                  class="btn btn-primary"
+                                  data-bs-dismiss="modal"
+                                  @click="listTable()"
+                              >
+                                  Filter
+                              </button>
+                            </div>
+                        </div>
+                      </form>
+                  </div>
                 </div>
             </div>
 
@@ -1856,6 +1856,10 @@ export default {
 </script>
 
 <style>
+.modal-filter{
+    margin-top: 25%;
+}
+
 @media (min-width:320px)  {
   #cardStyle{
     width: auto;

@@ -1698,6 +1698,16 @@
                                             Add Product
                                           </button>
                                         </div>
+                                        <div v-else-if="product_value.name == 'IGTE'">
+                                          <button @click="addProspectTMBIGTE(product_value)" class="btn btn-primary rounded" type="button" :disabled="product_value == null">
+                                            Add Product
+                                          </button>
+                                        </div>
+                                        <div v-else-if="product_value.name == 'Learning'">
+                                          <button @click="addProspectTMBLearning(product_value)" class="btn btn-primary rounded" type="button" :disabled="product_value == null">
+                                            Add Product
+                                          </button>
+                                        </div>
                                         <div v-else>
                                           <button @click="addProspectTMB(product_value)" class="btn btn-primary rounded" type="button" :disabled="product_value == null">
                                             Add Product
@@ -1745,10 +1755,42 @@
                                             label="name"
                                             ></multiselect>
                                             <span v-if="errors[`tmb.${data_index}.product.${item_index}.component`] == null">
-                                          </span>
-                                          <span class="text-danger" v-else>
-                                            {{ returnError(errors[`tmb.${data_index}.product.${item_index}.component`]) }}
-                                          </span>
+                                            </span>
+                                            <span class="text-danger" v-else>
+                                              {{ returnError(errors[`tmb.${data_index}.product.${item_index}.component`]) }}
+                                            </span>
+                                          </div>
+                                          <div v-else-if="item.product_name == 'IGTE'">
+                                            <label class="form-label">
+                                              IGTE
+                                            </label>
+                                            <multiselect
+                                            v-model="item.igte"
+                                            :options="igte_options"
+                                            placeholder=""
+                                            label="name"
+                                            ></multiselect>
+                                            <span v-if="errors[`tmb.${data_index}.product.${item_index}.igte`] == null">
+                                            </span>
+                                            <span class="text-danger" v-else>
+                                              {{ returnError(errors[`tmb.${data_index}.product.${item_index}.igte`]) }}
+                                            </span>
+                                          </div>
+                                          <div v-else-if="item.product_name == 'Learning'">
+                                            <label class="form-label">
+                                              Learning
+                                            </label>
+                                            <multiselect
+                                            v-model="item.learning"
+                                            :options="learning_options"
+                                            placeholder=""
+                                            label="name"
+                                            ></multiselect>
+                                            <span v-if="errors[`tmb.${data_index}.product.${item_index}.learning`] == null">
+                                            </span>
+                                            <span class="text-danger" v-else>
+                                              {{ returnError(errors[`tmb.${data_index}.product.${item_index}.learning`]) }}
+                                            </span>
                                           </div>
                                           <div v-else>
                                             <label class="form-label">
@@ -1761,10 +1803,10 @@
                                             label="name"
                                             ></multiselect>
                                             <span v-if="errors[`tmb.${data_index}.product.${item_index}.aircraft_type`] == null">
-                                          </span>
-                                          <span class="text-danger" v-else>
-                                            {{ returnError(errors[`tmb.${data_index}.product.${item_index}.aircraft_type`]) }}
-                                          </span>
+                                            </span>
+                                            <span class="text-danger" v-else>
+                                              {{ returnError(errors[`tmb.${data_index}.product.${item_index}.aircraft_type`]) }}
+                                            </span>
                                           </div>
                                         </div>
                                         <div class="col-md-3 text-center">
@@ -2132,6 +2174,8 @@ export default {
       amsCustomer_options: [],
       acType_options: [],
       engine_options: [],
+      igte_options: [],
+      learning_options: [],
       component_options: [],
       maintenance_options: [],
       product_options: [],
@@ -2187,6 +2231,8 @@ export default {
     this.listEngine()
     this.listComponent()
     this.listAPU()
+    this.listIGTE()
+    this.listLearning()
   },
   mounted() {
     KTStepper.getInstance()
@@ -2348,6 +2394,38 @@ export default {
         ],
       })
     },
+    addProspectTMBIGTE(value) {
+      this.tmb.push({
+        id: value.id,
+        name: value.name,
+        product: [
+          {
+            product_id: value.id,
+            product_name: value.name,
+            igte: null,
+            market_share: null,
+            remark: null,
+            maintenance_id: null,
+          },
+        ],
+      })
+    },
+    addProspectTMBLearning(value) {
+      this.tmb.push({
+        id: value.id,
+        name: value.name,
+        product: [
+          {
+            product_id: value.id,
+            product_name: value.name,
+            learning: null,
+            market_share: null,
+            remark: null,
+            maintenance_id: null,
+          },
+        ],
+      })
+    },
     addTMB(data_index, data) {
       this.tmb[data_index].product.push({
         product_id: data.id,
@@ -2477,6 +2555,20 @@ export default {
         })
         .then((response) => {
           this.engine_options = response.data.data.data
+        })
+    },
+    listIGTE() {
+      this.$axios
+        .get('api/igte')
+        .then((response) => {
+          this.igte_options = response.data.data
+        })
+    },
+    listLearning() {
+      this.$axios
+        .get('api/learning')
+        .then((response) => {
+          this.learning_options = response.data.data
         })
     },
     listComponent() {

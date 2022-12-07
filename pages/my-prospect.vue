@@ -107,12 +107,16 @@
           <div class="card-header">
             <h3 class="card-title fw-bold">My Prospect</h3>
             <div class="card-toolbar">
-              <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_create_app" v-if="role == 'TPC' || role == 'Administrator'">
-                Add Prospect
-              </button>
-              <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#notAuthorized" v-else>
-                Add Prospect
-              </button>
+              <div v-if="role == 'TPC' || role == 'Administrator'">
+                <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_create_app">
+                  Add Prospect
+                </button>
+              </div>
+              <div v-else>
+                <button type="button" class="btn btn-sm btn-primary d-none" data-bs-toggle="modal" data-bs-target="#notAuthorized">
+                  Add Prospect
+                </button>
+              </div>
 
               <!-- Modal -->
               <div class="modal fade" id="notAuthorized" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

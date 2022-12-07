@@ -26,7 +26,7 @@
                     data-bs-toggle="modal"
                     data-bs-target="#filterdate"
                 >
-                    Filter Data <i class="fa-solid fa-chevron-down"></i>
+                    Filter Date <i class="fa-solid fa-chevron-down"></i>
                 </button>
                 <button
                     class="btn btn-primary btn-sm my-3"
@@ -48,68 +48,68 @@
                 aria-hidden="true"
             >
                 <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header text-center">
-                    <h1 class="modal-title w-100" id="filterdateLabel">
-                        Filter Data
-                    </h1>
-                    <button
-                        type="button"
-                        class="btn-close"
-                        data-bs-dismiss="modal"
-                        aria-label="Close"
-                        @click="closeModal()"
-                    ></button>
-                    </div>
-                    <form>
-                    <div class="modal-body">
-                        <div class="row">
-                          <div class="col-lg-12">
-                              <div class="mb-3">
-                              <label for="" class="form-label">Form Date</label>
-                              <input
-                                  type="date"
-                                  class="form-control"
-                                  v-model="start_date"
-                              />
-                              </div>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-lg-12">
-                            <div class="mb-3">
-                            <label for="" class="form-label">To Date</label>
-                            <input
-                                type="date"
-                                class="form-control"
-                                v-model="end_date"
-                            />
-                            </div>
-                          </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <div class="col-md-12 text-center">
+                  <div class="modal-content modal-filter">
+                      <div class="modal-header text-center">
+                        <h1 class="modal-title w-100" id="filterdateLabel">
+                            Filter Date
+                        </h1>
                         <button
                             type="button"
-                            class="btn btn-light mx-3"
+                            class="btn-close"
                             data-bs-dismiss="modal"
+                            aria-label="Close"
                             @click="closeModal()"
-                        >
-                            Reset
-                        </button>
-                        <button
-                            type="button"
-                            class="btn btn-primary"
-                            data-bs-dismiss="modal"
-                            @click="listTable()"
-                        >
-                            Filter
-                        </button>
+                        ></button>
+                      </div>
+                      <form>
+                        <div class="modal-body">
+                            <div class="row">
+                              <div class="col-lg-12">
+                                  <div class="mb-3">
+                                    <label class="form-label fw-bold">From</label>
+                                    <input
+                                        type="date"
+                                        class="form-control"
+                                        v-model="start_date"
+                                    />
+                                  </div>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col-lg-12">
+                                <div class="mb-3">
+                                <label class="form-label fw-bold">Until</label>
+                                <input
+                                    type="date"
+                                    class="form-control"
+                                    v-model="end_date"
+                                />
+                                </div>
+                              </div>
+                            </div>
                         </div>
-                    </div>
-                    </form>
-                </div>
+                        <div class="modal-footer">
+                            <div class="col-md-12 text-center">
+                              <button
+                                  type="button"
+                                  class="btn btn-light mx-3"
+                                  data-bs-dismiss="modal"
+                                  @click="closeModal()"
+                              >
+                                  Reset
+                              </button>
+                              <button
+                                  type="button"
+                                  class="btn btn-primary"
+                                  data-bs-dismiss="modal"
+                                  @click="listTable()"
+                              >
+                                  Filter
+                              </button>
+                            </div>
+                        </div>
+                      </form>
+                  </div>
                 </div>
             </div>
 
@@ -802,7 +802,7 @@
                             </td>
                             <td>
                               <div class="row">
-                                <div class="col-lg">
+                                <div class="col-lg-6">
                                   <select v-model="ac_type_id" class="form-select">
                                     <option :value="null" disabled>AC</option>
                                     <option v-for="ac_type_options in ac_type_option" :value="ac_type_options.id">
@@ -810,7 +810,7 @@
                                     </option>
                                   </select>
                                 </div>
-                                <div class="col-lg">
+                                <div class="col-lg-6">
                                   <select v-model="engine_id" class="form-select">
                                     <option :value="null" disabled>ENG</option>
                                     <option v-for="engine_options in engine_option" :value="engine_options.id">
@@ -818,7 +818,7 @@
                                     </option>
                                   </select>
                                 </div>
-                                <div class="col-lg">
+                                <div class="col-lg-6 mt-1">
                                   <select v-model="apu_id" class="form-select">
                                     <option :value="null" disabled>APU</option>
                                     <option v-for="apu_options in apu_option" :value="apu_options.id">
@@ -826,7 +826,7 @@
                                     </option>
                                   </select>
                                 </div>
-                                <div class="col-lg">
+                                <div class="col-lg-6 mt-1">
                                   <select v-model="component_id" class="form-select">
                                     <option :value="null" disabled>COMP</option>
                                     <option v-for="component_options in component_option" :value="component_options.id">
@@ -889,20 +889,20 @@
                             <td>
                               <button
                                   type="button"
-                                  class="btn btn-light mx-3"
+                                  class="btn btn-success ms-2"
                                   @click="closeModal()"
                                   data-bs-toggle="tooltip" data-bs-placement="top" title="Reset Filter"
                               >
-                                  <i class="fa-solid fa-rotate-left"></i>
+                                  Reset
                               </button>
-                              <button
+                              <!-- <button
                                   type="button"
                                   class="btn btn-primary"
                                   @click="listTable()"
                                   data-bs-toggle="tooltip" data-bs-placement="top" title="Filter Data"
                               >
                                   <i class="fa-solid fa-magnifying-glass"></i>
-                              </button>
+                              </button> -->
                             </td>
                           </tr>
                         <tbody>
@@ -1305,6 +1305,42 @@ export default {
     search: debounce(function () {
       this.listTable()
     }, 800),
+    customer: debounce(function () {
+      this.listTable()
+    }, 500),
+    product: debounce(function () {
+      this.listTable()
+    }, 500),
+    acReg: debounce(function () {
+      this.listTable()
+    }, 500),
+    ac_type_id: debounce(function () {
+      this.listTable()
+    }, 500),
+    component_id: debounce(function () {
+      this.listTable()
+    }, 500),
+    apu_id: debounce(function () {
+      this.listTable()
+    }, 500),
+    engine_id: debounce(function () {
+      this.listTable()
+    }, 500),
+    other: debounce(function () {
+      this.listTable()
+    }, 500),
+    type: debounce(function () {
+      this.listTable()
+    }, 500),
+    progress: debounce(function () {
+      this.listTable()
+    }, 500),
+    status: debounce(function () {
+      this.listTable()
+    }, 500),
+    level: debounce(function () {
+      this.listTable()
+    }, 500),
   },
   created() {
     this.listTable()
@@ -1856,6 +1892,10 @@ export default {
 </script>
 
 <style>
+.modal-filter{
+    margin-top: 25%;
+}
+
 @media (min-width:320px)  {
   #cardStyle{
     width: auto;

@@ -3641,6 +3641,11 @@ export default {
             this.$router.push({
               name: 'my-salesplan-table',
             })
+          } else if (error.response.status == 403) {
+            toastr.error(error.response.data.message)
+            this.$router.push({
+              name: 'my-salesplan-table',
+            })
           }
         })
     },

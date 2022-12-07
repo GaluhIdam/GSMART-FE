@@ -38,7 +38,7 @@
         <div class="row">
           <div class="col-md-5 p-16">
             <span class="badge text-muted text-bg-light d-block text-start mt-2">{{ transaction_type }}</span>
-            <h2 class="mt-1">Airframe</h2>
+            <h2 class="mt-1">{{ product }}</h2>
             <div class="text-muted fw-semibold fs-5">Project for {{ registration }}</div>
             <div class="text-muted fs-6">Remark for this project..</div>
             <div class="row mt-3">
@@ -548,6 +548,7 @@ export default {
       transaction_type: null,
       customer_id: null,
       maintenance_value: null,
+      product: null,
       }
     },
   created() {
@@ -659,6 +660,7 @@ export default {
         .then((response) => {
           // Data TMB
           this.tmb = response.data.data.prospect
+          this.product = response.data.data.prospect[0].product.name
           // Customer Name
           this.customer_name = response.data.data.customer.name
           // Customer ID

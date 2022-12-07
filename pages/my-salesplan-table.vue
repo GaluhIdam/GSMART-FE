@@ -802,7 +802,7 @@
                             </td>
                             <td>
                               <div class="row">
-                                <div class="col-lg">
+                                <div class="col-lg-6">
                                   <select v-model="ac_type_id" class="form-select">
                                     <option :value="null" disabled>AC</option>
                                     <option v-for="ac_type_options in ac_type_option" :value="ac_type_options.id">
@@ -810,7 +810,7 @@
                                     </option>
                                   </select>
                                 </div>
-                                <div class="col-lg">
+                                <div class="col-lg-6">
                                   <select v-model="engine_id" class="form-select">
                                     <option :value="null" disabled>ENG</option>
                                     <option v-for="engine_options in engine_option" :value="engine_options.id">
@@ -818,7 +818,7 @@
                                     </option>
                                   </select>
                                 </div>
-                                <div class="col-lg">
+                                <div class="col-lg-6 mt-1">
                                   <select v-model="apu_id" class="form-select">
                                     <option :value="null" disabled>APU</option>
                                     <option v-for="apu_options in apu_option" :value="apu_options.id">
@@ -826,7 +826,7 @@
                                     </option>
                                   </select>
                                 </div>
-                                <div class="col-lg">
+                                <div class="col-lg-6 mt-1">
                                   <select v-model="component_id" class="form-select">
                                     <option :value="null" disabled>COMP</option>
                                     <option v-for="component_options in component_option" :value="component_options.id">

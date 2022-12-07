@@ -846,7 +846,7 @@
                             <td>
                               <select v-model="other" class="form-select">
                                 <option :value="1">RKAP</option>
-                                <option :value="2">Additional</option>
+                                <option :value="0">Additional</option>
                               </select>
                             </td>
                             <td>

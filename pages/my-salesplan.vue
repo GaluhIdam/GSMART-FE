@@ -89,7 +89,7 @@
                 <p class="text-muted">Awareness</p>
               </div>
               <div class="d-grid gap-2" id="cardStyle">
-                <a
+                <nuxtlink
                   @click="level4Open()"
                   class="
                     btn btn-outline btn-outline-dashed btn-outline-success
@@ -122,8 +122,8 @@
                       >Open</span
                     >
                   </div>
-                </a>
-                <a
+                </nuxtlink>
+                <nuxtlink
                   @click="level4Cancel()"
                   class="
                     btn btn-outline btn-outline-dashed btn-outline-danger
@@ -150,7 +150,7 @@
                       >Cancel</span
                     >
                   </div>
-                </a>
+                </nuxtlink>
               </div>
             </div>
             <div class="card-footer border-0" id="cardFooter"></div>
@@ -182,7 +182,7 @@
                 <p class="text-muted">Opportunity</p>
               </div>
               <div class="d-grid gap-2" id="cardStyle">
-                <a
+                <nuxtlink
                   @click="level3Open()"
                   class="
                     btn btn-outline btn-outline-dashed btn-outline-success
@@ -212,8 +212,8 @@
                       >Open</span
                     >
                   </div>
-                </a>
-                <a
+                </nuxtlink>
+                <nuxtlink
                   @click="level3Cancel()"
                   class="
                     btn btn-outline btn-outline-dashed btn-outline-danger
@@ -240,7 +240,7 @@
                       >Cancel</span
                     >
                   </div>
-                </a>
+                </nuxtlink>
               </div>
             </div>
             <div class="card-footer border-0" id="cardFooter"></div>
@@ -272,7 +272,7 @@
                 <p class="text-muted">Attractive Proposal</p>
               </div>
               <div class="d-grid gap-2" id="cardStyle">
-                <a
+                <nuxtlink
                   @click="level2Open()"
                   class="
                     btn btn-outline btn-outline-dashed btn-outline-success
@@ -302,9 +302,9 @@
                       >Open</span
                     >
                   </div>
-                </a>
-                <a
-                  @click="level2Open()"
+                </nuxtlink>
+                <nuxtlink
+                  @click="level2Cancel()"
                   class="
                     btn btn-outline btn-outline-dashed btn-outline-danger
                     d-flex
@@ -330,7 +330,7 @@
                       >Cancel</span
                     >
                   </div>
-                </a>
+                </nuxtlink>
               </div>
             </div>
             <div class="card-footer border-0" id="cardFooter"></div>
@@ -362,7 +362,7 @@
                 <p class="text-muted">Contract Signing</p>
               </div>
               <div class="d-grid gap-2" id="cardStyle">
-                <a
+                <nuxtlink
                   @click="level1Open()"
                   class="
                     btn btn-outline btn-outline-dashed btn-outline-success
@@ -397,9 +397,9 @@
                       >Open</span
                     >
                   </div>
-                </a>
-                <a
-                  @click="level1Open()"
+                </nuxtlink>
+                <nuxtlink
+                  @click="level1Cancel()"
                   class="
                     btn btn-outline btn-outline-dashed btn-outline-danger
                     d-flex
@@ -433,8 +433,8 @@
                       >Cancel</span
                     >
                   </div>
-                </a>
-                <a
+                </nuxtlink>
+                <nuxtlink
                   @click="level1Closed()"
                   class="
                     btn btn-outline btn-outline-dashed btn-outline-info
@@ -469,8 +469,8 @@
                       >Closed</span
                     >
                   </div>
-                </a>
-                <a
+                </nuxtlink>
+                <nuxtlink
                   @click="level1ClosedIn()"
                   class="
                     btn btn-outline btn-outline-dashed btn-outline-warning
@@ -506,7 +506,7 @@
                       Close in
                     </span>
                   </div>
-                </a>
+                </nuxtlink>
               </div>
             </div>
           </div>
@@ -783,91 +783,201 @@ export default {
 
     level4Open() {
       this.$axios
-        .get('api/sales-table?order=id&by=desc&paginate=10&status=1&level=4')
+        .get('api/sales-table', {
+          params: {
+            order: 'created_at',
+            by: 'DESC',
+            status: '1',
+            level: '4',
+          }
+        })
         .then((response) => {
           this.$router.push({
             name: 'my-salesplan-table',
+            params: {
+              status: '1',
+              level: '4',
+            }
           })
         })
     },
     level4Cancel() {
       this.$axios
-        .get('api/sales-table?order=id&by=desc&paginate=10&status=4&level=4')
+        .get('api/sales-table', {
+          params: {
+            order: 'created_at',
+            by: 'DESC',
+            status: '4',
+            level: '4',
+          }
+        })
         .then((response) => {
           this.$router.push({
             name: 'my-salesplan-table',
+            params: {
+              status: '4',
+              level: '4',
+            }
           })
         })
     },
     level3Open() {
       this.$axios
-        .get('api/sales-table?order=id&by=desc&paginate=10&status=1&level=3')
+        .get('api/sales-table', {
+          params: {
+            order: 'created_at',
+            by: 'DESC',
+            status: '1',
+            level: '3',
+          }
+        })
         .then((response) => {
           this.$router.push({
             name: 'my-salesplan-table',
+            params: {
+              status: '1',
+              level: '3',
+            }
           })
         })
     },
     level3Cancel() {
       this.$axios
-        .get('api/sales-table?order=id&by=desc&paginate=10&status=4&level=3')
+        .get('api/sales-table', {
+          params: {
+            order: 'created_at',
+            by: 'DESC',
+            status: '4',
+            level: '3',
+          }
+        })
         .then((response) => {
           this.$router.push({
             name: 'my-salesplan-table',
+            params: {
+              status: '4',
+              level: '3',
+            }
           })
         })
     },
     level2Open() {
       this.$axios
-        .get('api/sales-table?order=id&by=desc&paginate=10&status=1&level=2')
+        .get('api/sales-table', {
+          params: {
+            order: 'created_at',
+            by: 'DESC',
+            status: '1',
+            level: '2',
+          }
+        })
         .then((response) => {
           this.$router.push({
             name: 'my-salesplan-table',
+            params: {
+              status: '1',
+              level: '2',
+            }
           })
         })
     },
     level2Cancel() {
       this.$axios
-        .get('api/sales-table?order=id&by=desc&paginate=10&status=4&level=2')
+        .get('api/sales-table', {
+          params: {
+            order: 'created_at',
+            by: 'DESC',
+            status: '4',
+            level: '2',
+          }
+        })
         .then((response) => {
           this.$router.push({
             name: 'my-salesplan-table',
+            params: {
+              status: '4',
+              level: '2',
+            }
           })
         })
     },
     level1Open() {
       this.$axios
-        .get('api/sales-table?order=id&by=desc&paginate=10&status=1&level=1')
+        .get('api/sales-table', {
+          params: {
+            order: 'created_at',
+            by: 'DESC',
+            status: '1',
+            level: '1',
+          }
+        })
         .then((response) => {
           this.$router.push({
             name: 'my-salesplan-table',
+            params: {
+              status: '1',
+              level: '1',
+            }
           })
         })
     },
     level1Cancel() {
       this.$axios
-        .get('api/sales-table?order=id&by=desc&paginate=10&status=4&level=1')
+        .get('api/sales-table', {
+          params: {
+            order: 'created_at',
+            by: 'DESC',
+            status: '4',
+            level: '1',
+          }
+        })
         .then((response) => {
           this.$router.push({
             name: 'my-salesplan-table',
+            params: {
+              status: '4',
+              level: '1',
+            }
           })
         })
     },
     level1Closed() {
       this.$axios
-        .get('api/sales-table?order=id&by=desc&paginate=10&status=2&level=1')
+        .get('api/sales-table', {
+          params: {
+            order: 'created_at',
+            by: 'DESC',
+            status: '2',
+            level: '1',
+          }
+        })
         .then((response) => {
           this.$router.push({
             name: 'my-salesplan-table',
+            params: {
+              status: '2',
+              level: '1',
+            }
           })
         })
     },
     level1ClosedIn() {
       this.$axios
-        .get('api/sales-table?order=id&by=desc&paginate=10&status=3&level=1')
+        .get('api/sales-table', {
+          params: {
+            order: 'created_at',
+            by: 'DESC',
+            status: '3',
+            level: '1',
+          }
+        })
         .then((response) => {
           this.$router.push({
             name: 'my-salesplan-table',
+            params: {
+              status: '3',
+              level: '1',
+            }
           })
         })
     },

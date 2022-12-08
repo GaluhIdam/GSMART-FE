@@ -1343,6 +1343,7 @@ export default {
     }, 500),
   },
   created() {
+    this.getFilter()
     this.listTable()
     this.listCustomer()
     this.listProduct()
@@ -1383,6 +1384,12 @@ export default {
         allowOutsideClick: false,
       })
     },
+    // Filter dari halaman dashboard sales
+    getFilter() {
+      this.loading()
+      this.status = this.$route.params.status
+      this.level = this.$route.params.level
+    },
     listTable(paginate) {
       this.loading()
       this.runCookie()
@@ -1419,6 +1426,7 @@ export default {
         })
         .catch((error) => console.log(error))
     },
+
     removeSearch() {
       this.search = null
       this.$cookies.set('search', this.search, {

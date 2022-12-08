@@ -36,21 +36,21 @@
               </nuxtlink>
             </div>
             <div class="col-lg my-1">
-              <nuxtlink @click="filterClosed()" id="cursorPinter">
+              <nuxtlink @click="filterClosedIn()" id="cursorPinter">
                 <div class="border-dashed p-4">
-                  <p class="text-muted" id="fontSm">Total Closed</p>
+                  <p class="text-muted" id="fontSm">Total Closed In</p>
                   <h4>
-                    USD {{ formatPrice(sales.totalClosed) }}
+                    USD {{ formatPrice(sales.totalClosedIn) }}
                   </h4>
                 </div>
               </nuxtlink>
             </div>
             <div class="col-lg my-1">
-              <nuxtlink @click="filterClosedIn()" id="cursorPinter">
+              <nuxtlink @click="filterClosed()" id="cursorPinter">
                 <div class="border-dashed p-4">
-                  <p class="text-muted" id="fontSm">Total Close In</p>
+                  <p class="text-muted" id="fontSm">Total Closed Sales</p>
                   <h4>
-                    USD {{ formatPrice(sales.totalCloseIn) }}
+                    USD {{ formatPrice(sales.totalClosedSales) }}
                   </h4>
                 </div>
               </nuxtlink>
@@ -458,13 +458,13 @@
                       id="btnPurple"
                       style="margin-left: -10px"
                       v-if="sales"
-                      >{{ formatPrice(sales.level1.countClosed) }}</span
+                      >{{ formatPrice(sales.level1.countClosedSales) }}</span
                     >
                     <span
                       id="textPurple"
                     
                       v-if="sales"
-                      >USD {{ formatPrice(sales.level1.closed) }}</span
+                      >USD {{ formatPrice(sales.level1.closedSales) }}</span
                     >
                   </div>
                   <div
@@ -474,7 +474,7 @@
                       class="text-muted ms-10"
                       id="fontSm"
                       style="margin-left: -15px"
-                      >Closed</span
+                      >Closed Sales</span
                     >
                   </div>
                 </nuxtlink>
@@ -494,13 +494,13 @@
                       id="btnGold"
                       style="margin-left: -10px"
                       v-if="sales"
-                      >{{ formatPrice(sales.level1.countCloseIn) }}</span
+                      >{{ formatPrice(sales.level1.countClosedIn) }}</span
                     >
                     <span
                       id="textGold"
                     
                       v-if="sales"
-                      >USD {{ formatPrice(sales.level1.closeIn) }}</span
+                      >USD {{ formatPrice(sales.level1.closedIn) }}</span
                     >
                   </div>
                   <div
@@ -511,7 +511,7 @@
                       style="margin-left: -15px"
                       id="fontSm"
                     >
-                      Close in
+                      Closed in
                     </span>
                   </div>
                 </nuxtlink>

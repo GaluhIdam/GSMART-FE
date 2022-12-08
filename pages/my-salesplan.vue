@@ -18,44 +18,52 @@
         <div class="card-body">
           <div class="row" v-if="sales">
             <div class="col-lg my-1">
-              <div class="border-dashed p-4">
-                <p class="text-muted" id="fontSm">Total Target</p>
-                <h4>
-                  USD {{ formatPrice(sales.totalTarget) }}
-                </h4>
-              </div>
+                <div class="border-dashed p-4">
+                  <p class="text-muted" id="fontSm">Total Target</p>
+                  <h4>
+                    USD {{ formatPrice(sales.totalTarget) }}
+                  </h4>
+                </div>
             </div>
             <div class="col-lg my-1">
-              <div class="border-dashed p-4">
-                <p class="text-muted" id="fontSm">Total Open</p>
-                <h4>
-                  USD {{ formatPrice(sales.totalOpen) }}
-                </h4>
-              </div>
+              <nuxtlink @click="filterOpen()" id="cursorPinter">
+                <div class="border-dashed p-4">
+                  <p class="text-muted" id="fontSm">Total Open</p>
+                  <h4>
+                    USD {{ formatPrice(sales.totalOpen) }}
+                  </h4>
+                </div>
+              </nuxtlink>
             </div>
             <div class="col-lg my-1">
-              <div class="border-dashed p-4">
-                <p class="text-muted" id="fontSm">Total Closed</p>
-                <h4>
-                  USD {{ formatPrice(sales.totalClosed) }}
-                </h4>
-              </div>
+              <nuxtlink @click="filterClosed()" id="cursorPinter">
+                <div class="border-dashed p-4">
+                  <p class="text-muted" id="fontSm">Total Closed</p>
+                  <h4>
+                    USD {{ formatPrice(sales.totalClosed) }}
+                  </h4>
+                </div>
+              </nuxtlink>
             </div>
             <div class="col-lg my-1">
-              <div class="border-dashed p-4">
-                <p class="text-muted" id="fontSm">Total Close In</p>
-                <h4>
-                  USD {{ formatPrice(sales.totalCloseIn) }}
-                </h4>
-              </div>
+              <nuxtlink @click="filterClosedIn()" id="cursorPinter">
+                <div class="border-dashed p-4">
+                  <p class="text-muted" id="fontSm">Total Close In</p>
+                  <h4>
+                    USD {{ formatPrice(sales.totalCloseIn) }}
+                  </h4>
+                </div>
+              </nuxtlink>
             </div>
             <div class="col-lg my-1">
-              <div class="border-dashed p-4">
-                <p class="text-muted" id="fontSm">Total Cancel</p>
-                <h4>
-                  USD {{ formatPrice(sales.totalCancel) }}
-                </h4>
-              </div>
+              <nuxtlink @click="filterCancel()" id="cursorPinter">
+                <div class="border-dashed p-4">
+                  <p class="text-muted" id="fontSm">Total Cancel</p>
+                  <h4>
+                    USD {{ formatPrice(sales.totalCancel) }}
+                  </h4>
+                </div>
+              </nuxtlink>
             </div>
           </div>
         </div>
@@ -780,17 +788,60 @@ export default {
           console.log(error)
         })
     },
+    
+    filterOpen() {
+      this.$axios
+        .get('api/sales-table')
+        .then((response) => {
+          this.$router.push({
+            name: 'my-salesplan-table',
+            params: {
+              status: '1',
+            }
+          })
+        })
+    },
+    filterCancel() {
+      this.$axios
+        .get('api/sales-table')
+        .then((response) => {
+          this.$router.push({
+            name: 'my-salesplan-table',
+            params: {
+              status: '4',
+            }
+          })
+        })
+    },
+    filterClosed() {
+      this.$axios
+        .get('api/sales-table')
+        .then((response) => {
+          this.$router.push({
+            name: 'my-salesplan-table',
+            params: {
+              status: '2',
+            }
+          })
+        })
+    },
+    filterClosedIn() {
+      this.$axios
+        .get('api/sales-table')
+        .then((response) => {
+          this.$router.push({
+            name: 'my-salesplan-table',
+            params: {
+              status: '3',
+              level: '1',
+            }
+          })
+        })
+    },
 
     level4Open() {
       this.$axios
-        .get('api/sales-table', {
-          params: {
-            order: 'created_at',
-            by: 'DESC',
-            status: '1',
-            level: '4',
-          }
-        })
+        .get('api/sales-table')
         .then((response) => {
           this.$router.push({
             name: 'my-salesplan-table',
@@ -803,14 +854,7 @@ export default {
     },
     level4Cancel() {
       this.$axios
-        .get('api/sales-table', {
-          params: {
-            order: 'created_at',
-            by: 'DESC',
-            status: '4',
-            level: '4',
-          }
-        })
+        .get('api/sales-table')
         .then((response) => {
           this.$router.push({
             name: 'my-salesplan-table',
@@ -823,14 +867,7 @@ export default {
     },
     level3Open() {
       this.$axios
-        .get('api/sales-table', {
-          params: {
-            order: 'created_at',
-            by: 'DESC',
-            status: '1',
-            level: '3',
-          }
-        })
+        .get('api/sales-table')
         .then((response) => {
           this.$router.push({
             name: 'my-salesplan-table',
@@ -843,14 +880,7 @@ export default {
     },
     level3Cancel() {
       this.$axios
-        .get('api/sales-table', {
-          params: {
-            order: 'created_at',
-            by: 'DESC',
-            status: '4',
-            level: '3',
-          }
-        })
+        .get('api/sales-table')
         .then((response) => {
           this.$router.push({
             name: 'my-salesplan-table',
@@ -863,14 +893,7 @@ export default {
     },
     level2Open() {
       this.$axios
-        .get('api/sales-table', {
-          params: {
-            order: 'created_at',
-            by: 'DESC',
-            status: '1',
-            level: '2',
-          }
-        })
+        .get('api/sales-table')
         .then((response) => {
           this.$router.push({
             name: 'my-salesplan-table',
@@ -883,14 +906,7 @@ export default {
     },
     level2Cancel() {
       this.$axios
-        .get('api/sales-table', {
-          params: {
-            order: 'created_at',
-            by: 'DESC',
-            status: '4',
-            level: '2',
-          }
-        })
+        .get('api/sales-table')
         .then((response) => {
           this.$router.push({
             name: 'my-salesplan-table',
@@ -903,14 +919,7 @@ export default {
     },
     level1Open() {
       this.$axios
-        .get('api/sales-table', {
-          params: {
-            order: 'created_at',
-            by: 'DESC',
-            status: '1',
-            level: '1',
-          }
-        })
+        .get('api/sales-table')
         .then((response) => {
           this.$router.push({
             name: 'my-salesplan-table',
@@ -923,14 +932,7 @@ export default {
     },
     level1Cancel() {
       this.$axios
-        .get('api/sales-table', {
-          params: {
-            order: 'created_at',
-            by: 'DESC',
-            status: '4',
-            level: '1',
-          }
-        })
+        .get('api/sales-table')
         .then((response) => {
           this.$router.push({
             name: 'my-salesplan-table',
@@ -943,14 +945,7 @@ export default {
     },
     level1Closed() {
       this.$axios
-        .get('api/sales-table', {
-          params: {
-            order: 'created_at',
-            by: 'DESC',
-            status: '2',
-            level: '1',
-          }
-        })
+        .get('api/sales-table')
         .then((response) => {
           this.$router.push({
             name: 'my-salesplan-table',
@@ -963,14 +958,7 @@ export default {
     },
     level1ClosedIn() {
       this.$axios
-        .get('api/sales-table', {
-          params: {
-            order: 'created_at',
-            by: 'DESC',
-            status: '3',
-            level: '1',
-          }
-        })
+        .get('api/sales-table')
         .then((response) => {
           this.$router.push({
             name: 'my-salesplan-table',
@@ -1125,6 +1113,10 @@ export default {
 
 .carousel-indicators .active {
   background-color: #188af8;
+}
+
+#cursorPinter {
+  cursor: pointer;
 }
 
 #btnGreen {

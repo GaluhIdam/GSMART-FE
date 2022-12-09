@@ -18,12 +18,14 @@
         <div class="card-body">
           <div class="row" v-if="sales">
             <div class="col-lg my-1">
+              <nuxtlink @click="filterTotal()" id="cursorPinter">
                 <div class="border-dashed p-4">
                   <p class="text-muted" id="fontSm">Total Target</p>
                   <h4>
                     USD {{ formatPrice(sales.totalTarget) }}
                   </h4>
                 </div>
+              </nuxtlink>
             </div>
             <div class="col-lg my-1">
               <nuxtlink @click="filterOpen()" id="cursorPinter">
@@ -793,6 +795,20 @@ export default {
         })
     },
     
+    filterTotal() {
+      this.$axios
+        .get('api/sales-table')
+        .then((response) => {
+          this.$router.push({
+            name: 'my-salesplan-table',
+            params: {
+              other: '1',
+              start_date: this.getStart,
+              end_date: this.getEnd,
+            }
+          })
+        })
+    },
     filterOpen() {
       this.$axios
         .get('api/sales-table')

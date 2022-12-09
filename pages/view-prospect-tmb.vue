@@ -678,6 +678,18 @@ export default {
           this.maintenance_value = response.data.data.prospect[0].maintenance_id
           this.tmbSale.value = this.market_share
           this.tmbSale.maintenance_id = this.maintenance_value
+        }).catch((error) => {
+          if (error.response.status == 404) {
+            toastr.error(error.response.data.message)
+            this.$router.push({
+              name: 'my-prospect',
+            })
+          } else if (error.response.status == 403) {
+            toastr.error(error.response.data.message)
+            this.$router.push({
+              name: 'my-prospect',
+            })
+          }
         })
     },
     listMaintenance() {

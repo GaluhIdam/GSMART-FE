@@ -499,6 +499,18 @@ export default {
             this.PBTHMessage()
             this.$router.push('/my-prospect');
           }
+        }).catch((error) => {
+          if (error.response.status == 404) {
+            toastr.error(error.response.data.message)
+            this.$router.push({
+              name: 'my-prospect',
+            })
+          } else if (error.response.status == 403) {
+            toastr.error(error.response.data.message)
+            this.$router.push({
+              name: 'my-prospect',
+            })
+          }
         })
     },
     calculateSalesPlan(){

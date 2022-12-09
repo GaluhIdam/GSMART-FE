@@ -104,30 +104,12 @@
                 <span class="menu-title">Dashboards</span>
               </NuxtLink>
             </div>
-            <div class="menu-item" 
-              v-if="
-                role == 'TPC' ||
-                role == 'AMS' ||
-                role == 'Administrator'
-              "
-            >
-              <NuxtLink
-                class="menu-link"
-                to="/my-prospect"
-                active-class="active"
-              >
+            <div class="menu-item">
+              <NuxtLink class="menu-link" to="/my-prospect" active-class="active">
                 <span class="menu-icon">
                   <i class="fa-solid fa-briefcase"></i>
                 </span>
-                <span
-                  class="menu-title"
-                  v-if="
-                    role == 'TPC' ||
-                    role == 'Administrator'
-                  "
-                  >Prospect</span
-                >
-                <span class="menu-title" v-if="role == 'AMS'">Prospect</span>
+                <span class="menu-title">Prospect</span>
               </NuxtLink>
             </div>
             <div class="menu-item" 

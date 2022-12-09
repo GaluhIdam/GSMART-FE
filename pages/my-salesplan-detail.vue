@@ -535,25 +535,25 @@
                 </div>
                 <p class="text-muted mt-5">Status</p>
                 <div v-if="sales_detail.status === 'Cancel'">
-                  <span class="badge badge-danger"><b>Cancel</b></span>
+                  <span class="badge badge-danger"><b>{{ sales_detail.status }}</b></span>
                 </div>
                 <div v-if="sales_detail.status === 'Open'">
-                  <span class="badge badge-gmf"><b>Open</b></span>
+                  <span class="badge badge-gmf"><b>{{ sales_detail.status }}</b></span>
                 </div>
-                <div v-if="sales_detail.status === 'Close in'">
-                  <span class="badge badge-success"><b>Close in</b></span>
+                <div v-if="sales_detail.status === 'Closed In'">
+                  <span class="badge badge-success"><b>{{ sales_detail.status }}</b></span>
                 </div>
-                <div v-if="sales_detail.status === 'Closed'">
-                  <span class="badge badge-green"><b>Closed Sales</b></span>
+                <div v-if="sales_detail.status === 'Closed Sales'">
+                  <span class="badge badge-green"><b>{{ sales_detail.status }}</b></span>
                 </div>
               </div>
               <div class="col-lg-1">
                 <p class="text-muted mt-5">Sales Type</p>
                 <div v-if="sales_detail.other === 'RKAP'">
-                  <b>RKAP</b>
+                  <b>{{ sales_detail.other }}</b>
                 </div>
                 <div v-else-if="sales_detail.other === 'Additional'">
-                  <b>Additional</b>
+                  <b>{{ sales_detail.other }}</b>
                 </div>
                 <p class="text-muted mt-5">Type</p>
                 <div v-if="sales_detail.type === 'TMB Retail'">

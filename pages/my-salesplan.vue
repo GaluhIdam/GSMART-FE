@@ -443,42 +443,6 @@
                   </div>
                 </nuxtlink>
                 <nuxtlink
-                  @click="level1Closed()"
-                  class="
-                    btn btn-outline btn-outline-dashed btn-outline-info
-                    d-flex
-                    justify-content-start
-                    btn-active-light-info
-                    me-2
-                    mb-2
-                  "
-                >
-                  <div class="d-flex align-items-center gap-2">
-                    <span
-                      id="btnPurple"
-                      style="margin-left: -10px"
-                      v-if="sales"
-                      >{{ formatPrice(sales.level1.countClosedSales) }}</span
-                    >
-                    <span
-                      id="textPurple"
-                    
-                      v-if="sales"
-                      >USD {{ formatPrice(sales.level1.closedSales) }}</span
-                    >
-                  </div>
-                  <div
-                    class="d-flex align-items-center justify-content-end"
-                  >
-                    <span
-                      class="text-muted ms-10"
-                      id="fontSm"
-                      style="margin-left: -15px"
-                      >Closed Sales</span
-                    >
-                  </div>
-                </nuxtlink>
-                <nuxtlink
                   @click="level1ClosedIn()"
                   class="
                     btn btn-outline btn-outline-dashed btn-outline-warning
@@ -515,6 +479,42 @@
                     </span>
                   </div>
                 </nuxtlink>
+                <nuxtlink
+                  @click="level1Closed()"
+                  class="
+                    btn btn-outline btn-outline-dashed btn-outline-info
+                    d-flex
+                    justify-content-start
+                    btn-active-light-info
+                    me-2
+                    mb-2
+                  "
+                >
+                  <div class="d-flex align-items-center gap-2">
+                    <span
+                      id="btnPurple"
+                      style="margin-left: -10px"
+                      v-if="sales"
+                      >{{ formatPrice(sales.level1.countClosedSales) }}</span
+                    >
+                    <span
+                      id="textPurple"
+                    
+                      v-if="sales"
+                      >USD {{ formatPrice(sales.level1.closedSales) }}</span
+                    >
+                  </div>
+                  <div
+                    class="d-flex align-items-center justify-content-end"
+                  >
+                    <span
+                      class="text-muted ms-10"
+                      id="fontSm"
+                      style="margin-left: -15px"
+                      >Closed Sales</span
+                    >
+                  </div>
+                </nuxtlink>
               </div>
             </div>
           </div>
@@ -532,6 +532,10 @@ export default {
   name: 'MySalesPlanPage',
   data() {
     return {
+      getYear: new Date().getFullYear(),
+      // getDate: moment(new Date()).format("YYYY/MM/DD"),
+      getStart: new Date(new Date().getFullYear(), 0, 1),
+      getEnd: new Date(new Date().getFullYear(), 11, 31),
       prospect_option_salesplan: [],
       aircraft_name_value: null,
       aircraft_id_value: null,
@@ -797,6 +801,10 @@ export default {
             name: 'my-salesplan-table',
             params: {
               status: '1',
+              start_date: this.getStart,
+              end_date: this.getEnd,
+              // year: this.getYear,
+              // month: this.getDate,
             }
           })
         })
@@ -809,6 +817,9 @@ export default {
             name: 'my-salesplan-table',
             params: {
               status: '4',
+              start_date: this.getStart,
+              end_date: this.getEnd,
+              // year: this.getYear,
             }
           })
         })
@@ -820,7 +831,10 @@ export default {
           this.$router.push({
             name: 'my-salesplan-table',
             params: {
-              status: '2',
+              status: '3',
+              start_date: this.getStart,
+              end_date: this.getEnd,
+              // year: this.getYear,
             }
           })
         })
@@ -832,8 +846,10 @@ export default {
           this.$router.push({
             name: 'my-salesplan-table',
             params: {
-              status: '3',
-              level: '1',
+              status: '2',
+              start_date: this.getStart,
+              end_date: this.getEnd,
+              // year: this.getYear,
             }
           })
         })
@@ -950,7 +966,7 @@ export default {
           this.$router.push({
             name: 'my-salesplan-table',
             params: {
-              status: '2',
+              status: '3',
               level: '1',
             }
           })
@@ -963,7 +979,7 @@ export default {
           this.$router.push({
             name: 'my-salesplan-table',
             params: {
-              status: '3',
+              status: '2',
               level: '1',
             }
           })

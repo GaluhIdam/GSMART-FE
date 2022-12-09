@@ -58,7 +58,6 @@
                             class="btn-close"
                             data-bs-dismiss="modal"
                             aria-label="Close"
-                            @click="closeModal()"
                         ></button>
                       </div>
                       <form>
@@ -881,8 +880,8 @@
                             <td>
                               <select v-model="status" class="form-select">
                                 <option :value="1">Open</option>
-                                <option :value="3">Close In</option>
-                                <option :value="2">Closed</option>
+                                <option :value="2">Closed In</option>
+                                <option :value="3">Closed Sales</option>
                                 <option :value="4">Cancel</option>
                               </select>
                             </td>
@@ -1043,14 +1042,16 @@
                                 p_sales.status
                                 }}</span>
                             </div>
-                            <div v-if="p_sales.status === 'Close in'">
+                            <div v-if="p_sales.status === 'Closed In'">
                                 <span class="badge badge-success">{{
                                 p_sales.status
                                 }}</span>
                             </div>
-                            <div v-if="p_sales.status === 'Closed'">
+                            <div v-if="p_sales.status === 'Closed Sales'">
                                 <span class="badge badge-green">
-                                Closed Sales
+                                {{
+                                p_sales.status
+                                }}
                                 </span>
                             </div>
                             </td>
@@ -1389,6 +1390,8 @@ export default {
       this.loading()
       this.status = this.$route.params.status
       this.level = this.$route.params.level
+      this.start_date = this.$route.params.start_date
+      this.end_date = this.$route.params.end_date
     },
     listTable(paginate) {
       this.loading()

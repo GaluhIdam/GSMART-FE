@@ -1392,6 +1392,7 @@ export default {
       this.level = this.$route.params.level
       this.start_date = this.$route.params.start_date
       this.end_date = this.$route.params.end_date
+      this.other = this.$route.params.other
     },
     listTable(paginate) {
       this.loading()

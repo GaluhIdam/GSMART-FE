@@ -148,6 +148,26 @@
                     </th>
 
                     <th
+                      v-if="order == 'group' && by == 'asc'"
+                      @click="sort('group', 'desc')"
+                      class="text-center"
+                    >
+                      Group Type
+                      <i class="fa-solid fa-sort-up" style="color: black"></i>
+                    </th>
+                    <th
+                      v-else-if="order == 'group' && by == 'desc'"
+                      @click="sort('id', 'desc')"
+                      class="text-center"
+                    >
+                      Group Type
+                      <i class="fa-solid fa-sort-down" style="color: black"></i>
+                    </th>
+                    <th v-else @click="sort('group', 'asc')" class="text-center">
+                      Group Type <i class="fa-solid fa-sort"></i>
+                    </th>
+
+                    <th
                       v-if="order == 'country' && by == 'asc'"
                       @click="sort('country', 'desc')"
                       class="text-center"
@@ -170,6 +190,7 @@
                     >
                       Country <i class="fa-solid fa-sort"></i>
                     </th>
+                    
 
                     <th
                       v-if="order == 'region' && by == 'asc'"
@@ -238,6 +259,7 @@
                     <td class="text-center">{{ customer.code }}</td>
                     <td class="text-center">{{ customer.name }}</td>
                     <td class="text-center">{{ customer.group }}</td>
+                    <td class="text-center">{{ customer.group_type }}</td>
                     <td class="text-center">{{ customer.country }}</td>
                     <td class="text-center">{{ customer.region }}</td>
                     <td class="text-center">{{ customer.status }}</td>

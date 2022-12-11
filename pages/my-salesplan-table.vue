@@ -800,7 +800,7 @@
                               </select>
                             </td>
                             <td>
-                              <div class="row">
+                              <!-- <div class="row">
                                 <div class="col-lg-6">
                                   <select v-model="ac_type_id" class="form-select">
                                     <option :value="null" disabled>AC</option>
@@ -833,7 +833,7 @@
                                     </option>
                                   </select>
                                 </div>
-                              </div>
+                              </div> -->
                             </td>
                             <td>
                               <select v-model="acReg" class="form-select">

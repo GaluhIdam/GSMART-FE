@@ -39,36 +39,55 @@
     </div>
     <div class="container mt-5">
       <div class="card shadow-sm">
-        <!-- <div class="card-header">
-          <h3 class="card-title">Title</h3>
-        </div> -->
+        <div class="row mb-5 mx-2 my-2">
+          <div class="col-lg-9 col-sm-12">
+            <h3 class="mt-3">Chart Sales Plan</h3>
+          </div>
+          <div class="col-lg-3 col-sm-12 d-flex justify-content-end">
+            <select v-model="typeChart" class="form-select">
+              <option :value="null" disabled selected>Select Option</option>
+              <option :value="areaChart">Area</option>
+              <option :value="groupChart">Group</option>
+              <option :value="productChart">Product</option>
+            </select>
+          </div>
+        </div>
+    
         <div class="card-body">
           <div class="container">
+            <!-- Chart Area -->
+            <div class="row mb-2">
+              <h3>Area Chart</h3>
+            </div>
             <div class="row">
-              <div class="col-md-6">
+              <div class="col-md-4">
                 <VueApexCharts
                   type="donut"
                   :options="chart1.chartOptions"
                   :series="chart1.series"
                 ></VueApexCharts>
               </div>
-              <div class="col-md-6">
-                <VueApexCharts
-                  type="donut"
-                  :options="chart2.chartOptions"
-                  :series="chart2.series"
-                ></VueApexCharts>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-6">
+              <div class="col-md-8">
                 <VueApexCharts
                   type="bar"
                   :options="chart3.chartOptions"
                   :series="chart3.series"
                 ></VueApexCharts>
               </div>
-              <div class="col-md-6">
+            </div>
+            <!-- Chart Group -->
+            <div class="row mb-2">
+              <h3>Group Chart</h3>
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                <VueApexCharts
+                  type="donut"
+                  :options="chart2.chartOptions"
+                  :series="chart2.series"
+                ></VueApexCharts>
+              </div>
+              <div class="col-md-8">
                 <VueApexCharts
                   type="bar"
                   :options="chart4.chartOptions"
@@ -76,15 +95,19 @@
                 ></VueApexCharts>
               </div>
             </div>
+            <!-- Chart Product -->
+            <div class="row mb-2">
+              <h3>Product Chart</h3>
+            </div>
             <div class="row">
-              <div class="col-md-6">
+              <div class="col-md-4">
                 <VueApexCharts
                   type="donut"
                   :options="chart5.chartOptions"
                   :series="chart5.series"
                 ></VueApexCharts>
               </div>
-              <div class="col-md-6">
+              <div class="col-md-8">
                 <VueApexCharts
                   type="bar"
                   :options="chart6.chartOptions"
@@ -92,33 +115,68 @@
                 ></VueApexCharts>
               </div>
             </div>
-            <div class="col-md-12">
-              <div class="container">
-                <VueApexCharts
-                  type="bar"
-                  :options="chart7.chartOptions"
-                  :series="chart7.series"
-                ></VueApexCharts>
+
+            <hr>
+
+            <div class="row mb-5 mx-2 my-2">
+              <div class="col-lg-9 col-sm-12">
+              </div>
+              <div class="col-lg-3 col-sm-12 d-flex justify-content-end">
+                <select v-model="rofoChart" class="form-select">
+                  <option :value="null" disabled selected>Select Option</option>
+                  <option :value="rofoTotal">RoFo Sales Plan Total</option>
+                  <option :value="rofoGaruda">RoFo Sales Plan Garuda</option>
+                  <option :value="rofoCitilink">RoFo Sales Plan Citilink</option>
+                </select>
               </div>
             </div>
-            <div class="col-md-12">
-              <div class="container">
-                <VueApexCharts
-                  type="bar"
-                  :options="chart8.chartOptions"
-                  :series="chart8.series"
-                ></VueApexCharts>
+
+            <!-- Chart RoFo Sales Plan Total -->
+            <div class="row mb-2">
+              <h3>RoFo Sales Plan Total</h3>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="container">
+                  <VueApexCharts
+                    type="bar"
+                    :options="chart7.chartOptions"
+                    :series="chart7.series"
+                  ></VueApexCharts>
+                </div>
               </div>
             </div>
-            <div class="col-md-12">
-              <div class="container">
-                <VueApexCharts
-                  type="bar"
-                  :options="chart9.chartOptions"
-                  :series="chart9.series"
-                ></VueApexCharts>
+            <!-- Chart RoFo Sales Plan Garuda -->
+            <div class="row mb-2">
+              <h3>RoFo Sales Plan Garuda</h3>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="container">
+                  <VueApexCharts
+                    type="bar"
+                    :options="chart8.chartOptions"
+                    :series="chart8.series"
+                  ></VueApexCharts>
+                </div>
               </div>
             </div>
+            <!-- Chart RoFo Sales Plan Citilink -->
+            <div class="row mb-2">
+              <h3>RoFo Sales Plan Citilink</h3>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="container">
+                  <VueApexCharts
+                    type="bar"
+                    :options="chart9.chartOptions"
+                    :series="chart9.series"
+                  ></VueApexCharts>
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
       </div>
@@ -132,6 +190,7 @@ export default {
   name: 'IndexPage',
   data(){
     return {
+      typeChart: null,
       chart1 : {
         series: [44, 55, 41, 17],
         chartOptions: {

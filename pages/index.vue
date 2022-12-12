@@ -74,7 +74,7 @@
                   :series="chart1.series"
                 ></VueApexCharts>
               </div>
-              <div class="col-md-8">
+              <div class="col-md-8 duo-chart">
                 <VueApexCharts
                   type="bar"
                   :options="chart3.chartOptions"
@@ -93,7 +93,7 @@
                   :series="chart2.series"
                 ></VueApexCharts>
               </div>
-              <div class="col-md-8">
+              <div class="col-md-8 duo-chart">
                 <VueApexCharts
                   type="bar"
                   :options="chart4.chartOptions"
@@ -112,7 +112,7 @@
                   :series="chart5.series"
                 ></VueApexCharts>
               </div>
-              <div class="col-md-8">
+              <div class="col-md-8 duo-chart">
                 <VueApexCharts
                   type="bar"
                   :options="chart6.chartOptions"
@@ -131,7 +131,7 @@
                   :series="chart1.series"
                 ></VueApexCharts>
               </div>
-              <div class="col-md-8">
+              <div class="col-md-8 duo-chart">
                 <VueApexCharts
                   type="bar"
                   :options="chart3.chartOptions"
@@ -161,7 +161,7 @@
             <!-- End Of Chart Header -->
             
             <!-- Rofo Total Chart -->
-            <div class="col-md-12" v-if="rofoChart == 'Rofo Total'">
+            <div class="col-md-12 single-chart" v-if="rofoChart == 'Rofo Total'">
               <VueApexCharts
                 type="bar"
                 :options="chart7.chartOptions"
@@ -171,7 +171,7 @@
             <!-- End Of Rofo Total Chart -->
             
             <!-- RoFo Sales Plan Garuda Chart -->
-            <div class="col-md-12" v-else-if="rofoChart == 'Rofo Garuda'">
+            <div class="col-md-12 single-chart" v-else-if="rofoChart == 'Rofo Garuda'">
               <VueApexCharts
                 type="bar"
                 :options="chart8.chartOptions"
@@ -181,7 +181,7 @@
             <!-- End Of RoFo Sales Plan Garuda Chart -->
 
             <!-- RoFo Sales Plan Citilink Chart -->
-            <div class="col-md-12" v-else-if="rofoChart == 'Rofo Citilink'">
+            <div class="col-md-12 single-chart" v-else-if="rofoChart == 'Rofo Citilink'">
               <VueApexCharts
                 type="bar"
                 :options="chart9.chartOptions"
@@ -191,7 +191,7 @@
             <!-- End Of RoFo Sales Plan Citilink Chart -->
 
             <!-- Else Condition Rofo Chart -->
-            <div class="col-md-12" v-else>
+            <div class="col-md-12 single-chart" v-else>
               <VueApexCharts
                 type="bar"
                 :options="chart7.chartOptions"
@@ -344,7 +344,7 @@ export default {
         ],
         chartOptions: {
             chart: {
-              height: 350,
+              height: "100%",
               type: 'bar'
             },
             plotOptions: {
@@ -400,7 +400,7 @@ export default {
         ],
         chartOptions: {
             chart: {
-              height: 350,
+              height: "100%",
               type: 'bar'
             },
             plotOptions: {
@@ -579,7 +579,7 @@ export default {
         ],
         chartOptions: {
             chart: {
-              height: 350,
+              height: "100%",
               type: 'bar'
             },
             plotOptions: {
@@ -618,7 +618,7 @@ export default {
         chartOptions: {
             chart: {
               type: 'bar',
-              height: 350,
+              height: "100%",
               stacked: true,
               toolbar: {
                 show: true
@@ -628,14 +628,9 @@ export default {
               }
             },
             responsive: [{
-              breakpoint: 480,
-              options: {
-                legend: {
-                  position: 'bottom',
-                  offsetX: -10,
-                  offsetY: 0
-                }
-              }
+                breakpoint: undefined,
+                options: {},
+                width: "100%"
             }],
             plotOptions: {
               bar: {
@@ -684,7 +679,7 @@ export default {
         chartOptions: {
             chart: {
               type: 'bar',
-              height: 350,
+              height: "100%",
               stacked: true,
               toolbar: {
                 show: true
@@ -694,14 +689,9 @@ export default {
               }
             },
             responsive: [{
-              breakpoint: 480,
-              options: {
-                legend: {
-                  position: 'bottom',
-                  offsetX: -10,
-                  offsetY: 0
-                }
-              }
+                breakpoint: undefined,
+                options: {},
+                width: "100%"
             }],
             plotOptions: {
               bar: {
@@ -750,7 +740,7 @@ export default {
         chartOptions: {
             chart: {
               type: 'bar',
-              height: 350,
+              height: "100%",
               stacked: true,
               toolbar: {
                 show: true
@@ -760,14 +750,9 @@ export default {
               }
             },
             responsive: [{
-              breakpoint: 480,
-              options: {
-                legend: {
-                  position: 'bottom',
-                  offsetX: -10,
-                  offsetY: 0
-                }
-              }
+                breakpoint: undefined,
+                options: {},
+                width: "100%"
             }],
             plotOptions: {
               bar: {
@@ -833,5 +818,13 @@ export default {
   }
   .custom-rofo{
     min-height: 50vh;
+  }
+  .single-chart{
+    max-width: 1080px;
+    margin: auto;
+  }
+  .duo-chart{
+    max-width: 720px;
+    margin: auto;
   }
 </style>

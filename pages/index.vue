@@ -603,17 +603,14 @@ export default {
       },
       chart7: {
         series: [{
-            name: 'PRODUCT A',
-            data: [44, 55, 41, 67, 22, 43]
+            name: 'Rofo Sales Plan',
+            data: [44, 55, 41, 67, 22, 43, 44, 55, 41, 67, 22, 43]
           }, {
-            name: 'PRODUCT B',
-            data: [13, 23, 20, 8, 13, 27]
+            name: 'GAP',
+            data: [13, 23, 20, 8, 13, 27, 44, 55, 41, 67, 22, 43]
           }, {
-            name: 'PRODUCT C',
-            data: [11, 17, 15, 15, 21, 14]
-          }, {
-            name: 'PRODUCT D',
-            data: [21, 7, 25, 13, 22, 8]
+            name: 'RKAP Sales Plan',
+            data: [11, 17, 15, 15, 21, 14, 44, 55, 41, 67, 22, 43]
           }],
         chartOptions: {
             chart: {
@@ -648,10 +645,8 @@ export default {
               },
             },
             xaxis: {
-              type: 'datetime',
-              categories: ['01/01/2011 GMT', '01/02/2011 GMT', '01/03/2011 GMT', '01/04/2011 GMT',
-                '01/05/2011 GMT', '01/06/2011 GMT'
-              ],
+              type: 'category',
+              categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Des'],
             },
             legend: {
               position: 'right',
@@ -664,17 +659,14 @@ export default {
       },
       chart8: {
         series: [{
-            name: 'PRODUCT E',
-            data: [44, 55, 41, 67, 22, 43]
+            name: 'Rofo Sales Plan',
+            data: [44, 55, 41, 67, 22, 43, 44, 55, 41, 67, 22, 43]
           }, {
-            name: 'PRODUCT F',
-            data: [13, 23, 20, 8, 13, 27]
+            name: 'GAP',
+            data: [13, 23, 20, 8, 13, 27, 44, 55, 41, 67, 22, 43]
           }, {
-            name: 'PRODUCT G',
-            data: [11, 17, 15, 15, 21, 14]
-          }, {
-            name: 'PRODUCT H',
-            data: [21, 7, 25, 13, 22, 8]
+            name: 'RKAP Sales Plan',
+            data: [11, 17, 15, 15, 21, 14, 44, 55, 41, 67, 22, 43]
           }],
         chartOptions: {
             chart: {
@@ -709,10 +701,8 @@ export default {
               },
             },
             xaxis: {
-              type: 'datetime',
-              categories: ['01/01/2011 GMT', '01/02/2011 GMT', '01/03/2011 GMT', '01/04/2011 GMT',
-                '01/05/2011 GMT', '01/06/2011 GMT'
-              ],
+              type: 'category',
+              categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Des'],
             },
             legend: {
               position: 'right',
@@ -725,17 +715,14 @@ export default {
       },
       chart9: {
         series: [{
-            name: 'PRODUCT I',
-            data: [44, 55, 41, 67, 22, 43]
+            name: 'Rofo Sales Plan',
+            data: [44, 55, 41, 67, 22, 43, 44, 55, 41, 67, 22, 43]
           }, {
-            name: 'PRODUCT J',
-            data: [13, 23, 20, 8, 13, 27]
+            name: 'GAP',
+            data: [13, 23, 20, 8, 13, 27, 44, 55, 41, 67, 22, 43]
           }, {
-            name: 'PRODUCT K',
-            data: [11, 17, 15, 15, 21, 14]
-          }, {
-            name: 'PRODUCT L',
-            data: [21, 7, 25, 13, 22, 8]
+            name: 'RKAP Sales Plan',
+            data: [11, 17, 15, 15, 21, 14, 44, 55, 41, 67, 22, 43]
           }],
         chartOptions: {
             chart: {
@@ -770,10 +757,8 @@ export default {
               },
             },
             xaxis: {
-              type: 'datetime',
-              categories: ['01/01/2011 GMT', '01/02/2011 GMT', '01/03/2011 GMT', '01/04/2011 GMT',
-                '01/05/2011 GMT', '01/06/2011 GMT'
-              ],
+              type: 'category',
+              categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Des'],
             },
             legend: {
               position: 'right',

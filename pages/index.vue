@@ -72,6 +72,7 @@
                   type="donut"
                   :options="chart1.chartOptions"
                   :series="chart1.series"
+                  id="AreaChart"
                 ></VueApexCharts>
               </div>
               <div class="col-md-6 duo-chart">
@@ -123,7 +124,7 @@
             <!-- End Of Product Chart -->
 
             <!-- Else Condition Chart -->
-            <div class="row my-5" v-else>
+            <!-- <div class="row my-5" v-else>
               <div class="col-md-4">
                 <VueApexCharts
                   type="donut"
@@ -138,7 +139,7 @@
                   :series="chart3.series"
                 ></VueApexCharts>
               </div>
-            </div>
+            </div> -->
             <!-- End Of Else Condition Chart -->
             </section>
 
@@ -215,12 +216,15 @@ export default {
   data(){
     return {
       typeChartOptions: ['Area Chart', 'Group Chart', 'Product Chart'],
-      typeChart: 'Area Chart',
+      typeChart: null,
       rofoChartOptions: ['Rofo Total', 'Rofo Garuda', 'Rofo Citilink'],
       rofoChart: 'Rofo Total',
       chart1 : {
-        series: [44, 55, 41, 17],
+        series: [],
         chartOptions: {
+          noData: {
+            text: 'Loading...'
+          },
             labels: ["Area 1", "Area 2", "Area 3", "KAM"],
             chart: {
               type: 'donut',
@@ -289,15 +293,15 @@ export default {
       chart3: {
         series: [
           {
-            name: 'Actual',
+            name: 'Sales',
             data: [
               {
                 x: 'KAM',
-                y: 1292,
+                y: null,
                 goals: [
                   {
-                    name: 'Expected',
-                    value: 1400,
+                    name: 'Target',
+                    value: null,
                     strokeHeight: 5,
                     strokeColor: '#775DD0'
                   }
@@ -305,11 +309,11 @@ export default {
               },
               {
                 x: 'I',
-                y: 4432,
+                y: null,
                 goals: [
                   {
-                    name: 'Expected',
-                    value: 5400,
+                    name: 'Target',
+                    value: null,
                     strokeHeight: 5,
                     strokeColor: '#775DD0'
                   }
@@ -317,11 +321,11 @@ export default {
               },
               {
                 x: 'II',
-                y: 5423,
+                y: null,
                 goals: [
                   {
-                    name: 'Expected',
-                    value: 5200,
+                    name: 'Target',
+                    value: null,
                     strokeHeight: 5,
                     strokeColor: '#775DD0'
                   }
@@ -329,11 +333,11 @@ export default {
               },
               {
                 x: 'III',
-                y: 6653,
+                y: null,
                 goals: [
                   {
-                    name: 'Expected',
-                    value: 6500,
+                    name: 'Target',
+                    value: null,
                     strokeHeight: 5,
                     strokeColor: '#775DD0'
                   }
@@ -359,7 +363,7 @@ export default {
             legend: {
               show: true,
               showForSingleSeries: true,
-              customLegendItems: ['Actual', 'Expected'],
+              customLegendItems: ['Sales', 'Target'],
               markers: {
                 fillColors: ['#00E396', '#775DD0']
               }
@@ -773,6 +777,9 @@ export default {
   },
   created() {
     this.loading()
+    this.areaChart()
+    this.groupChart()
+    this.productChart()
   },
   methods: {
     loading() {
@@ -784,6 +791,71 @@ export default {
         background: 'transparent',
         allowOutsideClick: false,
       })
+    },
+    areaChart() {
+      this.$axios
+        .get('api/dashboard-area')
+        .then((response) => {
+          // Chart 1 Update Series
+          this.chart1.series = response.data.data.pie
+
+          // Chart 3 Update Value
+          this.chart3.series[0].data[0].goals[0].value = response.data.data.bar.area1.target
+          this.chart3.series[0].data[1].goals[0].value = response.data.data.bar.area2.target
+          this.chart3.series[0].data[2].goals[0].value = response.data.data.bar.area3.target
+          this.chart3.series[0].data[3].goals[0].value = response.data.data.bar.kam.target
+
+          // Chart 3 Update Value
+          this.chart3.series[0].data[0].y = response.data.data.bar.area1.progress
+          this.chart3.series[0].data[1].y = response.data.data.bar.area2.progress
+          this.chart3.series[0].data[2].y = response.data.data.bar.area3.progress
+          this.chart3.series[0].data[3].y = response.data.data.bar.kam.progress
+
+          this.typeChart = 'Area Chart'
+        })
+        .catch((error) => console.log(error))
+    },
+    groupChart() {
+      this.$axios
+        .get('api/dashboard-group')
+        .then((response) => {
+          // Chart 1 Update Series
+          this.chart2.series = response.data.data.pie
+
+          // Chart 4 Update Value
+          this.chart4.series[0].data[0].goals[0].value = response.data.data.bar.area1.target
+          this.chart4.series[0].data[1].goals[0].value = response.data.data.bar.area2.target
+          this.chart4.series[0].data[2].goals[0].value = response.data.data.bar.area3.target
+          this.chart4.series[0].data[3].goals[0].value = response.data.data.bar.kam.target
+
+          // Chart 4 Update Value
+          this.chart4.series[0].data[0].y = response.data.data.bar.area1.progress
+          this.chart4.series[0].data[1].y = response.data.data.bar.area2.progress
+          this.chart4.series[0].data[2].y = response.data.data.bar.area3.progress
+          this.chart4.series[0].data[3].y = response.data.data.bar.kam.progress
+        })
+        .catch((error) => console.log(error))
+    },
+    productChart() {
+      this.$axios
+        .get('api/dashboard-product')
+        .then((response) => {
+          // Chart 5 Update Series
+          this.chart5.series = response.data.data.pie
+
+          // Chart 6 Update Value
+          this.chart6.series[0].data[0].goals[0].value = response.data.data.bar.area1.target
+          this.chart6.series[0].data[1].goals[0].value = response.data.data.bar.area2.target
+          this.chart6.series[0].data[2].goals[0].value = response.data.data.bar.area3.target
+          this.chart6.series[0].data[3].goals[0].value = response.data.data.bar.kam.target
+
+          // Chart 6 Update Value
+          this.chart6.series[0].data[0].y = response.data.data.bar.area1.progress
+          this.chart6.series[0].data[1].y = response.data.data.bar.area2.progress
+          this.chart6.series[0].data[2].y = response.data.data.bar.area3.progress
+          this.chart6.series[0].data[3].y = response.data.data.bar.kam.progress
+        })
+        .catch((error) => console.log(error))
     },
   },
 }

@@ -823,16 +823,12 @@ export default {
           this.chart2.series = response.data.data.pie
 
           // Chart 4 Update Value
-          this.chart4.series[0].data[0].goals[0].value = response.data.data.bar.area1.target
-          this.chart4.series[0].data[1].goals[0].value = response.data.data.bar.area2.target
-          this.chart4.series[0].data[2].goals[0].value = response.data.data.bar.area3.target
-          this.chart4.series[0].data[3].goals[0].value = response.data.data.bar.kam.target
+          this.chart4.series[0].data[0].goals[0].value = response.data.data.bar.group1.target
+          this.chart4.series[0].data[1].goals[0].value = response.data.data.bar.group2.target
 
           // Chart 4 Update Value
-          this.chart4.series[0].data[0].y = response.data.data.bar.area1.progress
-          this.chart4.series[0].data[1].y = response.data.data.bar.area2.progress
-          this.chart4.series[0].data[2].y = response.data.data.bar.area3.progress
-          this.chart4.series[0].data[3].y = response.data.data.bar.kam.progress
+          this.chart4.series[0].data[0].y = response.data.data.bar.group1.progress
+          this.chart4.series[0].data[1].y = response.data.data.bar.group2.progress
         })
         .catch((error) => console.log(error))
     },

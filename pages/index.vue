@@ -67,14 +67,14 @@
 
             <!-- Area Chart -->
             <div class="row my-5" v-if="typeChart == 'Area Chart'">
-              <div class="col-md-4">
+              <div class="col-md-6">
                 <VueApexCharts
                   type="donut"
                   :options="chart1.chartOptions"
                   :series="chart1.series"
                 ></VueApexCharts>
               </div>
-              <div class="col-md-8 duo-chart">
+              <div class="col-md-6 duo-chart">
                 <VueApexCharts
                   type="bar"
                   :options="chart3.chartOptions"
@@ -86,14 +86,14 @@
 
             <!-- Group Chart -->
             <div class="row my-5" v-else-if="typeChart == 'Group Chart'">
-              <div class="col-md-4">
+              <div class="col-md-6">
                 <VueApexCharts
                   type="donut"
                   :options="chart2.chartOptions"
                   :series="chart2.series"
                 ></VueApexCharts>
               </div>
-              <div class="col-md-8 duo-chart">
+              <div class="col-md-6 duo-chart">
                 <VueApexCharts
                   type="bar"
                   :options="chart4.chartOptions"
@@ -105,14 +105,14 @@
 
             <!-- Product Chart -->
             <div class="row my-5" v-else-if="typeChart == 'Product Chart'">
-              <div class="col-md-4">
+              <div class="col-md-6">
                 <VueApexCharts
                   type="donut"
                   :options="chart5.chartOptions"
                   :series="chart5.series"
                 ></VueApexCharts>
               </div>
-              <div class="col-md-8 duo-chart">
+              <div class="col-md-6 duo-chart">
                 <VueApexCharts
                   type="bar"
                   :options="chart6.chartOptions"
@@ -423,9 +423,9 @@ export default {
           },
       },
       chart5 : {
-        series: [44, 55, 41, 17],
+        series: [44, 55, 41, 17, 55, 41, 17, 18],
         chartOptions: {
-            labels: ["Area 1", "Area 2", "Area 3", "KAM"],
+            labels: ["IGTE", "Engine & APU", "Material Trading & Logistic", "Line", "Engineering", "Component", "Airframe", "Others"],
             chart: {
               type: 'donut',
             },

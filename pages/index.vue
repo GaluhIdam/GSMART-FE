@@ -39,27 +39,34 @@
     </div>
     <div class="container mt-5">
       <div class="card shadow-sm">
-        <div class="row mb-5 mx-2 my-2">
+        <div class="row my-5 mx-2">
           <div class="col-lg-9 col-sm-12">
-            <h3 class="mt-3">Chart Sales Plan</h3>
-          </div>
-          <div class="col-lg-3 col-sm-12 d-flex justify-content-end">
-            <select v-model="typeChart" class="form-select">
-              <option :value="null" disabled selected>Select Option</option>
-              <option :value="areaChart">Area</option>
-              <option :value="groupChart">Group</option>
-              <option :value="productChart">Product</option>
-            </select>
+            <p class="h2">Chart Sales Plan</p>
           </div>
         </div>
     
         <div class="card-body">
           <div class="container">
-            <!-- Chart Area -->
-            <div class="row mb-2">
-              <h3>Area Chart</h3>
+            <section class="mb-20">
+            <!-- Chart Header -->
+            <div class="row my-2">
+              <div class="col-lg-9 col-sm-12">
+                <p class="h2" v-if="typeChart == 'Area Chart'">Area Chart</p>
+                <p class="h2" v-else-if="typeChart == 'Group Chart'">Group Chart</p>
+                <p class="h2" v-else-if="typeChart == 'Product Chart'">Product Chart</p>
+                <p class="h2" v-else>Area Chart</p>
+              </div>
+              <div class="col-lg-3 col-sm-12 d-flex justify-content-end">
+                <multiselect
+                  v-model="typeChart"
+                  :options="typeChartOptions"
+                ></multiselect>
+              </div>
             </div>
-            <div class="row">
+            <!-- End Of Chart Header -->
+
+            <!-- Area Chart -->
+            <div class="row my-5" v-if="typeChart == 'Area Chart'">
               <div class="col-md-4">
                 <VueApexCharts
                   type="donut"
@@ -67,7 +74,7 @@
                   :series="chart1.series"
                 ></VueApexCharts>
               </div>
-              <div class="col-md-8">
+              <div class="col-md-8 duo-chart">
                 <VueApexCharts
                   type="bar"
                   :options="chart3.chartOptions"
@@ -75,11 +82,10 @@
                 ></VueApexCharts>
               </div>
             </div>
-            <!-- Chart Group -->
-            <div class="row mb-2">
-              <h3>Group Chart</h3>
-            </div>
-            <div class="row">
+            <!-- End Of Area Chart -->
+
+            <!-- Group Chart -->
+            <div class="row my-5" v-else-if="typeChart == 'Group Chart'">
               <div class="col-md-4">
                 <VueApexCharts
                   type="donut"
@@ -87,7 +93,7 @@
                   :series="chart2.series"
                 ></VueApexCharts>
               </div>
-              <div class="col-md-8">
+              <div class="col-md-8 duo-chart">
                 <VueApexCharts
                   type="bar"
                   :options="chart4.chartOptions"
@@ -95,11 +101,10 @@
                 ></VueApexCharts>
               </div>
             </div>
-            <!-- Chart Product -->
-            <div class="row mb-2">
-              <h3>Product Chart</h3>
-            </div>
-            <div class="row">
+            <!-- End Of Group Chart -->
+
+            <!-- Product Chart -->
+            <div class="row my-5" v-else-if="typeChart == 'Product Chart'">
               <div class="col-md-4">
                 <VueApexCharts
                   type="donut"
@@ -107,7 +112,7 @@
                   :series="chart5.series"
                 ></VueApexCharts>
               </div>
-              <div class="col-md-8">
+              <div class="col-md-8 duo-chart">
                 <VueApexCharts
                   type="bar"
                   :options="chart6.chartOptions"
@@ -115,67 +120,86 @@
                 ></VueApexCharts>
               </div>
             </div>
+            <!-- End Of Product Chart -->
 
-            <hr>
+            <!-- Else Condition Chart -->
+            <div class="row my-5" v-else>
+              <div class="col-md-4">
+                <VueApexCharts
+                  type="donut"
+                  :options="chart1.chartOptions"
+                  :series="chart1.series"
+                ></VueApexCharts>
+              </div>
+              <div class="col-md-8 duo-chart">
+                <VueApexCharts
+                  type="bar"
+                  :options="chart3.chartOptions"
+                  :series="chart3.series"
+                ></VueApexCharts>
+              </div>
+            </div>
+            <!-- End Of Else Condition Chart -->
+            </section>
 
-            <div class="row mb-5 mx-2 my-2">
+            <section class="custom-rofo">
+            <!-- Chart Header -->
+            <div class="row my-5 custom-height">
               <div class="col-lg-9 col-sm-12">
+                <p class="h2" v-if="rofoChart == 'Rofo Total'">Rofo Total</p>
+                <p class="h2" v-else-if="rofoChart == 'Rofo Garuda'">Rofo Garuda</p>
+                <p class="h2" v-else-if="rofoChart == 'Rofo Citilink'">Rofo Citilink</p>
+                <p class="h2" v-else>Rofo Total</p>
               </div>
               <div class="col-lg-3 col-sm-12 d-flex justify-content-end">
-                <select v-model="rofoChart" class="form-select">
-                  <option :value="null" disabled selected>Select Option</option>
-                  <option :value="rofoTotal">RoFo Sales Plan Total</option>
-                  <option :value="rofoGaruda">RoFo Sales Plan Garuda</option>
-                  <option :value="rofoCitilink">RoFo Sales Plan Citilink</option>
-                </select>
+                <multiselect
+                  v-model="rofoChart"
+                  :options="rofoChartOptions"
+                ></multiselect>
               </div>
             </div>
+            <!-- End Of Chart Header -->
+            
+            <!-- Rofo Total Chart -->
+            <div class="col-md-12 single-chart" v-if="rofoChart == 'Rofo Total'">
+              <VueApexCharts
+                type="bar"
+                :options="chart7.chartOptions"
+                :series="chart7.series"
+              ></VueApexCharts>
+            </div>
+            <!-- End Of Rofo Total Chart -->
+            
+            <!-- RoFo Sales Plan Garuda Chart -->
+            <div class="col-md-12 single-chart" v-else-if="rofoChart == 'Rofo Garuda'">
+              <VueApexCharts
+                type="bar"
+                :options="chart8.chartOptions"
+                :series="chart8.series"
+              ></VueApexCharts>
+            </div>
+            <!-- End Of RoFo Sales Plan Garuda Chart -->
 
-            <!-- Chart RoFo Sales Plan Total -->
-            <div class="row mb-2">
-              <h3>RoFo Sales Plan Total</h3>
+            <!-- RoFo Sales Plan Citilink Chart -->
+            <div class="col-md-12 single-chart" v-else-if="rofoChart == 'Rofo Citilink'">
+              <VueApexCharts
+                type="bar"
+                :options="chart9.chartOptions"
+                :series="chart9.series"
+              ></VueApexCharts>
             </div>
-            <div class="row">
-              <div class="col-md-12">
-                <div class="container">
-                  <VueApexCharts
-                    type="bar"
-                    :options="chart7.chartOptions"
-                    :series="chart7.series"
-                  ></VueApexCharts>
-                </div>
-              </div>
+            <!-- End Of RoFo Sales Plan Citilink Chart -->
+
+            <!-- Else Condition Rofo Chart -->
+            <div class="col-md-12 single-chart" v-else>
+              <VueApexCharts
+                type="bar"
+                :options="chart7.chartOptions"
+                :series="chart7.series"
+              ></VueApexCharts>
             </div>
-            <!-- Chart RoFo Sales Plan Garuda -->
-            <div class="row mb-2">
-              <h3>RoFo Sales Plan Garuda</h3>
-            </div>
-            <div class="row">
-              <div class="col-md-12">
-                <div class="container">
-                  <VueApexCharts
-                    type="bar"
-                    :options="chart8.chartOptions"
-                    :series="chart8.series"
-                  ></VueApexCharts>
-                </div>
-              </div>
-            </div>
-            <!-- Chart RoFo Sales Plan Citilink -->
-            <div class="row mb-2">
-              <h3>RoFo Sales Plan Citilink</h3>
-            </div>
-            <div class="row">
-              <div class="col-md-12">
-                <div class="container">
-                  <VueApexCharts
-                    type="bar"
-                    :options="chart9.chartOptions"
-                    :series="chart9.series"
-                  ></VueApexCharts>
-                </div>
-              </div>
-            </div>
+            <!-- End Of Else Condition Rofo Chart -->
+            </section>
 
           </div>
         </div>
@@ -190,7 +214,10 @@ export default {
   name: 'IndexPage',
   data(){
     return {
-      typeChart: null,
+      typeChartOptions: ['Area Chart', 'Group Chart', 'Product Chart'],
+      typeChart: 'Area Chart',
+      rofoChartOptions: ['Rofo Total', 'Rofo Garuda', 'Rofo Citilink'],
+      rofoChart: 'Rofo Total',
       chart1 : {
         series: [44, 55, 41, 17],
         chartOptions: {
@@ -317,7 +344,7 @@ export default {
         ],
         chartOptions: {
             chart: {
-              height: 350,
+              height: "100%",
               type: 'bar'
             },
             plotOptions: {
@@ -373,7 +400,7 @@ export default {
         ],
         chartOptions: {
             chart: {
-              height: 350,
+              height: "100%",
               type: 'bar'
             },
             plotOptions: {
@@ -552,7 +579,7 @@ export default {
         ],
         chartOptions: {
             chart: {
-              height: 350,
+              height: "100%",
               type: 'bar'
             },
             plotOptions: {
@@ -591,7 +618,7 @@ export default {
         chartOptions: {
             chart: {
               type: 'bar',
-              height: 350,
+              height: "100%",
               stacked: true,
               toolbar: {
                 show: true
@@ -601,14 +628,9 @@ export default {
               }
             },
             responsive: [{
-              breakpoint: 480,
-              options: {
-                legend: {
-                  position: 'bottom',
-                  offsetX: -10,
-                  offsetY: 0
-                }
-              }
+                breakpoint: undefined,
+                options: {},
+                width: "100%"
             }],
             plotOptions: {
               bar: {
@@ -642,22 +664,22 @@ export default {
       },
       chart8: {
         series: [{
-            name: 'PRODUCT A',
+            name: 'PRODUCT E',
             data: [44, 55, 41, 67, 22, 43]
           }, {
-            name: 'PRODUCT B',
+            name: 'PRODUCT F',
             data: [13, 23, 20, 8, 13, 27]
           }, {
-            name: 'PRODUCT C',
+            name: 'PRODUCT G',
             data: [11, 17, 15, 15, 21, 14]
           }, {
-            name: 'PRODUCT D',
+            name: 'PRODUCT H',
             data: [21, 7, 25, 13, 22, 8]
           }],
         chartOptions: {
             chart: {
               type: 'bar',
-              height: 350,
+              height: "100%",
               stacked: true,
               toolbar: {
                 show: true
@@ -667,14 +689,9 @@ export default {
               }
             },
             responsive: [{
-              breakpoint: 480,
-              options: {
-                legend: {
-                  position: 'bottom',
-                  offsetX: -10,
-                  offsetY: 0
-                }
-              }
+                breakpoint: undefined,
+                options: {},
+                width: "100%"
             }],
             plotOptions: {
               bar: {
@@ -708,22 +725,22 @@ export default {
       },
       chart9: {
         series: [{
-            name: 'PRODUCT A',
+            name: 'PRODUCT I',
             data: [44, 55, 41, 67, 22, 43]
           }, {
-            name: 'PRODUCT B',
+            name: 'PRODUCT J',
             data: [13, 23, 20, 8, 13, 27]
           }, {
-            name: 'PRODUCT C',
+            name: 'PRODUCT K',
             data: [11, 17, 15, 15, 21, 14]
           }, {
-            name: 'PRODUCT D',
+            name: 'PRODUCT L',
             data: [21, 7, 25, 13, 22, 8]
           }],
         chartOptions: {
             chart: {
               type: 'bar',
-              height: 350,
+              height: "100%",
               stacked: true,
               toolbar: {
                 show: true
@@ -733,14 +750,9 @@ export default {
               }
             },
             responsive: [{
-              breakpoint: 480,
-              options: {
-                legend: {
-                  position: 'bottom',
-                  offsetX: -10,
-                  offsetY: 0
-                }
-              }
+                breakpoint: undefined,
+                options: {},
+                width: "100%"
             }],
             plotOptions: {
               bar: {
@@ -800,5 +812,19 @@ export default {
   }
   .mb-20 {
     margin-bottom: 20px;
+  }
+  .custom-height{
+    min-height: 50px;
+  }
+  .custom-rofo{
+    min-height: 50vh;
+  }
+  .single-chart{
+    max-width: 1080px;
+    margin: auto;
+  }
+  .duo-chart{
+    max-width: 720px;
+    margin: auto;
   }
 </style>

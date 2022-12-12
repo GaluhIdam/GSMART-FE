@@ -38,7 +38,7 @@
           <div class="row">
             <div class="col-md-5 p-16">
               <span class="badge text-muted text-bg-light d-block text-start mt-2">PBTH</span>
-              <h2 class="mt-1">Airframe</h2>
+              <h2 class="mt-1">{{ product }}</h2>
               <div class="text-muted fw-semibold fs-5" v-if="registration">Project for {{ registration }}</div>
               <div class="text-muted fw-semibold fs-5" v-else>Project for</div>
               <div class="text-muted fs-6">Remark for this project..</div>
@@ -377,7 +377,8 @@ export default {
       pbth_length: null,
       initial: null,
       inputOptionsValue: 'Input Convidence Level',
-      inputOptions: ['Input Convidence Flight Hour', 'Input Convidence Level']
+      inputOptions: ['Input Convidence Flight Hour', 'Input Convidence Level'],
+      product: null,
       }
     },
   created() {
@@ -476,7 +477,9 @@ export default {
     listPBTH() {
       this.$axios
         .get(`api/prospect-pbth/${this.$route.query.id}`)
-        .then((response) => {   
+        .then((response) => {
+          // Data Product
+          this.product = response.data.data.prospect[0].product.name
           // Data PBTH
           this.pbth = response.data.data.prospect
           // Data Customer

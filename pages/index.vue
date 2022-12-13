@@ -123,24 +123,6 @@
             </div>
             <!-- End Of Product Chart -->
 
-            <!-- Else Condition Chart -->
-            <!-- <div class="row my-5" v-else>
-              <div class="col-md-4">
-                <VueApexCharts
-                  type="donut"
-                  :options="chart1.chartOptions"
-                  :series="chart1.series"
-                ></VueApexCharts>
-              </div>
-              <div class="col-md-8 duo-chart">
-                <VueApexCharts
-                  type="bar"
-                  :options="chart3.chartOptions"
-                  :series="chart3.series"
-                ></VueApexCharts>
-              </div>
-            </div> -->
-            <!-- End Of Else Condition Chart -->
             </section>
 
             <section class="custom-rofo">
@@ -373,14 +355,14 @@ export default {
       chart4: {
         series: [
           {
-            name: 'Actual',
+            name: 'Sales',
             data: [
               {
                 x: 'GA',
                 y: 4432,
                 goals: [
                   {
-                    name: 'Expected',
+                    name: 'Target',
                     value: 5400,
                     strokeHeight: 5,
                     strokeColor: '#775DD0'
@@ -392,7 +374,7 @@ export default {
                 y: 5423,
                 goals: [
                   {
-                    name: 'Expected',
+                    name: 'Target',
                     value: 5200,
                     strokeHeight: 5,
                     strokeColor: '#775DD0'
@@ -414,12 +396,17 @@ export default {
             },
             colors: ['#00E396'],
             dataLabels: {
-              enabled: false
+              enabled: false,
+              // TODO munculin persen disini
+              // enabled: true,
+              // formatter: function (val) {
+              //   return val + "%";
+              // },
             },
             legend: {
               show: true,
               showForSingleSeries: true,
-              customLegendItems: ['Actual', 'Expected'],
+              customLegendItems: ['Sales', 'Target'],
               markers: {
                 fillColors: ['#00E396', '#775DD0']
               }
@@ -508,9 +495,7 @@ export default {
                     {
                       name: 'Target',
                       value: null,
-                      strokeHeight: 13,
-                      strokeWidth: 0,
-                      strokeLineCap: 'round',
+                      strokeHeight: 5,
                       strokeColor: '#775DD0'
                     }
                   ]
@@ -546,8 +531,7 @@ export default {
                     {
                       name: 'Target',
                       value: null,
-                      strokeHeight: 2,
-                      strokeDashArray: 2,
+                      strokeHeight: 5,
                       strokeColor: '#775DD0'
                     }
                   ]
@@ -559,8 +543,7 @@ export default {
                     {
                       name: 'Target',
                       value: null,
-                      strokeHeight: 2,
-                      strokeDashArray: 2,
+                      strokeHeight: 5,
                       strokeColor: '#775DD0'
                     }
                   ]
@@ -572,8 +555,7 @@ export default {
                     {
                       name: 'Target',
                       value: null,
-                      strokeHeight: 2,
-                      strokeDashArray: 2,
+                      strokeHeight: 5,
                       strokeColor: '#775DD0'
                     }
                   ]

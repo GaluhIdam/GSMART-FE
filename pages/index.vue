@@ -762,7 +762,7 @@
     this.groupChart()
     this.productChart()
     this.rofoTotal()
-    // this.rofoTotalGaruda()
+    this.rofoTotalGaruda()
     // this.rofoTotalCitilink()
     },
     methods: {
@@ -863,17 +863,17 @@
                 })
             .catch((error) => console.log(error))
         },
-        // rofoTotalGaruda() {
-        //     this.$axios
-        //         .get('api/dashboard-rofo-total-garuda')
-        //         .then((response) => {
-        //         // Chart 8 Update Series
-        //         this.chart8.series[0].data = response.data.data.progress
-        //         this.chart8.series[1].data = response.data.data.gap
-        //         this.chart8.series[2].data = response.data.data.target
-        //         })
-        //         .catch((error) => console.log(error))
-        // },
+        rofoTotalGaruda() {
+            this.$axios
+                .get('api/dashboard-rofo-garuda')
+                .then((response) => {
+                // Chart 8 Update Series
+                this.chart8.series[0].data = response.data.data.progress
+                this.chart8.series[1].data = response.data.data.gap
+                this.chart8.series[2].data = response.data.data.target
+                })
+                .catch((error) => console.log(error))
+        },
         // rofoTotalCitilink() {
         //     this.$axios
         //         .get('api/dashboard-rofo-total-citilink')

@@ -429,7 +429,7 @@ export default {
       chart5 : {
         series: [44, 55, 41, 17, 55, 41, 17, 18],
         chartOptions: {
-            labels: ["IGTE", "Engine & APU", "Material Trading & Logistic", "Line", "Engineering", "Component", "Airframe", "Others"],
+            labels: ["Learning", "IGTE", "Others", "Engine & APU", "Material Trading & Logistic", "Line", "Engineering", "Component", "Airframe"],
             chart: {
               type: 'donut',
             },
@@ -466,48 +466,48 @@ export default {
             name: 'Actual',
             data: [
               {
-                  x: '2012',
-                  y: 4432,
+                  x: 'Learning',
+                  y: null,
                   goals: [
                     {
-                      name: 'Expected',
-                      value: 5400,
+                      name: 'Target',
+                      value: null,
                       strokeHeight: 5,
                       strokeColor: '#775DD0'
                     }
                   ]
                 },
                 {
-                  x: '2013',
-                  y: 5423,
+                  x: 'IGTE',
+                  y: null,
                   goals: [
                     {
-                      name: 'Expected',
-                      value: 5200,
+                      name: 'Target',
+                      value: null,
                       strokeHeight: 5,
                       strokeColor: '#775DD0'
                     }
                   ]
                 },
                 {
-                  x: '2014',
-                  y: 6653,
+                  x: 'Others',
+                  y: null,
                   goals: [
                     {
-                      name: 'Expected',
-                      value: 6500,
+                      name: 'Target',
+                      value: null,
                       strokeHeight: 5,
                       strokeColor: '#775DD0'
                     }
                   ]
                 },
                 {
-                  x: '2015',
-                  y: 8133,
+                  x: 'Engine & APU',
+                  y: null,
                   goals: [
                     {
-                      name: 'Expected',
-                      value: 6600,
+                      name: 'Target',
+                      value: null,
                       strokeHeight: 13,
                       strokeWidth: 0,
                       strokeLineCap: 'round',
@@ -516,36 +516,36 @@ export default {
                   ]
                 },
                 {
-                  x: '2016',
-                  y: 7132,
+                  x: 'Material Trading & Logistic',
+                  y: null,
                   goals: [
                     {
-                      name: 'Expected',
-                      value: 7500,
+                      name: 'Target',
+                      value: null,
                       strokeHeight: 5,
                       strokeColor: '#775DD0'
                     }
                   ]
                 },
                 {
-                  x: '2017',
-                  y: 7332,
+                  x: 'Line',
+                  y: null,
                   goals: [
                     {
-                      name: 'Expected',
-                      value: 8700,
+                      name: 'Target',
+                      value: null,
                       strokeHeight: 5,
                       strokeColor: '#775DD0'
                     }
                   ]
                 },
                 {
-                  x: '2018',
-                  y: 6553,
+                  x: 'Engineering',
+                  y: null,
                   goals: [
                     {
-                      name: 'Expected',
-                      value: 7300,
+                      name: 'Target',
+                      value: null,
                       strokeHeight: 2,
                       strokeDashArray: 2,
                       strokeColor: '#775DD0'
@@ -553,12 +553,12 @@ export default {
                   ]
                 },
                 {
-                  x: '2019',
-                  y: 6553,
+                  x: 'Component',
+                  y: null,
                   goals: [
                     {
-                      name: 'Expected',
-                      value: 7300,
+                      name: 'Target',
+                      value: null,
                       strokeHeight: 2,
                       strokeDashArray: 2,
                       strokeColor: '#775DD0'
@@ -566,12 +566,12 @@ export default {
                   ]
                 },
                 {
-                  x: '2020',
-                  y: 6553,
+                  x: 'Airframe',
+                  y: null,
                   goals: [
                     {
-                      name: 'Expected',
-                      value: 7300,
+                      name: 'Target',
+                      value: null,
                       strokeHeight: 2,
                       strokeDashArray: 2,
                       strokeColor: '#775DD0'
@@ -598,7 +598,7 @@ export default {
             legend: {
               show: true,
               showForSingleSeries: true,
-              customLegendItems: ['Actual', 'Expected'],
+              customLegendItems: ['Sales', 'Target'],
               markers: {
                 fillColors: ['#00E396', '#775DD0']
               }
@@ -608,13 +608,13 @@ export default {
       chart7: {
         series: [{
             name: 'Rofo Sales Plan',
-            data: [44, 55, 41, 67, 22, 43, 44, 55, 41, 67, 22, 43]
+            data: []
           }, {
             name: 'GAP',
-            data: [13, 23, 20, 8, 13, 27, 44, 55, 41, 67, 22, 43]
+            data: []
           }, {
             name: 'RKAP Sales Plan',
-            data: [11, 17, 15, 15, 21, 14, 44, 55, 41, 67, 22, 43]
+            data: []
           }],
         chartOptions: {
             chart: {
@@ -650,7 +650,7 @@ export default {
             },
             xaxis: {
               type: 'category',
-              categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Des'],
+              categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Des', 'RoFo YTD'],
             },
             legend: {
               position: 'right',
@@ -780,6 +780,7 @@ export default {
     this.areaChart()
     this.groupChart()
     this.productChart()
+    // this.rofoTotal()
   },
   methods: {
     loading() {
@@ -840,19 +841,50 @@ export default {
           this.chart5.series = response.data.data.pie
 
           // Chart 6 Update Value
-          this.chart6.series[0].data[0].goals[0].value = response.data.data.bar.area1.target
-          this.chart6.series[0].data[1].goals[0].value = response.data.data.bar.area2.target
-          this.chart6.series[0].data[2].goals[0].value = response.data.data.bar.area3.target
-          this.chart6.series[0].data[3].goals[0].value = response.data.data.bar.kam.target
+          this.chart6.series[0].data[0].goals[0].value = response.data.data.bar.learning.target
+          this.chart6.series[0].data[1].goals[0].value = response.data.data.bar.igte.target
+          this.chart6.series[0].data[2].goals[0].value = response.data.data.bar.others.target
+          this.chart6.series[0].data[3].goals[0].value = response.data.data.bar.engapu.target
+          this.chart6.series[0].data[4].goals[0].value = response.data.data.bar.material.target
+          this.chart6.series[0].data[5].goals[0].value = response.data.data.bar.line.target
+          this.chart6.series[0].data[6].goals[0].value = response.data.data.bar.engineering.target
+          this.chart6.series[0].data[7].goals[0].value = response.data.data.bar.component.target
+          this.chart6.series[0].data[8].goals[0].value = response.data.data.bar.airframe.target
 
           // Chart 6 Update Value
-          this.chart6.series[0].data[0].y = response.data.data.bar.area1.progress
-          this.chart6.series[0].data[1].y = response.data.data.bar.area2.progress
-          this.chart6.series[0].data[2].y = response.data.data.bar.area3.progress
-          this.chart6.series[0].data[3].y = response.data.data.bar.kam.progress
+          this.chart6.series[0].data[0].y = response.data.data.bar.learning.progress
+          this.chart6.series[0].data[1].y = response.data.data.bar.igte.progress
+          this.chart6.series[0].data[2].y = response.data.data.bar.others.progress
+          this.chart6.series[0].data[3].y = response.data.data.bar.engapu.progress
+          this.chart6.series[0].data[4].y = response.data.data.bar.material.progress
+          this.chart6.series[0].data[5].y = response.data.data.bar.line.progress
+          this.chart6.series[0].data[6].y = response.data.data.bar.engineering.progress
+          this.chart6.series[0].data[7].y = response.data.data.bar.component.progress
+          this.chart6.series[0].data[8].y = response.data.data.bar.airframe.progress
         })
         .catch((error) => console.log(error))
     },
+    // rofoTotal() {
+    //   this.$axios
+    //     .get('api/dashboard-product')
+    //     .then((response) => {
+    //       // Chart 5 Update Series
+    //       this.chart5.series = response.data.data.pie
+
+    //       // Chart 6 Update Value
+    //       this.chart6.series[0].data[0].goals[0].value = response.data.data.bar.area1.target
+    //       this.chart6.series[0].data[1].goals[0].value = response.data.data.bar.area2.target
+    //       this.chart6.series[0].data[2].goals[0].value = response.data.data.bar.area3.target
+    //       this.chart6.series[0].data[3].goals[0].value = response.data.data.bar.kam.target
+
+    //       // Chart 6 Update Value
+    //       this.chart6.series[0].data[0].y = response.data.data.bar.area1.progress
+    //       this.chart6.series[0].data[1].y = response.data.data.bar.area2.progress
+    //       this.chart6.series[0].data[2].y = response.data.data.bar.area3.progress
+    //       this.chart6.series[0].data[3].y = response.data.data.bar.kam.progress
+    //     })
+    //     .catch((error) => console.log(error))
+    // },
   },
 }
 </script>

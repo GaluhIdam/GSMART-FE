@@ -763,7 +763,7 @@
     this.productChart()
     this.rofoTotal()
     this.rofoTotalGaruda()
-    // this.rofoTotalCitilink()
+    this.rofoTotalCitilink()
     },
     methods: {
         loading() {
@@ -874,17 +874,17 @@
                 })
                 .catch((error) => console.log(error))
         },
-        // rofoTotalCitilink() {
-        //     this.$axios
-        //         .get('api/dashboard-rofo-total-citilink')
-        //         .then((response) => {
-        //         // Chart 9 Update Series
-        //         this.chart9.series[0].data = response.data.data.progress
-        //         this.chart9.series[1].data = response.data.data.gap
-        //         this.chart9.series[2].data = response.data.data.target
-        //         })
-        //         .catch((error) => console.log(error))
-        // },
+        rofoTotalCitilink() {
+            this.$axios
+                .get('api/dashboard-rofo-citilink')
+                .then((response) => {
+                // Chart 9 Update Series
+                this.chart9.series[0].data = response.data.data.progress
+                this.chart9.series[1].data = response.data.data.gap
+                this.chart9.series[2].data = response.data.data.target
+                })
+                .catch((error) => console.log(error))
+        },
     },
 }
 </script>

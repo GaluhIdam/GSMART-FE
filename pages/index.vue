@@ -60,6 +60,10 @@
                             <multiselect
                             v-model="typeChart"
                             :options="typeChartOptions"
+                            :allow-empty="false"
+                            :searchable="false"
+                            :close-on-select="false"
+                            :show-labels="false"
                             ></multiselect>
                         </div>
                     </div>
@@ -132,56 +136,38 @@
                         <p class="h2" v-if="rofoChart == 'Rofo Total'">Rofo Total</p>
                         <p class="h2" v-else-if="rofoChart == 'Rofo Garuda'">Rofo Garuda</p>
                         <p class="h2" v-else-if="rofoChart == 'Rofo Citilink'">Rofo Citilink</p>
-                        <p class="h2" v-else>Rofo Total</p>
                     </div>
                     <div class="col-lg-3 col-sm-12 d-flex justify-content-end">
                         <multiselect
                         v-model="rofoChart"
                         :options="rofoChartOptions"
+                        :allow-empty="false"
+                        :searchable="false"
+                        :close-on-select="false"
+                        :show-labels="false"
                         ></multiselect>
                     </div>
                     </div>
                     <!-- End Of Chart Header -->
                     
                     <!-- Rofo Total Chart -->
-                    <div class="col-md-12 single-chart" v-if="rofoChart == 'Rofo Total'">
-                    <VueApexCharts
-                        type="bar"
-                        :options="chart7.chartOptions"
-                        :series="chart7.series"
-                    ></VueApexCharts>
+                    <div id="single-chart" v-if="rofoChart == 'Rofo Total'">
+                        <VueApexCharts type="bar" height="350" :options="chart7.chartOptions" :series="chart7.series"></VueApexCharts>
                     </div>
+                    
                     <!-- End Of Rofo Total Chart -->
                     
                     <!-- RoFo Sales Plan Garuda Chart -->
-                    <div class="col-md-12 single-chart" v-else-if="rofoChart == 'Rofo Garuda'">
-                    <VueApexCharts
-                        type="bar"
-                        :options="chart8.chartOptions"
-                        :series="chart8.series"
-                    ></VueApexCharts>
+                    <div id="single-chart" v-if="rofoChart == 'Rofo Garuda'">
+                        <VueApexCharts type="bar" height="350" :options="chart8.chartOptions" :series="chart8.series"></VueApexCharts>
                     </div>
                     <!-- End Of RoFo Sales Plan Garuda Chart -->
 
                     <!-- RoFo Sales Plan Citilink Chart -->
-                    <div class="col-md-12 single-chart" v-else-if="rofoChart == 'Rofo Citilink'">
-                    <VueApexCharts
-                        type="bar"
-                        :options="chart9.chartOptions"
-                        :series="chart9.series"
-                    ></VueApexCharts>
+                    <div id="single-chart" v-if="rofoChart == 'Rofo Citilink'">
+                        <VueApexCharts type="bar" height="350" :options="chart9.chartOptions" :series="chart9.series"></VueApexCharts>
                     </div>
                     <!-- End Of RoFo Sales Plan Citilink Chart -->
-
-                    <!-- Else Condition Rofo Chart -->
-                    <div class="col-md-12 single-chart" v-else>
-                    <VueApexCharts
-                        type="bar"
-                        :options="chart7.chartOptions"
-                        :series="chart7.series"
-                    ></VueApexCharts>
-                    </div>
-                    <!-- End Of Else Condition Rofo Chart -->
                     </section>
                 </div>
             </div>
@@ -329,8 +315,11 @@
             ],
             chartOptions: {
                 chart: {
-                height: "100%",
-                type: 'bar'
+                    height: "100%",
+                    type: 'bar',
+                    toolbar: {
+                        show: false
+                    }
                 },
                 plotOptions: {
                 bar: {
@@ -385,8 +374,11 @@
             ],
             chartOptions: {
                 chart: {
-                height: "100%",
-                type: 'bar'
+                    height: "100%",
+                    type: 'bar',
+                    toolbar: {
+                        show: false
+                    }
                 },
                 plotOptions: {
                 bar: {
@@ -564,8 +556,11 @@
             ],
             chartOptions: {
                 chart: {
-                height: "100%",
-                type: 'bar'
+                    height: "100%",
+                    type: 'bar',
+                    toolbar: {
+                        show: false
+                    }
                 },
                 plotOptions: {
                 bar: {
@@ -587,171 +582,130 @@
             },
         },
         chart7: {
-            series: [{
-                name: 'Rofo Sales Plan',
-                data: []
-            }, {
-                name: 'GAP',
-                data: []
-            }, {
-                name: 'RKAP Sales Plan',
-                data: []
-            }],
+            series:
+            [
+                {
+                    name: 'RKAP Sales Plan',
+                    data: []
+                },
+                {
+                    name: 'Rofo Sales Plan',
+                    data: []
+                },
+            ],
             chartOptions: {
                 chart: {
                     type: 'bar',
-                    height: "100%",
-                    stacked: true,
+                    height: 350,
                     toolbar: {
-                        show: true
-                    },
-                    zoom: {
-                        enabled: true
+                        show: false
                     }
                 },
-                responsive: [{
-                    breakpoint: undefined,
-                    options: {},
-                    width: "100%"
-                }],
                 plotOptions: {
-                bar: {
-                    horizontal: false,
-                    borderRadius: 10,
-                    dataLabels: {
-                    total: {
-                        enabled: false,
-                        style: {
-                        fontSize: '13px',
-                        fontWeight: 900
-                        }
-                    }
-                    }
+                    bar: {
+                        horizontal: false,
+                        columnWidth: '55%',
+                        endingShape: 'rounded'
+                    },
                 },
+                dataLabels: {
+                    enabled: false
+                },
+                stroke: {
+                    show: true,
+                    width: 2,
+                    colors: ['transparent']
                 },
                 xaxis: {
-                type: 'category',
-                categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec', 'RoFo YTD'],
-                },
-                legend: {
-                position: 'right',
-                offsetY: 40
+                    categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec', 'RoFo YTD'],
                 },
                 fill: {
-                opacity: 1
-                }
+                    opacity: 1
+                },
             },
         },
         chart8: {
-            series: [{
-                name: 'Rofo Sales Plan',
-                data: []
-            }, {
-                name: 'GAP',
-                data: []
-            }, {
-                name: 'RKAP Sales Plan',
-                data: []
-            }],
+            series: [
+                {
+                    name: 'RKAP Sales Plan',
+                    data: []
+                },
+                {
+                    name: 'Rofo Sales Plan',
+                    data: []
+                },
+            ],
             chartOptions: {
                 chart: {
                     type: 'bar',
-                    height: "100%",
-                    stacked: true,
+                    height: 350,
                     toolbar: {
-                        show: true
-                    },
-                    zoom: {
-                        enabled: true
+                        show: false
                     }
                 },
-                responsive: [{
-                    breakpoint: undefined,
-                    options: {},
-                    width: "100%"
-                }],
                 plotOptions: {
-                bar: {
-                    horizontal: false,
-                    borderRadius: 10,
-                    dataLabels: {
-                    total: {
-                        enabled: false,
-                        style: {
-                        fontSize: '13px',
-                        fontWeight: 900
-                        }
-                    }
-                    }
+                    bar: {
+                        horizontal: false,
+                        columnWidth: '55%',
+                        endingShape: 'rounded'
+                    },
                 },
+                dataLabels: {
+                    enabled: false
+                },
+                stroke: {
+                    show: true,
+                    width: 2,
+                    colors: ['transparent']
                 },
                 xaxis: {
-                type: 'category',
-                categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec', 'RoFo YTD'],
-                },
-                legend: {
-                position: 'right',
-                offsetY: 40
+                    categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec', 'RoFo YTD'],
                 },
                 fill: {
-                opacity: 1
-                }
+                    opacity: 1
+                },
             },
         },
         chart9: {
-            series: [{
-                name: 'Rofo Sales Plan',
-                data: []
-            }, {
-                name: 'GAP',
-                data: []
-            }, {
-                name: 'RKAP Sales Plan',
-                data: []
-            }],
+            series: [
+                {
+                    name: 'RKAP Sales Plan',
+                    data: []
+                },
+                {
+                    name: 'Rofo Sales Plan',
+                    data: []
+                },
+            ],
             chartOptions: {
                 chart: {
                     type: 'bar',
-                    height: "100%",
-                    stacked: true,
+                    height: 350,
                     toolbar: {
-                        show: true
-                    },
-                    zoom: {
-                        enabled: true
+                        show: false
                     }
                 },
-                responsive: [{
-                    breakpoint: undefined,
-                    options: {},
-                    width: "100%"
-                }],
                 plotOptions: {
-                bar: {
-                    horizontal: false,
-                    borderRadius: 10,
-                    dataLabels: {
-                    total: {
-                        enabled: false,
-                        style: {
-                        fontSize: '13px',
-                        fontWeight: 900
-                        }
-                    }
-                    }
+                    bar: {
+                        horizontal: false,
+                        columnWidth: '55%',
+                        endingShape: 'rounded'
+                    },
                 },
+                dataLabels: {
+                    enabled: false
+                },
+                stroke: {
+                    show: true,
+                    width: 2,
+                    colors: ['transparent']
                 },
                 xaxis: {
-                type: 'category',
-                categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec', 'RoFo YTD'],
-                },
-                legend: {
-                position: 'right',
-                offsetY: 40
+                    categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec', 'RoFo YTD'],
                 },
                 fill: {
-                opacity: 1
-                }
+                    opacity: 1
+                },
             },
         },
         }
@@ -854,10 +808,9 @@
             this.$axios
                 .get('api/dashboard-rofo-total')
                 .then((response) => {
-                // Chart 7 Update Series
-                this.chart7.series[0].data = response.data.data.progress
-                this.chart7.series[1].data = response.data.data.gap
-                this.chart7.series[2].data = response.data.data.target
+                    // Chart 7 Update Series
+                    this.chart7.series[0].data = response.data.data.target
+                    this.chart7.series[1].data = response.data.data.progress
 
                 this.rofoChart = 'Rofo Total'
                 })
@@ -868,9 +821,8 @@
                 .get('api/dashboard-rofo-garuda')
                 .then((response) => {
                 // Chart 8 Update Series
-                this.chart8.series[0].data = response.data.data.progress
-                this.chart8.series[1].data = response.data.data.gap
-                this.chart8.series[2].data = response.data.data.target
+                    this.chart8.series[0].data = response.data.data.target
+                    this.chart8.series[1].data = response.data.data.progress
                 })
                 .catch((error) => console.log(error))
         },
@@ -879,9 +831,8 @@
                 .get('api/dashboard-rofo-citilink')
                 .then((response) => {
                 // Chart 9 Update Series
-                this.chart9.series[0].data = response.data.data.progress
-                this.chart9.series[1].data = response.data.data.gap
-                this.chart9.series[2].data = response.data.data.target
+                    this.chart9.series[0].data = response.data.data.target
+                    this.chart9.series[1].data = response.data.data.progress
                 })
                 .catch((error) => console.log(error))
         },

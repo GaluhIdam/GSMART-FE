@@ -60,6 +60,10 @@
                             <multiselect
                             v-model="typeChart"
                             :options="typeChartOptions"
+                            :allow-empty="false"
+                            :searchable="false"
+                            :close-on-select="false"
+                            :show-labels="false"
                             ></multiselect>
                         </div>
                     </div>
@@ -129,59 +133,41 @@
                     <!-- Chart Header -->
                     <div class="row my-5 custom-height">
                     <div class="col-lg-9 col-sm-12">
-                        <p class="h2" v-if="rofoChart == 'Rofo Total'">Rofo Total</p>
-                        <p class="h2" v-else-if="rofoChart == 'Rofo Garuda'">Rofo Garuda</p>
-                        <p class="h2" v-else-if="rofoChart == 'Rofo Citilink'">Rofo Citilink</p>
-                        <p class="h2" v-else>Rofo Total</p>
+                        <p class="h2" v-if="rofoChart == 'RoFo Total'">RoFo Total</p>
+                        <p class="h2" v-else-if="rofoChart == 'RoFo Garuda'">RoFo Garuda</p>
+                        <p class="h2" v-else-if="rofoChart == 'RoFo Citilink'">RoFo Citilink</p>
                     </div>
                     <div class="col-lg-3 col-sm-12 d-flex justify-content-end">
                         <multiselect
                         v-model="rofoChart"
                         :options="rofoChartOptions"
+                        :allow-empty="false"
+                        :searchable="false"
+                        :close-on-select="false"
+                        :show-labels="false"
                         ></multiselect>
                     </div>
                     </div>
                     <!-- End Of Chart Header -->
                     
-                    <!-- Rofo Total Chart -->
-                    <div class="col-md-12 single-chart" v-if="rofoChart == 'Rofo Total'">
-                    <VueApexCharts
-                        type="bar"
-                        :options="chart7.chartOptions"
-                        :series="chart7.series"
-                    ></VueApexCharts>
+                    <!-- RoFo Total Chart -->
+                    <div id="single-chart" v-if="rofoChart == 'RoFo Total'">
+                        <VueApexCharts type="bar" height="350" :options="chart7.chartOptions" :series="chart7.series"></VueApexCharts>
                     </div>
-                    <!-- End Of Rofo Total Chart -->
+                    
+                    <!-- End Of RoFo Total Chart -->
                     
                     <!-- RoFo Sales Plan Garuda Chart -->
-                    <div class="col-md-12 single-chart" v-else-if="rofoChart == 'Rofo Garuda'">
-                    <VueApexCharts
-                        type="bar"
-                        :options="chart8.chartOptions"
-                        :series="chart8.series"
-                    ></VueApexCharts>
+                    <div id="single-chart" v-if="rofoChart == 'RoFo Garuda'">
+                        <VueApexCharts type="bar" height="350" :options="chart8.chartOptions" :series="chart8.series"></VueApexCharts>
                     </div>
                     <!-- End Of RoFo Sales Plan Garuda Chart -->
 
                     <!-- RoFo Sales Plan Citilink Chart -->
-                    <div class="col-md-12 single-chart" v-else-if="rofoChart == 'Rofo Citilink'">
-                    <VueApexCharts
-                        type="bar"
-                        :options="chart9.chartOptions"
-                        :series="chart9.series"
-                    ></VueApexCharts>
+                    <div id="single-chart" v-if="rofoChart == 'RoFo Citilink'">
+                        <VueApexCharts type="bar" height="350" :options="chart9.chartOptions" :series="chart9.series"></VueApexCharts>
                     </div>
                     <!-- End Of RoFo Sales Plan Citilink Chart -->
-
-                    <!-- Else Condition Rofo Chart -->
-                    <div class="col-md-12 single-chart" v-else>
-                    <VueApexCharts
-                        type="bar"
-                        :options="chart7.chartOptions"
-                        :series="chart7.series"
-                    ></VueApexCharts>
-                    </div>
-                    <!-- End Of Else Condition Rofo Chart -->
                     </section>
                 </div>
             </div>
@@ -198,8 +184,10 @@
         return {
         typeChartOptions: ['Area Chart', 'Group Chart', 'Product Chart'],
         typeChart: null,
-        rofoChartOptions: ['Rofo Total', 'Rofo Garuda', 'Rofo Citilink'],
-        rofoChart: null,
+        rofoChartOptions: ['RoFo Total', 'RoFo Garuda', 'RoFo Citilink'],
+            rofoChart: null,
+        
+        // Donut Area 
         chart1 : {
             series: [],
             chartOptions: {
@@ -208,69 +196,71 @@
             },
                 labels: ["Area 1", "Area 2", "Area 3", "KAM"],
                 chart: {
-                type: 'donut',
+                    type: 'donut',
                 },
                 plotOptions: {
-                pie: {
-                    donut: {
-                    labels: {
-                        show: true,
-                        total: {
-                        label: 'MUSD',
-                        showAlways: true,
-                        show: true
+                    pie: {
+                        donut: {
+                            labels: {
+                                show: true,
+                                total: {
+                                    label: 'MUSD',
+                                    showAlways: true,
+                                    show: true
+                                }
+                            }
                         }
                     }
-                    }
-                }
                 },
                 responsive: [{
                 breakpoint: 480,
-                options: {
-                    chart: {
-                    width: 200
-                    },
-                    legend: {
-                    position: 'bottom'
+                    options: {
+                        chart: {
+                        width: 200
+                        },
+                        legend: {
+                        position: 'bottom'
+                        }
                     }
-                }
                 }]
             },
         },
+        // Donut Group
         chart2 : {
             series: [44, 55],
             chartOptions: {
                 labels: ["GA", "NGA"],
                 chart: {
-                type: 'donut',
+                    type: 'donut',
                 },
                 plotOptions: {
-                pie: {
-                    donut: {
-                    labels: {
-                        show: true,
-                        total: {
-                        label: 'MUSD',
-                        showAlways: true,
-                        show: true
+                    pie: {
+                        donut: {
+                            labels: {
+                                show: true,
+                                total: {
+                                    label: 'MUSD',
+                                    showAlways: true,
+                                    show: true
+                                }
+                            }
                         }
                     }
-                    }
-                }
                 },
                 responsive: [{
                 breakpoint: 480,
-                options: {
-                    chart: {
-                    width: 200
-                    },
-                    legend: {
-                    position: 'bottom'
+                    options: {
+                        chart: {
+                            width: 200
+                        },
+                        legend: {
+                            position: 'bottom'
+                        }
                     }
-                }
                 }]
             },
         },
+        // Bar Area
         chart3: {
             series: [
             {
@@ -280,48 +270,48 @@
                     x: 'KAM',
                     y: null,
                     goals: [
-                    {
-                        name: 'Target',
-                        value: null,
-                        strokeHeight: 5,
-                        strokeColor: '#775DD0'
-                    }
+                        {
+                            name: 'Target',
+                            value: null,
+                            strokeHeight: 5,
+                            strokeColor: '#775DD0'
+                        }
                     ]
                 },
                 {
                     x: 'I',
                     y: null,
                     goals: [
-                    {
-                        name: 'Target',
-                        value: null,
-                        strokeHeight: 5,
-                        strokeColor: '#775DD0'
-                    }
+                        {
+                            name: 'Target',
+                            value: null,
+                            strokeHeight: 5,
+                            strokeColor: '#775DD0'
+                        }
                     ]
                 },
                 {
                     x: 'II',
                     y: null,
                     goals: [
-                    {
-                        name: 'Target',
-                        value: null,
-                        strokeHeight: 5,
-                        strokeColor: '#775DD0'
-                    }
+                        {
+                            name: 'Target',
+                            value: null,
+                            strokeHeight: 5,
+                            strokeColor: '#775DD0'
+                        }
                     ]
                 },
                 {
                     x: 'III',
                     y: null,
                     goals: [
-                    {
-                        name: 'Target',
-                        value: null,
-                        strokeHeight: 5,
-                        strokeColor: '#775DD0'
-                    }
+                        {
+                            name: 'Target',
+                            value: null,
+                            strokeHeight: 5,
+                            strokeColor: '#775DD0'
+                        }
                     ]
                 },
                 ]
@@ -329,8 +319,11 @@
             ],
             chartOptions: {
                 chart: {
-                height: "100%",
-                type: 'bar'
+                    height: "100%",
+                    type: 'bar',
+                    toolbar: {
+                        show: false
+                    }
                 },
                 plotOptions: {
                 bar: {
@@ -339,18 +332,19 @@
                 },
                 colors: ['#00E396'],
                 dataLabels: {
-                enabled: false
+                    enabled: false
                 },
                 legend: {
-                show: true,
-                showForSingleSeries: true,
-                customLegendItems: ['Sales', 'Target'],
-                markers: {
-                    fillColors: ['#00E396', '#775DD0']
-                }
+                    show: true,
+                    showForSingleSeries: true,
+                    customLegendItems: ['Sales', 'Target'],
+                    markers: {
+                        fillColors: ['#00E396', '#775DD0']
+                    }
                 }
             },
         },
+        // Bar Group
         chart4: {
             series: [
             {
@@ -360,24 +354,24 @@
                     x: 'GA',
                     y: 4432,
                     goals: [
-                    {
-                        name: 'Target',
-                        value: 5400,
-                        strokeHeight: 5,
-                        strokeColor: '#775DD0'
-                    }
+                        {
+                            name: 'Target',
+                            value: 5400,
+                            strokeHeight: 5,
+                            strokeColor: '#775DD0'
+                        }
                     ]
                 },
                 {
                     x: 'NGA',
                     y: 5423,
                     goals: [
-                    {
-                        name: 'Target',
-                        value: 5200,
-                        strokeHeight: 5,
-                        strokeColor: '#775DD0'
-                    }
+                        {
+                            name: 'Target',
+                            value: 5200,
+                            strokeHeight: 5,
+                            strokeColor: '#775DD0'
+                        }
                     ]
                 },
                 ]
@@ -385,8 +379,11 @@
             ],
             chartOptions: {
                 chart: {
-                height: "100%",
-                type: 'bar'
+                    height: "100%",
+                    type: 'bar',
+                    toolbar: {
+                        show: false
+                    }
                 },
                 plotOptions: {
                 bar: {
@@ -395,7 +392,7 @@
                 },
                 colors: ['#00E396'],
                 dataLabels: {
-                enabled: false,
+                    enabled: false,
                 // TODO munculin persen disini
                 // enabled: true,
                 // formatter: function (val) {
@@ -403,355 +400,323 @@
                 // },
                 },
                 legend: {
-                show: true,
-                showForSingleSeries: true,
-                customLegendItems: ['Sales', 'Target'],
-                markers: {
-                    fillColors: ['#00E396', '#775DD0']
-                }
+                    show: true,
+                    showForSingleSeries: true,
+                    customLegendItems: ['Sales', 'Target'],
+                    markers: {
+                        fillColors: ['#00E396', '#775DD0']
+                    }
                 }
             },
         },
+        // Donut Product
         chart5 : {
             series: [],
             chartOptions: {
                 labels: ["Learning", "IGTE", "Others", "Engine & APU", "Material Trading & Logistic", "Line", "Engineering", "Component", "Airframe"],
                 chart: {
-                type: 'donut',
+                    type: 'donut',
                 },
                 plotOptions: {
-                pie: {
-                    donut: {
-                    labels: {
-                        show: true,
-                        total: {
-                        label: 'MUSD',
-                        showAlways: true,
-                        show: true
+                    pie: {
+                        donut: {
+                            labels: {
+                                show: true,
+                                total: {
+                                    label: 'MUSD',
+                                    showAlways: true,
+                                    show: true
+                                }
+                            }
                         }
                     }
-                    }
-                }
                 },
                 responsive: [{
                 breakpoint: 480,
-                options: {
-                    chart: {
-                    width: 200
-                    },
-                    legend: {
-                    position: 'bottom'
+                    options: {
+                        chart: {
+                            width: 200
+                        },
+                        legend: {
+                            position: 'bottom'
+                        }
                     }
-                }
                 }]
             },
         },
+        // Bar Product
         chart6: {
             series: [
             {
                 name: 'Actual',
                 data: [
-                {
-                    x: 'Learning',
-                    y: null,
-                    goals: [
-                        {
-                        name: 'Target',
-                        value: null,
-                        strokeHeight: 5,
-                        strokeColor: '#775DD0'
-                        }
-                    ]
+                    {
+                        x: 'Learning',
+                        y: null,
+                        goals: [
+                            {
+                                name: 'Target',
+                                value: null,
+                                strokeHeight: 5,
+                                strokeColor: '#775DD0'
+                            }
+                        ]
                     },
                     {
-                    x: 'IGTE',
-                    y: null,
-                    goals: [
-                        {
-                        name: 'Target',
-                        value: null,
-                        strokeHeight: 5,
-                        strokeColor: '#775DD0'
-                        }
-                    ]
+                        x: 'IGTE',
+                        y: null,
+                        goals: [
+                            {
+                                name: 'Target',
+                                value: null,
+                                strokeHeight: 5,
+                                strokeColor: '#775DD0'
+                            }
+                        ]
                     },
                     {
-                    x: 'Others',
-                    y: null,
-                    goals: [
-                        {
-                        name: 'Target',
-                        value: null,
-                        strokeHeight: 5,
-                        strokeColor: '#775DD0'
-                        }
-                    ]
+                        x: 'Others',
+                        y: null,
+                        goals: [
+                            {
+                                name: 'Target',
+                                value: null,
+                                strokeHeight: 5,
+                                strokeColor: '#775DD0'
+                            }
+                        ]
                     },
                     {
-                    x: 'Engine & APU',
-                    y: null,
-                    goals: [
-                        {
-                        name: 'Target',
-                        value: null,
-                        strokeHeight: 5,
-                        strokeColor: '#775DD0'
-                        }
-                    ]
+                        x: 'Engine & APU',
+                        y: null,
+                        goals: [
+                            {
+                                name: 'Target',
+                                value: null,
+                                strokeHeight: 5,
+                                strokeColor: '#775DD0'
+                            }
+                        ]
                     },
                     {
-                    x: 'Material Trading & Logistic',
-                    y: null,
-                    goals: [
-                        {
-                        name: 'Target',
-                        value: null,
-                        strokeHeight: 5,
-                        strokeColor: '#775DD0'
-                        }
-                    ]
+                        x: 'Material Trading & Logistic',
+                        y: null,
+                        goals: [
+                            {
+                                name: 'Target',
+                                value: null,
+                                strokeHeight: 5,
+                                strokeColor: '#775DD0'
+                            }
+                        ]
                     },
                     {
-                    x: 'Line',
-                    y: null,
-                    goals: [
-                        {
-                        name: 'Target',
-                        value: null,
-                        strokeHeight: 5,
-                        strokeColor: '#775DD0'
-                        }
-                    ]
+                        x: 'Line',
+                        y: null,
+                        goals: [
+                            {
+                                name: 'Target',
+                                value: null,
+                                strokeHeight: 5,
+                                strokeColor: '#775DD0'
+                            }
+                        ]
                     },
                     {
-                    x: 'Engineering',
-                    y: null,
-                    goals: [
-                        {
-                        name: 'Target',
-                        value: null,
-                        strokeHeight: 5,
-                        strokeColor: '#775DD0'
-                        }
-                    ]
+                        x: 'Engineering',
+                        y: null,
+                        goals: [
+                            {
+                                name: 'Target',
+                                value: null,
+                                strokeHeight: 5,
+                                strokeColor: '#775DD0'
+                            }
+                        ]
                     },
                     {
-                    x: 'Component',
-                    y: null,
-                    goals: [
-                        {
-                        name: 'Target',
-                        value: null,
-                        strokeHeight: 5,
-                        strokeColor: '#775DD0'
-                        }
-                    ]
+                        x: 'Component',
+                        y: null,
+                        goals: [
+                            {
+                                name: 'Target',
+                                value: null,
+                                strokeHeight: 5,
+                                strokeColor: '#775DD0'
+                            }
+                        ]
                     },
                     {
-                    x: 'Airframe',
-                    y: null,
-                    goals: [
-                        {
-                        name: 'Target',
-                        value: null,
-                        strokeHeight: 5,
-                        strokeColor: '#775DD0'
-                        }
-                    ]
+                        x: 'Airframe',
+                        y: null,
+                        goals: [
+                            {
+                                name: 'Target',
+                                value: null,
+                                strokeHeight: 5,
+                                strokeColor: '#775DD0'
+                            }
+                        ]
                     },
                 ]
             }
             ],
             chartOptions: {
                 chart: {
-                height: "100%",
-                type: 'bar'
+                    height: "100%",
+                    type: 'bar',
+                    toolbar: {
+                        show: false
+                    }
                 },
                 plotOptions: {
-                bar: {
-                    columnWidth: '60%'
-                }
+                    bar: {
+                        columnWidth: '60%'
+                    }
                 },
                 colors: ['#00E396'],
                 dataLabels: {
-                enabled: false
+                    enabled: false
                 },
                 legend: {
-                show: true,
-                showForSingleSeries: true,
-                customLegendItems: ['Sales', 'Target'],
-                markers: {
-                    fillColors: ['#00E396', '#775DD0']
-                }
+                    show: true,
+                    showForSingleSeries: true,
+                    customLegendItems: ['Sales', 'Target'],
+                    markers: {
+                        fillColors: ['#00E396', '#775DD0']
+                    }
                 }
             },
         },
+
+        // RoFo Total
         chart7: {
-            series: [{
-                name: 'Rofo Sales Plan',
-                data: []
-            }, {
-                name: 'GAP',
-                data: []
-            }, {
-                name: 'RKAP Sales Plan',
-                data: []
-            }],
+            series:
+            [
+                {
+                    name: 'Target',
+                    data: []
+                },
+                {
+                    name: 'Progress',
+                    data: []
+                },
+            ],
             chartOptions: {
                 chart: {
                     type: 'bar',
-                    height: "100%",
-                    stacked: true,
+                    height: 350,
                     toolbar: {
-                        show: true
-                    },
-                    zoom: {
-                        enabled: true
+                        show: false
                     }
                 },
-                responsive: [{
-                    breakpoint: undefined,
-                    options: {},
-                    width: "100%"
-                }],
                 plotOptions: {
-                bar: {
-                    horizontal: false,
-                    borderRadius: 10,
-                    dataLabels: {
-                    total: {
-                        enabled: false,
-                        style: {
-                        fontSize: '13px',
-                        fontWeight: 900
-                        }
-                    }
-                    }
+                    bar: {
+                        horizontal: false,
+                        columnWidth: '55%',
+                        endingShape: 'rounded'
+                    },
                 },
+                dataLabels: {
+                    enabled: false
+                },
+                stroke: {
+                    show: true,
+                    width: 2,
+                    colors: ['transparent']
                 },
                 xaxis: {
-                type: 'category',
-                categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec', 'RoFo YTD'],
-                },
-                legend: {
-                position: 'right',
-                offsetY: 40
+                    categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec', 'RoFo YTD'],
                 },
                 fill: {
-                opacity: 1
-                }
+                    opacity: 1
+                },
             },
         },
+        // RoFo Garuda
         chart8: {
-            series: [{
-                name: 'Rofo Sales Plan',
-                data: []
-            }, {
-                name: 'GAP',
-                data: []
-            }, {
-                name: 'RKAP Sales Plan',
-                data: []
-            }],
+            series: [
+                {
+                    name: 'Target',
+                    data: []
+                },
+                {
+                    name: 'Progress',
+                    data: []
+                },
+            ],
             chartOptions: {
                 chart: {
                     type: 'bar',
-                    height: "100%",
-                    stacked: true,
+                    height: 350,
                     toolbar: {
-                        show: true
-                    },
-                    zoom: {
-                        enabled: true
+                        show: false
                     }
                 },
-                responsive: [{
-                    breakpoint: undefined,
-                    options: {},
-                    width: "100%"
-                }],
                 plotOptions: {
-                bar: {
-                    horizontal: false,
-                    borderRadius: 10,
-                    dataLabels: {
-                    total: {
-                        enabled: false,
-                        style: {
-                        fontSize: '13px',
-                        fontWeight: 900
-                        }
-                    }
-                    }
+                    bar: {
+                        horizontal: false,
+                        columnWidth: '55%',
+                        endingShape: 'rounded'
+                    },
                 },
+                dataLabels: {
+                    enabled: false
+                },
+                stroke: {
+                    show: true,
+                    width: 2,
+                    colors: ['transparent']
                 },
                 xaxis: {
-                type: 'category',
-                categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec', 'RoFo YTD'],
-                },
-                legend: {
-                position: 'right',
-                offsetY: 40
+                    categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec', 'RoFo YTD'],
                 },
                 fill: {
-                opacity: 1
-                }
+                    opacity: 1
+                },
             },
         },
+        // RoFo Citilink
         chart9: {
-            series: [{
-                name: 'Rofo Sales Plan',
-                data: []
-            }, {
-                name: 'GAP',
-                data: []
-            }, {
-                name: 'RKAP Sales Plan',
-                data: []
-            }],
+            series: [
+                {
+                    name: 'Target',
+                    data: []
+                },
+                {
+                    name: 'Progress',
+                    data: []
+                },
+            ],
             chartOptions: {
                 chart: {
                     type: 'bar',
-                    height: "100%",
-                    stacked: true,
+                    height: 350,
                     toolbar: {
-                        show: true
-                    },
-                    zoom: {
-                        enabled: true
+                        show: false
                     }
                 },
-                responsive: [{
-                    breakpoint: undefined,
-                    options: {},
-                    width: "100%"
-                }],
                 plotOptions: {
-                bar: {
-                    horizontal: false,
-                    borderRadius: 10,
-                    dataLabels: {
-                    total: {
-                        enabled: false,
-                        style: {
-                        fontSize: '13px',
-                        fontWeight: 900
-                        }
-                    }
-                    }
+                    bar: {
+                        horizontal: false,
+                        columnWidth: '55%',
+                        endingShape: 'rounded'
+                    },
                 },
+                dataLabels: {
+                    enabled: false
+                },
+                stroke: {
+                    show: true,
+                    width: 2,
+                    colors: ['transparent']
                 },
                 xaxis: {
-                type: 'category',
-                categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec', 'RoFo YTD'],
-                },
-                legend: {
-                position: 'right',
-                offsetY: 40
+                    categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec', 'RoFo YTD'],
                 },
                 fill: {
-                opacity: 1
-                }
+                    opacity: 1
+                },
             },
         },
         }
@@ -796,7 +761,7 @@
                 this.chart3.series[0].data[3].y = response.data.data.bar.kam.progress
 
                 this.typeChart = 'Area Chart'
-                this.rofoChart = 'Rofo Total'
+                this.rofoChart = 'RoFo Total'
                 })
                 .catch((error) => console.log(error))
         },
@@ -846,7 +811,7 @@
                 this.chart6.series[0].data[7].y = response.data.data.bar.component.progress
                 this.chart6.series[0].data[8].y = response.data.data.bar.airframe.progress
 
-                this.rofoChart = 'Rofo Garuda'
+                this.rofoChart = 'RoFo Garuda'
                 })
                 .catch((error) => console.log(error))
         },
@@ -854,12 +819,11 @@
             this.$axios
                 .get('api/dashboard-rofo-total')
                 .then((response) => {
-                // Chart 7 Update Series
-                this.chart7.series[0].data = response.data.data.progress
-                this.chart7.series[1].data = response.data.data.gap
-                this.chart7.series[2].data = response.data.data.target
+                    // Chart 7 Update Series
+                    this.chart7.series[0].data = response.data.data.target
+                    this.chart7.series[1].data = response.data.data.progress
 
-                this.rofoChart = 'Rofo Total'
+                this.rofoChart = 'RoFo Total'
                 })
             .catch((error) => console.log(error))
         },
@@ -868,9 +832,8 @@
                 .get('api/dashboard-rofo-garuda')
                 .then((response) => {
                 // Chart 8 Update Series
-                this.chart8.series[0].data = response.data.data.progress
-                this.chart8.series[1].data = response.data.data.gap
-                this.chart8.series[2].data = response.data.data.target
+                    this.chart8.series[0].data = response.data.data.target
+                    this.chart8.series[1].data = response.data.data.progress
                 })
                 .catch((error) => console.log(error))
         },
@@ -879,9 +842,8 @@
                 .get('api/dashboard-rofo-citilink')
                 .then((response) => {
                 // Chart 9 Update Series
-                this.chart9.series[0].data = response.data.data.progress
-                this.chart9.series[1].data = response.data.data.gap
-                this.chart9.series[2].data = response.data.data.target
+                    this.chart9.series[0].data = response.data.data.target
+                    this.chart9.series[1].data = response.data.data.progress
                 })
                 .catch((error) => console.log(error))
         },

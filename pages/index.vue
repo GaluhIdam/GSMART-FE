@@ -126,7 +126,6 @@
                         </div>
                     </div>
                     <!-- End Of Product Chart -->
-
                     </section>
 
                     <section class="custom-rofo">
@@ -761,7 +760,7 @@
                 this.chart3.series[0].data[3].y = response.data.data.bar.kam.progress
 
                 this.typeChart = 'Area Chart'
-                this.rofoChart = 'RoFo Total'
+                this.rofoChart = 'RoFo Garuda'
                 })
                 .catch((error) => console.log(error))
         },
@@ -811,7 +810,7 @@
                 this.chart6.series[0].data[7].y = response.data.data.bar.component.progress
                 this.chart6.series[0].data[8].y = response.data.data.bar.airframe.progress
 
-                this.rofoChart = 'RoFo Garuda'
+                this.rofoChart = 'RoFo Citilink'
                 })
                 .catch((error) => console.log(error))
         },

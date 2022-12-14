@@ -2326,7 +2326,7 @@ export default {
       toastr.error('Sorry, You Are Not Allowed to Access Prospect Page!')
     },
     checkRole() {
-      if (this.role == 'initial') {
+      if (this.role == 'Initial') {
         this.$router.push('/')
         this.authMessage()
       } else {

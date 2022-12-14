@@ -2326,14 +2326,10 @@ export default {
       toastr.error('Sorry, You Are Not Allowed to Access Prospect Page!')
     },
     checkRole() {
-      if (
-        this.role == 'TPC' ||
-        this.role == 'AMS' ||
-        this.role == 'Administrator'
-      ) {
-      } else {
+      if (this.role == 'initial') {
         this.$router.push('/')
         this.authMessage()
+      } else {
       }
     },
     countMarketShare() {

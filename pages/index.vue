@@ -80,11 +80,12 @@
                             ></VueApexCharts>
                         </div>
                         <div class="col-md-6 duo-chart">
-                            <VueApexCharts
+                            <!-- <VueApexCharts
                             type="bar"
                             :options="chart3.chartOptions"
                             :series="chart3.series"
-                            ></VueApexCharts>
+                            ></VueApexCharts> -->
+                            <VueApexCharts type="bar" height="350" :options="chart3.chartOptions" :series="chart3.series"></VueApexCharts>
                         </div>
                     </div>
                     <!-- End Of Area Chart -->
@@ -99,11 +100,12 @@
                             ></VueApexCharts>
                         </div>
                         <div class="col-md-6 duo-chart">
-                            <VueApexCharts
+                            <!-- <VueApexCharts
                             type="bar"
                             :options="chart4.chartOptions"
                             :series="chart4.series"
-                            ></VueApexCharts>
+                            ></VueApexCharts> -->
+                            <VueApexCharts type="bar" height="350" :options="chart4.chartOptions" :series="chart4.series"></VueApexCharts>
                         </div>
                     </div>
                     <!-- End Of Group Chart -->
@@ -118,11 +120,12 @@
                             ></VueApexCharts>
                         </div>
                         <div class="col-md-6 duo-chart">
-                            <VueApexCharts
+                            <!-- <VueApexCharts
                             type="bar"
                             :options="chart6.chartOptions"
                             :series="chart6.series"
-                            ></VueApexCharts>
+                            ></VueApexCharts> -->
+                            <VueApexCharts type="bar" height="350" :options="chart6.chartOptions" :series="chart6.series"></VueApexCharts>
                         </div>
                     </div>
                     <!-- End Of Product Chart -->
@@ -259,155 +262,6 @@
                 }]
             },
         },
-        // Bar Area
-        chart3: {
-            series: [
-            {
-                name: 'Sales',
-                data: [
-                {
-                    x: 'I',
-                    y: null,
-                    goals: [
-                        {
-                            name: 'Target',
-                            value: null,
-                            strokeHeight: 5,
-                            strokeColor: '#775DD0'
-                        }
-                    ]
-                },
-                {
-                    x: 'II',
-                    y: null,
-                    goals: [
-                        {
-                            name: 'Target',
-                            value: null,
-                            strokeHeight: 5,
-                            strokeColor: '#775DD0'
-                        }
-                    ]
-                },
-                {
-                    x: 'III',
-                    y: null,
-                    goals: [
-                        {
-                            name: 'Target',
-                            value: null,
-                            strokeHeight: 5,
-                            strokeColor: '#775DD0'
-                        }
-                    ]
-                },
-                {
-                    x: 'KAM',
-                    y: null,
-                    goals: [
-                        {
-                            name: 'Target',
-                            value: null,
-                            strokeHeight: 5,
-                            strokeColor: '#775DD0'
-                        }
-                    ]
-                },
-                ]
-            }
-            ],
-            chartOptions: {
-                chart: {
-                    height: "100%",
-                    type: 'bar',
-                    toolbar: {
-                        show: false
-                    }
-                },
-                plotOptions: {
-                bar: {
-                    columnWidth: '60%'
-                }
-                },
-                colors: ['#00E396'],
-                dataLabels: {
-                    enabled: false
-                },
-                legend: {
-                    show: true,
-                    showForSingleSeries: true,
-                    customLegendItems: ['Sales', 'Target'],
-                    markers: {
-                        fillColors: ['#00E396', '#775DD0']
-                    }
-                }
-            },
-        },
-        // Bar Group
-        chart4: {
-            series: [
-            {
-                name: 'Sales',
-                data: [
-                {
-                    x: 'GA',
-                    y: 4432,
-                    goals: [
-                        {
-                            name: 'Target',
-                            value: 5400,
-                            strokeHeight: 5,
-                            strokeColor: '#775DD0'
-                        }
-                    ]
-                },
-                {
-                    x: 'NGA',
-                    y: 5423,
-                    goals: [
-                        {
-                            name: 'Target',
-                            value: 5200,
-                            strokeHeight: 5,
-                            strokeColor: '#775DD0'
-                        }
-                    ]
-                },
-                ]
-            }
-            ],
-            chartOptions: {
-                chart: {
-                    height: "100%",
-                    type: 'bar',
-                    toolbar: {
-                        show: false
-                    }
-                },
-                plotOptions: {
-                bar: {
-                    columnWidth: '60%'
-                }
-                },
-                colors: ['#00E396'],
-                dataLabels: {
-                    enabled: false,
-                // TODO munculin persen disini
-                // enabled: true,
-                // formatter: function (val) {
-                //   return val + "%";
-                // },
-                },
-                legend: {
-                    show: true,
-                    showForSingleSeries: true,
-                    customLegendItems: ['Sales', 'Target'],
-                    markers: {
-                        fillColors: ['#00E396', '#775DD0']
-                    }
-                }
-            },
-        },
         // Donut Product
         chart5 : {
             series: [],
@@ -443,148 +297,438 @@
                 }]
             },
         },
-        // Bar Product
-        chart6: {
-            series: [
-            {
-                name: 'Actual',
-                data: [
-                    {
-                        x: 'Learning',
-                        y: null,
-                        goals: [
-                            {
-                                name: 'Target',
-                                value: null,
-                                strokeHeight: 5,
-                                strokeColor: '#775DD0'
-                            }
-                        ]
-                    },
-                    {
-                        x: 'IGTE',
-                        y: null,
-                        goals: [
-                            {
-                                name: 'Target',
-                                value: null,
-                                strokeHeight: 5,
-                                strokeColor: '#775DD0'
-                            }
-                        ]
-                    },
-                    {
-                        x: 'Others',
-                        y: null,
-                        goals: [
-                            {
-                                name: 'Target',
-                                value: null,
-                                strokeHeight: 5,
-                                strokeColor: '#775DD0'
-                            }
-                        ]
-                    },
-                    {
-                        x: 'Engine & APU',
-                        y: null,
-                        goals: [
-                            {
-                                name: 'Target',
-                                value: null,
-                                strokeHeight: 5,
-                                strokeColor: '#775DD0'
-                            }
-                        ]
-                    },
-                    {
-                        x: 'Material Trading & Logistic',
-                        y: null,
-                        goals: [
-                            {
-                                name: 'Target',
-                                value: null,
-                                strokeHeight: 5,
-                                strokeColor: '#775DD0'
-                            }
-                        ]
-                    },
-                    {
-                        x: 'Line',
-                        y: null,
-                        goals: [
-                            {
-                                name: 'Target',
-                                value: null,
-                                strokeHeight: 5,
-                                strokeColor: '#775DD0'
-                            }
-                        ]
-                    },
-                    {
-                        x: 'Engineering',
-                        y: null,
-                        goals: [
-                            {
-                                name: 'Target',
-                                value: null,
-                                strokeHeight: 5,
-                                strokeColor: '#775DD0'
-                            }
-                        ]
-                    },
-                    {
-                        x: 'Component',
-                        y: null,
-                        goals: [
-                            {
-                                name: 'Target',
-                                value: null,
-                                strokeHeight: 5,
-                                strokeColor: '#775DD0'
-                            }
-                        ]
-                    },
-                    {
-                        x: 'Airframe',
-                        y: null,
-                        goals: [
-                            {
-                                name: 'Target',
-                                value: null,
-                                strokeHeight: 5,
-                                strokeColor: '#775DD0'
-                            }
-                        ]
-                    },
-                ]
-            }
+
+        
+        // Bar Area
+        // chart3: {
+        //     series: [
+        //     {
+        //         name: 'Sales',
+        //         data: [
+        //         {
+        //             x: 'I',
+        //             y: null,
+        //             goals: [
+        //                 {
+        //                     name: 'Target',
+        //                     value: null,
+        //                     strokeHeight: 5,
+        //                     strokeColor: '#775DD0'
+        //                 }
+        //             ]
+        //         },
+        //         {
+        //             x: 'II',
+        //             y: null,
+        //             goals: [
+        //                 {
+        //                     name: 'Target',
+        //                     value: null,
+        //                     strokeHeight: 5,
+        //                     strokeColor: '#775DD0'
+        //                 }
+        //             ]
+        //         },
+        //         {
+        //             x: 'III',
+        //             y: null,
+        //             goals: [
+        //                 {
+        //                     name: 'Target',
+        //                     value: null,
+        //                     strokeHeight: 5,
+        //                     strokeColor: '#775DD0'
+        //                 }
+        //             ]
+        //         },
+        //         {
+        //             x: 'KAM',
+        //             y: null,
+        //             goals: [
+        //                 {
+        //                     name: 'Target',
+        //                     value: null,
+        //                     strokeHeight: 5,
+        //                     strokeColor: '#775DD0'
+        //                 }
+        //             ]
+        //         },
+        //         ]
+        //     }
+        //     ],
+        //     chartOptions: {
+        //         chart: {
+        //             height: "100%",
+        //             type: 'bar',
+        //             toolbar: {
+        //                 show: false
+        //             }
+        //         },
+        //         plotOptions: {
+        //         bar: {
+        //             columnWidth: '60%'
+        //         }
+        //         },
+        //         colors: ['#00E396'],
+        //         dataLabels: {
+        //             enabled: false
+        //         },
+        //         legend: {
+        //             show: true,
+        //             showForSingleSeries: true,
+        //             customLegendItems: ['Sales', 'Target'],
+        //             markers: {
+        //                 fillColors: ['#00E396', '#775DD0']
+        //             }
+        //         }
+        //     },
+        // },
+        chart3: {
+            series:
+            [
+                {
+                    name: 'Target',
+                    data: []
+                },
+                {
+                    name: 'Progress',
+                    data: []
+                },
             ],
             chartOptions: {
                 chart: {
-                    height: "100%",
                     type: 'bar',
+                    height: 350,
                     toolbar: {
                         show: false
                     }
                 },
                 plotOptions: {
                     bar: {
-                        columnWidth: '60%'
-                    }
+                        horizontal: false,
+                        columnWidth: '55%',
+                        endingShape: 'rounded'
+                    },
                 },
-                colors: ['#00E396'],
                 dataLabels: {
                     enabled: false
                 },
-                legend: {
+                stroke: {
                     show: true,
-                    showForSingleSeries: true,
-                    customLegendItems: ['Sales', 'Target'],
-                    markers: {
-                        fillColors: ['#00E396', '#775DD0']
+                    width: 2,
+                    colors: ['transparent']
+                },
+                xaxis: {
+                    categories: ['I', 'II', 'III', 'KAM'],
+                },
+                fill: {
+                    opacity: 1
+                },
+            },
+        },
+        // Bar Group
+        // chart4: {
+        //     series: [
+        //     {
+        //         name: 'Sales',
+        //         data: [
+        //         {
+        //             x: 'GA',
+        //             y: 4432,
+        //             goals: [
+        //                 {
+        //                     name: 'Target',
+        //                     value: 5400,
+        //                     strokeHeight: 5,
+        //                     strokeColor: '#775DD0'
+        //                 }
+        //             ]
+        //         },
+        //         {
+        //             x: 'NGA',
+        //             y: 5423,
+        //             goals: [
+        //                 {
+        //                     name: 'Target',
+        //                     value: 5200,
+        //                     strokeHeight: 5,
+        //                     strokeColor: '#775DD0'
+        //                 }
+        //             ]
+        //         },
+        //         ]
+        //     }
+        //     ],
+        //     chartOptions: {
+        //         chart: {
+        //             height: "100%",
+        //             type: 'bar',
+        //             toolbar: {
+        //                 show: false
+        //             }
+        //         },
+        //         plotOptions: {
+        //         bar: {
+        //             columnWidth: '60%'
+        //         }
+        //         },
+        //         colors: ['#00E396'],
+        //         dataLabels: {
+        //             enabled: false,
+        //         // TODO munculin persen disini
+        //         // enabled: true,
+        //         // formatter: function (val) {
+        //         //   return val + "%";
+        //         // },
+        //         },
+        //         legend: {
+        //             show: true,
+        //             showForSingleSeries: true,
+        //             customLegendItems: ['Sales', 'Target'],
+        //             markers: {
+        //                 fillColors: ['#00E396', '#775DD0']
+        //             }
+        //         }
+        //     },
+        // },
+        chart4: {
+            series:
+            [
+                {
+                    name: 'Target',
+                    data: []
+                },
+                {
+                    name: 'Progress',
+                    data: []
+                },
+            ],
+            chartOptions: {
+                chart: {
+                    type: 'bar',
+                    height: 350,
+                    toolbar: {
+                        show: false
                     }
-                }
+                },
+                plotOptions: {
+                    bar: {
+                        horizontal: false,
+                        columnWidth: '55%',
+                        endingShape: 'rounded'
+                    },
+                },
+                dataLabels: {
+                    enabled: false
+                },
+                stroke: {
+                    show: true,
+                    width: 2,
+                    colors: ['transparent']
+                },
+                xaxis: {
+                    categories: ['GA', 'NGA'],
+                },
+                fill: {
+                    opacity: 1
+                },
+            },
+        },
+        // Bar Product
+        // chart6: {
+        //     series: [
+        //     {
+        //         name: 'Actual',
+        //         data: [
+        //             {
+        //                 x: 'Learning',
+        //                 y: null,
+        //                 goals: [
+        //                     {
+        //                         name: 'Target',
+        //                         value: null,
+        //                         strokeHeight: 5,
+        //                         strokeColor: '#775DD0'
+        //                     }
+        //                 ]
+        //             },
+        //             {
+        //                 x: 'IGTE',
+        //                 y: null,
+        //                 goals: [
+        //                     {
+        //                         name: 'Target',
+        //                         value: null,
+        //                         strokeHeight: 5,
+        //                         strokeColor: '#775DD0'
+        //                     }
+        //                 ]
+        //             },
+        //             {
+        //                 x: 'Others',
+        //                 y: null,
+        //                 goals: [
+        //                     {
+        //                         name: 'Target',
+        //                         value: null,
+        //                         strokeHeight: 5,
+        //                         strokeColor: '#775DD0'
+        //                     }
+        //                 ]
+        //             },
+        //             {
+        //                 x: 'Engine & APU',
+        //                 y: null,
+        //                 goals: [
+        //                     {
+        //                         name: 'Target',
+        //                         value: null,
+        //                         strokeHeight: 5,
+        //                         strokeColor: '#775DD0'
+        //                     }
+        //                 ]
+        //             },
+        //             {
+        //                 x: 'Material Trading & Logistic',
+        //                 y: null,
+        //                 goals: [
+        //                     {
+        //                         name: 'Target',
+        //                         value: null,
+        //                         strokeHeight: 5,
+        //                         strokeColor: '#775DD0'
+        //                     }
+        //                 ]
+        //             },
+        //             {
+        //                 x: 'Line',
+        //                 y: null,
+        //                 goals: [
+        //                     {
+        //                         name: 'Target',
+        //                         value: null,
+        //                         strokeHeight: 5,
+        //                         strokeColor: '#775DD0'
+        //                     }
+        //                 ]
+        //             },
+        //             {
+        //                 x: 'Engineering',
+        //                 y: null,
+        //                 goals: [
+        //                     {
+        //                         name: 'Target',
+        //                         value: null,
+        //                         strokeHeight: 5,
+        //                         strokeColor: '#775DD0'
+        //                     }
+        //                 ]
+        //             },
+        //             {
+        //                 x: 'Component',
+        //                 y: null,
+        //                 goals: [
+        //                     {
+        //                         name: 'Target',
+        //                         value: null,
+        //                         strokeHeight: 5,
+        //                         strokeColor: '#775DD0'
+        //                     }
+        //                 ]
+        //             },
+        //             {
+        //                 x: 'Airframe',
+        //                 y: null,
+        //                 goals: [
+        //                     {
+        //                         name: 'Target',
+        //                         value: null,
+        //                         strokeHeight: 5,
+        //                         strokeColor: '#775DD0'
+        //                     }
+        //                 ]
+        //             },
+        //         ]
+        //     }
+        //     ],
+        //     chartOptions: {
+        //         chart: {
+        //             height: "100%",
+        //             type: 'bar',
+        //             toolbar: {
+        //                 show: false
+        //             }
+        //         },
+        //         plotOptions: {
+        //             bar: {
+        //                 columnWidth: '60%'
+        //             }
+        //         },
+        //         colors: ['#00E396'],
+        //         dataLabels: {
+        //             enabled: false
+        //         },
+        //         legend: {
+        //             show: true,
+        //             showForSingleSeries: true,
+        //             customLegendItems: ['Sales', 'Target'],
+        //             markers: {
+        //                 fillColors: ['#00E396', '#775DD0']
+        //             }
+        //         }
+        //     },
+        // },
+        chart6: {
+            series:
+            [
+                {
+                    name: 'Target',
+                    data: []
+                },
+                {
+                    name: 'Progress',
+                    data: []
+                },
+            ],
+            chartOptions: {
+                chart: {
+                    type: 'bar',
+                    height: 350,
+                    toolbar: {
+                        show: false
+                    }
+                },
+                plotOptions: {
+                    bar: {
+                        horizontal: false,
+                        columnWidth: '55%',
+                        endingShape: 'rounded'
+                    },
+                },
+                dataLabels: {
+                    enabled: false
+                },
+                stroke: {
+                    show: true,
+                    width: 2,
+                    colors: ['transparent']
+                },
+                xaxis: {
+                    categories: [
+                        'Learning',
+                        'IGTE',
+                        'Others',
+                        'Engine & APU',
+                        'Material Trading & Logistic',
+                        'Line',
+                        'Engineering',
+                        'Component',
+                        'AIrframe',
+                    ],
+                },
+                fill: {
+                    opacity: 1
+                },
             },
         },
 
@@ -748,16 +892,20 @@
                 this.chart1.series = response.data.data.pie
 
                 // Chart 3 Update Value
-                this.chart3.series[0].data[0].goals[0].value = response.data.data.bar.area1.target
-                this.chart3.series[0].data[1].goals[0].value = response.data.data.bar.area2.target
-                this.chart3.series[0].data[2].goals[0].value = response.data.data.bar.area3.target
-                this.chart3.series[0].data[3].goals[0].value = response.data.data.bar.kam.target
+                // this.chart3.series[0].data[0].goals[0].value = response.data.data.bar.area1.target
+                // this.chart3.series[0].data[1].goals[0].value = response.data.data.bar.area2.target
+                // this.chart3.series[0].data[2].goals[0].value = response.data.data.bar.area3.target
+                // this.chart3.series[0].data[3].goals[0].value = response.data.data.bar.kam.target
 
                 // Chart 3 Update Value
-                this.chart3.series[0].data[0].y = response.data.data.bar.area1.progress
-                this.chart3.series[0].data[1].y = response.data.data.bar.area2.progress
-                this.chart3.series[0].data[2].y = response.data.data.bar.area3.progress
-                this.chart3.series[0].data[3].y = response.data.data.bar.kam.progress
+                // this.chart3.series[0].data[0].y = response.data.data.bar.area1.progress
+                // this.chart3.series[0].data[1].y = response.data.data.bar.area2.progress
+                // this.chart3.series[0].data[2].y = response.data.data.bar.area3.progress
+                // this.chart3.series[0].data[3].y = response.data.data.bar.kam.progress
+            
+                this.chart3.series[0].data = response.data.data.bar.target
+                this.chart3.series[1].data = response.data.data.bar.progress
+            
 
                 this.typeChart = 'Area Chart'
                 this.rofoChart = 'RoFo Garuda'
@@ -772,12 +920,15 @@
                 this.chart2.series = response.data.data.pie
 
                 // Chart 4 Update Value
-                this.chart4.series[0].data[0].goals[0].value = response.data.data.bar.group1.target
-                this.chart4.series[0].data[1].goals[0].value = response.data.data.bar.group2.target
+                // this.chart4.series[0].data[0].goals[0].value = response.data.data.bar.group1.target
+                // this.chart4.series[0].data[1].goals[0].value = response.data.data.bar.group2.target
 
                 // Chart 4 Update Value
-                this.chart4.series[0].data[0].y = response.data.data.bar.group1.progress
-                this.chart4.series[0].data[1].y = response.data.data.bar.group2.progress
+                // this.chart4.series[0].data[0].y = response.data.data.bar.group1.progress
+                // this.chart4.series[0].data[1].y = response.data.data.bar.group2.progress
+
+                this.chart4.series[0].data = response.data.data.bar.target
+                this.chart4.series[1].data = response.data.data.bar.progress
                 })
                 .catch((error) => console.log(error))
         },
@@ -789,26 +940,29 @@
                 this.chart5.series = response.data.data.pie
 
                 // Chart 6 Update Value
-                this.chart6.series[0].data[0].goals[0].value = response.data.data.bar.learning.target
-                this.chart6.series[0].data[1].goals[0].value = response.data.data.bar.igte.target
-                this.chart6.series[0].data[2].goals[0].value = response.data.data.bar.others.target
-                this.chart6.series[0].data[3].goals[0].value = response.data.data.bar.engapu.target
-                this.chart6.series[0].data[4].goals[0].value = response.data.data.bar.material.target
-                this.chart6.series[0].data[5].goals[0].value = response.data.data.bar.line.target
-                this.chart6.series[0].data[6].goals[0].value = response.data.data.bar.engineering.target
-                this.chart6.series[0].data[7].goals[0].value = response.data.data.bar.component.target
-                this.chart6.series[0].data[8].goals[0].value = response.data.data.bar.airframe.target
+                // this.chart6.series[0].data[0].goals[0].value = response.data.data.bar.learning.target
+                // this.chart6.series[0].data[1].goals[0].value = response.data.data.bar.igte.target
+                // this.chart6.series[0].data[2].goals[0].value = response.data.data.bar.others.target
+                // this.chart6.series[0].data[3].goals[0].value = response.data.data.bar.engapu.target
+                // this.chart6.series[0].data[4].goals[0].value = response.data.data.bar.material.target
+                // this.chart6.series[0].data[5].goals[0].value = response.data.data.bar.line.target
+                // this.chart6.series[0].data[6].goals[0].value = response.data.data.bar.engineering.target
+                // this.chart6.series[0].data[7].goals[0].value = response.data.data.bar.component.target
+                // this.chart6.series[0].data[8].goals[0].value = response.data.data.bar.airframe.target
 
                 // Chart 6 Update Value
-                this.chart6.series[0].data[0].y = response.data.data.bar.learning.progress
-                this.chart6.series[0].data[1].y = response.data.data.bar.igte.progress
-                this.chart6.series[0].data[2].y = response.data.data.bar.others.progress
-                this.chart6.series[0].data[3].y = response.data.data.bar.engapu.progress
-                this.chart6.series[0].data[4].y = response.data.data.bar.material.progress
-                this.chart6.series[0].data[5].y = response.data.data.bar.line.progress
-                this.chart6.series[0].data[6].y = response.data.data.bar.engineering.progress
-                this.chart6.series[0].data[7].y = response.data.data.bar.component.progress
-                this.chart6.series[0].data[8].y = response.data.data.bar.airframe.progress
+                // this.chart6.series[0].data[0].y = response.data.data.bar.learning.progress
+                // this.chart6.series[0].data[1].y = response.data.data.bar.igte.progress
+                // this.chart6.series[0].data[2].y = response.data.data.bar.others.progress
+                // this.chart6.series[0].data[3].y = response.data.data.bar.engapu.progress
+                // this.chart6.series[0].data[4].y = response.data.data.bar.material.progress
+                // this.chart6.series[0].data[5].y = response.data.data.bar.line.progress
+                // this.chart6.series[0].data[6].y = response.data.data.bar.engineering.progress
+                // this.chart6.series[0].data[7].y = response.data.data.bar.component.progress
+                // this.chart6.series[0].data[8].y = response.data.data.bar.airframe.progress
+
+                this.chart6.series[0].data = response.data.data.bar.target
+                this.chart6.series[1].data = response.data.data.bar.progress
 
                 this.rofoChart = 'RoFo Citilink'
                 })

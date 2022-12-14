@@ -267,18 +267,6 @@
                 name: 'Sales',
                 data: [
                 {
-                    x: 'KAM',
-                    y: null,
-                    goals: [
-                        {
-                            name: 'Target',
-                            value: null,
-                            strokeHeight: 5,
-                            strokeColor: '#775DD0'
-                        }
-                    ]
-                },
-                {
                     x: 'I',
                     y: null,
                     goals: [
@@ -304,6 +292,18 @@
                 },
                 {
                     x: 'III',
+                    y: null,
+                    goals: [
+                        {
+                            name: 'Target',
+                            value: null,
+                            strokeHeight: 5,
+                            strokeColor: '#775DD0'
+                        }
+                    ]
+                },
+                {
+                    x: 'KAM',
                     y: null,
                     goals: [
                         {

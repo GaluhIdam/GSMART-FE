@@ -104,7 +104,7 @@
                 <span class="menu-title">Dashboards</span>
               </NuxtLink>
             </div>
-            <div class="menu-item">
+            <div class="menu-item" v-if="role !== 'Initial'">
               <NuxtLink class="menu-link" to="/my-prospect" active-class="active">
                 <span class="menu-icon">
                   <i class="fa-solid fa-briefcase"></i>

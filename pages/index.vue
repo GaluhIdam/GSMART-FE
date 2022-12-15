@@ -71,7 +71,7 @@
 
                     <!-- Area Chart -->
                     <div class="row my-5" v-if="typeChart == 'Area Chart'">
-                        <div class="col">
+                        <div class="col-lg-6">
                             <VueApexCharts
                             type="donut"
                             :options="chart1.chartOptions"
@@ -79,7 +79,7 @@
                             id="AreaChart"
                             ></VueApexCharts>
                         </div>
-                        <div class="col duo-chart">
+                        <div class="col-lg-6 duo-chart">
                             <!-- <VueApexCharts
                             type="bar"
                             :options="chart3.chartOptions"
@@ -92,14 +92,14 @@
 
                     <!-- Group Chart -->
                     <div class="row my-5" v-else-if="typeChart == 'Group Chart'">
-                        <div class="col">
+                        <div class="col-lg-6">
                             <VueApexCharts
                             type="donut"
                             :options="chart2.chartOptions"
                             :series="chart2.series"
                             ></VueApexCharts>
                         </div>
-                        <div class="col duo-chart">
+                        <div class="col-lg-6 duo-chart">
                             <!-- <VueApexCharts
                             type="bar"
                             :options="chart4.chartOptions"
@@ -112,14 +112,14 @@
 
                     <!-- Product Chart -->
                     <div class="row my-5" v-else-if="typeChart == 'Product Chart'">
-                        <div class="col">
+                        <div class="col-lg-6">
                             <VueApexCharts
                             type="donut"
                             :options="chart5.chartOptions"
                             :series="chart5.series"
                             ></VueApexCharts>
                         </div>
-                        <div class="col duo-chart">
+                        <div class="col-lg-6 duo-chart">
                             <!-- <VueApexCharts
                             type="bar"
                             :options="chart6.chartOptions"

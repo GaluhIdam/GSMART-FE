@@ -196,25 +196,29 @@
             noData: {
                 text: 'Loading...'
             },
-                labels: ["Area 1", "Area 2", "Area 3", "KAM"],
-                chart: {
-                    type: 'donut',
-                },
-                plotOptions: {
-                    pie: {
-                        donut: {
-                            labels: {
-                                show: true,
-                                total: {
-                                    label: 'MUSD',
-                                    showAlways: true,
-                                    show: true
-                                }
+            fill: {
+                colors:['#000000', '#278EA5', '#735F32', '#C69749']
+            },
+            colors:['#000000', '#278EA5', '#735F32', '#C69749'],
+            labels: ["Area 1", "Area 2", "Area 3", "KAM"],
+            chart: {
+                type: 'donut',
+            },
+            plotOptions: {
+                pie: {
+                    donut: {
+                        labels: {
+                            show: true,
+                            total: {
+                                label: 'MUSD',
+                                showAlways: true,
+                                show: true
                             }
                         }
                     }
-                },
-                responsive: [{
+                }
+            },
+            responsive: [{
                 breakpoint: 480,
                     options: {
                         chart: {
@@ -232,6 +236,10 @@
             series: [44, 55],
             chartOptions: {
                 labels: ["GA", "NGA"],
+                fill: {
+                    colors:['#000000', '#278EA5']
+                },
+                colors:['#000000', '#278EA5'],
                 chart: {
                     type: 'donut',
                 },
@@ -267,6 +275,10 @@
             series: [],
             chartOptions: {
                 labels: ["Learning", "IGTE", "Others", "Engine & APU", "Material Trading & Logistic", "Line", "Engineering", "Component", "Airframe"],
+                fill: {
+                    colors:['#000000', '#278EA5', '#735F32', '#C69749', '#3C415C', '#B4A5A5', '#801336', '#EE4540', '#1F4287']
+                },
+                colors:['#000000', '#278EA5', '#735F32', '#C69749', '#3C415C', '#B4A5A5', '#801336', '#EE4540', '#1F4287'],
                 chart: {
                     type: 'donut',
                 },
@@ -278,9 +290,17 @@
                                 total: {
                                     label: 'MUSD',
                                     showAlways: true,
-                                    show: true
-                                }
-                            }
+                                    show: true,
+                                    formatter: function (val) {
+                                        let total_series = 0
+                                        for(let i = 0; i < val.config.series.length; i++){
+                                            total_series += val.config.series[i]
+                                        }
+                                        total_series = Math.round(total_series * 100) / 100;
+                                        return total_series
+                                    },
+                                },
+                            },
                         }
                     }
                 },

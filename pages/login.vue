@@ -43,7 +43,7 @@
               <input
                 type="text"
                 class="form-control rounded-pill"
-                placeholder="582813"
+                placeholder="Employee Number"
                 v-model="login.username"
               />
             </div>
@@ -51,26 +51,9 @@
               <input
                 type="password"
                 class="form-control rounded-pill"
-                placeholder="********"
+                placeholder="Password"
                 v-model="login.password"
               />
-            </div>
-            <div
-              class="
-                form-check
-                form-check-custom
-                form-check-solid
-                form-check-sm
-                form-check-success
-                mt-30
-              "
-            >
-              <input
-                class="form-check-input rounded-circle"
-                type="checkbox"
-                value=""
-              />
-              <p class="form-check-label text-muted mb-0" for="">Remember me</p>
             </div>
             <div class="mt-10 d-flex justify-content-center mb-85">
               <button
@@ -121,7 +104,10 @@ export default {
         })
         .catch((error) => {
           if (error.response.status == 401) {
-            this.errors = error.response.data.message
+            this.errors = 'Username or Password is invalid!'
+            this.failMessage()
+          } else if (error.response.status == 422) {
+            this.errors = 'Please insert Username or Password!'
             this.failMessage()
           }
         })

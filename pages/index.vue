@@ -274,7 +274,17 @@
         chart5 : {
             series: [],
             chartOptions: {
-                labels: ["Learning", "IGTE", "Others", "Engine & APU", "Material Trading & Logistic", "Line", "Engineering", "Component", "Airframe"],
+                labels: [
+                        'Airframe',
+                        'Component',
+                        'Engineering',
+                        'Line',
+                        'MatTrading',
+                        'Engine & APU',
+                        'IGTE',
+                        'Learning',
+                        'Others',
+                    ],
                 fill: {
                     colors:['#000000', '#278EA5', '#735F32', '#C69749', '#00e396', '#B4A5A5', '#801336', '#EE4540', '#1F4287']
                 },
@@ -735,15 +745,15 @@
                 },
                 xaxis: {
                     categories: [
-                        'Learning',
-                        'IGTE',
-                        'Others',
-                        'Engine & APU',
-                        'Material Trading & Logistic',
-                        'Line',
-                        'Engineering',
+                        'Airframe',
                         'Component',
-                        'AIrframe',
+                        'Engineering',
+                        'Line',
+                        'MatTrading',
+                        'Engine & APU',
+                        'IGTE',
+                        'Learning',
+                        'Others',
                     ],
                 },
                 fill: {

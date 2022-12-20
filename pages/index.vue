@@ -854,7 +854,7 @@
                         colors: ['transparent']
                     },
                     xaxis: {
-                        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                        categories: [],
                     },
                     fill: {
                         opacity: 1
@@ -897,7 +897,7 @@
                         colors: ['transparent']
                     },
                     xaxis: {
-                        categories: ['RoFo YTD'],
+                        categories: [],
                     },
                     fill: {
                         opacity: 1
@@ -941,7 +941,7 @@
                         colors: ['transparent']
                     },
                     xaxis: {
-                        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                        categories: [],
                     },
                     fill: {
                         opacity: 1
@@ -984,7 +984,7 @@
                         colors: ['transparent']
                     },
                     xaxis: {
-                        categories: ['RoFo YTD'],
+                        categories: [],
                     },
                     fill: {
                         opacity: 1
@@ -1028,7 +1028,7 @@
                         colors: ['transparent']
                     },
                     xaxis: {
-                        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                        categories: [],
                     },
                     fill: {
                         opacity: 1
@@ -1071,7 +1071,7 @@
                         colors: ['transparent']
                     },
                     xaxis: {
-                        categories: ['RoFo YTD'],
+                        categories: [],
                     },
                     fill: {
                         opacity: 1
@@ -1198,6 +1198,7 @@
                     // Chart 7 Update Series
                     this.chart7.series[0].data = response.data.data.target
                     this.chart7.series[1].data = response.data.data.progress
+                    this.chart7.chartOptions.xaxis.categories = response.data.data.percentage
 
                 this.rofoChart = 'RoFo Total'
                 })
@@ -1210,6 +1211,7 @@
                     // chart10 Update Series
                     this.chart10.series[0].data = response.data.data.target
                     this.chart10.series[1].data = response.data.data.progress
+                    this.chart10.chartOptions.xaxis.categories = response.data.data.percentage
 
                 this.rofoChart = 'RoFo Total'
                 })
@@ -1222,6 +1224,7 @@
                 // Chart 8 Update Series
                     this.chart8.series[0].data = response.data.data.target
                     this.chart8.series[1].data = response.data.data.progress
+                    this.chart8.chartOptions.xaxis.categories = response.data.data.percentage
                 })
                 .catch((error) => console.log(error))
         },
@@ -1232,6 +1235,7 @@
                     // chart11 Update Series
                     this.chart11.series[0].data = response.data.data.target
                     this.chart11.series[1].data = response.data.data.progress
+                    this.chart11.chartOptions.xaxis.categories = response.data.data.percentage
 
                 this.rofoChart = 'RoFo Total'
                 })
@@ -1244,6 +1248,8 @@
                 // Chart 9 Update Series
                     this.chart9.series[0].data = response.data.data.target
                     this.chart9.series[1].data = response.data.data.progress
+                    this.chart9.chartOptions.xaxis.categories = response.data.data.percentage
+
                 })
                 .catch((error) => console.log(error))
         },
@@ -1254,6 +1260,8 @@
                 // Chart 12 Update Series
                     this.chart12.series[0].data = response.data.data.target
                     this.chart12.series[1].data = response.data.data.progress
+                    this.chart12.chartOptions.xaxis.categories = response.data.data.percentage
+
                 })
                 .catch((error) => console.log(error))
         },

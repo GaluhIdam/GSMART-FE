@@ -428,7 +428,7 @@
             chartOptions: {
                 chart: {
                     type: 'bar',
-                    height: '450px',
+                    height: 'auto',
                     toolbar: {
                         show: false
                     }
@@ -488,6 +488,10 @@
                 },
                 xaxis: {
                     categories: [],
+                    labels: {
+                        minHeight: undefined,
+                        maxHeight: 120,
+                    }
                 },
                 fill: {
                     opacity: 1
@@ -574,7 +578,7 @@
             chartOptions: {
                 chart: {
                     type: 'bar',
-                    height: '450px',
+                    height: 'auto',
                     toolbar: {
                         show: false
                     }
@@ -597,6 +601,10 @@
                 },
                 xaxis: {
                     categories: [],
+                    labels: {
+                        minHeight: undefined,
+                        maxHeight: 120,
+                    }
                 },
                 fill: {
                     opacity: 1

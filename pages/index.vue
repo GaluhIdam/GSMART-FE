@@ -279,7 +279,7 @@
                         'Component',
                         'Engineering',
                         'Line',
-                        'MatTrading',
+                        'Material Trading & Logistic',
                         'Engine & APU',
                         'IGTE',
                         'Learning',
@@ -428,7 +428,7 @@
             chartOptions: {
                 chart: {
                     type: 'bar',
-                    height: 350,
+                    height: '450px',
                     toolbar: {
                         show: false
                     }
@@ -441,7 +441,45 @@
                     },
                 },
                 dataLabels: {
-                    enabled: false
+                    enabled: false,
+                    enabledOnSeries: undefined,
+                    formatter: function (val, opts) {
+                        return val
+                    },
+                    textAnchor: 'middle',
+                    distributed: false,
+                    offsetX: 0,
+                    offsetY: 0,
+                    style: {
+                        fontSize: '11px',
+                        fontWeight: 'bold',
+                        colors: undefined
+                    },
+                    background: {
+                        enabled: true,
+                        foreColor: '#fff',
+                        padding: 4,
+                        borderRadius: 2,
+                        borderWidth: 1,
+                        borderColor: '#fff',
+                        opacity: 0.9,
+                        dropShadow: {
+                        enabled: false,
+                        top: 1,
+                        left: 1,
+                        blur: 1,
+                        color: '#000',
+                        opacity: 0.45
+                        }
+                    },
+                    dropShadow: {
+                        enabled: false,
+                        top: 1,
+                        left: 1,
+                        blur: 1,
+                        color: '#000',
+                        opacity: 0.45
+                    }
                 },
                 stroke: {
                     show: true,
@@ -449,7 +487,7 @@
                     colors: ['transparent']
                 },
                 xaxis: {
-                    categories: ['I', 'II', 'III', 'KAM'],
+                    categories: [],
                 },
                 fill: {
                     opacity: 1
@@ -536,7 +574,7 @@
             chartOptions: {
                 chart: {
                     type: 'bar',
-                    height: 350,
+                    height: '450px',
                     toolbar: {
                         show: false
                     }
@@ -548,8 +586,9 @@
                         endingShape: 'rounded'
                     },
                 },
+                
                 dataLabels: {
-                    enabled: false
+                    enabled: false,
                 },
                 stroke: {
                     show: true,
@@ -557,7 +596,7 @@
                     colors: ['transparent']
                 },
                 xaxis: {
-                    categories: ['GA', 'NGA'],
+                    categories: [],
                 },
                 fill: {
                     opacity: 1
@@ -723,7 +762,7 @@
             chartOptions: {
                 chart: {
                     type: 'bar',
-                    height: 350,
+                    height: '450px',
                     toolbar: {
                         show: false
                     }
@@ -736,7 +775,7 @@
                     },
                 },
                 dataLabels: {
-                    enabled: false
+                    enabled: false,
                 },
                 stroke: {
                     show: true,
@@ -744,17 +783,11 @@
                     colors: ['transparent']
                 },
                 xaxis: {
-                    categories: [
-                        'Airframe',
-                        'Component',
-                        'Engineering',
-                        'Line',
-                        'MatTrading',
-                        'Engine & APU',
-                        'IGTE',
-                        'Learning',
-                        'Others',
-                    ],
+                    categories: [],
+                    labels: {
+                        minHeight: 150,
+                        maxHeight: 200,
+                    }
                 },
                 fill: {
                     opacity: 1
@@ -935,6 +968,7 @@
             
                 this.chart3.series[0].data = response.data.data.bar.target
                 this.chart3.series[1].data = response.data.data.bar.progress
+                this.chart3.chartOptions.xaxis.categories = response.data.data.bar.percentage
             
 
                 this.typeChart = 'Area Chart'
@@ -959,6 +993,8 @@
 
                 this.chart4.series[0].data = response.data.data.bar.target
                 this.chart4.series[1].data = response.data.data.bar.progress
+                this.chart4.chartOptions.xaxis.categories = response.data.data.bar.percentage
+                
                 })
                 .catch((error) => console.log(error))
         },
@@ -993,7 +1029,8 @@
 
                 this.chart6.series[0].data = response.data.data.bar.target
                 this.chart6.series[1].data = response.data.data.bar.progress
-
+                this.chart6.chartOptions.xaxis.categories = response.data.data.bar.percentage
+                
                 this.rofoChart = 'RoFo Citilink'
                 })
                 .catch((error) => console.log(error))

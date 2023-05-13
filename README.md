@@ -1,4 +1,12 @@
-# gsmart-frontend
+# GSMART (GMF Sales Monitoring and Revenue Tracking)
+
+Memperbaharui G-Smart (Module Sales Plan) dikarenakan saat ini aplikasi
+existing tidak user friendly dan tidak effisien secara waktu untuk digunakan (
+proses loading dan uploading sangat lama).
+
+## Requirements
+
+-   Node JS
 
 ## Build Setup
 
@@ -66,3 +74,13 @@ More information about the usage of this directory in [the documentation](https:
 This directory contains your Vuex store files. Creating a file in this directory automatically activates Vuex.
 
 More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/store).
+
+
+## Contact
+
+Sigit Prayoga - sigit.prayoga@opencloud.id \
+Fatur Ridlwan - fatur.ridlwan@opencloud.id\
+Rizky Ibrahim - rizky.ibrahim@opencloud.id \
+Alnuria Vanadia Equila - vanadia.equila@opencloud.id\
+Galuh Idam Danutirto - galuh.danutirto@opencloud.id\
+I Putu Sedana Wijaya - putu.wijaya@opencloud.id
